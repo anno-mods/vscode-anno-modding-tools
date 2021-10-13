@@ -13,7 +13,7 @@ Anno 1800 is a trademark of Ubisoft Entertainment in the US and/or other countri
 - Right-click `Import from glTF` (targets: `.cfg`, `.ifo`)
 - Right-click `Convert to Anno .cf7`, `Convert to Anno .fc`
 - Right-click `Convert to glTF Binary` from `.rdm`
-- Command `Build Anno Mod`: build project using `annomod.json` description.
+- Command `F1` > `Build Anno Mod`: build project using `annomod.json` description.
 
 ![](./doc/quickintro.gif)
 
@@ -22,6 +22,7 @@ Read all the [Feature Details](#feature-details) below.
 ## Extension Settings
 
 * `anno.modsFolder`: path to your `mods/` folder. Available as `${annoMods}` in `annomod.json`. Not required if you don't use the variable.
+* `anno.outlineFolderDepth`: folder depth of props, materials and alike shown .cfg outline.
 
 ## Best Practices
 
@@ -128,7 +129,7 @@ Converter actions:
 - `texture`: converts .pngs into .dds.
   - `lods`: Number of LOD levels to generate, saved as `_0.dds` and so on. Set to 0 to disable LODs. Default is 3.
 - `cf7`: converts .cf7 into .fc
-- `glb`: converts .gltf (glb is WIP) to .rdm.
+- `gltf`: converts .gltf to .rdm. .glb is WIP
   - `lods`: Number of LOD levels to pull out of .gltf files. Meshes must end with `_lod0` and so on to be considered. Default is 4.
 - `modinfo`: generate `modinfo.json`.
   - `content_en`: generate `content_en.txt` file with same content as `modinfo.Description.English`.

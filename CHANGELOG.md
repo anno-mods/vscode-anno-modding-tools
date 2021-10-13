@@ -12,6 +12,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - replace Cesium glb/gltf conversion with much simpler https://github.com/najadojo/gltf-import-export
 - Right-click `Import Materials`. Reorders material list and fills some gaps.
 - Right-click `Build Anno Mod` on `annomod.json`
+- show file path in outline instead of only file names (@Taubenangriff)
+- support glTF binary in `gltf` converter
+- asset GUID hover / auto-conversion
 
 ## [0.0.11]
 

@@ -2,7 +2,7 @@
   "name": "anno-modding-tools",
   "displayName": "Anno Modding Tools",
   "description": "Modding tools for Anno 1800",
-  "version": "0.0.11",
+  "version": "0.1.0-alpha",
   "publisher": "JakobHarder",
   "repository": {
     "type": "git",
@@ -158,6 +158,12 @@
           "type": "string",
           "format": "uri",
           "markdownDescription": "mods/ folder used for `${annoMods}` in `annomod.json` files."
+        },
+        "anno.outlineFolderDepth": {
+          "type": "number",
+          "default": 0,
+          "minimum": 0,
+          "markdownDescription": "Folder depth of props, materials and alike shown .cfg outline." 
         }
       }
     }

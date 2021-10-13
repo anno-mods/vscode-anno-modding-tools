@@ -7,10 +7,11 @@ Licensed under the MIT License. Copyright (c) Microsoft Corporation. All rights 
 */
 
 import * as vscode from 'vscode';
+import * as path from 'path';
 
 export interface TocEntry {
-	readonly text: string;
-	readonly detail: string;
+	text: string;
+	detail: string;
 	readonly level: number;
 	readonly line: number;
 	readonly location: vscode.Location;
@@ -63,6 +64,25 @@ export class TableOfContentsProvider {
 			}
 		}
 		return this.toc;
+	}
+
+	private reducePath(filePath: string) {
+		const uri = vscode.window.activeTextEditor?.document?.uri;
+		const config = vscode.workspace.getConfiguration('anno', uri);
+		const configLevels = config.get('outlineFolderDepth') as string;
+		const levels = Math.max(0, configLevels !== undefined ? parseInt(configLevels) : 0);
+
+		let position = filePath.length - 1;
+		let level = 0;
+		for (; position >= 0; position--) {
+			if (filePath[position] === '\\' || filePath[position] === '/') {
+				level ++;
+				if (level > levels) {
+					break;
+				}
+			}
+		}
+		return filePath.substr(position + 1);
 	}
 
 	private async buildToc(document: SkinnyTextDocument): Promise<TocEntry[]> {
@@ -184,10 +204,10 @@ export class TableOfContentsProvider {
 						}
 						else if (tagName === 'FileName' && tagStackTop) {
 							// we just closed Name, assign name to parent
-							tagStackTop.fileName = lastValue.split(/[\\\/]/).pop();
+							tagStackTop.fileName = this.reducePath(lastValue);
 						}
 						else if (tagName === 'cModelDiffTex' && tagStackTop) {
-							tagStackTop.diffName = lastValue.split(/[\\\/]/).pop();
+							tagStackTop.diffName = this.reducePath(lastValue);
 						}
 						else if ((tagName === 'SequenceID' || tagName === 'Id') && tagStackTop) {
 							tagStackTop.sequenceId = lastValue;
