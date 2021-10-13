@@ -10,3 +10,4 @@ src/**
 **/*.ts
 **/*.vsix
 node_modules/**
+doc/**

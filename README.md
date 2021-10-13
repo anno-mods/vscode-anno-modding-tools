@@ -57,9 +57,11 @@ A big thanks goes to the external projects I'm using for this extension:
 
 ## Release Notes
 
-### 0.0.8
+### 0.0.10
 
 Initial (and buggy) release of the idea.
+
+See [CHANGELOG](./CHANGELOG.md)
 
 ## Feature Details
 

@@ -3,7 +3,7 @@
   "displayName": "Anno Modding Tools",
   "description": "Modding tools for Anno 1800",
   "version": "0.0.10",
-  "publisher": "jakob-harder",
+  "publisher": "JakobHarder",
   "repository": {
     "type": "git",
     "url": "https://github.com/jakobharder/vscode-anno-modding-tools"
