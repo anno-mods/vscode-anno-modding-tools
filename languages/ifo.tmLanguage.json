@@ -1,0 +1,202 @@
+{
+	"version": "",
+	"name": "ANNO-IFO",
+	"scopeName": "text.ifo",
+	"patterns": [
+		{
+			"begin": "(<)([-\\w\\.]+)(>)([^<]*)(</\\2)",
+			"captures": {
+				"1": {
+					"name": "punctuation.definition.tag.xml"
+				},
+				"2": {
+					"name": "variable.language.entity.xml"
+				},
+				"3": {
+					"name": "punctuation.definition.tag.xml"
+				},
+				"4": {
+					"name": "punctuation.definition.constant.xml"
+				},
+				"5": {
+					"name": "punctuation.definition.tag.xml"
+				}
+			},
+			"end": "(>)",
+			"name": "meta.tag.leaf-tag.xml"
+		},
+		{
+			"begin": "(</?)(Info|BoundingBox|MeshBoundingBox|IntersectBox|BuildBlocker|Sequence|FeedbackBlocker|Dummy|UnevenBlocker)",
+			"captures": {
+				"1": {
+					"name": "punctuation.definition.tag.xml"
+				},
+				"2": {
+					"name": "entity.name.type"
+				}
+			},
+			"end": "(>)",
+			"name": "meta.keyword.models"
+		},
+		{
+			"begin": "(</?)([-\\w\\.]+)",
+			"captures": {
+				"1": {
+					"name": "punctuation.definition.tag.xml"
+				},
+				"2": {
+					"name": "variable.language.entity.xml"
+				}
+			},
+			"end": "(>)",
+			"name": "meta.tag.xml"
+		},
+		{
+			"begin": "<!\\[CDATA\\[",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.begin.xml"
+				}
+			},
+			"end": "]]>",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.end.xml"
+				}
+			},
+			"name": "string.unquoted.cdata.xml"
+		}
+	],
+	"repository": {
+		"EntityDecl": {
+			"begin": "(<!)(ENTITY)\\s+(%\\s+)?([:a-zA-Z_][:a-zA-Z0-9_.-]*)(\\s+(?:SYSTEM|PUBLIC)\\s+)?",
+			"captures": {
+				"1": {
+					"name": "punctuation.definition.tag.xml"
+				},
+				"2": {
+					"name": "keyword.other.entity.xml"
+				},
+				"3": {
+					"name": "punctuation.definition.entity.xml"
+				},
+				"4": {
+					"name": "variable.language.entity.xml"
+				},
+				"5": {
+					"name": "keyword.other.entitytype.xml"
+				}
+			},
+			"end": "(>)",
+			"patterns": [
+				{
+					"include": "#doublequotedString"
+				},
+				{
+					"include": "#singlequotedString"
+				}
+			]
+		},
+		"bare-ampersand": {
+			"match": "&",
+			"name": "invalid.illegal.bad-ampersand.xml"
+		},
+		"doublequotedString": {
+			"begin": "\"",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.begin.xml"
+				}
+			},
+			"end": "\"",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.end.xml"
+				}
+			},
+			"name": "string.quoted.double.xml",
+			"patterns": [
+				{
+					"include": "#entity"
+				},
+				{
+					"include": "#bare-ampersand"
+				}
+			]
+		},
+		"entity": {
+			"captures": {
+				"1": {
+					"name": "punctuation.definition.constant.xml"
+				},
+				"3": {
+					"name": "punctuation.definition.constant.xml"
+				}
+			},
+			"match": "(&)([:a-zA-Z_][:a-zA-Z0-9_.-]*|#[0-9]+|#x[0-9a-fA-F]+)(;)",
+			"name": "constant.character.entity.xml"
+		},
+		"parameterEntity": {
+			"captures": {
+				"1": {
+					"name": "punctuation.definition.constant.xml"
+				},
+				"3": {
+					"name": "punctuation.definition.constant.xml"
+				}
+			},
+			"match": "(%)([:a-zA-Z_][:a-zA-Z0-9_.-]*)(;)",
+			"name": "constant.character.parameter-entity.xml"
+		},
+		"singlequotedString": {
+			"begin": "'",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.begin.xml"
+				}
+			},
+			"end": "'",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.end.xml"
+				}
+			},
+			"name": "string.quoted.single.xml",
+			"patterns": [
+				{
+					"include": "#entity"
+				},
+				{
+					"include": "#bare-ampersand"
+				}
+			]
+		},
+		"tagStuff": {
+			"patterns": [
+				{
+					"captures": {
+						"1": {
+							"name": "entity.other.attribute-name.namespace.xml"
+						},
+						"2": {
+							"name": "entity.other.attribute-name.xml"
+						},
+						"3": {
+							"name": "punctuation.separator.namespace.xml"
+						},
+						"4": {
+							"name": "entity.other.attribute-name.localname.xml"
+						}
+					},
+					"match": "(?:^|\\s+)(?:([-\\w.]+)((:)))?([-\\w.:]+)\\s*="
+				},
+				{
+					"include": "#doublequotedString"
+				},
+				{
+					"include": "#singlequotedString"
+				}
+			]
+		}
+	}
+}
