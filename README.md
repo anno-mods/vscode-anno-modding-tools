@@ -14,6 +14,7 @@ Anno 1800 is a trademark of Ubisoft Entertainment in the US and/or other countri
 - Right-click `Convert to Anno .cf7`, `Convert to Anno .fc`
 - Right-click `Convert to glTF Binary` from `.rdm`
 - Command `F1` > `Build Anno Mod`: build project using `annomod.json` description.
+- Hover info and auto-conversion for GUIDs.
 
 ![](./doc/quickintro.gif)
 

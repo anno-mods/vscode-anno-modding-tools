@@ -6,6 +6,7 @@ import { ModCompiler } from './features/modCompiler';
 import { PropImporter } from './features/propImporter';
 import { InfoImporter } from './features/infoImporter';
 import { RdmGlbConverter } from './features/rdmGlbConverter';
+import { registerGuidUtilsProvider } from './features/guidUtilsProvider';
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -18,6 +19,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(...PropImporter.register(context));
 	context.subscriptions.push(...InfoImporter.register(context));
 	context.subscriptions.push(...RdmGlbConverter.register(context));
+	context.subscriptions.push(...registerGuidUtilsProvider(context));
 }
 
 function registerCfgLanguageFeatures(language: string): vscode.Disposable {

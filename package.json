@@ -26,7 +26,8 @@
     "onCommand:anno-modding-tools.ddsToPng",
     "onCommand:anno-modding-tools.importProps",
     "onCommand:anno-modding-tools.importInfo",
-    "onCommand:anno-modding-tools.convertRdmToGlb"
+    "onCommand:anno-modding-tools.convertRdmToGlb",
+    "workspaceContains:**/assets.xml"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -169,12 +170,13 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "webpack --mode production",
+    "vscode:prepublish": "npm run assets && webpack --mode production",
     "compile": "webpack --mode none",
     "watch": "webpack --mode none --watch",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./out/test/runTest.js",
+    "assets": "tsc ./src/compileAssets.ts --outDir ./out/ && node ./out/compileAssets.js /mnt/c/anno/all-rda/data/config/export/main/asset/assets.xml"
   },
   "devDependencies": {
     "@types/glob": "^7.1.4",
