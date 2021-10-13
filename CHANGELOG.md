@@ -13,6 +13,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Right-click `Import Materials`. Reorders material list and fills some gaps.
 - Right-click `Build Anno Mod` on `annomod.json`
 
+## [0.0.11]
+
+### Added
+
+- Better license information
+
 ## [0.0.10]
 
 - Initial prototyping release

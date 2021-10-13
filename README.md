@@ -2,6 +2,10 @@
 
 Some tools to make your modding life easier.
 
+This project is not affiliated in any way with Ubisoft.
+
+Anno 1800 is a trademark of Ubisoft Entertainment in the US and/or other countries. Anno is a trademark of Ubisoft GmbH in the US and/or other countries.
+
 ## Features
 
 - Anno-specific outlines: `.cfg`, `.ifo`, `.cf7`
@@ -30,7 +34,7 @@ Read all the [Feature Details](#feature-details) below.
 
 - Browse and use right-click `Convert to ..` to convert all your .rdm and .dds assets.
 - Use right-click `Copy Relative Path` to easily copy asset pathes like `data/graphics/.../gas_bottle_01.prp` for `.cfg`s.
-- Preparation: Extract all data in proper order into one folder. Open that folder with VS Code.
+- Preparation: Extract all data with the [RDAExplorer](https://github.com/lysannschlegel/RDAExplorer) in proper order into one folder. Open that folder with VS Code.
 
 ### Use Blender copy&paste source
 
@@ -57,7 +61,7 @@ A big thanks goes to the external projects I'm using for this extension:
 
 ## Release Notes
 
-### 0.0.10
+### 0.0.11
 
 Initial (and buggy) release of the idea.
 
