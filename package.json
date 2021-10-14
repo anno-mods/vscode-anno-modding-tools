@@ -19,7 +19,7 @@
     "onLanguage:anno-cfg",
     "onLanguage:anno-ifo",
     "onLanguage:anno-cf7",
-    "onCommand:anno-modding-tools.compileMod",
+    "onCommand:anno-modding-tools.buildMod",
     "onCommand:anno-modding-tools.convertFcCf7",
     "onCommand:anno-modding-tools.convertCf7Fc",
     "onCommand:anno-modding-tools.pngToDds",
@@ -104,7 +104,7 @@
         "title": "Convert to PNG"
       },
       {
-        "command": "anno-modding-tools.compileMod",
+        "command": "anno-modding-tools.buildMod",
         "title": "Build Anno Mod"
       },
       {
@@ -149,6 +149,10 @@
         {
           "when": "resourceExtname == .rdm",
           "command": "anno-modding-tools.convertRdmToGlb"
+        },
+        {
+          "when": "resourceFilename == annomod.json",
+          "command": "anno-modding-tools.buildMod"
         }
       ]
     },

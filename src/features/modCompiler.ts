@@ -27,8 +27,8 @@ export class ModCompiler {
 
 	public static register(context: vscode.ExtensionContext): vscode.Disposable[] {
     const disposable = [
-      vscode.commands.registerCommand('anno-modding-tools.compileMod', async () => {
-        await ModCompiler._commandCompileMod(context);
+      vscode.commands.registerCommand('anno-modding-tools.buildMod', async (fileUri) => {
+        await ModCompiler._commandCompileMod(fileUri?.fsPath, context);
       }),
     ];
 
@@ -39,44 +39,49 @@ export class ModCompiler {
     this.context = context;
   }
 
-  private static async _commandCompileMod(context: vscode.ExtensionContext) {
-    const mods = ModCompiler._findMods();
-    if (mods.length === 0) {
-      vscode.window.showWarningMessage('No annomod.json found in workspace to compile.');
+  private static async _commandCompileMod(filePath: string | undefined, context: vscode.ExtensionContext) {
+    let mods;
+    if (filePath) {
+      mods = [ { label: path.basename(filePath), detail: filePath } ];
     }
     else {
-      const selectedMods = [];
+      mods = ModCompiler._findMods();
+      if (mods.length === 0) {
+        vscode.window.showWarningMessage('No annomod.json found in workspace to build.');
+        return;
+      }
+    }
 
-      if (mods.length > 1) {
-        const result = await vscode.window.showQuickPick([{ label: 'All' }, ...mods], {
-            title: 'Which project?',
-            placeHolder: 'Pick a project'
-          });
-        if (!result) {
-          return;
-        }
-        if (!result.detail) {
-          selectedMods.push(...mods);
-        }
-        else {
-          selectedMods.push(result);
-        }
+    const selectedMods = [];
+    if (mods.length > 1) {
+      const result = await vscode.window.showQuickPick([{ label: 'All' }, ...mods], {
+          title: 'Which project?',
+          placeHolder: 'Pick a project'
+        });
+      if (!result) {
+        return;
+      }
+      if (!result.detail) { // item 'All' has no detail
+        selectedMods.push(...mods);
       }
       else {
-        selectedMods.push(mods[0]);
+        selectedMods.push(result);
       }
+    }
+    else {
+      selectedMods.push(mods[0]);
+    }
 
-      const compiler = new ModCompiler(context);
-      compiler.addConverter(new StaticConverter());
-      compiler.addConverter(new Cf7Converter());
-      compiler.addConverter(new TextureConverter());
-      compiler.addConverter(new GlbConverter());
-      compiler.addConverter(new ModinfoConverter());
+    const compiler = new ModCompiler(context);
+    compiler.addConverter(new StaticConverter());
+    compiler.addConverter(new Cf7Converter());
+    compiler.addConverter(new TextureConverter());
+    compiler.addConverter(new GlbConverter());
+    compiler.addConverter(new ModinfoConverter());
 
-      channel.show();
-      for (const mod of selectedMods) {
-        compiler.compile(mod.detail as string);
-      }
+    channel.show();
+    for (const mod of selectedMods) {
+      compiler.compile(mod.detail as string);
     }
   }
 

@@ -11,8 +11,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - support and strip comments from `.cfg`, `.ifo`
 - replace Cesium glb/gltf conversion with much simpler https://github.com/najadojo/gltf-import-export
 - Right-click `Import Materials`. Reorders material list and fills some gaps.
-- Right-click `Build Anno Mod` on `annomod.json`
 - support glTF binary in `gltf` converter
+- LOD generation for `texture` converter
 
 ### Added
 
@@ -21,6 +21,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
   Supported assets are limited to products, items, buildings, pools (to maintain speed and usability).
 - Asset name to GUID conversion when in tags (same as hover).
   Supported assets are limited to products and items.
+- Right-click `Build Anno Mod` on `annomod.json`
 
 ## [0.0.11]
 
