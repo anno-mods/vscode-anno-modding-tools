@@ -81,6 +81,13 @@ export class GlbConverter {
               name: "Scene",
               nodes: [ 0 ]
             }];
+
+            // remove nodes from skins
+            if (gltf.skins) {
+              for (let skin of gltf.skins) {
+                skin.joints = skin.joints.filter((e: string|number) => e.toString() === nodeIdx.toString());
+              }
+            }
           }
 
           const gltfOptions = {
