@@ -6,12 +6,15 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+- .rdm animation support
 - `<Materials>` and `<MaterialLODInfos>` import
 - issue with yellow metal texture from Blender export
 - support and strip comments from `.cfg`, `.ifo`
 - replace Cesium glb/gltf conversion with much simpler https://github.com/najadojo/gltf-import-export
 - Right-click `Import Materials`. Reorders material list and fills some gaps.
 - support glTF binary in `gltf` converter
+
+## [0.1.0]
 
 ### Added
 

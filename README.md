@@ -16,6 +16,12 @@ Anno 1800 is a trademark of Ubisoft Entertainment in the US and/or other countri
 - Command `F1` > `Build Anno Mod`: build project using `annomod.json` description.
 - Hover info and auto-conversion for GUIDs.
 
+### GUID Hover and Auto-conversion Preview
+
+![](./doc/guid-utils.gif)
+
+### Outline and glTF PROP Import Preview
+
 ![](./doc/quickintro.gif)
 
 Read all the [Feature Details](#feature-details) below.
@@ -63,14 +69,11 @@ A big thanks goes to the external projects I'm using for this extension:
 
 ## Release Notes
 
-### 0.0.11
-
-Initial (and buggy) release of the idea.
+### 0.1.0
 
 See [CHANGELOG](./CHANGELOG.md)
 
 ## Feature Details
-
 
 ### Import from glTF
 
@@ -83,7 +86,18 @@ The following items will be imported then:
 
 Vertices from a mesh/node named `ground` are used to importer `BuildBlocker` and `DECAL` size.
 
+### GUID Hover and Auto-correct
+
+Hover works on GUIDs in XPath strings and in the tags `Ingredient`, `Product`, `ItemLink`, `Good` or `GUID`. Hover is mostly limited to products, buildings, production chains, items and effect pools.
+
+Auto-conversion works when in the same tags as above in editing mode.
+Conversion is limited to products (including residents) and items at the moment.
+
+Including all GUIDs is too much for many reasons. New GUID types will be added if there's a need (meaning: ping me with a request).
+
 ### Build Anno Mod
+
+Press `F1` or right-click on `annomod.json` files to run `Build Anno Mod`.
 
 Example: [Sources on GitHub](https://github.com/jakobharder/anno-1800-jakobs-mods/tree/devel/vscode-anno-modding-tools), [Result as zip download](https://github.com/jakobharder/anno-1800-jakobs-mods/releases)
 
