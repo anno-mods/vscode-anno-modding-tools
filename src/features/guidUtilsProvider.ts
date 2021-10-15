@@ -7,6 +7,7 @@ const _TAGS_TO_COMPLETE: { [index: string]: string[] } = {
   'Ingredient': [ 'Product' ],
   'Product': [ 'Product' ],
   'ItemLink': [ 'GuildhouseItem', 'HarborOfficeItem', 'TownhallItem', 'CultureItem', 'VehicleItem' ],
+  'Good': [ 'Product' ], // TODO and items?
   'GUID': [ '*' ]
   /* eslint-enable @typescript-eslint/naming-convention */
 };
