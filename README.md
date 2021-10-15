@@ -69,7 +69,7 @@ A big thanks goes to the external projects I'm using for this extension:
 
 ## Release Notes
 
-### 0.1.0
+### 0.1.1
 
 See [CHANGELOG](./CHANGELOG.md)
 

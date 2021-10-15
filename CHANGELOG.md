@@ -14,6 +14,13 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Right-click `Import Materials`. Reorders material list and fills some gaps.
 - support glTF binary in `gltf` converter
 
+## [0.1.1]
+
+### Changed
+
+- Activate on .xml. This fixes an issue when opening single assets.xml files.
+  Activation on assets.xml is unfortunately only possible when opening folders and workspaces.
+
 ## [0.1.0]
 
 ### Added

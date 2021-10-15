@@ -2,7 +2,7 @@
   "name": "anno-modding-tools",
   "displayName": "Anno Modding Tools",
   "description": "Modding tools for Anno 1800",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "JakobHarder",
   "repository": {
     "type": "git",
@@ -27,7 +27,8 @@
     "onCommand:anno-modding-tools.importProps",
     "onCommand:anno-modding-tools.importInfo",
     "onCommand:anno-modding-tools.convertRdmToGlb",
-    "workspaceContains:**/assets.xml"
+    "workspaceContains:**/assets.xml",
+    "onLanguage:xml"
   ],
   "main": "./dist/extension.js",
   "contributes": {
