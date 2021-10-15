@@ -7,6 +7,17 @@ export function show() {
 }
 
 export function log(line: string) {
+  console.log(line);
+  _getOutputChannel().appendLine(line);
+}
+
+export function warn(line: string) {
+  console.warn(line);
+  _getOutputChannel().appendLine(line);
+}
+
+export function error(line: string) {
+  console.error(line);
   _getOutputChannel().appendLine(line);
 }
 

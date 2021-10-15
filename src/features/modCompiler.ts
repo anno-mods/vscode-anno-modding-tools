@@ -133,6 +133,7 @@ export class ModCompiler {
         channel.log('Error: no converter with name: ' + entry.action);
       }
     }
+    channel.log('done');
   }
 
   private _getOutFolder(filePath: string, modJson: any) {
