@@ -10,7 +10,7 @@ export class TextureConverter {
     return 'texture';
   }
 
-  public run(files: string[], sourceFolder: string, outFolder: string, options: { context: vscode.ExtensionContext, cache: string, converterOptions: any }) {
+  public async run(files: string[], sourceFolder: string, outFolder: string, options: { context: vscode.ExtensionContext, cache: string, converterOptions: any }) {
     for (const file of files) {
       const lodLevels = Math.max(0, Math.min(9, options.converterOptions.lods || 3));
       const sourceFile = path.join(sourceFolder, file);

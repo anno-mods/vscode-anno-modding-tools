@@ -12,7 +12,7 @@ export class Cf7Converter {
     return 'cf7';
   }
 
-  public run(files: string[], sourceFolder: string, outFolder: string, options: { context: vscode.ExtensionContext }) {
+  public async run(files: string[], sourceFolder: string, outFolder: string, options: { context: vscode.ExtensionContext }) {
     const converterPath = options.context.asAbsolutePath("./external/AnnoFCConverter.exe");
 
     for (const file of files) {

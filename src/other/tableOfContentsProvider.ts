@@ -97,8 +97,9 @@ export class TableOfContentsProvider {
 			'Sequences': {},
 			'Particles': {},
 			'Lights': {},
+			'Animations': {},
 			'Config': {
-				'ConfigTypes': [ 'FILE', 'MODEL', 'PROPCONTAINER', 'PROP', 'MATERIAL', 'SEQUENCE', 'PARTICLE' ]
+				'ConfigTypes': [ 'FILE', 'MODEL', 'PROPCONTAINER', 'PROP', 'MATERIAL', 'SEQUENCE', 'PARTICLE', 'ANIMATION' ]
 			},
 			/* fc */
 			'DummyRoot': {},
@@ -124,6 +125,8 @@ export class TableOfContentsProvider {
 			'FILE': vscode.SymbolKind.Field,
 			'Models': vscode.SymbolKind.Class,
 			'MODEL': vscode.SymbolKind.Field,
+			'Animations': vscode.SymbolKind.Event,
+			'ANIMATION': vscode.SymbolKind.Field,
 			'PROP': vscode.SymbolKind.Field,
 			'PROPCONTAINER': vscode.SymbolKind.Namespace,
 			'PropContainers': vscode.SymbolKind.Class,

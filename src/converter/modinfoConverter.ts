@@ -9,7 +9,7 @@ export class ModinfoConverter {
     return 'modinfo';
   }
 
-  public run(files: string[], sourceFolder: string, outFolder: string, options: { 
+  public async run(files: string[], sourceFolder: string, outFolder: string, options: { 
     context: vscode.ExtensionContext, 
     modJson: any, 
     converterOptions: any }) {

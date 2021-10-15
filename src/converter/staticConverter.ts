@@ -7,7 +7,7 @@ export class StaticConverter {
     return 'static';
   }
 
-  public run(files: string[], sourceFolder: string, outFolder: string, options: { context: vscode.ExtensionContext }) {
+  public async run(files: string[], sourceFolder: string, outFolder: string, options: { context: vscode.ExtensionContext }) {
     for (const file of files) {
       const targetFile = path.join(outFolder, file);
       const sourceFile = path.join(sourceFolder, file);

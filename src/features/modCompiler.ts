@@ -18,7 +18,7 @@ export interface IConverter {
     cache: string,
     modJson: any,
     converterOptions: any
-  }): void;
+  }): Promise<void>;
 }
 
 export class ModCompiler {
@@ -81,7 +81,7 @@ export class ModCompiler {
 
     channel.show();
     for (const mod of selectedMods) {
-      compiler.compile(mod.detail as string);
+      await compiler.compile(mod.detail as string);
     }
   }
 
@@ -101,7 +101,7 @@ export class ModCompiler {
     this.converters[converter.getName()] = converter;
   }
 
-  public compile(filePath: string) {
+  public async compile(filePath: string) {
     channel.log('build ' + filePath);
     const modJson = JSON.parse(fs.readFileSync(filePath, 'utf8'));
     let sourceFolder = path.dirname(filePath) + '/' + modJson.src;
@@ -127,7 +127,7 @@ export class ModCompiler {
       const converter = this.converters[entry.action];
       if (converter) {
         channel.log(`Run ${entry.action} converter` + (entry.pattern?`: ${entry.pattern}`:''));
-        converter.run(allFiles, sourceFolder, outFolder, { context: this.context, cache: cacheFolder, modJson, converterOptions: entry });
+        await converter.run(allFiles, sourceFolder, outFolder, { context: this.context, cache: cacheFolder, modJson, converterOptions: entry });
       }
       else {
         channel.log('Error: no converter with name: ' + entry.action);
