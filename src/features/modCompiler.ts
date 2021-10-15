@@ -6,7 +6,7 @@ import * as glob from 'glob';
 import { StaticConverter } from '../converter/staticConverter';
 import { Cf7Converter } from '../converter/cf7Converter';
 import { TextureConverter } from '../converter/textureConverter';
-import { GlbConverter } from '../converter/glbConverter';
+import { GltfConverter } from '../converter/gltfConverter';
 import { ModinfoConverter } from '../converter/modinfoConverter';
 
 import * as channel from '../other/outputChannel';
@@ -76,7 +76,7 @@ export class ModCompiler {
     compiler.addConverter(new StaticConverter());
     compiler.addConverter(new Cf7Converter());
     compiler.addConverter(new TextureConverter());
-    compiler.addConverter(new GlbConverter());
+    compiler.addConverter(new GltfConverter());
     compiler.addConverter(new ModinfoConverter());
 
     channel.show();

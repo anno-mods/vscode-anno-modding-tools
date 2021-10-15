@@ -7,7 +7,7 @@ import * as url from 'url';
 
 import * as channel from '../other/outputChannel';
 
-export class GlbConverter {
+export class GltfConverter {
   public getName() {
     return 'gltf';
   }
