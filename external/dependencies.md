@@ -4,7 +4,7 @@ Sorry for the manual labor but you need to place the following binaries.
 Some may be available, others you need to compile yourself.
 
 - AnnoFCConverter.exe, v1.40+3 (58226f3358186c509c3c4ffaa4e73f5ad22a077a), https://github.com/taubenangriff/AnnoFCConverter/
-  - unknown
+  - informal permission to bundle with the extension
 - rdm4-bin.exe, https://github.com/lukts30/rdm4/releases/tag/v0.5-alpha
   - MIT (and others)
 - texconv.exe, https://github.com/microsoft/DirectXTex/releases/tag/sept2021

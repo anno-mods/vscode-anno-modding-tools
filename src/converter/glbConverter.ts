@@ -38,82 +38,31 @@ export class GlbConverter {
         for (let lodLevel = 0; lodLevel < lodLevels; lodLevel++) {
           const lodname = path.join(dirname, basename + '_lod' + lodLevel);
 
-          const gltfToGlb = gltfPipeline.gltfToGlb;
           const gltf = JSON.parse(fs.readFileSync(path.join(sourceFolder, file), 'utf8'));
 
-          // replace image URIs
-          if (gltf.images)
-          {
-            const images = gltf.images.length;
-            for (let i = 0; i < images; i++) {
-              // if (!fs.existsSync(path.join(sourceFolder, dirname, gltf.images[i].uri))) {
-                gltf.images[i].uri = fakePngUrl.href;
-              // }
-            }
-          }
+          // replace images to avoid errors with missing ones (we don't need them anyways)
+          this._replaceImages(gltf, fakePngUrl.href);
+
           // remove all nodes/meshes but this lod
-          {
-            let meshIdx = -1;
-            for (let i = 0; i < gltf.meshes.length; i++) {
-              if (gltf.meshes[i].name.endsWith('_lod' + lodLevel)) {
-                meshIdx = i;
-                break;
-              }
-            }
-            let nodeIdx = -1;
-            for (let i = 0; i < gltf.nodes.length; i++) {
-              if (gltf.nodes[i].mesh === meshIdx || gltf.nodes[i].name.endsWith('_lod' + lodLevel)) {
-                nodeIdx = i;
-                meshIdx = gltf.nodes[i].mesh;
-                break;
-              }
-            }
-
-            if (meshIdx < 0 || nodeIdx < 0) {
+          if (gltf.meshes.length > 1) {
+            const found = this._reduceToMesh(gltf, (e) => !e.name.endsWith('_lod' + lodLevel));
+            if (!found) {
               channel.log(file + ' does not include nodes/meshes ending with \'_lod' + lodLevel + '\'');
-              continue;
-            }
-
-            gltf.meshes = [ gltf.meshes[meshIdx] ];
-            gltf.nodes = [ gltf.nodes[nodeIdx] ];
-            gltf.nodes[0].mesh = 0;
-            gltf.scenes = [ {
-              name: "Scene",
-              nodes: [ 0 ]
-            }];
-
-            // remove nodes from skins
-            if (gltf.skins) {
-              for (let skin of gltf.skins) {
-                skin.joints = skin.joints.filter((e: string|number) => e.toString() === nodeIdx.toString());
+              if (lodLevel === 0) {
+                // multiple meshes, no _lod0. Use rdm4 default behavior for this case (first mesh).
+              }
+              else {
+                // skip converting
+                continue;
               }
             }
           }
 
-          const gltfOptions = {
-            resourceDirectory: path.join(sourceFolder, dirname),
-            // separateTextures: true /* no need to store textures again, but rdm4-bin needs it */
-          };
-          gltfToGlb(gltf, gltfOptions).then(function (results: any) {
-            fs.writeFileSync(path.join(options.cache, lodname + '.glb'), results.glb);
-          
-            // rdm4-bin does not overwrite, so delete target
-            if (fs.existsSync(path.join(outFolder, lodname + '.rdm'))) {
-              fs.rmSync(path.join(outFolder, lodname + '.rdm'));
-            }
-            // const cmd = rdmPath + " -g P4h_N4b_G4b_B4b_T2h -n -o \"" + path.join(outFolder, dirname) + "\" -i \"" + path.join(options.cache, lodname + '.glb') + "\"";
-            // console.log(cmd);
-            // channel.log(cmd);
-            // const res = child.execFileSync(cmd);
-            const res = child.execFileSync(rdmPath, [
-              '-g',
-              'P4h_N4b_G4b_B4b_T2h',
-              '-n',
-              '-o',
-              path.join(outFolder, dirname),
-              '-i', 
-              path.join(options.cache, lodname + '.glb')        
-            ]);
+          const resourceDirectory = path.join(sourceFolder, dirname);
+          const targetFile = path.join(outFolder, lodname + '.rdm');
+          const tempFile = path.join(options.cache, lodname + '.glb');
+          this._writeRdmFile(gltf, targetFile, tempFile, resourceDirectory, rdmPath).then(() => {
+            // be happy
           }).catch((err: any) => {
             channel.log('error while converting: ' + path.join(options.cache, lodname + '.glb'));
             channel.log(err);
@@ -127,5 +76,83 @@ export class GlbConverter {
         channel.log(exception.message);
       }
     }
+  }
+
+  private _replaceImages(gltf: any, fakePngUrl: string) {
+    if (gltf.images)
+    {
+      const images = gltf.images.length;
+      for (let i = 0; i < images; i++) {
+        gltf.images[i].uri = fakePngUrl;
+      }
+    }
+  }
+
+  private _reduceToMesh(gltf: any, match: (mesh: { name: string }) =>  boolean ) {
+    let meshIdx = -1;
+    for (let i = 0; i < gltf.meshes.length; i++) {
+      if (gltf.meshes[i].name && !match(gltf.meshes[i])) {
+        meshIdx = i;
+        break;
+      }
+    }
+    let nodeIdx = -1;
+    for (let i = 0; i < gltf.nodes.length; i++) {
+      if (gltf.nodes[i].mesh === meshIdx || (gltf.nodes[i].name && !match(gltf.nodes[i]))) {
+        nodeIdx = i;
+        meshIdx = gltf.nodes[i].mesh;
+        break;
+      }
+    }
+
+    if (meshIdx < 0 || nodeIdx < 0) {
+      return false;
+    }
+
+    gltf.meshes = [ gltf.meshes[meshIdx] ];
+    gltf.nodes = [ gltf.nodes[nodeIdx] ];
+    gltf.nodes[0].mesh = 0;
+    gltf.scenes = [ {
+      name: "Scene",
+      nodes: [ 0 ]
+    }];
+
+    // remove nodes from skins
+    if (gltf.skins) {
+      for (let skin of gltf.skins) {
+        skin.joints = skin.joints.filter((e: string|number) => e.toString() === nodeIdx.toString());
+      }
+    }
+
+    return true;
+  }
+
+  private _writeRdmFile(gltf: any, targetFile: string, tempFile: string, resourceDirectory: string, rdmPath: string) {
+    return new Promise((resolve, reject) => {
+      const gltfOptions = {
+        resourceDirectory,
+      };
+      gltfPipeline.gltfToGlb(gltf, gltfOptions).then(function (results: any) {
+        fs.writeFileSync(tempFile, results.glb);
+      
+        // rdm4-bin does not overwrite, so delete target. I'm not comfortable to use --force for that.
+        if (fs.existsSync(targetFile)) {
+          fs.rmSync(targetFile);
+        }
+
+        const res = child.execFileSync(rdmPath, [
+          '-g',
+          'P4h_N4b_G4b_B4b_T2h',
+          '-n',
+          '-o',
+          path.dirname(targetFile),
+          '-i', 
+          tempFile,       
+        ]);
+        resolve(true);
+      }).catch((err: any) => {
+        reject(err);
+      });
+    });
   }
 }
