@@ -1,30 +1,45 @@
 import * as fs from 'fs';
+import * as path from 'path';
+import * as child from 'child_process';
 
-function _int32ToFourCC(value: number) {
-  return new Uint8Array([
-    value & 0xff,
-    ( value >> 8 ) & 0xff,
-    ( value >> 16 ) & 0xff,
-    ( value >> 24 ) & 0xff
-  ]);
+let _converterPath: string | undefined;
+export function init(externalPath: string) {
+  _converterPath = path.join(externalPath, 'texconv.exe');
 }
 
-function _fourCCToInt32(buffer: Buffer, dwordPosition: number) {
-  return buffer[dwordPosition * 4 + 0] + 
-    (buffer[dwordPosition * 4 + 1] << 8) + 
-    (buffer[dwordPosition * 4 + 2] << 16) + 
-    (buffer[dwordPosition * 4 + 3] << 24 );
+export function convertToTexture(sourceFile: string, targetFolder: string) {
+  if (!_converterPath) {
+    return false;
+  }
+  try {
+    const res = child.execFileSync(_converterPath, [
+      sourceFile, 
+      '-y', '-f', 'BC7_UNORM', '-srgbo', '-srgbi',
+      '-o', targetFolder
+    ]);
+  }
+  catch (exception) {
+    return false;
+  }
 }
 
-function _bc7Pitch(width: number) {
-  return Math.max(1, Math.floor((width + 3) / 4) ) * 16;
+export function convertToImage(sourceFile: string, targetFolder: string) {
+  if (!_converterPath) {
+    return false;
+  }
+  try {
+    const res = child.execFileSync(_converterPath, [
+      sourceFile,
+      '-y', '-ft', 'png', 
+      '-o', targetFolder
+    ]);
+  }
+  catch (exception) {
+    return false;
+  }
 }
 
-function _bc7Size(width: number, height: number) {
-  return _bc7Pitch(width) * Math.floor((height + 3) / 4);
-}
-
-export class Dds {
+export class Texture {
   /* https://docs.microsoft.com/en-us/windows/win32/direct3ddds/dx-graphics-dds-pguide */
   public readonly header: Buffer;
   public readonly images: Buffer[];
@@ -83,7 +98,7 @@ export class Dds {
       console.error(`Something is off. ${buffer.length - levelPosition} bytes of image data are left untouched.`);
     }
 
-    return new Dds(
+    return new Texture(
       buffer.subarray(0, imagePosition), 
       images,
       dwWidth, dwHeight, dwMipMapCount);
@@ -112,4 +127,28 @@ export class Dds {
     this.height = height;
     this.mipmaps = mipmaps;
   }
+}
+
+function _int32ToFourCC(value: number) {
+  return new Uint8Array([
+    value & 0xff,
+    ( value >> 8 ) & 0xff,
+    ( value >> 16 ) & 0xff,
+    ( value >> 24 ) & 0xff
+  ]);
+}
+
+function _fourCCToInt32(buffer: Buffer, dwordPosition: number) {
+  return buffer[dwordPosition * 4 + 0] + 
+    (buffer[dwordPosition * 4 + 1] << 8) + 
+    (buffer[dwordPosition * 4 + 2] << 16) + 
+    (buffer[dwordPosition * 4 + 3] << 24 );
+}
+
+function _bc7Pitch(width: number) {
+  return Math.max(1, Math.floor((width + 3) / 4) ) * 16;
+}
+
+function _bc7Size(width: number, height: number) {
+  return _bc7Pitch(width) * Math.floor((height + 3) / 4);
 }

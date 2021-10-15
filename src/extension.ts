@@ -7,9 +7,9 @@ import { PropImporter } from './features/propImporter';
 import { InfoImporter } from './features/infoImporter';
 import { RdmGlbConverter } from './features/rdmGlbConverter';
 import { registerGuidUtilsProvider } from './features/guidUtilsProvider';
+import * as dds from './other/dds';
 
 export function activate(context: vscode.ExtensionContext) {
-
 	context.subscriptions.push(registerCfgLanguageFeatures('anno-cfg'));
 	context.subscriptions.push(registerCfgLanguageFeatures('anno-cf7'));
 	context.subscriptions.push(registerCfgLanguageFeatures('anno-ifo'));
@@ -20,6 +20,8 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(...InfoImporter.register(context));
 	context.subscriptions.push(...RdmGlbConverter.register(context));
 	context.subscriptions.push(...registerGuidUtilsProvider(context));
+
+	dds.init(context.asAbsolutePath('./external/'));
 }
 
 function registerCfgLanguageFeatures(language: string): vscode.Disposable {

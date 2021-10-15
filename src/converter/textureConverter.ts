@@ -1,10 +1,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as vscode from 'vscode';
-import * as child from 'child_process';
 
 import * as channel from '../other/outputChannel';
-import { Dds } from '../other/dds';
+import * as dds from '../other/dds';
 
 export class TextureConverter {
   public getName() {
@@ -12,8 +11,6 @@ export class TextureConverter {
   }
 
   public run(files: string[], sourceFolder: string, outFolder: string, options: { context: vscode.ExtensionContext, cache: string, converterOptions: any }) {
-    const converterPath = options.context.asAbsolutePath("./external/texconv.exe");
-    
     for (const file of files) {
       const lodLevels = Math.max(0, Math.min(9, options.converterOptions.lods || 3));
       const sourceFile = path.join(sourceFolder, file);
@@ -43,11 +40,7 @@ export class TextureConverter {
 
         // save first target
         const tmpFilePath = path.join(options.cache, dirname);
-        const res = child.execFileSync(converterPath, [
-          '-y', '-f', 'BC7_UNORM', '-srgbo', '-srgbi',
-          sourceFile, 
-          '-o', tmpFilePath
-        ]);
+        dds.convertToTexture(sourceFile, tmpFilePath);
         // unfortunately, texconv doesn't allow to change the output file name
         fs.renameSync(path.join(tmpFilePath, basename + '.dds'), lodFilePaths[0]);
 
@@ -65,14 +58,14 @@ export class TextureConverter {
   }
 
   private _extractLodsFromDds(source: string, targets: string[]) {
-    const dds = Dds.fromFile(source);
-    if (!dds) {
+    const texture = dds.Texture.fromFile(source);
+    if (!texture) {
       return;
     }
     
-    const mipmaps = dds.images;
-    let width = dds.width;
-    let height = dds.height;
+    const mipmaps = texture.images;
+    let width = texture.width;
+    let height = texture.height;
     for (let level = 0; level < targets.length && width > 1 && height > 1; level++) {
       // go one mipmap down
       mipmaps.shift();
@@ -84,8 +77,8 @@ export class TextureConverter {
       height = Math.floor((height + 1) / 2);
       // dump
       fs.writeFileSync(targets[level], Buffer.concat([ 
-        dds.getModifiedHeader(width, height, dds.mipmaps - level - 1), 
-        ...dds.images
+        texture.getModifiedHeader(width, height, texture.mipmaps - level - 1), 
+        ...texture.images
       ]));
     }
   }
