@@ -2,11 +2,11 @@
   "name": "anno-modding-tools",
   "displayName": "Anno Modding Tools",
   "description": "Modding tools for Anno 1800",
-  "version": "0.2.0-alpha",
+  "version": "0.2.0",
   "publisher": "JakobHarder",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jakobharder/vscode-anno-modding-tools"
+    "url": "https://github.com/anno-mods/vscode-anno-modding-tools"
   },
   "engines": {
     "vscode": "^1.60.0"

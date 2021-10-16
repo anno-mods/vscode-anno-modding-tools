@@ -8,12 +8,14 @@ Anno 1800 is a trademark of Ubisoft Entertainment in the US and/or other countri
 
 ## Features
 
+- Command `F1` > `Build Anno Mod`: build project using `annomod.json` description.
+  - PNG to DDS conversion with LOD generation
+  - glTF to RDM conversion with LOD and [animation](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-models.md) extraction
 - Anno-specific outlines: `.cfg`, `.ifo`, `.cf7`
 - Anno-specific syntax highlighting: `.cfg`, `.ifo`, `.cf7`
 - Right-click `Import from glTF` (targets: `.cfg`, `.ifo`)
 - Right-click `Convert to Anno .cf7`, `Convert to Anno .fc`
 - Right-click `Convert to glTF Binary` from `.rdm`
-- Command `F1` > `Build Anno Mod`: build project using `annomod.json` description.
 - Hover info and auto-conversion for GUIDs.
 
 ### GUID Hover and Auto-conversion Preview
@@ -69,7 +71,9 @@ A big thanks goes to the external projects I'm using for this extension:
 
 ## Release Notes
 
-### 0.1.1
+### 0.2.0
+
+Animations!
 
 See [CHANGELOG](./CHANGELOG.md)
 
@@ -100,6 +104,8 @@ Including all GUIDs is too much for many reasons. New GUID types will be added i
 Press `F1` or right-click on `annomod.json` files to run `Build Anno Mod`.
 
 Example: [Sources on GitHub](https://github.com/jakobharder/anno-1800-jakobs-mods/), [Result as zip download](https://github.com/jakobharder/anno-1800-jakobs-mods/releases)
+
+Notes on animations: [Working with Models](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-models.md)
 
 #### `annomod.json` Format
 

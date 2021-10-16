@@ -13,10 +13,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Right-click `Import Materials`. Reorders material list and fills some gaps.
 - support glTF binary in `gltf` converter
 
+## [0.2.0]
+
 ### Added
 
-- Show model animation in .cfg outline
 - Support animations in glTF conversion.
+- Show model animation in .cfg outline
 - Option to move files to `maps`, `rdm` and `anim`
 
 ### Changed
