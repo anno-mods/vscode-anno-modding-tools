@@ -42,6 +42,7 @@ export class GltfConverter {
         const basename = path.basename(file, '.gltf');
 
         const lodLevels = Math.max(1, Math.min(9, options.converterOptions.lods === undefined ? 4 : options.converterOptions.lods));
+        const lodDisabled = options.converterOptions.lods === 0;
 
         for (let lodLevel = 0; lodLevel < lodLevels; lodLevel++) {
           const gltf = JSON.parse(fs.readFileSync(path.join(sourceFolder, file), 'utf8'));
@@ -104,7 +105,7 @@ export class GltfConverter {
           }
 
           // convert
-          const lodname = path.join(dirname, basename + '_lod' + lodLevel);
+          const lodname = path.join(dirname, basename + (lodDisabled ? '' : '_lod' + lodLevel));
           const targetFile = path.join(outFolder, lodname + '.rdm');
           if (!alreadyExportedModel) {
             // Animations are matched against the vertex groups by name.
@@ -119,7 +120,7 @@ export class GltfConverter {
           else {
             fs.renameSync(alreadyExportedModel, targetFile);
           }
-          channel.log(`  <= LOD ${lodLevel}: ${path.relative(dirname, lodname)}.rdm`);
+          channel.log(`  <= ${lodDisabled ? '' : `LOD ${lodLevel}: `}${path.relative(dirname, lodname)}.rdm`);
         }
       }
       catch (exception: any)

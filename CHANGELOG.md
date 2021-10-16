@@ -19,6 +19,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Show model animation in .cfg outline
 - Support animations in glTF conversion.
 
+### Changed
+
+- Allow lods: 0 for gltf exporter to disable adding `_lod0` to the name.
+
 ## [0.1.1]
 
 ### Changed

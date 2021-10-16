@@ -145,7 +145,7 @@ Converter actions:
   - `lods`: Number of LOD levels to generate, saved as `_0.dds` and so on. Set to 0 to disable LODs. Default is 3.
 - `cf7`: converts .cf7 into .fc
 - `gltf`: converts .gltf to .rdm. .glb is WIP
-  - `lods`: Number of LOD levels to pull out of .gltf files. Meshes must end with `_lod0` and so on to be considered. Default is 4.
+  - `lods`: Number of LOD levels to pull out of .gltf files. Meshes must end with `_lod0` and so on to be considered. Set to 0 to disable LODs. Default is 4.
 - `modinfo`: generate `modinfo.json`.
   - `content_en`: generate `content_en.txt` file with same content as `modinfo.Description.English`.
 
