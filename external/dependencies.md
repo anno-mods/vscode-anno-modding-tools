@@ -5,7 +5,7 @@ Some may be available, others you need to compile yourself.
 
 - AnnoFCConverter.exe, v1.40+3 (58226f3358186c509c3c4ffaa4e73f5ad22a077a), https://github.com/taubenangriff/AnnoFCConverter/
   - informal permission to bundle with the extension
-- rdm4-bin.exe, https://github.com/lukts30/rdm4/releases/tag/v0.5-alpha
+- rdm4-bin.exe, 0.6.0-alpha+1 https://github.com/lukts30/rdm4/commit/b8926788ce3b2ad1265dca26649a04d9f8cbaac2
   - MIT (and others)
 - texconv.exe, https://github.com/microsoft/DirectXTex/releases/tag/sept2021
   - MIT
