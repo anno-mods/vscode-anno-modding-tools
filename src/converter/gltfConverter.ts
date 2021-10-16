@@ -29,7 +29,7 @@ export class GltfConverter {
     const rdmPath = options.context.asAbsolutePath("./external/rdm4-bin.exe");
     
     for (const file of files) {
-      channel.log(`=> ${file}`);
+      channel.log(`  => ${file}`);
       try {
         if (!fs.existsSync(path.dirname(path.join(outFolder, file)))) {
           fs.mkdirSync(path.dirname(path.join(outFolder, file)), { recursive: true });
@@ -92,7 +92,7 @@ export class GltfConverter {
               fs.rmSync(tempGlbFile);
               fs.rmSync(targetFile, { force: true });
               fs.renameSync(tempAnimFile, targetFile);
-              channel.log(`  <= animation: ${path.join(dirname, anim.name)}.rdm`);
+              channel.log(`  <= animation: ${path.relative(path.join(outFolder, dirname), targetFile)}`);
               // keep lod0 model for later
               if (alreadyExportedModel) {
                 fs.rmSync(tempRdmFile);
@@ -119,7 +119,7 @@ export class GltfConverter {
           else {
             fs.renameSync(alreadyExportedModel, targetFile);
           }
-          channel.log(`  <= LOD ${lodLevel}: ${lodname}.rdm`);
+          channel.log(`  <= LOD ${lodLevel}: ${path.relative(dirname, lodname)}.rdm`);
         }
       }
       catch (exception: any)

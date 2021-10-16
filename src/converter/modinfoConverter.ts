@@ -41,7 +41,9 @@ export class ModinfoConverter {
       }
       // content_en.txt
       if (options.converterOptions.content_en && modinfo.Description.English) {
-        fs.writeFileSync(path.join(path.dirname(targetFile), 'content_en.txt'), modinfo.Description.English);
+        const contentEnPath = path.join(path.dirname(targetFile), 'content_en.txt');
+        fs.writeFileSync(contentEnPath, modinfo.Description.English);
+        channel.log(`  <= content_en.txt`);
       }
       // remove \r (after writing content_en.txt)
       for (let lang of [...languages, 'English']) {
@@ -51,11 +53,10 @@ export class ModinfoConverter {
       }
 
       fs.writeFileSync(targetFile, JSON.stringify(modinfo, null, 2));
-      console.info(targetFile);
+      channel.log(`  <= modinfo.json`);
     }
     catch (exception: any)
     {
-      channel.log('error while generating: ' + targetFile);
       channel.log(exception.message);
     }
   }

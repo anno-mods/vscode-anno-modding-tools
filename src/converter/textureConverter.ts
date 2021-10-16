@@ -12,9 +12,9 @@ export class TextureConverter {
 
   public async run(files: string[], sourceFolder: string, outFolder: string, options: { context: vscode.ExtensionContext, cache: string, converterOptions: any }) {
     for (const file of files) {
+      channel.log(`  => ${file}`);
       const lodLevels = Math.max(0, Math.min(9, options.converterOptions.lods || 3));
       const sourceFile = path.join(sourceFolder, file);
-      channel.log(`convert with ${lodLevels||'no'} LODs ${sourceFile}`);
 
       try {
         if (!fs.existsSync(path.dirname(path.join(outFolder, file)))) {
@@ -43,21 +43,21 @@ export class TextureConverter {
         dds.convertToTexture(sourceFile, tmpFilePath);
         // unfortunately, texconv doesn't allow to change the output file name
         fs.renameSync(path.join(tmpFilePath, basename + '.dds'), lodFilePaths[0]);
+        channel.log(`  <= LOD ${0}: ${path.relative(path.dirname(file), path.relative(outFolder, lodFilePaths[0]))}`);
 
         // generate lods by reading out previous .dds mipmaps
         if (lodFilePaths.length > 1) {
-          this._extractLodsFromDds(lodFilePaths.shift() as string, lodFilePaths);
+          this._extractLodsFromDds(lodFilePaths.shift() as string, lodFilePaths, path.join(outFolder, path.dirname(file)));
         }
       }
       catch (exception: any)
       {
-        channel.error('error while converting: ' + sourceFile);
         channel.error(exception.message);
       }
     }
   }
 
-  private _extractLodsFromDds(source: string, targets: string[]) {
+  private _extractLodsFromDds(source: string, targets: string[], outFolder: string) {
     const texture = dds.Texture.fromFile(source);
     if (!texture) {
       return;
@@ -70,8 +70,8 @@ export class TextureConverter {
       // go one mipmap down
       mipmaps.shift();
       if (mipmaps.length === 0) {
-        channel.warn(`skip lod ${width} ${height} because of missing source mipmap`);
-        break; // no mipmaps available
+        channel.warn(`     LOD ${level + 1}: Skip LOD for ${width}x${height} because of missing source mipmap.`);
+        break; // no more mipmaps available
       }
       width = Math.floor((width + 1) / 2);
       height = Math.floor((height + 1) / 2);
@@ -80,6 +80,7 @@ export class TextureConverter {
         texture.getModifiedHeader(width, height, texture.mipmaps - level - 1), 
         ...texture.images
       ]));
+      channel.log(`  <= LOD ${level + 1}: ${path.relative(outFolder, targets[level])}`);
     }
   }
 }

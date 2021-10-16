@@ -2,6 +2,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as vscode from 'vscode';
 
+import * as channel from '../other/outputChannel';
+
 export class StaticConverter {
   public getName() {
     return 'static';
@@ -17,11 +19,11 @@ export class StaticConverter {
           fs.mkdirSync(path.dirname(targetFile), { recursive: true });
         }
         fs.copyFileSync(sourceFile, targetFile);
-        console.info(sourceFile);
+        channel.log(`  <> ${file}`);
       }
-      catch (exception)
+      catch (exception: any)
       {
-        console.warn('error while copying: ' + sourceFile);
+        channel.error(exception.message);
       }
     }
   }

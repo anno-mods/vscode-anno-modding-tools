@@ -111,11 +111,10 @@ export class ModCompiler {
     const outFolder = this._getOutFolder(filePath, modJson);
     const cacheFolder = path.join(path.dirname(filePath), '.modcache');
     
-    channel.log('source: ' + sourceFolder);
-    channel.log('out: ' + outFolder);
+    channel.log('target folder: ' + outFolder);
 
     if (!fs.existsSync(sourceFolder)) {
-      vscode.window.showErrorMessage('Incorrect source folder: ' + sourceFolder);
+      channel.error('Incorrect source folder: ' + sourceFolder);
       return;
     }
 
@@ -126,19 +125,19 @@ export class ModCompiler {
       const allFiles = entry.pattern ? glob.sync(entry.pattern, { cwd: sourceFolder, nodir: true }) : [];
       const converter = this.converters[entry.action];
       if (converter) {
-        channel.log(`Run ${entry.action} converter` + (entry.pattern?`: ${entry.pattern}`:''));
+        channel.log(`${entry.action}` + (entry.pattern?`: ${entry.pattern}`:''));
         await converter.run(allFiles, sourceFolder, outFolder, { context: this.context, cache: cacheFolder, modJson, converterOptions: entry });
       }
       else {
         channel.log('Error: no converter with name: ' + entry.action);
       }
     }
-    channel.log('done');
+    channel.log(`${this._getModName(filePath, modJson)} done`);
   }
 
   private _getOutFolder(filePath: string, modJson: any) {
     let outFolder = modJson.out;
-    outFolder = outFolder.replace('${modName}', '[' + modJson.modinfo?.Category?.English + '] ' + modJson.modinfo?.ModName?.English);
+    outFolder = outFolder.replace('${modName}', this._getModName(filePath, modJson));
     const uri = vscode.window.activeTextEditor?.document?.uri;
     const config = vscode.workspace.getConfiguration('anno', uri);
     outFolder = path.normalize(outFolder.replace('${annoMods}', config.get('modsFolder') || ""));
@@ -146,5 +145,12 @@ export class ModCompiler {
       outFolder = path.join(path.dirname(filePath), outFolder);
     }
     return outFolder;
+  }
+
+  private _getModName(filePath: string, modJson: any) {
+    if (!modJson.modinfo?.ModName?.English) {
+      return path.dirname(path.dirname(filePath));
+    }
+    return `[${modJson.modinfo?.Category?.English}] ${modJson.modinfo?.ModName?.English}`;
   }
 }
