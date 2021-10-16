@@ -13,7 +13,7 @@ export class TextureConverter {
   public async run(files: string[], sourceFolder: string, outFolder: string, options: { context: vscode.ExtensionContext, cache: string, converterOptions: any }) {
     for (const file of files) {
       channel.log(`  => ${file}`);
-      const lodLevels = Math.max(0, Math.min(9, options.converterOptions.lods || 3));
+      const lodLevels = Math.max(0, Math.min(9, options.converterOptions.lods === undefined ? 3 : options.converterOptions.lods));
       const sourceFile = path.join(sourceFolder, file);
 
       try {

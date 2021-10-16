@@ -41,7 +41,7 @@ export class GltfConverter {
         const dirname = path.dirname(file);
         const basename = path.basename(file, '.gltf');
 
-        const lodLevels = Math.max(1, Math.min(9, options.converterOptions.lods || 4));
+        const lodLevels = Math.max(1, Math.min(9, options.converterOptions.lods === undefined ? 4 : options.converterOptions.lods));
 
         for (let lodLevel = 0; lodLevel < lodLevels; lodLevel++) {
           const gltf = JSON.parse(fs.readFileSync(path.join(sourceFolder, file), 'utf8'));
