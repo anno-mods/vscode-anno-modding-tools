@@ -99,7 +99,7 @@ Including all GUIDs is too much for many reasons. New GUID types will be added i
 
 Press `F1` or right-click on `annomod.json` files to run `Build Anno Mod`.
 
-Example: [Sources on GitHub](https://github.com/jakobharder/anno-1800-jakobs-mods/tree/devel/vscode-anno-modding-tools), [Result as zip download](https://github.com/jakobharder/anno-1800-jakobs-mods/releases)
+Example: [Sources on GitHub](https://github.com/jakobharder/anno-1800-jakobs-mods/), [Result as zip download](https://github.com/jakobharder/anno-1800-jakobs-mods/releases)
 
 #### `annomod.json` Format
 
@@ -142,10 +142,13 @@ Converter actions:
 
 - `static`: copies files according to glob `pattern`.
 - `texture`: converts .pngs into .dds.
-  - `lods`: Number of LOD levels to generate, saved as `_0.dds` and so on. Set to 0 to disable LODs. Default is 3.
+  - `lods`: number of LOD levels to generate, saved as `_0.dds` and so on. Set to 0 to disable LODs. Default is 3.
+  - `changePath`: move texture to another folder, e.g. `maps`. Default is no change.
 - `cf7`: converts .cf7 into .fc
 - `gltf`: converts .gltf to .rdm. .glb is WIP
-  - `lods`: Number of LOD levels to pull out of .gltf files. Meshes must end with `_lod0` and so on to be considered. Set to 0 to disable LODs. Default is 4.
+  - `lods`: number of LOD levels to pull out of .gltf files. Meshes must end with `_lod0` and so on to be considered. Set to 0 to disable LODs. Default is 4.
+  - `changePath`: move model to another folder, e.g. `rdm`. Default is no change.
+  - `animPath`: move anim to another folder, e.g. `anim`. Default is no change.
 - `modinfo`: generate `modinfo.json`.
   - `content_en`: generate `content_en.txt` file with same content as `modinfo.Description.English`.
 

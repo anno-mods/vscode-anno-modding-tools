@@ -4,6 +4,7 @@ import * as vscode from 'vscode';
 
 import * as channel from '../other/outputChannel';
 import * as dds from '../other/dds';
+import * as utils from '../other/utils';
 
 export class TextureConverter {
   public getName() {
@@ -14,27 +15,24 @@ export class TextureConverter {
     for (const file of files) {
       channel.log(`  => ${file}`);
       const lodLevels = Math.max(0, Math.min(9, options.converterOptions.lods === undefined ? 3 : options.converterOptions.lods));
+      const changePath = options.converterOptions.changePath || '';
       const sourceFile = path.join(sourceFolder, file);
 
       try {
-        if (!fs.existsSync(path.dirname(path.join(outFolder, file)))) {
-          fs.mkdirSync(path.dirname(path.join(outFolder, file)), { recursive: true });
-        }
-        if (!fs.existsSync(path.dirname(path.join(options.cache, file)))) {
-          fs.mkdirSync(path.dirname(path.join(options.cache, file)), { recursive: true });
-        }
-
         const dirname = path.dirname(file);
         const basename = path.basename(file, '.png');
+
+        utils.ensureDir(path.join(outFolder, dirname, changePath));
+        utils.ensureDir(path.join(options.cache, dirname));
 
         const lodFilePaths = [];
         if (lodLevels === 0) {
           // lods disabled, don't change file name
-          lodFilePaths.push(path.join(outFolder, dirname, basename + '.dds'));
+          lodFilePaths.push(path.join(outFolder, dirname, changePath, basename + '.dds'));
         }
         else {
           for (let lodLevel = 0; lodLevel < lodLevels; lodLevel++) {
-            lodFilePaths.push(path.join(outFolder, dirname, basename + '_' + lodLevel + '.dds'));
+            lodFilePaths.push(path.join(outFolder, dirname, changePath, basename + '_' + lodLevel + '.dds'));
           }
         }
 
@@ -43,11 +41,11 @@ export class TextureConverter {
         dds.convertToTexture(sourceFile, tmpFilePath);
         // unfortunately, texconv doesn't allow to change the output file name
         fs.renameSync(path.join(tmpFilePath, basename + '.dds'), lodFilePaths[0]);
-        channel.log(`  <= LOD ${0}: ${path.relative(path.dirname(file), path.relative(outFolder, lodFilePaths[0]))}`);
+        channel.log(`  <= ${lodLevels ? `LOD ${0}: ` : ''}${path.relative(path.dirname(file), path.relative(outFolder, lodFilePaths[0]))}`);
 
         // generate lods by reading out previous .dds mipmaps
         if (lodFilePaths.length > 1) {
-          this._extractLodsFromDds(lodFilePaths.shift() as string, lodFilePaths, path.join(outFolder, path.dirname(file)));
+          this._extractLodsFromDds(lodFilePaths.shift() as string, lodFilePaths, path.join(outFolder, dirname));
         }
       }
       catch (exception: any)

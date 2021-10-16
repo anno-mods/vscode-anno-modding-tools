@@ -6,6 +6,7 @@ import * as child from 'child_process';
 import * as url from 'url';
 
 import * as channel from '../other/outputChannel';
+import * as utils from '../other/utils';
 
 interface IAnimation {
   name: string,
@@ -27,19 +28,18 @@ export class GltfConverter {
     const fakePngPath = options.context.asAbsolutePath("./images/fake.png");
     const fakePngUrl = new url.URL(`file:///${fakePngPath}`);
     const rdmPath = options.context.asAbsolutePath("./external/rdm4-bin.exe");
+    const changePath = options.converterOptions.changePath || '';
+    const animPath = options.converterOptions.animPath || '';
     
     for (const file of files) {
       channel.log(`  => ${file}`);
       try {
-        if (!fs.existsSync(path.dirname(path.join(outFolder, file)))) {
-          fs.mkdirSync(path.dirname(path.join(outFolder, file)), { recursive: true });
-        }
-        if (!fs.existsSync(path.dirname(path.join(options.cache, file)))) {
-          fs.mkdirSync(path.dirname(path.join(options.cache, file)), { recursive: true });
-        }
-
         const dirname = path.dirname(file);
         const basename = path.basename(file, '.gltf');
+
+        utils.ensureDir(path.join(outFolder, dirname, changePath));
+        utils.ensureDir(path.join(outFolder, dirname, animPath));
+        utils.ensureDir(path.join(options.cache, dirname));
 
         const lodLevels = Math.max(1, Math.min(9, options.converterOptions.lods === undefined ? 4 : options.converterOptions.lods));
         const lodDisabled = options.converterOptions.lods === 0;
@@ -80,7 +80,7 @@ export class GltfConverter {
               const tempAnimFile = path.join(options.cache, dirname, `${basename}_${anim.name}_anim.rdm`);
               const tempRdmFile = path.join(options.cache, dirname, `${basename}_${anim.name}.rdm`);
               const tempGlbFile = path.join(options.cache, dirname, `${basename}_${anim.name}.glb`);
-              const targetFile = path.join(outFolder, dirname, `${anim.name}.rdm`);
+              const targetFile = path.join(outFolder, dirname, animPath, `${anim.name}.rdm`);
 
               // we need a separate copy of gltf because the gltf-pipeline is modifying it
               // reading is easier than to do a deep copy
@@ -105,22 +105,22 @@ export class GltfConverter {
           }
 
           // convert
-          const lodname = path.join(dirname, basename + (lodDisabled ? '' : '_lod' + lodLevel));
-          const targetFile = path.join(outFolder, lodname + '.rdm');
+          const lodname = path.join(basename + (lodDisabled ? '' : '_lod' + lodLevel));
+          const targetFile = path.join(outFolder, dirname, changePath, lodname + '.rdm');
           if (!alreadyExportedModel) {
             // Animations are matched against the vertex groups by name.
             // Names are duplicated in case of multiple animations.
             // Clear them all out, otherwise rdm4 will complain about them.
             this._makeUniqueBoneNames(gltf, anims);
 
-            const tempGlbFile = path.join(options.cache, lodname + '.glb');
+            const tempGlbFile = path.join(options.cache, dirname, lodname + '.glb');
             await this._writeRdmFile(gltf, targetFile, tempGlbFile, resourceDirectory, rdmPath, meshIdx, useAnimation, useSkeleton);
             fs.rmSync(tempGlbFile);
           }
           else {
             fs.renameSync(alreadyExportedModel, targetFile);
           }
-          channel.log(`  <= ${lodDisabled ? '' : `LOD ${lodLevel}: `}${path.relative(dirname, lodname)}.rdm`);
+          channel.log(`  <= ${lodDisabled ? '' : `LOD ${lodLevel}: `}${path.relative(path.join(outFolder, dirname), targetFile)}`);
         }
       }
       catch (exception: any)

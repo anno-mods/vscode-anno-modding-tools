@@ -12,12 +12,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - replace Cesium glb/gltf conversion with much simpler https://github.com/najadojo/gltf-import-export
 - Right-click `Import Materials`. Reorders material list and fills some gaps.
 - support glTF binary in `gltf` converter
-- Option to move files to `maps`, `rdm` and `anim`
 
 ### Added
 
 - Show model animation in .cfg outline
 - Support animations in glTF conversion.
+- Option to move files to `maps`, `rdm` and `anim`
 
 ### Changed
 
