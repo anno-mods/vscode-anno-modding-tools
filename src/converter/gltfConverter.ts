@@ -77,7 +77,7 @@ export class GltfConverter {
           let alreadyExportedModel;
           if (useAnimation) {
             for (let anim of anims) {
-              const tempAnimFile = path.join(options.cache, dirname, `${basename}_${anim.name}_anim.rdm`);
+              const tempAnimFile = path.join(options.cache, dirname, `${basename}_${anim.name}_anim_0.rdm`);
               const tempRdmFile = path.join(options.cache, dirname, `${basename}_${anim.name}.rdm`);
               const tempGlbFile = path.join(options.cache, dirname, `${basename}_${anim.name}.glb`);
               const targetFile = path.join(outFolder, dirname, animPath, `${anim.name}.rdm`);
