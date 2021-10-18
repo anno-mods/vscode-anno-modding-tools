@@ -91,11 +91,11 @@
     "commands": [
       {
         "command": "anno-modding-tools.convertFcCf7",
-        "title": "Convert to Anno .cf7"
+        "title": "Convert to CF7"
       },
       {
         "command": "anno-modding-tools.convertCf7Fc",
-        "title": "Convert to Anno .fc"
+        "title": "Convert to FC"
       },
       {
         "command": "anno-modding-tools.pngToDds",

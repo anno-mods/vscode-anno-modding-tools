@@ -79,6 +79,7 @@ export class Rdp {
   
       const expectedReaderFile = path.join(dirname, basename) + '_fc_i.xml';
       const xmlString = fs.readFileSync(expectedReaderFile, 'utf8').toString();
+      fs.rmSync(expectedReaderFile);
       const content = (await xml2js.parseStringPromise(xmlString, { explicitArray : false })).Content;
       return new Rdp(content);
 
@@ -220,21 +221,24 @@ export class Rdp {
   }
 }
 
-export async function rdpToXml(sourceFile: string, targetFolder: string, simplify: boolean) {
+export async function rdpToXml(sourceFile: string, targetFolder: string, options?: { simplify?: boolean, dontOverwrite: boolean }) {
   const rdp = await Rdp.fromRdp(sourceFile);
   if (!rdp) {
     return false;
   }
 
-  if (simplify) {
+  if (options?.simplify) {
     rdp.simplify();
   }
 
-  const targetFile = path.join(targetFolder, path.basename(sourceFile)) + '.xml';
+  let targetFile = path.join(targetFolder, path.basename(sourceFile)) + '.xml';
+  if (options?.dontOverwrite) {
+    targetFile = utils.dontOverwrite(targetFile, '.rdp.xml');
+  }
   rdp.writeXml(targetFile);
 }
 
-export async function xmlToRdp(sourceFile: string, targetFolder: string) {
+export async function xmlToRdp(sourceFile: string, targetFolder: string, options?: { dontOverwrite: boolean }) {
   const xmlString = fs.readFileSync(sourceFile, 'utf8').toString();
   const content = (await xml2js.parseStringPromise(xmlString, { explicitArray : false })).Content;
   const rdp = Rdp.fromObject(content);
@@ -243,7 +247,10 @@ export async function xmlToRdp(sourceFile: string, targetFolder: string) {
     rdp.complicate();
   }
 
-  const targetFile = path.join(targetFolder, path.basename(sourceFile, '.xml'));
+  let targetFile = path.join(targetFolder, path.basename(sourceFile, '.xml'));
+  if (options?.dontOverwrite) {
+    targetFile = utils.dontOverwrite(targetFile, '.rdp');
+  }
   await rdp.writeRdp(targetFile);
 }
 

@@ -1,18 +1,23 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as dds from '../other/dds';
+import * as utils from '../other/utils';
 
 export class DdsConverter {
 	public static register(context: vscode.ExtensionContext): vscode.Disposable[] {
     const disposable = [
       vscode.commands.registerCommand('anno-modding-tools.pngToDds', (fileUri) => {
         if (fileUri) {
-          dds.convertToTexture(fileUri.fsPath, path.dirname(fileUri.fsPath));
+          utils.dontOverwriteFolder(fileUri.fsPath, '.png', '.dds', (source, targetFolder) => {
+            dds.convertToTexture(source, targetFolder);
+          });
         }
       }),
       vscode.commands.registerCommand('anno-modding-tools.ddsToPng', (fileUri) => {
         if (fileUri) {
-          dds.convertToImage(fileUri.fsPath, path.dirname(fileUri.fsPath));
+          utils.dontOverwriteFolder(fileUri.fsPath, '.dds', '.png', (source, targetFolder) => {
+            dds.convertToImage(source, targetFolder);
+          });
         }
       })
     ];

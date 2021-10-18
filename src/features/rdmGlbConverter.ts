@@ -2,6 +2,9 @@ import * as vscode from 'vscode';
 import * as child from 'child_process';
 import * as path from 'path';
 
+import * as channel from '../other/outputChannel';
+import * as utils from '../other/utils';
+
 /*
 uses rdm4-bin from https://github.com/lukts30/rdm4
 */
@@ -15,17 +18,13 @@ export class RdmGlbConverter {
           try {
             const sourceFile = fileUri.fsPath;
             const res = child.execFileSync(rdmPath, [
-              '-n',
-              '-o',
-              path.dirname(sourceFile),
-              '-i', 
-              sourceFile        
+              '-i', sourceFile,       
+              '-o', utils.dontOverwrite(utils.swapExtension(sourceFile, '.rdm', '.glb'), '.glb')
             ]);
           }
           catch (exception: any)
           {
-            console.warn('error while converting: ' + fileUri.fsPath);
-            console.log(exception.message);
+            channel.error(exception.message);
           }
         }
       }),
