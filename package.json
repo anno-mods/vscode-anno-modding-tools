@@ -2,7 +2,7 @@
   "name": "anno-modding-tools",
   "displayName": "Anno Modding Tools",
   "description": "Modding tools for Anno 1800",
-  "version": "0.2.0",
+  "version": "0.3.0-alpha",
   "publisher": "JakobHarder",
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
     "onCommand:anno-modding-tools.importProps",
     "onCommand:anno-modding-tools.importInfo",
     "onCommand:anno-modding-tools.convertRdmToGlb",
+    "onCommand:anno-modding-tools.convertToRdpYaml",
     "workspaceContains:**/assets.xml",
     "onLanguage:xml"
   ],
@@ -119,6 +120,18 @@
       {
         "command": "anno-modding-tools.convertRdmToGlb",
         "title": "Convert to glTF Binary"
+      },
+      {
+        "command": "anno-modding-tools.rdpToXml",
+        "title": "Convert to RDP XML (CDATA as is)"
+      },
+      {
+        "command": "anno-modding-tools.rdpToSimplified",
+        "title": "Convert to RDP XML (simplified)"
+      },
+      {
+        "command": "anno-modding-tools.xmlToRdp",
+        "title": "Convert to RDP"
       }
     ],
     "menus": {
@@ -152,6 +165,18 @@
           "command": "anno-modding-tools.convertRdmToGlb"
         },
         {
+          "when": "resourceExtname == .rdp",
+          "command": "anno-modding-tools.rdpToXml"
+        },
+        {
+          "when": "resourceExtname == .rdp",
+          "command": "anno-modding-tools.rdpToSimplified"
+        },
+        {
+          "when": "resourceFilename =~ /.rdp.xml$/",
+          "command": "anno-modding-tools.xmlToRdp"
+        },
+        {
           "when": "resourceFilename == annomod.json",
           "command": "anno-modding-tools.buildMod"
         }
@@ -169,13 +194,13 @@
           "type": "number",
           "default": 0,
           "minimum": 0,
-          "markdownDescription": "Folder depth of props, materials and alike shown .cfg outline." 
+          "markdownDescription": "Folder depth of props, materials and alike shown .cfg outline."
         }
       }
     }
   },
   "scripts": {
-    "vscode:prepublish": "npm run assets && webpack --mode production",
+    "vscode:prepublish": "webpack --mode production",
     "compile": "webpack --mode none",
     "watch": "webpack --mode none --watch",
     "pretest": "npm run compile && npm run lint",

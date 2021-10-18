@@ -12,6 +12,15 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - replace Cesium glb/gltf conversion with much simpler https://github.com/najadojo/gltf-import-export
 - Right-click `Import Materials`. Reorders material list and fills some gaps.
 - support glTF binary in `gltf` converter
+- Don't overwrite files with `Convert to ..` context menu commands
+- FC GUID hover
+- Details for feedback definition
+
+### Added
+
+- Right-click `Convert to RDP XML` from `.rdp`
+- Right-click `Convert to RDP` from `.rdp.xml`
+- `rdpxml` converter for building from RDP XML
 
 ## [0.2.0]
 

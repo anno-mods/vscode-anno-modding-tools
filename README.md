@@ -11,12 +11,16 @@ Anno 1800 is a trademark of Ubisoft Entertainment in the US and/or other countri
 - Command `F1` > `Build Anno Mod`: build project using `annomod.json` description.
   - PNG to DDS conversion with LOD generation
   - glTF to RDM conversion with LOD and [animation](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-models.md) extraction
+  - RDP XML to RDP conversion ([particles](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-particles.md))
+- Hover info and auto-conversion for Anno GUIDs.
 - Anno-specific outlines: `.cfg`, `.ifo`, `.cf7`
 - Anno-specific syntax highlighting: `.cfg`, `.ifo`, `.cf7`
 - Right-click `Import from glTF` (targets: `.cfg`, `.ifo`)
-- Right-click `Convert to Anno .cf7`, `Convert to Anno .fc`
-- Right-click `Convert to glTF Binary` from `.rdm`
-- Hover info and auto-conversion for GUIDs.
+- Right-click `Convert to` menus
+  - AnnoFCConverter `.cf7` to/from `.fc`
+  - rdm4 `.rdm` to glTF Binary
+  - FileDBReader `.rdp` to/from `.rdp.xml` CDATA as is and simplified
+  - texconv `.dds` to `.png`
 
 ### GUID Hover and Auto-conversion Preview
 
@@ -66,18 +70,25 @@ A big thanks goes to the external projects I'm using for this extension:
 
 - AnnoFCConverter - https://github.com/taubenangriff/AnnoFCConverter/
 - rdm4 - https://github.com/lukts30/rdm4
+- FileDBReader - https://github.com/anno-mods/FileDBReader
 - texconv - https://github.com/microsoft/DirectXTex
 - gltf-pipeline - https://github.com/CesiumGS/gltf-pipeline
 
 ## Release Notes
 
-### 0.2.0
+### 0.3.0
 
-Animations!
+Particle animations!
 
 See [CHANGELOG](./CHANGELOG.md)
 
 ## Feature Details
+
+* [Import from glTF](#import-from-gltf)
+* [GUID Hover and Auto-correct](#guid-hover-and-auto-correct)
+* [Build Anno Mod](#build-anno-mod)
+* [Working with Models](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-models.md)
+* [Working with Particles](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-particles.md)
 
 ### Import from glTF
 
@@ -105,8 +116,6 @@ Press `F1` or right-click on `annomod.json` files to run `Build Anno Mod`.
 
 Example: [Sources on GitHub](https://github.com/jakobharder/anno-1800-jakobs-mods/), [Result as zip download](https://github.com/jakobharder/anno-1800-jakobs-mods/releases)
 
-Notes on animations: [Working with Models](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-models.md)
-
 #### `annomod.json` Format
 
 ```json
@@ -117,10 +126,6 @@ Notes on animations: [Working with Models](https://github.com/anno-mods/vscode-a
     {
       "action": "static",
       "pattern": "**/*.{cfg,ifo,prp,fc,rdm,dds}"
-    },
-    {
-      "action": "static",
-      "pattern": "{data/config/**/*,**/icons/*.png,banner.png,README.md}"
     },
     {
       "action": "cf7",
@@ -150,13 +155,14 @@ Converter actions:
 - `texture`: converts .pngs into .dds.
   - `lods`: number of LOD levels to generate, saved as `_0.dds` and so on. Set to 0 to disable LODs. Default is 3.
   - `changePath`: move texture to another folder, e.g. `maps`. Default is no change.
-- `cf7`: converts .cf7 into .fc
-- `gltf`: converts .gltf to .rdm. .glb is WIP
+- `cf7`: converts .cf7 into .fc (using [AnnoFCConverter](https://github.com/taubenangriff/AnnoFCConverter/))
+- `gltf`: converts .gltf to .rdm. (using [rdm4](https://github.com/lukts30/rdm4))
   - `lods`: number of LOD levels to pull out of .gltf files. Meshes must end with `_lod0` and so on to be considered. Set to 0 to disable LODs. Default is 4.
   - `changePath`: move model to another folder, e.g. `rdm`. Default is no change.
   - `animPath`: move anim to another folder, e.g. `anim`. Default is no change.
 - `modinfo`: generate `modinfo.json`.
   - `content_en`: generate `content_en.txt` file with same content as `modinfo.Description.English`.
+- `rdpxml`: convert .rdp.xml into .rdp (using [FileDBReader](https://github.com/anno-mods/FileDBReader) and custom post-processing)
 
 Out folder variables:
 
@@ -165,5 +171,5 @@ Out folder variables:
 
 Modinfo:
 
-- Basically Anno Mod Manager modinfo.json content.
+- Basically Anno Mod Manager [modinfo.json](https://github.com/anno-mods/Modinfo) content.
 - `modinfo.Description` differs from what the Anno Mod Manager uses. Instead of text use a relative path to a Markdown file. Images will be excluded from the Markdown.

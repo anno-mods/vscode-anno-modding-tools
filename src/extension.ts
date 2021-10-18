@@ -1,13 +1,15 @@
 import * as vscode from 'vscode';
 import CfgDocumentSymbolProvider from './features/cfgSymbolProvider';
+import { registerGuidUtilsProvider } from './features/guidUtilsProvider';
 import { FcConverter } from './features/fcConverter';
 import { DdsConverter } from './features/ddsConverter';
 import { ModCompiler } from './features/modCompiler';
 import { PropImporter } from './features/propImporter';
 import { InfoImporter } from './features/infoImporter';
 import { RdmGlbConverter } from './features/rdmGlbConverter';
-import { registerGuidUtilsProvider } from './features/guidUtilsProvider';
+import { RdpConverter } from './features/rdpConverter';
 import * as dds from './other/dds';
+import * as rdp from './other/rdp';
 
 export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(registerCfgLanguageFeatures('anno-cfg'));
@@ -20,7 +22,9 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(...InfoImporter.register(context));
 	context.subscriptions.push(...RdmGlbConverter.register(context));
 	context.subscriptions.push(...registerGuidUtilsProvider(context));
+	context.subscriptions.push(...RdpConverter.register(context));
 
+	rdp.init(context.asAbsolutePath('./external/'));
 	dds.init(context.asAbsolutePath('./external/'));
 }
 

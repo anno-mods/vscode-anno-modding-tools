@@ -8,6 +8,7 @@ import { Cf7Converter } from '../converter/cf7Converter';
 import { TextureConverter } from '../converter/textureConverter';
 import { GltfConverter } from '../converter/gltfConverter';
 import { ModinfoConverter } from '../converter/modinfoConverter';
+import { RdpxmlConverter } from '../converter/rdpxmlConverter';
 
 import * as channel from '../other/outputChannel';
 
@@ -78,6 +79,7 @@ export class ModCompiler {
     compiler.addConverter(new TextureConverter());
     compiler.addConverter(new GltfConverter());
     compiler.addConverter(new ModinfoConverter());
+    compiler.addConverter(new RdpxmlConverter());
 
     channel.show();
     for (const mod of selectedMods) {
