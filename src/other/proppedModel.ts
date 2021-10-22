@@ -45,9 +45,18 @@ export const PROPCONTAINER_DEFAULTS = {
   VariationProbability: 100
   /* eslint-enable @typescript-eslint/naming-convention */
 };
+interface IFeedback {
+  /* eslint-disable @typescript-eslint/naming-convention */
+  Position: { x: number, y: number, z: number },
+  Orientation: { x: number, y: number, z: number, w: number },
+  RotationY: string,
+  Name: string
+  /* eslint-enable @typescript-eslint/naming-convention */
+}
 
 type IPropMap = { [index: string]: IProp };
 type IParticleMap = { [index: string]: IParticle };
+type IFeedbackMap = { [index: string]: IFeedback };
 
 function dataUriToBuffer(dataUri: any) {
   const data = dataUri.slice(dataUri.indexOf(",") + 1);
@@ -95,6 +104,7 @@ function buildArrayBuffer<T extends ArrayLike<number>>(typedArray: any, data: Ar
 export default class ProppedModel {
   private readonly props: IPropMap;
   private readonly particles: IParticleMap;
+  private readonly feedbacks: IFeedbackMap;
   private readonly gltf: any;
   private readonly resourceFolder: string;
 
@@ -104,6 +114,7 @@ export default class ProppedModel {
     const gltf = JSON.parse(fs.readFileSync(filePath, 'utf8'));
     const props: IPropMap = { };
     const particles: IParticleMap = { };
+    const feedbacks: IFeedbackMap = { };
     for (let node of gltf.nodes) {
       if (node.name.startsWith('prop_')) {
         const meshName = gltf.meshes[node.mesh].name.replace(/\.\d\d\d$/, '');
@@ -132,10 +143,31 @@ export default class ProppedModel {
           /* eslint-enable @typescript-eslint/naming-convention */
         };
       }
+      if (node.name.startsWith('fc_')) {
+        const rotation = node.rotation || [0, 0, 0, 1];
+        const quart = {
+          x: rotation[0].toFixed(6), 
+          y: rotation[1].toFixed(6), 
+          z: rotation[2].toFixed(6),
+          w: rotation[3].toFixed(6)
+        };
+        feedbacks[node.name] = {
+          /* eslint-disable @typescript-eslint/naming-convention */
+          Position: {
+            x: node.translation[0].toFixed(6),
+            y: node.translation[1].toFixed(6),
+            z: node.translation[2].toFixed(6),
+          },
+          Orientation: quart,
+          RotationY: _toRotation(quart).toFixed(6),
+          Name: node.name
+          /* eslint-enable @typescript-eslint/naming-convention */
+        };
+      }
     }
 
     const resourceFolder = path.dirname(filePath);
-    return new ProppedModel(gltf, props, particles, resourceFolder);
+    return new ProppedModel(gltf, props, particles, feedbacks, resourceFolder);
   }
 
   public getProps(): IProp[] {
@@ -152,6 +184,14 @@ export default class ProppedModel {
 
   public getParticle(name: string): IParticle {
     return this.particles[name];
+  }
+
+  public getFeedbacks(): IFeedback[] {
+    return Object.values(this.feedbacks);
+  }
+
+  public getFeedback(name: string): IFeedback {
+    return this.feedbacks[name];
   }
 
   public getBuildBlocker() {
@@ -203,10 +243,11 @@ export default class ProppedModel {
     };
   }
 
-  private constructor(gltf: any, props: IPropMap, particles: IParticleMap, resourceFolder: string) {
+  private constructor(gltf: any, props: IPropMap, particles: IParticleMap, feedbacks: IFeedbackMap, resourceFolder: string) {
     this.gltf = gltf;
     this.props = props;
     this.particles = particles;
+    this.feedbacks = feedbacks;
     this.resourceFolder = resourceFolder;
   }
 
@@ -264,4 +305,9 @@ export default class ProppedModel {
 
     return this.groundVertices;
   }
+}
+
+function _toRotation(q: { w: number, x: number, y: number, z: number }) {
+  const acos = 2 * Math.acos(q.w);
+  return q.y > 0 ? Math.PI * 2 - acos : acos;
 }

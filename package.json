@@ -118,6 +118,10 @@
         "title": "Import from glTF"
       },
       {
+        "command": "anno-modding-tools.importFeedback",
+        "title": "Import from glTF"
+      },
+      {
         "command": "anno-modding-tools.convertRdmToGlb",
         "title": "Convert to glTF Binary"
       },
@@ -159,6 +163,10 @@
         {
           "when": "resourceLangId == anno-ifo",
           "command": "anno-modding-tools.importInfo"
+        },
+        {
+          "when": "resourceLangId == anno-cf7",
+          "command": "anno-modding-tools.importFeedback"
         },
         {
           "when": "resourceExtname == .rdm",

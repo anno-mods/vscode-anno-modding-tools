@@ -8,6 +8,7 @@ import { PropImporter } from './features/propImporter';
 import { InfoImporter } from './features/infoImporter';
 import { RdmGlbConverter } from './features/rdmGlbConverter';
 import { RdpConverter } from './features/rdpConverter';
+import { FcImporter } from './features/fcImporter';
 import * as dds from './other/dds';
 import * as rdp from './other/rdp';
 
@@ -23,6 +24,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(...RdmGlbConverter.register(context));
 	context.subscriptions.push(...registerGuidUtilsProvider(context));
 	context.subscriptions.push(...RdpConverter.register(context));
+	context.subscriptions.push(...FcImporter.register(context));
 
 	rdp.init(context.asAbsolutePath('./external/'));
 	dds.init(context.asAbsolutePath('./external/'));
