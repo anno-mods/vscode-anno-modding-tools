@@ -69,7 +69,7 @@ export class Rdp {
       const basename = path.basename(sourceFile, '.rdp');
   
       const res = child.execFileSync(_converterPath, [
-        'fctohex_interpret',
+        'fctohex',
         '-f', sourceFile, 
         '-i', _interpreterPath as string
       ]);
@@ -77,7 +77,7 @@ export class Rdp {
         channel.log(res.toString());
       }
   
-      const expectedReaderFile = path.join(dirname, basename) + '_fc_i.xml';
+      const expectedReaderFile = path.join(dirname, basename) + '_fcimport.xml';
       const xmlString = fs.readFileSync(expectedReaderFile, 'utf8').toString();
       fs.rmSync(expectedReaderFile);
       const content = (await xml2js.parseStringPromise(xmlString, { explicitArray : false })).Content;
@@ -192,7 +192,7 @@ export class Rdp {
       this.writeXml(tempname);
   
       const res = child.execFileSync(_converterPath, [
-        'hextofc_export',
+        'hextofc',
         '-f', tempname, 
         '-i', _interpreterPath as string
       ]);
@@ -200,7 +200,7 @@ export class Rdp {
         channel.log(res.toString());
       }
   
-      const expectedReaderFile = targetFile + '-temp_fc_e.xml';
+      const expectedReaderFile = targetFile + '-temp_fcexport.xml';
       fs.renameSync(expectedReaderFile, targetFile);
 
       fs.rmSync(tempname);
