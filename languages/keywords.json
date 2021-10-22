@@ -1,0 +1,17 @@
+{
+  "ResidenceUpgrade": [ 
+    "Known tags: `TaxModifierInPercent`, `AdditionalHappiness`, `NeedProvideNeedUpgrade`, `WorkforceModifierInPercent`, `GoodConsumptionUpgrade`"
+  ],
+  "NeedProvideNeedUpgrade": [
+    "Substitute consumption products.\n\nContent: `<Item><ProvidedNeed /><SubstituteNeed /></Item>`"
+  ],
+  "GoodConsumptionUpgrade": [
+    "Reduce consumption needs.\n\nContent: `<Item><ProvidedNeed /><AmountInPercent /></Item>`"
+  ],
+  "UpgradeList": [
+    "Use this to apply buffs to this building. Especially useful for alternative resident buildings.\n\nKnown tags: `DefaultBuff`"
+  ],
+  "UpgradeCost": [
+    "Content: `<Item><Ingredient /><Amount /></Item>`"
+  ]
+}

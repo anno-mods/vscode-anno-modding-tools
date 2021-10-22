@@ -8,7 +8,9 @@ const _TAGS_TO_COMPLETE: { [index: string]: string[] } = {
   'Product': [ 'Product' ],
   'ItemLink': [ 'GuildhouseItem', 'HarborOfficeItem', 'TownhallItem', 'CultureItem', 'VehicleItem' ],
   'Good': [ 'Product' ], // TODO and items?
-  'GUID': [ '*' ]
+  'GUID': [ '*' ],
+  'ProvidedNeed': [ 'Product' ],
+  'SubstituteNeed': [ 'Product' ],
   /* eslint-enable @typescript-eslint/naming-convention */
 };
 
@@ -130,8 +132,20 @@ async function loadVanillaAssets(context: vscode.ExtensionContext) {
   return _vanillaAssets;
 }
 
+
+let _keywordHelp: { [index: string]: string[] } | undefined = undefined;
+async function loadKeywordHelp(context: vscode.ExtensionContext) {
+  if (!_keywordHelp) {
+    const assetPath = context.asAbsolutePath('./languages/keywords.json');
+    _keywordHelp = JSON.parse(fs.readFileSync(assetPath, { encoding: 'utf8' }));
+  }
+
+  return _keywordHelp;
+}
+
 export function registerGuidUtilsProvider(context: vscode.ExtensionContext): vscode.Disposable[] {
   loadVanillaAssets(context);
+  loadKeywordHelp(context);
 
 	return [
     vscode.Disposable.from(vscode.languages.registerHoverProvider({ language: 'xml', pattern: '**/assets.xml' }, { provideHover })), 
@@ -149,6 +163,16 @@ function provideCompletionItems(document: vscode.TextDocument, position: vscode.
 }
 
 function provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken) {
+  const word = document.getWordRangeAtPosition(position);
+  if (word && _keywordHelp) {
+    const text = document.lineAt(word.start.line).text.substr(word.start.character, word.end.character - word.start.character);
+    console.log(text);
+    const keywordHelp = _keywordHelp[text];
+    if (keywordHelp) {
+      return { contents: keywordHelp };
+    }
+  }
+
   const value = getValueAt(document.lineAt(position).text, position.character);
   if (!value) {
     return undefined;
