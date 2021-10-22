@@ -227,10 +227,12 @@
     "webpack-cli": "^4.9.0"
   },
   "dependencies": {
+    "@types/js-yaml": "^4.0.3",
     "dxt-js": "^0.0.3",
     "glob": "^7.2.0",
     "gltf-import-export": "^1.0.18",
     "gltf-pipeline": "^3.0.4",
+    "js-yaml": "^4.1.0",
     "xml2js": "^0.4.23",
     "xmldoc": "^1.1.2"
   }
