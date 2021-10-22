@@ -1,10 +1,21 @@
 import * as fs from 'fs';
 import * as xmldoc from 'xmldoc';
 
+import * as channel from '../other/outputChannel';
+
 type INodeMap = { [index: string]: xmldoc.XmlElement };
 
 // lazy implementation of what I needed
 // this needs some clean up and tests!
+
+function _unquote(text: string) {
+  const unquoted = text.trim();
+  if ((unquoted.startsWith('\'') && unquoted.endsWith('\'')) ||
+  (unquoted.startsWith('\"') && unquoted.endsWith('\"'))) {
+    return unquoted.substring(1, unquoted.length - 1);
+  }
+  return unquoted;
+}
 
 class XPathCondition {
   readonly tag: string;
@@ -13,13 +24,7 @@ class XPathCondition {
     const split = condition.split('=');
     this.tag = split[0].trim();
     if (split.length > 0) {
-      const value = split[1].trim();
-      if (value.startsWith('\'') && value.endsWith('\'')) {
-        this.value = value.substr(1, value.length - 2);
-      }
-      else {
-        this.value = value;
-      }
+      this.value = _unquote(split[1]);
     }
     else {
       this.value = '';
@@ -65,12 +70,110 @@ class XPath {
   }
 }
 
+export class AnnoXmlElement {
+  private _element: xmldoc.XmlElement;
+
+  public constructor(element: xmldoc.XmlElement) {
+    this._element = element;
+  }
+
+  public get(path: string, options?: { silent: boolean }): AnnoXmlElement | undefined {
+    let originalPath = path.slice();
+    if (!path.startsWith('//')) {
+      if (path.startsWith('/')) {
+        path = '/' + path;
+      }
+      else {
+        path = '//' + path;
+      }
+    }
+    
+    let history: string[] = [];
+
+    let found: xmldoc.XmlElement | undefined = undefined;
+    const candidates: { nodes: XPathNode[], element: xmldoc.XmlElement, history: string[] }[] = [
+      {
+        nodes: new XPath(path.substr(2)).nodes,
+        element: this._element,
+        history: []
+      }
+    ];      
+
+    while (candidates.length > 0) {
+      const candidate = candidates.pop() as { nodes: XPathNode[], element: xmldoc.XmlElement, history: string[] }; // never is undefined
+      const remainder = candidate.nodes.slice(); // make a copy
+      const next = remainder.shift();
+      if (!next) {
+        found = candidate.element;
+        break;
+      }
+      const children = candidate.element.childrenNamed(next.tag);
+      for (let child of children) {
+
+        let conditionsMet = true;
+        for (let condition of next.conditions) {
+          if ((child.childNamed(condition.tag)?.firstChild as xmldoc.XmlTextNode)?.text !== condition.value) {
+            conditionsMet = false;
+            break;
+          }
+        }
+        if (conditionsMet) {
+          candidates.push({
+            nodes: remainder,
+            element: child,
+            history: [...candidate.history, next.toString()]
+          });
+        }
+      }
+
+      if (history.length - 1 < candidate.history.length) {
+        history = [...candidate.history, next.toString()];
+      }
+    }
+    if (!found) {
+      if (!options?.silent) {
+        channel.warn(`cannot find element //${history.join('/')}`);
+        if (!originalPath.startsWith('//')) {
+          channel.warn(`${originalPath} was considered as ${path}`);
+        }
+      }
+      return undefined;
+    }
+    return new AnnoXmlElement(found);
+  }
+
+  public set(values: any) {
+    const coord = [ 'x', 'y', 'z', 'w'];
+
+    for (let key of Object.keys(values)) {
+      const value = values[key];
+      if (Array.isArray(value)) {
+        const numbers = value as number[];
+        for (let i = 0; i < Math.min(4, numbers.length); i++) {
+          _setXmlElementVal(this._element, key + '.' + coord[i], numbers[i].toFixed(6).toString());
+        }
+      }
+      else if (value !== undefined) {
+        if (typeof value === 'string' || typeof value === 'number') {
+          _setXmlElementVal(this._element, key, value.toString());
+        }
+        else {
+          console.error('trying to write an object');
+        }
+      }
+      else {
+        // skip undefined values
+      }
+    }
+  }
+}
+
 export default class AnnoXml {
   private xml: xmldoc.XmlDocument;
   private nodes: INodeMap;
 
   public static fromFile(filePath: string) {
-    const xml = new xmldoc.XmlDocument(fs.readFileSync(filePath, 'utf8').toString());
+    const xml = new xmldoc.XmlDocument('<root>\n' + fs.readFileSync(filePath, 'utf8').toString() + '\n</root>');
 
     const nodes: INodeMap = {};
     AnnoXml._scanNodes(xml, nodes);
@@ -85,7 +188,7 @@ export default class AnnoXml {
     if (!node && optionsInsert) {
       const parent = this._firstNode(optionsInsert);
       if (parent) {
-        node = this._createXmlElement(parent, 'Config');
+        node = _createXmlElement(parent, 'Config');
         newNode = true;
       }
       else {
@@ -112,7 +215,7 @@ export default class AnnoXml {
       parent.lastChild = null;
       // refill
       for (let value of values) {
-        const node = this._createXmlElement(parent, name);
+        const node = _createXmlElement(parent, name);
         this._setValue(node, value);
       }
     }
@@ -122,17 +225,18 @@ export default class AnnoXml {
   }
 
   public set(xpath: string, values: any) {
-    const node = this._getNode(xpath);
-    if (!node) {
-      // TODO create?
-      return;
+    const element = this.get(xpath);
+    if (!element) {
+      return false;
     }
 
-    this._setValue(node, values);
+    element.set(values);
+    return true;
   }
 
   public toString(): string {
-    return this.xml.toString({ compressed: true, preserveWhitespace: true, html: true });
+    const xmlString = this.xml.toString({ compressed: true, preserveWhitespace: true, html: true });
+    return xmlString.substr('<root>\n'.length, xmlString.length - '<root>\n'.length * 2 - 1);
   }
 
   public getPropNames() {
@@ -167,7 +271,7 @@ export default class AnnoXml {
         }
         else {
           // just as last child
-          node = this._setXmlElementVal(parent, pathElements[i], '');
+          node = _setXmlElementVal(parent, pathElements[i], '');
         }
 
         if (node && inserts[i]?.defaults) {
@@ -210,74 +314,9 @@ export default class AnnoXml {
     return node;
   }
 
-  private _getNode(path: string) {
-    const xpath = new XPath(path).nodes;
-    let history = '/Config';
-    xpath.shift(); // skip /
-    xpath.shift(); // skip Config
-
-    let node: xmldoc.XmlElement | undefined = this.xml;
-    while (xpath.length > 0 && node) {
-      let xpathNode = xpath.shift() as XPathNode;
-      history += '/' + xpathNode.toString();
-      const children = node.childrenNamed(xpathNode.tag);
-
-      if (children.length === 0) {
-        break;
-      }
-      else if (xpathNode.conditions === undefined) {
-        node = children[0];
-      }
-      else {
-        node = undefined;
-        for (let child of children) {
-          let conditionsMet = true;
-          for (let condition of xpathNode.conditions) {
-            if ((child.childNamed(condition.tag)?.firstChild as xmldoc.XmlTextNode)?.text !== condition.value) {
-              conditionsMet = false;
-              break;
-            }
-          }
-          if (conditionsMet) {
-            node = child;
-            break;
-          }
-        }
-      }
-    }
-    if (!node) {
-      console.warn(`cannot find element ${history}`);
-    }
-    return node;
-  }
-
-  private _createXmlElement(parent: xmldoc.XmlElement, tag: string, value?: string): xmldoc.XmlElement {
-    // TODO now this is hacky, I definitely need to just directly use sax instead of xmldoc
-    const template = new xmldoc.XmlDocument(`<xml> <${tag}>${value||''}</${tag}>\n</xml>`);
-    const indentation = template.children[0] as xmldoc.XmlTextNode;
-    const node = template.children[1] as xmldoc.XmlElement;
-    const linebreak = template.children[2] as xmldoc.XmlTextNode;
-
-    // parent.column is where the tag ends, a bit odd...
-    const column = parent.column - (parent.position - parent.startTagPosition + 1);
-
-    indentation.text = '  ';
-    linebreak.text = linebreak.text + ' '.repeat(column);
-    if (parent.children.length <= 1) {
-      // start with line break
-      indentation.text = '\n' + ' '.repeat(column + 2);
-      linebreak.text = '\n' + ' '.repeat(column);
-    }
-    node.column = column + tag.length + 2;
-    node.position = tag.length;
-    node.startTagPosition = 1;
-
-    parent.children.push(indentation);
-    parent.children.push(node);
-    parent.children.push(linebreak);
-    parent.firstChild = parent.children[0];
-    parent.lastChild = parent.children[parent.children.length - 1];
-    return node;
+  public get(path: string, options?: { silent: boolean }) {
+    const doc = new AnnoXmlElement(this.xml as xmldoc.XmlElement);
+    return doc.get(path, options);
   }
 
   private _insertAfterXmlElement(parent: xmldoc.XmlElement, relative: xmldoc.XmlElement, tag: string) {
@@ -301,17 +340,6 @@ export default class AnnoXml {
     return node;
   }
 
-  private _setXmlElementVal(node: xmldoc.XmlElement, key: string, value: string) {
-    const property = node.childNamed(key);
-    if (!property) {
-      return this._createXmlElement(node, key, value);
-    }
-    else {
-      (property.firstChild as xmldoc.XmlTextNode).text = value;
-      return property;
-    }
-  }
-
   public _setValue(node: xmldoc.XmlElement, values: any) {
     const coord = [ 'x', 'y', 'z', 'w'];
 
@@ -320,15 +348,55 @@ export default class AnnoXml {
       if (Array.isArray(value)) {
         const numbers = value as number[];
         for (let i = 0; i < Math.min(4, numbers.length); i++) {
-          this._setXmlElementVal(node, key + '.' + coord[i], numbers[i].toFixed(6).toString());
+          _setXmlElementVal(node, key + '.' + coord[i], numbers[i].toFixed(6).toString());
         }
       }
       else if (value !== undefined) {
-        this._setXmlElementVal(node, key, value.toString());
+        _setXmlElementVal(node, key, value.toString());
       }
       else {
         // skip undefined values
       }
     }
+  }
+}
+
+function _createXmlElement(parent: xmldoc.XmlElement, tag: string, value?: string): xmldoc.XmlElement {
+  // TODO now this is hacky, I definitely need to just directly use sax instead of xmldoc
+  const template = new xmldoc.XmlDocument(`<xml> <${tag}>${value||''}</${tag}>\n</xml>`);
+  const indentation = template.children[0] as xmldoc.XmlTextNode;
+  const node = template.children[1] as xmldoc.XmlElement;
+  const linebreak = template.children[2] as xmldoc.XmlTextNode;
+
+  // parent.column is where the tag ends, a bit odd...
+  const column = parent.column - (parent.position - parent.startTagPosition + 1);
+
+  indentation.text = '  ';
+  linebreak.text = linebreak.text + ' '.repeat(column);
+  if (parent.children.length <= 1) {
+    // start with line break
+    indentation.text = '\n' + ' '.repeat(column + 2);
+    linebreak.text = '\n' + ' '.repeat(column);
+  }
+  node.column = column + tag.length + 2;
+  node.position = tag.length;
+  node.startTagPosition = 1;
+
+  parent.children.push(indentation);
+  parent.children.push(node);
+  parent.children.push(linebreak);
+  parent.firstChild = parent.children[0];
+  parent.lastChild = parent.children[parent.children.length - 1];
+  return node;
+}
+
+function _setXmlElementVal(node: xmldoc.XmlElement, key: string, value: string) {
+  const property = node.childNamed(key);
+  if (!property) {
+    return _createXmlElement(node, key, value);
+  }
+  else {
+    (property.firstChild as xmldoc.XmlTextNode).text = value;
+    return property;
   }
 }
