@@ -38,89 +38,111 @@ export class GltfConverter {
         const basename = path.basename(file, '.gltf');
 
         utils.ensureDir(path.join(outFolder, dirname, changePath));
-        utils.ensureDir(path.join(outFolder, dirname, animPath));
         utils.ensureDir(path.join(options.cache, dirname));
 
         const lodLevels = Math.max(1, Math.min(9, options.converterOptions.lods === undefined ? 4 : options.converterOptions.lods));
         const lodDisabled = options.converterOptions.lods === 0;
 
-        for (let lodLevel = 0; lodLevel < lodLevels; lodLevel++) {
-          const gltf = JSON.parse(fs.readFileSync(path.join(sourceFolder, file), 'utf8'));
+        let variantNames = !lodDisabled ? this._findVariantNames(JSON.parse(fs.readFileSync(path.join(sourceFolder, file), 'utf8'))) : [];
+        if (variantNames.length > 1) {
+          channel.log(`     has named variants: ${variantNames.map((e:string) => `'${e}'`).join(', ')}`);
+        }
 
-          // replace images to avoid errors with missing ones (we don't need them anyways)
-          this._replaceImages(gltf, fakePngUrl.href);
+        for (let lodNameIdx = 0; lodNameIdx < Math.max(1, variantNames.length); lodNameIdx++) {
+          for (let lodLevel = 0; lodLevel < lodLevels; lodLevel++) {
+            const variantName = variantNames.length > 1 ? variantNames[lodNameIdx] : undefined;
+            const gltf = JSON.parse(fs.readFileSync(path.join(sourceFolder, file), 'utf8'));
 
-          // remove all nodes/meshes but this lod
-          let meshIdx = 0;
-          if (gltf.meshes.length > 1) {
-            meshIdx = this._findNodeOrMesh(gltf, (e) => !e.name.endsWith('_lod' + lodLevel));
-            if (meshIdx < 0) {
-              if (lodLevel === 0) {
-                // multiple meshes, no _lod0. Use rdm4 default behavior for this case (first mesh).
+            // replace images to avoid errors with missing ones (we don't need them anyways)
+            this._replaceImages(gltf, fakePngUrl.href);
+
+            // remove all nodes/meshes but this lod
+            let meshIdx = 0;
+            if (gltf.meshes.length > 1) {
+              if (variantName !== undefined) {
+                // multiple lod names
+                const meshIndices = this._findNodeOrMesh(gltf, (e) => e.name === variantName + '_lod' + lodLevel);
+                if (meshIndices.length > 0) {
+                  meshIdx = meshIndices[0];
+                }
+                else {
+                  channel.log(`     LOD ${lodLevel}: Skipped. No node/mesh named '${variantName}_lod${lodLevel}'`);
+                  continue;
+                }
+              }
+              else if (variantNames.length === 1) {
+                // one lod, ignore name
+                const meshIndices = this._findNodeOrMesh(gltf, (e) => e.name.endsWith('_lod' + lodLevel));
+                if (meshIndices.length > 0) {
+                  meshIdx = meshIndices[0];
+                }
+                else {
+                  channel.log(`     LOD ${lodLevel}: Skipped. No node/mesh ending with '_lod${lodLevel}'`);
+                  continue;
+                }
+              }
+              else {
+                // no lods, take first mesh
                 meshIdx = 0;
               }
-              else {
-                // skip converting
-                channel.log(`     LOD ${lodLevel}: Skipped. No node/mesh ending with '_lod${lodLevel}'`);
-                continue;
+            }
+
+            // all lods share the same animation
+            const anims = this._findAnimations(gltf);
+            const useSkeleton = /*gltf.animations.length > 0; */ anims.length > 0;
+            const useAnimation = lodLevel === 0 && useSkeleton;
+
+            const resourceDirectory = path.join(sourceFolder, dirname);
+
+            let alreadyExportedModel;
+            if (useAnimation && !variantName) { // don't support animation and multiple variants
+              utils.ensureDir(path.join(outFolder, dirname, animPath));
+              for (let anim of anims) {
+                const tempAnimFile = path.join(options.cache, dirname, `${basename}_${anim.name}_anim_0.rdm`);
+                const tempRdmFile = path.join(options.cache, dirname, `${basename}_${anim.name}.rdm`);
+                const tempGlbFile = path.join(options.cache, dirname, `${basename}_${anim.name}.glb`);
+                const targetFile = path.join(outFolder, dirname, animPath, `${anim.name}.rdm`);
+
+                // we need a separate copy of gltf because the gltf-pipeline is modifying it
+                // reading is easier than to do a deep copy
+                const gltfForAnim = JSON.parse(fs.readFileSync(path.join(sourceFolder, file), 'utf8'));
+                this._replaceImages(gltfForAnim, fakePngUrl.href);
+
+                this._makeUniqueBoneNames(gltfForAnim, anims, anim.name);
+                await this._writeRdmFile(gltfForAnim, tempAnimFile, tempGlbFile, resourceDirectory, rdmPath, meshIdx, useAnimation, useSkeleton);
+                // move only anim rdm to target location
+                fs.rmSync(tempGlbFile);
+                fs.rmSync(targetFile, { force: true });
+                fs.renameSync(tempAnimFile, targetFile);
+                channel.log(`  <= animation: ${path.relative(path.join(outFolder, dirname), targetFile)}`);
+                // keep lod0 model for later
+                if (alreadyExportedModel) {
+                  fs.rmSync(tempRdmFile);
+                }
+                else {
+                  alreadyExportedModel = tempRdmFile;
+                }
               }
             }
-          }
 
-          // all lods share the same animation
-          const anims = this._findAnimations(gltf);
-          const useSkeleton = /*gltf.animations.length > 0; */ anims.length > 0;
-          const useAnimation = lodLevel === 0 && useSkeleton;
+            // convert
+            const lodname = basename + (variantName ? variantName + '_lod' + lodLevel : (lodDisabled ? '' : '_lod' + lodLevel));
+            const targetFile = path.join(outFolder, dirname, changePath, lodname + '.rdm');
+            if (!alreadyExportedModel) {
+              // Animations are matched against the vertex groups by name.
+              // Names are duplicated in case of multiple animations.
+              // Clear them all out, otherwise rdm4 will complain about them.
+              this._makeUniqueBoneNames(gltf, anims);
 
-          const resourceDirectory = path.join(sourceFolder, dirname);
-
-          let alreadyExportedModel;
-          if (useAnimation) {
-            for (let anim of anims) {
-              const tempAnimFile = path.join(options.cache, dirname, `${basename}_${anim.name}_anim_0.rdm`);
-              const tempRdmFile = path.join(options.cache, dirname, `${basename}_${anim.name}.rdm`);
-              const tempGlbFile = path.join(options.cache, dirname, `${basename}_${anim.name}.glb`);
-              const targetFile = path.join(outFolder, dirname, animPath, `${anim.name}.rdm`);
-
-              // we need a separate copy of gltf because the gltf-pipeline is modifying it
-              // reading is easier than to do a deep copy
-              const gltfForAnim = JSON.parse(fs.readFileSync(path.join(sourceFolder, file), 'utf8'));
-              this._replaceImages(gltfForAnim, fakePngUrl.href);
-
-              this._makeUniqueBoneNames(gltfForAnim, anims, anim.name);
-              await this._writeRdmFile(gltfForAnim, tempAnimFile, tempGlbFile, resourceDirectory, rdmPath, meshIdx, useAnimation, useSkeleton);
-              // move only anim rdm to target location
+              const tempGlbFile = path.join(options.cache, dirname, lodname + '.glb');
+              await this._writeRdmFile(gltf, targetFile, tempGlbFile, resourceDirectory, rdmPath, meshIdx, useAnimation, useSkeleton);
               fs.rmSync(tempGlbFile);
-              fs.rmSync(targetFile, { force: true });
-              fs.renameSync(tempAnimFile, targetFile);
-              channel.log(`  <= animation: ${path.relative(path.join(outFolder, dirname), targetFile)}`);
-              // keep lod0 model for later
-              if (alreadyExportedModel) {
-                fs.rmSync(tempRdmFile);
-              }
-              else {
-                alreadyExportedModel = tempRdmFile;
-              }
             }
+            else {
+              fs.renameSync(alreadyExportedModel, targetFile);
+            }
+            channel.log(`  <= ${lodDisabled ? '' : `LOD ${lodLevel}: `}${path.relative(path.join(outFolder, dirname), targetFile)}`);
           }
-
-          // convert
-          const lodname = path.join(basename + (lodDisabled ? '' : '_lod' + lodLevel));
-          const targetFile = path.join(outFolder, dirname, changePath, lodname + '.rdm');
-          if (!alreadyExportedModel) {
-            // Animations are matched against the vertex groups by name.
-            // Names are duplicated in case of multiple animations.
-            // Clear them all out, otherwise rdm4 will complain about them.
-            this._makeUniqueBoneNames(gltf, anims);
-
-            const tempGlbFile = path.join(options.cache, dirname, lodname + '.glb');
-            await this._writeRdmFile(gltf, targetFile, tempGlbFile, resourceDirectory, rdmPath, meshIdx, useAnimation, useSkeleton);
-            fs.rmSync(tempGlbFile);
-          }
-          else {
-            fs.renameSync(alreadyExportedModel, targetFile);
-          }
-          channel.log(`  <= ${lodDisabled ? '' : `LOD ${lodLevel}: `}${path.relative(path.join(outFolder, dirname), targetFile)}`);
         }
       }
       catch (exception: any)
@@ -141,27 +163,29 @@ export class GltfConverter {
   }
 
   private _findNodeOrMesh(gltf: any, match: (mesh: { name: string }) =>  boolean ) {
-    let meshIdx = -1;
+    const meshIndices = new Set<number>();
     for (let i = 0; i < gltf.meshes.length; i++) {
-      if (gltf.meshes[i].name && !match(gltf.meshes[i])) {
-        meshIdx = i;
-        break;
+      if (gltf.meshes[i].name && match(gltf.meshes[i])) {
+        meshIndices.add(i);
       }
     }
-    let nodeIdx = -1;
     for (let i = 0; i < gltf.nodes.length; i++) {
-      if (gltf.nodes[i].mesh === meshIdx || (gltf.nodes[i].name && !match(gltf.nodes[i]))) {
-        nodeIdx = i;
-        meshIdx = gltf.nodes[i].mesh;
-        break;
+      if (gltf.nodes[i].name && match(gltf.nodes[i])) {
+        meshIndices.add(gltf.nodes[i].mesh);
+        // overwrite mesh name to be same
+        gltf.meshes[gltf.nodes[i].mesh].name = gltf.nodes[i].name;
       }
     }
 
-    if (meshIdx < 0 || nodeIdx < 0) {
-      return -1;
-    }
+    return [...meshIndices.values()];
+  }
 
-    return meshIdx;
+  private _findVariantNames(gltf: any): string[] {
+    const meshIndices = this._findNodeOrMesh(gltf, (e) => e.name.endsWith('_lod0'));
+    return meshIndices.map((e: any) => { 
+      const name = gltf.meshes[e].name;
+      return name?.substr(0, name?.length - '_lod0'.length);
+    }).filter((e: any) => e !== undefined);
   }
 
   private _findAnimations(gltf: any) {
