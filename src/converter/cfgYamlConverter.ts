@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as vscode from 'vscode';
 import * as yaml from 'js-yaml';
+import * as child from 'child_process';
 
 import * as channel from '../other/outputChannel';
 import * as utils from '../other/utils';
@@ -13,6 +14,8 @@ export class CfgYamlConverter {
   }
 
   public async run(files: string[], sourceFolder: string, outFolder: string, options: { context: vscode.ExtensionContext }) {
+    const converterPath = options.context.asAbsolutePath("./external/AnnoFCConverter.exe");
+
     for (const file of files) {
       channel.log(`  => ${file}`);
       const targetFile = path.join(outFolder, file);
@@ -33,12 +36,18 @@ export class CfgYamlConverter {
           if (fs.existsSync(sourceCfgPath)) {
             const sourcePathWithoutExt = path.join(sourceDirname, path.basename(variantSourceName, '.cfg'));
             const targetPathWithoutExt = path.join(targetDirname, basename);
-
+            
             // ifo and fc can just be copied
             for (let ext of [ '.ifo', '.fc' ]) {
               if (this._copyIfExists(sourcePathWithoutExt + ext, targetPathWithoutExt + ext)) {
                 channel.log(`  <= ${path.basename(targetPathWithoutExt)}${ext}`);
               }
+            }
+
+            // consider cf7 as well
+            if (fs.existsSync(sourcePathWithoutExt + '.cf7')) {
+              child.execFileSync(converterPath, ['-y', '-o', targetPathWithoutExt + '.fc', '-w', sourcePathWithoutExt + '.cf7']);
+              channel.log(`  <= ${path.basename(targetPathWithoutExt)}.fc`);
             }
 
             // cfg needs some changes
