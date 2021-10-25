@@ -24,6 +24,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - .cfg.yaml should consider .cf7 as well
 - import fc from gltf / RotationY
 - empty line in .cf7 endless loop in annofcconverter
+- no tangent warning in channel output
 
 ### Added
 
@@ -32,6 +33,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - `rdpxml` converter for building from RDP XML
 - Don't overwrite files with `Convert to ..` context menu commands
 - Hover info for asset keywords like `UpgradeList` and `ResidenceUpgrade`
+- Auto-complete after typing `GUID='`
 
 ## [0.2.0]
 

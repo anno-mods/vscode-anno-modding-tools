@@ -53,16 +53,30 @@ function getValueAfterTag(line: string, position: number) {
 function getLastTag(line: string, position: number) {
   const linePrefix = line.substr(0, position);
 
-  const closing = linePrefix.lastIndexOf('>');
-  if (closing === -1) {
+  const closingTag = linePrefix.lastIndexOf('>');
+  const equalSign = linePrefix.lastIndexOf('=');
+  if (closingTag === -1 && equalSign === -1) {
     return undefined;
   }
-  const opening = linePrefix.lastIndexOf('<');
-  if (opening === -1 || opening > closing) {
+  const openingTag = linePrefix.lastIndexOf('<');
+  
+  const validTag = openingTag !== -1 && openingTag <= closingTag;
+  const validQuote = equalSign !== -1;
+  if (!validQuote && !validTag) {
     return undefined;
   }
 
-  return linePrefix.substr(opening + 1, closing - opening - 1);
+  if (validTag && closingTag > equalSign) {
+    return linePrefix.substr(openingTag + 1, closingTag - openingTag - 1);
+  }
+  else {
+    const propertyMatch = linePrefix.substring(0, equalSign).match(/\s*(\w+)\s*$/);
+    if (propertyMatch) {
+      return propertyMatch[1];
+    }
+  }
+
+  return undefined;
 }
 
 function getValueAt(line: string, position: number) {
@@ -149,7 +163,7 @@ export function registerGuidUtilsProvider(context: vscode.ExtensionContext): vsc
 
 	return [
     vscode.Disposable.from(vscode.languages.registerHoverProvider({ language: 'xml', pattern: '**/assets.xml' }, { provideHover })), 
-    vscode.Disposable.from(vscode.languages.registerCompletionItemProvider({ language: 'xml', pattern: '**/assets.xml' }, { provideCompletionItems }))
+    vscode.Disposable.from(vscode.languages.registerCompletionItemProvider({ language: 'xml', pattern: '**/assets.xml' }, { provideCompletionItems }, '\''))
   ];
 }
 
@@ -166,7 +180,6 @@ function provideHover(document: vscode.TextDocument, position: vscode.Position, 
   const word = document.getWordRangeAtPosition(position);
   if (word && _keywordHelp) {
     const text = document.lineAt(word.start.line).text.substr(word.start.character, word.end.character - word.start.character);
-    console.log(text);
     const keywordHelp = _keywordHelp[text];
     if (keywordHelp) {
       return { contents: keywordHelp };
