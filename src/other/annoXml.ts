@@ -107,24 +107,15 @@ export class AnnoXmlElement {
         found = candidate.element;
         break;
       }
-      const children = candidate.element.childrenNamed(next.tag);
-      for (let child of children) {
 
-        let conditionsMet = true;
-        for (let condition of next.conditions) {
-          if ((child.childNamed(condition.tag)?.firstChild as xmldoc.XmlTextNode)?.text !== condition.value) {
-            conditionsMet = false;
-            break;
-          }
-        }
-        if (conditionsMet) {
-          candidates.push({
-            nodes: remainder,
-            element: child,
-            history: [...candidate.history, next.toString()]
-          });
-        }
-      }
+      this._forEachWithCondition(candidate.element, next, (e: xmldoc.XmlElement) => {
+        candidates.push({
+          nodes: remainder,
+          element: e,
+          history: [...candidate.history, next.toString()]
+        });
+        return false;
+      });
 
       if (history.length - 1 < candidate.history.length) {
         history = [...candidate.history, next.toString()];
@@ -144,6 +135,35 @@ export class AnnoXmlElement {
 
   public createChild(name: string) {
     return new AnnoXmlElement(_createXmlElement(this._element, name));
+  }
+
+  public remove(path: string) {
+    const parentPathElements = (new XPath(path.substr(2))).nodes;
+    const toRemove = parentPathElements.pop();
+    if (!toRemove) {
+      channel.warn(`nothing to remove with '${path}''`);
+      return;
+    }
+    const parentPath = parentPathElements.map((e: XPathNode) => e.toString()).join('/');
+
+    const parent = this.findElement(parentPath);
+    if (!parent) {
+      return;
+    }
+
+    let removed = false;
+    this._forEachWithCondition(parent._element, toRemove, (e, idx) => {
+      // TODO remove white space
+      parent._element.children.splice(idx, 1);
+      parent._element.firstChild = parent._element.children && parent._element.children[0];
+      parent._element.lastChild = parent._element.children && parent._element.children[parent._element.children.length - 1];
+      removed = true;
+      return true; // break the loop
+    });
+
+    if (!removed) {
+      channel.warn(`could not find and remove ${path}`);
+    }
   }
 
   public set(values: any, options?: { defaults?: any }) {
@@ -201,6 +221,27 @@ export class AnnoXmlElement {
         }
         else {
           // skip undefined values
+        }
+      }
+    }
+  }
+
+  private _forEachWithCondition(element: xmldoc.XmlElement, xpathNode: XPathNode, callback: (e: xmldoc.XmlElement, idx: number) => boolean) {
+    for (let [idx, child] of element.children.entries()) {
+      if (child.type !== 'element' || child.name !== xpathNode.tag) {
+        continue;
+      }
+
+      let conditionsMet = true;
+      for (let condition of xpathNode.conditions) {
+        if ((child.childNamed(condition.tag)?.firstChild as xmldoc.XmlTextNode)?.text !== condition.value) {
+          conditionsMet = false;
+          break;
+        }
+      }
+      if (conditionsMet) {
+        if (callback(child, idx)) {
+          break;
         }
       }
     }
@@ -276,6 +317,11 @@ export default class AnnoXml {
   public createChild(path: string) {
     const doc = new AnnoXmlElement(this.xml as xmldoc.XmlElement);
     return doc.createChild(path);
+  }
+
+  public remove(path: string) {
+    const doc = new AnnoXmlElement(this.xml as xmldoc.XmlElement);
+    return doc.remove(path);
   }
 
   public toString(): string {

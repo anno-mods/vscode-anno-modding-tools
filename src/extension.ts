@@ -11,6 +11,7 @@ import { RdpConverter } from './features/rdpConverter';
 import { FcImporter } from './features/fcImporter';
 import * as dds from './other/dds';
 import * as rdp from './other/rdp';
+import { CfgYamlConverter } from './converter/cfgYamlConverter';
 
 export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(registerCfgLanguageFeatures('anno-cfg'));
@@ -25,6 +26,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(...registerGuidUtilsProvider(context));
 	context.subscriptions.push(...RdpConverter.register(context));
 	context.subscriptions.push(...FcImporter.register(context));
+	context.subscriptions.push(...CfgYamlConverter.register(context));
 
 	rdp.init(context.asAbsolutePath('./external/'));
 	dds.init(context.asAbsolutePath('./external/'));

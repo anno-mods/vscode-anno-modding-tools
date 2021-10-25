@@ -13,8 +13,23 @@ export class CfgYamlConverter {
     return 'cfgyaml';
   }
 
-  public async run(files: string[], sourceFolder: string, outFolder: string, options: { context: vscode.ExtensionContext }) {
+  public static register(context: vscode.ExtensionContext) {
+    const disposable = [
+      vscode.commands.registerCommand('anno-modding-tools.cfgyamlToCfg', async (fileUri) => {
+        if (fileUri) {
+          const converter = new CfgYamlConverter();
+          converter.run([ path.basename(fileUri.fsPath) ], path.dirname(fileUri.fsPath), path.dirname(fileUri.fsPath), { context, dontOverwrite: true });
+        }
+      })
+    ];
+
+    return disposable;
+	}
+
+  public async run(files: string[], sourceFolder: string, outFolder: string, options: { context: vscode.ExtensionContext, dontOverwrite?: boolean }) {
     const converterPath = options.context.asAbsolutePath("./external/AnnoFCConverter.exe");
+
+    const _dontOverwrite = options.dontOverwrite ? utils.dontOverwrite : (fp: string) => fp;
 
     for (const file of files) {
       channel.log(`  => ${file}`);
@@ -36,43 +51,65 @@ export class CfgYamlConverter {
           if (fs.existsSync(sourceCfgPath)) {
             const sourcePathWithoutExt = path.join(sourceDirname, path.basename(variantSourceName, '.cfg'));
             const targetPathWithoutExt = path.join(targetDirname, basename);
-            
-            // ifo and fc can just be copied
-            for (let ext of [ '.ifo', '.fc' ]) {
-              if (this._copyIfExists(sourcePathWithoutExt + ext, targetPathWithoutExt + ext)) {
-                channel.log(`  <= ${path.basename(targetPathWithoutExt)}${ext}`);
-              }
-            }
 
-            // consider cf7 as well
+            // first try cf7
             if (fs.existsSync(sourcePathWithoutExt + '.cf7')) {
-              child.execFileSync(converterPath, ['-y', '-o', targetPathWithoutExt + '.fc', '-w', sourcePathWithoutExt + '.cf7']);
-              channel.log(`  <= ${path.basename(targetPathWithoutExt)}.fc`);
-            }
-
-            // cfg needs some changes
-            const cfgContent = AnnoXml.fromFile(sourcePathWithoutExt + '.cfg');
-            for (let modification of content.variant.modifications) {
-              // overwrite all values except xpath
-              const { xpath, ...values } = modification;
-              if (!cfgContent.set(modification.xpath, values)) {
-                channel.warn(`cannot find ${modification.xpath}`);
+              try {
+                child.execFileSync(converterPath, ['-y', '-o', _dontOverwrite(targetPathWithoutExt + '.fc', '.fc'), '-w', sourcePathWithoutExt + '.cf7']);
+                channel.log(`  <= ${path.basename(targetPathWithoutExt)}.fc`);
+              }
+              catch {
+                channel.warn(`     AnnoFCConverter failed to write ${path.basename(targetPathWithoutExt)}.fc`);
               }
             }
-            fs.writeFileSync(targetPathWithoutExt + '.cfg', cfgContent.toString());
+            // then fc
+            else {
+              if (this._copyIfExists(sourcePathWithoutExt + '.fc', _dontOverwrite(targetPathWithoutExt + '.fc', '.fc'))) {
+                channel.log(`  <= ${path.basename(targetPathWithoutExt)}.fc`);
+              }
+            }
+
+            // read and modify cfg
+            const cfgContent = AnnoXml.fromFile(sourcePathWithoutExt + '.cfg');
+            this._runModifications(cfgContent, content.variant.modifications);
+            fs.writeFileSync(_dontOverwrite(targetPathWithoutExt + '.cfg', '.cfg'), cfgContent.toString());
             channel.log(`  <= ${path.basename(targetPathWithoutExt)}.cfg`);
+            
+            // read and modify ifo
+            if (fs.existsSync(sourcePathWithoutExt + '.ifo')) {
+              const ifoContent = AnnoXml.fromFile(sourcePathWithoutExt + '.ifo');
+              this._runModifications(ifoContent, content.variant.ifo);
+              fs.writeFileSync(_dontOverwrite(targetPathWithoutExt + '.ifo', '.ifo'), ifoContent.toString());
+              channel.log(`  <= ${path.basename(targetPathWithoutExt)}.ifo`);
+            }
           }
           else {
             channel.warn(`    ${sourceCfgPath} does not exist.`);
           }
         }
-        else {
-          console.log(content);
-        }
       }
       catch (exception: any)
       {
         channel.error(exception.message);
+      }
+    }
+  }
+
+  private _runModifications(xml: AnnoXml, modifications: any[]) {
+    if (!modifications) {
+      return;
+    }
+
+    for (let modification of modifications) {
+      if (modification.xpath) {
+        // overwrite all values except xpath
+        const { xpath, ...values } = modification;
+        if (!xml.set(modification.xpath, values)) {
+          channel.warn(`cannot find ${modification.xpath}`);
+        }
+      }
+      else if (modification['xpath-remove']) {
+        xml.remove(modification['xpath-remove']);
       }
     }
   }
