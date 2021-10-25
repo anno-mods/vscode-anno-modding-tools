@@ -10,28 +10,47 @@ interface IProp {
   // keep naming same as Anno
   Name: string,
   FileName: string,
-  Position: [number, number, number],
-  Rotation: [number, number, number, number],
-  Scale: [number, number, number]
+  Position_x: string,
+  Position_y: string,
+  Position_z: string,
+  Rotation_x: string,
+  Rotation_y: string,
+  Rotation_z: string,
+  Rotation_w: string,
+  Scale_x: string,
+  Scale_y: string,
+  Scale_z: string
   /* eslint-enable @typescript-eslint/naming-convention */
 }
 export const PROP_DEFAULTS = {
   /* eslint-disable @typescript-eslint/naming-convention */
   ConfigType: 'PROP',
   Name: '',
-  Position: [0, 0, 0],
-  Rotation: [0, 0, 0, 1],
-  Scale: [1, 1, 1],
-  Flags: 1
+  Position_x: '0.000000',
+  Position_y: '0.000000',
+  Position_z: '0.000000',
+  Rotation_x: '0.000000',
+  Rotation_y: '0.000000',
+  Rotation_z: '0.000000',
+  Rotation_w: '1.000000',
+  Scale_x: '1.000000',
+  Scale_y: '1.000000',
+  Scale_z: '1.000000',
+  Flags: '1'
   /* eslint-enable @typescript-eslint/naming-convention */
 };
 interface IParticle {
   /* eslint-disable @typescript-eslint/naming-convention */
   Transformer: {
     Config: {
-      Position: [number, number, number],
-      Rotation: [number, number, number, number],
-      Scale: number
+      Position_x: string,
+      Position_y: string,
+      Position_z: string,
+      Rotation_x: string,
+      Rotation_y: string,
+      Rotation_z: string,
+      Rotation_w: string,
+      Scale: string
     }
   },
   Name: string
@@ -54,9 +73,58 @@ interface IFeedback {
   /* eslint-enable @typescript-eslint/naming-convention */
 }
 
+interface IFile {
+  /* eslint-disable @typescript-eslint/naming-convention */
+  // keep naming same as Anno
+  // ConfigType: string,
+  Transformer: {
+    Config: {
+      // ConfigType: string,
+      // Conditions: number,
+      Position_x: string,
+      Position_y: string,
+      Position_z: string,
+      Rotation_x: string,
+      Rotation_y: string,
+      Rotation_z: string,
+      Rotation_w: string,
+      Scale: string
+    }
+  },
+  Name: string,
+  FileName: string,
+  // AdaptTerrainHeight: number
+  /* eslint-enable @typescript-eslint/naming-convention */
+}
+export const FILE_DEFAULTS = {
+  /* eslint-disable @typescript-eslint/naming-convention */
+  ConfigType: 'FILE',
+  Transformer: {
+    Config: {
+      ConfigType: 'ORIENTATION_TRANSFORM',
+      Conditions: '0',
+      Position_x: '0.000000',
+      Position_y: '0.000000',
+      Position_z: '0.000000',
+      Rotation_x: '0.000000',
+      Rotation_y: '0.000000',
+      Rotation_z: '0.000000',
+      Rotation_w: '1.000000',
+      Scale: '1.0'
+    }
+  },
+  Name: '',
+  FileName: '',
+  AdaptTerrainHeight: 1
+  /* eslint-enable @typescript-eslint/naming-convention */
+};
+export const FILES_DEFAULTS = {
+};
+
 type IPropMap = { [index: string]: IProp };
 type IParticleMap = { [index: string]: IParticle };
 type IFeedbackMap = { [index: string]: IFeedback };
+type IFileMap = { [index: string]: IFile };
 
 function dataUriToBuffer(dataUri: any) {
   const data = dataUri.slice(dataUri.indexOf(",") + 1);
@@ -105,6 +173,7 @@ export default class ProppedModel {
   private readonly props: IPropMap;
   private readonly particles: IParticleMap;
   private readonly feedbacks: IFeedbackMap;
+  private readonly files: IFileMap;
   private readonly gltf: any;
   private readonly resourceFolder: string;
 
@@ -115,6 +184,8 @@ export default class ProppedModel {
     const props: IPropMap = { };
     const particles: IParticleMap = { };
     const feedbacks: IFeedbackMap = { };
+    const files: IFileMap = { };
+    
     for (let node of gltf.nodes) {
       if (node.name.startsWith('prop_')) {
         const meshName = gltf.meshes[node.mesh].name.replace(/\.\d\d\d$/, '');
@@ -123,9 +194,16 @@ export default class ProppedModel {
           /* eslint-disable @typescript-eslint/naming-convention */
           Name: node.name,
           FileName: meshName.endsWith('.prp') ? meshName : undefined, // don't overwrite FileName if it doesn't fit
-          Position: node.translation,
-          Rotation: node.rotation || [0, 0, 0, 1],
-          Scale: node.scale || [1, 1, 1],
+          Position_x: node.translation[0].toFixed(6),
+          Position_y: node.translation[1].toFixed(6),
+          Position_z: node.translation[2].toFixed(6),
+          Rotation_x: (node.rotation ? node.rotation[0] : 0).toFixed(6),
+          Rotation_y: (node.rotation ? node.rotation[1] : 0).toFixed(6),
+          Rotation_z: (node.rotation ? node.rotation[2] : 0).toFixed(6),
+          Rotation_w: (node.rotation ? node.rotation[3] : 1).toFixed(6),
+          Scale_x: (node.scale ? node.scale[0] : 1).toFixed(6),
+          Scale_y: (node.scale ? node.scale[1] : 1).toFixed(6),
+          Scale_z: (node.scale ? node.scale[2] : 1).toFixed(6)
           /* eslint-enable @typescript-eslint/naming-convention */
         };
       }
@@ -134,9 +212,14 @@ export default class ProppedModel {
           /* eslint-disable @typescript-eslint/naming-convention */
           Transformer: {
             Config: {
-              Position: node.translation,
-              Rotation: node.rotation || [0, 0, 0, 1],
-              Scale: node.scale?.z
+              Position_x: node.translation[0].toFixed(6),
+              Position_y: node.translation[1].toFixed(6),
+              Position_z: node.translation[2].toFixed(6),
+              Rotation_x: (node.rotation ? node.rotation[0] : 0).toFixed(6),
+              Rotation_y: (node.rotation ? node.rotation[1] : 0).toFixed(6),
+              Rotation_z: (node.rotation ? node.rotation[2] : 0).toFixed(6),
+              Rotation_w: (node.rotation ? node.rotation[3] : 1).toFixed(6),
+              Scale: node.scale?.z?.toFixed(6)
             }
           },
           Name: node.name
@@ -164,10 +247,31 @@ export default class ProppedModel {
           /* eslint-enable @typescript-eslint/naming-convention */
         };
       }
+      if (node.name.startsWith('file_')) {
+        const meshName = gltf.meshes[node.mesh].name.replace(/\.\d\d\d$/, '');
+        files[node.name] = {
+          /* eslint-disable @typescript-eslint/naming-convention */
+          Name: node.name,
+          FileName: meshName.endsWith('.cfg') ? meshName : undefined, // don't overwrite FileName if it doesn't fit
+          Transformer: {
+            Config: {
+              Position_x: node.translation[0].toFixed(6),
+              Position_y: node.translation[1].toFixed(6),
+              Position_z: node.translation[2].toFixed(6),
+              Rotation_x: (node.rotation ? node.rotation[0] : 0).toFixed(6),
+              Rotation_y: (node.rotation ? node.rotation[1] : 0).toFixed(6),
+              Rotation_z: (node.rotation ? node.rotation[2] : 0).toFixed(6),
+              Rotation_w: (node.rotation ? node.rotation[3] : 1).toFixed(6),
+              Scale: node.scale?.z
+            }
+          },
+          /* eslint-enable @typescript-eslint/naming-convention */
+        };
+      }
     }
 
     const resourceFolder = path.dirname(filePath);
-    return new ProppedModel(gltf, props, particles, feedbacks, resourceFolder);
+    return new ProppedModel(gltf, props, particles, feedbacks, files, resourceFolder);
   }
 
   public getProps(): IProp[] {
@@ -192,6 +296,14 @@ export default class ProppedModel {
 
   public getFeedback(name: string): IFeedback {
     return this.feedbacks[name];
+  }
+
+  public getFiles(): IFile[] {
+    return Object.values(this.files);
+  }
+
+  public getFile(name: string): IFile {
+    return this.files[name];
   }
 
   public getBuildBlocker() {
@@ -237,17 +349,21 @@ export default class ProppedModel {
 
     // TODO if not centered set Transformer, but that's unusual
 
-    return {
-      /* eslint-disable-next-line @typescript-eslint/naming-convention */
-      Extents: [ (maxX - minX) / 2, 0.25, (maxZ - minZ) / 2]
+    /* eslint-disable @typescript-eslint/naming-convention */
+    return { 
+      Extents_x: ((maxX - minX) / 2).toFixed(6), 
+      Extents_y: (0.25).toFixed(6), 
+      Extents_z: ((maxZ - minZ) / 2).toFixed(6)
     };
+    /* eslint-enable @typescript-eslint/naming-convention */
   }
 
-  private constructor(gltf: any, props: IPropMap, particles: IParticleMap, feedbacks: IFeedbackMap, resourceFolder: string) {
+  private constructor(gltf: any, props: IPropMap, particles: IParticleMap, feedbacks: IFeedbackMap, files: IFileMap, resourceFolder: string) {
     this.gltf = gltf;
     this.props = props;
     this.particles = particles;
     this.feedbacks = feedbacks;
+    this.files = files;
     this.resourceFolder = resourceFolder;
   }
 

@@ -49,10 +49,10 @@ export class FcImporter {
 
       channel.log(`Import feedback ${feedbackName} position and orientation`);
       const path = `//DummyRoot/Groups/i/Dummies/i[Name=${feedbackName}]`;
-      const element = xml.get(path, { silent: true }) || xml.get(`//DummyRoot/Dummies/i[Name=${feedbackName}]`);
+      const element = xml.findElement(path, { silent: true }) || xml.findElement(`//DummyRoot/Dummies/i[Name=${feedbackName}]`);
       if (element) {
-        element.get('//Position')?.set(feedback.Position);
-        element.get('//Orientation')?.set(feedback.Orientation);
+        element.findElement('//Position')?.set(feedback.Position);
+        element.findElement('//Orientation')?.set(feedback.Orientation);
         /* eslint-disable-next-line @typescript-eslint/naming-convention */
         element.set({ RotationY: feedback.RotationY });
       }

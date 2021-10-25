@@ -71,13 +71,13 @@ class XPath {
 }
 
 export class AnnoXmlElement {
-  private _element: xmldoc.XmlElement;
+  public _element: xmldoc.XmlElement;
 
   public constructor(element: xmldoc.XmlElement) {
     this._element = element;
   }
 
-  public get(path: string, options?: { silent: boolean }): AnnoXmlElement | undefined {
+  public findElement(path: string, options?: { silent?: boolean }): AnnoXmlElement | undefined {
     let originalPath = path.slice();
     if (!path.startsWith('//')) {
       if (path.startsWith('/')) {
@@ -142,27 +142,63 @@ export class AnnoXmlElement {
     return new AnnoXmlElement(found);
   }
 
-  public set(values: any) {
-    const coord = [ 'x', 'y', 'z', 'w'];
+  public createChild(name: string) {
+    return new AnnoXmlElement(_createXmlElement(this._element, name));
+  }
 
-    for (let key of Object.keys(values)) {
-      const value = values[key];
-      if (Array.isArray(value)) {
-        const numbers = value as number[];
-        for (let i = 0; i < Math.min(4, numbers.length); i++) {
-          _setXmlElementVal(this._element, key + '.' + coord[i], numbers[i].toFixed(6).toString());
+  public set(values: any, options?: { defaults?: any }) {
+    if (typeof values === 'string' || typeof values === 'number') {
+      console.error(`Text is not supported in AnnoXmlElement.set`);
+      console.error(this._element);
+      return;
+    }
+    else if (Array.isArray(values)) {
+      console.error(`Arrays are not supported in AnnoXmlElement.set`);
+      console.error(this._element);
+      return;
+    }
+    else {
+      // first merge the keys, defaults first to get the correct order
+      const keys = (options?.defaults&&Object.keys(options.defaults)||[]);
+      for (let key of Object.keys(values)) {
+        if (keys.indexOf(key) === -1) {
+          keys.push(key);
         }
       }
-      else if (value !== undefined) {
-        if (typeof value === 'string' || typeof value === 'number') {
-          _setXmlElementVal(this._element, key, value.toString());
+
+      for (let key of keys) {
+        const xmlKeyName = key.replace('_', '.');
+        let targetElement = this._element.childNamed(xmlKeyName);
+        const elementDefaults = options?.defaults && options?.defaults[key];
+        const elementValues = values[key];
+
+        // if key doesn't exist, create with defaults
+        if (!targetElement) {
+          let textValue = (typeof elementDefaults === 'string' || typeof elementDefaults === 'number') ? elementDefaults.toString() : undefined;
+          targetElement = _createXmlElement(this._element, xmlKeyName, textValue);
+          if (elementDefaults && !textValue) {
+            new AnnoXmlElement(targetElement).set(elementDefaults);
+          }
+        }
+
+        if (elementValues !== undefined) {
+          if (typeof elementValues === 'string' || typeof elementValues === 'number') {
+            _setXmlElementVal(this._element, xmlKeyName, elementValues.toString());
+          }
+          else if (Object.keys(elementValues)?.length > 0) {
+            let firstChild = this._element.childNamed(xmlKeyName);
+            if (!firstChild) {
+              firstChild = _createXmlElement(this._element, xmlKeyName);
+            }
+            new AnnoXmlElement(firstChild).set(elementValues);
+          }
+          else {
+            console.error('trying to write something odd');
+          }
         }
         else {
-          console.error('trying to write an object');
+          // skip undefined values
         }
-      }
-      else {
-        // skip undefined values
       }
     }
   }
@@ -180,6 +216,7 @@ export default class AnnoXml {
     return new AnnoXml(xml, nodes);
   }
 
+  // deprecated
   public setValue(nodeName: string, values: any, options?: { insert: string, defaults: any }) {
     const optionsInsert = options?.insert;
     let node = this.nodes[nodeName];
@@ -192,7 +229,6 @@ export default class AnnoXml {
         newNode = true;
       }
       else {
-        console.log('no parent found: ' + optionsInsert);
         // TODO create parent if not there?
       }
     }
@@ -224,14 +260,19 @@ export default class AnnoXml {
     }
   }
 
-  public set(xpath: string, values: any) {
-    const element = this.get(xpath);
+  public set(xpath: string, values: any, options?: { defaults: any }) {
+    const element = this.findElement(xpath);
     if (!element) {
       return false;
     }
 
-    element.set(values);
+    element.set(values, options);
     return true;
+  }
+
+  public createChild(path: string) {
+    const doc = new AnnoXmlElement(this.xml as xmldoc.XmlElement);
+    return doc.createChild(path);
   }
 
   public toString(): string {
@@ -239,8 +280,8 @@ export default class AnnoXml {
     return xmlString.substr('<root>\n'.length, xmlString.length - '<root>\n'.length * 2 - 1);
   }
 
-  public getPropNames() {
-    return Object.keys(this.nodes).filter((e) => e.startsWith('prop_'));
+  public getNodeNames(condition: (value: string) => boolean) {
+    return Object.keys(this.nodes).filter(condition);
   }
 
   public ensureSection(path: string, inserts: (any)[]) {
@@ -314,9 +355,9 @@ export default class AnnoXml {
     return node;
   }
 
-  public get(path: string, options?: { silent: boolean }) {
+  public findElement(path: string, options?: { silent: boolean }) {
     const doc = new AnnoXmlElement(this.xml as xmldoc.XmlElement);
-    return doc.get(path, options);
+    return doc.findElement(path, options);
   }
 
   private _insertAfterXmlElement(parent: xmldoc.XmlElement, relative: xmldoc.XmlElement, tag: string) {
@@ -341,23 +382,8 @@ export default class AnnoXml {
   }
 
   public _setValue(node: xmldoc.XmlElement, values: any) {
-    const coord = [ 'x', 'y', 'z', 'w'];
-
-    for (let key of Object.keys(values)) {
-      const value = values[key];
-      if (Array.isArray(value)) {
-        const numbers = value as number[];
-        for (let i = 0; i < Math.min(4, numbers.length); i++) {
-          _setXmlElementVal(node, key + '.' + coord[i], numbers[i].toFixed(6).toString());
-        }
-      }
-      else if (value !== undefined) {
-        _setXmlElementVal(node, key, value.toString());
-      }
-      else {
-        // skip undefined values
-      }
-    }
+    const element = new AnnoXmlElement(node);
+    element.set(values);
   }
 }
 
@@ -396,7 +422,20 @@ function _setXmlElementVal(node: xmldoc.XmlElement, key: string, value: string) 
     return _createXmlElement(node, key, value);
   }
   else {
-    (property.firstChild as xmldoc.XmlTextNode).text = value;
+    if (property.children.length === 0) {
+      const template = new xmldoc.XmlDocument(`<xml>${value}</xml>`);
+      const simpleText = template.children[0] as xmldoc.XmlTextNode;
+      property.children.push(simpleText);
+      property.firstChild = property.children[0];
+      property.lastChild = property.children[0];
+    }
+    else if (property.firstChild?.type === 'text') {
+      (property.firstChild as xmldoc.XmlTextNode).text = value;
+    }
+    else {
+      console.error(`can't set values to complex elements`);
+      console.error(node);
+    }
     return property;
   }
 }

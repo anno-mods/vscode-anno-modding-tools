@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as xmldoc from 'xmldoc';
-import ProppedModel, { PROP_DEFAULTS, PROPCONTAINER_DEFAULTS } from '../other/proppedModel';
+import ProppedModel, { PROP_DEFAULTS, PROPCONTAINER_DEFAULTS, FILE_DEFAULTS, FILES_DEFAULTS } from '../other/proppedModel';
 import AnnoXml from '../other/annoXml';
 import * as channel from '../other/outputChannel';
 
@@ -35,8 +35,10 @@ export class PropImporter {
           importer.importProps(xml, model);
           importer.importParticles(xml, model);
           importer.importDecals(xml, model);
+          importer.importFiles(xml, model);
 
           fs.writeFileSync(fileUri.fsPath, xml.toString());
+          channel.log(`<= ${fileUri.fsPath}`);
         }
       })
     ];
@@ -54,10 +56,10 @@ export class PropImporter {
     // update existing and add new props
     for (let prop of model.getProps()) {
       channel.log(`Import PROP ${prop.Name}`);
-      xml.setValue(prop.Name, prop, { insert: 'PropContainers.Config.Props', defaults: PROP_DEFAULTS });
+      xml.setValue(prop.Name, prop, { insert: '//Config/PropContainers/Config/Props', defaults: PROP_DEFAULTS });
     }
     // mark removed props
-    for (let name of xml.getPropNames()) {
+    for (let name of xml.getNodeNames((e) => e.startsWith('prop_'))) {
       if (!model.getProp(name) && !name.endsWith('_removed')) {
         channel.log(`Mark PROP ${name} as removed`);
         // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -75,6 +77,45 @@ export class PropImporter {
       const path = `/Config/Particles/Config[Name='${particle.Name}']/Transformer/Config[ConfigType='ORIENTATION_TRANSFORM' and Conditions='0']`;
       // TODO create node if necessary
       xml.set(path, particle.Transformer.Config);
+    }
+  }
+
+  public importFiles(xml: AnnoXml, model: ProppedModel) {
+    xml.ensureSection('Config.Files', [ 
+      { }, // Config
+      { // Files
+        position: 'MeshRadius:after',
+        defaults: FILES_DEFAULTS
+      },
+    ]);
+
+    // update existing and add new files
+    for (let file of model.getFiles()) {
+      // this will fetch the first Transformer occurence with Conditions=0
+      const path = `//Config/Files/Config[Name='${file.Name}']`;
+      const element = xml.findElement(path, { silent: true });
+      if (element) {
+        channel.log(`Update FILE ${file.Name}`);
+        element.set(file, { defaults: FILE_DEFAULTS });
+      }
+      else {
+        channel.log(`Add FILE ${file.Name}`);
+        const parent = xml.findElement(`//Config/Files`); 
+        if (parent) {
+          parent.createChild('Config').set(file, { defaults: FILE_DEFAULTS });
+        }
+        else {
+          console.error(`ensureSection should have created //Config/Files`);
+        }
+      }
+    }
+    // mark removed files
+    for (let name of xml.getNodeNames((e) => e.startsWith('file_'))) {
+      if (!model.getFile(name) && !name.endsWith('_removed')) {
+        channel.log(`Mark FILE ${name} as removed`);
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        xml.setValue(name, { Name: name + '_removed' });
+      }
     }
   }
 

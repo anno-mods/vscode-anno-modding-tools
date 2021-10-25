@@ -111,7 +111,7 @@
       },
       {
         "command": "anno-modding-tools.importProps",
-        "title": "Import from glTF"
+        "title": "Import PROPs from glTF"
       },
       {
         "command": "anno-modding-tools.importInfo",
