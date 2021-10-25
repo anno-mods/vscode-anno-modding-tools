@@ -147,6 +147,9 @@ export class AnnoXmlElement {
   }
 
   public set(values: any, options?: { defaults?: any }) {
+    if (values === undefined) {
+      return;
+    }
     if (typeof values === 'string' || typeof values === 'number') {
       console.error(`Text is not supported in AnnoXmlElement.set`);
       console.error(this._element);

@@ -26,6 +26,11 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - empty line in .cf7 endless loop in annofcconverter
 - no tangent warning in channel output
 - error handling for invalid xml files
+- ```yaml
+  - xpath: //Config/Particles/Config[Name="particle_smoke2"]/Transformer/Config
+    FileName: ''
+  ```
+  leads to `Cannot read property 'type' of undefined`.
 
 ### Added
 

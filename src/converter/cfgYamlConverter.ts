@@ -55,7 +55,9 @@ export class CfgYamlConverter {
             for (let modification of content.variant.modifications) {
               // overwrite all values except xpath
               const { xpath, ...values } = modification;
-              cfgContent.set(modification.xpath, values);
+              if (!cfgContent.set(modification.xpath, values)) {
+                channel.warn(`cannot find ${modification.xpath}`);
+              }
             }
             fs.writeFileSync(targetPathWithoutExt + '.cfg', cfgContent.toString());
             channel.log(`  <= ${path.basename(targetPathWithoutExt)}.cfg`);
