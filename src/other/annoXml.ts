@@ -472,8 +472,10 @@ function _setXmlElementVal(node: xmldoc.XmlElement, key: string, value: string) 
   }
   else {
     if (property.children.length === 0) {
-      const template = new xmldoc.XmlDocument(`<xml>${value}</xml>`);
+      // note the space prefix, it's needed otherwise value='' will not create a text node
+      const template = new xmldoc.XmlDocument(`<xml> ${value}</xml>`);
       const simpleText = template.children[0] as xmldoc.XmlTextNode;
+      simpleText.text = simpleText.text.substr(1);
       property.children.push(simpleText);
       property.firstChild = property.children[0];
       property.lastChild = property.children[0];

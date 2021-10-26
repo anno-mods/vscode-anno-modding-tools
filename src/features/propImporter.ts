@@ -37,6 +37,7 @@ export class PropImporter {
           importer.importDecals(xml, model);
           importer.importFiles(xml, model);
 
+          console.log(xml);
           fs.writeFileSync(fileUri.fsPath, xml.toString());
           channel.log(`<= ${fileUri.fsPath}`);
         }
@@ -47,31 +48,34 @@ export class PropImporter {
 	}
 
   public importProps(xml: AnnoXml, model: ProppedModel) {
-    xml.ensureSection('PropContainers.Config.Props', [ 
-      { position: 'Models:after' }, 
+    xml.ensureSection('Config.PropContainers.Config.Props', [ 
+      { }, // Config
+      { position: 'Models:after' }, // PropContainers
       { defaults: PROPCONTAINER_DEFAULTS }, 
       { }
     ]);
 
-    // update existing and add new props
-    for (let prop of model.getProps()) {
-      channel.log(`Import PROP ${prop.Name}`);
-      xml.setValue(prop.Name, prop, { insert: '//Config/PropContainers/Config/Props', defaults: PROP_DEFAULTS });
-    }
-    // mark removed props
-    for (let name of xml.getNodeNames((e) => e.startsWith('prop_'))) {
-      if (!model.getProp(name) && !name.endsWith('_removed')) {
-        channel.log(`Mark PROP ${name} as removed`);
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        xml.setValue(name, { Name: name + '_removed' });
-      }
-    }
+    this._importConfig(xml, model.getProps(), '//Config/PropContainers/Config/Props', 'PROP', 'prop_', PROP_DEFAULTS, (name: string) => model.getProp(name));
+
+    // // update existing and add new props
+    // for (let prop of model.getProps()) {
+    //   channel.log(`Import PROP ${prop.Name}`);
+    //   xml.setValue(prop.Name, prop, { insert: '//Config/PropContainers/Config/Props', defaults: PROP_DEFAULTS });
+    // }
+    // // mark removed props
+    // for (let name of xml.getNodeNames((e) => e.startsWith('prop_'))) {
+    //   if (!model.getProp(name) && !name.endsWith('_removed')) {
+    //     channel.log(`Mark PROP ${name} as removed`);
+    //     // eslint-disable-next-line @typescript-eslint/naming-convention
+    //     xml.setValue(name, { Name: name + '_removed' });
+    //   }
+    // }
   }
 
   public importParticles(xml: AnnoXml, model: ProppedModel) {
     // update existing particles
     for (let particle of model.getParticles()) {
-      channel.log(`Import PARTICLE ${particle.Name} Transformer`);
+      channel.log(`Update PARTICLE ${particle.Name} Transformer`);
 
       // this will fetch the first Transformer occurence with Conditions=0
       const path = `/Config/Particles/Config[Name='${particle.Name}']/Transformer/Config[ConfigType='ORIENTATION_TRANSFORM' and Conditions='0']`;
@@ -89,30 +93,66 @@ export class PropImporter {
       },
     ]);
 
+    this._importConfig(xml, model.getFiles(), '//Config/Files', 'FILE', 'file_', FILE_DEFAULTS, (name: string) => model.getFile(name));
+
+    // // update existing and add new files
+    // for (let file of model.getFiles()) {
+    //   // this will fetch the first Transformer occurence with Conditions=0
+    //   const path = `//Config/Files/Config[Name='${file.Name}']`;
+    //   const element = xml.findElement(path, { silent: true });
+    //   if (element) {
+    //     channel.log(`Update FILE ${file.Name}`);
+    //     element.set(file, { defaults: FILE_DEFAULTS });
+    //   }
+    //   else {
+    //     channel.log(`Add FILE ${file.Name}`);
+    //     const parent = xml.findElement(`//Config/Files`); 
+    //     if (parent) {
+    //       parent.createChild('Config').set(file, { defaults: FILE_DEFAULTS });
+    //     }
+    //     else {
+    //       console.error(`ensureSection should have created //Config/Files`);
+    //     }
+    //   }
+    // }
+    // // mark removed files
+    // for (let name of xml.getNodeNames((e) => e.startsWith('file_'))) {
+    //   if (!model.getFile(name) && !name.endsWith('_removed')) {
+    //     channel.log(`Mark FILE ${name} as removed`);
+    //     // eslint-disable-next-line @typescript-eslint/naming-convention
+    //     xml.setValue(name, { Name: name + '_removed' });
+    //   }
+    // }
+  }
+
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  private _importConfig(xml: AnnoXml, items: { Name: string }[], sectionPath: string, type: string, prefix: string, 
+    defaults: any, getCallback: (name: string) => any) {
+
     // update existing and add new files
-    for (let file of model.getFiles()) {
+    for (let item of items) {
       // this will fetch the first Transformer occurence with Conditions=0
-      const path = `//Config/Files/Config[Name='${file.Name}']`;
+      const path = `${sectionPath}/Config[Name='${item.Name}']`;
       const element = xml.findElement(path, { silent: true });
       if (element) {
-        channel.log(`Update FILE ${file.Name}`);
-        element.set(file, { defaults: FILE_DEFAULTS });
+        channel.log(`Update ${type} ${item.Name}`);
+        element.set(item, { defaults });
       }
       else {
-        channel.log(`Add FILE ${file.Name}`);
-        const parent = xml.findElement(`//Config/Files`); 
+        channel.log(`Add ${type} ${item.Name}`);
+        const parent = xml.findElement(sectionPath); 
         if (parent) {
-          parent.createChild('Config').set(file, { defaults: FILE_DEFAULTS });
+          parent.createChild('Config').set(item, { defaults });
         }
         else {
-          console.error(`ensureSection should have created //Config/Files`);
+          console.error(`ensureSection should have created ${sectionPath}`);
         }
       }
     }
     // mark removed files
-    for (let name of xml.getNodeNames((e) => e.startsWith('file_'))) {
-      if (!model.getFile(name) && !name.endsWith('_removed')) {
-        channel.log(`Mark FILE ${name} as removed`);
+    for (let name of xml.getNodeNames((e) => e.startsWith(prefix))) {
+      if (!getCallback(name) && !name.endsWith('_removed')) {
+        channel.log(`Mark ${type} ${name} as removed`);
         // eslint-disable-next-line @typescript-eslint/naming-convention
         xml.setValue(name, { Name: name + '_removed' });
       }
@@ -122,7 +162,7 @@ export class PropImporter {
   public importDecals(xml: AnnoXml, model: ProppedModel) {
     const decal = model.getDecalExtends();
     if (decal) {
-      channel.log(`Import DECAL Extents from node/mesh 'ground'`);
+      channel.log(`Update DECAL Extents from node/mesh 'ground'`);
 
       const path = `/Config/Decals/Config[ConfigType='DECAL']`;
       // don't create, just update

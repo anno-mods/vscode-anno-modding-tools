@@ -338,7 +338,6 @@ export default class ProppedModel {
     let maxZ = minZ;
 
     for (let vertex of ground) {   
-      // round to .5
       const xf = Math.round(vertex.xf * 100) / 100;
       const zf = Math.round(vertex.zf * 100) / 100;
       minX = Math.min(minX, xf);
