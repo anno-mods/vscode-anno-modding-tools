@@ -6,41 +6,50 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
-- `<Materials>` and `<MaterialLODInfos>` import
-- issue with yellow metal texture from Blender export
-- support and strip comments from `.cfg`, `.ifo`
-- replace Cesium glb/gltf conversion with much simpler https://github.com/najadojo/gltf-import-export
-- Right-click `Import Materials`. Reorders material list and fills some gaps.
-- support glTF binary in `gltf` converter
-- FC GUID hover
+- glTF
+  - support glTF binary in `gltf` converter
+  - add `Convert to glTF JSON`
+  - one-click preview of RDM using glTF Tools extension
+- Import
+  - Right-click `Import Materials`. Reorders material list and fills some gaps.
+  - `<Materials>` and `<MaterialLODInfos>` import
+- Outline
+  - ConfigType LIGHT
+  - Cloth model/materials in outline (new world residence tier2)
+  - UnevenBlocker in outline (and unkown elements on the same level)
+  - better outline behavior when writing new tags
+- Editing
+  - support and strip comments from `.cfg`, `.ifo`
+  - FC GUID hover
+  - Enable XML formatter
 - Details for feedback definition
-- ConfigType LIGHT
-- Enable XML formatter
-- Cloth model/materials in outline (new world residence tier2)
-- LOD 1-4 generated even if it's not in the model?
-- UnevenBlocker in outline (and unkown elements on the same level)
-- <Item>*.cfg</Item> in assets.xml as regex instead of individual entries
-- better outline behavior when writing new tags
-- .cfg.yaml should consider .cf7 as well
-- import fc from gltf / RotationY
-- empty line in .cf7 endless loop in annofcconverter
-- no tangent warning in channel output
-- error handling for invalid xml files
-- ```yaml
-  - xpath: //Config/Particles/Config[Name="particle_smoke2"]/Transformer/Config
-    FileName: ''
-  ```
+- Issues
+  - issue with yellow metal texture from Blender export
+  - Show strong warning when there's no tangent information on the mesh
+  - error handling for invalid xml files
+  - ```yaml
+    - xpath: //Config/Particles/Config[Name="particle_smoke2"]/Transformer/Config
+      FileName: ''
+    ```
   leads to `Cannot read property 'type' of undefined`.
+- Internals
+  - replace Cesium glb/gltf conversion with much simpler https://github.com/najadojo/gltf-import-export
+
+## [0.3.0]
 
 ### Added
 
-- Right-click `Convert to RDP XML` from `.rdp`
-- Right-click `Convert to RDP` from `.rdp.xml`
-- `rdpxml` converter for building from RDP XML
+- `.rdp.xml` <> `.rdp` conversion for annomod.json and right-click menus.
+- `.cfg.yaml` > `.cfg`, `.ifo`, `.fc` generation for annomod.json and right-click menus.
+- Import CFG `FILE` sections with `Import PROPs from glTF`.
+- Import FC `Dummy` position and orientation with `Import from glTF`.
 - Don't overwrite files with `Convert to ..` context menu commands
 - Hover info for asset keywords like `UpgradeList` and `ResidenceUpgrade`
 - Auto-complete after typing `GUID='`
-- Import `FILE` sections with `Import PROPs from glTF`.
+
+### Changed
+
+- Included AnnoFCConverter fix to deal with ending empty lines in .cf7
 
 ## [0.2.0]
 

@@ -8,19 +8,21 @@ Anno 1800 is a trademark of Ubisoft Entertainment in the US and/or other countri
 
 ## Features
 
-- Command `F1` > `Build Anno Mod`: build project using `annomod.json` description.
+- Command `F1` > `Build Anno Mod`: automatically build project using `annomod.json` description.
   - PNG to DDS conversion with LOD generation
-  - glTF to RDM conversion with LOD and [animation](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-models.md) extraction
-  - RDP XML to RDP conversion ([particles](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-particles.md))
+  - Animated glTF to RDM conversion with LODs (see [working with animation](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-models.md))
+  - Particle RDP XML to RDP conversion (see [working with particles](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-particles.md))
+  - Generate variants of IFO, CFG and FC using templates
 - Hover info and auto-conversion for Anno GUIDs.
-- Anno-specific outlines: `.cfg`, `.ifo`, `.cf7`
-- Anno-specific syntax highlighting: `.cfg`, `.ifo`, `.cf7`
-- Right-click `Import from glTF` (targets: `.cfg`, `.ifo`)
+- Anno-specific outlines, highlights and auto-complete: `.cfg`, `.ifo`, `.cf7`
+- Right-click `Import from glTF` (targets: `.cfg`, `.ifo`, `.cf7`)
 - Right-click `Convert to` menus
   - AnnoFCConverter `.cf7` to/from `.fc`
   - rdm4 `.rdm` to glTF Binary
   - FileDBReader `.rdp` to/from `.rdp.xml` CDATA as is and simplified
   - texconv `.dds` to `.png`
+
+Read all the [Feature Details](#feature-details) below.
 
 ### GUID Hover and Auto-conversion Preview
 
@@ -29,8 +31,6 @@ Anno 1800 is a trademark of Ubisoft Entertainment in the US and/or other countri
 ### Outline and glTF PROP Import Preview
 
 ![](./doc/quickintro.gif)
-
-Read all the [Feature Details](#feature-details) below.
 
 ## Extension Settings
 
@@ -57,12 +57,7 @@ Read all the [Feature Details](#feature-details) below.
 ## Requirements
 
 Some features like .fc conversion rely on external applications that run only on Windows.
-Native functions like outlines, highlighting work with WSL as well though.
-
-## Known Issues
-
-I'm currently in a trying out phase of development.
-There are quite a few things that may be quirky or break easily.
+Native functions like outlines, highlighting work with Linux/WSL as well though.
 
 ## Credits
 
@@ -74,34 +69,94 @@ A big thanks goes to the external projects I'm using for this extension:
 - texconv - https://github.com/microsoft/DirectXTex
 - gltf-pipeline - https://github.com/CesiumGS/gltf-pipeline
 
-## Release Notes
+## Release Notes / Known Issues
 
 ### 0.3.0
 
-Particle animations!
+Particle animations and stuff!
 
-See [CHANGELOG](./CHANGELOG.md)
+See changes and known issues in [CHANGELOG](./CHANGELOG.md)
 
 ## Feature Details
 
 * [Import from glTF](#import-from-gltf)
-* [GUID Hover and Auto-correct](#guid-hover-and-auto-correct)
-* [Build Anno Mod](#build-anno-mod)
-* [Working with Models](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-models.md)
-* [Working with Particles](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-particles.md)
+* [Create variants from templates](#create-variants-from-templates)
+* [GUID hover and auto-correct](#guid-hover-and-auto-correct)
+* [Build Anno mod](#build-anno-mod)
+* [Working with models](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-models.md) (separate pag)
+* [Working with particles](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-particles.md) (separate page)
 
 ### Import from glTF
 
-Node names must start with `prop_` or `particle_`. New nodes will be added, existing ones updated and nodes in .cfg but not the model marked with `_removed`.
+Put objects and name them as described in your glTF file to import.
+Examples: [Sources on GitHub](https://github.com/jakobharder/anno-1800-jakobs-mods/)
 
-The following items will be imported then:
-- Position, Rotation, Scale
-- Props only: mesh name as `FileName` if it ends with `.prp`. Don't worry about Blender-style `.001`, `.002`, ... endings. They will be ignored.
-  - Unfortunately the mesh name is limited in length. It will not some prop files.
+CFG file imports:
 
-Vertices from a mesh/node named `ground` are used to importer `BuildBlocker` and `DECAL` size.
+- `PROP`s with prefix `prop_`
+  - Position, Rotation, Scale
+  - mesh name as `FileName` if it ends with `.prp`.
+    Don't worry about Blender-style `.001`, `.002`, ... endings. They will be ignored.
+  - Will be added if they don't exist.
+- `PARTICLE`s with prefix `particle_`
+  - Position, Rotation, Scale
+- `FILE`s with prefix `file_`
+  - Position, Rotation, Scale
+  - mesh name as `FileName` if it ends with `.cfg`.
+  - Will be added if they don't exist.
+- `DECAL` with name `ground`
+  - Extents is calculated from the first 4 vertices of that object (use a plane).
 
-### GUID Hover and Auto-correct
+Entries not existing in the model will be marked as `_removed`.
+
+CF7 file imports:
+
+- `Dummies/i` with prefix `fc_`
+  - Position, Orientation, RotationY
+  - ⚠ Note: Matches will happen without the prefix.
+    E.g. `fc_Dummy0` from the model will be matched with `Dummy0` in the CF7 file.
+    This is to avoid the need to rename items in the CF7 file.
+
+IFO file imports:
+
+- BuildBlocker with name `ground`
+  - Extents is calculated from the first 4 vertices of that object (use a plane).
+    Rounded to .5
+
+### Create Variants from Templates
+
+Write a yaml file like below and name it `.cfg.yaml`.
+IFO, FC/CF7 and CFG files will be generated accordingly.
+Files are copied if they have the same name as the source.
+Modifications are currently only supported in IFO and CFG files.
+
+If you have `townhall.cfg`, `townhall.cf7` and `townhall.ifo`, then a `townhall_1.cfg.yaml` leads to generated `townhall_1.cfg`, `townhall_1.fc` and `townhall_1.ifo`. 
+
+Examples: TBD
+
+```yaml
+variant: 
+  source: townhall.cfg
+  modifications:
+    - xpath: //Config/Models/Config/Materials/Config[Name="building"]
+      cModelDiffTex: data/jakob/buildings/townhall/maps/townhall_bluish_diff.psd
+    - xpath: //Config/Models/Config/Materials/Config[Name="roof"]
+      cModelDiffTex: data/jakob/buildings/townhall/maps/townhall_bluish_diff.psd
+    - xpath: //Config/Models/Config[Name="top"]
+      FileName: data/jakob/buildings/townhall/rdm/townhall_2_lod0.rdm
+    # disable smoke
+    - xpath-remove: //Config/Particles/Config[Name="particle_smoke1"]
+    # move flag 1
+    - xpath: //Config/Files/Config[Name="file_flag1"]/Transformer/Config
+      Position.y: 6.97816
+  ifo:
+    # adjust hitbox to new height
+    - xpath: //Info/IntersectBox[Name="Hitbox2"]
+      Position:
+        yf: 4.34346
+```
+
+### GUID Hover and Auto-conversion
 
 Hover works on GUIDs in XPath strings and in the tags `Ingredient`, `Product`, `ItemLink`, `Good` or `GUID`. Hover is mostly limited to products, buildings, production chains, items and effect pools.
 
@@ -162,7 +217,8 @@ Converter actions:
   - `animPath`: move anim to another folder, e.g. `anim`. Default is no change.
 - `modinfo`: generate `modinfo.json`.
   - `content_en`: generate `content_en.txt` file with same content as `modinfo.Description.English`.
-- `rdpxml`: convert .rdp.xml into .rdp (using [FileDBReader](https://github.com/anno-mods/FileDBReader) and custom post-processing)
+- `rdpxml`: convert .rdp.xml into .rdp. [More on a separate page](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-particles.md)
+- `cfgyaml`: generate CFG, IFO and FC files. [More in a separate chapter](#create-variants-from-templates).
 
 Out folder variables:
 
