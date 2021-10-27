@@ -35,6 +35,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Internals
   - replace Cesium glb/gltf conversion with much simpler https://github.com/najadojo/gltf-import-export
 
+## [0.3.1]
+
+### Changed
+
+- Renamed to Modding Tools for Anno to be less trademark offensive.
+
 ## [0.3.0]
 
 ### Added
