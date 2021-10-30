@@ -35,6 +35,11 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Internals
   - replace Cesium glb/gltf conversion with much simpler https://github.com/najadojo/gltf-import-export
 
+## Changed
+
+- Use BC1_UNORM for `_mask.png` textures.
+- cfgyaml source can now be in a different folder.
+
 ## [0.3.1]
 
 ### Changed

@@ -49,7 +49,7 @@ export class CfgYamlConverter {
           
           const sourceCfgPath = path.join(sourceDirname, variantSourceName);
           if (fs.existsSync(sourceCfgPath)) {
-            const sourcePathWithoutExt = path.join(sourceDirname, path.basename(variantSourceName, '.cfg'));
+            const sourcePathWithoutExt = path.join(sourceDirname, path.dirname(variantSourceName), path.basename(variantSourceName, '.cfg'));
             const targetPathWithoutExt = path.join(targetDirname, basename);
 
             // first try cf7
