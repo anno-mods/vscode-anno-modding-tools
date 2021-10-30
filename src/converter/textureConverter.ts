@@ -16,6 +16,7 @@ export class TextureConverter {
       channel.log(`  => ${file}`);
       const lodLevels = Math.max(0, Math.min(9, options.converterOptions.lods === undefined ? 3 : options.converterOptions.lods));
       const changePath = options.converterOptions.changePath || '';
+      const maskEnding = options.converterOptions.maskEnding || '_mask.png';
       const sourceFile = path.join(sourceFolder, file);
 
       try {
@@ -38,7 +39,7 @@ export class TextureConverter {
 
         // save first target
         const tmpFilePath = path.join(options.cache, dirname);
-        dds.convertToTexture(sourceFile, tmpFilePath);
+        dds.convertToTexture(sourceFile, tmpFilePath, sourceFile.endsWith(maskEnding) ? dds.TextureFormat.bc1Unorm : dds.TextureFormat.bc7Unorm);
         // unfortunately, texconv doesn't allow to change the output file name
         fs.renameSync(path.join(tmpFilePath, basename + '.dds'), lodFilePaths[0]);
         channel.log(`  <= ${lodLevels ? `LOD ${0}: ` : ''}${path.relative(path.dirname(file), path.relative(outFolder, lodFilePaths[0]))}`);
