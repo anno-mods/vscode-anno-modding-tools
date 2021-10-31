@@ -21,20 +21,46 @@ interface IAsset {
   english?: string;
 }
 
-function resolveGUID(guid: string): IAsset | undefined {
+function resolveGUID(guid: string) {
   const vanilla = _vanillaAssets || {};
 
   let entry = undefined;
   if (vanilla) {
     entry = vanilla[guid];
   }
-  // if (!entry) {
-  //   // TODO workspace files
-  //   const db: {[index: string]: string } = { '1500010020': 'Small Gas Power Plant' };
-  //   entry = db[guid];
-  // }
-  
   return entry;
+}
+
+function resolveGuidRange(guid: string) {
+  const vanilla = _guidRanges || {};
+  const result = [];
+
+  const guidNumber = parseInt(guid);
+
+  let entry = undefined;
+  for (let range of vanilla.ranges) {
+    if (guidNumber >= range.start && guidNumber <= range.end) {
+      entry = range;
+      break;
+    }
+  }
+
+  if (entry) {
+    result.push(`${entry.name}'s GUID range`);
+  }
+  return result;
+}
+
+function resolveSafeRange(guid: string) {
+  const vanilla = _guidRanges || {};
+  const guidNumber = parseInt(guid);
+  const addYourRange = 'add your range at [github.com/anno-mods/GuidRanges](https://github.com/anno-mods/GuidRanges)';
+  if (guidNumber >= vanilla.safe.start && guidNumber < vanilla.safe.end) {
+    return [ `Is safe for your own assets. Remember to ${addYourRange}.` ];
+  }
+  else {
+    return [ `⚠ Is not safe for your own assets.\n\nPlease use from 1.337.471.142 to 2.147.483.647 and ${addYourRange}.` ];
+  }
 }
 
 function getValueAfterTag(line: string, position: number) {
@@ -146,6 +172,14 @@ async function loadVanillaAssets(context: vscode.ExtensionContext) {
   return _vanillaAssets;
 }
 
+let _guidRanges: { safe: { start: number, end: number }, ranges: { name: string, start: number, end: number }[] };
+async function loadGuidRanges(context: vscode.ExtensionContext) {
+  if (!_guidRanges) {
+    const assetPath = context.asAbsolutePath('./generated/guidranges.json');
+    _guidRanges = JSON.parse(fs.readFileSync(assetPath, { encoding: 'utf8' }));
+  }
+  return _guidRanges;
+}
 
 let _keywordHelp: { [index: string]: string[] } | undefined = undefined;
 async function loadKeywordHelp(context: vscode.ExtensionContext) {
@@ -159,6 +193,7 @@ async function loadKeywordHelp(context: vscode.ExtensionContext) {
 
 export function registerGuidUtilsProvider(context: vscode.ExtensionContext): vscode.Disposable[] {
   loadVanillaAssets(context);
+  loadGuidRanges(context);
   loadKeywordHelp(context);
 
 	return [
@@ -195,16 +230,19 @@ function provideHover(document: vscode.TextDocument, position: vscode.Position, 
     const guid = value.text;
     if (guid) {
       const namedGuid = resolveGUID(guid);
+      let name = [ ];
       if (namedGuid) {
-        return {
-          contents: [ `${namedGuid.template}: ${namedGuid.english} (${namedGuid.name})` ]
-        };
+        name = [ `${namedGuid.template}: ${namedGuid.english} (${namedGuid.name})` ];
       }
       else {
-        return {
-          contents: [ `GUID ${guid} not found.` ]
-        };
+        name = [ `GUID ${guid} not found.` ];
       }
+      const range = resolveGuidRange(guid);
+      const safe = (namedGuid || range.length > 0) ? [] : resolveSafeRange(guid);
+
+      return { 
+        contents: [ ...name, ...range, ...safe ]
+      };
     }
   }
 

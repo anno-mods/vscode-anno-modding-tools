@@ -99,3 +99,28 @@ if (!fs.existsSync(path.dirname(OUTPUT_FILEPATH))) {
 fs.writeFileSync(OUTPUT_FILEPATH, JSON.stringify(assets, undefined, 2));
 
 console.log(`written to ${OUTPUT_FILEPATH}`);
+
+
+// write guidranges.json
+const guidrangesMd = fs.readFileSync('./src/guidranges.md', 'utf8') || '';
+const guidrangeLines = guidrangesMd.split('\n').filter((e: string) => e.trim().startsWith('|'));
+
+const ranges: { name: string | null, start: number, end: number }[] = [];
+for (let line of guidrangeLines) {
+  const split = line.split('|');
+  const name = split[1].trim();
+  const start = parseInt((split[2]||'').replace(/\./g, ''));
+  const end = parseInt((split[3]||'').replace(/\./g, ''));
+
+  if (start && end) {
+    ranges.push({ name, start, end });
+  }
+}
+
+fs.writeFileSync('./generated/guidranges.json', JSON.stringify({
+  safe: { 
+    start: 1337471142,
+    end: 2147483647
+  },
+  ranges
+}, undefined, 2));

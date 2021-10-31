@@ -1,0 +1,148 @@
+{
+  "safe": {
+    "start": 1337471142,
+    "end": 2147483647
+  },
+  "ranges": [
+    {
+      "name": "Fishboss",
+      "start": 850000,
+      "end": 859999
+    },
+    {
+      "name": "Spice it Up",
+      "start": 900000,
+      "end": 930000
+    },
+    {
+      "name": "Alucard",
+      "start": 940000,
+      "end": 945750
+    },
+    {
+      "name": "Spice it Up",
+      "start": 976000,
+      "end": 976999
+    },
+    {
+      "name": "New Horizons",
+      "start": 1337000,
+      "end": 1447999
+    },
+    {
+      "name": "Spice it Up",
+      "start": 8855000,
+      "end": 8857999
+    },
+    {
+      "name": "WalGier",
+      "start": 8877200,
+      "end": 8877500
+    },
+    {
+      "name": "New Horizons",
+      "start": 13370000,
+      "end": 15522999
+    },
+    {
+      "name": "Barthi82",
+      "start": 19820000,
+      "end": 19829999
+    },
+    {
+      "name": "Spice it Up 2.8",
+      "start": 99334100,
+      "end": 99334199
+    },
+    {
+      "name": "New Horizons",
+      "start": 133700000,
+      "end": 133700999
+    },
+    {
+      "name": "Harlekin",
+      "start": 1337472000,
+      "end": 1337472999
+    },
+    {
+      "name": "muggenstuermer",
+      "start": 1337500000,
+      "end": 1337510000
+    },
+    {
+      "name": "Pawel Malecki",
+      "start": 1400000000,
+      "end": 1400099999
+    },
+    {
+      "name": "Spice it Up 3.0",
+      "start": 1440133000,
+      "end": 1440134699
+    },
+    {
+      "name": "Mod_Taro",
+      "start": 1357900000,
+      "end": 1357999999
+    },
+    {
+      "name": "Lethani",
+      "start": 1337499000,
+      "end": 1337499999
+    },
+    {
+      "name": "New Horizons",
+      "start": 1414000000,
+      "end": 1414999999
+    },
+    {
+      "name": "Serp's Mods",
+      "start": 1500000000,
+      "end": 1500010000
+    },
+    {
+      "name": "Jakob",
+      "start": 1500010001,
+      "end": 1500010999
+    },
+    {
+      "name": "Fam",
+      "start": 1660010000,
+      "end": 1660019999
+    },
+    {
+      "name": "Lady Meridonia",
+      "start": 1777650000,
+      "end": 1777659999
+    },
+    {
+      "name": "DonnyBresko",
+      "start": 1800000100,
+      "end": 1800002099
+    },
+    {
+      "name": "JohnSpoc",
+      "start": 1888888000,
+      "end": 1888988000
+    },
+    {
+      "name": "Incipium",
+      "start": 1998000000,
+      "end": 1998999999
+    },
+    {
+      "name": "Ghostbuster",
+      "start": 2000000000,
+      "end": 2000099999
+    },
+    {
+      "name": "XAN",
+      "start": 2000150000,
+      "end": 2000259999
+    },
+    {
+      "name": "Phloup",
+      "start": 2122330000,
+      "end": 2122339999
+    }
+  ]
+}
