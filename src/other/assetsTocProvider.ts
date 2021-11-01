@@ -99,7 +99,6 @@ export class AssetsTocProvider {
 
     const relevantSections: { [index: string]: any } = {
       /* eslint-disable @typescript-eslint/naming-convention */
-      'ModOps': {},
       'ModOp': {},
       'Asset': {}
       /* eslint-enable @typescript-eslint/naming-convention */
@@ -107,19 +106,45 @@ export class AssetsTocProvider {
 
     const symbolMap: { [index: string]: vscode.SymbolKind } = {
       /* eslint-disable @typescript-eslint/naming-convention */
-      'ModOps': vscode.SymbolKind.Package,
       'ModOp': vscode.SymbolKind.Property,
       'Asset': vscode.SymbolKind.Class
       /* eslint-enable @typescript-eslint/naming-convention */
     };
 
+    let sectionComment: string | undefined = 'ModOps';
+
     const xmlContent = new xmldoc.XmlDocument(document.getText());
-    const nodeStack: { depth: number, element: xmldoc.XmlNode }[] = [{ depth: 0, element: xmlContent }]; 
-    while (nodeStack.length > 0) {
-      const top = nodeStack.pop();
-      if (top?.element.type === 'element') {
-        const children = (top.element.children ? top.element.children.filter((e) => e.type === 'element') : []).map((e) => (
-          { depth: top.depth + 1, element: e }
+    const nodeStack: { depth: number, element: xmldoc.XmlNode }[] = [{ depth: 0, element: xmlContent }];
+    for (let top = nodeStack.pop(); top; top = nodeStack.pop()) {
+
+      if (top.element.type === 'comment' && top.depth === 1) {
+        let comment = top.element.comment.trim();
+        if (comment.startsWith('#')) {
+          comment = comment.replace(/#/g, '').trim();
+          if (comment) {
+            sectionComment = comment;
+          }
+        }
+      }
+      else if (top.element.type === 'element') {
+        // open ModOp section
+        if (sectionComment && top.element.name === 'ModOp') {
+          const line = Math.max(0, top?.element.line - 1);
+          toc.push({
+            text: sectionComment,
+            detail: '',
+            level: 0,
+            line,
+            location: new vscode.Location(document.uri,
+              new vscode.Range(line, 0, line, 1)),
+            symbol: vscode.SymbolKind.Package
+          });
+          sectionComment = undefined;
+        }
+
+        const depth = top.depth;
+        const children = (top.element.children ? top.element.children.filter((e) => e.type === 'element' || e.type === 'comment') : []).map((e) => (
+          { depth: depth + 1, element: e }
         ));
         if (children.length > 0) {
           // has tag children
