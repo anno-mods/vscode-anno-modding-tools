@@ -1,6 +1,7 @@
 import path = require('path');
 import * as vscode from 'vscode';
 import * as fs from 'fs';
+import { type } from 'os';
 
 const _TAGS_TO_COMPLETE: { [index: string]: string[] } = {
   /* eslint-disable @typescript-eslint/naming-convention */
@@ -21,7 +22,7 @@ interface IAsset {
   english?: string;
 }
 
-function resolveGUID(guid: string) {
+export function resolveGUID(guid: string) {
   const vanilla = _vanillaAssets || {};
 
   let entry = undefined;
@@ -76,7 +77,17 @@ function getValueAfterTag(line: string, position: number) {
   return line.substr(closing + 1, opening - closing - 1);
 }
 
-function getLastTag(line: string, position: number) {
+interface IKeyword {
+  name: string,
+  position: number,
+  type: 'tag' | 'xpath',
+  parent?: IKeyword
+}
+
+function _findLastKeywordInLine(line: string, position?: number): IKeyword | undefined {
+  if (!position) {
+    position = line.length - 1;
+  }
   const linePrefix = line.substr(0, position);
 
   const closingTag = linePrefix.lastIndexOf('>');
@@ -93,16 +104,60 @@ function getLastTag(line: string, position: number) {
   }
 
   if (validTag && closingTag > equalSign) {
-    return linePrefix.substr(openingTag + 1, closingTag - openingTag - 1);
+    return {
+      name: linePrefix.substr(openingTag + 1, closingTag - openingTag - 1), 
+      position: openingTag,
+      type: 'tag'
+    };
   }
   else {
     const propertyMatch = linePrefix.substring(0, equalSign).match(/\s*(\w+)\s*$/);
     if (propertyMatch) {
-      return propertyMatch[1];
+      return {
+        name: propertyMatch[1],
+        position: linePrefix.length - propertyMatch[1].length,
+        type: 'xpath'
+      };
     }
   }
 
   return undefined;
+}
+
+function findKeywordBeforePosition(document: vscode.TextDocument, position: vscode.Position) {
+  const thisLine = document.lineAt(position)?.text;
+  
+  const keyword = _findLastKeywordInLine(thisLine, position.character);
+  if (!keyword) {
+    return undefined;
+  }
+  // let parent = undefined;
+  // if (keyword && keyword.type === 'tag' && position.line > 0) {
+  //   parent = _findLastKeywordInLine(document.lineAt(position.line - 1).text + thisLine.substring(0, keyword.position));
+  // }
+  // else {
+  // }
+
+  return { ...keyword, parent: undefined };
+}
+
+function findKeywordAtPosition(document: vscode.TextDocument, position: vscode.Position) {
+  const word = document.getWordRangeAtPosition(position);
+  if (!word) {
+    return undefined;
+  }
+
+  let parent = undefined;
+  if (position.line > 0) {
+    parent = _findLastKeywordInLine(document.lineAt(position.line - 1).text + document.lineAt(position).text.substring(0, position.character));
+  }
+  else {
+  }
+
+  return {
+    name: document.lineAt(word.start.line).text.substr(word.start.character, word.end.character - word.start.character),
+    parent
+  };
 }
 
 function getValueAt(line: string, position: number) {
@@ -181,11 +236,20 @@ async function loadGuidRanges(context: vscode.ExtensionContext) {
   return _guidRanges;
 }
 
-let _keywordHelp: { [index: string]: string[] } | undefined = undefined;
+interface IKeywordHelp {
+  parent?: string,
+  help: string[]
+}
+let _keywordHelp: { [index: string]: IKeywordHelp } | undefined = undefined;
 async function loadKeywordHelp(context: vscode.ExtensionContext) {
   if (!_keywordHelp) {
     const assetPath = context.asAbsolutePath('./languages/keywords.json');
-    _keywordHelp = JSON.parse(fs.readFileSync(assetPath, { encoding: 'utf8' }));
+    const parsed = JSON.parse(fs.readFileSync(assetPath, { encoding: 'utf8' }));
+    _keywordHelp = {};
+    for (let entryKey of Object.keys(parsed)) {
+      const entryValue = parsed[entryKey];
+      _keywordHelp[entryKey] = Array.isArray(entryValue) ? { help: entryValue } : entryValue;
+    }
   }
 
   return _keywordHelp;
@@ -203,21 +267,22 @@ export function registerGuidUtilsProvider(context: vscode.ExtensionContext): vsc
 }
 
 function provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
-  const tag = getLastTag(document.lineAt(position).text, position.character);
-  if (!tag) {
+  const keyword = findKeywordBeforePosition(document, position);
+  if (!keyword) {
     return undefined;
   }
-  // TODO scan open file
-  return _completionItems[tag];
+  // TODO scan open file for GUIDs
+  return _completionItems[keyword.name];
 }
 
 function provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken) {
-  const word = document.getWordRangeAtPosition(position);
+  const word = findKeywordAtPosition(document, position);
   if (word && _keywordHelp) {
-    const text = document.lineAt(word.start.line).text.substr(word.start.character, word.end.character - word.start.character);
+    console.log(word);
+    const text = word.name;
     const keywordHelp = _keywordHelp[text];
     if (keywordHelp) {
-      return { contents: keywordHelp };
+      return { contents: keywordHelp.help };
     }
   }
 

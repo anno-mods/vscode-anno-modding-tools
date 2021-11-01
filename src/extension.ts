@@ -12,6 +12,7 @@ import { FcImporter } from './features/fcImporter';
 import * as dds from './other/dds';
 import * as rdp from './other/rdp';
 import { CfgYamlConverter } from './converter/cfgYamlConverter';
+import { AssetsSymbolProvider } from './features/assetsSymbolProvider';
 
 export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(registerCfgLanguageFeatures('anno-cfg'));
@@ -27,6 +28,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(...RdpConverter.register(context));
 	context.subscriptions.push(...FcImporter.register(context));
 	context.subscriptions.push(...CfgYamlConverter.register(context));
+	context.subscriptions.push(...AssetsSymbolProvider.register(context));
 
 	rdp.init(context.asAbsolutePath('./external/'));
 	dds.init(context.asAbsolutePath('./external/'));

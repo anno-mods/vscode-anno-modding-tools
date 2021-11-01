@@ -35,6 +35,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Internals
   - replace Cesium glb/gltf conversion with much simpler https://github.com/najadojo/gltf-import-export
 
+### Added
+
+- assets.xml outline
+
 ## [0.3.2]
 
 ### Changed

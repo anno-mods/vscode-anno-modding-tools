@@ -13,5 +13,11 @@
   ],
   "UpgradeCost": [
     "Content: `<Item><Ingredient /><Amount /></Item>`"
-  ]
+  ],
+  "Building": {
+    "parent": "Values",
+    "help": [
+      "Don't forget to set `SecondPartyRelevant` to 0 if AI should not use this building."
+    ]
+  }
 }
