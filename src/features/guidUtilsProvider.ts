@@ -1,7 +1,7 @@
 import path = require('path');
 import * as vscode from 'vscode';
 import * as fs from 'fs';
-import { type } from 'os';
+import { AssetsTocProvider } from '../other/assetsTocProvider';
 
 const _TAGS_TO_COMPLETE: { [index: string]: string[] } = {
   /* eslint-disable @typescript-eslint/naming-convention */
@@ -149,9 +149,7 @@ function findKeywordAtPosition(document: vscode.TextDocument, position: vscode.P
 
   let parent = undefined;
   if (position.line > 0) {
-    parent = _findLastKeywordInLine(document.lineAt(position.line - 1).text + document.lineAt(position).text.substring(0, position.character));
-  }
-  else {
+    parent = new AssetsTocProvider(document).getParentPath(position.line, position.character);
   }
 
   return {
@@ -240,7 +238,7 @@ interface IKeywordHelp {
   parent?: string,
   help: string[]
 }
-let _keywordHelp: { [index: string]: IKeywordHelp } | undefined = undefined;
+let _keywordHelp: { [index: string]: IKeywordHelp[] } | undefined = undefined;
 async function loadKeywordHelp(context: vscode.ExtensionContext) {
   if (!_keywordHelp) {
     const assetPath = context.asAbsolutePath('./languages/keywords.json');
@@ -248,7 +246,10 @@ async function loadKeywordHelp(context: vscode.ExtensionContext) {
     _keywordHelp = {};
     for (let entryKey of Object.keys(parsed)) {
       const entryValue = parsed[entryKey];
-      _keywordHelp[entryKey] = Array.isArray(entryValue) ? { help: entryValue } : entryValue;
+      if (!Array.isArray(entryValue) || entryValue.length === 0) {
+        continue;
+      }
+      _keywordHelp[entryKey] = typeof entryValue[0] === 'string' ? [ { help: entryValue } ] : entryValue;
     }
   }
 
@@ -276,13 +277,15 @@ function provideCompletionItems(document: vscode.TextDocument, position: vscode.
 }
 
 function provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken) {
-  const word = findKeywordAtPosition(document, position);
-  if (word && _keywordHelp) {
-    console.log(word);
-    const text = word.name;
-    const keywordHelp = _keywordHelp[text];
+  const keyword = findKeywordAtPosition(document, position);
+  if (keyword && _keywordHelp) {
+    const keywordHelp = _keywordHelp[keyword.name];
     if (keywordHelp) {
-      return { contents: keywordHelp.help };
+      for (let help of keywordHelp) {
+        if (!help.parent || keyword.parent?.endsWith(help.parent)) {
+          return { contents: help.help };
+        }
+      }
     }
   }
 

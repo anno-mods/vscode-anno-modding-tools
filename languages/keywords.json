@@ -14,10 +14,31 @@
   "UpgradeCost": [
     "Content: `<Item><Ingredient /><Amount /></Item>`"
   ],
-  "Building": {
+  "Building": [{
     "parent": "Values",
     "help": [
       "Don't forget to set `SecondPartyRelevant` to 0 if AI should not use this building."
     ]
-  }
+  },
+  {
+    "parent": "Item",
+    "help": [
+      "Building GUID"
+    ]
+  }],
+  "Locked": [
+    "Set `DefaultLockedState` to 0 to unlock without `FeatureUnlock` triggers."
+  ],
+  "DefaultLockedState": [
+    "`0` - unlocked and visible\n\n`1` - needs `FeatureUnlock` to unhide and unlock."
+  ],
+  "AssociatedRegions": [
+    "Regions separated by semicolon.\n\n`Moderate` - Old Word and Cap Trelawney\n\n`Colony01` - New World\n\n`Arctic`\n\n`Africa` - Enbesa"
+  ],
+  "SecondPartyRelevant": [
+    "`0` - disable this building for AI player"
+  ],
+  "BuildingCategoryName": [
+    "Category name visible below building name.\n\nCommon values:\n\n`11149` - ornament\n\n`100000` - production\n\n`100001` - emergency services\n\n`100003` - public service\n\n`11150` - harbor"
+  ]
 }

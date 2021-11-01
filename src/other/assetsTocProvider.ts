@@ -42,6 +42,14 @@ export class AssetsTocProvider {
     return this.toc;
   }
 
+  public getParentPath(line: number, position: number): string {
+    try {
+      return this._getParentPath(this.document, line, position);
+    } catch (e) {
+      return '';
+    }
+  }
+
   private _getName(element: xmldoc.XmlElement) {
     if (element.name === 'ModOp') {
       return element.attr['Type'] || 'ModOp';
@@ -106,7 +114,7 @@ export class AssetsTocProvider {
     };
 
     const xmlContent = new xmldoc.XmlDocument(document.getText());
-    let nodeStack: { depth: number, element: xmldoc.XmlNode }[] = [{ depth: 0, element: xmlContent }];
+    const nodeStack: { depth: number, element: xmldoc.XmlNode }[] = [{ depth: 0, element: xmlContent }]; 
     while (nodeStack.length > 0) {
       const top = nodeStack.pop();
       if (top?.element.type === 'element') {
@@ -155,5 +163,37 @@ export class AssetsTocProvider {
             new vscode.Position(endLine, document.lineAt(endLine).text.length)))
       };
     });
+  }
+
+  private _getParentPath(document: SkinnyTextDocument, line: number, position: number): string {
+    const xmlContent = new xmldoc.XmlDocument(document.getText());
+    const nodeStack: { history: string[], element: xmldoc.XmlNode }[] = [{ history: [], element: xmlContent }];
+    while (nodeStack.length > 0) {
+      const top = nodeStack.pop();
+      if (top?.element.type === 'element') {
+        const name = top.element.name;
+        const elementLength = (top.element.position - top.element.startTagPosition);
+        if (top.element.line === line && top.element.column > position && top.element.column < position + elementLength) {
+          return top.history.join('/');
+        }
+        if (top.element.line > line) {
+          // should not happen
+          return '';
+        }
+
+        const children = (top.element.children ? top.element.children.filter((e) => e.type === 'element') : []).map((e) => (
+          { history: [...top.history, name], element: e }
+        ));
+        if (children.length > 0) {
+          // has tag children
+          nodeStack.push(...children.reverse());
+        }
+      }
+      else {
+        // ignore
+      }
+    }
+
+    return '';
   }
 }
