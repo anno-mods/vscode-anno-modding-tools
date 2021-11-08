@@ -16,7 +16,12 @@ const TEMPLATE = [
   'VehicleItem', 
   'Product',
   'ProductionChain',
-  'ConstructionCategory'
+  'ConstructionCategory',
+  'RecipeList',
+  'Recipe',
+  'ProductStorageList',
+  'ProductList',
+  'PopulationLevel7'
 ];
 
 interface IAsset {

@@ -3425,6 +3425,16 @@
     "name": "Giant Water Lily",
     "english": "Giant Water Lily"
   },
+  "112642": {
+    "template": "PopulationLevel7",
+    "name": "Arctic Population 1",
+    "english": "Explorers"
+  },
+  "112643": {
+    "template": "PopulationLevel7",
+    "name": "Arctic Population 2",
+    "english": "Technicians"
+  },
   "112652": {
     "template": "ResidenceBuilding7_Arctic",
     "name": "residence_arctic_tier02",
@@ -4190,6 +4200,16 @@
     "template": "CultureModule",
     "name": "C03_M03_j_Wimba",
     "english": "Arboreal Space"
+  },
+  "114329": {
+    "template": "PopulationLevel7",
+    "name": "Africa Population 1",
+    "english": "Shepherds"
+  },
+  "114330": {
+    "template": "PopulationLevel7",
+    "name": "Africa Population 2",
+    "english": "Elders"
   },
   "114340": {
     "template": "Product",
@@ -5833,6 +5853,11 @@
     "name": "moderate LoL telephone chain",
     "english": "Telephones"
   },
+  "118745": {
+    "template": "PopulationLevel7",
+    "name": "Moderate Scholar Population",
+    "english": "Scholars"
+  },
   "118904": {
     "template": "CampaignQuestObject",
     "name": "Damaged pub",
@@ -6073,6 +6098,34 @@
     "name": "chapel",
     "english": "Chapel"
   },
+  "120055": {
+    "template": "ProductStorageList",
+    "name": "StandartProductStorageList"
+  },
+  "120056": {
+    "template": "ProductStorageList",
+    "name": "StandardOilHarborStorageList"
+  },
+  "120057": {
+    "template": "ProductStorageList",
+    "name": "StandardMarketplaceModerateStorageList"
+  },
+  "120058": {
+    "template": "ProductStorageList",
+    "name": "StandardMarketplaceColonyStorageList"
+  },
+  "120059": {
+    "template": "ProductStorageList",
+    "name": "StandardMarketplaceArcticStorageList"
+  },
+  "120060": {
+    "template": "ProductStorageList",
+    "name": "EmptyStorageList"
+  },
+  "120061": {
+    "template": "ProductStorageList",
+    "name": "StandardCoalStoneStorageList"
+  },
   "120271": {
     "template": "WorkAreaRiverBuilding",
     "name": "river_colony02_03_workarea (Water Pump)"
@@ -6134,6 +6187,10 @@
     "template": "VehicleItem",
     "name": "UniqueCampaignReward5 (Cartographer)",
     "english": "Ocean Plotting Sheet of the Southern Hemisphere"
+  },
+  "122362": {
+    "template": "ProductStorageList",
+    "name": "StandardMarketplaceAfricaStorageList"
   },
   "122963": {
     "template": "FreeAreaBuilding",
@@ -7979,10 +8036,24 @@
     "name": "Tourist Workforce",
     "english": "Tourist Customers"
   },
+  "132743": {
+    "template": "RecipeList",
+    "name": "RecipeList_Diner"
+  },
+  "132744": {
+    "template": "Recipe",
+    "name": "Recipe_Schnitzel",
+    "english": "Archduke&apos;s Schnitzel"
+  },
   "132747": {
     "template": "Restaurant",
     "name": "Diner_001_Schnitzel",
     "english": "Restaurant: Archduke&apos;s Schnitzel"
+  },
+  "132748": {
+    "template": "Recipe",
+    "name": "Recipe_Goulash",
+    "english": "Stroggof Goulash"
   },
   "132750": {
     "template": "Restaurant",
@@ -8014,6 +8085,16 @@
     "name": "Cafe_Need",
     "english": "Café"
   },
+  "132756": {
+    "template": "Recipe",
+    "name": "Recipe_DaiQuiri",
+    "english": "Daiquiri Tropic"
+  },
+  "132757": {
+    "template": "Recipe",
+    "name": "Recipe_Doughnut",
+    "english": "Donut Fourré"
+  },
   "132761": {
     "template": "Product",
     "name": "Tourist_Monument_Need",
@@ -8039,10 +8120,19 @@
     "name": "Multifactory_Chemical_Blank",
     "english": "Chemical Plant"
   },
+  "132774": {
+    "template": "RecipeList",
+    "name": "RecipeList_Chemical"
+  },
   "132777": {
     "template": "Multifactory",
     "name": "Multifactory_Chemical_Lemonade",
     "english": "Chemical Plant: Lemonade"
+  },
+  "132778": {
+    "template": "Recipe",
+    "name": "Recipe_Lemonade",
+    "english": "Lemonade"
   },
   "132779": {
     "template": "ConstructionCategory",
@@ -8069,6 +8159,11 @@
     "name": "Multifactory_Chemical_Shampoo",
     "english": "Chemical Plant: Shampoo"
   },
+  "132788": {
+    "template": "Recipe",
+    "name": "Recipe_Shampoo",
+    "english": "Shampoo"
+  },
   "132840": {
     "template": "TownhallItem",
     "name": "Wine Tasting Advertizement",
@@ -8089,15 +8184,40 @@
     "name": "TreePlanter_Moderate_blank",
     "english": "Orchard"
   },
+  "132935": {
+    "template": "RecipeList",
+    "name": "RecipeList_TreePlanter_Moderate",
+    "english": "No Seed"
+  },
+  "132936": {
+    "template": "RecipeList",
+    "name": "RecipeList_TreePlanter_Colony01",
+    "english": "No Seed"
+  },
   "133004": {
     "template": "FreeAreaRecipeBuilding",
     "name": "TreePlanter_Colony01_Coconut_Butter",
     "english": "Orchard: Coconut Oil"
   },
+  "133005": {
+    "template": "Recipe",
+    "name": "Recipe_CoconutButter",
+    "english": "Coconut Oil"
+  },
   "133010": {
     "template": "FreeAreaRecipeBuilding",
     "name": "TreePlanter_Colony01_blank",
     "english": "Orchard (New World)"
+  },
+  "133028": {
+    "template": "Recipe",
+    "name": "Recipe_CamphorCinnamon",
+    "english": "Cinnamon"
+  },
+  "133029": {
+    "template": "Recipe",
+    "name": "Recipe_Citrus",
+    "english": "Citrus"
   },
   "133030": {
     "template": "FreeAreaRecipeBuilding",
@@ -8232,10 +8352,95 @@
     "name": "Cafe_005_BananaSurprise",
     "english": "Cafe: Banana Surprise"
   },
+  "133365": {
+    "template": "Recipe",
+    "name": "Recipe_Eclair",
+    "english": "Eclair"
+  },
+  "133366": {
+    "template": "Recipe",
+    "name": "Recipe_Palmier",
+    "english": "Palmier Biscuit"
+  },
+  "133367": {
+    "template": "Recipe",
+    "name": "Recipe_Tartare",
+    "english": "Venison Tartare"
+  },
+  "133368": {
+    "template": "Recipe",
+    "name": "Recipe_BananaSurprise",
+    "english": "Banana Surprise"
+  },
+  "133369": {
+    "template": "Recipe",
+    "name": "Recipe_BlackMuscovy",
+    "english": "Black Muscovy"
+  },
+  "133370": {
+    "template": "Recipe",
+    "name": "Recipe_Montmartre",
+    "english": "Montmartre &apos;75&apos;"
+  },
+  "133371": {
+    "template": "Recipe",
+    "name": "Recipe_Glogg",
+    "english": "Gløgg"
+  },
+  "133372": {
+    "template": "Recipe",
+    "name": "Recipe_EnbesaSunrise",
+    "english": "Enbesa Sunrise"
+  },
+  "133373": {
+    "template": "Recipe",
+    "name": "Recipe_FishnChips",
+    "english": "Fish and Frites"
+  },
+  "133374": {
+    "template": "Recipe",
+    "name": "Recipe_VenisonRagout",
+    "english": "Venison en Croûte"
+  },
+  "133375": {
+    "template": "Recipe",
+    "name": "Recipe_LobsterFumé",
+    "english": "Lobster Cheminée"
+  },
+  "133377": {
+    "template": "Recipe",
+    "name": "Recipe_Sandwich",
+    "english": "Brioche Royale"
+  },
+  "133378": {
+    "template": "Recipe",
+    "name": "Recipe_TrifleTower",
+    "english": "Trifle Tower"
+  },
+  "133379": {
+    "template": "Recipe",
+    "name": "Recipe_LadyMarmelade",
+    "english": "Lady Marmelade"
+  },
+  "133380": {
+    "template": "Recipe",
+    "name": "Recipe_AgeofExploration",
+    "english": "Age of Exploration"
+  },
+  "133381": {
+    "template": "Recipe",
+    "name": "Recipe_MerAndForêt",
+    "english": "Homard sur Lit de Terroir"
+  },
   "133496": {
     "template": "FreeAreaRecipeBuilding",
     "name": "TreePlanter_Moderate_Jam",
     "english": "Orchard: Jam"
+  },
+  "133498": {
+    "template": "Recipe",
+    "name": "Recipe_Jam",
+    "english": "Jam"
   },
   "133532": {
     "template": "Product",
@@ -8247,6 +8452,11 @@
     "name": "Multifactory_Chemical_Souvenier",
     "english": "Chemical Plant: Souvenirs"
   },
+  "133534": {
+    "template": "Recipe",
+    "name": "Recipe_Souvenir",
+    "english": "Souvenir"
+  },
   "133535": {
     "template": "Product",
     "name": "Museum_Need",
@@ -8257,6 +8467,14 @@
     "name": "WorldFair_Monument_Need",
     "english": "World&apos;s Fair"
   },
+  "133556": {
+    "template": "RecipeList",
+    "name": "RecipeList_Cafe"
+  },
+  "133557": {
+    "template": "RecipeList",
+    "name": "RecipeList_Bar"
+  },
   "133573": {
     "template": "Product",
     "name": "Cabaret_Need",
@@ -8266,6 +8484,10 @@
     "template": "Product",
     "name": "Pier_Need",
     "english": "Tourist Mooring"
+  },
+  "133927": {
+    "template": "RecipeList",
+    "name": "RecipeList_Tower"
   },
   "133928": {
     "template": "TowerRestaurant",
@@ -8302,6 +8524,11 @@
     "name": "TreePlanter_Colony01_Camphora_Camphor",
     "english": "Orchard: Camphor Wax"
   },
+  "134615": {
+    "template": "Recipe",
+    "name": "Recipe_CamphoraCamphor",
+    "english": "Camphor Wax"
+  },
   "134616": {
     "template": "Product",
     "name": "Camphor",
@@ -8311,6 +8538,16 @@
     "template": "Multifactory",
     "name": "Multifactory_Assembly_Blank",
     "english": "Assembly Line"
+  },
+  "134620": {
+    "template": "RecipeList",
+    "name": "RecipeList_AssemblyLine",
+    "english": "Assembly Line Patent List"
+  },
+  "134621": {
+    "template": "Recipe",
+    "name": "Recipe_Elevator",
+    "english": "Elevators"
   },
   "134622": {
     "template": "Multifactory",
@@ -8331,6 +8568,16 @@
     "template": "Mall",
     "name": "Pharmacy_ToothPaste",
     "english": "Drug Store: Toothpaste"
+  },
+  "134632": {
+    "template": "RecipeList",
+    "name": "RecipeList_Pharmacy",
+    "english": "Drug Store Patent List"
+  },
+  "134633": {
+    "template": "Recipe",
+    "name": "Recipe_ToothPaste",
+    "english": "Toothpaste"
   },
   "134720": {
     "template": "OrnamentalBuilding",
@@ -8522,6 +8769,16 @@
     "name": "TreePlanter_Moderate_CherryWood",
     "english": "Orchard: Cherry Wood"
   },
+  "135089": {
+    "template": "Recipe",
+    "name": "Recipe_Resin",
+    "english": "Resin"
+  },
+  "135090": {
+    "template": "Recipe",
+    "name": "Recipe_CherryWood",
+    "english": "Cherry Wood"
+  },
   "135099": {
     "template": "Mall",
     "name": "FurnitureStore_Blank",
@@ -8532,15 +8789,35 @@
     "name": "DepartmentStore_Blank",
     "english": "Department Store"
   },
+  "135101": {
+    "template": "RecipeList",
+    "name": "RecipeList_FurnitureStore",
+    "english": "Furniture Store Patent List"
+  },
+  "135102": {
+    "template": "RecipeList",
+    "name": "RecpieList_DepartmentStore",
+    "english": "Department Store Patent List"
+  },
   "135103": {
     "template": "Mall",
     "name": "DepartmentStore_Toaster",
     "english": "Department Store: Toasters"
   },
+  "135104": {
+    "template": "Recipe",
+    "name": "Recipe_Toaster",
+    "english": "Toaster"
+  },
   "135105": {
     "template": "Mall",
     "name": "FurnitureStore_BankersLamp",
     "english": "Furniture Store: Banker&apos;s Lamps"
+  },
+  "135106": {
+    "template": "Recipe",
+    "name": "Recipe_BankersLamp",
+    "english": "Banker&apos;s Lamp"
   },
   "135107": {
     "template": "Product",
@@ -8577,6 +8854,26 @@
     "name": "FurnitureStore_Chair",
     "english": "Furniture Store: Lounge Seating"
   },
+  "135124": {
+    "template": "Recipe",
+    "name": "Recipe_Paravent",
+    "english": "Vanity Screen"
+  },
+  "135125": {
+    "template": "Recipe",
+    "name": "Recipe_Desk",
+    "english": "Writing Desk"
+  },
+  "135126": {
+    "template": "Recipe",
+    "name": "Recipe_Bed",
+    "english": "Four-Poster Beds"
+  },
+  "135127": {
+    "template": "Recipe",
+    "name": "Recipe_Chair",
+    "english": "Lounge Seating"
+  },
   "135129": {
     "template": "Product",
     "name": "LacquerColor",
@@ -8597,10 +8894,25 @@
     "name": "Multifactory_SA_Chemical_Ethanol",
     "english": "Chemical Plant: Ethanol"
   },
+  "135146": {
+    "template": "Recipe",
+    "name": "Recipe_LacquerColor",
+    "english": "Lacquer"
+  },
+  "135147": {
+    "template": "Recipe",
+    "name": "Recipe_Ethanol",
+    "english": "Ethanol"
+  },
   "135148": {
     "template": "Multifactory",
     "name": "Multifactory_Assembly_Typewriter",
     "english": "Assembly Line: Typewriters"
+  },
+  "135149": {
+    "template": "Recipe",
+    "name": "Recipe_Typewriter",
+    "english": "Typewriters"
   },
   "135150": {
     "template": "Product",
@@ -8657,15 +8969,70 @@
     "name": "Pharmacy_Pomade",
     "english": "Drug Store: Pomade"
   },
+  "135203": {
+    "template": "Recipe",
+    "name": "Recipe_TableWare",
+    "english": "Crockery"
+  },
+  "135204": {
+    "template": "Recipe",
+    "name": "Recipe_VacuumCleaner",
+    "english": "Vacuum Cleaner"
+  },
+  "135205": {
+    "template": "Recipe",
+    "name": "Recipe_Fridge",
+    "english": "Refrigerator"
+  },
+  "135206": {
+    "template": "Recipe",
+    "name": "Recipe_Bags",
+    "english": "Briefcase"
+  },
+  "135207": {
+    "template": "Recipe",
+    "name": "Recipe_Cleaner",
+    "english": "Detergent"
+  },
+  "135208": {
+    "template": "Recipe",
+    "name": "Recipe_Lipstick",
+    "english": "Lipstick"
+  },
+  "135209": {
+    "template": "Recipe",
+    "name": "Recipe_FaceCream",
+    "english": "Face Cream"
+  },
+  "135210": {
+    "template": "Recipe",
+    "name": "Recipe_Pomade",
+    "english": "Pomade"
+  },
   "135221": {
     "template": "Multifactory",
     "name": "Multifactory_SA_Chemical_Blank",
     "english": "Chemical Plant (New World)"
   },
+  "135222": {
+    "template": "Recipe",
+    "name": "Recipe_Celluloid",
+    "english": "Celluloid"
+  },
+  "135223": {
+    "template": "Recipe",
+    "name": "Recipe_Gum",
+    "english": "Chewing Gum"
+  },
   "135224": {
     "template": "Multifactory",
     "name": "Multifactory_SA_Chemical_Celluloid",
     "english": "Chemical Plant: Celluloid"
+  },
+  "135226": {
+    "template": "RecipeList",
+    "name": "RecipeList_Chemical_SA",
+    "english": "Chemical Factory Patent List"
   },
   "135229": {
     "template": "Product",
@@ -8712,20 +9079,50 @@
     "name": "Multifactory_Manufacturer_Violin",
     "english": "Artisan&apos;s Workshop: Violins"
   },
+  "135398": {
+    "template": "Recipe",
+    "name": "Recipe_Cookies",
+    "english": "Biscuits"
+  },
   "135407": {
     "template": "Multifactory",
     "name": "Multifactory_Manufacturer_Billiard",
     "english": "Artisan&apos;s Workshop: Billiard Tables"
+  },
+  "135415": {
+    "template": "RecipeList",
+    "name": "RecipeList_Manufacturer",
+    "english": "Artisan&apos;s Workshop Patent List"
+  },
+  "135416": {
+    "template": "Recipe",
+    "name": "Recipe_Billiard",
+    "english": "Billiard Tables"
+  },
+  "135417": {
+    "template": "Recipe",
+    "name": "Recipe_Violin",
+    "english": "Violins"
   },
   "135418": {
     "template": "Multifactory",
     "name": "Multifactory_Manufacturer_Cognac",
     "english": "Artisan&apos;s Workshop: Cognac"
   },
+  "135419": {
+    "template": "Recipe",
+    "name": "Recipe_Cognac",
+    "english": "Cognac"
+  },
   "135669": {
     "template": "Multifactory",
     "name": "Multifactory_Manufacturer_Toys",
     "english": "Artisan&apos;s Workshop: Toys"
+  },
+  "135670": {
+    "template": "Recipe",
+    "name": "Recipe_Toys",
+    "english": "Toys"
   },
   "135709": {
     "template": "Monument",
@@ -20959,10 +21356,354 @@
     "name": "xmas reward menu",
     "english": "Holiday Pack"
   },
+  "501954": {
+    "template": "ProductList",
+    "name": "AllGoods_OLD"
+  },
+  "501955": {
+    "template": "ProductList",
+    "name": "AllGoodsWithoutStrategicGoods"
+  },
+  "501956": {
+    "template": "ProductList",
+    "name": "ConsumerGoods_OLD"
+  },
+  "501957": {
+    "template": "ProductList",
+    "name": "ConstructionMaterials"
+  },
+  "501958": {
+    "template": "ProductList",
+    "name": "RawMaterials_OLD"
+  },
+  "501959": {
+    "template": "ProductList",
+    "name": "AgriculturalGoods_OLD"
+  },
+  "501960": {
+    "template": "ProductList",
+    "name": "IntermediateGoods_OLD"
+  },
+  "501961": {
+    "template": "ProductList",
+    "name": "StrategicGoods"
+  },
+  "501992": {
+    "template": "ProductList",
+    "name": "LuxuryGoods"
+  },
+  "501993": {
+    "template": "ProductList",
+    "name": "BasicNeedGoods"
+  },
+  "501994": {
+    "template": "ProductList",
+    "name": "HeatGoods"
+  },
+  "501995": {
+    "template": "ProductList",
+    "name": "FarmerConsumerGoods"
+  },
+  "501996": {
+    "template": "ProductList",
+    "name": "WorkerConsumerGoods"
+  },
+  "501997": {
+    "template": "ProductList",
+    "name": "ArtisansConsumerGoods"
+  },
+  "501998": {
+    "template": "ProductList",
+    "name": "EngineerConsumerGoods"
+  },
+  "501999": {
+    "template": "ProductList",
+    "name": "InvestorConsumerGoods"
+  },
+  "502000": {
+    "template": "ProductList",
+    "name": "JornaleroConsumerGoods"
+  },
+  "502001": {
+    "template": "ProductList",
+    "name": "ObreroConsumerGoods"
+  },
+  "502002": {
+    "template": "ProductList",
+    "name": "ExplorerConsumerGoods"
+  },
+  "502003": {
+    "template": "ProductList",
+    "name": "TechnicianConsumerGoods"
+  },
+  "502004": {
+    "template": "ProductList",
+    "name": "FarmerWorkforceGoods"
+  },
+  "502005": {
+    "template": "ProductList",
+    "name": "WorkerWorkforceGoods"
+  },
+  "502006": {
+    "template": "ProductList",
+    "name": "ArtisanWorkforceGoods"
+  },
+  "502007": {
+    "template": "ProductList",
+    "name": "EngineerWorkforceGoods"
+  },
+  "502008": {
+    "template": "ProductList",
+    "name": "JornaleroWorkforceGoods"
+  },
+  "502009": {
+    "template": "ProductList",
+    "name": "ObreroWorkforceGoods"
+  },
+  "502010": {
+    "template": "ProductList",
+    "name": "ExplorerWorkforceGoods"
+  },
+  "502011": {
+    "template": "ProductList",
+    "name": "TechnicianWorkforceGoods"
+  },
+  "502012": {
+    "template": "ProductList",
+    "name": "ModerateSessionGoods"
+  },
+  "502013": {
+    "template": "ProductList",
+    "name": "SouthAmericaSessionGoods"
+  },
+  "502014": {
+    "template": "ProductList",
+    "name": "ArcticSessionGoods"
+  },
+  "502016": {
+    "template": "ProductList",
+    "name": "AllGoodsUnlock_EuropeSort"
+  },
+  "502017": {
+    "template": "ProductList",
+    "name": "FarmerUnlockGoods"
+  },
+  "502018": {
+    "template": "ProductList",
+    "name": "WorkerUnlockGoods"
+  },
+  "502019": {
+    "template": "ProductList",
+    "name": "ArtisanUnlockGoods"
+  },
+  "502020": {
+    "template": "ProductList",
+    "name": "EngineerUnlockGoods"
+  },
+  "502021": {
+    "template": "ProductList",
+    "name": "InvestorUnlockGoods"
+  },
+  "502022": {
+    "template": "ProductList",
+    "name": "JornaleroUnlockGoods"
+  },
+  "502023": {
+    "template": "ProductList",
+    "name": "ObreroUnlockGoods"
+  },
+  "502024": {
+    "template": "ProductList",
+    "name": "ExplorerUnlockGoods"
+  },
+  "502025": {
+    "template": "ProductList",
+    "name": "TechnicianUnlockGoods"
+  },
+  "502027": {
+    "template": "ProductList",
+    "name": "AllGoodsUnlock_SouthAmericaSort"
+  },
+  "502028": {
+    "template": "ProductList",
+    "name": "AllGoodsUnlock_ArcticSort"
+  },
+  "502031": {
+    "template": "ProductList",
+    "name": "AllConsumerGoods_EuropeSort"
+  },
+  "502034": {
+    "template": "ProductList",
+    "name": "AllConsumerGoods_SouthAmericaSort"
+  },
+  "502035": {
+    "template": "ProductList",
+    "name": "AllConsumerGoods_ArcticSort"
+  },
+  "502037": {
+    "template": "ProductList",
+    "name": "AgriculturalGoods_Europe"
+  },
+  "502038": {
+    "template": "ProductList",
+    "name": "AgriculturalGoods_SouthAmerica"
+  },
+  "502039": {
+    "template": "ProductList",
+    "name": "AgriculturalGoods_Arctic"
+  },
+  "502040": {
+    "template": "ProductList",
+    "name": "AllAgricultureGoods_EuropeSort"
+  },
+  "502041": {
+    "template": "ProductList",
+    "name": "AllAgricultureGoods_SouthAmericaSort"
+  },
+  "502042": {
+    "template": "ProductList",
+    "name": "AllAgricultureGoods_ArcticSort"
+  },
+  "502043": {
+    "template": "ProductList",
+    "name": "IntermediateGoods_Europe"
+  },
+  "502044": {
+    "template": "ProductList",
+    "name": "IntermediateGoods_SouthAmerica"
+  },
+  "502045": {
+    "template": "ProductList",
+    "name": "IntermediateGoods_Arctic"
+  },
+  "502046": {
+    "template": "ProductList",
+    "name": "AllIntermediateGoods_EuropeSort"
+  },
+  "502047": {
+    "template": "ProductList",
+    "name": "AllIntermediateGoods_SouthAmericaSort"
+  },
+  "502048": {
+    "template": "ProductList",
+    "name": "AllIntermediateGoods_ArcticSort"
+  },
+  "502049": {
+    "template": "ProductList",
+    "name": "RawMaterials_Europe"
+  },
+  "502050": {
+    "template": "ProductList",
+    "name": "RawMaterials_SouthAmerica"
+  },
+  "502051": {
+    "template": "ProductList",
+    "name": "RawMaterials_Arctic"
+  },
+  "502052": {
+    "template": "ProductList",
+    "name": "AllRawMaterials_EuropeSort"
+  },
+  "502053": {
+    "template": "ProductList",
+    "name": "AllRawMaterials_SouthAmericaSort"
+  },
+  "502054": {
+    "template": "ProductList",
+    "name": "AllRawMaterials_ArcticSort"
+  },
+  "502065": {
+    "template": "ProductList",
+    "name": "AllGoodsUnlock_EuropeSort_WithoutOil"
+  },
+  "502066": {
+    "template": "ProductList",
+    "name": "EngineerUnlockGoods_WithoutOil"
+  },
+  "502067": {
+    "template": "ProductList",
+    "name": "AllGoodsUnlock_SouthAmericaSort_WithoutOil"
+  },
+  "502068": {
+    "template": "ProductList",
+    "name": "AllGoodsUnlock_ArcticSort_WithoutOil"
+  },
+  "502069": {
+    "template": "ProductList",
+    "name": "ShepherdWorkforceGoods"
+  },
+  "502070": {
+    "template": "ProductList",
+    "name": "ElderWorkforceGoods"
+  },
+  "502071": {
+    "template": "ProductList",
+    "name": "ShepherdUnlockGoods"
+  },
+  "502072": {
+    "template": "ProductList",
+    "name": "ElderUnlockGoods"
+  },
+  "502073": {
+    "template": "ProductList",
+    "name": "ShepherdConsumerGoods"
+  },
+  "502074": {
+    "template": "ProductList",
+    "name": "ElderConsumerGoods"
+  },
+  "502075": {
+    "template": "ProductList",
+    "name": "RawMaterials_Africa"
+  },
+  "502076": {
+    "template": "ProductList",
+    "name": "AgriculturalGoods_Africa"
+  },
+  "502077": {
+    "template": "ProductList",
+    "name": "IntermediateGoods_Africa"
+  },
+  "502078": {
+    "template": "ProductList",
+    "name": "AllGoodsUnlock_AfricaSort"
+  },
+  "502080": {
+    "template": "ProductList",
+    "name": "AllGoodsUnlock_AfricaSort_WithoutOil"
+  },
+  "502081": {
+    "template": "ProductList",
+    "name": "AllConsumerGoods_AfricaSort"
+  },
+  "502082": {
+    "template": "ProductList",
+    "name": "AllRawMaterials_AfricaSort"
+  },
+  "502083": {
+    "template": "ProductList",
+    "name": "AllAgricultureGoods_AfricaSort"
+  },
+  "502084": {
+    "template": "ProductList",
+    "name": "AllIntermediateGoods_AfricaSort"
+  },
+  "502085": {
+    "template": "ProductList",
+    "name": "AfricaSessionGoods"
+  },
   "502107": {
     "template": "ConstructionCategory",
     "name": "moderate construction menu Scholars (tier)",
     "english": "Scholars"
+  },
+  "502133": {
+    "template": "ProductList",
+    "name": "ScholarConsumerGoods"
+  },
+  "502134": {
+    "template": "ProductList",
+    "name": "ScholarUnlockGoods"
   },
   "502137": {
     "template": "ConstructionCategory",
@@ -20974,10 +21715,74 @@
     "name": "CityOrnaments menu",
     "english": "City Lights Pack"
   },
+  "502168": {
+    "template": "ProductList",
+    "name": "ConstructionMaterials_AfricaSort"
+  },
+  "502175": {
+    "template": "ProductList",
+    "name": "ScrapForInKontorFilter"
+  },
   "502205": {
     "template": "ConstructionCategory",
     "name": "TwitchDrops reward menu",
     "english": "Twitch Drop Ornaments"
+  },
+  "502219": {
+    "template": "ProductList",
+    "name": "TechnicianUnlockGoods_WithoutScrap"
+  },
+  "502220": {
+    "template": "ProductList",
+    "name": "AllGoodsUnlock_EuropeSort_WithoutOil_WithoutScrap"
+  },
+  "502221": {
+    "template": "ProductList",
+    "name": "ConstructionMaterials_WithoutScrap"
+  },
+  "502233": {
+    "template": "ProductList",
+    "name": "Tattershire_ImportGoods"
+  },
+  "502234": {
+    "template": "ProductList",
+    "name": "Feedl_ImportGoods"
+  },
+  "502235": {
+    "template": "ProductList",
+    "name": "Chanteuse_ImportGoods"
+  },
+  "502236": {
+    "template": "ProductList",
+    "name": "Qinsa_ImportGoods"
+  },
+  "502237": {
+    "template": "ProductList",
+    "name": "OldLevants_ImportGoods"
+  },
+  "502238": {
+    "template": "ProductList",
+    "name": "Kitea_ImportGoods"
+  },
+  "502239": {
+    "template": "ProductList",
+    "name": "PromistTrust_ImportGoods"
+  },
+  "502240": {
+    "template": "ProductList",
+    "name": "Ganymedia_ImportGoods"
+  },
+  "502242": {
+    "template": "ProductList",
+    "name": "Docklands_ImporterGoods"
+  },
+  "502308": {
+    "template": "ProductList",
+    "name": "TouristUnlockGoods"
+  },
+  "502309": {
+    "template": "ProductList",
+    "name": "TouristConsumerGoods"
   },
   "502335": {
     "template": "ConstructionCategory",
@@ -21013,6 +21818,11 @@
     "template": "Busstop",
     "name": "Bus Stop",
     "english": "Bus Stop"
+  },
+  "601379": {
+    "template": "PopulationLevel7",
+    "name": "Tourists",
+    "english": "Tourists"
   },
   "601443": {
     "template": "Street",
@@ -22206,6 +23016,41 @@
     "template": "ItemEffectTargetPool",
     "name": "all production",
     "english": "All Production Buildings"
+  },
+  "15000000": {
+    "template": "PopulationLevel7",
+    "name": "Moderate Population 1",
+    "english": "Farmers"
+  },
+  "15000001": {
+    "template": "PopulationLevel7",
+    "name": "Moderate Population 2",
+    "english": "Workers"
+  },
+  "15000002": {
+    "template": "PopulationLevel7",
+    "name": "Moderate Population 3",
+    "english": "Artisans"
+  },
+  "15000003": {
+    "template": "PopulationLevel7",
+    "name": "Moderate Population 4",
+    "english": "Engineers"
+  },
+  "15000004": {
+    "template": "PopulationLevel7",
+    "name": "Moderate Population 5",
+    "english": "Investors"
+  },
+  "15000005": {
+    "template": "PopulationLevel7",
+    "name": "Colony01 Population 1",
+    "english": "Jornaleros"
+  },
+  "15000006": {
+    "template": "PopulationLevel7",
+    "name": "Colony01 Population 2",
+    "english": "Obreros"
   },
   "20000002": {
     "template": "SimpleBuilding",

@@ -38,6 +38,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ### Added
 
 - assets.xml outline
+- GUID hover and auto-complete now also consider GUIDs from the open assets.xml
 
 ## [0.3.2]
 
