@@ -40,5 +40,18 @@
   ],
   "BuildingCategoryName": [
     "Category name visible below building name.\n\nCommon values:\n\n`11149` - ornament\n\n`100000` - production\n\n`100001` - emergency services\n\n`100003` - public service\n\n`11150` - harbor"
+  ],
+  "InfluencedVariationDirection": [
+    "Define which variation pools from `BuildingBlockPool` are used when building next to `InfluencedByNeighbors`.\n\nExactly 16 items like `<Item><Direction>2</Direction><Type>Corner</Type></Item>` are needed.",
+    "[See guide on GitHub](https://github.com/anno-mods/modding-guide/blob/main/guides/variations.md)"
+  ],
+  "BuildingBlockPool": [
+    "Define which variation is used when building next to `InfluencedByNeighbors`.",
+    "Note: Multiple entries of the same variation with different rotations won't work.\nVanilla assets.xml also defines them, so they were supposed to work at some point.",
+    "[See guide on GitHub](https://github.com/anno-mods/modding-guide/blob/main/guides/variations.md)"
+  ],
+  "InfluencedByNeighbors": [
+    "Listed buildings will influence variation based on `BuildingBlockPool` and `InfluencedVariationDirection`.",
+    "[See guide on GitHub](https://github.com/anno-mods/modding-guide/blob/main/guides/variations.md)"
   ]
 }
