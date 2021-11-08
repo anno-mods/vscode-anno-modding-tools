@@ -46,10 +46,9 @@ export class CfgYamlConverter {
 
         if (content?.variant) {
           const variantSourceName = content.variant.source;
-          
-          const sourceCfgPath = path.join(sourceDirname, variantSourceName);
+          const sourceCfgPath = this._findSourceCfg(sourceDirname, variantSourceName);
           if (fs.existsSync(sourceCfgPath)) {
-            const sourcePathWithoutExt = path.join(sourceDirname, path.dirname(variantSourceName), path.basename(variantSourceName, '.cfg'));
+            const sourcePathWithoutExt = path.join(path.dirname(sourceCfgPath), path.basename(sourceCfgPath, '.cfg'));
             const targetPathWithoutExt = path.join(targetDirname, basename);
 
             // first try cf7
@@ -104,7 +103,7 @@ export class CfgYamlConverter {
       if (modification.xpath) {
         // overwrite all values except xpath
         const { xpath, ...values } = modification;
-        if (!xml.set(modification.xpath, values)) {
+        if (!xml.set(modification.xpath, values, { all: true })) {
           channel.warn(`cannot find ${modification.xpath}`);
         }
       }
@@ -121,5 +120,15 @@ export class CfgYamlConverter {
     }
 
     return false;
+  }
+
+  private _findSourceCfg(sourceDirname: string, variantSourceName: string) {
+    const uri = vscode.window.activeTextEditor?.document?.uri;
+    const config = vscode.workspace.getConfiguration('anno', uri);
+    variantSourceName = path.normalize(variantSourceName.replace('${annoRda}', config.get('rdaFolder') || ""));
+    if (!path.isAbsolute(variantSourceName)) {
+      variantSourceName = path.join(sourceDirname, variantSourceName);
+    }
+    return variantSourceName;
   }
 }

@@ -77,7 +77,15 @@ export class AnnoXmlElement {
     this._element = element;
   }
 
-  public findElement(path: string, options?: { silent?: boolean }): AnnoXmlElement | undefined {
+  public findElement(path: string, options?: { silent?: boolean, all?: boolean }): AnnoXmlElement | undefined {
+    const result = this.findElements(path, { ...options, all: false });
+    if (!result || result.length === 0) {
+      return undefined;
+    }
+    return result[0];
+  }
+
+  public findElements(path: string, options?: { silent?: boolean, all?: boolean }): AnnoXmlElement[] | undefined {
     let originalPath = path.slice();
     if (!path.startsWith('//')) {
       if (path.startsWith('/')) {
@@ -90,7 +98,7 @@ export class AnnoXmlElement {
     
     let history: string[] = [];
 
-    let found: xmldoc.XmlElement | undefined = undefined;
+    const found: xmldoc.XmlElement[] = [];
     const candidates: { nodes: XPathNode[], element: xmldoc.XmlElement, history: string[] }[] = [
       {
         nodes: new XPath(path.substr(2)).nodes,
@@ -99,13 +107,13 @@ export class AnnoXmlElement {
       }
     ];      
 
-    while (candidates.length > 0) {
+    while (candidates.length > 0 && (options?.all || found.length === 0)) {
       const candidate = candidates.pop() as { nodes: XPathNode[], element: xmldoc.XmlElement, history: string[] }; // never is undefined
       const remainder = candidate.nodes.slice(); // make a copy
       const next = remainder.shift();
       if (!next) {
-        found = candidate.element;
-        break;
+        found.push(candidate.element);
+        continue;
       }
 
       this._forEachWithCondition(candidate.element, next, (e: xmldoc.XmlElement) => {
@@ -114,14 +122,14 @@ export class AnnoXmlElement {
           element: e,
           history: [...candidate.history, next.toString()]
         });
-        return false;
+        return options?.all ? false : true;
       });
 
       if (history.length - 1 < candidate.history.length) {
         history = [...candidate.history, next.toString()];
       }
     }
-    if (!found) {
+    if (found.length === 0) {
       if (!options?.silent) {
         channel.warn(`cannot find element //${history.join('/')}`);
         if (!originalPath.startsWith('//')) {
@@ -130,7 +138,8 @@ export class AnnoXmlElement {
       }
       return undefined;
     }
-    return new AnnoXmlElement(found);
+    
+    return found.map((e) => new AnnoXmlElement(e));
   }
 
   public createChild(name: string) {
@@ -304,13 +313,20 @@ export default class AnnoXml {
     }
   }
 
-  public set(xpath: string, values: any, options?: { defaults: any }) {
-    const element = this.findElement(xpath);
-    if (!element) {
+  public set(xpath: string, values: any, options?: { defaults?: any, all?: boolean }) {
+    const elements = this.findElements(xpath, { all: options?.all });
+    if (!elements || elements.length === 0) {
       return false;
     }
 
-    element.set(values, options);
+    if (options?.all) {
+      for (let entry of elements) {
+        entry.set(values, options);
+      }
+    }
+    else {
+      elements[0].set(values, options);
+    }
     return true;
   }
 
@@ -404,9 +420,14 @@ export default class AnnoXml {
     return node;
   }
 
-  public findElement(path: string, options?: { silent: boolean }) {
+  public findElement(path: string, options?: { silent?: boolean }) {
     const doc = new AnnoXmlElement(this.xml as xmldoc.XmlElement);
     return doc.findElement(path, options);
+  }
+
+  public findElements(path: string, options?: { silent?: boolean, all?: boolean }) {
+    const doc = new AnnoXmlElement(this.xml as xmldoc.XmlElement);
+    return doc.findElements(path, options);
   }
 
   private _insertAfterXmlElement(parent: xmldoc.XmlElement, relative: xmldoc.XmlElement, tag: string) {
