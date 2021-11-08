@@ -40,6 +40,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - assets.xml outline
 - GUID hover and auto-complete now also consider GUIDs from the open assets.xml
 - Path variable `${annoRda}` to derive from vanilla .cfg files in .cfg.yaml
+- Automatic `xmltest.exe` execution for builds on assets.xml.
 
 ## [0.3.2]
 

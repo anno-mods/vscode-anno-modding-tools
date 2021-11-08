@@ -11,3 +11,5 @@ Some may be available, others you need to compile yourself.
   - MIT
 - FileDBReader.exe, 1.4+6, https://github.com/anno-mods/FileDBReader/tree/91c45bcf9a0485d1cdd775581bb076362b566899
   - informal permission to bundle with the extension
+- xmltest.exe, https://github.com/xforce/anno1800-mod-loader/releases/tag/v0.8.2
+  - MIT

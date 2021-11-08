@@ -12,6 +12,7 @@ import { RdpxmlConverter } from '../converter/rdpxmlConverter';
 import { CfgYamlConverter } from '../converter/cfgYamlConverter';
 
 import * as channel from '../other/outputChannel';
+import * as xmltest from '../other/xmltest';
 
 export interface IConverter {
   getName(): string;
@@ -106,7 +107,7 @@ export class ModCompiler {
   }
 
   public async compile(filePath: string) {
-    channel.log('build ' + filePath);
+    channel.log('Build ' + filePath);
     const modJson = JSON.parse(fs.readFileSync(filePath, 'utf8'));
     let sourceFolder = path.dirname(filePath) + '/' + modJson.src;
     if (!sourceFolder.endsWith('/')) {
@@ -115,7 +116,7 @@ export class ModCompiler {
     const outFolder = this._getOutFolder(filePath, modJson);
     const cacheFolder = path.join(path.dirname(filePath), '.modcache');
     
-    channel.log('target folder: ' + outFolder);
+    channel.log('Target folder: ' + outFolder);
 
     if (!fs.existsSync(sourceFolder)) {
       channel.error('Incorrect source folder: ' + sourceFolder);
@@ -136,6 +137,16 @@ export class ModCompiler {
         channel.log('Error: no converter with name: ' + entry.action);
       }
     }
+
+    const testFolder = path.join(sourceFolder, 'tests');
+    if (fs.existsSync(sourceFolder)) {
+      channel.log(`Run tests from ${testFolder}`);
+      xmltest.test(testFolder, path.join(sourceFolder, 'data/config/export/main/asset/assets.xml'), this.context, cacheFolder);
+    }
+    else {
+      channel.log(`No test folder available: ${testFolder}`);
+    }
+
     channel.log(`${this._getModName(filePath, modJson)} done`);
   }
 

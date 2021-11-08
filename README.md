@@ -54,6 +54,10 @@ Read all the [Feature Details](#feature-details) below.
 
 - Have a Blender file with all your favorite `prop_` objects with `.prp` path set.
 
+### glTF Tools VS Code extension
+
+- There's an extension to preview glTF files.
+
 ## Requirements
 
 Some features like .fc conversion rely on external applications that run only on Windows.
@@ -90,6 +94,8 @@ See changes and known issues in [CHANGELOG](./CHANGELOG.md)
 
 Put objects and name them as described in your glTF file to import.
 Examples: [Sources on GitHub](https://github.com/jakobharder/anno-1800-jakobs-mods/)
+
+⚠ Make sure to not edit the mesh of the objects, but the object position, scale and rotation onlz.
 
 CFG file imports:
 
