@@ -4,6 +4,7 @@ import * as guidUtils from '../features/guidUtilsProvider';
 
 export interface TocEntry {
   text: string;
+  children?: string[];
   detail: string;
   readonly level: number;
   readonly line: number;
@@ -80,10 +81,10 @@ export class AssetsTocProvider {
       if (guid) {
         const resolvedGuid = guidUtils.resolveGUID(guid);
         if (resolvedGuid) {
-          namedGuid = `${resolvedGuid.template}: ${resolvedGuid.name}`;
+          namedGuid = `${resolvedGuid.name}`;
         }
       }
-      return [namedGuid || guid, element.attr['Path']].filter((e) => e).join(', ');
+      return namedGuid || guid || element.attr['Path'];
     }
     else if (element.name === 'Asset') {
       const name = element.valueWithPath('Values.Standard.Name');
@@ -164,9 +165,47 @@ export class AssetsTocProvider {
             symbol: symbolMap[top.element.name] || vscode.SymbolKind.String
           });
         }
+        else if (!tocRelevant && top.depth === 2) {
+          // ModOps that are not Assets
+          if (!toc[toc.length - 1].children) {
+            toc[toc.length - 1].children = [];
+          }
+
+          let name: string | undefined = top.element.name;
+          if (name === 'Item') {
+            name = top.element.valueWithPath('Product') || top.element.valueWithPath('Building') || top.element.valueWithPath('GUID');
+            if (name) {
+              const resolved = guidUtils.resolveGUID(name);
+              name = resolved?.name;
+            }
+          }
+
+          toc[toc.length - 1].children?.push(name || 'Item');
+        }
       }
       else {
         // ignore
+      }
+    }
+
+    // preview children in detail
+    for (let entry of toc) {
+      if (entry.children) {
+        let prefix = entry.children[0];
+        if (entry.children.length > 1) {
+          if (entry.children.join('') === entry.children[0].repeat(entry.children.length)) {
+            prefix += '[]';
+          }
+          else {
+            prefix += ', ...';
+          }
+        }
+
+        // ignore Item, they are the most common e.g. in build menues and just too obvious to justify the clutter
+        if (prefix !== 'Item' && prefix !== 'Item[]') {
+          prefix += ' → ';
+          entry.detail = prefix + entry.detail;
+        }
       }
     }
 
