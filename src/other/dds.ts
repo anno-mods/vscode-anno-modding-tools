@@ -27,7 +27,8 @@ export function convertToTexture(sourceFile: string, targetFolder: string, forma
       '-o', targetFolder
     ]);
   }
-  catch (exception) {
+  catch (exception: any) {
+    channel.error(exception.message);
     return false;
   }
 }
@@ -43,7 +44,8 @@ export function convertToImage(sourceFile: string, targetFolder: string) {
       '-o', targetFolder
     ]);
   }
-  catch (exception) {
+  catch (exception: any) {
+    channel.error(exception.message);
     return false;
   }
 }
