@@ -176,7 +176,8 @@ export class CfgTocProvider {
 						const tocRelevant = relevantSections[tagStackTop.tagName];
 						const hasRightConfigType = (!tocRelevant?.ConfigTypes || tocRelevant.ConfigTypes.indexOf(tagStackTop.type) !== -1);
 						const hasRightParent = (!tocRelevant?.parent || (tagStack.length >= 2 && tocRelevant.parent.indexOf(tagStack[tagStack.length - 2].tagName) !== -1));
-						if (tocRelevant && hasRightConfigType && hasRightParent) {
+						const likelyToHaveChildren = tagStackTop.startLine !== line;
+						if ((tocRelevant && hasRightConfigType && hasRightParent) || (tagStack.length <= 2 && likelyToHaveChildren)) {
 							toc.push({
 								text: ((tagStackTop.fileName || tagStackTop.diffName) ? tagStackTop.name : false) || tagStackTop.type || tagStackTop.tagName,
 								detail: tagStackTop.fileName || tagStackTop.diffName || tagStackTop.name || tagStackTop.sequenceId || '',
@@ -184,7 +185,7 @@ export class CfgTocProvider {
 								line: tagStackTop.startLine,
 								location: new vscode.Location(document.uri,
 									new vscode.Range(tagStackTop.startLine, tagStackTop.startChar, line, tagStackTop.startChar + tagStackTop.tagName.length + 2)),
-								symbol: symbolMap[tagStackTop.type || tagStackTop.tagName] || vscode.SymbolKind.String
+								symbol: symbolMap[tagStackTop.type || tagStackTop.tagName] || vscode.SymbolKind.Class
 							});
 							relevantDepth --;
 						}
@@ -217,11 +218,13 @@ export class CfgTocProvider {
 						}
 					}
 					else if (token.startsWith('<')) {
-						// opening
-						tagStack.push(new Section(tagName, line, charPos));
-						tagStackTop = tagStack[tagStack.length - 1];
-						if (relevantSections[tagStackTop.tagName] !== undefined) {
-							relevantDepth ++;
+						if (!token.endsWith('/>')) {
+							// opening
+							tagStack.push(new Section(tagName, line, charPos));
+							tagStackTop = tagStack[tagStack.length - 1];
+							if (relevantSections[tagStackTop.tagName] !== undefined) {
+								relevantDepth ++;
+							}
 						}
 						lastValue = '';
 					}

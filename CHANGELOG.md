@@ -30,7 +30,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
   - empty annomod project breaks the extension (tradepatent-fish)
 - Internals
   - replace Cesium glb/gltf conversion with much simpler https://github.com/najadojo/gltf-import-export
-  - robust .cfg outline (e.g. nate's kontor6 ship) with `Clothes`
+
+## [0.4.1]
+
+### Changed
+
+- Fixed outline issues with self-closing or unkown tags in .cfg files
 
 ## [0.4.0]
 
