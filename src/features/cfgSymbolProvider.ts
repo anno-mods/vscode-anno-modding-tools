@@ -8,7 +8,7 @@ used almost as is
 */
 
 import * as vscode from 'vscode';
-import { SkinnyTextDocument, TableOfContentsProvider, TocEntry } from '../other/tableOfContentsProvider';
+import { SkinnyTextDocument, CfgTocProvider, TocEntry } from '../other/cfgTocProvider';
 
 interface MarkdownSymbol {
 	readonly level: number;
@@ -18,7 +18,7 @@ interface MarkdownSymbol {
 
 export default class CfgDocumentSymbolProvider implements vscode.DocumentSymbolProvider {
 	public async provideDocumentSymbols(document: SkinnyTextDocument): Promise<vscode.DocumentSymbol[]> {
-		const toc = await new TableOfContentsProvider(document).getToc();
+		const toc = await new CfgTocProvider(document).getToc();
 		const root: MarkdownSymbol = {
 			level: -Infinity,
 			children: [],

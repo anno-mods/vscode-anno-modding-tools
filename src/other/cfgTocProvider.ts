@@ -48,7 +48,7 @@ class Section {
 	}
 }
 
-export class TableOfContentsProvider {
+export class CfgTocProvider {
 	private toc?: TocEntry[];
 
 	public constructor(

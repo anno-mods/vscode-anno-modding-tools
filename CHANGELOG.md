@@ -27,8 +27,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
   - issue with yellow metal texture from Blender export
   - Show strong warning when there's no tangent information on the mesh
   - error handling for invalid xml files
+  - empty annomod project breaks the extension (tradepatent-fish)
 - Internals
   - replace Cesium glb/gltf conversion with much simpler https://github.com/najadojo/gltf-import-export
+  - robust .cfg outline (e.g. nate's kontor6 ship) with `Clothes`
 
 ## [0.4.0]
 
