@@ -114,7 +114,14 @@ export class AssetsTocProvider {
 
     let sectionComment: string | undefined = 'ModOps';
 
-    const xmlContent = new xmldoc.XmlDocument(document.getText());
+    let xmlContent;
+    try {
+      xmlContent = new xmldoc.XmlDocument(document.getText());
+    }
+    catch (exception) {
+      return [];
+    }
+
     const nodeStack: { depth: number, element: xmldoc.XmlNode }[] = [{ depth: 0, element: xmlContent }];
     for (let top = nodeStack.pop(); top; top = nodeStack.pop()) {
 

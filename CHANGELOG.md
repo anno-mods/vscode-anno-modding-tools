@@ -21,19 +21,16 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Editing
   - support and strip comments from `.cfg`, `.ifo`
   - FC GUID hover
-  - Enable XML formatter
+  - Include XML formatter / declare as xml format?
 - Details for feedback definition
 - Issues
   - issue with yellow metal texture from Blender export
   - Show strong warning when there's no tangent information on the mesh
   - error handling for invalid xml files
-  - ```yaml
-    - xpath: //Config/Particles/Config[Name="particle_smoke2"]/Transformer/Config
-      FileName: ''
-    ```
-  leads to `Cannot read property 'type' of undefined`.
 - Internals
   - replace Cesium glb/gltf conversion with much simpler https://github.com/najadojo/gltf-import-export
+
+## [0.4.0]
 
 ### Added
 

@@ -1,26 +1,15 @@
 # Modding Tools for Anno
 
-Some tools to make your modding life easier.
-
 This project is not affiliated in any way with Ubisoft.
 
 Anno 1800 is a trademark of Ubisoft Entertainment in the US and/or other countries. Anno is a trademark of Ubisoft GmbH in the US and/or other countries.
 
 ## Features
 
-- Command `F1` > `Build Anno Mod`: automatically build project using `annomod.json` description.
-  - PNG to DDS conversion with LOD generation
-  - Animated glTF to RDM conversion with LODs (see [working with animation](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-models.md))
-  - Particle RDP XML to RDP conversion (see [working with particles](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-particles.md))
-  - Generate variants of IFO, CFG and FC using templates
-- Hover info and auto-conversion for Anno GUIDs.
-- Anno-specific outlines, highlights and auto-complete: `.cfg`, `.ifo`, `.cf7`
-- Right-click `Import from glTF` (targets: `.cfg`, `.ifo`, `.cf7`)
-- Right-click `Convert to` menus
-  - AnnoFCConverter `.cf7` to/from `.fc`
-  - rdm4 `.rdm` to glTF Binary
-  - FileDBReader `.rdp` to/from `.rdp.xml` CDATA as is and simplified
-  - texconv `.dds` to `.png`
+- Anno-specific outlines, highlights and auto-complete: `assets.xml`, `.cfg`, `.ifo`, `.cf7`
+- Various right-click utilities to convert between Anno and editable formats (glTF, PNG, ...)
+- Utilities to import `PROP` and other information from glTF models.
+- Command `F1` > `Build Anno Mod` to batch convert complete projects using `annomod.json` description.
 
 Read all the [Feature Details](#feature-details) below.
 
@@ -34,7 +23,8 @@ Read all the [Feature Details](#feature-details) below.
 
 ## Extension Settings
 
-* `anno.modsFolder`: path to your `mods/` folder. Available as `${annoMods}` in `annomod.json`. Not required if you don't use the variable.
+* `anno.modsFolder`: (optional) path to your `mods/` folder. Available as `${annoMods}` in `annomod.json`. Not required if you don't use the variable.
+* `anno.rdaFolder`: (optional) path with RDA data extracted. Available as `${annoRda}` in `*.cfg.yaml` files. You only need the data extracted your mods need. The extension itself does not use this.
 * `anno.outlineFolderDepth`: folder depth of props, materials and alike shown .cfg outline.
 
 ## Best Practices
@@ -72,30 +62,41 @@ A big thanks goes to the external projects I'm using for this extension:
 - FileDBReader - https://github.com/anno-mods/FileDBReader
 - texconv - https://github.com/microsoft/DirectXTex
 - gltf-pipeline - https://github.com/CesiumGS/gltf-pipeline
+- xmltest - https://github.com/xforce/anno1800-mod-loader
 
 ## Release Notes / Known Issues
 
-### 0.3.0
+### 0.4.0
 
-Particle animations and stuff!
+Assets outline.
 
 See changes and known issues in [CHANGELOG](./CHANGELOG.md)
 
 ## Feature Details
 
+* [Assets Outline](#assets-outline)
 * [Import from glTF](#import-from-gltf)
 * [Create variants from templates](#create-variants-from-templates)
 * [GUID hover and auto-correct](#guid-hover-and-auto-correct)
 * [Build Anno mod](#build-anno-mod)
-* [Working with models](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-models.md) (separate pag)
+* [Working with models](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-models.md) (separate page)
 * [Working with particles](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-particles.md) (separate page)
+
+### Assets Outline
+
+The assets.xml outline shows `ModOp`s, `Assets` and where possible names instead of GUIDs.
+
+You have the ability to group by writing `<!-- # your text -->` comments in your code.
+
+![](./doc/images/assets-outline.png)
 
 ### Import from glTF
 
 Put objects and name them as described in your glTF file to import.
-Examples: [Sources on GitHub](https://github.com/jakobharder/anno-1800-jakobs-mods/)
 
-⚠ Make sure to not edit the mesh of the objects, but the object position, scale and rotation onlz.
+Examples: [New Town Hall](https://github.com/jakobharder/anno-1800-jakobs-mods/tree/main/new-town-hall-buildings), [Small Gas Power Plant](https://github.com/jakobharder/anno-1800-jakobs-mods/tree/main/small-gas-power-plant)
+
+⚠ Make sure to not edit the mesh of the objects, but the object position, scale and rotation only.
 
 CFG file imports:
 
@@ -138,15 +139,13 @@ Modifications are currently only supported in IFO and CFG files.
 
 If you have `townhall.cfg`, `townhall.cf7` and `townhall.ifo`, then a `townhall_1.cfg.yaml` leads to generated `townhall_1.cfg`, `townhall_1.fc` and `townhall_1.ifo`. 
 
-Examples: TBD
+Examples: [New Town Hall](https://github.com/jakobharder/anno-1800-jakobs-mods/tree/main/new-town-hall-buildings)
 
 ```yaml
 variant: 
   source: townhall.cfg
   modifications:
     - xpath: //Config/Models/Config/Materials/Config[Name="building"]
-      cModelDiffTex: data/jakob/buildings/townhall/maps/townhall_bluish_diff.psd
-    - xpath: //Config/Models/Config/Materials/Config[Name="roof"]
       cModelDiffTex: data/jakob/buildings/townhall/maps/townhall_bluish_diff.psd
     - xpath: //Config/Models/Config[Name="top"]
       FileName: data/jakob/buildings/townhall/rdm/townhall_2_lod0.rdm
@@ -175,7 +174,7 @@ Including all GUIDs is too much for many reasons. New GUID types will be added i
 
 Press `F1` or right-click on `annomod.json` files to run `Build Anno Mod`.
 
-Example: [Sources on GitHub](https://github.com/jakobharder/anno-1800-jakobs-mods/), [Result as zip download](https://github.com/jakobharder/anno-1800-jakobs-mods/releases)
+Example: [Sources on GitHub](https://github.com/jakobharder/anno-1800-jakobs-mods/), [Compiled Mods](https://github.com/jakobharder/anno-1800-jakobs-mods/releases)
 
 #### `annomod.json` Format
 
