@@ -346,8 +346,8 @@ export function registerGuidUtilsProvider(context: vscode.ExtensionContext): vsc
   subscribeToDocumentChanges(context);
 
 	return [
-    vscode.Disposable.from(vscode.languages.registerHoverProvider({ language: 'xml', pattern: '**/assets.xml' }, { provideHover })), 
-    vscode.Disposable.from(vscode.languages.registerCompletionItemProvider({ language: 'xml', pattern: '**/assets.xml' }, { provideCompletionItems }, '\''))
+    vscode.Disposable.from(vscode.languages.registerHoverProvider({ language: 'xml', pattern: '{**/assets.xml,**/tests/*-input.xml,**/tests/*-expectation.xml}' }, { provideHover })), 
+    vscode.Disposable.from(vscode.languages.registerCompletionItemProvider({ language: 'xml', pattern: '{**/assets.xml,**/tests/*-input.xml,**/tests/*-expectation.xml}' }, { provideCompletionItems }, '\''))
   ];
 }
 

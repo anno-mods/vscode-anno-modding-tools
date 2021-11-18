@@ -9,7 +9,7 @@ interface MarkdownSymbol {
 
 export class AssetsSymbolProvider {
 	public static register(context: vscode.ExtensionContext): vscode.Disposable[] {
-    const selector: vscode.DocumentSelector = { language: 'xml', scheme: '*', pattern: '**/assets.xml' };
+    const selector: vscode.DocumentSelector = { language: 'xml', scheme: '*', pattern: '{**/assets.xml,**/tests/*-input.xml,**/tests/*-expectation.xml}' };
     const symbolProvider = new AssetsSymbolProvider();
     return [ vscode.Disposable.from(
       vscode.languages.registerDocumentSymbolProvider(selector, symbolProvider)
