@@ -8,7 +8,7 @@ node_modules
 **/*.map
 webpack.config.js
 
-# vscode stuff not relevant for npm package
+# vscode extension related
 dist/**
 doc/**
 generated/**

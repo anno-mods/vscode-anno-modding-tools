@@ -234,7 +234,7 @@
     "outputPath": "out"
   },
   "scripts": {
-    "download": "(cd external; ./download.sh)",
+    "download": "bash -c '(cd external; ./download.sh)'",
     "vscode:prepublish": "webpack --mode production",
     "compile": "webpack --mode none",
     "watch": "webpack --mode none --watch",
