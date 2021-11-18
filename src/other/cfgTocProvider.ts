@@ -99,7 +99,7 @@ export class CfgTocProvider {
 			'Lights': {},
 			'Animations': {},
 			'Config': {
-				'ConfigTypes': [ 'FILE', 'MODEL', 'PROPCONTAINER', 'PROP', 'MATERIAL', 'SEQUENCE', 'PARTICLE', 'ANIMATION' ]
+				'ConfigTypes': [ 'FILE', 'MODEL', 'CLOTH', 'PROPCONTAINER', 'PROP', 'MATERIAL', 'SEQUENCE', 'PARTICLE', 'ANIMATION' ]
 			},
 			/* fc */
 			'DummyRoot': {},
@@ -127,6 +127,8 @@ export class CfgTocProvider {
 			'MODEL': vscode.SymbolKind.Field,
 			'Animations': vscode.SymbolKind.Event,
 			'ANIMATION': vscode.SymbolKind.Field,
+			'Clothes': vscode.SymbolKind.Class,
+			'CLOTH': vscode.SymbolKind.Field,
 			'PROP': vscode.SymbolKind.Field,
 			'PROPCONTAINER': vscode.SymbolKind.Namespace,
 			'PropContainers': vscode.SymbolKind.Class,
