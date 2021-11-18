@@ -22,16 +22,18 @@ export function test(testFolder: string, patchFile: string, context: vscode.Exte
       continue;
     }
 
+    const logFile = path.join(tempFolder, path.basename(inputFile, '-input.xml') + '-patched.log');
+    const logXmlFile = path.join(tempFolder, path.basename(inputFile, '-input.xml') + '-patched.xml');
+
     const absoluteExpectationFile = path.join(path.dirname(absoluteInputFile), path.basename(absoluteInputFile, '-input.xml') + '-expectation.xml');
     if (_sameWhenMinimized(absoluteExpectationFile, path.join(tempFolder, 'patched.xml'))) {
       channel.log(`Test ${path.basename(inputFile)} OK`);
     }
     else {
-      const logFile = path.join(tempFolder, path.basename(inputFile, '-input.xml') + '-patched.xml');
-      fs.renameSync(path.join(tempFolder, 'patched.xml'), logFile);
+      fs.renameSync(path.join(tempFolder, 'patched.xml'), logXmlFile);
       channel.warn(`Test ${path.basename(inputFile)} failed`);
       if (testerOutput) {
-        channel.log(testerOutput.toString());
+        fs.writeFileSync(logFile, testerOutput.toString());
       }
       channel.warn(`Check ${logFile}`);
     }
