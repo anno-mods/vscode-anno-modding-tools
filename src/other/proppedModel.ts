@@ -1,8 +1,5 @@
 import * as fs from 'fs';
-import * as gltfPipeline from 'gltf-pipeline';
 import * as path from 'path';
-import * as vscode from 'vscode';
-import * as url from 'url';
 import { getBuffer } from 'gltf-import-export';
 
 interface IProp {

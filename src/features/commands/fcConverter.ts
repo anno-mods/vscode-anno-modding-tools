@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
 import * as child from 'child_process';
 
-import * as channel from '../other/outputChannel';
-import * as utils from '../other/utils';
+import * as channel from '../channel';
+import * as utils from '../../other/utils';
 
 /*
 uses AnnoFCConverter from https://github.com/taubenangriff/AnnoFCConverter/

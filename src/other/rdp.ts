@@ -7,7 +7,7 @@ uses https://github.com/anno-mods/FileDBReader
 import * as fs from 'fs';
 import * as path from 'path';
 import * as child from 'child_process';
-import * as channel from './outputChannel';
+import * as logger from './logger';
 import * as xml2js from 'xml2js';
 import * as utils from './utils';
 
@@ -74,7 +74,7 @@ export class Rdp {
         '-i', _interpreterPath as string
       ]);
       if (res.toString()) {
-        channel.log(res.toString());
+        logger.log(res.toString());
       }
   
       const expectedReaderFile = path.join(dirname, basename) + '_fcimport.xml';
@@ -85,7 +85,7 @@ export class Rdp {
 
     }
     catch (exception: any) {
-      channel.log(exception.message);
+      logger.log(exception.message);
       return undefined;
     }
   }
@@ -94,7 +94,7 @@ export class Rdp {
     if (!this._content || !this._content.P_Starts || !this._content.P_Ends || !this._content.P_Materials ||
       !this._content.T_Positions || !this._content.T_Rotations || !this._content.T_Scales || !this._content.T_Colors ||
       !this._content.ParticleCount) {
-      channel.error('Invalid RDP XML file');
+      logger.error('Invalid RDP XML file');
       return false;
     }
 
@@ -145,7 +145,7 @@ export class Rdp {
 
   public complicate() {
     if (!this._content || !this._content.Particles || !this._content.Particles.Particle) {
-      channel.error('Invalid RDP XML file');
+      logger.error('Invalid RDP XML file');
       return false;
     }
 
@@ -197,16 +197,13 @@ export class Rdp {
         '-i', _interpreterPath as string
       ]);
       if (res.toString()) {
-        channel.log(res.toString());
+        logger.log(res.toString());
       }
   
-      const expectedReaderFile = targetFile + '-temp_fcexport.xml';
-      fs.renameSync(expectedReaderFile, targetFile);
-
-      fs.rmSync(tempname);
+      fs.renameSync(tempname, targetFile);
     }
     catch (exception: any) {
-      channel.log(exception.message);
+      logger.log(exception.message);
       return false;
     }
     return true;

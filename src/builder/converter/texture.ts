@@ -1,19 +1,21 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as vscode from 'vscode';
+import { Converter } from '../Converter';
 
-import * as channel from '../other/outputChannel';
-import * as dds from '../other/dds';
-import * as utils from '../other/utils';
+import * as dds from '../../other/dds';
+import * as utils from '../../other/utils';
 
-export class TextureConverter {
+export class TextureConverter extends Converter {
   public getName() {
     return 'texture';
   }
 
-  public async run(files: string[], sourceFolder: string, outFolder: string, options: { context: vscode.ExtensionContext, cache: string, converterOptions: any }) {
+  public async run(files: string[], sourceFolder: string, outFolder: string, options: {
+    cache: string,
+    converterOptions: any
+  }) {
     for (const file of files) {
-      channel.log(`  => ${file}`);
+      this._logger.log(`  => ${file}`);
       const lodLevels = Math.max(0, Math.min(9, options.converterOptions.lods === undefined ? 3 : options.converterOptions.lods));
       const changePath = options.converterOptions.changePath || '';
       const maskEnding = options.converterOptions.maskEnding || '_mask.png';
@@ -42,7 +44,7 @@ export class TextureConverter {
         dds.convertToTexture(sourceFile, tmpFilePath, sourceFile.endsWith(maskEnding) ? dds.TextureFormat.bc1Unorm : dds.TextureFormat.bc7Unorm);
         // unfortunately, texconv doesn't allow to change the output file name
         fs.renameSync(path.join(tmpFilePath, basename + '.dds'), lodFilePaths[0]);
-        channel.log(`  <= ${lodLevels ? `LOD ${0}: ` : ''}${path.relative(path.dirname(file), path.relative(outFolder, lodFilePaths[0]))}`);
+        this._logger.log(`  <= ${lodLevels ? `LOD ${0}: ` : ''}${path.relative(path.dirname(file), path.relative(outFolder, lodFilePaths[0]))}`);
 
         // generate lods by reading out previous .dds mipmaps
         if (lodFilePaths.length > 1) {
@@ -51,7 +53,7 @@ export class TextureConverter {
       }
       catch (exception: any)
       {
-        channel.error(exception.message);
+        this._logger.error(exception.message);
       }
     }
   }
@@ -69,7 +71,7 @@ export class TextureConverter {
       // go one mipmap down
       mipmaps.shift();
       if (mipmaps.length === 0) {
-        channel.warn(`     LOD ${level + 1}: Skip LOD for ${width}x${height} because of missing source mipmap.`);
+        this._logger.warn(`     LOD ${level + 1}: Skip LOD for ${width}x${height} because of missing source mipmap.`);
         break; // no more mipmaps available
       }
       width = Math.floor((width + 1) / 2);
@@ -79,7 +81,7 @@ export class TextureConverter {
         texture.getModifiedHeader(width, height, texture.mipmaps - level - 1), 
         ...texture.images
       ]));
-      channel.log(`  <= LOD ${level + 1}: ${path.relative(outFolder, targets[level])}`);
+      this._logger.log(`  <= LOD ${level + 1}: ${path.relative(outFolder, targets[level])}`);
     }
   }
 }

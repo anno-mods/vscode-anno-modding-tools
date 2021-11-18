@@ -1,7 +1,7 @@
 import path = require('path');
 import * as vscode from 'vscode';
 import * as fs from 'fs';
-import { AssetsTocProvider } from '../other/assetsTocProvider';
+import { AssetsTocProvider } from './outline/assetsTocProvider';
 import * as xmldoc from 'xmldoc';
 
 const _TAGS_TO_COMPLETE: { [index: string]: string[] } = {
@@ -11,6 +11,7 @@ const _TAGS_TO_COMPLETE: { [index: string]: string[] } = {
   'ItemLink': [ 'GuildhouseItem', 'HarborOfficeItem', 'TownhallItem', 'CultureItem', 'VehicleItem' ],
   'Good': [ 'Product' ], // TODO and items?
   'GUID': [ '*' ],
+  'Asset': [ '*'],
   'Building': [ '*' ],
   'ProvidedNeed': [ 'Product' ],
   'SubstituteNeed': [ 'Product' ],
@@ -183,7 +184,7 @@ function getValueAt(line: string, position: number) {
   }
 
   const linePrefix = line.substr(0, valueBegin);
-  const match = linePrefix.match(/[\s'"<](\w+)\s*(=\s*['"]|>\s*)$/);
+  const match = linePrefix.match(/[\s'"<\[](\w+)\s*(=\s*['"](\s*\d+\s*,\s*)*|>\s*)$/);
   if (!match) {
     return undefined;
   }
@@ -346,8 +347,8 @@ export function registerGuidUtilsProvider(context: vscode.ExtensionContext): vsc
   subscribeToDocumentChanges(context);
 
 	return [
-    vscode.Disposable.from(vscode.languages.registerHoverProvider({ language: 'xml', pattern: '**/assets.xml' }, { provideHover })), 
-    vscode.Disposable.from(vscode.languages.registerCompletionItemProvider({ language: 'xml', pattern: '**/assets.xml' }, { provideCompletionItems }, '\''))
+    vscode.Disposable.from(vscode.languages.registerHoverProvider({ language: 'xml', pattern: '{**/assets.xml,**/tests/*-input.xml,**/tests/*-expectation.xml}' }, { provideHover })), 
+    vscode.Disposable.from(vscode.languages.registerCompletionItemProvider({ language: 'xml', pattern: '{**/assets.xml,**/tests/*-input.xml,**/tests/*-expectation.xml}' }, { provideCompletionItems }, '\''))
   ];
 }
 

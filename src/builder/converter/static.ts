@@ -1,15 +1,13 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as vscode from 'vscode';
+import { Converter } from '../Converter';
 
-import * as channel from '../other/outputChannel';
-
-export class StaticConverter {
+export class StaticConverter extends Converter {
   public getName() {
     return 'static';
   }
 
-  public async run(files: string[], sourceFolder: string, outFolder: string, options: { context: vscode.ExtensionContext }) {
+  public async run(files: string[], sourceFolder: string, outFolder: string, options: {}) {
     for (const file of files) {
       const targetFile = path.join(outFolder, file);
       const sourceFile = path.join(sourceFolder, file);
@@ -19,11 +17,11 @@ export class StaticConverter {
           fs.mkdirSync(path.dirname(targetFile), { recursive: true });
         }
         fs.copyFileSync(sourceFile, targetFile);
-        channel.log(`  <> ${file}`);
+        this._logger.log(`  <> ${file}`);
       }
       catch (exception: any)
       {
-        channel.error(exception.message);
+        this._logger.error(exception.message);
       }
     }
   }

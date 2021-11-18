@@ -2,7 +2,7 @@
   "name": "anno-modding-tools",
   "displayName": "Modding Tools for Anno",
   "description": "Modding tools for Anno 1800",
-  "version": "0.4.1",
+  "version": "0.5.0-alpha",
   "publisher": "JakobHarder",
   "repository": {
     "type": "git",
@@ -220,14 +220,30 @@
       }
     }
   },
+  "bin": {
+    "buildMod": "./out/buildMod.js"
+  },
+  "pkg": {
+    "scripts": "out/buildMod.js",
+    "assets": [
+      "external/**/*"
+    ],
+    "targets": [
+      "node16-win-x64"
+    ],
+    "outputPath": "out"
+  },
   "scripts": {
+    "download": "bash -c '(cd external; ./download.sh)'",
     "vscode:prepublish": "webpack --mode production",
     "compile": "webpack --mode none",
     "watch": "webpack --mode none --watch",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
-    "assets": "tsc ./src/compileAssets.ts --outDir ./out/ && node ./out/compileAssets.js /mnt/c/anno/all-rda/data/config/export/main/asset/assets.xml"
+    "assets": "tsc ./src/compileAssets.ts --outDir ./out/ && node ./out/compileAssets.js /mnt/c/anno/all-rda/data/config/export/main/asset/assets.xml",
+    "buildmod:compile": "tsc ./src/buildmod.ts --outDir ./out --downlevelIteration",
+    "buildmod:pack": "npm run buildmod:compile && npm pack"
   },
   "devDependencies": {
     "@types/glob": "^7.1.4",
@@ -239,7 +255,6 @@
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
     "@vscode/test-electron": "^1.6.2",
-    "copy-webpack-plugin": "^9.0.1",
     "eslint": "^7.32.0",
     "mocha": "^9.1.1",
     "ts-loader": "^9.2.6",
@@ -252,7 +267,6 @@
     "dxt-js": "^0.0.3",
     "glob": "^7.2.0",
     "gltf-import-export": "^1.0.18",
-    "gltf-pipeline": "^3.0.4",
     "js-yaml": "^4.1.0",
     "xml2js": "^0.4.23",
     "xmldoc": "^1.1.2"

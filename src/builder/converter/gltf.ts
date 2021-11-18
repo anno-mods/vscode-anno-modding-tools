@@ -1,12 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as vscode from 'vscode';
-import * as gltfPipeline from 'gltf-pipeline';
+import { Converter } from '../Converter';
+import { ConvertToGLB } from 'gltf-import-export';
 import * as child from 'child_process';
-import * as url from 'url';
 
-import * as channel from '../other/outputChannel';
-import * as utils from '../other/utils';
+import * as utils from '../../other/utils';
 
 interface IAnimation {
   name: string,
@@ -15,24 +13,22 @@ interface IAnimation {
   children: { idx: number, name: string }[]
 }
 
-export class GltfConverter {
+export class GltfConverter extends Converter {
   public getName() {
     return 'gltf';
   }
 
   public async run(files: string[], sourceFolder: string, outFolder: string, options: { 
-    context: vscode.ExtensionContext, 
     cache: string, 
     converterOptions: any }) {
 
-    const fakePngPath = options.context.asAbsolutePath("./images/fake.png");
-    const fakePngUrl = new url.URL(`file:///${fakePngPath}`);
-    const rdmPath = options.context.asAbsolutePath("./external/rdm4-bin.exe");
+    const fakePngPath = this._asAbsolutePath("./images/fake.png");
+    const rdmPath = this._asAbsolutePath("./external/rdm4-bin.exe");
     const changePath = options.converterOptions.changePath || '';
     const animPath = options.converterOptions.animPath || '';
     
     for (const file of files) {
-      channel.log(`  => ${file}`);
+      this._logger.log(`  => ${file}`);
       try {
         const dirname = path.dirname(file);
         const basename = path.basename(file, '.gltf');
@@ -45,7 +41,7 @@ export class GltfConverter {
 
         let variantNames = !lodDisabled ? this._findVariantNames(JSON.parse(fs.readFileSync(path.join(sourceFolder, file), 'utf8'))) : [];
         if (variantNames.length > 1) {
-          channel.log(`     has named variants: ${variantNames.map((e:string) => `'${e}'`).join(', ')}`);
+          this._logger.log(`     has named variants: ${variantNames.map((e:string) => `'${e}'`).join(', ')}`);
         }
 
         for (let lodNameIdx = 0; lodNameIdx < Math.max(1, variantNames.length); lodNameIdx++) {
@@ -54,7 +50,7 @@ export class GltfConverter {
             const gltf = JSON.parse(fs.readFileSync(path.join(sourceFolder, file), 'utf8'));
 
             // replace images to avoid errors with missing ones (we don't need them anyways)
-            this._replaceImages(gltf, fakePngUrl.href);
+            this._replaceImages(gltf, fakePngPath);
 
             // remove all nodes/meshes but this lod
             let meshIdx = 0;
@@ -66,7 +62,7 @@ export class GltfConverter {
                   meshIdx = meshIndices[0];
                 }
                 else {
-                  channel.log(`     LOD ${lodLevel}: Skipped. No node/mesh named '${variantName}_lod${lodLevel}'`);
+                  this._logger.log(`     LOD ${lodLevel}: Skipped. No node/mesh named '${variantName}_lod${lodLevel}'`);
                   continue;
                 }
               }
@@ -77,7 +73,7 @@ export class GltfConverter {
                   meshIdx = meshIndices[0];
                 }
                 else {
-                  channel.log(`     LOD ${lodLevel}: Skipped. No node/mesh ending with '_lod${lodLevel}'`);
+                  this._logger.log(`     LOD ${lodLevel}: Skipped. No node/mesh ending with '_lod${lodLevel}'`);
                   continue;
                 }
               }
@@ -103,10 +99,10 @@ export class GltfConverter {
                 const tempGlbFile = path.join(options.cache, dirname, `${basename}_${anim.name}.glb`);
                 const targetFile = path.join(outFolder, dirname, animPath, `${anim.name}.rdm`);
 
-                // we need a separate copy of gltf because the gltf-pipeline is modifying it
+                // we need a separate copy of gltf because we're modifying it
                 // reading is easier than to do a deep copy
                 const gltfForAnim = JSON.parse(fs.readFileSync(path.join(sourceFolder, file), 'utf8'));
-                this._replaceImages(gltfForAnim, fakePngUrl.href);
+                this._replaceImages(gltfForAnim, fakePngPath);
 
                 this._makeUniqueBoneNames(gltfForAnim, anims, anim.name);
                 await this._writeRdmFile(gltfForAnim, tempAnimFile, tempGlbFile, resourceDirectory, rdmPath, meshIdx, useAnimation, useSkeleton);
@@ -114,7 +110,7 @@ export class GltfConverter {
                 fs.rmSync(tempGlbFile);
                 fs.rmSync(targetFile, { force: true });
                 fs.renameSync(tempAnimFile, targetFile);
-                channel.log(`  <= animation: ${path.relative(path.join(outFolder, dirname), targetFile)}`);
+                this._logger.log(`  <= animation: ${path.relative(path.join(outFolder, dirname), targetFile)}`);
                 // keep lod0 model for later
                 if (alreadyExportedModel) {
                   fs.rmSync(tempRdmFile);
@@ -141,13 +137,13 @@ export class GltfConverter {
             else {
               fs.renameSync(alreadyExportedModel, targetFile);
             }
-            channel.log(`  <= ${lodDisabled ? '' : `LOD ${lodLevel}: `}${path.relative(path.join(outFolder, dirname), targetFile)}`);
+            this._logger.log(`  <= ${lodDisabled ? '' : `LOD ${lodLevel}: `}${path.relative(path.join(outFolder, dirname), targetFile)}`);
           }
         }
       }
       catch (exception: any)
       {
-        channel.error(exception.message);
+        this._logger.error(exception.message);
       }
     }
   }
@@ -200,13 +196,13 @@ export class GltfConverter {
       let anim = gltf.animations[i];
       // check only first target node, it's unlikely that the others are not there (at least for now)
       if (!anim.channels || anim.channels[0].target?.node === undefined) {
-        channel.warn(`Animation channel targets are missing.`);
+        this._logger.warn(`Animation this._logger targets are missing.`);
         continue;
       }
       const animParent = allParentNodes.find((e: any) => -1 !== e.children.indexOf(anim.channels[0].target.node) );
       if (!animParent) {
-        channel.warn(`Matching nodes to animation channel targets are missing.`);
-        channel.warn(`Node ${anim.channels[0].target.node} not found or not part of a bones group.`);
+        this._logger.warn(`Matching nodes to animation this._logger targets are missing.`);
+        this._logger.warn(`Node ${anim.channels[0].target.node} not found or not part of a bones group.`);
         continue;
       }
 
@@ -249,11 +245,8 @@ export class GltfConverter {
 
   private _writeRdmFile(gltf: any, targetFile: string, tempFile: string, resourceDirectory: string, rdmPath: string, meshIdx: number, useAnimation: boolean, useSkeleton: boolean) {
     return new Promise((resolve, reject) => {
-      const gltfOptions = {
-        resourceDirectory,
-      };
-      gltfPipeline.gltfToGlb(gltf, gltfOptions).then(function (results: any) {
-        fs.writeFileSync(tempFile, results.glb);
+      try {
+        ConvertToGLB(gltf, path.join(resourceDirectory, 'fake.gltf'), tempFile);
 
         const res = child.execFileSync(rdmPath, [
           '--gltf-mesh-index', meshIdx.toString(),
@@ -265,9 +258,9 @@ export class GltfConverter {
           '--force' // overwrite existing files
         ]);
         resolve(true);
-      }).catch((err: any) => {
-        reject(err);
-      });
+      } catch (exception) {
+        reject(exception);
+      }
     });
   }
 }

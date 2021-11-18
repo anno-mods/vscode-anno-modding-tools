@@ -64,6 +64,14 @@
     "name": "Specialists - HighLife - Rare - Town",
     "english": "-"
   },
+  "669": {
+    "template": "AssetPool",
+    "name": "Tourist Items Unlock"
+  },
+  "671": {
+    "template": "AssetPool",
+    "name": "HighLife Items Unlock"
+  },
   "17030": {
     "template": "RewardPool",
     "name": "Ordinary Food"
@@ -111,6 +119,14 @@
   "17050": {
     "template": "RewardPool",
     "name": "Luxury Dessert"
+  },
+  "17052": {
+    "template": "AssetPool",
+    "name": "AllLargePool"
+  },
+  "17053": {
+    "template": "AssetPool",
+    "name": "AllSomptuousPool"
   },
   "17054": {
     "template": "RewardPool",
@@ -517,6 +533,10 @@
     "template": "CultureModule",
     "name": "culture_01_module_05_house",
     "english": "Vivarium"
+  },
+  "100653": {
+    "template": "AssetPool",
+    "name": "asset pool imperial kontors"
   },
   "100654": {
     "template": "FarmBuilding",
@@ -1407,6 +1427,10 @@
     "name": "Harbour Slot (Ghost) Colony01",
     "english": "Unpopulated Island"
   },
+  "101639": {
+    "template": "AssetPool",
+    "name": "AP - AllPlayerShips CampaignOnly DEPRECATED"
+  },
   "101642": {
     "template": "WorkforceConnector",
     "name": "harbor_16 (Commuter Pier)",
@@ -2061,6 +2085,10 @@
     "name": "uplay_ornament_2x1_lion_statue",
     "english": "Bronze Lion"
   },
+  "102418": {
+    "template": "AssetPool",
+    "name": "CQIPool_Pyrphorian_WarItems01"
+  },
   "102448": {
     "template": "HarborBuildingAttacker",
     "name": "harbor_04 (Puckle Gun) - Pirates",
@@ -2180,6 +2208,14 @@
     "template": "Slot",
     "name": "heavy_01_01_slot (Oil Pump Slot)",
     "english": "Oil Spring"
+  },
+  "102499": {
+    "template": "AssetPool",
+    "name": "AP - AllMilitaryShipsSteam DEPRECATED"
+  },
+  "102500": {
+    "template": "AssetPool",
+    "name": "AP - AllMilitaryShips DEPRECATED"
   },
   "102507": {
     "template": "Street",
@@ -3660,6 +3696,50 @@
     "name": "arctic sleds chain",
     "english": "Husky Sleds"
   },
+  "112715": {
+    "template": "AssetPool",
+    "name": "asset pool arctic heater market"
+  },
+  "112716": {
+    "template": "AssetPool",
+    "name": "asset pool arctic warehouse"
+  },
+  "112717": {
+    "template": "AssetPool",
+    "name": "asset pool arctic timber"
+  },
+  "112718": {
+    "template": "AssetPool",
+    "name": "asset pool arctic pemmican"
+  },
+  "112719": {
+    "template": "AssetPool",
+    "name": "asset pool arctic parka"
+  },
+  "112720": {
+    "template": "AssetPool",
+    "name": "asset pool arctic sleeping bags"
+  },
+  "112721": {
+    "template": "AssetPool",
+    "name": "asset pool arctic oil lamps"
+  },
+  "112722": {
+    "template": "AssetPool",
+    "name": "asset pool arctic sleds"
+  },
+  "112723": {
+    "template": "AssetPool",
+    "name": "asset pool arctic warehouse &amp; kontor II"
+  },
+  "112724": {
+    "template": "AssetPool",
+    "name": "asset pool arctic warehouse &amp; kontor III"
+  },
+  "112725": {
+    "template": "AssetPool",
+    "name": "asset pool arctic monument"
+  },
   "112728": {
     "template": "CultureItem",
     "name": "Banyan",
@@ -4124,6 +4204,10 @@
     "name": "music partition anno 1800",
     "english": "Sheet Music &quot;Anno 1800&quot;"
   },
+  "114192": {
+    "template": "AssetPool",
+    "name": "asset pool arctic gas"
+  },
   "114281": {
     "template": "RewardPool",
     "name": "Botanical Expedition Reward Pool Easy"
@@ -4586,6 +4670,34 @@
     "name": "service_colony02_03 (Monastery)",
     "english": "Monastery"
   },
+  "114524": {
+    "template": "AssetPool",
+    "name": "asset pool africa dried meat"
+  },
+  "114525": {
+    "template": "AssetPool",
+    "name": "asset pool africa tea"
+  },
+  "114527": {
+    "template": "AssetPool",
+    "name": "asset pool africa woven clothes"
+  },
+  "114528": {
+    "template": "AssetPool",
+    "name": "asset pool africa mud bricks"
+  },
+  "114530": {
+    "template": "AssetPool",
+    "name": "asset pool africa tapestries"
+  },
+  "114531": {
+    "template": "AssetPool",
+    "name": "asset pool africa spicy stew"
+  },
+  "114532": {
+    "template": "AssetPool",
+    "name": "asset pool africa tobacco pipe"
+  },
   "114538": {
     "template": "CultureItem",
     "name": "Foxglove",
@@ -4680,6 +4792,18 @@
     "template": "ProductionChain",
     "name": "africa tobacco pipe chain",
     "english": "Clay Pipe"
+  },
+  "114632": {
+    "template": "AssetPool",
+    "name": "asset pool africa warehouse"
+  },
+  "114633": {
+    "template": "AssetPool",
+    "name": "asset pool africa warehouse &amp; kontor II"
+  },
+  "114634": {
+    "template": "AssetPool",
+    "name": "asset pool africa warehouse &amp; kontor III"
   },
   "114637": {
     "template": "CultureItem",
@@ -5335,6 +5459,22 @@
     "name": "Electric Potato Harvester 2205",
     "english": "Golden Harvester From The Future"
   },
+  "116285": {
+    "template": "AssetPool",
+    "name": "Items Technicians 2.1"
+  },
+  "116286": {
+    "template": "AssetPool",
+    "name": "Items Technicians 2.0"
+  },
+  "116287": {
+    "template": "AssetPool",
+    "name": "Items Technicians 2.2"
+  },
+  "116288": {
+    "template": "AssetPool",
+    "name": "Items Technicians 2.3"
+  },
   "116333": {
     "template": "RewardPool",
     "name": "Artefacts_Arctic_Rare_Pool"
@@ -5481,6 +5621,18 @@
     "name": "BasePlateFenceAgriculturePassage",
     "english": "Fenced Road"
   },
+  "116656": {
+    "template": "AssetPool",
+    "name": "Inventions Technicians 2.1"
+  },
+  "116657": {
+    "template": "AssetPool",
+    "name": "Inventions Technicians 2.2"
+  },
+  "116658": {
+    "template": "AssetPool",
+    "name": "Inventions Technicians 2.3"
+  },
   "116673": {
     "template": "RewardPool",
     "name": "Specialists - All Inuits"
@@ -5539,6 +5691,10 @@
     "name": "ArcticQ102_Ruins03 FAKE",
     "english": "Abandoned Captain&apos;s Lodge"
   },
+  "117074": {
+    "template": "AssetPool",
+    "name": "asset pool arctic coffee"
+  },
   "117075": {
     "template": "ProductionChain",
     "name": "arctic coffee chain",
@@ -5548,6 +5704,14 @@
     "template": "ProductionChain",
     "name": "arctic schnapps chain",
     "english": "Schnapps"
+  },
+  "117078": {
+    "template": "AssetPool",
+    "name": "asset pool arctic schnapps"
+  },
+  "117267": {
+    "template": "AssetPool",
+    "name": "asset pool arctic canned food"
   },
   "117268": {
     "template": "ProductionChain",
@@ -5618,6 +5782,14 @@
     "name": "arctic gas powerplant chain - europe",
     "english": "Electricity"
   },
+  "117561": {
+    "template": "AssetPool",
+    "name": "asset pool arctic gas powerplant"
+  },
+  "117562": {
+    "template": "AssetPool",
+    "name": "asset pool europe gas powerplant"
+  },
   "117650": {
     "template": "Street",
     "name": "BasePlateFenceAgricultureAfrica1",
@@ -5668,6 +5840,18 @@
     "name": "africa lanterns chain",
     "english": "Lanterns"
   },
+  "117719": {
+    "template": "AssetPool",
+    "name": "asset pool africa scriptures"
+  },
+  "117720": {
+    "template": "AssetPool",
+    "name": "asset pool africa lanterns"
+  },
+  "117732": {
+    "template": "AssetPool",
+    "name": "asset pool africa wanza wood"
+  },
   "117736": {
     "template": "OrnamentalBuilding",
     "name": "event_ornament_onemio",
@@ -5703,6 +5887,10 @@
     "name": "africa irrigation chain",
     "english": "Irrigation"
   },
+  "117783": {
+    "template": "AssetPool",
+    "name": "asset pool africa irrigation"
+  },
   "117786": {
     "template": "Street",
     "name": "Crossing Canal-Street",
@@ -5712,6 +5900,14 @@
     "template": "ConstructionCategory",
     "name": "africa construction menu harbour 02 (tier)",
     "english": "Big Harbour"
+  },
+  "117918": {
+    "template": "AssetPool",
+    "name": "asset pool africa harbour01"
+  },
+  "117921": {
+    "template": "AssetPool",
+    "name": "asset pool africa harbour02"
   },
   "118122": {
     "template": "CultureItem",
@@ -5818,6 +6014,10 @@
     "name": "coastal_colony02_02 (Seafood Fisher)",
     "english": "Lobster Fishery"
   },
+  "118730": {
+    "template": "AssetPool",
+    "name": "asset pool africa ceramics"
+  },
   "118733": {
     "template": "FactoryBuilding7",
     "name": "final_moderate_LoL_01 (Leather Shoes)",
@@ -5853,10 +6053,26 @@
     "name": "moderate LoL telephone chain",
     "english": "Telephones"
   },
+  "118740": {
+    "template": "AssetPool",
+    "name": "asset pool moderate LoL leather shoes"
+  },
+  "118743": {
+    "template": "AssetPool",
+    "name": "asset pool moderate LoL suits"
+  },
+  "118744": {
+    "template": "AssetPool",
+    "name": "asset pool moderate LoL telephones"
+  },
   "118745": {
     "template": "PopulationLevel7",
     "name": "Moderate Scholar Population",
     "english": "Scholars"
+  },
+  "118752": {
+    "template": "AssetPool",
+    "name": "asset pool moderate LoL radio station"
   },
   "118904": {
     "template": "CampaignQuestObject",
@@ -5932,6 +6148,14 @@
     "template": "Street",
     "name": "AF | Rails",
     "english": "Railway"
+  },
+  "119061": {
+    "template": "AssetPool",
+    "name": "All Shepherd needs"
+  },
+  "119208": {
+    "template": "AssetPool",
+    "name": "African Kontors pool"
   },
   "119259": {
     "template": "HarborWarehouseStrategic",
@@ -6163,6 +6387,18 @@
     "name": "moderate LoL bombin chain",
     "english": "Bombíns"
   },
+  "120303": {
+    "template": "AssetPool",
+    "name": "AnimalsLow"
+  },
+  "120304": {
+    "template": "AssetPool",
+    "name": "AnimalsMedium"
+  },
+  "120305": {
+    "template": "AssetPool",
+    "name": "AnimalsHigh"
+  },
   "120986": {
     "template": "QuestObjectHarborBuildingAttacker",
     "name": "Canon",
@@ -6216,6 +6452,198 @@
     "template": "HarborBuildingAttacker",
     "name": "NewCanon3",
     "english": "Polished Canon"
+  },
+  "123536": {
+    "template": "AssetPool",
+    "name": "ArtefactsLow"
+  },
+  "123537": {
+    "template": "AssetPool",
+    "name": "ArtefactsMedium"
+  },
+  "123538": {
+    "template": "AssetPool",
+    "name": "ArtefactsHigh"
+  },
+  "123540": {
+    "template": "AssetPool",
+    "name": "PlantsLow"
+  },
+  "123541": {
+    "template": "AssetPool",
+    "name": "PlantsMedium"
+  },
+  "123542": {
+    "template": "AssetPool",
+    "name": "PlantsHigh"
+  },
+  "123545": {
+    "template": "AssetPool",
+    "name": "ProdTechLow"
+  },
+  "123546": {
+    "template": "AssetPool",
+    "name": "ProdTechMedium"
+  },
+  "123547": {
+    "template": "AssetPool",
+    "name": "ProdTechHigh"
+  },
+  "123548": {
+    "template": "AssetPool",
+    "name": "ProdTechUncommon"
+  },
+  "123549": {
+    "template": "AssetPool",
+    "name": "ProdTechRare"
+  },
+  "123550": {
+    "template": "AssetPool",
+    "name": "ProdTechEpic"
+  },
+  "123551": {
+    "template": "AssetPool",
+    "name": "ProdTechLegendary"
+  },
+  "123573": {
+    "template": "AssetPool",
+    "name": "CityTechLow"
+  },
+  "123574": {
+    "template": "AssetPool",
+    "name": "CityTechMedium"
+  },
+  "123575": {
+    "template": "AssetPool",
+    "name": "CityTechHigh"
+  },
+  "123576": {
+    "template": "AssetPool",
+    "name": "HarbourTechLow"
+  },
+  "123578": {
+    "template": "AssetPool",
+    "name": "HarbourTechMedium"
+  },
+  "123579": {
+    "template": "AssetPool",
+    "name": "HarbourTechHigh"
+  },
+  "123581": {
+    "template": "AssetPool",
+    "name": "CityTechUncommon"
+  },
+  "123582": {
+    "template": "AssetPool",
+    "name": "CityTechRare"
+  },
+  "123583": {
+    "template": "AssetPool",
+    "name": "CityTechEpic"
+  },
+  "123584": {
+    "template": "AssetPool",
+    "name": "CityTechLegendary"
+  },
+  "123585": {
+    "template": "AssetPool",
+    "name": "HarbourTechUncommon"
+  },
+  "123586": {
+    "template": "AssetPool",
+    "name": "HarbourTechRare"
+  },
+  "123587": {
+    "template": "AssetPool",
+    "name": "HarbourTechEpic"
+  },
+  "123588": {
+    "template": "AssetPool",
+    "name": "HarbourTechLegendary"
+  },
+  "123672": {
+    "template": "AssetPool",
+    "name": "ProdTalentUncommon"
+  },
+  "123676": {
+    "template": "AssetPool",
+    "name": "ProdTalentLow"
+  },
+  "123677": {
+    "template": "AssetPool",
+    "name": "ProdTalentMedium"
+  },
+  "123678": {
+    "template": "AssetPool",
+    "name": "ProdTalentHigh"
+  },
+  "123681": {
+    "template": "AssetPool",
+    "name": "ProdTalentRare"
+  },
+  "123682": {
+    "template": "AssetPool",
+    "name": "ProdTalentEpic"
+  },
+  "123683": {
+    "template": "AssetPool",
+    "name": "ProdTalentLegendary"
+  },
+  "123684": {
+    "template": "AssetPool",
+    "name": "CityTalentUncommon"
+  },
+  "123686": {
+    "template": "AssetPool",
+    "name": "CityTalentRare"
+  },
+  "123690": {
+    "template": "AssetPool",
+    "name": "CityTalentEpic"
+  },
+  "123691": {
+    "template": "AssetPool",
+    "name": "CityTalentLegendary"
+  },
+  "123694": {
+    "template": "AssetPool",
+    "name": "CityTalentLow"
+  },
+  "123695": {
+    "template": "AssetPool",
+    "name": "CityTalentMedium"
+  },
+  "123696": {
+    "template": "AssetPool",
+    "name": "CityTalentHigh"
+  },
+  "123697": {
+    "template": "AssetPool",
+    "name": "HarbourTalentUncommon"
+  },
+  "123698": {
+    "template": "AssetPool",
+    "name": "HarbourTalentRare"
+  },
+  "123700": {
+    "template": "AssetPool",
+    "name": "HarbourTalentEpic"
+  },
+  "123701": {
+    "template": "AssetPool",
+    "name": "HarbourTalentLegendary"
+  },
+  "123702": {
+    "template": "AssetPool",
+    "name": "HarbourTalentLow"
+  },
+  "123703": {
+    "template": "AssetPool",
+    "name": "HarbourTalentMedium"
+  },
+  "123704": {
+    "template": "AssetPool",
+    "name": "HarbourTalentHigh"
   },
   "123720": {
     "template": "HarborWarehouse7",
@@ -7232,6 +7660,18 @@
     "template": "RewardItemPool",
     "name": "Archetype (Scholar) Legendary Reward Pool"
   },
+  "127612": {
+    "template": "AssetPool",
+    "name": "alt_asset pool moderate LoL coffee"
+  },
+  "127613": {
+    "template": "AssetPool",
+    "name": "alt_asset pool moderate LoL rum"
+  },
+  "127614": {
+    "template": "AssetPool",
+    "name": "alt_asset pool moderate LoL cotton fabric"
+  },
   "127822": {
     "template": "RewardPool",
     "name": "Africa/Scholar - Specialists - Uncommon - Trade"
@@ -7405,6 +7845,54 @@
     "name": "pool_UniqueCampaignReward2",
     "english": "pool_"
   },
+  "129500": {
+    "template": "AssetPool",
+    "name": "Items Shepherds 1.0"
+  },
+  "129501": {
+    "template": "AssetPool",
+    "name": "Items Shepherds 1.1"
+  },
+  "129502": {
+    "template": "AssetPool",
+    "name": "Items Shepherds 1.2"
+  },
+  "129503": {
+    "template": "AssetPool",
+    "name": "Items Shepherds 1.3"
+  },
+  "129504": {
+    "template": "AssetPool",
+    "name": "Items Elders 2.0"
+  },
+  "129505": {
+    "template": "AssetPool",
+    "name": "Items Elders 2.1"
+  },
+  "129506": {
+    "template": "AssetPool",
+    "name": "Items Elders 2.2"
+  },
+  "129507": {
+    "template": "AssetPool",
+    "name": "Items Elders 2.3"
+  },
+  "129508": {
+    "template": "AssetPool",
+    "name": "Items Scholars 3.0"
+  },
+  "129509": {
+    "template": "AssetPool",
+    "name": "Items Scholars 3.1"
+  },
+  "129510": {
+    "template": "AssetPool",
+    "name": "Items Scholars 3.3"
+  },
+  "129511": {
+    "template": "AssetPool",
+    "name": "Items Scholars 3.5"
+  },
   "129514": {
     "template": "RewardPool",
     "name": "MapsAfricaRare"
@@ -7472,6 +7960,458 @@
     "template": "RewardItemPool",
     "name": "Archetype (Shepherd) Legendary Reward Pool"
   },
+  "129991": {
+    "template": "AssetPool",
+    "name": "Righting the wrongs item pool"
+  },
+  "130040": {
+    "template": "AssetPool",
+    "name": "asset pool warehouse"
+  },
+  "130041": {
+    "template": "AssetPool",
+    "name": "asset pool glasses"
+  },
+  "130042": {
+    "template": "AssetPool",
+    "name": "asset pool pub"
+  },
+  "130043": {
+    "template": "AssetPool",
+    "name": "asset pool church"
+  },
+  "130044": {
+    "template": "AssetPool",
+    "name": "asset pool school"
+  },
+  "130045": {
+    "template": "AssetPool",
+    "name": "asset pool cabaret"
+  },
+  "130046": {
+    "template": "AssetPool",
+    "name": "asset pool university"
+  },
+  "130047": {
+    "template": "AssetPool",
+    "name": "asset pool electricity oil"
+  },
+  "130048": {
+    "template": "AssetPool",
+    "name": "asset pool club house"
+  },
+  "130049": {
+    "template": "AssetPool",
+    "name": "asset pool bank"
+  },
+  "130050": {
+    "template": "AssetPool",
+    "name": "asset pool sail shipyard"
+  },
+  "130051": {
+    "template": "AssetPool",
+    "name": "asset pool steam shipyard"
+  },
+  "130052": {
+    "template": "AssetPool",
+    "name": "asset pool tourism pier"
+  },
+  "130053": {
+    "template": "AssetPool",
+    "name": "asset pool warehouse &amp; kontor II"
+  },
+  "130054": {
+    "template": "AssetPool",
+    "name": "asset pool warehouse &amp; kontor III"
+  },
+  "130055": {
+    "template": "AssetPool",
+    "name": "asset pool champagne"
+  },
+  "130056": {
+    "template": "AssetPool",
+    "name": "asset pool fish"
+  },
+  "130057": {
+    "template": "AssetPool",
+    "name": "asset pool market"
+  },
+  "130060": {
+    "template": "AssetPool",
+    "name": "asset pool basic clothes"
+  },
+  "130063": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 coffee"
+  },
+  "130066": {
+    "template": "AssetPool",
+    "name": "asset pool zoo modules"
+  },
+  "130067": {
+    "template": "AssetPool",
+    "name": "asset pool museum modules"
+  },
+  "130068": {
+    "template": "AssetPool",
+    "name": "asset pool harbor defenses"
+  },
+  "130093": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 timber"
+  },
+  "130094": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 market"
+  },
+  "130095": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 warehouse"
+  },
+  "130096": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 fried bananas"
+  },
+  "130097": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 ponchos"
+  },
+  "130098": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 sailcloth"
+  },
+  "130099": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 church"
+  },
+  "130100": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 brick"
+  },
+  "130101": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 burrito"
+  },
+  "130102": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 boxing arena"
+  },
+  "130103": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 bombin"
+  },
+  "130104": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 warehouse &amp; kontor II"
+  },
+  "130105": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 warehouse &amp; kontor III"
+  },
+  "130106": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 sail shipyard"
+  },
+  "130111": {
+    "template": "AssetPool",
+    "name": "asset pool splendour elements  (1st set)"
+  },
+  "130113": {
+    "template": "AssetPool",
+    "name": "asset pool park elements (all)"
+  },
+  "130115": {
+    "template": "AssetPool",
+    "name": "asset pool splendour elements (all)"
+  },
+  "130116": {
+    "template": "AssetPool",
+    "name": "asset pool cigar"
+  },
+  "130117": {
+    "template": "AssetPool",
+    "name": "asset pool kontors (all)"
+  },
+  "130118": {
+    "template": "AssetPool",
+    "name": "asset pool residences"
+  },
+  "130119": {
+    "template": "AssetPool",
+    "name": "asset pool first factories"
+  },
+  "130120": {
+    "template": "AssetPool",
+    "name": "asset pool commuter harbour"
+  },
+  "130121": {
+    "template": "AssetPool",
+    "name": "asset pool harbor01"
+  },
+  "130122": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 defense 01"
+  },
+  "130123": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 defense 02"
+  },
+  "130124": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 oil"
+  },
+  "130126": {
+    "template": "AssetPool",
+    "name": "asset pool coffee"
+  },
+  "130127": {
+    "template": "AssetPool",
+    "name": "asset pool chocolate"
+  },
+  "130133": {
+    "template": "AssetPool",
+    "name": "asset pool monuments"
+  },
+  "130134": {
+    "template": "AssetPool",
+    "name": "asset pool colony sewing machines"
+  },
+  "130141": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 beer"
+  },
+  "130152": {
+    "template": "AssetPool",
+    "name": "asset pool park farmers"
+  },
+  "130153": {
+    "template": "AssetPool",
+    "name": "asset pool park workers"
+  },
+  "130154": {
+    "template": "AssetPool",
+    "name": "asset pool park artisans"
+  },
+  "130155": {
+    "template": "AssetPool",
+    "name": "asset pool park engineers"
+  },
+  "130156": {
+    "template": "AssetPool",
+    "name": "asset pool park investors"
+  },
+  "130157": {
+    "template": "AssetPool",
+    "name": "asset pool city artisans"
+  },
+  "130158": {
+    "template": "AssetPool",
+    "name": "asset pool city engineers"
+  },
+  "130161": {
+    "template": "AssetPool",
+    "name": "Items Farmers 1.0"
+  },
+  "130162": {
+    "template": "AssetPool",
+    "name": "Items Farmers 1.1"
+  },
+  "130163": {
+    "template": "AssetPool",
+    "name": "Items Farmers 1.2"
+  },
+  "130164": {
+    "template": "AssetPool",
+    "name": "Items Farmers 1.3"
+  },
+  "130165": {
+    "template": "AssetPool",
+    "name": "Items Workers 2.0"
+  },
+  "130166": {
+    "template": "AssetPool",
+    "name": "Items Workers 2.1"
+  },
+  "130167": {
+    "template": "AssetPool",
+    "name": "Items Workers 2.2"
+  },
+  "130168": {
+    "template": "AssetPool",
+    "name": "Items Workers 2.3"
+  },
+  "130169": {
+    "template": "AssetPool",
+    "name": "Items Workers 2.4"
+  },
+  "130170": {
+    "template": "AssetPool",
+    "name": "Items Artisans 3.0"
+  },
+  "130171": {
+    "template": "AssetPool",
+    "name": "Items Artisans 3.1"
+  },
+  "130172": {
+    "template": "AssetPool",
+    "name": "Items Artisans 3.2 EPIC UNLOCK"
+  },
+  "130173": {
+    "template": "AssetPool",
+    "name": "Items Artisans 3.3"
+  },
+  "130174": {
+    "template": "AssetPool",
+    "name": "Items Artisans 3.4"
+  },
+  "130175": {
+    "template": "AssetPool",
+    "name": "Items Engineers 4.0"
+  },
+  "130176": {
+    "template": "AssetPool",
+    "name": "Items Engineers 4.1 LEGENDARY UNLOCK"
+  },
+  "130177": {
+    "template": "AssetPool",
+    "name": "Items Engineers 4.2"
+  },
+  "130178": {
+    "template": "AssetPool",
+    "name": "Items Engineers 4.3"
+  },
+  "130179": {
+    "template": "AssetPool",
+    "name": "Items Engineers 4.4"
+  },
+  "130180": {
+    "template": "AssetPool",
+    "name": "Items Investors 5.0"
+  },
+  "130181": {
+    "template": "AssetPool",
+    "name": "Items Investors 5.1"
+  },
+  "130182": {
+    "template": "AssetPool",
+    "name": "Items Investors 5.2"
+  },
+  "130183": {
+    "template": "AssetPool",
+    "name": "Items Investors 5.3"
+  },
+  "130184": {
+    "template": "AssetPool",
+    "name": "Items Investors 5.4"
+  },
+  "130185": {
+    "template": "AssetPool",
+    "name": "Items Jornalero 1.0"
+  },
+  "130186": {
+    "template": "AssetPool",
+    "name": "Items Jornalero 1.1"
+  },
+  "130187": {
+    "template": "AssetPool",
+    "name": "Items Jornalero 1.2 EPIC UNLOCK"
+  },
+  "130188": {
+    "template": "AssetPool",
+    "name": "Items Jornalero 1.3"
+  },
+  "130189": {
+    "template": "AssetPool",
+    "name": "Items Jornalero 1.4"
+  },
+  "130190": {
+    "template": "AssetPool",
+    "name": "Items Obreros 2.0 LEGENDARY UNLOCK"
+  },
+  "130191": {
+    "template": "AssetPool",
+    "name": "Items Obreros 2.1"
+  },
+  "130192": {
+    "template": "AssetPool",
+    "name": "Items Obreros 2.2"
+  },
+  "130193": {
+    "template": "AssetPool",
+    "name": "Items Obreros 2.3"
+  },
+  "130194": {
+    "template": "AssetPool",
+    "name": "Items Obreros 2.4"
+  },
+  "130195": {
+    "template": "AssetPool",
+    "name": "asset pool park jornaleros"
+  },
+  "130197": {
+    "template": "AssetPool",
+    "name": "asset pool park obreros"
+  },
+  "130200": {
+    "template": "AssetPool",
+    "name": "asset pool culture obreros"
+  },
+  "130201": {
+    "template": "AssetPool",
+    "name": "asset pool colony 01 fur coat"
+  },
+  "130202": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 caoutchouc"
+  },
+  "130203": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 pearls"
+  },
+  "130263": {
+    "template": "AssetPool",
+    "name": "Items Artisans 3.2 Arctic Animals"
+  },
+  "130265": {
+    "template": "AssetPool",
+    "name": "Items Artisans 3.4 Arctic Artefacts"
+  },
+  "130266": {
+    "template": "AssetPool",
+    "name": "Items Engineers 4.1 Arctic Artefact"
+  },
+  "130269": {
+    "template": "AssetPool",
+    "name": "Items Workers 2.0.1 Arctic Inventions"
+  },
+  "130270": {
+    "template": "AssetPool",
+    "name": "Items Workers 2.2 Arctic Inventions"
+  },
+  "130271": {
+    "template": "AssetPool",
+    "name": "Items Artisans 3.0 Arctic Inventions"
+  },
+  "130272": {
+    "template": "AssetPool",
+    "name": "Items Engineers 4.2 Arctic Inventions"
+  },
+  "130273": {
+    "template": "AssetPool",
+    "name": "Items Investors 5.1 Arctic Inventions"
+  },
+  "130275": {
+    "template": "AssetPool",
+    "name": "Items Investors 5.2 Arctic Inventions"
+  },
+  "130292": {
+    "template": "AssetPool",
+    "name": "Items Artisans 3.4.1 Arctic Artefacts"
+  },
+  "130297": {
+    "template": "AssetPool",
+    "name": "asset pool amusement park"
+  },
   "130300": {
     "template": "RewardItemPool",
     "name": "Archetype (Elder) Uncommon Reward Pool"
@@ -7532,6 +8472,10 @@
   "130517": {
     "template": "RewardItemPool",
     "name": "Quest Reward Pool Helping in the field"
+  },
+  "130571": {
+    "template": "AssetPool",
+    "name": "Africa kontor"
   },
   "130698": {
     "template": "ConstructionCategory",
@@ -7726,6 +8670,30 @@
     "name": "Rock2Tomb",
     "english": "Hidden Passage"
   },
+  "131176": {
+    "template": "AssetPool",
+    "name": "CommonItemsExcludedFromRecipes"
+  },
+  "131365": {
+    "template": "AssetPool",
+    "name": "Common Animals Africa"
+  },
+  "131366": {
+    "template": "AssetPool",
+    "name": "Uncommon Animals Africa"
+  },
+  "131367": {
+    "template": "AssetPool",
+    "name": "Rare Animals Africa"
+  },
+  "131368": {
+    "template": "AssetPool",
+    "name": "Epic Animals Africa"
+  },
+  "131369": {
+    "template": "AssetPool",
+    "name": "Legendary Animals Africa"
+  },
   "131386": {
     "template": "OrnamentalBuilding",
     "name": "DEPRECATED_AfriFlowerBed_Single_Tree",
@@ -7741,10 +8709,62 @@
     "name": "DEPRECATED_AfriFlowerBed_straight_Tree",
     "english": "Tree-Adorned Flowerbed"
   },
+  "131390": {
+    "template": "AssetPool",
+    "name": "asset pool africa ornaments"
+  },
+  "131393": {
+    "template": "AssetPool",
+    "name": "Common Artefacts Africa"
+  },
+  "131394": {
+    "template": "AssetPool",
+    "name": "Uncommon Artefacts Africa"
+  },
+  "131395": {
+    "template": "AssetPool",
+    "name": "Rare Artefacts Africa"
+  },
+  "131396": {
+    "template": "AssetPool",
+    "name": "Epic Artefacts Africa"
+  },
+  "131397": {
+    "template": "AssetPool",
+    "name": "Legendary Artefacts Africa"
+  },
+  "131398": {
+    "template": "AssetPool",
+    "name": "Rare Maps Africa"
+  },
+  "131399": {
+    "template": "AssetPool",
+    "name": "Epic Maps Africa"
+  },
+  "131400": {
+    "template": "AssetPool",
+    "name": "Legendary Maps Africa"
+  },
+  "131401": {
+    "template": "AssetPool",
+    "name": "Epic Artefacts Africa - Excluding Kidusi"
+  },
+  "131402": {
+    "template": "AssetPool",
+    "name": "Legendary Artefacts Africa - Excluding Spear and Ark"
+  },
+  "131403": {
+    "template": "AssetPool",
+    "name": "Rare Artefacts Africa - Excluding Bull"
+  },
   "131423": {
     "template": "OrnamentalBuilding",
     "name": "AfriPark_Grass",
     "english": "Patch of Grass"
+  },
+  "131656": {
+    "template": "AssetPool",
+    "name": "asset pool CityOrnament"
   },
   "131777": {
     "template": "DocklandModuleRepair",
@@ -7866,6 +8886,10 @@
     "name": "DocklandsOrnaments",
     "english": "Docklands Ornaments"
   },
+  "132420": {
+    "template": "AssetPool",
+    "name": "asset pool docklands ornaments"
+  },
   "132503": {
     "template": "HarborOrnament",
     "name": "SA_Docklands_Orna_Lighthouse01",
@@ -7970,6 +8994,10 @@
     "template": "HarborOrnament",
     "name": "SA_Docklands_Orna_Warehouse",
     "english": "Warehouse"
+  },
+  "132525": {
+    "template": "AssetPool",
+    "name": "SA_DocklandsOrnaments"
   },
   "132528": {
     "template": "Street",
@@ -8579,6 +9607,38 @@
     "name": "Recipe_ToothPaste",
     "english": "Toothpaste"
   },
+  "134706": {
+    "template": "AssetPool",
+    "name": "asset pool jam"
+  },
+  "134707": {
+    "template": "AssetPool",
+    "name": "asset pool citrus"
+  },
+  "134708": {
+    "template": "AssetPool",
+    "name": "asset pool cinnamon"
+  },
+  "134709": {
+    "template": "AssetPool",
+    "name": "asset pool camphor"
+  },
+  "134710": {
+    "template": "AssetPool",
+    "name": "asset pool coconut butter"
+  },
+  "134712": {
+    "template": "AssetPool",
+    "name": "asset pool lemonade"
+  },
+  "134716": {
+    "template": "AssetPool",
+    "name": "asset pool shampoo"
+  },
+  "134717": {
+    "template": "AssetPool",
+    "name": "asset pool souvenirs"
+  },
   "134720": {
     "template": "OrnamentalBuilding",
     "name": "TouristSeason FlowerBed purple",
@@ -8674,6 +9734,10 @@
     "name": "TouristSeason Ornament SuitcaseCart",
     "english": "Luggage Cart"
   },
+  "134739": {
+    "template": "AssetPool",
+    "name": "asset pool tourist ornaments"
+  },
   "134740": {
     "template": "ConstructionCategory",
     "name": "Tourism Ornaments",
@@ -8748,6 +9812,22 @@
     "template": "ConstructionCategory",
     "name": "arctic natural trees",
     "english": "Arctic Forest"
+  },
+  "134881": {
+    "template": "AssetPool",
+    "name": "asset pool trees moderate"
+  },
+  "134882": {
+    "template": "AssetPool",
+    "name": "asset pool trees colony01"
+  },
+  "134883": {
+    "template": "AssetPool",
+    "name": "asset pool trees africa"
+  },
+  "134884": {
+    "template": "AssetPool",
+    "name": "asset pool trees arctic"
   },
   "135085": {
     "template": "FreeAreaRecipeBuilding",
@@ -9204,6 +10284,38 @@
     "name": "PomadeMonumentNeed",
     "english": "Pomade Supply"
   },
+  "136054": {
+    "template": "AssetPool",
+    "name": "asset pool skyscraper 1 construction"
+  },
+  "136063": {
+    "template": "AssetPool",
+    "name": "asset pool skyscraper 1 Mall1"
+  },
+  "136065": {
+    "template": "AssetPool",
+    "name": "asset pool skyscraper 1 Gum"
+  },
+  "136066": {
+    "template": "AssetPool",
+    "name": "asset pool skyscraper 1 Cookies"
+  },
+  "136067": {
+    "template": "AssetPool",
+    "name": "asset pool skyscraper 1 Cognac"
+  },
+  "136070": {
+    "template": "AssetPool",
+    "name": "asset pool skyscraper 1 Mall2"
+  },
+  "136072": {
+    "template": "AssetPool",
+    "name": "asset pool skyscraper 1 Typewriter"
+  },
+  "136073": {
+    "template": "AssetPool",
+    "name": "asset pool skyscraper 1 Billiard"
+  },
   "136202": {
     "template": "TownhallItem",
     "name": "Sabotaged Paravent Advertizement",
@@ -9218,6 +10330,10 @@
     "template": "ConstructionCategory",
     "name": "High Life Ornaments",
     "english": "Skyscraper Ornaments"
+  },
+  "136237": {
+    "template": "AssetPool",
+    "name": "asset pool high life ornaments"
   },
   "136238": {
     "template": "OrnamentalBuilding",
@@ -9514,6 +10630,18 @@
     "template": "RewardPool",
     "name": "TouristSeason - Legendary All Specialists"
   },
+  "137179": {
+    "template": "AssetPool",
+    "name": "asset pool skyscraper 1 Mall3"
+  },
+  "137194": {
+    "template": "AssetPool",
+    "name": "asset pool skyscraper 1 Violin"
+  },
+  "137195": {
+    "template": "AssetPool",
+    "name": "asset pool skyscraper 1 Toys"
+  },
   "137281": {
     "template": "GuildhouseItem",
     "name": "Award Very Fast",
@@ -9718,6 +10846,18 @@
     "template": "RewardPool",
     "name": "HighLife - Legendary All Specialists"
   },
+  "137839": {
+    "template": "AssetPool",
+    "name": "asset pool skyscraper 1 Laquer"
+  },
+  "137840": {
+    "template": "AssetPool",
+    "name": "asset pool skyscraper 1 Celluloid"
+  },
+  "137841": {
+    "template": "AssetPool",
+    "name": "asset pool skyscraper 1 Ethanol"
+  },
   "137867": {
     "template": "RewardPool",
     "name": "TouristSeason - Legendary All Edicts"
@@ -9797,6 +10937,110 @@
   "137893": {
     "template": "RewardPool",
     "name": "TouristSeason - Epic All Chem"
+  },
+  "140027": {
+    "template": "AssetPool",
+    "name": "asset pool sausage"
+  },
+  "140028": {
+    "template": "AssetPool",
+    "name": "asset pool schnapps"
+  },
+  "140029": {
+    "template": "AssetPool",
+    "name": "asset pool timber"
+  },
+  "140030": {
+    "template": "AssetPool",
+    "name": "asset pool soap"
+  },
+  "140031": {
+    "template": "AssetPool",
+    "name": "asset pool brick"
+  },
+  "140032": {
+    "template": "AssetPool",
+    "name": "asset pool sewing machines"
+  },
+  "140033": {
+    "template": "AssetPool",
+    "name": "asset pool bread"
+  },
+  "140034": {
+    "template": "AssetPool",
+    "name": "asset pool beam"
+  },
+  "140035": {
+    "template": "AssetPool",
+    "name": "asset pool beer"
+  },
+  "140036": {
+    "template": "AssetPool",
+    "name": "asset pool canned food"
+  },
+  "140037": {
+    "template": "AssetPool",
+    "name": "asset pool glass pane"
+  },
+  "140039": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 rum"
+  },
+  "140040": {
+    "template": "AssetPool",
+    "name": "asset pool high-wheeler"
+  },
+  "140041": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 chocolate"
+  },
+  "140042": {
+    "template": "AssetPool",
+    "name": "asset pool pocket watch"
+  },
+  "140043": {
+    "template": "AssetPool",
+    "name": "asset pool concrete"
+  },
+  "140044": {
+    "template": "AssetPool",
+    "name": "asset pool light bulb"
+  },
+  "140045": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 cigar"
+  },
+  "140046": {
+    "template": "AssetPool",
+    "name": "asset pool fur coat"
+  },
+  "140047": {
+    "template": "AssetPool",
+    "name": "asset pool phonograph"
+  },
+  "140048": {
+    "template": "AssetPool",
+    "name": "asset pool jewelry"
+  },
+  "140049": {
+    "template": "AssetPool",
+    "name": "asset pool steam carriage"
+  },
+  "140050": {
+    "template": "AssetPool",
+    "name": "asset pool sailcloth"
+  },
+  "140051": {
+    "template": "AssetPool",
+    "name": "asset pool weapon"
+  },
+  "140052": {
+    "template": "AssetPool",
+    "name": "asset pool steam motor"
+  },
+  "140053": {
+    "template": "AssetPool",
+    "name": "asset pool advanced weapon"
   },
   "151049": {
     "template": "RewardPool",
@@ -20451,6 +21695,10 @@
     "name": "fuel state",
     "english": "Fuel"
   },
+  "269755": {
+    "template": "AssetPool",
+    "name": "asset pool fuel moderate"
+  },
   "269756": {
     "template": "ProductionChain",
     "name": "fuel oil chain",
@@ -20775,6 +22023,50 @@
     "template": "FactoryBuilding7",
     "name": "fuel_station_01 (GASOLINE TEST)",
     "english": "Fuel Station (GASOLINE TEST)"
+  },
+  "270062": {
+    "template": "AssetPool",
+    "name": "asset pool fuel colony01"
+  },
+  "270105": {
+    "template": "AssetPool",
+    "name": "AssetPool_SiloFarmsOldWorld"
+  },
+  "270106": {
+    "template": "AssetPool",
+    "name": "AssetPool_SiloFarmsNewWorld"
+  },
+  "270107": {
+    "template": "AssetPool",
+    "name": "AssetPool_TractorFarmsOldWorld"
+  },
+  "270108": {
+    "template": "AssetPool",
+    "name": "AssetPool_TractorFarmsNewWorld"
+  },
+  "270127": {
+    "template": "AssetPool",
+    "name": "AssetPool_TractorFarms_OldandNewWorld"
+  },
+  "270158": {
+    "template": "AssetPool",
+    "name": "AssetPool_TractorFarms_OldandNewWorldAfrica"
+  },
+  "270159": {
+    "template": "AssetPool",
+    "name": "asset pool industry ornaments"
+  },
+  "270160": {
+    "template": "AssetPool",
+    "name": "asset pool agriculture ornaments"
+  },
+  "270173": {
+    "template": "AssetPool",
+    "name": "asset pool fuel africa"
+  },
+  "270174": {
+    "template": "AssetPool",
+    "name": "AP - AllPlayerShips CampaignOnly NEW"
   },
   "273679": {
     "template": "ForwardBuff",
@@ -21919,9 +23211,17 @@
     "name": "Canal System #1 (beautiful pond)",
     "english": "Canals"
   },
+  "700047": {
+    "template": "AssetPool",
+    "name": "AP - All Mines and mines slots"
+  },
   "700133": {
     "template": "RewardPool",
     "name": "RP - All Food Gift"
+  },
+  "700151": {
+    "template": "AssetPool",
+    "name": "AP - All PlayerShips"
   },
   "1000029": {
     "template": "Slot",

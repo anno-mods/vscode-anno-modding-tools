@@ -1,5 +1,14 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License.
+ *--------------------------------------------------------------------------------------------*/
+/*
+https://github.com/microsoft/vscode/blob/main/extensions/markdown-language-features/src/features/documentSymbolProvider.ts
+used almost as is
+*/
+
 import * as vscode from 'vscode';
-import { SkinnyTextDocument, AssetsTocProvider, TocEntry } from '../other/assetsTocProvider';
+import { SkinnyTextDocument, CfgTocProvider, TocEntry } from './cfgTocProvider';
 
 interface MarkdownSymbol {
 	readonly level: number;
@@ -7,17 +16,9 @@ interface MarkdownSymbol {
 	readonly children: vscode.DocumentSymbol[];
 }
 
-export class AssetsSymbolProvider {
-	public static register(context: vscode.ExtensionContext): vscode.Disposable[] {
-    const selector: vscode.DocumentSelector = { language: 'xml', scheme: '*', pattern: '**/assets.xml' };
-    const symbolProvider = new AssetsSymbolProvider();
-    return [ vscode.Disposable.from(
-      vscode.languages.registerDocumentSymbolProvider(selector, symbolProvider)
-    ) ];
-  }
-
-  public async provideDocumentSymbols(document: SkinnyTextDocument): Promise<vscode.DocumentSymbol[]> {
-		const toc = await new AssetsTocProvider(document).getToc();
+export default class CfgDocumentSymbolProvider implements vscode.DocumentSymbolProvider {
+	public async provideDocumentSymbols(document: SkinnyTextDocument): Promise<vscode.DocumentSymbol[]> {
+		const toc = await new CfgTocProvider(document).getToc();
 		const root: MarkdownSymbol = {
 			level: -Infinity,
 			children: [],

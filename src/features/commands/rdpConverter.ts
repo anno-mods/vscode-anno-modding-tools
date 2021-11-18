@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 
-import * as rdp from '../other/rdp';
+import * as rdp from '../../other/rdp';
 
 export class RdpConverter {
 	public static register(context: vscode.ExtensionContext): vscode.Disposable[] {

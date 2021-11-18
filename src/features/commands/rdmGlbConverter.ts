@@ -2,8 +2,8 @@ import * as vscode from 'vscode';
 import * as child from 'child_process';
 import * as path from 'path';
 
-import * as channel from '../other/outputChannel';
-import * as utils from '../other/utils';
+import * as channel from '../channel';
+import * as utils from '../../other/utils';
 
 /*
 uses rdm4-bin from https://github.com/lukts30/rdm4

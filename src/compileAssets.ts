@@ -21,7 +21,8 @@ const TEMPLATE = [
   'Recipe',
   'ProductStorageList',
   'ProductList',
-  'PopulationLevel7'
+  'PopulationLevel7',
+  'AssetPool'
 ];
 
 interface IAsset {

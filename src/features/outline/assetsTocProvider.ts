@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as xmldoc from 'xmldoc';
-import * as guidUtils from '../features/guidUtilsProvider';
+import * as guidUtils from '../guidUtilsProvider';
 
 export interface TocEntry {
   text: string;
@@ -84,13 +84,12 @@ export class AssetsTocProvider {
           namedGuid = `${resolvedGuid.name}`;
         }
       }
-      return namedGuid || guid || element.attr['Path'];
+      return namedGuid || [ guid, element.attr['Path']].filter((e) => e).join(', ');
     }
     else if (element.name === 'Asset') {
       const name = element.valueWithPath('Values.Standard.Name');
-      if (name) {
-        return name;
-      }
+      const guid = element.valueWithPath('Values.Standard.GUID');
+      return [ name, guid ].filter((e) => e).join(', ');
     }
     return '';
   }

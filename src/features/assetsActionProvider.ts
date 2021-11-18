@@ -9,7 +9,7 @@ export class AssetsActionProvider {
     const diagnostics = vscode.languages.createDiagnosticCollection("assets-xml");
     subscribeToDocumentChanges(context, diagnostics);
 
-    const selector: vscode.DocumentSelector = { language: 'xml', scheme: '*', pattern: '**/assets.xml' };
+    const selector: vscode.DocumentSelector = { language: 'xml', scheme: '*', pattern: '{**/assets.xml,**/tests/*-input.xml,**/tests/*-expectation.xml}' };
     return [
       diagnostics,
       vscode.languages.registerCodeActionsProvider(selector, new AssetsCodeActionProvider(), {

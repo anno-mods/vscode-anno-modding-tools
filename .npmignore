@@ -1,0 +1,25 @@
+node_modules
+.gitignore
+.vscodeignore
+.yarnrc
+.vscode/**
+**/tsconfig.json
+**/.eslintrc.json
+**/*.map
+webpack.config.js
+
+# vscode extension related
+dist/**
+doc/**
+generated/**
+external/dependencies.md
+external/download.sh
+languages/**
+out/compileAssets.js
+
+# sources
+src/**
+
+# build results
+**/*.vsix
+**/*.tgz

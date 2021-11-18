@@ -2,9 +2,9 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as xmldoc from 'xmldoc';
-import ProppedModel from '../other/proppedModel';
-import AnnoXml from '../other/annoXml';
-import * as channel from '../other/outputChannel';
+import ProppedModel from '../../other/proppedModel';
+import AnnoXml from '../../other/annoXml';
+import * as channel from '../channel';
 
 export class FcImporter {
   insertPropContainer: xmldoc.XmlElement | undefined = undefined;

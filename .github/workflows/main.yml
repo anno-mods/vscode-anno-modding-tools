@@ -1,0 +1,51 @@
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+name: Build & Upload
+
+jobs:
+  create-packages:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - name: install dependencies
+        run: |
+          npm install vsce -g
+          npm install .
+          npm run download
+      - name: get package version
+        id: package-version
+        uses: Saionaro/extract-package-version@v1.0.6
+      - name: build extension
+        run: vsce package
+      - name: build command line tool
+        run: npm run buildmod:pack
+      - name: upload extension
+        uses: actions/upload-artifact@v2
+        with:
+          name: anno-modding-tools-${{ steps.package-version.outputs.version }}
+          path: anno-modding-tools-${{ steps.package-version.outputs.version }}.vsix
+          if-no-files-found: error
+      - name: upload command line tool
+        uses: actions/upload-artifact@v2
+        with:
+          name: anno-modding-tools-${{ steps.package-version.outputs.version }}
+          path: anno-modding-tools-${{ steps.package-version.outputs.version }}.tgz
+          if-no-files-found: error
+      - name: release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          draft: true
+          body_path: CHANGELOG.md
+          files: |
+            anno-modding-tools-${{ steps.package-version.outputs.version }}.vsix
+            anno-modding-tools-${{ steps.package-version.outputs.version }}.tgz
