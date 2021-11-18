@@ -1,9 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { Converter } from '../Converter';
-import * as gltfPipeline from 'gltf-pipeline';
+import { ConvertToGLB } from 'gltf-import-export';
 import * as child from 'child_process';
-import * as url from 'url';
 
 import * as utils from '../../other/utils';
 
@@ -24,7 +23,6 @@ export class GltfConverter extends Converter {
     converterOptions: any }) {
 
     const fakePngPath = this._asAbsolutePath("./images/fake.png");
-    const fakePngUrl = new url.URL(`file:///${fakePngPath}`);
     const rdmPath = this._asAbsolutePath("./external/rdm4-bin.exe");
     const changePath = options.converterOptions.changePath || '';
     const animPath = options.converterOptions.animPath || '';
@@ -52,7 +50,7 @@ export class GltfConverter extends Converter {
             const gltf = JSON.parse(fs.readFileSync(path.join(sourceFolder, file), 'utf8'));
 
             // replace images to avoid errors with missing ones (we don't need them anyways)
-            this._replaceImages(gltf, fakePngUrl.href);
+            this._replaceImages(gltf, fakePngPath);
 
             // remove all nodes/meshes but this lod
             let meshIdx = 0;
@@ -101,10 +99,10 @@ export class GltfConverter extends Converter {
                 const tempGlbFile = path.join(options.cache, dirname, `${basename}_${anim.name}.glb`);
                 const targetFile = path.join(outFolder, dirname, animPath, `${anim.name}.rdm`);
 
-                // we need a separate copy of gltf because the gltf-pipeline is modifying it
+                // we need a separate copy of gltf because we're modifying it
                 // reading is easier than to do a deep copy
                 const gltfForAnim = JSON.parse(fs.readFileSync(path.join(sourceFolder, file), 'utf8'));
-                this._replaceImages(gltfForAnim, fakePngUrl.href);
+                this._replaceImages(gltfForAnim, fakePngPath);
 
                 this._makeUniqueBoneNames(gltfForAnim, anims, anim.name);
                 await this._writeRdmFile(gltfForAnim, tempAnimFile, tempGlbFile, resourceDirectory, rdmPath, meshIdx, useAnimation, useSkeleton);
@@ -247,11 +245,8 @@ export class GltfConverter extends Converter {
 
   private _writeRdmFile(gltf: any, targetFile: string, tempFile: string, resourceDirectory: string, rdmPath: string, meshIdx: number, useAnimation: boolean, useSkeleton: boolean) {
     return new Promise((resolve, reject) => {
-      const gltfOptions = {
-        resourceDirectory,
-      };
-      gltfPipeline.gltfToGlb(gltf, gltfOptions).then(function (results: any) {
-        fs.writeFileSync(tempFile, results.glb);
+      try {
+        ConvertToGLB(gltf, path.join(resourceDirectory, 'fake.gltf'), tempFile);
 
         const res = child.execFileSync(rdmPath, [
           '--gltf-mesh-index', meshIdx.toString(),
@@ -263,9 +258,9 @@ export class GltfConverter extends Converter {
           '--force' // overwrite existing files
         ]);
         resolve(true);
-      }).catch((err: any) => {
-        reject(err);
-      });
+      } catch (exception) {
+        reject(exception);
+      }
     });
   }
 }

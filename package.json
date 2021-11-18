@@ -225,7 +225,9 @@
   },
   "pkg": {
     "scripts": "out/buildMod.js",
-    "assets": [ "external/**/*" ],
+    "assets": [
+      "external/**/*"
+    ],
     "targets": [
       "node16-win-x64"
     ],
@@ -251,7 +253,6 @@
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
     "@vscode/test-electron": "^1.6.2",
-    "copy-webpack-plugin": "^9.0.1",
     "eslint": "^7.32.0",
     "mocha": "^9.1.1",
     "ts-loader": "^9.2.6",
@@ -264,7 +265,6 @@
     "dxt-js": "^0.0.3",
     "glob": "^7.2.0",
     "gltf-import-export": "^1.0.18",
-    "gltf-pipeline": "^3.0.4",
     "js-yaml": "^4.1.0",
     "xml2js": "^0.4.23",
     "xmldoc": "^1.1.2"

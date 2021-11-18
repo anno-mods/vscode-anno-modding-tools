@@ -28,13 +28,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
   - Show strong warning when there's no tangent information on the mesh
   - error handling for invalid xml files
   - empty annomod project breaks the extension (tradepatent-fish)
-- Internals
-  - replace Cesium glb/gltf conversion with much simpler https://github.com/najadojo/gltf-import-export
 
 ### Changed
 
 - Fixed GUID hover in XPath strings
 - Added Clothes/CLOTH to outlines
+- Internal optimizations
 
 ## [0.4.1]
 

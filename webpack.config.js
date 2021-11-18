@@ -8,7 +8,6 @@
 'use strict';
 
 const path = require('path');
-const copyWebpackPlugin = require('copy-webpack-plugin');
 
 /**@type {import('webpack').Configuration}*/
 const config = {
@@ -24,22 +23,10 @@ const config = {
     devtool: 'source-map',
     externals: {
         vscode: "commonjs vscode", // the vscode-module is created on-the-fly and must be excluded. Add other modules that cannot be webpack'ed, 📖 -> https://webpack.js.org/configuration/externals/
-        cesium: "./external/cesium"
     },
     resolve: { // support reading TypeScript and JavaScript files, 📖 -> https://github.com/TypeStrong/ts-loader
         extensions: ['.ts', '.js']
     },
-    plugins: [
-        new copyWebpackPlugin({
-            patterns: [
-                { from: 'node_modules/cesium/Build/Cesium/Workers', to: 'external/cesium/Build/Cesium/Workers' },
-                { from: 'node_modules/cesium/Build/Cesium/Cesium.js', to: 'external/cesium/Build/Cesium/Cesium.js' },
-                { from: 'node_modules/cesium/Build/package.json', to: 'external/cesium/Build/Cesium/package.json' },
-                { from: 'node_modules/cesium/package.json', to: 'external/cesium/package.json' },
-                { from: 'external/index.cjs', to: 'external/cesium/index.cjs' },
-            ],
-        })
-    ],
     module: {
         rules: [{
             test: /\.ts$/,
@@ -49,6 +36,6 @@ const config = {
             },]
         }]
     }
-}
+};
 
 module.exports = config;

@@ -61,7 +61,7 @@ A big thanks goes to the external projects I'm using for this extension:
 - rdm4 - https://github.com/lukts30/rdm4
 - FileDBReader - https://github.com/anno-mods/FileDBReader
 - texconv - https://github.com/microsoft/DirectXTex
-- gltf-pipeline - https://github.com/CesiumGS/gltf-pipeline
+- gltf-import-export - https://github.com/najadojo/gltf-import-export
 - xmltest - https://github.com/xforce/anno1800-mod-loader
 
 ## Release Notes / Known Issues
