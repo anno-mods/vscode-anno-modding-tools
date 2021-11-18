@@ -11,6 +11,7 @@ const _TAGS_TO_COMPLETE: { [index: string]: string[] } = {
   'ItemLink': [ 'GuildhouseItem', 'HarborOfficeItem', 'TownhallItem', 'CultureItem', 'VehicleItem' ],
   'Good': [ 'Product' ], // TODO and items?
   'GUID': [ '*' ],
+  'Asset': [ '*'],
   'Building': [ '*' ],
   'ProvidedNeed': [ 'Product' ],
   'SubstituteNeed': [ 'Product' ],
