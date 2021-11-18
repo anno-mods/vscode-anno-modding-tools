@@ -31,6 +31,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Internals
   - replace Cesium glb/gltf conversion with much simpler https://github.com/najadojo/gltf-import-export
 
+### Changed
+
+- Fixed GUID hover in XPath strings
+
 ## [0.4.1]
 
 ### Changed
