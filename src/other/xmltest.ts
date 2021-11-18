@@ -1,12 +1,11 @@
-import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as child from 'child_process';
 import * as glob from 'glob';
-import * as channel from './outputChannel';
+import * as logger from './logger';
 
-export function test(testFolder: string, patchFile: string, context: vscode.ExtensionContext, tempFolder: string) {
-  const tester = context.asAbsolutePath("./external/xmltest.exe");
+export function test(testFolder: string, patchFile: string, asAbsolutePath: (relative: string) => string, tempFolder: string) {
+  const tester = asAbsolutePath("./external/xmltest.exe");
 
   const inputFiles = glob.sync('**/*-input.xml', { cwd: testFolder, nodir: true });
   for (let inputFile of inputFiles) {
@@ -17,8 +16,8 @@ export function test(testFolder: string, patchFile: string, context: vscode.Exte
       testerOutput = child.execFileSync(tester, [absoluteInputFile, patchFile], { cwd: tempFolder });
     }
     catch (exception: any) {
-      channel.error(`Test ${path.basename(inputFile)} failed with exception`);
-      channel.error(exception.message);
+      logger.error(`Test ${path.basename(inputFile)} failed with exception`);
+      logger.error(exception.message);
       continue;
     }
 
@@ -27,15 +26,15 @@ export function test(testFolder: string, patchFile: string, context: vscode.Exte
 
     const absoluteExpectationFile = path.join(path.dirname(absoluteInputFile), path.basename(absoluteInputFile, '-input.xml') + '-expectation.xml');
     if (_sameWhenMinimized(absoluteExpectationFile, path.join(tempFolder, 'patched.xml'))) {
-      channel.log(`Test ${path.basename(inputFile)} OK`);
+      logger.log(`Test ${path.basename(inputFile)} OK`);
     }
     else {
       fs.renameSync(path.join(tempFolder, 'patched.xml'), logXmlFile);
-      channel.warn(`Test ${path.basename(inputFile)} failed`);
+      logger.warn(`Test ${path.basename(inputFile)} failed`);
       if (testerOutput) {
         fs.writeFileSync(logFile, testerOutput.toString());
       }
-      channel.warn(`Check ${logFile}`);
+      logger.warn(`Check ${logFile}`);
     }
   }
 }
@@ -61,10 +60,10 @@ function _sameWhenMinimized(expectation: string, patched: string) {
     }
 
     if (expectedContent[line].replace(/\s/, '') !== patchedContent[patchedLine].replace(/\s/, '')) {
-      channel.warn(`Issue at line ${line + 1}`);
-      channel.warn(`${expectedContent[line]} != ${patchedContent[patchedLine]}`);
+      logger.warn(`Issue at line ${line + 1}`);
+      logger.warn(`${expectedContent[line]} != ${patchedContent[patchedLine]}`);
       if (expectedContent[line].indexOf('--') !== -1) {
-        channel.warn('It looks like you have comments in the *-expectation.xml file. The XML patcher removes them unfortunately. It\'s OK to keep them in the *-input.xml');
+        logger.warn('It looks like you have comments in the *-expectation.xml file. The XML patcher removes them unfortunately. It\'s OK to keep them in the *-input.xml');
       }
       return false;
     }
@@ -82,9 +81,9 @@ function _sameWhenMinimized(expectation: string, patched: string) {
   if (missingLines !== 0) {
     const content = patchedLeft > 0 ? patchedContent : expectedContent;
     const startMissing = patchedLeft > 0 ? patchedLine : line;
-    channel.warn(`${patchedLeft > 0 ? 'Expectation' : 'Result'} is missing ${missingLines} lines`);
+    logger.warn(`${patchedLeft > 0 ? 'Expectation' : 'Result'} is missing ${missingLines} lines`);
     for (let missingLine = 0; missingLine < Math.min(5, missingLines); missingLine++) {
-      channel.warn(`${content[startMissing + missingLine]}`);
+      logger.warn(`${content[startMissing + missingLine]}`);
     }
     return false;
   }

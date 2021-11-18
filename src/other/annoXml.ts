@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as xmldoc from 'xmldoc';
 
-import * as channel from '../other/outputChannel';
+import * as logger from './logger';
 
 type INodeMap = { [index: string]: xmldoc.XmlElement };
 
@@ -131,9 +131,9 @@ export class AnnoXmlElement {
     }
     if (found.length === 0) {
       if (!options?.silent) {
-        channel.warn(`cannot find element //${history.join('/')}`);
+        logger.warn(`cannot find element //${history.join('/')}`);
         if (!originalPath.startsWith('//')) {
-          channel.warn(`${originalPath} was considered as ${path}`);
+          logger.warn(`${originalPath} was considered as ${path}`);
         }
       }
       return undefined;
@@ -150,7 +150,7 @@ export class AnnoXmlElement {
     const parentPathElements = (new XPath(path.substr(2))).nodes;
     const toRemove = parentPathElements.pop();
     if (!toRemove) {
-      channel.warn(`nothing to remove with '${path}''`);
+      logger.warn(`nothing to remove with '${path}''`);
       return;
     }
     const parentPath = parentPathElements.map((e: XPathNode) => e.toString()).join('/');
@@ -171,7 +171,7 @@ export class AnnoXmlElement {
     });
 
     if (!removed) {
-      channel.warn(`could not find and remove ${path}`);
+      logger.warn(`could not find and remove ${path}`);
     }
   }
 

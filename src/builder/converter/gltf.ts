@@ -1,12 +1,11 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as vscode from 'vscode';
+import { Converter } from '../Converter';
 import * as gltfPipeline from 'gltf-pipeline';
 import * as child from 'child_process';
 import * as url from 'url';
 
-import * as channel from '../other/outputChannel';
-import * as utils from '../other/utils';
+import * as utils from '../../other/utils';
 
 interface IAnimation {
   name: string,
@@ -15,24 +14,23 @@ interface IAnimation {
   children: { idx: number, name: string }[]
 }
 
-export class GltfConverter {
+export class GltfConverter extends Converter {
   public getName() {
     return 'gltf';
   }
 
   public async run(files: string[], sourceFolder: string, outFolder: string, options: { 
-    context: vscode.ExtensionContext, 
     cache: string, 
     converterOptions: any }) {
 
-    const fakePngPath = options.context.asAbsolutePath("./images/fake.png");
+    const fakePngPath = this._asAbsolutePath("./images/fake.png");
     const fakePngUrl = new url.URL(`file:///${fakePngPath}`);
-    const rdmPath = options.context.asAbsolutePath("./external/rdm4-bin.exe");
+    const rdmPath = this._asAbsolutePath("./external/rdm4-bin.exe");
     const changePath = options.converterOptions.changePath || '';
     const animPath = options.converterOptions.animPath || '';
     
     for (const file of files) {
-      channel.log(`  => ${file}`);
+      this._logger.log(`  => ${file}`);
       try {
         const dirname = path.dirname(file);
         const basename = path.basename(file, '.gltf');
@@ -45,7 +43,7 @@ export class GltfConverter {
 
         let variantNames = !lodDisabled ? this._findVariantNames(JSON.parse(fs.readFileSync(path.join(sourceFolder, file), 'utf8'))) : [];
         if (variantNames.length > 1) {
-          channel.log(`     has named variants: ${variantNames.map((e:string) => `'${e}'`).join(', ')}`);
+          this._logger.log(`     has named variants: ${variantNames.map((e:string) => `'${e}'`).join(', ')}`);
         }
 
         for (let lodNameIdx = 0; lodNameIdx < Math.max(1, variantNames.length); lodNameIdx++) {
@@ -66,7 +64,7 @@ export class GltfConverter {
                   meshIdx = meshIndices[0];
                 }
                 else {
-                  channel.log(`     LOD ${lodLevel}: Skipped. No node/mesh named '${variantName}_lod${lodLevel}'`);
+                  this._logger.log(`     LOD ${lodLevel}: Skipped. No node/mesh named '${variantName}_lod${lodLevel}'`);
                   continue;
                 }
               }
@@ -77,7 +75,7 @@ export class GltfConverter {
                   meshIdx = meshIndices[0];
                 }
                 else {
-                  channel.log(`     LOD ${lodLevel}: Skipped. No node/mesh ending with '_lod${lodLevel}'`);
+                  this._logger.log(`     LOD ${lodLevel}: Skipped. No node/mesh ending with '_lod${lodLevel}'`);
                   continue;
                 }
               }
@@ -114,7 +112,7 @@ export class GltfConverter {
                 fs.rmSync(tempGlbFile);
                 fs.rmSync(targetFile, { force: true });
                 fs.renameSync(tempAnimFile, targetFile);
-                channel.log(`  <= animation: ${path.relative(path.join(outFolder, dirname), targetFile)}`);
+                this._logger.log(`  <= animation: ${path.relative(path.join(outFolder, dirname), targetFile)}`);
                 // keep lod0 model for later
                 if (alreadyExportedModel) {
                   fs.rmSync(tempRdmFile);
@@ -141,13 +139,13 @@ export class GltfConverter {
             else {
               fs.renameSync(alreadyExportedModel, targetFile);
             }
-            channel.log(`  <= ${lodDisabled ? '' : `LOD ${lodLevel}: `}${path.relative(path.join(outFolder, dirname), targetFile)}`);
+            this._logger.log(`  <= ${lodDisabled ? '' : `LOD ${lodLevel}: `}${path.relative(path.join(outFolder, dirname), targetFile)}`);
           }
         }
       }
       catch (exception: any)
       {
-        channel.error(exception.message);
+        this._logger.error(exception.message);
       }
     }
   }
@@ -200,13 +198,13 @@ export class GltfConverter {
       let anim = gltf.animations[i];
       // check only first target node, it's unlikely that the others are not there (at least for now)
       if (!anim.channels || anim.channels[0].target?.node === undefined) {
-        channel.warn(`Animation channel targets are missing.`);
+        this._logger.warn(`Animation this._logger targets are missing.`);
         continue;
       }
       const animParent = allParentNodes.find((e: any) => -1 !== e.children.indexOf(anim.channels[0].target.node) );
       if (!animParent) {
-        channel.warn(`Matching nodes to animation channel targets are missing.`);
-        channel.warn(`Node ${anim.channels[0].target.node} not found or not part of a bones group.`);
+        this._logger.warn(`Matching nodes to animation this._logger targets are missing.`);
+        this._logger.warn(`Node ${anim.channels[0].target.node} not found or not part of a bones group.`);
         continue;
       }
 

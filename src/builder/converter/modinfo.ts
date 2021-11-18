@@ -1,16 +1,13 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as vscode from 'vscode';
+import { Converter } from '../Converter';
 
-import * as channel from '../other/outputChannel';
-
-export class ModinfoConverter {
+export class ModinfoConverter extends Converter {
   public getName() {
     return 'modinfo';
   }
 
   public async run(files: string[], sourceFolder: string, outFolder: string, options: { 
-    context: vscode.ExtensionContext, 
     modJson: any, 
     converterOptions: any }) {
 
@@ -43,7 +40,7 @@ export class ModinfoConverter {
       if (options.converterOptions.content_en && modinfo.Description.English) {
         const contentEnPath = path.join(path.dirname(targetFile), 'content_en.txt');
         fs.writeFileSync(contentEnPath, modinfo.Description.English);
-        channel.log(`  <= content_en.txt`);
+        this._logger.log(`  <= content_en.txt`);
       }
       // remove \r (after writing content_en.txt)
       for (let lang of [...languages, 'English']) {
@@ -53,11 +50,11 @@ export class ModinfoConverter {
       }
 
       fs.writeFileSync(targetFile, JSON.stringify(modinfo, null, 2));
-      channel.log(`  <= modinfo.json`);
+      this._logger.log(`  <= modinfo.json`);
     }
     catch (exception: any)
     {
-      channel.log(exception.message);
+      this._logger.log(exception.message);
     }
   }
 

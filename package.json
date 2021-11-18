@@ -2,7 +2,7 @@
   "name": "anno-modding-tools",
   "displayName": "Modding Tools for Anno",
   "description": "Modding tools for Anno 1800",
-  "version": "0.4.2-alpha",
+  "version": "0.5.0-alpha",
   "publisher": "JakobHarder",
   "repository": {
     "type": "git",
@@ -220,6 +220,17 @@
       }
     }
   },
+  "bin": {
+    "buildMod": "./out/buildMod.js"
+  },
+  "pkg": {
+    "scripts": "out/buildMod.js",
+    "assets": [ "external/**/*" ],
+    "targets": [
+      "node16-win-x64"
+    ],
+    "outputPath": "out"
+  },
   "scripts": {
     "vscode:prepublish": "webpack --mode production",
     "compile": "webpack --mode none",
@@ -227,7 +238,8 @@
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
-    "assets": "tsc ./src/compileAssets.ts --outDir ./out/ && node ./out/compileAssets.js /mnt/c/anno/all-rda/data/config/export/main/asset/assets.xml"
+    "assets": "tsc ./src/compileAssets.ts --outDir ./out/ && node ./out/compileAssets.js /mnt/c/anno/all-rda/data/config/export/main/asset/assets.xml",
+    "compile:buildmod": "tsc ./src/buildMod.ts --outDir ./out --downlevelIteration"
   },
   "devDependencies": {
     "@types/glob": "^7.1.4",

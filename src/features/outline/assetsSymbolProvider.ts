@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { SkinnyTextDocument, AssetsTocProvider, TocEntry } from '../other/assetsTocProvider';
+import { SkinnyTextDocument, AssetsTocProvider, TocEntry } from './assetsTocProvider';
 
 interface MarkdownSymbol {
 	readonly level: number;

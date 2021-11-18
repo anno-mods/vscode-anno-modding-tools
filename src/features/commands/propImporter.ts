@@ -2,9 +2,9 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as xmldoc from 'xmldoc';
-import ProppedModel, { PROP_DEFAULTS, PROPCONTAINER_DEFAULTS, FILE_DEFAULTS, FILES_DEFAULTS } from '../other/proppedModel';
-import AnnoXml from '../other/annoXml';
-import * as channel from '../other/outputChannel';
+import ProppedModel, { PROP_DEFAULTS, PROPCONTAINER_DEFAULTS, FILE_DEFAULTS, FILES_DEFAULTS } from '../../other/proppedModel';
+import AnnoXml from '../../other/annoXml';
+import * as channel from '../channel';
 
 export class PropImporter {
   insertPropContainer: xmldoc.XmlElement | undefined = undefined;

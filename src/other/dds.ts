@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as child from 'child_process';
 
-import * as channel from './outputChannel';
+import * as logger from './logger';
 
 export enum TextureFormat {
   unknown = 0,
@@ -28,7 +28,7 @@ export function convertToTexture(sourceFile: string, targetFolder: string, forma
     ]);
   }
   catch (exception: any) {
-    channel.error(exception.message);
+    logger.error(exception.message);
     return false;
   }
 }
@@ -45,7 +45,7 @@ export function convertToImage(sourceFile: string, targetFolder: string) {
     ]);
   }
   catch (exception: any) {
-    channel.error(exception.message);
+    logger.error(exception.message);
     return false;
   }
 }
@@ -67,7 +67,7 @@ export class Texture {
     const SIZE_OF_DDS_HEADER = 124;
     if (/* dwMagic "DDS " */ 0x20534444 !== _fourCCToInt32(buffer, position++) ||
         /* dwSize */ SIZE_OF_DDS_HEADER !== _fourCCToInt32(buffer, position++)) {
-      channel.error(`Invalid DDS format ${filePath}`);
+      logger.error(`Invalid DDS format ${filePath}`);
       return undefined;
     }
 
@@ -79,7 +79,7 @@ export class Texture {
     const dwMipMapCount = _fourCCToInt32(buffer, position++);
     console.log(`mipMapCount: ${dwMipMapCount}`);
     if (dwMipMapCount < 1) {
-      channel.error(`No mipmaps to extract LODs`);
+      logger.error(`No mipmaps to extract LODs`);
       return undefined;
     }
     /* unused */ position += 11;
@@ -89,7 +89,7 @@ export class Texture {
     const DXT1 = 0x31545844;
     const dwFourCC = _fourCCToInt32(buffer, position++);
     if (dwFourCC !== DX10 && dwFourCC !== DXT1) {
-      channel.error(`DDS dwFourCC is ${dwFourCC}. Must be DXT10 or DXT1: ${filePath}`);
+      logger.error(`DDS dwFourCC is ${dwFourCC}. Must be DXT10 or DXT1: ${filePath}`);
       return undefined;
     }
 
@@ -103,7 +103,7 @@ export class Texture {
       const dxgiFormat = _fourCCToInt32(buffer, position);
 
       if (dxgiFormat !== TextureFormat.bc7Unorm && dxgiFormat !== TextureFormat.bc1Unorm) {
-        channel.error(`DDS dxgiFormat is ${dxgiFormat}. Must be BC7_UNORM or BC1_UNORM: ${filePath}`);
+        logger.error(`DDS dxgiFormat is ${dxgiFormat}. Must be BC7_UNORM or BC1_UNORM: ${filePath}`);
         return undefined;
       }
       format = TextureFormat.bc7Unorm;
@@ -122,14 +122,14 @@ export class Texture {
     for (let level = 0; level < dwMipMapCount; level++) {
       const levelSize = _bc17Size(dwWidth >> level, dwHeight >> level, format);
       if (levelPosition + levelSize > buffer.length) {
-        channel.error(`Something is off. ${levelSize + levelPosition - buffer.length} bytes of image data are missing.`);
+        logger.error(`Something is off. ${levelSize + levelPosition - buffer.length} bytes of image data are missing.`);
       }
       images.push(buffer.subarray(levelPosition, levelPosition + levelSize));
       levelPosition += levelSize;
     }
 
     if (levelPosition < buffer.length) {
-      channel.error(`Something is off. ${buffer.length - levelPosition} bytes of image data are left untouched.`);
+      logger.error(`Something is off. ${buffer.length - levelPosition} bytes of image data are left untouched.`);
     }
 
     return new Texture(

@@ -1,7 +1,7 @@
 import path = require('path');
 import * as vscode from 'vscode';
 import * as fs from 'fs';
-import { AssetsTocProvider } from '../other/assetsTocProvider';
+import { AssetsTocProvider } from './outline/assetsTocProvider';
 import * as xmldoc from 'xmldoc';
 
 const _TAGS_TO_COMPLETE: { [index: string]: string[] } = {

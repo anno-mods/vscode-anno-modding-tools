@@ -34,6 +34,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ### Changed
 
 - Fixed GUID hover in XPath strings
+- Added Clothes/CLOTH to outlines
 
 ## [0.4.1]
 

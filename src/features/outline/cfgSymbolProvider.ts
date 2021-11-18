@@ -8,7 +8,7 @@ used almost as is
 */
 
 import * as vscode from 'vscode';
-import { SkinnyTextDocument, CfgTocProvider, TocEntry } from '../other/cfgTocProvider';
+import { SkinnyTextDocument, CfgTocProvider, TocEntry } from './cfgTocProvider';
 
 interface MarkdownSymbol {
 	readonly level: number;

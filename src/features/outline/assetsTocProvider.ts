@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as xmldoc from 'xmldoc';
-import * as guidUtils from '../features/guidUtilsProvider';
+import * as guidUtils from '../guidUtilsProvider';
 
 export interface TocEntry {
   text: string;

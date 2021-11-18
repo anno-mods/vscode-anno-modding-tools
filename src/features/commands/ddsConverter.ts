@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
-import * as dds from '../other/dds';
-import * as utils from '../other/utils';
+import * as dds from '../../other/dds';
+import * as utils from '../../other/utils';
 
 export class DdsConverter {
 	public static register(context: vscode.ExtensionContext): vscode.Disposable[] {
