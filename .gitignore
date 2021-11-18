@@ -6,3 +6,4 @@ node_modules
 .vscode/
 external/*
 !external/dependencies.md
+!external/index.cjs
