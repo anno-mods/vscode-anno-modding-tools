@@ -3,7 +3,11 @@ dist
 node_modules
 .vscode-test/
 *.vsix
+*.tgz
 .vscode/
 external/*
 !external/dependencies.md
-!external/index.cjs
+!external/download.sh
+
+# to be removed eventually
+!external/AnnoFCConverter.exe

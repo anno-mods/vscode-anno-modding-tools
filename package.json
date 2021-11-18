@@ -234,6 +234,7 @@
     "outputPath": "out"
   },
   "scripts": {
+    "download": "(cd external; ./download.sh)",
     "vscode:prepublish": "webpack --mode production",
     "compile": "webpack --mode none",
     "watch": "webpack --mode none --watch",
@@ -241,7 +242,8 @@
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
     "assets": "tsc ./src/compileAssets.ts --outDir ./out/ && node ./out/compileAssets.js /mnt/c/anno/all-rda/data/config/export/main/asset/assets.xml",
-    "compile:buildmod": "tsc ./src/buildMod.ts --outDir ./out --downlevelIteration"
+    "buildmod:compile": "tsc ./src/buildmod.ts --outDir ./out --downlevelIteration",
+    "buildmod:pack": "npm run buildmod:compile && npm pack"
   },
   "devDependencies": {
     "@types/glob": "^7.1.4",

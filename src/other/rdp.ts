@@ -200,10 +200,7 @@ export class Rdp {
         logger.log(res.toString());
       }
   
-      const expectedReaderFile = targetFile + '-temp_fcexport.xml';
-      fs.renameSync(expectedReaderFile, targetFile);
-
-      fs.rmSync(tempname);
+      fs.renameSync(tempname, targetFile);
     }
     catch (exception: any) {
       logger.log(exception.message);

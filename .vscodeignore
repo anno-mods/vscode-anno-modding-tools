@@ -11,3 +11,4 @@ src/**
 **/*.vsix
 node_modules/**
 doc/**
+external/download.sh
