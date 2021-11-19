@@ -29,6 +29,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
   - error handling for invalid xml files
   - empty annomod project breaks the extension (tradepatent-fish)
 
+### Added
+
+- Build mod command as script in NPM package for standalone execution
+
 ### Changed
 
 - Fixed GUID hover in XPath strings
