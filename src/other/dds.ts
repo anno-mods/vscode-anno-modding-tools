@@ -20,12 +20,18 @@ export function convertToTexture(sourceFile: string, targetFolder: string, forma
     return false;
   }
   try {
-    const res = child.execFileSync(_converterPath, [
+    const stdout = child.execFileSync(_converterPath, [
       sourceFile, 
       '-y', '-f', (format && format === TextureFormat.bc7Unorm)?'BC7_UNORM':'BC1_UNORM', '-srgbo', '-srgbi',
       '-sepalpha',
       '-o', targetFolder
-    ]);
+    ], { stdio: 'pipe' }).toString();
+    // ignore stdout
+    if (!fs.existsSync(path.join(targetFolder, path.basename(sourceFile, '.png') + '.dds'))) {
+      logger.error(`texconv failed to convert ${sourceFile} due to mysterious reasons.`);
+      return false;
+    }
+    return true;
   }
   catch (exception: any) {
     logger.error(exception.message);
@@ -62,7 +68,6 @@ export class Texture {
   public static fromFile(filePath: string) {
     const buffer = fs.readFileSync(filePath);
     let position = 0;
-    console.log(`total size: ${buffer.byteLength}`);
 
     const SIZE_OF_DDS_HEADER = 124;
     if (/* dwMagic "DDS " */ 0x20534444 !== _fourCCToInt32(buffer, position++) ||
@@ -77,7 +82,6 @@ export class Texture {
     const dwPitchOrLinearSize = _fourCCToInt32(buffer, position++);
     /* dwDepth */ position++;
     const dwMipMapCount = _fourCCToInt32(buffer, position++);
-    console.log(`mipMapCount: ${dwMipMapCount}`);
     if (dwMipMapCount < 1) {
       logger.error(`No mipmaps to extract LODs`);
       return undefined;

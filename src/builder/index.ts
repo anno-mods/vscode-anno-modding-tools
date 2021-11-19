@@ -11,6 +11,9 @@ import { ModinfoConverter } from './converter/modinfo';
 import { RdpxmlConverter } from './converter/rdpxml';
 import { CfgYamlConverter } from './converter/cfgyaml';
 
+import * as rdp from '../other/rdp';
+import * as dds from '../other/dds';
+
 import * as xmltest from '../other/xmltest';
 
 export class ModBuilder {
@@ -20,6 +23,9 @@ export class ModBuilder {
   _variableAnnoMods;
 
   public constructor(logger: ILogger, asAbsolutePath: (relative: string) => string, variableAnnoMods: string) {
+    rdp.init(asAbsolutePath('./external/'));
+    dds.init(asAbsolutePath('./external/'));
+
     this._logger = logger;
     this._asAbsolutePath = asAbsolutePath;
     this._variableAnnoMods = variableAnnoMods;
@@ -63,27 +69,34 @@ export class ModBuilder {
       const converter = this._converters[entry.action];
       if (converter) {
         this._logger.log(`${entry.action}` + (entry.pattern?`: ${entry.pattern}`:''));
-        await converter.run(allFiles, sourceFolder, outFolder, {
+        const result = await converter.run(allFiles, sourceFolder, outFolder, {
           cache: cacheFolder,
           modJson,
           converterOptions: entry
         });
+        if (!result) {
+          return false;
+        }
       }
       else {
-        this._logger.log('Error: no converter with name: ' + entry.action);
+        this._logger.error('Error: no converter with name: ' + entry.action);
+        return false;
       }
     }
 
     const testFolder = path.join(sourceFolder, 'tests');
     if (fs.existsSync(sourceFolder)) {
       this._logger.log(`Run tests from ${testFolder}`);
-      xmltest.test(testFolder, path.join(sourceFolder, 'data/config/export/main/asset/assets.xml'), this._asAbsolutePath, cacheFolder);
+      if (!xmltest.test(testFolder, path.join(sourceFolder, 'data/config/export/main/asset/assets.xml'), this._asAbsolutePath, cacheFolder)) {
+        return false;
+      }
     }
     else {
       this._logger.log(`No test folder available: ${testFolder}`);
     }
 
     this._logger.log(`${this._getModName(filePath, modJson)} done`);
+    return true;
   }
 
   private _getOutFolder(filePath: string, modJson: any) {

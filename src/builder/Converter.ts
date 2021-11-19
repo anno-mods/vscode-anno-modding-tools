@@ -20,5 +20,5 @@ export abstract class Converter {
     modJson: any,
     converterOptions: any,
     dontOverwrite?: boolean
-  }): Promise<void>;
+  }): Promise<boolean>;
 }

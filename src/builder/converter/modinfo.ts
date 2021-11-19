@@ -54,8 +54,10 @@ export class ModinfoConverter extends Converter {
     }
     catch (exception: any)
     {
-      this._logger.log(exception.message);
+      this._logger.error(exception.message);
+      return false;
     }
+    return true;
   }
 
   private _readMarkdownWithoutImages(sourceFolder: string, filePath: string) {

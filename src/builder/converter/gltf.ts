@@ -144,8 +144,11 @@ export class GltfConverter extends Converter {
       catch (exception: any)
       {
         this._logger.error(exception.message);
+        return false;
       }
     }
+
+    return true;
   }
 
   private _replaceImages(gltf: any, fakePngUrl: string) {
@@ -248,7 +251,7 @@ export class GltfConverter extends Converter {
       try {
         ConvertToGLB(gltf, path.join(resourceDirectory, 'fake.gltf'), tempFile);
 
-        const res = child.execFileSync(rdmPath, [
+        const stdout = child.execFileSync(rdmPath, [
           '--gltf-mesh-index', meshIdx.toString(),
           '-g', useSkeleton ? 'P4h_N4b_G4b_B4b_T2h_I4b' : 'P4h_N4b_G4b_B4b_T2h',
           '-n', '-o', path.dirname(targetFile),
@@ -256,7 +259,7 @@ export class GltfConverter extends Converter {
           ...(useSkeleton ? [ '--skeleton' ] : []),
           ...(useAnimation ? [ '--animation'] : []),
           '--force' // overwrite existing files
-        ]);
+        ], { stdio : 'pipe' });
         resolve(true);
       } catch (exception) {
         reject(exception);

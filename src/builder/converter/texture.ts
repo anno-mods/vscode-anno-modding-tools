@@ -41,7 +41,9 @@ export class TextureConverter extends Converter {
 
         // save first target
         const tmpFilePath = path.join(options.cache, dirname);
-        dds.convertToTexture(sourceFile, tmpFilePath, sourceFile.endsWith(maskEnding) ? dds.TextureFormat.bc1Unorm : dds.TextureFormat.bc7Unorm);
+        if (!dds.convertToTexture(sourceFile, tmpFilePath, sourceFile.endsWith(maskEnding) ? dds.TextureFormat.bc1Unorm : dds.TextureFormat.bc7Unorm)) {
+          return false;
+        }
         // unfortunately, texconv doesn't allow to change the output file name
         fs.renameSync(path.join(tmpFilePath, basename + '.dds'), lodFilePaths[0]);
         this._logger.log(`  <= ${lodLevels ? `LOD ${0}: ` : ''}${path.relative(path.dirname(file), path.relative(outFolder, lodFilePaths[0]))}`);
@@ -54,8 +56,10 @@ export class TextureConverter extends Converter {
       catch (exception: any)
       {
         this._logger.error(exception.message);
+        return false;
       }
     }
+    return true;
   }
 
   private _extractLodsFromDds(source: string, targets: string[], outFolder: string) {

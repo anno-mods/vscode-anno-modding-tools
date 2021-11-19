@@ -21,6 +21,9 @@ import * as channel from './features/channel';
 export function activate(context: vscode.ExtensionContext) {
 	logger.set(channel);
 
+	rdp.init(context.asAbsolutePath('./external/'));
+	dds.init(context.asAbsolutePath('./external/'));
+	
 	context.subscriptions.push(registerCfgLanguageFeatures('anno-cfg'));
 	context.subscriptions.push(registerCfgLanguageFeatures('anno-cf7'));
 	context.subscriptions.push(registerCfgLanguageFeatures('anno-ifo'));
@@ -36,9 +39,6 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(...CfgYamlCommands.register(context));
 	context.subscriptions.push(...AssetsSymbolProvider.register(context));
 	context.subscriptions.push(...AssetsActionProvider.register(context));
-
-	rdp.init(context.asAbsolutePath('./external/'));
-	dds.init(context.asAbsolutePath('./external/'));
 }
 
 function registerCfgLanguageFeatures(language: string): vscode.Disposable {
