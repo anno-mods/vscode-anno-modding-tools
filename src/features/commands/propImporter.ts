@@ -25,27 +25,31 @@ export class PropImporter {
 
         let openUri = await vscode.window.showOpenDialog(options);
         if (openUri && openUri[0]) {
-          const importer = new PropImporter();
-          const model = ProppedModel.fromFile(openUri[0].fsPath);
-          const xml = AnnoXml.fromFile(fileUri.fsPath);
-
-          channel.show();
-          channel.log(`Import from ${path.basename(openUri[0].fsPath)} into ${path.basename(fileUri.fsPath)}`);
-
-          importer.importProps(xml, model);
-          importer.importParticles(xml, model);
-          importer.importDecals(xml, model);
-          importer.importFiles(xml, model);
-
-          console.log(xml);
-          fs.writeFileSync(fileUri.fsPath, xml.toString());
-          channel.log(`<= ${fileUri.fsPath}`);
+          PropImporter.commandImportProps(fileUri.fsPath, openUri[0].fsPath);
         }
       })
     ];
 
     return disposable;
 	}
+
+  public static commandImportProps(cfgFilePath: string, gltfFilePath: string) {
+    const importer = new PropImporter();
+    const model = ProppedModel.fromFile(gltfFilePath);
+    const xml = AnnoXml.fromFile(cfgFilePath);
+
+    channel.show();
+    channel.log(`Import from ${path.basename(gltfFilePath)} into ${path.basename(cfgFilePath)}`);
+
+    importer.importProps(xml, model);
+    importer.importParticles(xml, model);
+    importer.importDecals(xml, model);
+    importer.importFiles(xml, model);
+
+    console.log(xml);
+    fs.writeFileSync(cfgFilePath, xml.toString());
+    channel.log(`<= ${cfgFilePath}`);
+  }
 
   public importProps(xml: AnnoXml, model: ProppedModel) {
     xml.ensureSection('Config.PropContainers.Config.Props', [ 
