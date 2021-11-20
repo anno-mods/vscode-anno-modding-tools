@@ -30,6 +30,8 @@ jobs:
         run: vsce package
       - name: build command line tool
         run: npm run buildmod:pack
+      - name: test 
+        run: npm run test
       - name: upload extension
         uses: actions/upload-artifact@v2
         with:
@@ -48,7 +50,7 @@ jobs:
         with:
           draft: true
           body: |
-            [Full Changelog](https://github.com/anno-mods/vscode-anno-modding-tools/blob/${{ GITHUB_SHA }}/CHANGELOG.md)
+            [Full Changelog](https://github.com/anno-mods/vscode-anno-modding-tools/blob/${{ github.sha }}/CHANGELOG.md)
 
             Download via [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=JakobHarder.anno-modding-tools) or in VS Code in the extension tab directly.
           files: |
