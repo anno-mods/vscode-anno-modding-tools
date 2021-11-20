@@ -17,6 +17,7 @@ export abstract class Converter {
   
   abstract run(files: string[], sourceFolder: string, outFolder: string, options: { 
     cache: string,
+    ci: string,
     modJson: any,
     converterOptions: any,
     dontOverwrite?: boolean

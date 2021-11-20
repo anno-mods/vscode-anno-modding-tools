@@ -15,6 +15,7 @@ import * as rdp from '../other/rdp';
 import * as dds from '../other/dds';
 
 import * as xmltest from '../other/xmltest';
+import * as utils from '../other/utils';
 
 export class ModBuilder {
   _converters: { [index: string]: Converter } = {};
@@ -52,7 +53,10 @@ export class ModBuilder {
       sourceFolder += '/';
     }
     const outFolder = this._getOutFolder(filePath, modJson);
-    const cacheFolder = path.join(path.dirname(filePath), '.modcache');
+    const cache = path.join(path.dirname(filePath), '.modcache');
+    const ci = path.join(path.dirname(filePath), '.vanilla');
+    // utils.ensureDir(ci);
+    // fs.writeFileSync(path.join(ci, 'readme.md'), `This folder contains unmodified assets from the original game to allow CI like GitHub actions to build the mod without RDA data.`);
     
     this._logger.log('Target folder: ' + outFolder);
 
@@ -70,7 +74,8 @@ export class ModBuilder {
       if (converter) {
         this._logger.log(`${entry.action}` + (entry.pattern?`: ${entry.pattern}`:''));
         const result = await converter.run(allFiles, sourceFolder, outFolder, {
-          cache: cacheFolder,
+          cache,
+          ci,
           modJson,
           converterOptions: entry
         });
@@ -87,7 +92,7 @@ export class ModBuilder {
     const testFolder = path.join(sourceFolder, 'tests');
     if (fs.existsSync(sourceFolder)) {
       this._logger.log(`Run tests from ${testFolder}`);
-      if (!xmltest.test(testFolder, path.join(sourceFolder, 'data/config/export/main/asset/assets.xml'), this._asAbsolutePath, cacheFolder)) {
+      if (!xmltest.test(testFolder, path.join(sourceFolder, 'data/config/export/main/asset/assets.xml'), this._asAbsolutePath, cache)) {
         return false;
       }
     }

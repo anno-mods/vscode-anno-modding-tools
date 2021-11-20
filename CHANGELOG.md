@@ -28,6 +28,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
   - Show strong warning when there's no tangent information on the mesh
   - error handling for invalid xml files
   - empty annomod project breaks the extension (tradepatent-fish)
+- Internal
+  - replace all texconv usage to reduce number of tools
 
 ### Added
 
@@ -38,6 +40,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Fixed GUID hover in XPath strings
 - Added Clothes/CLOTH to outlines
 - Internal optimizations
+- Replaced texconv with annotex/bc7enc for better non-GPU build performance
 
 ## [0.4.1]
 

@@ -12,6 +12,7 @@ export class TextureConverter extends Converter {
 
   public async run(files: string[], sourceFolder: string, outFolder: string, options: {
     cache: string,
+    ci: string,
     converterOptions: any
   }) {
     for (const file of files) {
@@ -39,18 +40,13 @@ export class TextureConverter extends Converter {
           }
         }
 
-        // save first target
-        const tmpFilePath = path.join(options.cache, dirname);
-        if (!dds.convertToTexture(sourceFile, tmpFilePath, sourceFile.endsWith(maskEnding) ? dds.TextureFormat.bc1Unorm : dds.TextureFormat.bc7Unorm)) {
+        const targetFolder = path.dirname(lodFilePaths[0]);
+        const textures = dds.convertToTexture(sourceFile, targetFolder, dds.TextureFormat.unknown, lodLevels);
+        if (!textures) {
           return false;
         }
-        // unfortunately, texconv doesn't allow to change the output file name
-        fs.renameSync(path.join(tmpFilePath, basename + '.dds'), lodFilePaths[0]);
-        this._logger.log(`  <= ${lodLevels ? `LOD ${0}: ` : ''}${path.relative(path.dirname(file), path.relative(outFolder, lodFilePaths[0]))}`);
-
-        // generate lods by reading out previous .dds mipmaps
-        if (lodFilePaths.length > 1) {
-          this._extractLodsFromDds(lodFilePaths.shift() as string, lodFilePaths, path.join(outFolder, dirname));
+        for (var [index, texture] of textures.entries()) {
+          this._logger.log(`  <= ${lodLevels ? `LOD ${index}: ` : ''}${path.relative(path.dirname(file), path.relative(outFolder, path.join(targetFolder, texture)))}`);
         }
       }
       catch (exception: any)
@@ -60,32 +56,5 @@ export class TextureConverter extends Converter {
       }
     }
     return true;
-  }
-
-  private _extractLodsFromDds(source: string, targets: string[], outFolder: string) {
-    const texture = dds.Texture.fromFile(source);
-    if (!texture) {
-      return;
-    }
-    
-    const mipmaps = texture.images;
-    let width = texture.width;
-    let height = texture.height;
-    for (let level = 0; level < targets.length && width > 1 && height > 1; level++) {
-      // go one mipmap down
-      mipmaps.shift();
-      if (mipmaps.length === 0) {
-        this._logger.warn(`     LOD ${level + 1}: Skip LOD for ${width}x${height} because of missing source mipmap.`);
-        break; // no more mipmaps available
-      }
-      width = Math.floor((width + 1) / 2);
-      height = Math.floor((height + 1) / 2);
-      // dump
-      fs.writeFileSync(targets[level], Buffer.concat([ 
-        texture.getModifiedHeader(width, height, texture.mipmaps - level - 1), 
-        ...texture.images
-      ]));
-      this._logger.log(`  <= LOD ${level + 1}: ${path.relative(outFolder, targets[level])}`);
-    }
   }
 }

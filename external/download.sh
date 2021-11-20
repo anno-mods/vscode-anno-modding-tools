@@ -22,4 +22,7 @@ unzip -o ./dl/filedb.zip -d ./FileDBCompressor
 curl -L https://github.com/jakobharder/rdm4/releases/download/jakob%2F0.6.0-alpha.1%2B3/rdm4-bin-windows-amd64.zip > ./dl/rdm4.zip
 unzip -o ./dl/rdm4.zip
 
+# annotex / bc7enc, MIT
+curl -L https://github.com/jakobharder/annotex/releases/download/jakob%2Fv1.0.0/annotex.exe > ./annotex.exe
+
 rm -r ./dl
