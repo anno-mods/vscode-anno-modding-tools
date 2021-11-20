@@ -28,8 +28,8 @@ export function convertToTexture(sourceFile: string, targetFolder: string, forma
         `-l=${lods||0}`
       ], { cwd: targetFolder, stdio: 'pipe' }).toString();
     // ignore stdout
-    if (lods === 0 && !fs.existsSync(path.join(targetFolder, path.basename(sourceFile, '.png') + '.dds')) ||
-      lods !== 0 && !fs.existsSync(path.join(targetFolder, path.basename(sourceFile, '.png') + '_0.dds'))) {
+    if (!lods && !fs.existsSync(path.join(targetFolder, path.basename(sourceFile, '.png') + '.dds')) ||
+      lods && lods > 0 && !fs.existsSync(path.join(targetFolder, path.basename(sourceFile, '.png') + '_0.dds'))) {
       logger.error(`annotex failed to convert ${sourceFile} due to mysterious reasons.`);
       return false;
     }
