@@ -24,8 +24,10 @@ export class Cf7Converter extends Converter {
       }
       catch (exception: any)
       {
-        this._logger.warn(exception);
+        this._logger.error(exception);
+        return false;
       }
     }
+    return true;
   }
 }

@@ -6,6 +6,7 @@ import * as logger from './logger';
 
 export function test(testFolder: string, patchFile: string, asAbsolutePath: (relative: string) => string, tempFolder: string) {
   const tester = asAbsolutePath("./external/xmltest.exe");
+  let result = true;
 
   const inputFiles = glob.sync('**/*-input.xml', { cwd: testFolder, nodir: true });
   for (let inputFile of inputFiles) {
@@ -18,7 +19,7 @@ export function test(testFolder: string, patchFile: string, asAbsolutePath: (rel
     catch (exception: any) {
       logger.error(`Test ${path.basename(inputFile)} failed with exception`);
       logger.error(exception.message);
-      continue;
+      return false;
     }
 
     const logFile = path.join(tempFolder, path.basename(inputFile, '-input.xml') + '-patched.log');
@@ -35,8 +36,11 @@ export function test(testFolder: string, patchFile: string, asAbsolutePath: (rel
         fs.writeFileSync(logFile, testerOutput.toString());
       }
       logger.warn(`Check ${logFile}`);
+      result = false; // keep going on to produce full list of test results
     }
   }
+
+  return result;
 }
 
 function _sameWhenMinimized(expectation: string, patched: string) {

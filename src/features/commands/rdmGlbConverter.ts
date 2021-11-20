@@ -19,7 +19,7 @@ export class RdmGlbConverter {
             const sourceFile = fileUri.fsPath;
             const res = child.execFileSync(rdmPath, [
               '-i', sourceFile,       
-              '-o', utils.dontOverwrite(utils.swapExtension(sourceFile, '.rdm', '.glb'), '.glb')
+              '-o', utils.dontOverwrite(utils.swapExtension(sourceFile, '.glb'), '.glb')
             ]);
           }
           catch (exception: any)

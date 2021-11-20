@@ -33,16 +33,16 @@ export function dontOverwrite(filePath: string, extension: string) {
   Tools that only provide output folder options are a bit tricky to get -1, -2, ... file names.
   Basic idea: copy source to temporary, convert that and then rename to wanted file name.
   */
-export function dontOverwriteFolder(sourceFile: string, sourceExtension: string, targetExtension: string,
+export function dontOverwriteFolder(sourceFile: string, targetExtension: string,
   command: (source: string, targetFolder: string) => void) {
 
   const targetFolder = path.dirname(sourceFile);
 
-  const targetFile = swapExtension(sourceFile, sourceExtension, targetExtension);
+  const targetFile = swapExtension(sourceFile, targetExtension);
   const saveTargetFile = dontOverwrite(targetFile, targetExtension);
   if (targetFile !== saveTargetFile) {
-    const tempFile = swapExtension(sourceFile, sourceExtension, "-temporary" + sourceExtension);
-    const targetTempFile = swapExtension(sourceFile, sourceExtension, "-temporary" + targetExtension);;
+    const tempFile = insertEnding(sourceFile, "-temporary");
+    const targetTempFile = swapExtension(sourceFile, "-temporary" + targetExtension);;
     fs.copyFileSync(sourceFile, tempFile);
     command(tempFile, targetFolder);
     fs.rmSync(tempFile);
@@ -53,6 +53,20 @@ export function dontOverwriteFolder(sourceFile: string, sourceExtension: string,
   command(sourceFile, targetFolder);
 }
 
-export function swapExtension(filePath: string, oldExtension: string, newExtension: string) {
-  return filePath.substring(0, filePath.endsWith(oldExtension) ? filePath.length - oldExtension.length : undefined) + newExtension;
+export function swapExtension(filePath: string, extension: string) {
+  const base = path.basename(filePath);
+  const dot = base.lastIndexOf('.');
+  if (dot === -1) {
+    return filePath + extension;
+  }
+  return path.join(path.dirname(filePath), base.substring(0, dot) + extension);
+}
+
+export function insertEnding(filePath: string, insert: string) {
+  const base = path.basename(filePath);
+  const dot = base.lastIndexOf('.');
+  if (dot === -1) {
+    return filePath + insert;
+  }
+  return path.join(path.dirname(filePath), base.substring(0, dot) + insert + base.substr(dot));
 }

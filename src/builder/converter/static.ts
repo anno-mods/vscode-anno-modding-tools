@@ -22,7 +22,9 @@ export class StaticConverter extends Converter {
       catch (exception: any)
       {
         this._logger.error(exception.message);
+        return false;
       }
     }
+    return true;
   }
 }

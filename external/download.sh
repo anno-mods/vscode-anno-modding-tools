@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 mkdir dl
 
@@ -21,5 +21,8 @@ unzip -o ./dl/filedb.zip -d ./FileDBCompressor
 # rdm4-bin.exe, 0.6.0-alpha-1+3 (fetched from test action... I hope there will be an official build soon)
 curl -L https://github.com/jakobharder/rdm4/releases/download/jakob%2F0.6.0-alpha.1%2B3/rdm4-bin-windows-amd64.zip > ./dl/rdm4.zip
 unzip -o ./dl/rdm4.zip
+
+# annotex / bc7enc, MIT
+curl -L https://github.com/jakobharder/annotex/releases/download/jakob%2Fv1.0.0/annotex.exe > ./annotex.exe
 
 rm -r ./dl

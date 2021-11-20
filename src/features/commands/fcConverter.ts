@@ -17,7 +17,7 @@ export class FcConverter {
         if (fileUri) {
           const res = child.execFileSync(converterPath, [
             '-r', fileUri.fsPath, 
-            '-o', utils.dontOverwrite(utils.swapExtension(fileUri.fsPath, '.fc', '.cf7'), '.cf7')
+            '-o', utils.dontOverwrite(utils.swapExtension(fileUri.fsPath, '.cf7'), '.cf7')
           ]);
           channel.log(res.toString());
         }
@@ -26,7 +26,7 @@ export class FcConverter {
         if (fileUri) {
           const res = child.execFileSync(converterPath, [
             '-w', fileUri.fsPath,
-            '-o', utils.dontOverwrite(utils.swapExtension(fileUri.fsPath, '.cf7', '.fc'), '.fc')
+            '-o', utils.dontOverwrite(utils.swapExtension(fileUri.fsPath, '.fc'), '.fc')
           ]);
           channel.log(res.toString());
         }

@@ -76,8 +76,10 @@ export class CfgYamlConverter extends Converter {
       catch (exception: any)
       {
         this._logger.error(exception.message);
+        return false;
       }
     }
+    return true;
   }
 
   private _runModifications(xml: AnnoXml, modifications: any[]) {

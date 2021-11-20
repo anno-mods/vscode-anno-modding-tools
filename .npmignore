@@ -3,10 +3,12 @@ node_modules
 .vscodeignore
 .yarnrc
 .vscode/**
+.vscode-test/**
 **/tsconfig.json
 **/.eslintrc.json
 **/*.map
 webpack.config.js
+out/test/**
 
 # vscode extension related
 dist/**
