@@ -66,9 +66,7 @@ A big thanks goes to the external projects I'm using for this extension:
 
 ## Release Notes / Known Issues
 
-### 0.4.0
-
-Assets outline.
+### 0.5.0
 
 See changes and known issues in [CHANGELOG](./CHANGELOG.md)
 

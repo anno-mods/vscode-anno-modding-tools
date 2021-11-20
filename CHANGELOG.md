@@ -31,9 +31,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Internal
   - replace all texconv usage to reduce number of tools
 
+## [0.5.0]
+
 ### Added
 
 - Build mod command as script in NPM package for standalone execution
+- First unit tests
 
 ### Changed
 
