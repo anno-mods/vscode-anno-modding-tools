@@ -77,10 +77,18 @@ export class GltfConverter extends Converter {
                   continue;
                 }
               }
+              else if (lodLevel > 0) {
+                // single mesh models don't have lods
+                continue;
+              }
               else {
                 // no lods, take first mesh
                 meshIdx = 0;
               }
+            }
+            else if (lodLevel > 0) {
+              // single mesh models don't have lods
+              continue;
             }
 
             // all lods share the same animation

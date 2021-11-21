@@ -15,21 +15,22 @@ import * as rdp from '../other/rdp';
 import * as dds from '../other/dds';
 
 import * as xmltest from '../other/xmltest';
+import { ModCache } from './ModCache';
 import * as utils from '../other/utils';
 
 export class ModBuilder {
   _converters: { [index: string]: Converter } = {};
   _logger;
   _asAbsolutePath;
-  _variableAnnoMods;
+  _variables;
 
-  public constructor(logger: ILogger, asAbsolutePath: (relative: string) => string, variableAnnoMods: string) {
+  public constructor(logger: ILogger, asAbsolutePath: (relative: string) => string, variables: { [index: string]: string }) {
     rdp.init(asAbsolutePath('./external/'));
     dds.init(asAbsolutePath('./external/'));
 
     this._logger = logger;
     this._asAbsolutePath = asAbsolutePath;
-    this._variableAnnoMods = variableAnnoMods;
+    this._variables = variables;
 
     this._addConverter(new StaticConverter());
     this._addConverter(new Cf7Converter());
@@ -54,9 +55,6 @@ export class ModBuilder {
     }
     const outFolder = this._getOutFolder(filePath, modJson);
     const cache = path.join(path.dirname(filePath), '.modcache');
-    const ci = path.join(path.dirname(filePath), '.vanilla');
-    // utils.ensureDir(ci);
-    // fs.writeFileSync(path.join(ci, 'readme.md'), `This folder contains unmodified assets from the original game to allow CI like GitHub actions to build the mod without RDA data.`);
     
     this._logger.log('Target folder: ' + outFolder);
 
@@ -65,9 +63,9 @@ export class ModBuilder {
       return;
     }
 
-    if (!fs.existsSync(outFolder)) {
-      fs.mkdirSync(outFolder, { recursive: true });
-    }
+    utils.ensureDir(outFolder);
+    const modCache = new ModCache(path.dirname(filePath), this._variables['annoRda']);
+
     for (const entry of modJson.converter) {
       const allFiles = entry.pattern ? glob.sync(entry.pattern, { cwd: sourceFolder, nodir: true }) : [];
       const converter = this._converters[entry.action];
@@ -75,9 +73,10 @@ export class ModBuilder {
         this._logger.log(`${entry.action}` + (entry.pattern?`: ${entry.pattern}`:''));
         const result = await converter.run(allFiles, sourceFolder, outFolder, {
           cache,
-          ci,
           modJson,
-          converterOptions: entry
+          converterOptions: entry,
+          variables: this._variables,
+          modCache
         });
         if (!result) {
           return false;
@@ -88,6 +87,11 @@ export class ModBuilder {
         return false;
       }
     }
+
+    if (!modCache.isCiRun()) {
+      modCache.saveVanilla();
+    }
+    modCache.save();
 
     const testFolder = path.join(sourceFolder, 'tests');
     if (fs.existsSync(sourceFolder)) {
@@ -107,7 +111,9 @@ export class ModBuilder {
   private _getOutFolder(filePath: string, modJson: any) {
     let outFolder = modJson.out;
     outFolder = outFolder.replace('${modName}', this._getModName(filePath, modJson));
-    outFolder = path.normalize(outFolder.replace('${annoMods}', this._variableAnnoMods));
+    if (this._variables['annoMods']) {
+      outFolder = path.normalize(outFolder.replace('${annoMods}', this._variables['annoMods']));
+    }
     if (!path.isAbsolute(outFolder)) {
       outFolder = path.join(path.dirname(filePath), outFolder);
     }

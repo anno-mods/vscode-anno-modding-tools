@@ -6,21 +6,27 @@ import { Converter } from '../Converter';
 
 import * as utils from '../../other/utils';
 import AnnoXml from '../../other/annoXml';
+import { ModCache } from '../ModCache';
 
 export class CfgYamlConverter extends Converter {
+  _variables: { [index: string]: string } = {};
+
   public getName() {
     return 'cfgyaml';
   }
 
-  public async run(files: string[], sourceFolder: string, outFolder: string, options: { dontOverwrite?: boolean }) {
+  public async run(files: string[], sourceFolder: string, outFolder: string, options: { variables?: { [index: string]: string }, dontOverwrite?: boolean, modCache: ModCache }) {
     const converterPath = this._asAbsolutePath("./external/AnnoFCConverter.exe");
-
     const _dontOverwrite = options.dontOverwrite ? utils.dontOverwrite : (fp: string) => fp;
+    this._variables = options.variables || {};
+
+    const cache = options.modCache;
 
     for (const file of files) {
       this._logger.log(`  => ${file}`);
       const targetFile = path.join(outFolder, file);
       const sourceFile = path.join(sourceFolder, file);
+      cache.use(sourceFile);
       
       try {
         const sourceDirname = path.dirname(sourceFile);
@@ -39,6 +45,7 @@ export class CfgYamlConverter extends Converter {
 
             // first try cf7
             if (fs.existsSync(sourcePathWithoutExt + '.cf7')) {
+              cache.include(sourcePathWithoutExt + '.cf7');
               try {
                 child.execFileSync(converterPath, ['-y', '-o', _dontOverwrite(targetPathWithoutExt + '.fc', '.fc'), '-w', sourcePathWithoutExt + '.cf7']);
                 this._logger.log(`  <= ${path.basename(targetPathWithoutExt)}.fc`);
@@ -50,11 +57,13 @@ export class CfgYamlConverter extends Converter {
             // then fc
             else {
               if (this._copyIfExists(sourcePathWithoutExt + '.fc', _dontOverwrite(targetPathWithoutExt + '.fc', '.fc'))) {
+                cache.include(sourcePathWithoutExt + '.fc', );
                 this._logger.log(`  <= ${path.basename(targetPathWithoutExt)}.fc`);
               }
             }
 
             // read and modify cfg
+            cache.include(sourceCfgPath);
             const cfgContent = AnnoXml.fromFile(sourcePathWithoutExt + '.cfg');
             this._runModifications(cfgContent, content.variant.modifications);
             fs.writeFileSync(_dontOverwrite(targetPathWithoutExt + '.cfg', '.cfg'), cfgContent.toString());
@@ -62,6 +71,7 @@ export class CfgYamlConverter extends Converter {
             
             // read and modify ifo
             if (fs.existsSync(sourcePathWithoutExt + '.ifo')) {
+              cache.include(sourcePathWithoutExt + '.ifo');
               const ifoContent = AnnoXml.fromFile(sourcePathWithoutExt + '.ifo');
               this._runModifications(ifoContent, content.variant.ifo);
               fs.writeFileSync(_dontOverwrite(targetPathWithoutExt + '.ifo', '.ifo'), ifoContent.toString());
@@ -69,7 +79,8 @@ export class CfgYamlConverter extends Converter {
             }
           }
           else {
-            this._logger.warn(`    ${sourceCfgPath} does not exist.`);
+            this._logger.error(`    ${sourceCfgPath} does not exist.`);
+            return false;
           }
         }
       }
@@ -111,14 +122,12 @@ export class CfgYamlConverter extends Converter {
   }
 
   private _findSourceCfg(sourceDirname: string, variantSourceName: string) {
-    // TODO temporarily disable {annoRda}
-    return path.join(sourceDirname, variantSourceName);
-    // const uri = vscode.window.activeTextEditor?.document?.uri;
-    // const config = vscode.workspace.getConfiguration('anno', uri);
-    // variantSourceName = path.normalize(variantSourceName.replace('${annoRda}', config.get('rdaFolder') || ""));
-    // if (!path.isAbsolute(variantSourceName)) {
-    //   variantSourceName = path.join(sourceDirname, variantSourceName);
-    // }
-    // return variantSourceName;
+    if (this._variables['annoRda']) {
+      variantSourceName = path.normalize(variantSourceName.replace('${annoRda}', this._variables['annoRda'] || ""));
+    }
+    if (!path.isAbsolute(variantSourceName)) {
+      variantSourceName = path.join(sourceDirname, variantSourceName);
+    }
+    return variantSourceName;
   }
 }

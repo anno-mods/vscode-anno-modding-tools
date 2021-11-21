@@ -33,12 +33,12 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(...PropImporter.register(context));
 	context.subscriptions.push(...InfoImporter.register(context));
 	context.subscriptions.push(...RdmGlbConverter.register(context));
-	context.subscriptions.push(...registerGuidUtilsProvider(context));
 	context.subscriptions.push(...RdpConverter.register(context));
 	context.subscriptions.push(...FcImporter.register(context));
 	context.subscriptions.push(...CfgYamlCommands.register(context));
 	context.subscriptions.push(...AssetsSymbolProvider.register(context));
 	context.subscriptions.push(...AssetsActionProvider.register(context));
+	context.subscriptions.push(...registerGuidUtilsProvider(context));
 }
 
 function registerCfgLanguageFeatures(language: string): vscode.Disposable {

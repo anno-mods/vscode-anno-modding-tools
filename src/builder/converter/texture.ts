@@ -12,7 +12,6 @@ export class TextureConverter extends Converter {
 
   public async run(files: string[], sourceFolder: string, outFolder: string, options: {
     cache: string,
-    ci: string,
     converterOptions: any
   }) {
     for (const file of files) {

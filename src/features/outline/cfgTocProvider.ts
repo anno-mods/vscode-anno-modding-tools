@@ -40,6 +40,7 @@ class Section {
 	diffName?: string;
 	startChar: number;
 	sequenceId?: string;
+	startDummyGroup?: string;
 
 	constructor(tagName: string, startLine: number, startChar: number) {
 		this.tagName = tagName;
@@ -182,7 +183,7 @@ export class CfgTocProvider {
 						if ((tocRelevant && hasRightConfigType && hasRightParent) || (tagStack.length <= 2 && likelyToHaveChildren)) {
 							toc.push({
 								text: ((tagStackTop.fileName || tagStackTop.diffName) ? tagStackTop.name : false) || tagStackTop.type || tagStackTop.tagName,
-								detail: tagStackTop.fileName || tagStackTop.diffName || tagStackTop.name || tagStackTop.sequenceId || '',
+								detail: tagStackTop.fileName || tagStackTop.diffName || tagStackTop.name || tagStackTop.sequenceId || tagStackTop.startDummyGroup || '',
 								level: tagStack.length - 1,
 								line: tagStackTop.startLine,
 								location: new vscode.Location(document.uri,
@@ -217,6 +218,14 @@ export class CfgTocProvider {
 						}
 						else if ((tagName === 'SequenceID' || tagName === 'Id') && tagStackTop) {
 							tagStackTop.sequenceId = lastValue;
+						}
+						else if ((tagName === 'StartDummyGroup' || tagName === 'DummyName') && tagStackTop) {
+							const history = tagStack.map(e => e.tagName).join('/');
+							if (history.endsWith('/i/SequenceDefinitions/i/Loop0/DefaultState') || history.endsWith('/i/SequenceDefinitions/i/Loop1/DefaultState')) {
+								if (!tagStack[tagStack.length - 5].startDummyGroup) {
+									tagStack[tagStack.length - 5].startDummyGroup = lastValue;
+								}
+							}
 						}
 					}
 					else if (token.startsWith('<')) {

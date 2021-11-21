@@ -1,3 +1,5 @@
+import { ModCache } from "./ModCache";
+
 export interface ILogger {
   log: (text: string) => void;
   warn: (text: string) => void;
@@ -17,9 +19,10 @@ export abstract class Converter {
   
   abstract run(files: string[], sourceFolder: string, outFolder: string, options: { 
     cache: string,
-    ci: string,
     modJson: any,
     converterOptions: any,
-    dontOverwrite?: boolean
+    dontOverwrite?: boolean,
+    variables?: { [index: string]: string },
+    modCache: ModCache
   }): Promise<boolean>;
 }
