@@ -209,7 +209,7 @@ Example: [Sources on GitHub](https://github.com/jakobharder/anno-1800-jakobs-mod
 
 Converter actions:
 
-- `static`: copies files according to glob `pattern`.
+- `static`: copies files according to [glob](https://github.com/isaacs/node-glob) `pattern`.
 - `texture`: converts .pngs into .dds.
   - `lods`: number of LOD levels to generate, saved as `_0.dds` and so on. Set to 0 to disable LODs. Default is 3.
   - `changePath`: move texture to another folder, e.g. `maps`. Default is no change.
