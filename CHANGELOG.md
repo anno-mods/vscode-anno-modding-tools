@@ -31,6 +31,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Internal
   - replace all texconv usage to reduce number of tools
 
+### Changed
+
+- Improved outline name detection for .cf7 feedback definitions
+
 ## [0.5.0]
 
 ### Added
