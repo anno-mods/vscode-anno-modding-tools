@@ -45,7 +45,7 @@ export class ModCache {
   public saveVanilla() {
     // .vanilla only includes files like .cfg, so always clearing it out is the safer way
     if (fs.existsSync(this._vanilla)) {
-      fs.rmdirSync(this._vanilla, { recursive: true })
+      fs.rmdirSync(this._vanilla, { recursive: true });
     }
 
     let firstVanilla = false;
@@ -67,6 +67,7 @@ export class ModCache {
   }
 
   public save() {
+    utils.ensureDir(this._cache);
     fs.writeFileSync(path.join(this._cache, 'files.json'), JSON.stringify(this.data, undefined, "  "));
   }
 }
