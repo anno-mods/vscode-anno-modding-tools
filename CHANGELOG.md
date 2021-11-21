@@ -37,6 +37,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Improved outline name detection for .cf7 feedback definitions
 - Support `${annoRda}` in command line mode
+- Fixed issue with some features not loading properly
 
 ## [0.5.0]
 

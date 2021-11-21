@@ -282,7 +282,13 @@ export function refreshCustomAssets(document: vscode.TextDocument | undefined): 
 
   const relevantNodes = new Set<string>(['ModOps', 'ModOp', 'Asset', 'Values', 'Standard', 'GUID']);
 
-  const xmlContent = new xmldoc.XmlDocument(document.getText());
+  let xmlContent;
+  try {
+    xmlContent = new xmldoc.XmlDocument(document.getText());
+  }
+  catch {
+    return;
+  }
   const nodeStack: { history: xmldoc.XmlElement[], element: xmldoc.XmlNode }[] = [{ history: [], element: xmlContent }];
   while (nodeStack.length > 0) {
     const top = nodeStack.pop();
