@@ -22,10 +22,10 @@ async function main() {
     exit(-1);
   }
   
-  const annoRda = path.join(packageRoot, '.vanilla');
-  const builder = new ModBuilder(console, (relative: string) => path.join(packageRoot, relative), { annoMods: outPath, annoRda });
-  
   for (let modinfoPath of modinfoPaths) {
+    const annoRda = path.join(process.cwd(), path.dirname(modinfoPath), '.vanilla');
+    const builder = new ModBuilder(console, (relative: string) => path.join(packageRoot, relative), { annoMods: outPath, annoRda });
+
     const result = await builder.build(path.join(process.cwd(), modinfoPath));
     if (!result) {
       console.error('building mods failed');
