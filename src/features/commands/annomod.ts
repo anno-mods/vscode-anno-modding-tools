@@ -57,10 +57,11 @@ export class AnnomodCommands {
 
     const uri = vscode.window.activeTextEditor?.document?.uri;
     const config = vscode.workspace.getConfiguration('anno', uri);
-    const variableAnnoMods: string = config.get('modsFolder') || "";
+    const annoMods: string = config.get('modsFolder') || "";
+    const annoRda: string = config.get('rdaFolder') || "";
 
     channel.show();
-    const builder = new ModBuilder(channel, context.asAbsolutePath, variableAnnoMods);
+    const builder = new ModBuilder(channel, context.asAbsolutePath, { annoMods, annoRda });
     for (const mod of selectedMods) {
       await builder.build(mod.detail as string);
     }

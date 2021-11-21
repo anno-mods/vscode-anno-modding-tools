@@ -8,14 +8,16 @@ import * as utils from '../../other/utils';
 import AnnoXml from '../../other/annoXml';
 
 export class CfgYamlConverter extends Converter {
+  _variables: { [index: string]: string } = {};
+
   public getName() {
     return 'cfgyaml';
   }
 
-  public async run(files: string[], sourceFolder: string, outFolder: string, options: { dontOverwrite?: boolean }) {
+  public async run(files: string[], sourceFolder: string, outFolder: string, options: { variables?: { [index: string]: string }, dontOverwrite?: boolean }) {
     const converterPath = this._asAbsolutePath("./external/AnnoFCConverter.exe");
-
     const _dontOverwrite = options.dontOverwrite ? utils.dontOverwrite : (fp: string) => fp;
+    this._variables = options.variables || {};
 
     for (const file of files) {
       this._logger.log(`  => ${file}`);
@@ -111,14 +113,15 @@ export class CfgYamlConverter extends Converter {
   }
 
   private _findSourceCfg(sourceDirname: string, variantSourceName: string) {
-    // TODO temporarily disable {annoRda}
-    return path.join(sourceDirname, variantSourceName);
     // const uri = vscode.window.activeTextEditor?.document?.uri;
     // const config = vscode.workspace.getConfiguration('anno', uri);
-    // variantSourceName = path.normalize(variantSourceName.replace('${annoRda}', config.get('rdaFolder') || ""));
-    // if (!path.isAbsolute(variantSourceName)) {
-    //   variantSourceName = path.join(sourceDirname, variantSourceName);
-    // }
-    // return variantSourceName;
+
+    if (this._variables['annoRda']) {
+      variantSourceName = path.normalize(variantSourceName.replace('${annoRda}', this._variables['annoRda'] || ""));
+    }
+    if (!path.isAbsolute(variantSourceName)) {
+      variantSourceName = path.join(sourceDirname, variantSourceName);
+    }
+    return variantSourceName;
   }
 }

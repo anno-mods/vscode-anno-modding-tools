@@ -20,6 +20,7 @@ export abstract class Converter {
     ci: string,
     modJson: any,
     converterOptions: any,
-    dontOverwrite?: boolean
+    dontOverwrite?: boolean,
+    variables?: { [index: string]: string }
   }): Promise<boolean>;
 }

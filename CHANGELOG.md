@@ -34,6 +34,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ### Changed
 
 - Improved outline name detection for .cf7 feedback definitions
+- Support `${annoRda}` in command line mode
 
 ## [0.5.0]
 
