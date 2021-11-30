@@ -46,7 +46,7 @@ suite('xml tests', () => {
 </parent>`);
     assert(xml);
 
-    xml.remove('//parent/remove', true);
+    xml.remove('//parent/remove', { all: true });
 
     assert.strictEqual(xml.toString(),
 `<parent>
@@ -66,7 +66,7 @@ suite('xml tests', () => {
 </parent>`);
     assert(xml);
 
-    xml.remove('//parent/remove', true);
+    xml.remove('//parent/remove', { all: true });
 
     assert.strictEqual(xml.toString(),
 `<parent>
@@ -94,7 +94,7 @@ suite('xml tests', () => {
   <remove></remove>
 </parent>`);
 
-      xml.remove('//parent/remove', true);
+      xml.remove('//parent/remove', { all: true });
   
       assert.strictEqual(xml.toString(),
 `<parent>

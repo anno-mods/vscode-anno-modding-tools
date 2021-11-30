@@ -162,11 +162,13 @@ export class AnnoXmlElement {
     }
   }
 
-  public remove(path: string, all?: boolean) {
+  public remove(path: string, options?: { all?: boolean, silent?: boolean }) {
     const parentPathElements = (new XPath(path.substr(2))).nodes;
     const toRemove = parentPathElements.pop();
     if (!toRemove) {
-      logger.warn(`nothing to remove with '${path}''`);
+      if (!options?.silent) {
+        logger.warn(`nothing to remove with '${path}'`);
+      }
       return;
     }
     const parentPath = parentPathElements.map((e: XPathNode) => e.toString()).join('/');
@@ -184,10 +186,10 @@ export class AnnoXmlElement {
       parent._element.firstChild = parent._element.children && parent._element.children[0];
       parent._element.lastChild = parent._element.children && parent._element.children[parent._element.children.length - 1];
       removed = true;
-      return all ? lineStartIdx : -1; // break the loop if not all
+      return options?.all ? lineStartIdx : -1; // break the loop if not all
     });
 
-    if (!removed) {
+    if (!removed && !options?.silent) {
       logger.warn(`could not find and remove ${path}`);
     }
   }
@@ -361,9 +363,9 @@ export default class AnnoXml {
     return doc.createChild(path);
   }
 
-  public remove(path: string, all?: boolean) {
+  public remove(path: string, options?: { all?: boolean, silent?: boolean }) {
     const doc = new AnnoXmlElement(this.xml as xmldoc.XmlElement);
-    return doc.remove(path, all);
+    return doc.remove(path, options);
   }
 
   public toString(): string {
@@ -508,7 +510,7 @@ function _createXmlElement(parent: xmldoc.XmlElement, tag: string, value?: strin
   let insertAfter = -1;
   if (options?.after) {
     for (let after of options.after) {
-      insertAfter = parent.children.findIndex((node) => node.type === 'element' && node.name === after);
+      insertAfter = _findLast(parent, after);
       if (insertAfter !== -1) {
         break;
       }
@@ -589,4 +591,14 @@ function _findLineEnd(parent: xmldoc.XmlElement, start: number) {
     pos++;
   }
   return pos - 1;
+}
+
+/** find last element */
+function _findLast(parent: xmldoc.XmlElement, name: string) {
+  for (let idx = parent.children.length - 1; idx >= 0; idx--) {
+    if (parent.children[idx].type === 'element' && (parent.children[idx] as xmldoc.XmlElement).name === name) {
+      return idx;
+    }
+  }
+  return -1;
 }

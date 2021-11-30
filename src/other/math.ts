@@ -110,6 +110,16 @@ export class Vector2 {
   public toFixedF(fixed: number = 6) {
     return { xf: this.x.toFixed(fixed), zf: this.z.toFixed(fixed) };
   }
+
+  /** { xf: 1, zf: 1.5 } */
+  public toF() {
+    return { xf: this.x, zf: this.z };
+  }
+  
+  /** return new Vector with rounded values */
+  public round(factor: number = 1) {
+    return new Vector2(Math.round(this.x * factor) / factor, Math.round(this.z * factor) / factor);
+  }
 }
 
 export class Quaternion {

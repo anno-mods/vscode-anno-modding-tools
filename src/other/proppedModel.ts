@@ -342,9 +342,24 @@ export default class ProppedModel {
   private _unevenBlocker: Vector2[] | undefined;
   public getUnevenBlocker() {
     if (!this._unevenBlocker) {
-      this._unevenBlocker = _readVectors(this.gltf, 'UnevenBlocker', this.resourceFolder).map(e => e.toVector2());
+      this._unevenBlocker = _readVectors(_findFirstNode(this.gltf, 'UnevenBlocker', this.resourceFolder)).map(e => e.toVector2());
     }
     return this._unevenBlocker;
+  }
+
+  private _feedbackBlocker: Vector2[][] | undefined;
+  public getFeedbackBlocker() {
+    if (!this._feedbackBlocker) {
+      this._feedbackBlocker = [];
+      const nodes = _findNodes(this.gltf, 'FeedbackBlocker', this.resourceFolder);
+      for (let node of nodes) {
+        const vectors = _readVectors(node).map(e => e.toVector2());
+        if (vectors) {
+          this._feedbackBlocker.push(vectors);
+        }
+      }
+    }
+    return this._feedbackBlocker;
   }
 
   private constructor(gltf: any, props: IPropMap, particles: IParticleMap, feedbacks: IFeedbackMap, files: IFileMap, resourceFolder: string) {
@@ -359,7 +374,7 @@ export default class ProppedModel {
   private groundVertices: Vector[] | undefined;
   private _findGround() {
     if (!this.groundVertices) {
-      this.groundVertices = _readVectors(this.gltf, 'ground', this.resourceFolder);
+      this.groundVertices = _readVectors(_findFirstNode(this.gltf, 'ground', this.resourceFolder));
     }
 
     return this.groundVertices;
@@ -411,37 +426,48 @@ function _toRotation(q: { w: number, x: number, y: number, z: number }) {
   return q.y > 0 ? Math.PI * 2 - acos : acos;
 }
 
-function _findFirstNode(gltf: any, name: string, resourceFolder: string) {
+function _findNodes(gltf: any, name: string, resourceFolder: string, all: boolean = true) {
+  const result = [];
+
   let nodeIdx = -1;
   let meshIdx = -1;
   for (let idx = 0; idx < gltf.nodes.length; idx++) {
     const node = gltf.nodes[idx];
-    if (node.name === name || gltf.meshes[node.mesh]?.name === name) {
+    if (all && (node.name?.startsWith(name) || gltf.meshes[node.mesh]?.name?.startsWith(name)) ||
+        !all && (node.name === name || gltf.meshes[node.mesh]?.name === name)) {
       nodeIdx = idx;
       meshIdx = node.mesh;
-      break;
+
+      const buffer = _getBuffer(gltf, meshIdx, resourceFolder);
+      if (!buffer) {
+        console.warn(`Invalid glTF. Buffer for node ${nodeIdx} not found.`);
+        continue;
+      }
+      result.push({
+        nodeIdx,
+        meshIdx,
+        translation: Vector.fromArray(gltf.nodes[nodeIdx].translation),
+        scale: Vector.fromArray(gltf.nodes[nodeIdx].scale),
+        rotation: Quaternion.fromArray(gltf.nodes[nodeIdx].rotation),
+        buffer: buffer as ArrayLike<number>
+      });
+
+      if (!all) {
+        return result;
+      }
     }
   }
-  if (nodeIdx === -1 || meshIdx === -1) {
-    return undefined;
-  }
-
-  const buffer = _getBuffer(gltf, meshIdx, resourceFolder);
-  if (!buffer) {
-    console.warn(`Invalid glTF. Buffer for node ${nodeIdx} not found.`);
-    return undefined;
-  }
-  return {
-    nodeIdx,
-    meshIdx,
-    translation: Vector.fromArray(gltf.nodes[nodeIdx].translation),
-    scale: Vector.fromArray(gltf.nodes[nodeIdx].scale),
-    rotation: Quaternion.fromArray(gltf.nodes[nodeIdx].rotation),
-    buffer: buffer as ArrayLike<number>
-  };
+  return result;
 }
 
-// TODO rename and change to _findNodes
+function _findFirstNode(gltf: any, name: string, resourceFolder: string) {
+  const nodes = _findNodes(gltf, name, resourceFolder, false);
+  if (!nodes || nodes.length < 1) {
+    return undefined;
+  }
+  return nodes[0];
+}
+
 function _getBuffer(gltf: any, meshIdx: number, resourceFolder: string) {
   const accessorIdx = gltf.meshes[meshIdx].primitives[0].attributes.POSITION;
   const accessor = gltf.accessors[accessorIdx];
@@ -464,12 +490,10 @@ function _getBuffer(gltf: any, meshIdx: number, resourceFolder: string) {
   return undefined;
 }
 
-function _readVectors(gltf: any, name: string, resourceFolder: string) {
-  const node = _findFirstNode(gltf, name, resourceFolder);
+function _readVectors(node: { translation: Vector | undefined, scale: Vector | undefined, buffer: ArrayLike<number> } | undefined) {
   if (!node) {
     return [];
   }
-
   const translation = node.translation || Vector.zero;
   const scale = node.scale || Vector.one;
 

@@ -117,6 +117,9 @@ IFO file imports:
   - Imported from multiple mesh object (e.g. cube) with prefix `hitbox`
   - Boxes are calculated from the boundaries of the objects.
     1 box per object.
+- `FeedbackBlocker`: area people can walk through
+  - Imported from multiple mesh objects (e.g. plane) with prefix `FeedbackBlocker`
+  - Positions are taken from mesh vertices.
 - `BuildBlocker`: tile size of the building
   - Imported from one mesh object (e.g. plane) with name `ground`
   - Extents is calculated from the first 4 vertices of that object.
