@@ -171,7 +171,10 @@ export class CfgTocProvider {
 					if (token.startsWith('</')) {
 						// closing
 
-						if (tagName !== tagStackTop?.tagName) {
+						if (tagName === '' && tagStackTop) {
+							// empty closing tag
+						}
+						else if (tagName !== tagStackTop?.tagName) {
 							console.warn('Invalid ' + token + ' at line ' + (line+1).toString() + '. Expecting </' + tagStackTop?.tagName + '>');
 							continue;
 						}
