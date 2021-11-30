@@ -95,4 +95,22 @@
       <zf>0.1</zf>
     </Extents>
   </Dummy>
+  <FeedbackBlocker>
+    <Position>
+      <xf>2</xf>
+      <zf>1.5</zf>
+    </Position>
+    <Position>
+      <xf>-2</xf>
+      <zf>1.5</zf>
+    </Position>
+    <Position>
+      <xf>-2</xf>
+      <zf>2</zf>
+    </Position>
+    <Position>
+      <xf>2</xf>
+      <zf>2</zf>
+    </Position>
+  </FeedbackBlocker>
 </Info>

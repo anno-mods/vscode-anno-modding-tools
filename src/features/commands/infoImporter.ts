@@ -52,7 +52,7 @@ export class InfoImporter {
     const hitboxes = model.getHitBoxes();
     if (hitboxes && hitboxes.length > 0) {
       xml.ensureSection('Info', [ { } ]);
-      channel.log(`${hitboxes.length} hitboxes found`);
+      channel.log(`Import IntersectBox from nodes/meshes starting with 'hitbox'`);
 
       xml.remove('//Info/IntersectBox', { all: true, silent: true });
       for (let hitbox of hitboxes) {
@@ -96,7 +96,7 @@ export class InfoImporter {
     xml.ensureSection('Info', [ { } ]);
     const parent = xml.findElement('Info');
     if (feedbacks && parent) {
-      channel.log('Import FeedbackBlocker from node/mesh \'ground\'');
+      channel.log('Import FeedbackBlocker from nodes/meshes starting with \'FeedbackBlocker\'');
       xml.remove('//Info/FeedbackBlocker', { all: true, silent: true });
       for (let feedback of feedbacks) {
         const afterElements = [ 'FeedbackBlocker', 'BuildBlocker', 'Sequence', 'Dummy', 'IntersectBox', 'DisableFeedbackArea', 'MeshBoundingBox', 'BoundingBox' ];
@@ -113,7 +113,7 @@ export class InfoImporter {
     if (unevenBlocker) {
       xml.ensureSection('Info', [ { } ]);
       channel.log('Import UnevenBlocker from node/mesh \'UnevenBlocker\'');
-      xml.remove('//Info/UnevenBlocker');
+      xml.remove('//Info/UnevenBlocker', { silent: true });
       const afterElements = [ 'FeedbackBlocker', 'BuildBlocker', 'Sequence', 'Dummy', 'IntersectBox', 'DisableFeedbackArea', 'MeshBoundingBox', 'BoundingBox' ];
       xml.findElement('Info')?.createChild('UnevenBlocker', { after: afterElements }).fill('Position', unevenBlocker.map(e => e.toFixedF()));
     }

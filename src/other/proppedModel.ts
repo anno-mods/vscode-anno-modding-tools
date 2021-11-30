@@ -181,6 +181,14 @@ export default class ProppedModel {
     const particles: IParticleMap = { };
     const feedbacks: IFeedbackMap = { };
     const files: IFileMap = { };
+
+    // create empty arrays to reduce the need for undefined checks
+    if (!gltf.nodes) {
+      gltf.nodes = [];
+    }
+    if (!gltf.meshes) {
+      gltf.meshes = [];
+    }
     
     for (let node of gltf.nodes) {
       if (node.name.startsWith('prop_')) {
@@ -304,7 +312,7 @@ export default class ProppedModel {
 
   public getBuildBlocker() {
     const ground = this._findGround();
-    if (!ground) {
+    if (!ground || ground.length === 0) {
       return undefined;
     }
 
@@ -344,7 +352,7 @@ export default class ProppedModel {
     if (!this._unevenBlocker) {
       this._unevenBlocker = _readVectors(_findFirstNode(this.gltf, 'UnevenBlocker', this.resourceFolder)).map(e => e.toVector2());
     }
-    return this._unevenBlocker;
+    return (this._unevenBlocker.length > 0) ? this._unevenBlocker : undefined;
   }
 
   private _feedbackBlocker: Vector2[][] | undefined;
@@ -359,7 +367,7 @@ export default class ProppedModel {
         }
       }
     }
-    return this._feedbackBlocker;
+    return (this._feedbackBlocker.length > 0) ? this._feedbackBlocker : undefined;
   }
 
   private constructor(gltf: any, props: IPropMap, particles: IParticleMap, feedbacks: IFeedbackMap, files: IFileMap, resourceFolder: string) {
