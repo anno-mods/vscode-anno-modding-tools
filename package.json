@@ -19,6 +19,7 @@
     "onLanguage:anno-cfg",
     "onLanguage:anno-ifo",
     "onLanguage:anno-cf7",
+    "onLanguage:anno-prp",
     "onCommand:anno-modding-tools.buildMod",
     "onCommand:anno-modding-tools.convertFcCf7",
     "onCommand:anno-modding-tools.convertCf7Fc",

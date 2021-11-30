@@ -27,6 +27,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(registerCfgLanguageFeatures('anno-cfg'));
 	context.subscriptions.push(registerCfgLanguageFeatures('anno-cf7'));
 	context.subscriptions.push(registerCfgLanguageFeatures('anno-ifo'));
+	context.subscriptions.push(registerCfgLanguageFeatures('anno-prp'));
 	context.subscriptions.push(...FcConverter.register(context));
 	context.subscriptions.push(...DdsConverter.register(context));
 	context.subscriptions.push(...AnnomodCommands.register(context));
