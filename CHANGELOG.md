@@ -36,7 +36,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ### Added
 
 - Anno Prop Config `.prp` outline and syntax highlighting
-- Support outlines for files with `</>` syntax
+- Outlines for files with `</>` syntax
+- Hitbox import from glTF into `.ifo`
 
 ## [0.5.2]
 

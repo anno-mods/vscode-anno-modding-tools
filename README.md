@@ -86,26 +86,26 @@ Import an glTF file from one of the below examples into Blender to see how a pro
 
 CFG file imports:
 
-- `PROP`s with prefix `prop_`
+- `PROP`s with prefix `prop_` *(e.g. boxes, barrels)*
   - Position, Rotation, Scale
   - mesh name as `FileName` if it ends with `.prp`.
     Don't worry about Blender-style `.001`, `.002`, ... endings. They will be ignored.
   - Will be added if they don't exist.
-- `PARTICLE`s with prefix `particle_`
+- `PARTICLE`s with prefix `particle_` *(e.g. smoke)*
   - Position, Rotation, Scale
-- `FILE`s with prefix `file_`
+- `FILE`s with prefix `file_` *(included external cfg files)*
   - Position, Rotation, Scale
   - mesh name as `FileName` if it ends with `.cfg`.
   - Will be added if they don't exist.
-- `DECAL` with name `ground`
+- `DECAL` with name `ground` *(ground texture)*
   - Extents is calculated from the first 4 vertices of that object (use a plane).
-    This modifies the ground texture. The building size is `BuildBlocker` in the IFO file.
+    This modifies the ground texture. The building tile size is `BuildBlocker` in the IFO file.
 
-Entries not existing in the model will be marked as `_removed`.
+Entries not existing in the model will be marked as `_removed` and not removed automatically.
 
 CF7 file imports:
 
-- `Dummies/i` with prefix `fc_`
+- `Dummies/i` with prefix `fc_` *(walking & talking people)*
   - Position, Orientation, RotationY
   - ⚠ Note: Matches will happen without the prefix.
     E.g. `fc_Dummy0` from the model will be matched with `Dummy0` in the CF7 file.
@@ -113,9 +113,11 @@ CF7 file imports:
 
 IFO file imports:
 
-- BuildBlocker with name `ground`
+- `BuildBlocker` with name `ground` *(tile size of your building)*
   - Extents is calculated from the first 4 vertices of that object (use a plane).
     Rounded to .5
+- `IntersectBox` *(aka hitbox, clickable 3D area of a building)*
+  - Boxes are calculated from meshes (e.g. cubes) with prefix `hitbox` in their node name.
 
 ### Quickly Reskin Existing Models
 

@@ -77,6 +77,10 @@ export class AnnoXmlElement {
     this._element = element;
   }
 
+  public toString(): string {
+    return this._element.toString({ compressed: true, preserveWhitespace: true, html: true });
+  }
+
   public findElement(path: string, options?: { silent?: boolean, all?: boolean }): AnnoXmlElement | undefined {
     const result = this.findElements(path, { ...options, all: false });
     if (!result || result.length === 0) {
@@ -116,13 +120,13 @@ export class AnnoXmlElement {
         continue;
       }
 
-      this._forEachWithCondition(candidate.element, next, (e: xmldoc.XmlElement) => {
+      this._forEachWithCondition(candidate.element, next, (e: xmldoc.XmlElement, idx: number) => {
         candidates.push({
           nodes: remainder,
           element: e,
           history: [...candidate.history, next.toString()]
         });
-        return options?.all ? false : true;
+        return options?.all ? undefined : -1;
       });
 
       if (history.length - 1 < candidate.history.length) {
@@ -142,11 +146,11 @@ export class AnnoXmlElement {
     return found.map((e) => new AnnoXmlElement(e));
   }
 
-  public createChild(name: string) {
-    return new AnnoXmlElement(_createXmlElement(this._element, name));
+  public createChild(name: string, options?: { after?: string[] }) {
+    return new AnnoXmlElement(_createXmlElement(this._element, name, undefined, options));
   }
 
-  public remove(path: string) {
+  public remove(path: string, all?: boolean) {
     const parentPathElements = (new XPath(path.substr(2))).nodes;
     const toRemove = parentPathElements.pop();
     if (!toRemove) {
@@ -162,12 +166,13 @@ export class AnnoXmlElement {
 
     let removed = false;
     this._forEachWithCondition(parent._element, toRemove, (e, idx) => {
-      // TODO remove white space
-      parent._element.children.splice(idx, 1);
+      const lineStartIdx = _findLineStart(parent._element, idx);
+      const nextLineIdx = _findLineEnd(parent._element, idx);
+      parent._element.children.splice(lineStartIdx, nextLineIdx - lineStartIdx + 1);
       parent._element.firstChild = parent._element.children && parent._element.children[0];
       parent._element.lastChild = parent._element.children && parent._element.children[parent._element.children.length - 1];
       removed = true;
-      return true; // break the loop
+      return all ? lineStartIdx : -1; // break the loop if not all
     });
 
     if (!removed) {
@@ -235,8 +240,9 @@ export class AnnoXmlElement {
     }
   }
 
-  private _forEachWithCondition(element: xmldoc.XmlElement, xpathNode: XPathNode, callback: (e: xmldoc.XmlElement, idx: number) => boolean) {
-    for (let [idx, child] of element.children.entries()) {
+  private _forEachWithCondition(element: xmldoc.XmlElement, xpathNode: XPathNode, callback: (e: xmldoc.XmlElement, idx: number) => number | undefined) {
+    for (let idx = 0; idx < element.children.length; idx++) {
+      const child = element.children[idx];
       if (child.type !== 'element' || child.name !== xpathNode.tag) {
         continue;
       }
@@ -249,8 +255,12 @@ export class AnnoXmlElement {
         }
       }
       if (conditionsMet) {
-        if (callback(child, idx)) {
+        const nextIdx = callback(child, idx);
+        if (nextIdx === -1) {
           break;
+        }
+        if (nextIdx !== undefined) {
+          idx = nextIdx - 1; // elements have been removed, rescan starting from nextIdx
         }
       }
     }
@@ -262,7 +272,11 @@ export default class AnnoXml {
   private nodes: INodeMap;
 
   public static fromFile(filePath: string) {
-    const xml = new xmldoc.XmlDocument('<root>\n' + fs.readFileSync(filePath, 'utf8').toString() + '\n</root>');
+    return AnnoXml.fromString(fs.readFileSync(filePath, 'utf8').toString());
+  }
+
+  public static fromString(text: string) {
+    const xml = new xmldoc.XmlDocument('<root>\n' + text + '\n</root>');
 
     const nodes: INodeMap = {};
     AnnoXml._scanNodes(xml, nodes);
@@ -335,9 +349,9 @@ export default class AnnoXml {
     return doc.createChild(path);
   }
 
-  public remove(path: string) {
+  public remove(path: string, all?: boolean) {
     const doc = new AnnoXmlElement(this.xml as xmldoc.XmlElement);
-    return doc.remove(path);
+    return doc.remove(path, all);
   }
 
   public toString(): string {
@@ -457,7 +471,7 @@ export default class AnnoXml {
   }
 }
 
-function _createXmlElement(parent: xmldoc.XmlElement, tag: string, value?: string): xmldoc.XmlElement {
+function _createXmlElement(parent: xmldoc.XmlElement, tag: string, value?: string, options?: { after?: string[] }): xmldoc.XmlElement {
   // TODO now this is hacky, I definitely need to just directly use sax instead of xmldoc
   const template = new xmldoc.XmlDocument(`<xml> <${tag}>${value||''}</${tag}>\n</xml>`);
   const indentation = template.children[0] as xmldoc.XmlTextNode;
@@ -478,9 +492,34 @@ function _createXmlElement(parent: xmldoc.XmlElement, tag: string, value?: strin
   node.position = tag.length;
   node.startTagPosition = 1;
 
-  parent.children.push(indentation);
-  parent.children.push(node);
-  parent.children.push(linebreak);
+  // try to insert after listed nodes
+  let insertAfter = -1;
+  if (options?.after) {
+    for (let after of options.after) {
+      insertAfter = parent.children.findIndex((node) => node.type === 'element' && node.name === after);
+      if (insertAfter !== -1) {
+        break;
+      }
+    }
+    if (insertAfter >= 0) {
+      insertAfter = _findLineEnd(parent, insertAfter) + 1;
+      if (insertAfter >= parent.children.length || insertAfter === 0) {
+        insertAfter = -1;
+      }
+      else 
+      {
+        parent.children = [...parent.children.slice(0, insertAfter), linebreak, indentation, node, ...parent.children.slice(insertAfter)];
+      }
+    }
+  }
+
+  // simply append otherwise, or as fallback
+  if (insertAfter === -1) {
+    parent.children.push(indentation);
+    parent.children.push(node);
+    parent.children.push(linebreak);
+  }
+
   parent.firstChild = parent.children[0];
   parent.lastChild = parent.children[parent.children.length - 1];
   return node;
@@ -510,4 +549,32 @@ function _setXmlElementVal(node: xmldoc.XmlElement, key: string, value: string) 
     }
     return property;
   }
+}
+
+/** find previous newline, or first element before previous element */
+function _findLineStart(parent: xmldoc.XmlElement, start: number) {
+  let pos = start;
+  do {
+    pos--;
+  } while (pos >= 0 && (
+    parent.children[pos].type === 'comment' || 
+    (parent.children[pos].type === 'text' && (parent.children[pos] as xmldoc.XmlTextNode).text.indexOf('\n') === -1 && (parent.children[pos] as xmldoc.XmlTextNode).text !== '')
+    ));
+  if (pos < 0 || parent.children[pos]?.type === 'element') {
+    // include newline, but exclude next element
+    pos++;
+  }
+  return pos;
+}
+
+/** find last node excluding newline, or last node before next element */ 
+function _findLineEnd(parent: xmldoc.XmlElement, start: number) {
+  let pos = start + 1;
+  while (pos < parent.children.length && (
+    parent.children[pos].type === 'comment' || 
+    (parent.children[pos].type === 'text' && (parent.children[pos] as xmldoc.XmlTextNode).text.indexOf('\n') === -1 && (parent.children[pos] as xmldoc.XmlTextNode).text !== '')
+    )) {
+    pos++;
+  }
+  return pos - 1;
 }

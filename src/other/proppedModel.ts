@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { getBuffer } from 'gltf-import-export';
+import { Vector, Box } from './math';
 
 interface IProp {
   /* eslint-disable @typescript-eslint/naming-convention */
@@ -354,6 +355,10 @@ export default class ProppedModel {
     /* eslint-enable @typescript-eslint/naming-convention */
   }
 
+  public getHitBoxes() {
+    return this._findHitboxes();
+  }
+
   private constructor(gltf: any, props: IPropMap, particles: IParticleMap, feedbacks: IFeedbackMap, files: IFileMap, resourceFolder: string) {
     this.gltf = gltf;
     this.props = props;
@@ -416,6 +421,46 @@ export default class ProppedModel {
     }
 
     return this.groundVertices;
+  }
+
+  _hitboxes: Box[] | undefined;
+  private _findHitboxes() {
+    if (!this._hitboxes) {
+      this._hitboxes = [];
+      const hitboxes = [];
+      for (let node of this.gltf.nodes) {
+        if (node.name?.startsWith('hitbox')) {
+          hitboxes.push({ name: node.name, meshIdx: node.mesh, node: node });
+        }
+      }
+
+      for (let hitbox of hitboxes) {
+        const buffer = this._getBuffer(this.gltf, hitbox.meshIdx, this.resourceFolder);
+        if (!buffer || buffer.length < 3) {
+          console.warn('Invalid glTF. Could not get buffer.');
+          return undefined;
+        }
+
+        // TODO rotation must be DEFAULT
+
+        const translation = Vector.fromArray(hitbox.node.translation) || Vector.zero;
+        const scale = Vector.fromArray(hitbox.node.scale) || Vector.one;
+
+        let minVector = Vector.fromArray(buffer) as Vector;
+        let maxVector = minVector;
+        for (let i = 0; i < buffer.length / 3; i++) {
+          minVector = minVector.down(Vector.fromArray(buffer, i) as Vector);
+          maxVector = maxVector.up(Vector.fromArray(buffer, i) as Vector);
+        }
+
+        minVector = minVector.mul(scale).add(translation);
+        maxVector = maxVector.mul(scale).add(translation);
+
+        this._hitboxes.push(Box.fromMinMax(hitbox.name, minVector, maxVector));
+      }
+    }
+
+    return this._hitboxes;
   }
 }
 
