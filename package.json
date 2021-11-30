@@ -69,6 +69,18 @@
           "anno-cf7"
         ],
         "configuration": "./languages/cfg.language-configuration.json"
+      },
+      {
+        "id": "anno-prp",
+        "extensions": [
+          ".prp"
+        ],
+        "firstLine": "\\<Config",
+        "aliases": [
+          "Anno Prop Config",
+          "anno-prp"
+        ],
+        "configuration": "./languages/cfg.language-configuration.json"
       }
     ],
     "grammars": [
@@ -86,6 +98,11 @@
         "language": "anno-cf7",
         "scopeName": "text.cf7",
         "path": "./languages/cf7.tmLanguage.json"
+      },
+      {
+        "language": "anno-prp",
+        "scopeName": "text.prp",
+        "path": "./languages/prp.tmLanguage.json"
       }
     ],
     "commands": [
