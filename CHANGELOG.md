@@ -38,6 +38,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Anno Prop Config `.prp` outline and syntax highlighting
 - Outlines for files with `</>` syntax
 - Hitbox import from glTF into `.ifo`
+- UnevenBlocker import form glTF into `.ifo`
 
 ## [0.5.2]
 

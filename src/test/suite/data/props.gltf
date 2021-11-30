@@ -10,7 +10,9 @@
             "nodes" : [
                 0,
                 1,
-                2
+                2,
+                3,
+                4
             ]
         }
     ],
@@ -28,9 +30,9 @@
             "mesh" : 1,
             "name" : "hitbox",
             "scale" : [
+                1.999996542930603,
                 2,
-                2,
-                2
+                1.9999972581863403
             ],
             "translation" : [
                 -0.047074317932128906,
@@ -42,9 +44,37 @@
             "mesh" : 2,
             "name" : "hitbox_1",
             "translation" : [
-                0.24455556273460388,
+                0.2445559948682785,
                 0.2670869827270508,
                 -0.9814109802246094
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "UnevenBlocker",
+            "scale" : [
+                1,
+                2,
+                2
+            ],
+            "translation" : [
+                0.2573103904724121,
+                0,
+                0
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "ground",
+            "scale" : [
+                2.092877149581909,
+                1,
+                2.092877149581909
+            ],
+            "translation" : [
+                0.12024934589862823,
+                0,
+                0.04412020742893219
             ]
         }
     ],
@@ -85,6 +115,32 @@
                         "TEXCOORD_0" : 9
                     },
                     "indices" : 3
+                }
+            ]
+        },
+        {
+            "name" : "Plane",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 10,
+                        "NORMAL" : 11,
+                        "TEXCOORD_0" : 12
+                    },
+                    "indices" : 13
+                }
+            ]
+        },
+        {
+            "name" : "Plane.001",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 14,
+                        "NORMAL" : 15,
+                        "TEXCOORD_0" : 16
+                    },
+                    "indices" : 13
                 }
             ]
         }
@@ -129,14 +185,14 @@
             "componentType" : 5126,
             "count" : 24,
             "max" : [
-                0.6308660507202148,
+                0.6308662295341492,
                 0.2670869827270508,
-                0.8546394109725952
+                0.8546393513679504
             ],
             "min" : [
-                -0.6308660507202148,
+                -0.6308658719062805,
                 -0.2670869827270508,
-                -0.08452188968658447
+                -0.08452194929122925
             ],
             "type" : "VEC3"
         },
@@ -178,6 +234,68 @@
             "bufferView" : 9,
             "componentType" : 5126,
             "count" : 24,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 10,
+            "componentType" : 5126,
+            "count" : 4,
+            "max" : [
+                1,
+                0,
+                1
+            ],
+            "min" : [
+                -2.0370004177093506,
+                0,
+                -1
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 11,
+            "componentType" : 5126,
+            "count" : 4,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 12,
+            "componentType" : 5126,
+            "count" : 4,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 13,
+            "componentType" : 5123,
+            "count" : 6,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 14,
+            "componentType" : 5126,
+            "count" : 4,
+            "max" : [
+                1,
+                0,
+                1
+            ],
+            "min" : [
+                -1,
+                0,
+                -1
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 15,
+            "componentType" : 5126,
+            "count" : 4,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 16,
+            "componentType" : 5126,
+            "count" : 4,
             "type" : "VEC2"
         }
     ],
@@ -231,11 +349,46 @@
             "buffer" : 0,
             "byteLength" : 192,
             "byteOffset" : 2184
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 48,
+            "byteOffset" : 2376
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 48,
+            "byteOffset" : 2424
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 32,
+            "byteOffset" : 2472
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 12,
+            "byteOffset" : 2504
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 48,
+            "byteOffset" : 2516
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 48,
+            "byteOffset" : 2564
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 32,
+            "byteOffset" : 2612
         }
     ],
     "buffers" : [
         {
-            "byteLength" : 2376,
+            "byteLength" : 2644,
             "uri" : "props.bin"
         }
     ]

@@ -6,7 +6,7 @@ export class Vector {
   static readonly zero = new Vector(0, 0, 0);
   static readonly one = new Vector(1, 1, 1);
 
-  /** either x, y, z or array, index */
+  /** create from x, y, z */
   constructor (x: number, y: number, z: number) {
     this.x = x;
     this.y = y;
@@ -36,6 +36,11 @@ export class Vector {
   /** { xf: 0.000000, yf, zf } */
   public toFixedF(fixed: number = 6) {
     return { xf: this.x.toFixed(fixed), yf: this.y.toFixed(fixed), zf: this.z.toFixed(fixed) };
+  }
+
+  /** convert to 2D x,z vector */
+  public toVector2() {
+    return new Vector2(this.x, this.z);
   }
 
   /** return new Vector with values of b added */
@@ -70,6 +75,41 @@ export class Vector {
   public up(b: Vector) {
     return new Vector(Math.max(this.x, b.x), Math.max(this.y, b.y), Math.max(this.z, b.z));
   }
+
+  /** return new Vector with rounded values */
+  public round(factor: number = 1) {
+    return new Vector(Math.round(this.x * factor) / factor, Math.round(this.y * factor) / factor, Math.round(this.z * factor) / factor);
+  }
+}
+
+export class Vector2 {
+  x: number = 0;
+  z: number = 0;
+
+  static readonly zero = new Vector2(0, 0);
+  static readonly one = new Vector2(1, 1);
+
+  /** create from x, z */
+  constructor (x: number, z: number) {
+    this.x = x;
+    this.z = z;
+  }
+
+  /** create from array with 2 elements */
+  public static fromArray(array: ArrayLike<number>) {
+    if (!array || array.length < 2) {
+      return undefined;
+    }
+    return new Vector2(
+      array[0],
+      array[1]
+    );
+  }
+
+  /** { xf: 0.000000, zf } */
+  public toFixedF(fixed: number = 6) {
+    return { xf: this.x.toFixed(fixed), zf: this.z.toFixed(fixed) };
+  }
 }
 
 export class Quaternion {
@@ -81,19 +121,24 @@ export class Quaternion {
   static readonly default = new Quaternion(0, 0, 0, 1);
 
   /** either x, y, z, w or array with 4 elements */
-  constructor (xOrArray: number | ArrayLike<number>, y: number = 0, z: number = 0, w: number = 0) {
-    if (typeof xOrArray === 'number') {
-      this.x = xOrArray;
-      this.y = y;
-      this.z = z;
-      this.w = w;
+  constructor (x: number, y: number, z: number, w: number) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    this.w = w;
+  }
+
+  /** create from array with 4 elements */
+  public static fromArray(array: ArrayLike<number>) {
+    if (!array || array.length < 4) {
+      return undefined;
     }
-    else {
-      this.x = xOrArray[0];
-      this.y = xOrArray[1];
-      this.z = xOrArray[2];
-      this.w = xOrArray[3];
-    }
+    return new Quaternion(
+      array[0],
+      array[1],
+      array[2],
+      array[3]
+    );
   }
 
   /** { xf: 0.000000, yf, zf, wf } */

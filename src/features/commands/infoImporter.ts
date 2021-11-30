@@ -38,23 +38,29 @@ export class InfoImporter {
     channel.show();
     channel.log(`Import from ${path.basename(gltfFilePath)} into ${path.basename(cfgFilePath)}`);
 
+    const model = ProppedModel.fromFile(gltfFilePath);
+    const xml = AnnoXml.fromFile(cfgFilePath);
     const importer = new InfoImporter();
-    importer.importInfo(cfgFilePath, gltfFilePath);
+    importer.importHitBoxes(model, xml);
+    importer.importBuildBlocker(model, xml);
+    importer.importUnevenBlocker(model, xml);
+    fs.writeFileSync(cfgFilePath, xml.toString());
   }
 
-  public importInfo(targetFile: string, modelFile: string) {
-    const model = ProppedModel.fromFile(modelFile);
-    const xml = AnnoXml.fromFile(targetFile);
-
+  public importBuildBlocker(model: ProppedModel, xml: AnnoXml) {
     const ground = model.getBuildBlocker();
     if (ground) {
       channel.log('Import BuildBlocker from node/mesh \'ground\'');
-      xml.setArray('BuildBlocker', 'Position', ground);
+      xml.remove('//Info/BuildBlocker');
+      const afterElements = [ 'Sequence', 'Dummy', 'IntersectBox', 'DisableFeedbackArea', 'MeshBoundingBox', 'BoundingBox' ];
+      xml.findElement('Info')?.createChild('BuildBlocker', { after: afterElements }).fill('Position', ground.map(e => e.toFixedF(1)));
     }
     else {
       channel.log('No \'ground\' node/mesh found. Skip BuildBlocker');
     }
+  }
 
+  public importHitBoxes(model: ProppedModel, xml: AnnoXml) {
     const hitboxes = model.getHitBoxes();
     if (hitboxes && hitboxes.length > 0) {
       xml.ensureSection('Info', [ { } ]);
@@ -81,8 +87,19 @@ export class InfoImporter {
     else {
       channel.log('No node/mesh starting with \'hitbox\' found. Skip hitboxes');
     }
+  }
 
-    fs.writeFileSync(targetFile, xml.toString());
+  public importUnevenBlocker(model: ProppedModel, xml: AnnoXml) {
+    const unevenBlocker = model.getUnevenBlocker();
+    if (unevenBlocker) {
+      channel.log('Import UnevenBlocker from node/mesh \'UnevenBlocker\'');
+      xml.remove('//Info/UnevenBlocker');
+      const afterElements = [ 'FeedbackBlocker', 'BuildBlocker', 'Sequence', 'Dummy', 'IntersectBox', 'DisableFeedbackArea', 'MeshBoundingBox', 'BoundingBox' ];
+      xml.findElement('Info')?.createChild('UnevenBlocker', { after: afterElements }).fill('Position', unevenBlocker.map(e => e.toFixedF()));
+    }
+    else {
+      channel.log('No \'UnevenBlocker\' node/mesh found. Skip UnevenBlocker');
+    }
   }
 
   private static _findModelFile(cfgFilePath: string) {

@@ -113,11 +113,17 @@ CF7 file imports:
 
 IFO file imports:
 
-- `BuildBlocker` with name `ground` *(tile size of your building)*
-  - Extents is calculated from the first 4 vertices of that object (use a plane).
+- `IntersectBox`: clickable 3D area (aka hitbox) of the building
+  - Imported from multiple mesh object (e.g. cube) with prefix `hitbox`
+  - Boxes are calculated from the boundaries of the objects.
+    1 box per object.
+- `BuildBlocker`: tile size of the building
+  - Imported from one mesh object (e.g. plane) with name `ground`
+  - Extents is calculated from the first 4 vertices of that object.
     Rounded to .5
-- `IntersectBox` *(aka hitbox, clickable 3D area of a building)*
-  - Boxes are calculated from meshes (e.g. cubes) with prefix `hitbox` in their node name.
+- `UnevenBlocker`: area to always keep above ground
+  - Imported from one mesh object (e.g. plane) with name `UnevenBlocker`
+  - Positions are taken from mesh vertices.
 
 ### Quickly Reskin Existing Models
 

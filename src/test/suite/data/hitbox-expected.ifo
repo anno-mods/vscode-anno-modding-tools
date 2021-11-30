@@ -43,7 +43,7 @@
     <Position>
       <xf>-0.047074</xf>
       <yf>0.267087</yf>
-      <zf>0.905148</zf>
+      <zf>0.905147</zf>
     </Position>
     <Rotation>
       <xf>0</xf>
@@ -52,9 +52,9 @@
       <wf>1</wf>
     </Rotation>
     <Extents>
-      <xf>1.261732</xf>
+      <xf>1.261730</xf>
       <yf>0.534174</yf>
-      <zf>0.939161</zf>
+      <zf>0.939160</zf>
     </Extents>
   </IntersectBox>
   <IntersectBox>
@@ -95,4 +95,40 @@
       <zf>0.1</zf>
     </Extents>
   </Dummy>
+  <BuildBlocker>
+    <Position>
+      <xf>-2.0</xf>
+      <zf>2.0</zf>
+    </Position>
+    <Position>
+      <xf>2.0</xf>
+      <zf>2.0</zf>
+    </Position>
+    <Position>
+      <xf>-2.0</xf>
+      <zf>-2.0</zf>
+    </Position>
+    <Position>
+      <xf>2.0</xf>
+      <zf>-2.0</zf>
+    </Position>
+  </BuildBlocker>
+  <UnevenBlocker>
+    <Position>
+      <xf>-1.779689</xf>
+      <zf>2.000000</zf>
+    </Position>
+    <Position>
+      <xf>1.257310</xf>
+      <zf>2.000000</zf>
+    </Position>
+    <Position>
+      <xf>-1.779690</xf>
+      <zf>-2.000000</zf>
+    </Position>
+    <Position>
+      <xf>1.257310</xf>
+      <zf>-2.000000</zf>
+    </Position>
+  </UnevenBlocker>
 </Info>

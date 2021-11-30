@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { getBuffer } from 'gltf-import-export';
-import { Vector, Box } from './math';
+import { Box, Quaternion, Vector, Vector2 } from './math';
 
 interface IProp {
   /* eslint-disable @typescript-eslint/naming-convention */
@@ -175,8 +175,6 @@ export default class ProppedModel {
   private readonly gltf: any;
   private readonly resourceFolder: string;
 
-  private groundVertices: { xf: number, zf: number }[] | undefined;
-
   public static fromFile(filePath: string) {
     const gltf = JSON.parse(fs.readFileSync(filePath, 'utf8'));
     const props: IPropMap = { };
@@ -307,56 +305,46 @@ export default class ProppedModel {
   public getBuildBlocker() {
     const ground = this._findGround();
     if (!ground) {
-      return;
+      return undefined;
     }
 
-    const result = [];
-    for (let vertex of ground) {
-      // round to .5
-      result.push({
-        xf: Math.round(vertex.xf * 2) / 2,
-        zf: Math.round(vertex.zf * 2) / 2
-      });
-    }
-
-    return result;
+    // round to .5
+    return ground.map(v => v.round(2).toVector2());
   }
 
   public getDecalExtends() {
     const ground = this._findGround();
-    if (!ground) {
-      return;
+    if (!ground || ground.length < 1) {
+      return undefined;
     }
 
-    const result = [];
-
-    let minX = Math.round(ground[0].xf * 100) / 100;
-    let minZ = Math.round(ground[0].zf * 100) / 100;
-    let maxX = minX;
-    let maxZ = minZ;
-
-    for (let vertex of ground) {   
-      const xf = Math.round(vertex.xf * 100) / 100;
-      const zf = Math.round(vertex.zf * 100) / 100;
-      minX = Math.min(minX, xf);
-      minZ = Math.min(minZ, zf);
-      maxX = Math.max(maxX, xf);
-      maxZ = Math.max(maxZ, zf);
+    // round to .01
+    let min = ground[0].round(100);
+    let max = min;
+    for (let v of ground) {
+      min = min.down(v.round(100));
+      max = max.up(v.round(100));
     }
-
-    // TODO if not centered set Transformer, but that's unusual
 
     /* eslint-disable @typescript-eslint/naming-convention */
     return { 
-      Extents_x: ((maxX - minX) / 2).toFixed(6), 
+      Extents_x: ((max.x - min.x) / 2).toFixed(6), 
       Extents_y: (0.25).toFixed(6), 
-      Extents_z: ((maxZ - minZ) / 2).toFixed(6)
+      Extents_z: ((max.z - min.z) / 2).toFixed(6)
     };
     /* eslint-enable @typescript-eslint/naming-convention */
   }
 
   public getHitBoxes() {
     return this._findHitboxes();
+  }
+
+  private _unevenBlocker: Vector2[] | undefined;
+  public getUnevenBlocker() {
+    if (!this._unevenBlocker) {
+      this._unevenBlocker = _readVectors(this.gltf, 'UnevenBlocker', this.resourceFolder).map(e => e.toVector2());
+    }
+    return this._unevenBlocker;
   }
 
   private constructor(gltf: any, props: IPropMap, particles: IParticleMap, feedbacks: IFeedbackMap, files: IFileMap, resourceFolder: string) {
@@ -368,56 +356,10 @@ export default class ProppedModel {
     this.resourceFolder = resourceFolder;
   }
 
-  private _getBuffer(gltf: any, meshIdx: number, resourceFolder: string) {
-    const accessorIdx = gltf.meshes[meshIdx].primitives[0].attributes.POSITION;
-    const accessor = gltf.accessors[accessorIdx];
-    const bufferView = gltf.bufferViews[accessor.bufferView];
-    const bufferInfo = gltf.buffers[bufferView.buffer];
-
-    const bufferFile = path.join(resourceFolder, bufferInfo.uri);
-    const buffer = getBuffer(gltf, bufferView.buffer, bufferFile);
-    if (buffer) {
-      const bufferOffset = bufferView.byteOffset || 0;
-      const bufferLength = bufferView.byteLength;
-      const bufferStride = bufferView.byteStride;
-      const bufferViewBuf = buffer.subarray(bufferOffset, bufferOffset + bufferLength);
-      const accessorByteOffset = accessor.byteOffset || 0;
-
-      const ACESSOR_TYPE_VEC3 = 3;
-      return buildArrayBuffer(Float32Array, bufferViewBuf, accessorByteOffset, accessor.count, ACESSOR_TYPE_VEC3, bufferStride);
-    }
-
-    return undefined;
-  }
-
+  private groundVertices: Vector[] | undefined;
   private _findGround() {
     if (!this.groundVertices) {
-      let groundMeshIdx = -1;
-      for (let node of this.gltf.nodes) {
-        if (node.name === 'ground' || this.gltf.meshes[node.mesh]?.name === 'ground') {
-          groundMeshIdx = node.mesh;
-        }
-      }
-
-      if (groundMeshIdx < 0) {
-        console.warn('Invalid glTF. Invalid mesh index.');
-        return undefined;
-      }
-
-      const buffer = this._getBuffer(this.gltf, groundMeshIdx, this.resourceFolder);
-      if (!buffer) {
-        console.warn('Invalid glTF. Could not get buffer.');
-        return undefined;
-      }
-
-      this.groundVertices = [];
-      for (let i = 0; i < 4 && i < buffer.length / 3; i++) {
-        // round to .5
-        this.groundVertices[i] = {
-          xf: buffer[i * 3],
-          zf: buffer[i * 3 + 2]
-        };
-      }
+      this.groundVertices = _readVectors(this.gltf, 'ground', this.resourceFolder);
     }
 
     return this.groundVertices;
@@ -435,7 +377,7 @@ export default class ProppedModel {
       }
 
       for (let hitbox of hitboxes) {
-        const buffer = this._getBuffer(this.gltf, hitbox.meshIdx, this.resourceFolder);
+        const buffer = _getBuffer(this.gltf, hitbox.meshIdx, this.resourceFolder);
         if (!buffer || buffer.length < 3) {
           console.warn('Invalid glTF. Could not get buffer.');
           return undefined;
@@ -467,4 +409,77 @@ export default class ProppedModel {
 function _toRotation(q: { w: number, x: number, y: number, z: number }) {
   const acos = 2 * Math.acos(q.w);
   return q.y > 0 ? Math.PI * 2 - acos : acos;
+}
+
+function _findFirstNode(gltf: any, name: string, resourceFolder: string) {
+  let nodeIdx = -1;
+  let meshIdx = -1;
+  for (let idx = 0; idx < gltf.nodes.length; idx++) {
+    const node = gltf.nodes[idx];
+    if (node.name === name || gltf.meshes[node.mesh]?.name === name) {
+      nodeIdx = idx;
+      meshIdx = node.mesh;
+      break;
+    }
+  }
+  if (nodeIdx === -1 || meshIdx === -1) {
+    return undefined;
+  }
+
+  const buffer = _getBuffer(gltf, meshIdx, resourceFolder);
+  if (!buffer) {
+    console.warn(`Invalid glTF. Buffer for node ${nodeIdx} not found.`);
+    return undefined;
+  }
+  return {
+    nodeIdx,
+    meshIdx,
+    translation: Vector.fromArray(gltf.nodes[nodeIdx].translation),
+    scale: Vector.fromArray(gltf.nodes[nodeIdx].scale),
+    rotation: Quaternion.fromArray(gltf.nodes[nodeIdx].rotation),
+    buffer: buffer as ArrayLike<number>
+  };
+}
+
+// TODO rename and change to _findNodes
+function _getBuffer(gltf: any, meshIdx: number, resourceFolder: string) {
+  const accessorIdx = gltf.meshes[meshIdx].primitives[0].attributes.POSITION;
+  const accessor = gltf.accessors[accessorIdx];
+  const bufferView = gltf.bufferViews[accessor.bufferView];
+  const bufferInfo = gltf.buffers[bufferView.buffer];
+
+  const bufferFile = path.join(resourceFolder, bufferInfo.uri);
+  const buffer = getBuffer(gltf, bufferView.buffer, bufferFile);
+  if (buffer) {
+    const bufferOffset = bufferView.byteOffset || 0;
+    const bufferLength = bufferView.byteLength;
+    const bufferStride = bufferView.byteStride;
+    const bufferViewBuf = buffer.subarray(bufferOffset, bufferOffset + bufferLength);
+    const accessorByteOffset = accessor.byteOffset || 0;
+
+    const ACESSOR_TYPE_VEC3 = 3;
+    return buildArrayBuffer(Float32Array, bufferViewBuf, accessorByteOffset, accessor.count, ACESSOR_TYPE_VEC3, bufferStride);
+  }
+
+  return undefined;
+}
+
+function _readVectors(gltf: any, name: string, resourceFolder: string) {
+  const node = _findFirstNode(gltf, name, resourceFolder);
+  if (!node) {
+    return [];
+  }
+
+  const translation = node.translation || Vector.zero;
+  const scale = node.scale || Vector.one;
+
+  const result = [];
+  for (let i = 0; i < node.buffer.length / 3; i++) {
+    const v = Vector.fromArray(node.buffer, i);
+    if (v) {
+      result.push(v.mul(scale).add(translation));
+    }
+  }
+
+  return result;
 }

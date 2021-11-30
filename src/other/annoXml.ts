@@ -150,6 +150,18 @@ export class AnnoXmlElement {
     return new AnnoXmlElement(_createXmlElement(this._element, name, undefined, options));
   }
 
+  public fill(name: string, values: any[], options?: { clear?: boolean }) {
+    if (options?.clear) {
+      this._element.children = [];
+      this._element.firstChild = null;
+      this._element.lastChild = null;
+    }
+    for (let value of values) {
+      const node = new AnnoXmlElement(_createXmlElement(this._element, name));
+      node.set(value);
+    }
+  }
+
   public remove(path: string, all?: boolean) {
     const parentPathElements = (new XPath(path.substr(2))).nodes;
     const toRemove = parentPathElements.pop();
