@@ -53,5 +53,21 @@
   "InfluencedByNeighbors": [
     "Listed buildings will influence variation based on `BuildingBlockPool` and `InfluencedVariationDirection`.",
     "[See guide on GitHub](https://github.com/anno-mods/modding-guide/blob/main/guides/variations.md)"
+  ],
+  "IntersectBox": [
+    "Clickable 3D area (aka hitbox) of the building.",
+    "`Position` is center of the box, `Extents` half the size."
+  ],
+  "FeedbackBlocker": [
+    "Area people can walk through.",
+    "List of `Position`s making rectangles, Ls, Us or other shapes. Values should be on a .25 grid."
+  ],
+  "BuildBlocker": [
+    "Tile size of the building.",
+    "List of `Position`s making rectangles, Ls, Us or other shapes. Values should be on a .5 grid."
+  ],
+  "UnevenBlocker": [
+    "Area to always keep above ground by lifting the building up.",
+    "List of `Position`s (no shape needed). Values should be on a .25 grid."
   ]
 }

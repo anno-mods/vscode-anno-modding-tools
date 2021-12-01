@@ -17,6 +17,7 @@ import { AssetsActionProvider } from './features/assetsActionProvider';
 
 import * as logger from './other/logger';
 import * as channel from './features/channel';
+import * as cfgHoverProvider from './features/cfgHoverProvider';
 
 export function activate(context: vscode.ExtensionContext) {
 	logger.set(channel);
@@ -40,6 +41,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(...AssetsSymbolProvider.register(context));
 	context.subscriptions.push(...AssetsActionProvider.register(context));
 	context.subscriptions.push(...registerGuidUtilsProvider(context));
+	context.subscriptions.push(...cfgHoverProvider.registerHoverProvider(context));
 }
 
 function registerCfgLanguageFeatures(language: string): vscode.Disposable {
