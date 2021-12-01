@@ -370,6 +370,23 @@ export default class ProppedModel {
     return (this._feedbackBlocker.length > 0) ? this._feedbackBlocker : undefined;
   }
 
+  private _dummies: { name: string, position: Vector, rotation: Quaternion, extends: Vector }[] | undefined;
+  public getDummies() {
+    if (!this._dummies) {
+      this._dummies = [];
+      const nodes = _findNodes(this.gltf, 'dummy_', this.resourceFolder);
+      for (let node of nodes) {
+        this._dummies.push({
+          name: node.name.substr('dummy_'.length),
+          position: node.translation || Vector.zero,
+          rotation: node.rotation || Quaternion.default,
+          extends: node.scale || Vector.one
+        });
+      }
+    }
+    return (this._dummies.length > 0) ? this._dummies : undefined;
+  }
+
   private constructor(gltf: any, props: IPropMap, particles: IParticleMap, feedbacks: IFeedbackMap, files: IFileMap, resourceFolder: string) {
     this.gltf = gltf;
     this.props = props;
@@ -454,6 +471,7 @@ function _findNodes(gltf: any, name: string, resourceFolder: string, all: boolea
       result.push({
         nodeIdx,
         meshIdx,
+        name: node.name,
         translation: Vector.fromArray(gltf.nodes[nodeIdx].translation),
         scale: Vector.fromArray(gltf.nodes[nodeIdx].scale),
         rotation: Quaternion.fromArray(gltf.nodes[nodeIdx].rotation),

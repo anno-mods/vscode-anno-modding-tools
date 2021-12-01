@@ -42,6 +42,7 @@ export class InfoImporter {
     const xml = AnnoXml.fromFile(cfgFilePath);
     const importer = new InfoImporter();
     importer.importHitBoxes(model, xml);
+    importer.importDummies(model, xml);
     importer.importBuildBlocker(model, xml);
     importer.importFeedbackBlocker(model, xml);
     importer.importUnevenBlocker(model, xml);
@@ -74,6 +75,34 @@ export class InfoImporter {
     }
     else {
       channel.log('No node/mesh starting with \'hitbox\' found. Skip hitboxes');
+    }
+  }
+
+  /** update or add Dummy entries. Does not remove. */
+  public importDummies(model: ProppedModel, xml: AnnoXml) {
+    const dummies = model.getDummies();
+    xml.ensureSection('Info', [ { } ]);
+    const parent = xml.findElement('Info');
+    if (dummies && parent) {
+      channel.log('Import Dummy from nodes/meshes starting with \'dummy_\'');
+      for (let dummy of dummies) {
+        let dummyNode = parent.findElement(`//Dummy[Name='${dummy.name}']`);
+        if (!dummyNode) {
+          const afterElements = [ 'Dummy', 'IntersectBox', 'DisableFeedbackArea', 'MeshBoundingBox', 'BoundingBox' ];
+          dummyNode = parent.createChild('Dummy', { after: afterElements });
+        }
+        dummyNode.set({
+          /* eslint-disable @typescript-eslint/naming-convention */
+          Name: dummy.name,
+          Position: dummy.position.toFixedF(),
+          Rotation: dummy.rotation.round(1000000).toF(),
+          Extents: dummy.extends.round(1000000).toF()
+          /* eslint-enable @typescript-eslint/naming-convention */
+        });
+      }
+    }
+    else {
+      channel.log('No node/mesh starting with \'dummy_\' found. Skip Dummy');
     }
   }
 

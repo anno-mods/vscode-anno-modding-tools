@@ -95,6 +95,44 @@
       <zf>0.1</zf>
     </Extents>
   </Dummy>
+  <Dummy>
+    <Name>DamageImpact123</Name>
+    <Position>
+      <xf>-0.534830</xf>
+      <yf>0.927331</yf>
+      <zf>1.290208</zf>
+    </Position>
+    <Rotation>
+      <xf>0</xf>
+      <yf>0</yf>
+      <zf>0</zf>
+      <wf>1</wf>
+    </Rotation>
+    <Extents>
+      <xf>1</xf>
+      <yf>1</yf>
+      <zf>2</zf>
+    </Extents>
+  </Dummy>
+  <Dummy>
+    <Name>transporter_spawn</Name>
+    <Position>
+      <xf>-2.426700</xf>
+      <yf>0.000000</yf>
+      <zf>1.290208</zf>
+    </Position>
+    <Rotation>
+      <xf>0</xf>
+      <yf>-1</yf>
+      <zf>0</zf>
+      <wf>0</wf>
+    </Rotation>
+    <Extents>
+      <xf>1</xf>
+      <yf>1</yf>
+      <zf>1</zf>
+    </Extents>
+  </Dummy>
   <BuildBlocker>
     <Position>
       <xf>-2.0</xf>

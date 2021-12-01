@@ -95,6 +95,25 @@
       <zf>0.1</zf>
     </Extents>
   </Dummy>
+  <Dummy>
+    <Name>DamageImpact123</Name>
+    <Position>
+      <xf>-1.397467</xf>
+      <yf>1.4251</yf>
+      <zf>0.3074062</zf>
+    </Position>
+    <Rotation>
+      <xf>0</xf>
+      <yf>0.08715574</yf>
+      <zf>0</zf>
+      <wf>0.9961947</wf>
+    </Rotation>
+    <Extents>
+      <xf>0.5</xf>
+      <yf>0.5</yf>
+      <zf>0.5</zf>
+    </Extents>
+  </Dummy>
   <FeedbackBlocker>
     <Position>
       <xf>2</xf>

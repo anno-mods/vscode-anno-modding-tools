@@ -40,6 +40,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Hitbox import from glTF into `.ifo`
 - UnevenBlocker import from glTF into `.ifo`
 - FeedbackBlocker import from glTF into `.ifo`
+- Dummy import from glTF into `.ifo`
 
 ## [0.5.2]
 

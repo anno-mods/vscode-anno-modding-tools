@@ -105,7 +105,7 @@ Entries not existing in the model will be marked as `_removed` and not removed a
 
 CF7 file imports:
 
-- `Dummies/i` with prefix `fc_` *(walking & talking people)*
+- `<Dummies><i>` with prefix `fc_` *(walking & talking people)*
   - Position, Orientation, RotationY
   - ⚠ Note: Matches will happen without the prefix.
     E.g. `fc_Dummy0` from the model will be matched with `Dummy0` in the CF7 file.
@@ -113,18 +113,23 @@ CF7 file imports:
 
 IFO file imports:
 
-- `IntersectBox`: clickable 3D area (aka hitbox) of the building
+- `<IntersectBox>`: clickable 3D area (aka hitbox) of the building
   - Imported from multiple mesh object (e.g. cube) with prefix `hitbox`
   - Boxes are calculated from the boundaries of the objects.
     1 box per object.
-- `FeedbackBlocker`: area people can walk through
+- `<Dummy>`: transporter spawn, fire locations, ...
+  - Imported from multiple mesh objects with prefix `dummy_`.
+  - Position, rotation and extends are taken from the object.
+  - `<Name>` of the entry will be matched against what comes after `dummy_`.
+  - Entries not existing in the model will not be removed.
+- `<FeedbackBlocker>`: area people can walk through
   - Imported from multiple mesh objects (e.g. plane) with prefix `FeedbackBlocker`
   - Positions are taken from mesh vertices.
-- `BuildBlocker`: tile size of the building
+- `<BuildBlocker>`: tile size of the building
   - Imported from one mesh object (e.g. plane) with name `ground`
   - Extents is calculated from the first 4 vertices of that object.
     Rounded to .5
-- `UnevenBlocker`: area to always keep above ground
+- `<UnevenBlocker>`: area to always keep above ground
   - Imported from one mesh object (e.g. plane) with name `UnevenBlocker`
   - Positions are taken from mesh vertices.
 

@@ -38,6 +38,11 @@ export class Vector {
     return { xf: this.x.toFixed(fixed), yf: this.y.toFixed(fixed), zf: this.z.toFixed(fixed) };
   }
 
+  /** { xf: 0, yf: 1.5, zf } */
+  public toF() {
+    return { xf: this.x, yf: this.y, zf: this.z };
+  }
+
   /** convert to 2D x,z vector */
   public toVector2() {
     return new Vector2(this.x, this.z);
@@ -156,6 +161,15 @@ export class Quaternion {
     return { xf: this.x.toFixed(fixed), yf: this.y.toFixed(fixed), zf: this.z.toFixed(fixed), wf: this.w.toFixed(fixed) };
   }
 
+  /** { xf: 0, yf: 1.5, zf, wf } */
+  public toF() {
+    return { xf: this.x, yf: this.y, zf: this.z, wf: this.w };
+  }
+
+  /** return new Quaternion with rounded values */
+  public round(factor: number = 1) {
+    return new Quaternion(Math.round(this.x * factor) / factor, Math.round(this.y * factor) / factor, Math.round(this.z * factor) / factor, Math.round(this.w * factor) / factor);
+  }
 }
 
 export class Box {
