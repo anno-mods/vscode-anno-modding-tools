@@ -33,6 +33,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Internal
   - replace all texconv usage to reduce number of tools
 
+## [0.6.0]
+
 ### Added
 
 - Anno Prop Config `.prp` outline and syntax highlighting
