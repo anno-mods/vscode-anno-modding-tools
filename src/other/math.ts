@@ -121,6 +121,16 @@ export class Vector2 {
     return { xf: this.x, zf: this.z };
   }
   
+  /** return new Vector with smallest values of this and b */
+  public down(b: Vector2) {
+    return new Vector2(Math.min(this.x, b.x), Math.min(this.z, b.z));
+  }
+  
+  /** return new Vector with largest values of this and b */
+  public up(b: Vector2) {
+    return new Vector2(Math.max(this.x, b.x), Math.max(this.z, b.z));
+  }
+
   /** return new Vector with rounded values */
   public round(factor: number = 1) {
     return new Vector2(Math.round(this.x * factor) / factor, Math.round(this.z * factor) / factor);
@@ -131,6 +141,16 @@ export class Vector2 {
     return new Vector2(
       Math.ceil(Math.sign(this.x) * this.x * factor - 0.0000001) / factor * Math.sign(this.x), 
       Math.ceil(Math.sign(this.z) * this.z * factor - 0.0000001) / factor * Math.sign(this.z));
+  }
+
+  public compare(that: Vector2) {
+    if (this.x !== that.x) {
+      return this.x - that.x;
+    }
+    if (this.z !== that.z) {
+      return this.z - that.z;
+    }
+    return 0;
   }
 }
 
@@ -191,4 +211,81 @@ export class Box {
     box.name = name;
     return box;
   }
+}
+
+export class Edge2 {
+  a: Vector2 = Vector2.zero;
+  b: Vector2 = Vector2.zero;
+
+  public constructor (a: Vector2, b: Vector2) {
+    if (a.compare(b) > 0) {
+      this.a = b;
+      this.b = a;
+    }
+    else {
+      this.a = a;
+      this.b = b;
+    }
+  }
+
+  public compare(that: Edge2) {
+    const compareA = this.a.compare(that.a);
+    if (compareA) {
+      return compareA;
+    }
+    const compareB = this.b.compare(that.b);
+    if (compareB) {
+      return compareB;
+    }
+    return 0;
+  }
+}
+
+export function sortVectorsByOutline(vertices: ArrayLike<Vector2>, indices: ArrayLike<number>) {
+  let edges: Edge2[] = [];
+  for (let triangleIdx = 0; triangleIdx < indices.length / 3; triangleIdx++) {
+    const triangle = { a: vertices[indices[triangleIdx * 3]], b: vertices[indices[triangleIdx * 3 + 1]], c: vertices[indices[triangleIdx * 3 + 2]] };
+    edges.push(new Edge2(triangle.a, triangle.b));
+    edges.push(new Edge2(triangle.b, triangle.c));
+    edges.push(new Edge2(triangle.c, triangle.a));
+  }
+
+  // remove duplicates and their original counter part
+  edges.sort((a, b) => a.compare(b));
+  edges = edges.filter((e, idx) => (
+    edges[idx - 1]?.compare(e) !== 0 && edges[idx + 1]?.compare(e) !== 0
+  ));
+
+  if (edges.length === 0) {
+    return []; // strange
+  }
+
+  // merge edge chains together until nothing can be merged
+  // we may end up with more than one shape
+  let chains = edges.map(e => [ e.a, e.b ]);
+  let appended = true;
+  for (let i = 0; i < 100 && appended; i++) { // limit iterations to 100. this algo is not made for high poly shapes
+    appended = false;
+
+    let newchains: Vector2[][] = [];
+    for (let [idx, chain] of chains.entries()) {
+      const appendIdx = newchains.findIndex((c, findIdx) => findIdx !== idx && (c[c.length - 1] === chain[0] || c[c.length - 1] === chain[chain.length - 1]));
+      if (appendIdx !== -1) {
+        const appendChain = newchains[appendIdx];
+        appendChain.push(...(appendChain[appendChain.length - 1] === chain[0] ? chain : chain.reverse()).slice(1));
+        if (appendChain[0] === appendChain[appendChain.length - 1]) {
+          // this shape is complete: remove last and continue with potential secondary shapes
+          appendChain.pop();
+        }
+        appended = true;
+      }
+      else {
+        // not appendable, start new chain
+        newchains.push(chain);
+      }
+    }
+    chains = newchains;
+  }
+
+  return chains.flat();
 }

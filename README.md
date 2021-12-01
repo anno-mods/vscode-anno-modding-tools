@@ -124,17 +124,15 @@ IFO file imports:
     E.g. `dummy_transporter_spawn` will be matched against `<Name>transporter_spawn</Name>`.
   - Entries not existing in the model will not be removed.
 - `<FeedbackBlocker>`: area people can walk through
-  - Imported from multiple mesh objects (i.e. plane) with prefix `FeedbackBlocker`
+  - Imported from multiple mesh objects (e.g. plane) with prefix `FeedbackBlocker`
   - Positions are taken from mesh vertices.
-    The first 4 vertices will be sorted to correct order.
     Rounded to .25
 - `<BuildBlocker>`: tile size of the building
-  - Imported from one mesh object (i.e. plane) with name `ground`
+  - Imported from one mesh object (e.g. plane) with name `ground`
   - Positions are taken from mesh vertices.
-    The first 4 vertices will be sorted to correct order.
     Rounded to .5
 - `<UnevenBlocker>`: area to always keep above ground
-  - Imported from one mesh object (i.e. plane) with name `UnevenBlocker`
+  - Imported from one mesh object (e.g. plane) with name `UnevenBlocker`
   - Positions are taken from mesh vertices.
     Rounded **up** in .25 steps
 

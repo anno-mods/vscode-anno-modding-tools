@@ -136,18 +136,18 @@
   <BuildBlocker>
     <Position>
       <xf>-2</xf>
-      <zf>2</zf>
-    </Position>
-    <Position>
-      <xf>2</xf>
-      <zf>2</zf>
-    </Position>
-    <Position>
-      <xf>2</xf>
       <zf>-2</zf>
     </Position>
     <Position>
       <xf>-2</xf>
+      <zf>2</zf>
+    </Position>
+    <Position>
+      <xf>2</xf>
+      <zf>2</zf>
+    </Position>
+    <Position>
+      <xf>2</xf>
       <zf>-2</zf>
     </Position>
   </BuildBlocker>
@@ -157,48 +157,48 @@
       <zf>1.5</zf>
     </Position>
     <Position>
-      <xf>2</xf>
-      <zf>1.5</zf>
-    </Position>
-    <Position>
-      <xf>2</xf>
-      <zf>2</zf>
-    </Position>
-    <Position>
       <xf>-2</xf>
       <zf>2</zf>
+    </Position>
+    <Position>
+      <xf>2</xf>
+      <zf>2</zf>
+    </Position>
+    <Position>
+      <xf>2</xf>
+      <zf>1.5</zf>
     </Position>
   </FeedbackBlocker>
   <FeedbackBlocker>
     <Position>
       <xf>1.5</xf>
-      <zf>1.5</zf>
-    </Position>
-    <Position>
-      <xf>2</xf>
-      <zf>1.5</zf>
-    </Position>
-    <Position>
-      <xf>2</xf>
       <zf>-1.5</zf>
     </Position>
     <Position>
       <xf>1.5</xf>
+      <zf>1.5</zf>
+    </Position>
+    <Position>
+      <xf>2</xf>
+      <zf>1.5</zf>
+    </Position>
+    <Position>
+      <xf>2</xf>
       <zf>-1.5</zf>
     </Position>
   </FeedbackBlocker>
   <UnevenBlocker>
     <Position>
       <xf>-2</xf>
+      <zf>-2</zf>
+    </Position>
+    <Position>
+      <xf>-2</xf>
       <zf>2</zf>
     </Position>
     <Position>
       <xf>1.5</xf>
       <zf>2</zf>
-    </Position>
-    <Position>
-      <xf>-2</xf>
-      <zf>-2</zf>
     </Position>
     <Position>
       <xf>1.5</xf>

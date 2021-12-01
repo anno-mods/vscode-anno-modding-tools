@@ -60,14 +60,14 @@
   ],
   "FeedbackBlocker": [
     "Area people can walk through.",
-    "List of `Position`s making rectangles, Ls, Us or other shapes. Values should be on a .25 grid."
+    "List of `Position`s outlining a shape (no diagonal lines). Values should be on a .25 grid."
   ],
   "BuildBlocker": [
     "Tile size of the building.",
-    "List of `Position`s making rectangles, Ls, Us or other shapes. Values should be on a .5 grid."
+    "List of `Position`s outlining a shape (no diagonal lines). Values should be on a .5 grid."
   ],
   "UnevenBlocker": [
     "Area to always keep above ground by lifting the building up.",
-    "List of `Position`s (no shape needed). Values should be on a .25 grid."
+    "List of `Position`s outlining a shape. Values should be on a .25 grid."
   ]
 }

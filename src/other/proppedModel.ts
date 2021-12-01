@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { getBuffer } from 'gltf-import-export';
-import { Box, Quaternion, Vector, Vector2 } from './math';
+import { Box, Quaternion, Vector, Vector2, sortVectorsByOutline } from './math';
 
 interface IProp {
   /* eslint-disable @typescript-eslint/naming-convention */
@@ -317,7 +317,7 @@ export default class ProppedModel {
     }
 
     // round to .5
-    return ground.map(v => v.round(2).toVector2());
+    return ground.map(v => v.round(2));
   }
 
   public getDecalExtends() {
@@ -350,7 +350,12 @@ export default class ProppedModel {
   private _unevenBlocker: Vector2[] | undefined;
   public getUnevenBlocker() {
     if (!this._unevenBlocker) {
-      this._unevenBlocker = _readVectors(_findFirstNode(this.gltf, 'UnevenBlocker', this.resourceFolder)).map(e => e.toVector2());
+      const node = _findFirstNode(this.gltf, 'UnevenBlocker', this.resourceFolder);
+      let vectors = _readVectors(node).map(e => e.toVector2());
+      if (node?.indices) {
+        vectors = sortVectorsByOutline(vectors, node.indices);
+      }
+      this._unevenBlocker = vectors;
     }
     return (this._unevenBlocker.length > 0) ? this._unevenBlocker : undefined;
   }
@@ -361,7 +366,10 @@ export default class ProppedModel {
       this._feedbackBlocker = [];
       const nodes = _findNodes(this.gltf, 'FeedbackBlocker', this.resourceFolder);
       for (let node of nodes) {
-        const vectors = _sortVectorsXZ(_readVectors(node)).map(e => e.toVector2());
+        let vectors = _readVectors(node).map(e => e.toVector2());
+        if (node?.indices) {
+          vectors = sortVectorsByOutline(vectors, node.indices);
+        }
         if (vectors) {
           this._feedbackBlocker.push(vectors);
         }
@@ -396,10 +404,14 @@ export default class ProppedModel {
     this.resourceFolder = resourceFolder;
   }
 
-  private groundVertices: Vector[] | undefined;
+  private groundVertices: Vector2[] | undefined;
   private _findGround() {
     if (!this.groundVertices) {
-      this.groundVertices = _sortVectorsXZ(_readVectors(_findFirstNode(this.gltf, 'ground', this.resourceFolder)));
+      const node = _findFirstNode(this.gltf, 'ground', this.resourceFolder);
+      this.groundVertices = _readVectors(node).map(e => e.toVector2());
+      if (node?.indices) {
+        this.groundVertices = sortVectorsByOutline(this.groundVertices, node.indices);
+      }
     }
 
     return this.groundVertices;
@@ -417,7 +429,7 @@ export default class ProppedModel {
       }
 
       for (let hitbox of hitboxes) {
-        const buffer = _getBuffer(this.gltf, hitbox.meshIdx, this.resourceFolder);
+        const buffer = _getPositions(this.gltf, hitbox.meshIdx, this.resourceFolder);
         if (!buffer || buffer.length < 3) {
           console.warn('Invalid glTF. Could not get buffer.');
           return undefined;
@@ -463,11 +475,12 @@ function _findNodes(gltf: any, name: string, resourceFolder: string, all: boolea
       nodeIdx = idx;
       meshIdx = node.mesh;
 
-      const buffer = _getBuffer(gltf, meshIdx, resourceFolder);
+      const buffer = _getPositions(gltf, meshIdx, resourceFolder);
       if (!buffer) {
         console.warn(`Invalid glTF. Buffer for node ${nodeIdx} not found.`);
         continue;
       }
+      const indices = _getIndices(gltf, meshIdx, resourceFolder);
       result.push({
         nodeIdx,
         meshIdx,
@@ -475,7 +488,8 @@ function _findNodes(gltf: any, name: string, resourceFolder: string, all: boolea
         translation: Vector.fromArray(gltf.nodes[nodeIdx].translation),
         scale: Vector.fromArray(gltf.nodes[nodeIdx].scale),
         rotation: Quaternion.fromArray(gltf.nodes[nodeIdx].rotation),
-        buffer: buffer as ArrayLike<number>
+        buffer: buffer as ArrayLike<number>,
+        indices: indices
       });
 
       if (!all) {
@@ -494,8 +508,22 @@ function _findFirstNode(gltf: any, name: string, resourceFolder: string) {
   return nodes[0];
 }
 
-function _getBuffer(gltf: any, meshIdx: number, resourceFolder: string) {
+function _getPositions(gltf: any, meshIdx: number, resourceFolder: string) {
   const accessorIdx = gltf.meshes[meshIdx].primitives[0].attributes.POSITION;
+  const ACESSOR_TYPE_VEC3 = 3;
+  return _getBuffer(gltf, accessorIdx, resourceFolder, ACESSOR_TYPE_VEC3, Float32Array);
+}
+
+function _getIndices(gltf: any, meshIdx: number, resourceFolder: string) {
+  const accessorIdx = gltf.meshes[meshIdx].primitives[0].indices;
+  if (accessorIdx === undefined) {
+    return undefined;
+  }
+  const ACESSOR_TYPE_SCALAR = 1;
+  return _getBuffer(gltf, accessorIdx, resourceFolder, ACESSOR_TYPE_SCALAR, Uint16Array);
+}
+
+function _getBuffer(gltf: any, accessorIdx: number, resourceFolder: string, numComponents: number, typedArray: any) {
   const accessor = gltf.accessors[accessorIdx];
   const bufferView = gltf.bufferViews[accessor.bufferView];
   const bufferInfo = gltf.buffers[bufferView.buffer];
@@ -509,8 +537,7 @@ function _getBuffer(gltf: any, meshIdx: number, resourceFolder: string) {
     const bufferViewBuf = buffer.subarray(bufferOffset, bufferOffset + bufferLength);
     const accessorByteOffset = accessor.byteOffset || 0;
 
-    const ACESSOR_TYPE_VEC3 = 3;
-    return buildArrayBuffer(Float32Array, bufferViewBuf, accessorByteOffset, accessor.count, ACESSOR_TYPE_VEC3, bufferStride);
+    return buildArrayBuffer(typedArray, bufferViewBuf, accessorByteOffset, accessor.count, numComponents, bufferStride);
   }
 
   return undefined;
