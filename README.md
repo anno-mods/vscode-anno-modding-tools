@@ -98,8 +98,8 @@ CFG file imports:
   - mesh name as `FileName` if it ends with `.cfg`.
   - Will be added if they don't exist.
 - `DECAL` with name `ground` *(ground texture)*
-  - Extents is calculated from the first 4 vertices of that object (use a plane).
-    This modifies the ground texture. The building tile size is `BuildBlocker` in the IFO file.
+  - Extents is calculated from all vertices of that object (e.g. plane).
+    This modifies the ground texture. The building tile size is `<BuildBlocker>` in the IFO file.
 
 Entries not existing in the model will be marked as `_removed` and not removed automatically.
 
@@ -118,20 +118,24 @@ IFO file imports:
   - Boxes are calculated from the boundaries of the objects.
     1 box per object.
 - `<Dummy>`: transporter spawn, fire locations, ...
-  - Imported from multiple mesh objects with prefix `dummy_`.
+  - Imported from multiple objects with prefix `dummy_`.
   - Position, rotation and extends are taken from the object.
   - `<Name>` of the entry will be matched against what comes after `dummy_`.
+    E.g. `dummy_transporter_spawn` will be matched against `<Name>transporter_spawn</Name>`.
   - Entries not existing in the model will not be removed.
 - `<FeedbackBlocker>`: area people can walk through
-  - Imported from multiple mesh objects (e.g. plane) with prefix `FeedbackBlocker`
+  - Imported from multiple mesh objects (i.e. plane) with prefix `FeedbackBlocker`
   - Positions are taken from mesh vertices.
+    The first 4 vertices will be sorted to correct order.
 - `<BuildBlocker>`: tile size of the building
-  - Imported from one mesh object (e.g. plane) with name `ground`
-  - Extents is calculated from the first 4 vertices of that object.
+  - Imported from one mesh object (i.e. plane) with name `ground`
+  - Positions are taken from mesh vertices.
+    The first 4 vertices will be sorted to correct order.
     Rounded to .5
 - `<UnevenBlocker>`: area to always keep above ground
-  - Imported from one mesh object (e.g. plane) with name `UnevenBlocker`
+  - Imported from one mesh object (i.e. plane) with name `UnevenBlocker`
   - Positions are taken from mesh vertices.
+    The first 4 vertices will be sorted to correct order.
 
 ### Quickly Reskin Existing Models
 

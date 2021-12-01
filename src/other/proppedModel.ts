@@ -350,7 +350,7 @@ export default class ProppedModel {
   private _unevenBlocker: Vector2[] | undefined;
   public getUnevenBlocker() {
     if (!this._unevenBlocker) {
-      this._unevenBlocker = _readVectors(_findFirstNode(this.gltf, 'UnevenBlocker', this.resourceFolder)).map(e => e.toVector2());
+      this._unevenBlocker = _sortVectorsXZ(_readVectors(_findFirstNode(this.gltf, 'UnevenBlocker', this.resourceFolder))).map(e => e.toVector2());
     }
     return (this._unevenBlocker.length > 0) ? this._unevenBlocker : undefined;
   }
@@ -361,7 +361,7 @@ export default class ProppedModel {
       this._feedbackBlocker = [];
       const nodes = _findNodes(this.gltf, 'FeedbackBlocker', this.resourceFolder);
       for (let node of nodes) {
-        const vectors = _readVectors(node).map(e => e.toVector2());
+        const vectors = _sortVectorsXZ(_readVectors(node)).map(e => e.toVector2());
         if (vectors) {
           this._feedbackBlocker.push(vectors);
         }
@@ -399,7 +399,7 @@ export default class ProppedModel {
   private groundVertices: Vector[] | undefined;
   private _findGround() {
     if (!this.groundVertices) {
-      this.groundVertices = _readVectors(_findFirstNode(this.gltf, 'ground', this.resourceFolder));
+      this.groundVertices = _sortVectorsXZ(_readVectors(_findFirstNode(this.gltf, 'ground', this.resourceFolder)));
     }
 
     return this.groundVertices;
@@ -532,4 +532,17 @@ function _readVectors(node: { translation: Vector | undefined, scale: Vector | u
   }
 
   return result;
+}
+
+/** quick hack sort. take first 2 triangles (first 4 positions) and swap the last two if needed */
+function _sortVectorsXZ(vectors: Vector[]) {
+  if (vectors.length < 4) {
+    return [];
+  }
+
+  if (vectors[1].x.toFixed(4) === vectors[2].x.toFixed(4) || vectors[1].z.toFixed(4) === vectors[2].z.toFixed(4)) {
+    return vectors;
+  }
+
+  return [ vectors[0], vectors[1], vectors[3], vectors[2], ...vectors.slice(4) ];
 }
