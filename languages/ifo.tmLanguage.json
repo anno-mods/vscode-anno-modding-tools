@@ -1,10 +1,10 @@
 {
 	"version": "",
-	"name": "ANNO-IFO",
+	"name": "Anno IFO",
 	"scopeName": "text.ifo",
 	"patterns": [
 		{
-			"begin": "(<)([-\\w\\.]+)(>)([^<]*)(</\\2)",
+			"begin": "(<)([-\\w\\.]+)(>)([^<]*)(</\\2?)",
 			"captures": {
 				"1": {
 					"name": "punctuation.definition.tag.xml"
@@ -39,7 +39,7 @@
 			"name": "meta.keyword.models"
 		},
 		{
-			"begin": "(</?)([-\\w\\.]+)",
+			"begin": "(</?)([-\\w\\.]*)",
 			"captures": {
 				"1": {
 					"name": "punctuation.definition.tag.xml"

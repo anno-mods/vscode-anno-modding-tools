@@ -6,26 +6,27 @@ Anno 1800 is a trademark of Ubisoft Entertainment in the US and/or other countri
 
 ## Features
 
-- Anno-specific outlines, highlights and auto-complete: `assets.xml`, `.cfg`, `.ifo`, `.cf7`
+- Outlines, coloring, GUID auto-conversion and hover tips: `assets.xml`, `.cfg`, `.ifo`, `.cf7`
+- Blender/glTF export to `.cfg`: `PROP`, feedback location, BuildBlocker, hitboxes, ...
+- Quickly reskin models without touching `.cfg`, ...
+- Batch create DDS (with LODs), RDM (with LODs and animation) using `F1` > `Build Anno Mod` and `annomod.json` description.
 - Various right-click utilities to convert between Anno and editable formats (glTF, PNG, ...)
-- Utilities to import `PROP` and other information from glTF models.
-- Command `F1` > `Build Anno Mod` to batch convert complete projects using `annomod.json` description.
 
 Read all the [Feature Details](#feature-details) below.
+
+---
 
 ### GUID Hover and Auto-conversion Preview
 
 ![](./doc/guid-utils.gif)
 
-### Outline and glTF PROP Import Preview
+### Outline
+
+![](./doc/images/assets-outline.png)
+
+### Blender/glTF to .cfg Preview
 
 ![](./doc/quickintro.gif)
-
-## Extension Settings
-
-* `anno.modsFolder`: (optional) path to your `mods/` folder. Available as `${annoMods}` in `annomod.json`. Not required if you don't use the variable.
-* `anno.rdaFolder`: (optional) path with RDA data extracted. Available as `${annoRda}` in `*.cfg.yaml` files. You only need the data extracted your mods need. The extension itself does not use this.
-* `anno.outlineFolderDepth`: folder depth of props, materials and alike shown .cfg outline.
 
 ## Best Practices
 
@@ -48,33 +49,13 @@ Read all the [Feature Details](#feature-details) below.
 
 - There's an extension to preview glTF files.
 
-## Requirements
-
-Some features like .fc conversion rely on external applications that run only on Windows.
-Native functions like outlines, highlighting work with Linux/WSL as well though.
-
-## Credits
-
-A big thanks goes to the external projects I'm using for this extension:
-
-- AnnoFCConverter - https://github.com/taubenangriff/AnnoFCConverter/
-- rdm4 - https://github.com/lukts30/rdm4
-- FileDBReader - https://github.com/anno-mods/FileDBReader
-- texconv - https://github.com/microsoft/DirectXTex
-- gltf-import-export - https://github.com/najadojo/gltf-import-export
-- xmltest - https://github.com/xforce/anno1800-mod-loader
-
-## Release Notes / Known Issues
-
-### 0.5.0
-
-See changes and known issues in [CHANGELOG](./CHANGELOG.md)
+---
 
 ## Feature Details
 
 * [Assets Outline](#assets-outline)
-* [Import from glTF](#import-from-gltf)
-* [Create variants from templates](#create-variants-from-templates)
+* [Import from Blender or glTF](#import-from-blender-or-gltf)
+* [Quickly Reskin Existing Models](#quickly-reskin-existing-models)
 * [GUID hover and auto-correct](#guid-hover-and-auto-correct)
 * [Build Anno mod](#build-anno-mod)
 * [Working with models](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-models.md) (separate page)
@@ -88,35 +69,43 @@ You have the ability to group by writing `<!-- # your text -->` comments in your
 
 ![](./doc/images/assets-outline.png)
 
-### Import from glTF
+### Import from Blender or glTF
 
-Put objects and name them as described in your glTF file to import.
+Steps:
 
-Examples: [New Town Hall](https://github.com/jakobharder/anno-1800-jakobs-mods/tree/main/new-town-hall-buildings), [Small Gas Power Plant](https://github.com/jakobharder/anno-1800-jakobs-mods/tree/main/small-gas-power-plant)
+1. Follow naming conventions below
+2. Export to glTF
+3. Right-click on target `.cfg` and select `Import from glTF`.
+
+Import an glTF file from one of the below examples into Blender to see how a project should look like:
+
+- [New Town Hall](https://github.com/jakobharder/anno-1800-jakobs-mods/tree/main/new-town-hall-buildings) (multiple models in one .cfg)
+- [Small Gas Power Plant](https://github.com/jakobharder/anno-1800-jakobs-mods/tree/main/small-gas-power-plant) (with animations)
 
 ⚠ Make sure to not edit the mesh of the objects, but the object position, scale and rotation only.
 
 CFG file imports:
 
-- `PROP`s with prefix `prop_`
+- `PROP`s with prefix `prop_` *(e.g. boxes, barrels)*
   - Position, Rotation, Scale
   - mesh name as `FileName` if it ends with `.prp`.
     Don't worry about Blender-style `.001`, `.002`, ... endings. They will be ignored.
   - Will be added if they don't exist.
-- `PARTICLE`s with prefix `particle_`
+- `PARTICLE`s with prefix `particle_` *(e.g. smoke)*
   - Position, Rotation, Scale
-- `FILE`s with prefix `file_`
+- `FILE`s with prefix `file_` *(included external cfg files)*
   - Position, Rotation, Scale
   - mesh name as `FileName` if it ends with `.cfg`.
   - Will be added if they don't exist.
-- `DECAL` with name `ground`
-  - Extents is calculated from the first 4 vertices of that object (use a plane).
+- `DECAL` with name `ground` *(ground texture)*
+  - Extents is calculated from all vertices of that object (e.g. plane).
+    This modifies the ground texture. The building tile size is `<BuildBlocker>` in the IFO file.
 
-Entries not existing in the model will be marked as `_removed`.
+Entries not existing in the model will be marked as `_removed` and not removed automatically.
 
 CF7 file imports:
 
-- `Dummies/i` with prefix `fc_`
+- `<Dummies><i>` with prefix `fc_` *(walking & talking people)*
   - Position, Orientation, RotationY
   - ⚠ Note: Matches will happen without the prefix.
     E.g. `fc_Dummy0` from the model will be matched with `Dummy0` in the CF7 file.
@@ -124,11 +113,30 @@ CF7 file imports:
 
 IFO file imports:
 
-- BuildBlocker with name `ground`
-  - Extents is calculated from the first 4 vertices of that object (use a plane).
+- `<IntersectBox>`: clickable 3D area (aka hitbox) of the building
+  - Imported from multiple mesh object (e.g. cube) with prefix `hitbox`
+  - Boxes are calculated from the boundaries of the objects.
+    1 box per object.
+- `<Dummy>`: transporter spawn, fire locations, ...
+  - Imported from multiple objects with prefix `dummy_`.
+  - Position, rotation and extends are taken from the object.
+  - `<Name>` of the entry will be matched against what comes after `dummy_`.
+    E.g. `dummy_transporter_spawn` will be matched against `<Name>transporter_spawn</Name>`.
+  - Entries not existing in the model will not be removed.
+- `<FeedbackBlocker>`: area people can walk through
+  - Imported from multiple mesh objects (e.g. plane) with prefix `FeedbackBlocker`
+  - Positions are taken from mesh vertices.
+    Rounded to .25
+- `<BuildBlocker>`: tile size of the building
+  - Imported from one mesh object (e.g. plane) with name `ground`
+  - Positions are taken from mesh vertices.
     Rounded to .5
+- `<UnevenBlocker>`: area to always keep above ground
+  - Imported from one mesh object (e.g. plane) with name `UnevenBlocker`
+  - Positions are taken from mesh vertices.
+    Rounded **up** in .25 steps
 
-### Create Variants from Templates
+### Quickly Reskin Existing Models
 
 Write a yaml file like below and name it `.cfg.yaml`.
 IFO, FC/CF7 and CFG files will be generated accordingly.
@@ -232,3 +240,31 @@ Modinfo:
 
 - Basically Anno Mod Manager [modinfo.json](https://github.com/anno-mods/Modinfo) content.
 - `modinfo.Description` differs from what the Anno Mod Manager uses. Instead of text use a relative path to a Markdown file. Images will be excluded from the Markdown.
+
+---
+
+## Extension Settings
+
+* `anno.modsFolder`: (optional) path to your `mods/` folder. Available as `${annoMods}` in `annomod.json`. Not required if you don't use the variable.
+* `anno.rdaFolder`: (optional) path with RDA data extracted. Available as `${annoRda}` in `*.cfg.yaml` files. You only need the data extracted your mods need. The extension itself does not use this.
+* `anno.outlineFolderDepth`: folder depth of props, materials and alike shown .cfg outline.
+
+## Requirements
+
+Some features like .fc conversion rely on external applications that run only on Windows.
+Native functions like outlines, highlighting work with Linux/WSL as well though.
+
+## Credits
+
+A big thanks goes to the external projects I'm using for this extension:
+
+- AnnoFCConverter - https://github.com/taubenangriff/AnnoFCConverter/
+- rdm4 - https://github.com/lukts30/rdm4
+- FileDBReader - https://github.com/anno-mods/FileDBReader
+- texconv - https://github.com/microsoft/DirectXTex
+- gltf-import-export - https://github.com/najadojo/gltf-import-export
+- xmltest - https://github.com/xforce/anno1800-mod-loader
+
+## Release Notes / Known Issues
+
+See changes and known issues in [CHANGELOG](./CHANGELOG.md)

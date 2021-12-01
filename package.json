@@ -2,7 +2,7 @@
   "name": "anno-modding-tools",
   "displayName": "Modding Tools for Anno",
   "description": "Modding tools for Anno 1800",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "publisher": "JakobHarder",
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
     "onLanguage:anno-cfg",
     "onLanguage:anno-ifo",
     "onLanguage:anno-cf7",
+    "onLanguage:anno-prp",
     "onCommand:anno-modding-tools.buildMod",
     "onCommand:anno-modding-tools.convertFcCf7",
     "onCommand:anno-modding-tools.convertCf7Fc",
@@ -69,6 +70,18 @@
           "anno-cf7"
         ],
         "configuration": "./languages/cfg.language-configuration.json"
+      },
+      {
+        "id": "anno-prp",
+        "extensions": [
+          ".prp"
+        ],
+        "firstLine": "\\<Config",
+        "aliases": [
+          "Anno Prop Config",
+          "anno-prp"
+        ],
+        "configuration": "./languages/cfg.language-configuration.json"
       }
     ],
     "grammars": [
@@ -86,6 +99,11 @@
         "language": "anno-cf7",
         "scopeName": "text.cf7",
         "path": "./languages/cf7.tmLanguage.json"
+      },
+      {
+        "language": "anno-prp",
+        "scopeName": "text.prp",
+        "path": "./languages/prp.tmLanguage.json"
       }
     ],
     "commands": [

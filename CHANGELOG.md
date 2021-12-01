@@ -23,6 +23,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
   - FC GUID hover
   - Include XML formatter / declare as xml format?
 - Details for feedback definition
+- Testing
+  - Allow comments in `-expectation.xml` files
 - Issues
   - issue with yellow metal texture from Blender export
   - Show strong warning when there's no tangent information on the mesh
@@ -30,6 +32,15 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
   - empty annomod project breaks the extension (tradepatent-fish)
 - Internal
   - replace all texconv usage to reduce number of tools
+
+### Added
+
+- Anno Prop Config `.prp` outline and syntax highlighting
+- Outlines for files with `</>` syntax
+- Hitbox import from glTF into `.ifo`
+- UnevenBlocker import from glTF into `.ifo`
+- FeedbackBlocker import from glTF into `.ifo`
+- Dummy import from glTF into `.ifo`
 
 ## [0.5.2]
 

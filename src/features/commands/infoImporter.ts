@@ -5,6 +5,7 @@ import * as xmldoc from 'xmldoc';
 import ProppedModel from '../../other/proppedModel';
 import AnnoXml from '../../other/annoXml';
 import * as channel from '../channel';
+import { Quaternion } from '../../other/math';
 
 export class InfoImporter {
   insertPropContainer: xmldoc.XmlElement | undefined = undefined;
@@ -25,11 +26,7 @@ export class InfoImporter {
 
         let openUri = await vscode.window.showOpenDialog(options);
         if (openUri && openUri[0]) {
-          channel.show();
-          channel.log(`Import from ${path.basename(openUri[0].fsPath)} into ${path.basename(fileUri.fsPath)}`);
-
-          const importer = new InfoImporter();
-          importer.importInfo(fileUri.fsPath, openUri[0].fsPath);
+          InfoImporter.commandImportInfo(fileUri.fsPath, openUri[0].fsPath);
         }
       })
     ];
@@ -37,20 +34,121 @@ export class InfoImporter {
     return disposable;
 	}
 
-  public importInfo(targetFile: string, modelFile: string) {
-    const model = ProppedModel.fromFile(modelFile);
-    const xml = AnnoXml.fromFile(targetFile);
+  public static commandImportInfo(cfgFilePath: string, gltfFilePath: string) {
+    channel.show();
+    channel.log(`Import from ${path.basename(gltfFilePath)} into ${path.basename(cfgFilePath)}`);
 
+    const model = ProppedModel.fromFile(gltfFilePath);
+    const xml = AnnoXml.fromFile(cfgFilePath);
+    const importer = new InfoImporter();
+    importer.importHitBoxes(model, xml);
+    importer.importDummies(model, xml);
+    importer.importBuildBlocker(model, xml);
+    importer.importFeedbackBlocker(model, xml);
+    importer.importUnevenBlocker(model, xml);
+    fs.writeFileSync(cfgFilePath, xml.toString());
+  }
+
+  public importHitBoxes(model: ProppedModel, xml: AnnoXml) {
+    const hitboxes = model.getHitBoxes();
+    if (hitboxes && hitboxes.length > 0) {
+      xml.ensureSection('Info', [ { } ]);
+      channel.log(`Import IntersectBox from nodes/meshes starting with 'hitbox'`);
+
+      xml.remove('//Info/IntersectBox', { all: true, silent: true });
+      for (let hitbox of hitboxes) {
+        const parent = xml.findElement('//Info'); 
+        if (parent) {
+          /* eslint-disable @typescript-eslint/naming-convention */
+          parent.createChild('IntersectBox', { after: [ 'IntersectBox', 'DisableFeedbackArea', 'MeshBoundingBox', 'BoundingBox' ] }).set({
+            Name: hitbox.name,
+            Position: hitbox.center.toFixedF(),
+            Rotation: Quaternion.default.toFixedF(0),
+            Extents: hitbox.size.div(2).toFixedF()
+          });
+          /* eslint-enable @typescript-eslint/naming-convention */
+        }
+        else {
+          console.error(`ensureSection should have created //Info`);
+        }
+      }
+    }
+    else {
+      channel.log('No node/mesh starting with \'hitbox\' found. Skip hitboxes');
+    }
+  }
+
+  /** update or add Dummy entries. Does not remove. */
+  public importDummies(model: ProppedModel, xml: AnnoXml) {
+    const dummies = model.getDummies();
+    xml.ensureSection('Info', [ { } ]);
+    const parent = xml.findElement('Info');
+    if (dummies && parent) {
+      channel.log('Import Dummy from nodes/meshes starting with \'dummy_\'');
+      for (let dummy of dummies) {
+        let dummyNode = parent.findElement(`//Dummy[Name='${dummy.name}']`);
+        if (!dummyNode) {
+          const afterElements = [ 'Dummy', 'IntersectBox', 'DisableFeedbackArea', 'MeshBoundingBox', 'BoundingBox' ];
+          dummyNode = parent.createChild('Dummy', { after: afterElements });
+        }
+        dummyNode.set({
+          /* eslint-disable @typescript-eslint/naming-convention */
+          Name: dummy.name,
+          Position: dummy.position.toFixedF(),
+          Rotation: dummy.rotation.round(1000000).toF(),
+          Extents: dummy.extends.round(1000000).toF()
+          /* eslint-enable @typescript-eslint/naming-convention */
+        });
+      }
+    }
+    else {
+      channel.log('No node/mesh starting with \'dummy_\' found. Skip Dummy');
+    }
+  }
+
+  public importBuildBlocker(model: ProppedModel, xml: AnnoXml) {
     const ground = model.getBuildBlocker();
     if (ground) {
+      xml.ensureSection('Info', [ { } ]);
       channel.log('Import BuildBlocker from node/mesh \'ground\'');
-      xml.setArray('BuildBlocker', 'Position', ground);
+      xml.remove('//Info/BuildBlocker', { silent: true });
+      const afterElements = [ 'Sequence', 'Dummy', 'IntersectBox', 'DisableFeedbackArea', 'MeshBoundingBox', 'BoundingBox' ];
+      xml.findElement('Info')?.createChild('BuildBlocker', { after: afterElements }).fill('Position', ground.map(e => e.round(2).toF()));
     }
     else {
       channel.log('No \'ground\' node/mesh found. Skip BuildBlocker');
     }
+  }
 
-    fs.writeFileSync(targetFile, xml.toString());
+  public importFeedbackBlocker(model: ProppedModel, xml: AnnoXml) {
+    const feedbacks = model.getFeedbackBlocker();
+    xml.ensureSection('Info', [ { } ]);
+    const parent = xml.findElement('Info');
+    if (feedbacks && parent) {
+      channel.log('Import FeedbackBlocker from nodes/meshes starting with \'FeedbackBlocker\'');
+      xml.remove('//Info/FeedbackBlocker', { all: true, silent: true });
+      for (let feedback of feedbacks) {
+        const afterElements = [ 'FeedbackBlocker', 'BuildBlocker', 'Sequence', 'Dummy', 'IntersectBox', 'DisableFeedbackArea', 'MeshBoundingBox', 'BoundingBox' ];
+        parent.createChild('FeedbackBlocker', { after: afterElements }).fill('Position', feedback.map(e => e.round(4).toF()));
+      }
+    }
+    else {
+      channel.log('No node/mesh starting with \'FeedbackBlocker\' found. Skip FeedbackBlocker');
+    }
+  }
+
+  public importUnevenBlocker(model: ProppedModel, xml: AnnoXml) {
+    const unevenBlocker = model.getUnevenBlocker();
+    if (unevenBlocker) {
+      xml.ensureSection('Info', [ { } ]);
+      channel.log('Import UnevenBlocker from node/mesh \'UnevenBlocker\'');
+      xml.remove('//Info/UnevenBlocker', { silent: true });
+      const afterElements = [ 'FeedbackBlocker', 'BuildBlocker', 'Sequence', 'Dummy', 'IntersectBox', 'DisableFeedbackArea', 'MeshBoundingBox', 'BoundingBox' ];
+      xml.findElement('Info')?.createChild('UnevenBlocker', { after: afterElements }).fill('Position', unevenBlocker.map(e => e.aceil(4).toF()));
+    }
+    else {
+      channel.log('No \'UnevenBlocker\' node/mesh found. Skip UnevenBlocker');
+    }
   }
 
   private static _findModelFile(cfgFilePath: string) {
