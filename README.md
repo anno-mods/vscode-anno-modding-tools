@@ -127,6 +127,7 @@ IFO file imports:
   - Imported from multiple mesh objects (i.e. plane) with prefix `FeedbackBlocker`
   - Positions are taken from mesh vertices.
     The first 4 vertices will be sorted to correct order.
+    Rounded to .25
 - `<BuildBlocker>`: tile size of the building
   - Imported from one mesh object (i.e. plane) with name `ground`
   - Positions are taken from mesh vertices.
@@ -135,7 +136,7 @@ IFO file imports:
 - `<UnevenBlocker>`: area to always keep above ground
   - Imported from one mesh object (i.e. plane) with name `UnevenBlocker`
   - Positions are taken from mesh vertices.
-    The first 4 vertices will be sorted to correct order.
+    Rounded **up** in .25 steps
 
 ### Quickly Reskin Existing Models
 

@@ -135,20 +135,20 @@
   </Dummy>
   <BuildBlocker>
     <Position>
-      <xf>-2.0</xf>
-      <zf>2.0</zf>
+      <xf>-2</xf>
+      <zf>2</zf>
     </Position>
     <Position>
-      <xf>2.0</xf>
-      <zf>2.0</zf>
+      <xf>2</xf>
+      <zf>2</zf>
     </Position>
     <Position>
-      <xf>2.0</xf>
-      <zf>-2.0</zf>
+      <xf>2</xf>
+      <zf>-2</zf>
     </Position>
     <Position>
-      <xf>-2.0</xf>
-      <zf>-2.0</zf>
+      <xf>-2</xf>
+      <zf>-2</zf>
     </Position>
   </BuildBlocker>
   <FeedbackBlocker>
@@ -189,20 +189,20 @@
   </FeedbackBlocker>
   <UnevenBlocker>
     <Position>
-      <xf>-1.779689</xf>
-      <zf>2.000000</zf>
+      <xf>-2</xf>
+      <zf>2</zf>
     </Position>
     <Position>
-      <xf>1.257310</xf>
-      <zf>2.000000</zf>
+      <xf>1.5</xf>
+      <zf>2</zf>
     </Position>
     <Position>
-      <xf>1.257310</xf>
-      <zf>-2.000000</zf>
+      <xf>-2</xf>
+      <zf>-2</zf>
     </Position>
     <Position>
-      <xf>-1.779690</xf>
-      <zf>-2.000000</zf>
+      <xf>1.5</xf>
+      <zf>-2</zf>
     </Position>
   </UnevenBlocker>
 </Info>

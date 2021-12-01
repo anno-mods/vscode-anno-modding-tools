@@ -350,7 +350,7 @@ export default class ProppedModel {
   private _unevenBlocker: Vector2[] | undefined;
   public getUnevenBlocker() {
     if (!this._unevenBlocker) {
-      this._unevenBlocker = _sortVectorsXZ(_readVectors(_findFirstNode(this.gltf, 'UnevenBlocker', this.resourceFolder))).map(e => e.toVector2());
+      this._unevenBlocker = _readVectors(_findFirstNode(this.gltf, 'UnevenBlocker', this.resourceFolder)).map(e => e.toVector2());
     }
     return (this._unevenBlocker.length > 0) ? this._unevenBlocker : undefined;
   }

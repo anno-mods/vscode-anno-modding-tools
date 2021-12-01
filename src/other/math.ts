@@ -125,6 +125,13 @@ export class Vector2 {
   public round(factor: number = 1) {
     return new Vector2(Math.round(this.x * factor) / factor, Math.round(this.z * factor) / factor);
   }
+  
+  /** return new Vector with rounded up values in both sign directions */
+  public aceil(factor: number = 1) {
+    return new Vector2(
+      Math.ceil(Math.sign(this.x) * this.x * factor - 0.0000001) / factor * Math.sign(this.x), 
+      Math.ceil(Math.sign(this.z) * this.z * factor - 0.0000001) / factor * Math.sign(this.z));
+  }
 }
 
 export class Quaternion {

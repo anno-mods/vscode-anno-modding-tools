@@ -113,7 +113,7 @@ export class InfoImporter {
       channel.log('Import BuildBlocker from node/mesh \'ground\'');
       xml.remove('//Info/BuildBlocker', { silent: true });
       const afterElements = [ 'Sequence', 'Dummy', 'IntersectBox', 'DisableFeedbackArea', 'MeshBoundingBox', 'BoundingBox' ];
-      xml.findElement('Info')?.createChild('BuildBlocker', { after: afterElements }).fill('Position', ground.map(e => e.toFixedF(1)));
+      xml.findElement('Info')?.createChild('BuildBlocker', { after: afterElements }).fill('Position', ground.map(e => e.round(2).toF()));
     }
     else {
       channel.log('No \'ground\' node/mesh found. Skip BuildBlocker');
@@ -129,7 +129,7 @@ export class InfoImporter {
       xml.remove('//Info/FeedbackBlocker', { all: true, silent: true });
       for (let feedback of feedbacks) {
         const afterElements = [ 'FeedbackBlocker', 'BuildBlocker', 'Sequence', 'Dummy', 'IntersectBox', 'DisableFeedbackArea', 'MeshBoundingBox', 'BoundingBox' ];
-        parent.createChild('FeedbackBlocker', { after: afterElements }).fill('Position', feedback.map(e => e.round(100).toF()));
+        parent.createChild('FeedbackBlocker', { after: afterElements }).fill('Position', feedback.map(e => e.round(4).toF()));
       }
     }
     else {
@@ -144,7 +144,7 @@ export class InfoImporter {
       channel.log('Import UnevenBlocker from node/mesh \'UnevenBlocker\'');
       xml.remove('//Info/UnevenBlocker', { silent: true });
       const afterElements = [ 'FeedbackBlocker', 'BuildBlocker', 'Sequence', 'Dummy', 'IntersectBox', 'DisableFeedbackArea', 'MeshBoundingBox', 'BoundingBox' ];
-      xml.findElement('Info')?.createChild('UnevenBlocker', { after: afterElements }).fill('Position', unevenBlocker.map(e => e.toFixedF()));
+      xml.findElement('Info')?.createChild('UnevenBlocker', { after: afterElements }).fill('Position', unevenBlocker.map(e => e.aceil(4).toF()));
     }
     else {
       channel.log('No \'UnevenBlocker\' node/mesh found. Skip UnevenBlocker');
