@@ -105,35 +105,37 @@ Entries not existing in the model will be marked as `_removed` and not removed a
 
 CF7 file imports:
 
-- `<Dummies><i>` with prefix `fc_` *(walking & talking people)*
-  - Position, Orientation, RotationY
-  - ⚠ Note: Matches will happen without the prefix.
-    E.g. `fc_Dummy0` from the model will be matched with `Dummy0` in the CF7 file.
-    This is to avoid the need to rename items in the CF7 file.
+- `<Dummies><i>`: people, FireDummy, feedback_door, ...
+  - Imported from multiple objects with prefix `fc_`.
+  - `Position` and `Orientation` are taken from the object.
+    `RotationY` is calculated from the orientation.
+  - `<Name>` of the entry will be matched against what comes after `fc_`.
+    E.g. `fc_Dummy0` will be matched against `<Name>Dummy0</Name>`.
+  - Entries not existing in the model will not be removed.
 
 IFO file imports:
 
 - `<IntersectBox>`: clickable 3D area (aka hitbox) of the building
   - Imported from multiple mesh object (e.g. cube) with prefix `hitbox`
-  - Boxes are calculated from the boundaries of the objects.
+  - `Position`, `Rotation` and `Extents` are calculated from the boundaries of the objects.
     1 box per object.
 - `<Dummy>`: transporter spawn, fire locations, ...
   - Imported from multiple objects with prefix `dummy_`.
-  - Position, rotation and extends are taken from the object.
+  - `Position`, `Rotation` and `Extents` are taken from the object.
   - `<Name>` of the entry will be matched against what comes after `dummy_`.
     E.g. `dummy_transporter_spawn` will be matched against `<Name>transporter_spawn</Name>`.
   - Entries not existing in the model will not be removed.
 - `<FeedbackBlocker>`: area people can walk through
   - Imported from multiple mesh objects (e.g. plane) with prefix `FeedbackBlocker`
-  - Positions are taken from mesh vertices.
+  - `Position`s are taken from mesh vertices.
     Rounded to .25
 - `<BuildBlocker>`: tile size of the building
   - Imported from one mesh object (e.g. plane) with name `ground`
-  - Positions are taken from mesh vertices.
+  - `Position`s are taken from mesh vertices.
     Rounded to .5
 - `<UnevenBlocker>`: area to always keep above ground
   - Imported from one mesh object (e.g. plane) with name `UnevenBlocker`
-  - Positions are taken from mesh vertices.
+  - `Position`s are taken from mesh vertices.
     Rounded **up** in .25 steps
 
 ### Quickly Reskin Existing Models

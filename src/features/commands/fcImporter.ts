@@ -25,22 +25,26 @@ export class FcImporter {
 
         let openUri = await vscode.window.showOpenDialog(options);
         if (openUri && openUri[0]) {
-          const importer = new FcImporter();
-          const model = ProppedModel.fromFile(openUri[0].fsPath);
-          const xml = AnnoXml.fromFile(fileUri.fsPath);
-
-          channel.show();
-          channel.log(`Import from ${path.basename(openUri[0].fsPath)} into ${path.basename(fileUri.fsPath)}`);
-
-          importer.importFeedback(xml, model);
-
-          fs.writeFileSync(fileUri.fsPath, xml.toString());
+          FcImporter.commandImportFeedback(fileUri.fsPath, openUri[0].fsPath); 
         }
       })
     ];
 
     return disposable;
 	}
+
+  public static commandImportFeedback(cfgFilePath: string, gltfFilePath: string) {
+    const importer = new FcImporter();
+    const model = ProppedModel.fromFile(gltfFilePath);
+    const xml = AnnoXml.fromFile(cfgFilePath);
+
+    channel.show();
+    channel.log(`Import from ${path.basename(gltfFilePath)} into ${path.basename(cfgFilePath)}`);
+
+    importer.importFeedback(xml, model);
+
+    fs.writeFileSync(cfgFilePath, xml.toString());
+  }
 
   public importFeedback(xml: AnnoXml, model: ProppedModel) {
     // update existing particles

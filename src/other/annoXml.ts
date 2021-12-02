@@ -100,8 +100,7 @@ export class AnnoXmlElement {
       }
     }
     
-    let history: string[] = [];
-
+    let longestMatch: string[] = [];
     const found: xmldoc.XmlElement[] = [];
     const candidates: { nodes: XPathNode[], element: xmldoc.XmlElement, history: string[] }[] = [
       {
@@ -112,30 +111,28 @@ export class AnnoXmlElement {
     ];      
 
     while (candidates.length > 0 && (options?.all || found.length === 0)) {
-      const candidate = candidates.pop() as { nodes: XPathNode[], element: xmldoc.XmlElement, history: string[] }; // never is undefined
-      const remainder = candidate.nodes.slice(); // make a copy
-      const next = remainder.shift();
-      if (!next) {
+      const candidate = candidates.pop()!; // most recent candidates first -> go deep first
+      const remainingNodes = candidate.nodes.slice(); // make a copy
+      const nextRemainingNode = remainingNodes.shift();
+      if (!nextRemainingNode) { // we've matched the whole path
         found.push(candidate.element);
-        continue;
+        if (options?.all) { continue; }
+        break; // stop searching
       }
 
-      this._forEachWithCondition(candidate.element, next, (e: xmldoc.XmlElement, idx: number) => {
-        candidates.push({
-          nodes: remainder,
-          element: e,
-          history: [...candidate.history, next.toString()]
-        });
-        return options?.all ? undefined : -1;
+      // add all matching children paths in reverse order to candidates to keep most recent the first entry
+      this._forEachWithCondition(candidate.element.children.slice().reverse(), nextRemainingNode, (element: xmldoc.XmlElement) => {
+        candidates.push({ nodes: remainingNodes, element, history: [...candidate.history, nextRemainingNode.toString()] });
+        return undefined; // continue to add all matching elemends
       });
 
-      if (history.length - 1 < candidate.history.length) {
-        history = [...candidate.history, next.toString()];
+      if (longestMatch.length - 1 < candidate.history.length) {
+        longestMatch = [...candidate.history, nextRemainingNode.toString()];
       }
     }
     if (found.length === 0) {
       if (!options?.silent) {
-        logger.warn(`cannot find element //${history.join('/')}`);
+        logger.warn(`cannot find element //${longestMatch.join('/')}`);
         if (!originalPath.startsWith('//')) {
           logger.warn(`${originalPath} was considered as ${path}`);
         }
@@ -179,7 +176,7 @@ export class AnnoXmlElement {
     }
 
     let removed = false;
-    this._forEachWithCondition(parent._element, toRemove, (e, idx) => {
+    this._forEachWithCondition(parent._element.children, toRemove, (e, idx) => {
       const lineStartIdx = _findLineStart(parent._element, idx);
       const nextLineIdx = _findLineEnd(parent._element, idx);
       parent._element.children.splice(lineStartIdx, nextLineIdx - lineStartIdx + 1);
@@ -254,9 +251,9 @@ export class AnnoXmlElement {
     }
   }
 
-  private _forEachWithCondition(element: xmldoc.XmlElement, xpathNode: XPathNode, callback: (e: xmldoc.XmlElement, idx: number) => number | undefined) {
-    for (let idx = 0; idx < element.children.length; idx++) {
-      const child = element.children[idx];
+  private _forEachWithCondition(array: xmldoc.XmlNode[], xpathNode: XPathNode, callback: (e: xmldoc.XmlElement, idx: number) => number | undefined) {
+    for (let idx = 0; idx < array.length; idx++) {
+      const child = array[idx];
       if (child.type !== 'element' || child.name !== xpathNode.tag) {
         continue;
       }
