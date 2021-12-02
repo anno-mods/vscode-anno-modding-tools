@@ -6,6 +6,7 @@ import * as xml2js from 'xml2js';
 
 import { PropImporter } from '../../features/commands/propImporter';
 import { InfoImporter } from '../../features/commands/infoImporter';
+import { FcImporter } from '../../features/commands/fcImporter';
 
 suite('import tests', () => {
   // clear to avoid old files leading to wrong results
@@ -40,7 +41,6 @@ suite('import tests', () => {
 
     assert.deepStrictEqual(imported, expected);
   });
-
   
   test('empty IFO import', async () => {
     const propsGltf = path.resolve('../../src/test/suite/data/empty.gltf');
@@ -52,6 +52,20 @@ suite('import tests', () => {
 
     const imported = await xml2js.parseStringPromise(fs.readFileSync(ifo, 'utf8'));
     const expected = await xml2js.parseStringPromise(fs.readFileSync('../../src/test/suite/data/hitbox.ifo', 'utf8'));
+
+    assert.deepStrictEqual(imported, expected);
+  });
+  
+  test('fc feedback import', async () => {
+    const fcGltf = path.resolve('../../src/test/suite/data/fc.gltf');
+    const fc = path.resolve('../../out/test/suite/data/fc.cf7');
+    utils.ensureDir(path.dirname(fc));
+    fs.copyFileSync('../../src/test/suite/data/fc.cf7', fc);
+
+    FcImporter.commandImportFeedback(fc, fcGltf);
+
+    const imported = await xml2js.parseStringPromise(fs.readFileSync(fc, 'utf8'));
+    const expected = await xml2js.parseStringPromise(fs.readFileSync('../../src/test/suite/data/fc-expected.cf7', 'utf8'));
 
     assert.deepStrictEqual(imported, expected);
   });

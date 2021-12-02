@@ -1,0 +1,79 @@
+<DummyRoot>
+  <hasValue>1</hasValue>
+  <Name></Name>
+  <Groups>
+    <i>
+      <hasValue>1</hasValue>
+      <Name>standing_workers_01</Name>
+      <Groups></Groups>
+      <Dummies>
+        <i>
+          <hasValue>1</hasValue>
+          <Name>standing_workers_01_0</Name>
+          <Position>
+            <x>0.065715</x>
+            <y>0.023522</y>
+            <z>0.216756</z>
+          </Position>
+          <Orientation>
+            <w>0.996553</w>
+            <x>0.000000</x>
+            <y>-0.082963</y>
+            <z>0.000000</z>
+          </Orientation>
+          <Extents>
+            <x>0.100000</x>
+            <y>0.100000</y>
+            <z>0.100000</z>
+          </Extents>
+          <RotationY>0.166108</RotationY>
+          <Id>4</Id>
+          <HeightAdaptationMode>1</HeightAdaptationMode>
+        </i>
+      </Dummies>
+      <Id>6</Id>
+    </i>
+    <i>
+      <hasValue>1</hasValue>
+      <Name>standing_workers_02</Name>
+      <Groups></Groups>
+      <Dummies>
+        <i>
+          <hasValue>1</hasValue>
+          <Name>standing_workers_01_1</Name>
+          <Position>
+            <x>0.113109</x>
+            <y>0.169462</y>
+            <z>0.018992</z>
+          </Position>
+          <Orientation>
+            <w>0.975442</w>
+            <x>0.000000</x>
+            <y>0.220259</y>
+            <z>0.000000</z>
+          </Orientation>
+          <Extents>
+            <x>0.100000</x>
+            <y>0.100000</y>
+            <z>0.100000</z>
+          </Extents>
+          <RotationY>5.839031</RotationY>
+          <Id>5</Id>
+          <HeightAdaptationMode>1</HeightAdaptationMode>
+        </i>
+      </Dummies>
+      <Id>35</Id>
+    </i>
+  </Groups>
+  <Dummies></Dummies>
+  <Id>29</Id>
+</DummyRoot>
+<IdCounter>81</IdCounter>
+<SplineData></SplineData>
+<FeedbackDefinition></FeedbackDefinition>
+<ActorNames>
+  <hasValue>1</hasValue>
+  <i>[Root Object]</i>
+  <i>standing_workers_01</i>
+  <i>standing_workers_02</i>
+</ActorNames>
