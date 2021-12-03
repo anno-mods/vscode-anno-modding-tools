@@ -15,23 +15,23 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
   - `<Materials>` and `<MaterialLODInfos>` import
 - Outline
   - ConfigType LIGHT
-  - Cloth model/materials in outline (new world residence tier2)
-  - UnevenBlocker in outline (and unkown elements on the same level)
   - better outline behavior when writing new tags
 - Editing
   - support and strip comments from `.cfg`, `.ifo`
   - FC GUID hover
   - Include XML formatter / declare as xml format?
-- Details for feedback definition
 - Testing
   - Allow comments in `-expectation.xml` files
 - Issues
-  - issue with yellow metal texture from Blender export
   - Show strong warning when there's no tangent information on the mesh
   - error handling for invalid xml files
   - empty annomod project breaks the extension (tradepatent-fish)
 - Internal
   - replace all texconv usage to reduce number of tools
+
+### Added
+
+- `xpath-add` to add new sections with `.cfg.yaml` files.
 
 ## [0.6.1]
 

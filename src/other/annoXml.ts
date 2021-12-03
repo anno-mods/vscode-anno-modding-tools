@@ -191,7 +191,7 @@ export class AnnoXmlElement {
     }
   }
 
-  public set(values: any, options?: { defaults?: any }) {
+  public set(values: any, options?: { defaults?: any, keepUnderscore?: boolean }) {
     if (values === undefined) {
       return;
     }
@@ -215,7 +215,7 @@ export class AnnoXmlElement {
       }
 
       for (let key of keys) {
-        const xmlKeyName = key.replace('_', '.');
+        const xmlKeyName = options?.keepUnderscore ? key : key.replace('_', '.');
         let targetElement = this._element.childNamed(xmlKeyName);
         const elementDefaults = options?.defaults && options?.defaults[key];
         const elementValues = values[key];
@@ -225,7 +225,7 @@ export class AnnoXmlElement {
           let textValue = (typeof elementDefaults === 'string' || typeof elementDefaults === 'number') ? elementDefaults.toString() : undefined;
           targetElement = _createXmlElement(this._element, xmlKeyName, textValue);
           if (elementDefaults && !textValue) {
-            new AnnoXmlElement(targetElement).set(elementDefaults);
+            new AnnoXmlElement(targetElement).set(elementDefaults, { keepUnderscore: options?.keepUnderscore });
           }
         }
 
@@ -238,7 +238,7 @@ export class AnnoXmlElement {
             if (!firstChild) {
               firstChild = _createXmlElement(this._element, xmlKeyName);
             }
-            new AnnoXmlElement(firstChild).set(elementValues);
+            new AnnoXmlElement(firstChild).set(elementValues, { keepUnderscore: options?.keepUnderscore });
           }
           else {
             console.error('trying to write something odd');

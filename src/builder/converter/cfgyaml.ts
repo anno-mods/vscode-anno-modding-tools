@@ -106,6 +106,17 @@ export class CfgYamlConverter extends Converter {
           this._logger.warn(`cannot find ${modification.xpath}`);
         }
       }
+      else if (modification['xpath-add']) {
+        const parent = xml.findElement(modification['xpath-add']);
+        if (!parent) {
+          this._logger.warn(`cannot find ${modification['xpath-add']}`);
+          continue;
+        }
+        for (let child of Object.keys(modification)) {
+          if (child === 'xpath-add') { continue; }
+          parent.createChild(child).set(modification[child], { keepUnderscore: true });
+        }
+      }
       else if (modification['xpath-remove']) {
         xml.remove(modification['xpath-remove']);
       }
