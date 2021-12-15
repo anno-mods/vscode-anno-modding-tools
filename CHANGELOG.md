@@ -28,6 +28,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
   - empty annomod project breaks the extension (tradepatent-fish)
 - Internal
   - replace all texconv usage to reduce number of tools
+- Converter
+  - .fc/.cf7 cfgyaml variants
 
 ### Added
 
