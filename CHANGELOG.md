@@ -31,6 +31,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Converter
   - .fc/.cf7 cfgyaml variants
 
+## [0.7.0]
+
 ### Added
 
 - `xpath-add` to add new sections with `.cfg.yaml` files.
