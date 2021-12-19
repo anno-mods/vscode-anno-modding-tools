@@ -65,6 +65,7 @@ export class ModBuilder {
 
     utils.ensureDir(outFolder);
     const modCache = new ModCache(path.dirname(filePath), this._variables['annoRda']);
+    modCache.load();
 
     for (const entry of modJson.converter) {
       const allFiles = entry.pattern ? glob.sync(entry.pattern, { cwd: sourceFolder, nodir: true }) : [];
