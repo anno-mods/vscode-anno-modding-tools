@@ -192,12 +192,12 @@ export default class ProppedModel {
     
     for (let node of gltf.nodes) {
       if (node.name.startsWith('prop_')) {
-        const meshName = gltf.meshes[node.mesh].name.replace(/\.\d\d\d$/, '');
+        const meshName = gltf.meshes[node.mesh]?.name.replace(/\.\d\d\d$/, '');
 
         props[node.name] = {
           /* eslint-disable @typescript-eslint/naming-convention */
           Name: node.name,
-          FileName: meshName.endsWith('.prp') ? meshName : undefined, // don't overwrite FileName if it doesn't fit
+          FileName: meshName?.endsWith('.prp') ? meshName : undefined, // don't overwrite FileName if it doesn't fit
           Position_x: node.translation[0].toFixed(6),
           Position_y: node.translation[1].toFixed(6),
           Position_z: node.translation[2].toFixed(6),
@@ -252,11 +252,11 @@ export default class ProppedModel {
         };
       }
       if (node.name.startsWith('file_')) {
-        const meshName = gltf.meshes[node.mesh].name.replace(/\.\d\d\d$/, '');
+        const meshName = gltf.meshes[node.mesh]?.name.replace(/\.\d\d\d$/, '');
         files[node.name] = {
           /* eslint-disable @typescript-eslint/naming-convention */
           Name: node.name,
-          FileName: meshName.endsWith('.cfg') ? meshName : undefined, // don't overwrite FileName if it doesn't fit
+          FileName: meshName?.endsWith('.cfg') ? meshName : undefined, // don't overwrite FileName if it doesn't fit
           Transformer: {
             Config: {
               Position_x: node.translation[0].toFixed(6),
