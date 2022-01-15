@@ -23,6 +23,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Testing
   - Allow comments in `-expectation.xml` files
 - Issues
+  - single named entry, e.g. _2f_lod0, doesn't take the name
+  - Convert To FC on .fc files?
+  - removing _removed on imports works only for first container
   - Show strong warning when there's no tangent information on the mesh
   - error handling for invalid xml files
   - empty annomod project breaks the extension (tradepatent-fish)
@@ -30,6 +33,11 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
   - replace all texconv usage to reduce number of tools
 - Converter
   - .fc/.cf7 cfgyaml variants
+
+### Modified
+
+- Fixed bug in cfgyaml conversion where `ADJUST_TO_TERRAIN_HEIGHT` would turn into `ADJUST.TO_TERRAIN_HEIGHT`.
+- Support arrays in cfgyaml
 
 ## [0.7.0]
 

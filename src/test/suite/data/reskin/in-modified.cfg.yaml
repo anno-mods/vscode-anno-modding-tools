@@ -1,0 +1,26 @@
+variant: 
+  source: in-config.cfg
+  modifications:
+    - xpath: //Config/LODs/Indices
+      i:
+        - 0
+        - 1
+    - xpath-add: //Config
+      addedLods:
+        i:
+          - 0
+          - 1
+    - xpath-add: //Config
+      text: hallo
+    - xpath: //Config/text
+      text: hallo2
+    - xpath: //Config
+      ZeroTest: 0
+    - xpath-add: //Config/Models/Config/Materials
+      Config:
+        name: mat
+        FileName: "file.psd"
+    - xpath-add: //Config/Models/Config/Materials
+      Config:
+        name: mat2
+        FileName: "file2.psd"

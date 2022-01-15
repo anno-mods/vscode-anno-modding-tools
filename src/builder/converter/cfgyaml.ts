@@ -122,7 +122,7 @@ export class CfgYamlConverter extends Converter {
       if (modification.xpath) {
         // overwrite all values except xpath
         const { xpath, ...values } = modification;
-        if (!xml.set(modification.xpath, values, { all: true })) {
+        if (!xml.set(modification.xpath, values, { all: true, keepUnderscore: true })) {
           this._logger.warn(`cannot find ${modification.xpath}`);
         }
       }
