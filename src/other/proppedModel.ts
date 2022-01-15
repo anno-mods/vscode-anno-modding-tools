@@ -191,6 +191,14 @@ export default class ProppedModel {
     }
     
     for (let node of gltf.nodes) {
+      if (!node.name) {
+        continue;
+      }
+
+      const nodeTranslation = node.translation ? node.translation : [0, 0, 0];
+      const nodeRotation = node.rotation ? node.rotation : [0, 0, 0, 1];
+      const nodeScale = node.scale ? node.scale : [1, 1, 1];
+
       if (node.name.startsWith('prop_')) {
         const meshName = gltf.meshes[node.mesh]?.name.replace(/\.\d\d\d$/, '');
 
@@ -198,16 +206,16 @@ export default class ProppedModel {
           /* eslint-disable @typescript-eslint/naming-convention */
           Name: node.name,
           FileName: meshName?.endsWith('.prp') ? meshName : undefined, // don't overwrite FileName if it doesn't fit
-          Position_x: node.translation[0].toFixed(6),
-          Position_y: node.translation[1].toFixed(6),
-          Position_z: node.translation[2].toFixed(6),
-          Rotation_x: (node.rotation ? node.rotation[0] : 0).toFixed(6),
-          Rotation_y: (node.rotation ? node.rotation[1] : 0).toFixed(6),
-          Rotation_z: (node.rotation ? node.rotation[2] : 0).toFixed(6),
-          Rotation_w: (node.rotation ? node.rotation[3] : 1).toFixed(6),
-          Scale_x: (node.scale ? node.scale[0] : 1).toFixed(6),
-          Scale_y: (node.scale ? node.scale[1] : 1).toFixed(6),
-          Scale_z: (node.scale ? node.scale[2] : 1).toFixed(6)
+          Position_x: nodeTranslation[0].toFixed(6),
+          Position_y: nodeTranslation[1].toFixed(6),
+          Position_z: nodeTranslation[2].toFixed(6),
+          Rotation_x: nodeRotation[0].toFixed(6),
+          Rotation_y: nodeRotation[1].toFixed(6),
+          Rotation_z: nodeRotation[2].toFixed(6),
+          Rotation_w: nodeRotation[3].toFixed(6),
+          Scale_x: nodeScale[0].toFixed(6),
+          Scale_y: nodeScale[1].toFixed(6),
+          Scale_z: nodeScale[2].toFixed(6)
           /* eslint-enable @typescript-eslint/naming-convention */
         };
       }
@@ -216,14 +224,14 @@ export default class ProppedModel {
           /* eslint-disable @typescript-eslint/naming-convention */
           Transformer: {
             Config: {
-              Position_x: node.translation[0].toFixed(6),
-              Position_y: node.translation[1].toFixed(6),
-              Position_z: node.translation[2].toFixed(6),
-              Rotation_x: (node.rotation ? node.rotation[0] : 0).toFixed(6),
-              Rotation_y: (node.rotation ? node.rotation[1] : 0).toFixed(6),
-              Rotation_z: (node.rotation ? node.rotation[2] : 0).toFixed(6),
-              Rotation_w: (node.rotation ? node.rotation[3] : 1).toFixed(6),
-              Scale: node.scale?.z?.toFixed(6)
+              Position_x: nodeTranslation[0].toFixed(6),
+              Position_y: nodeTranslation[1].toFixed(6),
+              Position_z: nodeTranslation[2].toFixed(6),
+              Rotation_x: nodeRotation[0].toFixed(6),
+              Rotation_y: nodeRotation[1].toFixed(6),
+              Rotation_z: nodeRotation[2].toFixed(6),
+              Rotation_w: nodeRotation[3].toFixed(6),
+              Scale: nodeScale[2].toFixed(6)
             }
           },
           Name: node.name
@@ -231,19 +239,18 @@ export default class ProppedModel {
         };
       }
       if (node.name.startsWith('fc_')) {
-        const rotation = node.rotation || [0, 0, 0, 1];
         const quart = {
-          x: rotation[0].toFixed(6), 
-          y: rotation[1].toFixed(6), 
-          z: rotation[2].toFixed(6),
-          w: rotation[3].toFixed(6)
+          x: nodeRotation[0].toFixed(6), 
+          y: nodeRotation[1].toFixed(6), 
+          z: nodeRotation[2].toFixed(6),
+          w: nodeRotation[3].toFixed(6)
         };
         feedbacks[node.name] = {
           /* eslint-disable @typescript-eslint/naming-convention */
           Position: {
-            x: node.translation[0].toFixed(6),
-            y: node.translation[1].toFixed(6),
-            z: node.translation[2].toFixed(6),
+            x: nodeTranslation[0].toFixed(6),
+            y: nodeTranslation[1].toFixed(6),
+            z: nodeTranslation[2].toFixed(6),
           },
           Orientation: quart,
           RotationY: _toRotation(quart).toFixed(6),
@@ -259,19 +266,19 @@ export default class ProppedModel {
           FileName: meshName?.endsWith('.cfg') ? meshName : undefined, // don't overwrite FileName if it doesn't fit
           Transformer: {
             Config: {
-              Position_x: node.translation[0].toFixed(6),
-              Position_y: node.translation[1].toFixed(6),
-              Position_z: node.translation[2].toFixed(6),
-              Rotation_x: (node.rotation ? node.rotation[0] : 0).toFixed(6),
-              Rotation_y: (node.rotation ? node.rotation[1] : 0).toFixed(6),
-              Rotation_z: (node.rotation ? node.rotation[2] : 0).toFixed(6),
-              Rotation_w: (node.rotation ? node.rotation[3] : 1).toFixed(6),
-              Scale: node.scale?.z
+              Position_x: nodeTranslation[0].toFixed(6),
+              Position_y: nodeTranslation[1].toFixed(6),
+              Position_z: nodeTranslation[2].toFixed(6),
+              Rotation_x: nodeRotation[0].toFixed(6),
+              Rotation_y: nodeRotation[1].toFixed(6),
+              Rotation_z: nodeRotation[2].toFixed(6),
+              Rotation_w: nodeRotation[3].toFixed(6),
+              Scale: nodeScale[3]
             }
           },
           /* eslint-enable @typescript-eslint/naming-convention */
         };
-      }
+      } 
     }
 
     const resourceFolder = path.dirname(filePath);
