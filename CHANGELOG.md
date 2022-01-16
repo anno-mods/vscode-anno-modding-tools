@@ -34,10 +34,21 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Converter
   - .fc/.cf7 cfgyaml variants
 
+## [1.0.0]
+
+Bump version to 1.0 as the majority of features I want as of now are implemented.
+
+### Added
+
+- Cache textures when building mods
+- Support mesh-less objects in gltf (for props)
+- Support arrays in cfgyaml
+
 ### Modified
 
 - Fixed bug in cfgyaml conversion where `ADJUST_TO_TERRAIN_HEIGHT` would turn into `ADJUST.TO_TERRAIN_HEIGHT`.
-- Support arrays in cfgyaml
+- Fixed rotation in Feedbackblocker etc not being applied.
+- Decal import now imports `y` instead of setting it to always 0.25
 
 ## [0.7.0]
 
