@@ -46,7 +46,6 @@ export class PropImporter {
     importer.importDecals(xml, model);
     importer.importFiles(xml, model);
 
-    console.log(xml);
     fs.writeFileSync(cfgFilePath, xml.toString());
     channel.log(`<= ${cfgFilePath}`);
   }

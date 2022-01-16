@@ -324,7 +324,7 @@ export default class ProppedModel {
     }
 
     // round to .5
-    return ground.map(v => v.round(2));
+    return ground.map(v => new Vector2(v.x, v.z).round(2));
   }
 
   public getDecalExtends() {
@@ -344,7 +344,7 @@ export default class ProppedModel {
     /* eslint-disable @typescript-eslint/naming-convention */
     return { 
       Extents_x: ((max.x - min.x) / 2).toFixed(6), 
-      Extents_y: (0.25).toFixed(6), 
+      Extents_y: min.y.toFixed(6), 
       Extents_z: ((max.z - min.z) / 2).toFixed(6)
     };
     /* eslint-enable @typescript-eslint/naming-convention */
@@ -411,14 +411,16 @@ export default class ProppedModel {
     this.resourceFolder = resourceFolder;
   }
 
-  private groundVertices: Vector2[] | undefined;
+  private groundVertices: Vector[] | undefined;
   private _findGround() {
     if (!this.groundVertices) {
       const node = _findFirstNode(this.gltf, 'ground', this.resourceFolder);
-      this.groundVertices = _readVectors(node).map(e => e.toVector2());
+      const ground = _readVectors(node);
+      let ground2 = ground.map(e => e.toVector2());
       if (node?.indices) {
-        this.groundVertices = sortVectorsByOutline(this.groundVertices, node.indices);
+        ground2 = sortVectorsByOutline(ground2, node.indices);
       }
+      this.groundVertices = ground2.map(e => new Vector(e.x, ground[0].y, e.z));
     }
 
     return this.groundVertices;
