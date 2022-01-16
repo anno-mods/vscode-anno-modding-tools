@@ -85,6 +85,14 @@ export class Vector {
   public round(factor: number = 1) {
     return new Vector(Math.round(this.x * factor) / factor, Math.round(this.y * factor) / factor, Math.round(this.z * factor) / factor);
   }
+
+  /** return rotated new Vector */
+  public rotate(quat: Quaternion) {
+    const quatR = new Quaternion(0, this.x, this.y, this.z);
+    const quatConjugate = new Quaternion(quat.x, -1 * quat.y, -1 * quat.z, -1 * quat.w);
+    const result = quat.mul(quatR).mul(quatConjugate);
+    return new Vector(-result.y, -result.z, result.w);
+  }
 }
 
 export class Vector2 {
@@ -196,6 +204,15 @@ export class Quaternion {
   /** return new Quaternion with rounded values */
   public round(factor: number = 1) {
     return new Quaternion(Math.round(this.x * factor) / factor, Math.round(this.y * factor) / factor, Math.round(this.z * factor) / factor, Math.round(this.w * factor) / factor);
+  }
+
+  /** return new multiplied Quaternion */
+  public mul(that: Quaternion) {
+    return new Quaternion(
+      that.x*this.x-that.y*this.y-that.z*this.z-that.w*this.w,
+      that.x*this.y+that.y*this.x-that.z*this.w+that.w*this.z,
+      that.x*this.z+that.y*this.w+that.z*this.x-that.w*this.y,
+      that.x*this.w-that.y*this.z+that.z*this.y+that.w*this.x);
   }
 }
 

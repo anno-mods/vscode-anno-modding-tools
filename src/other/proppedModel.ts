@@ -470,15 +470,15 @@ function _toRotation(q: { w: number, x: number, y: number, z: number }) {
   return q.y > 0 ? Math.PI * 2 - acos : acos;
 }
 
-function _findNodes(gltf: any, name: string, resourceFolder: string, all: boolean = true) {
+function _findNodes(gltf: any, name: string, resourceFolder: string, prefixSearch: boolean = true) {
   const result = [];
 
   let nodeIdx = -1;
   let meshIdx = -1;
   for (let idx = 0; idx < gltf.nodes.length; idx++) {
     const node = gltf.nodes[idx];
-    if (all && (node.name?.startsWith(name) || gltf.meshes[node.mesh]?.name?.startsWith(name)) ||
-        !all && (node.name === name || gltf.meshes[node.mesh]?.name === name)) {
+    if (prefixSearch && (node.name?.startsWith(name) || gltf.meshes[node.mesh]?.name?.startsWith(name)) ||
+        !prefixSearch && (node.name === name || gltf.meshes[node.mesh]?.name === name)) {
       nodeIdx = idx;
       meshIdx = node.mesh;
 
@@ -492,14 +492,14 @@ function _findNodes(gltf: any, name: string, resourceFolder: string, all: boolea
         nodeIdx,
         meshIdx,
         name: node.name,
-        translation: Vector.fromArray(gltf.nodes[nodeIdx].translation),
-        scale: Vector.fromArray(gltf.nodes[nodeIdx].scale),
-        rotation: Quaternion.fromArray(gltf.nodes[nodeIdx].rotation),
+        translation: Vector.fromArray(gltf.nodes[nodeIdx].translation) ?? Vector.zero,
+        scale: Vector.fromArray(gltf.nodes[nodeIdx].scale) ?? Vector.one,
+        rotation: Quaternion.fromArray(gltf.nodes[nodeIdx].rotation) ?? Quaternion.default,
         buffer: buffer as ArrayLike<number>,
         indices: indices
       });
 
-      if (!all) {
+      if (!prefixSearch) {
         return result;
       }
     }
@@ -550,18 +550,19 @@ function _getBuffer(gltf: any, accessorIdx: number, resourceFolder: string, numC
   return undefined;
 }
 
-function _readVectors(node: { translation: Vector | undefined, scale: Vector | undefined, buffer: ArrayLike<number> } | undefined) {
+function _readVectors(node: { translation: Vector | undefined, scale: Vector | undefined, rotation: Quaternion | undefined, buffer: ArrayLike<number> } | undefined) {
   if (!node) {
     return [];
   }
-  const translation = node.translation || Vector.zero;
-  const scale = node.scale || Vector.one;
+  const translation = node.translation ?? Vector.zero;
+  const scale = node.scale ?? Vector.one;
+  const rotation = node.rotation ?? Quaternion.default;
 
   const result = [];
   for (let i = 0; i < node.buffer.length / 3; i++) {
     const v = Vector.fromArray(node.buffer, i);
     if (v) {
-      result.push(v.mul(scale).add(translation));
+      result.push(v.rotate(rotation).mul(scale).add(translation));
     }
   }
 
