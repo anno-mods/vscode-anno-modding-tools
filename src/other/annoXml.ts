@@ -196,13 +196,13 @@ export class AnnoXmlElement {
       return;
     }
     if (typeof values === 'string' || typeof values === 'number') {
-      console.error(`Text is not supported in AnnoXmlElement.set`);
-      console.error(this._element);
+      console.error(`Text is not supported in AnnoXmlElement.set (${values})`);
+      console.error(this._element.name);
       return;
     }
     else if (Array.isArray(values)) {
       console.error(`Arrays are not supported in AnnoXmlElement.set`);
-      console.error(this._element);
+      console.error(this._element.name);
       return;
     }
     else {
@@ -232,6 +232,9 @@ export class AnnoXmlElement {
         if (elementValues !== undefined) {
           if (typeof elementValues === 'string' || typeof elementValues === 'number') {
             _setXmlElementVal(this._element, xmlKeyName, elementValues.toString());
+          }
+          else if (Array.isArray(elementValues)) {
+            _setXmlElementArray(this._element, xmlKeyName, elementValues);
           }
           else if (Object.keys(elementValues)?.length > 0) {
             let firstChild = this._element.childNamed(xmlKeyName);
@@ -338,7 +341,7 @@ export default class AnnoXml {
     }
   }
 
-  public set(xpath: string, values: any, options?: { defaults?: any, all?: boolean }) {
+  public set(xpath: string, values: any, options?: { defaults?: any, all?: boolean, keepUnderscore?: boolean }) {
     const elements = this.findElements(xpath, { all: options?.all });
     if (!elements || elements.length === 0) {
       return false;
@@ -482,9 +485,9 @@ export default class AnnoXml {
   }
 }
 
-function _createXmlElement(parent: xmldoc.XmlElement, tag: string, value?: string, options?: { after?: string[] }): xmldoc.XmlElement {
+function _createXmlElement(parent: xmldoc.XmlElement, tag: string, value?: string|number, options?: { after?: string[] }): xmldoc.XmlElement {
   // TODO now this is hacky, I definitely need to just directly use sax instead of xmldoc
-  const template = new xmldoc.XmlDocument(`<xml> <${tag}>${value||''}</${tag}>\n</xml>`);
+  const template = new xmldoc.XmlDocument(`<xml> <${tag}>${value!==undefined?value:''}</${tag}>\n</xml>`);
   const indentation = template.children[0] as xmldoc.XmlTextNode;
   const node = template.children[1] as xmldoc.XmlElement;
   const linebreak = template.children[2] as xmldoc.XmlTextNode;
@@ -559,6 +562,20 @@ function _setXmlElementVal(node: xmldoc.XmlElement, key: string, value: string) 
       console.error(node);
     }
     return property;
+  }
+}
+
+function _setXmlElementArray(node: xmldoc.XmlElement, key: string, values: any[]) {
+  console.error(values);
+  if (node.children.length > 0) {
+    node.children = [];
+    node.firstChild = null;
+    node.lastChild = null;
+  }
+
+  // refill
+  for (let value of values) {
+    _createXmlElement(node, key, value);
   }
 }
 

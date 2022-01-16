@@ -38,4 +38,25 @@ suite('file conversion tests', () => {
     await vscode.commands.executeCommand('anno-modding-tools.ddsToPng', vscode.Uri.file(fakePng_));
     assert(fs.existsSync(utils.swapExtension(fakePng, '_.png')));
   });
+
+  test('.cfg.yaml commands', async () => {
+    const relTestPath = 'test/suite/data/reskin';
+    const tempTestPath = path.resolve('../../out/' + relTestPath);
+
+    const modifier = 'in-modified.cfg.yaml';
+
+    utils.ensureDir(tempTestPath);
+    fs.copyFileSync(path.join('../../src/', relTestPath, modifier), path.join(tempTestPath, modifier));
+    fs.copyFileSync(path.join('../../src/', relTestPath, 'in-config.cfg'), path.join(tempTestPath, 'in-config.cfg'));
+
+    const modifierPath = path.join(tempTestPath, modifier);
+    const resultPath = path.join(tempTestPath, path.basename(modifier, '.yaml'));
+    await vscode.commands.executeCommand('anno-modding-tools.cfgyamlToCfg', vscode.Uri.file(modifierPath));
+    assert(fs.existsSync(resultPath));
+
+    const resultContent = await xml2js.parseStringPromise(fs.readFileSync(resultPath, 'utf8'));
+    const expectedContent = await xml2js.parseStringPromise(fs.readFileSync(path.join('../../src/', relTestPath, 'expected.cfg'), 'utf8'));
+
+    assert.deepStrictEqual(resultContent, expectedContent);
+  });
 });

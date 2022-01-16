@@ -191,23 +191,31 @@ export default class ProppedModel {
     }
     
     for (let node of gltf.nodes) {
+      if (!node.name) {
+        continue;
+      }
+
+      const nodeTranslation = node.translation ? node.translation : [0, 0, 0];
+      const nodeRotation = node.rotation ? node.rotation : [0, 0, 0, 1];
+      const nodeScale = node.scale ? node.scale : [1, 1, 1];
+
       if (node.name.startsWith('prop_')) {
-        const meshName = gltf.meshes[node.mesh].name.replace(/\.\d\d\d$/, '');
+        const meshName = gltf.meshes[node.mesh]?.name.replace(/\.\d\d\d$/, '');
 
         props[node.name] = {
           /* eslint-disable @typescript-eslint/naming-convention */
           Name: node.name,
-          FileName: meshName.endsWith('.prp') ? meshName : undefined, // don't overwrite FileName if it doesn't fit
-          Position_x: node.translation[0].toFixed(6),
-          Position_y: node.translation[1].toFixed(6),
-          Position_z: node.translation[2].toFixed(6),
-          Rotation_x: (node.rotation ? node.rotation[0] : 0).toFixed(6),
-          Rotation_y: (node.rotation ? node.rotation[1] : 0).toFixed(6),
-          Rotation_z: (node.rotation ? node.rotation[2] : 0).toFixed(6),
-          Rotation_w: (node.rotation ? node.rotation[3] : 1).toFixed(6),
-          Scale_x: (node.scale ? node.scale[0] : 1).toFixed(6),
-          Scale_y: (node.scale ? node.scale[1] : 1).toFixed(6),
-          Scale_z: (node.scale ? node.scale[2] : 1).toFixed(6)
+          FileName: meshName?.endsWith('.prp') ? meshName : undefined, // don't overwrite FileName if it doesn't fit
+          Position_x: nodeTranslation[0].toFixed(6),
+          Position_y: nodeTranslation[1].toFixed(6),
+          Position_z: nodeTranslation[2].toFixed(6),
+          Rotation_x: nodeRotation[0].toFixed(6),
+          Rotation_y: nodeRotation[1].toFixed(6),
+          Rotation_z: nodeRotation[2].toFixed(6),
+          Rotation_w: nodeRotation[3].toFixed(6),
+          Scale_x: nodeScale[0].toFixed(6),
+          Scale_y: nodeScale[1].toFixed(6),
+          Scale_z: nodeScale[2].toFixed(6)
           /* eslint-enable @typescript-eslint/naming-convention */
         };
       }
@@ -216,14 +224,14 @@ export default class ProppedModel {
           /* eslint-disable @typescript-eslint/naming-convention */
           Transformer: {
             Config: {
-              Position_x: node.translation[0].toFixed(6),
-              Position_y: node.translation[1].toFixed(6),
-              Position_z: node.translation[2].toFixed(6),
-              Rotation_x: (node.rotation ? node.rotation[0] : 0).toFixed(6),
-              Rotation_y: (node.rotation ? node.rotation[1] : 0).toFixed(6),
-              Rotation_z: (node.rotation ? node.rotation[2] : 0).toFixed(6),
-              Rotation_w: (node.rotation ? node.rotation[3] : 1).toFixed(6),
-              Scale: node.scale?.z?.toFixed(6)
+              Position_x: nodeTranslation[0].toFixed(6),
+              Position_y: nodeTranslation[1].toFixed(6),
+              Position_z: nodeTranslation[2].toFixed(6),
+              Rotation_x: nodeRotation[0].toFixed(6),
+              Rotation_y: nodeRotation[1].toFixed(6),
+              Rotation_z: nodeRotation[2].toFixed(6),
+              Rotation_w: nodeRotation[3].toFixed(6),
+              Scale: nodeScale[2].toFixed(6)
             }
           },
           Name: node.name
@@ -231,19 +239,18 @@ export default class ProppedModel {
         };
       }
       if (node.name.startsWith('fc_')) {
-        const rotation = node.rotation || [0, 0, 0, 1];
         const quart = {
-          x: rotation[0].toFixed(6), 
-          y: rotation[1].toFixed(6), 
-          z: rotation[2].toFixed(6),
-          w: rotation[3].toFixed(6)
+          x: nodeRotation[0].toFixed(6), 
+          y: nodeRotation[1].toFixed(6), 
+          z: nodeRotation[2].toFixed(6),
+          w: nodeRotation[3].toFixed(6)
         };
         feedbacks[node.name] = {
           /* eslint-disable @typescript-eslint/naming-convention */
           Position: {
-            x: node.translation[0].toFixed(6),
-            y: node.translation[1].toFixed(6),
-            z: node.translation[2].toFixed(6),
+            x: nodeTranslation[0].toFixed(6),
+            y: nodeTranslation[1].toFixed(6),
+            z: nodeTranslation[2].toFixed(6),
           },
           Orientation: quart,
           RotationY: _toRotation(quart).toFixed(6),
@@ -252,26 +259,26 @@ export default class ProppedModel {
         };
       }
       if (node.name.startsWith('file_')) {
-        const meshName = gltf.meshes[node.mesh].name.replace(/\.\d\d\d$/, '');
+        const meshName = gltf.meshes[node.mesh]?.name.replace(/\.\d\d\d$/, '');
         files[node.name] = {
           /* eslint-disable @typescript-eslint/naming-convention */
           Name: node.name,
-          FileName: meshName.endsWith('.cfg') ? meshName : undefined, // don't overwrite FileName if it doesn't fit
+          FileName: meshName?.endsWith('.cfg') ? meshName : undefined, // don't overwrite FileName if it doesn't fit
           Transformer: {
             Config: {
-              Position_x: node.translation[0].toFixed(6),
-              Position_y: node.translation[1].toFixed(6),
-              Position_z: node.translation[2].toFixed(6),
-              Rotation_x: (node.rotation ? node.rotation[0] : 0).toFixed(6),
-              Rotation_y: (node.rotation ? node.rotation[1] : 0).toFixed(6),
-              Rotation_z: (node.rotation ? node.rotation[2] : 0).toFixed(6),
-              Rotation_w: (node.rotation ? node.rotation[3] : 1).toFixed(6),
-              Scale: node.scale?.z
+              Position_x: nodeTranslation[0].toFixed(6),
+              Position_y: nodeTranslation[1].toFixed(6),
+              Position_z: nodeTranslation[2].toFixed(6),
+              Rotation_x: nodeRotation[0].toFixed(6),
+              Rotation_y: nodeRotation[1].toFixed(6),
+              Rotation_z: nodeRotation[2].toFixed(6),
+              Rotation_w: nodeRotation[3].toFixed(6),
+              Scale: nodeScale[3]
             }
           },
           /* eslint-enable @typescript-eslint/naming-convention */
         };
-      }
+      } 
     }
 
     const resourceFolder = path.dirname(filePath);
@@ -317,7 +324,7 @@ export default class ProppedModel {
     }
 
     // round to .5
-    return ground.map(v => v.round(2));
+    return ground.map(v => new Vector2(v.x, v.z).round(2));
   }
 
   public getDecalExtends() {
@@ -337,7 +344,7 @@ export default class ProppedModel {
     /* eslint-disable @typescript-eslint/naming-convention */
     return { 
       Extents_x: ((max.x - min.x) / 2).toFixed(6), 
-      Extents_y: (0.25).toFixed(6), 
+      Extents_y: min.y.toFixed(6), 
       Extents_z: ((max.z - min.z) / 2).toFixed(6)
     };
     /* eslint-enable @typescript-eslint/naming-convention */
@@ -404,14 +411,16 @@ export default class ProppedModel {
     this.resourceFolder = resourceFolder;
   }
 
-  private groundVertices: Vector2[] | undefined;
+  private groundVertices: Vector[] | undefined;
   private _findGround() {
     if (!this.groundVertices) {
       const node = _findFirstNode(this.gltf, 'ground', this.resourceFolder);
-      this.groundVertices = _readVectors(node).map(e => e.toVector2());
+      const ground = _readVectors(node);
+      let ground2 = ground.map(e => e.toVector2());
       if (node?.indices) {
-        this.groundVertices = sortVectorsByOutline(this.groundVertices, node.indices);
+        ground2 = sortVectorsByOutline(ground2, node.indices);
       }
+      this.groundVertices = ground2.map(e => new Vector(e.x, ground[0].y, e.z));
     }
 
     return this.groundVertices;
@@ -463,15 +472,15 @@ function _toRotation(q: { w: number, x: number, y: number, z: number }) {
   return q.y > 0 ? Math.PI * 2 - acos : acos;
 }
 
-function _findNodes(gltf: any, name: string, resourceFolder: string, all: boolean = true) {
+function _findNodes(gltf: any, name: string, resourceFolder: string, prefixSearch: boolean = true) {
   const result = [];
 
   let nodeIdx = -1;
   let meshIdx = -1;
   for (let idx = 0; idx < gltf.nodes.length; idx++) {
     const node = gltf.nodes[idx];
-    if (all && (node.name?.startsWith(name) || gltf.meshes[node.mesh]?.name?.startsWith(name)) ||
-        !all && (node.name === name || gltf.meshes[node.mesh]?.name === name)) {
+    if (prefixSearch && (node.name?.startsWith(name) || gltf.meshes[node.mesh]?.name?.startsWith(name)) ||
+        !prefixSearch && (node.name === name || gltf.meshes[node.mesh]?.name === name)) {
       nodeIdx = idx;
       meshIdx = node.mesh;
 
@@ -485,14 +494,14 @@ function _findNodes(gltf: any, name: string, resourceFolder: string, all: boolea
         nodeIdx,
         meshIdx,
         name: node.name,
-        translation: Vector.fromArray(gltf.nodes[nodeIdx].translation),
-        scale: Vector.fromArray(gltf.nodes[nodeIdx].scale),
-        rotation: Quaternion.fromArray(gltf.nodes[nodeIdx].rotation),
+        translation: Vector.fromArray(gltf.nodes[nodeIdx].translation) ?? Vector.zero,
+        scale: Vector.fromArray(gltf.nodes[nodeIdx].scale) ?? Vector.one,
+        rotation: Quaternion.fromArray(gltf.nodes[nodeIdx].rotation) ?? Quaternion.default,
         buffer: buffer as ArrayLike<number>,
         indices: indices
       });
 
-      if (!all) {
+      if (!prefixSearch) {
         return result;
       }
     }
@@ -543,18 +552,19 @@ function _getBuffer(gltf: any, accessorIdx: number, resourceFolder: string, numC
   return undefined;
 }
 
-function _readVectors(node: { translation: Vector | undefined, scale: Vector | undefined, buffer: ArrayLike<number> } | undefined) {
+function _readVectors(node: { translation: Vector | undefined, scale: Vector | undefined, rotation: Quaternion | undefined, buffer: ArrayLike<number> } | undefined) {
   if (!node) {
     return [];
   }
-  const translation = node.translation || Vector.zero;
-  const scale = node.scale || Vector.one;
+  const translation = node.translation ?? Vector.zero;
+  const scale = node.scale ?? Vector.one;
+  const rotation = node.rotation ?? Quaternion.default;
 
   const result = [];
   for (let i = 0; i < node.buffer.length / 3; i++) {
     const v = Vector.fromArray(node.buffer, i);
     if (v) {
-      result.push(v.mul(scale).add(translation));
+      result.push(v.rotate(rotation).mul(scale).add(translation));
     }
   }
 

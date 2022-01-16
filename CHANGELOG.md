@@ -23,6 +23,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Testing
   - Allow comments in `-expectation.xml` files
 - Issues
+  - single named entry, e.g. _2f_lod0, doesn't take the name
+  - Convert To FC on .fc files?
+  - removing _removed on imports works only for first container
   - Show strong warning when there's no tangent information on the mesh
   - error handling for invalid xml files
   - empty annomod project breaks the extension (tradepatent-fish)
@@ -30,6 +33,22 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
   - replace all texconv usage to reduce number of tools
 - Converter
   - .fc/.cf7 cfgyaml variants
+
+## [1.0.0]
+
+Bump version to 1.0 as the majority of features I want as of now are implemented.
+
+### Added
+
+- Cache textures when building mods
+- Support mesh-less objects in gltf (for props)
+- Support arrays in cfgyaml
+
+### Modified
+
+- Fixed bug in cfgyaml conversion where `ADJUST_TO_TERRAIN_HEIGHT` would turn into `ADJUST.TO_TERRAIN_HEIGHT`.
+- Fixed rotation in Feedbackblocker etc not being applied.
+- Decal import now imports `y` instead of setting it to always 0.25
 
 ## [0.7.0]
 

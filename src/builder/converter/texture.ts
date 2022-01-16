@@ -4,6 +4,7 @@ import { Converter } from '../Converter';
 
 import * as dds from '../../other/dds';
 import * as utils from '../../other/utils';
+import { ModCache } from '../ModCache';
 
 export class TextureConverter extends Converter {
   public getName() {
@@ -12,14 +13,20 @@ export class TextureConverter extends Converter {
 
   public async run(files: string[], sourceFolder: string, outFolder: string, options: {
     cache: string,
-    converterOptions: any
+    converterOptions: any, 
+    modCache: ModCache
   }) {
+    const cache = options.modCache;
+
     for (const file of files) {
       this._logger.log(`  => ${file}`);
       const lodLevels = Math.max(0, Math.min(9, options.converterOptions.lods === undefined ? 3 : options.converterOptions.lods));
       const changePath = options.converterOptions.changePath || '';
-      const maskEnding = options.converterOptions.maskEnding || '_mask.png';
       const sourceFile = path.join(sourceFolder, file);
+      if (cache.use(sourceFile)) {
+        this._logger.log(`     no update required`);
+        continue;
+      }
 
       try {
         const dirname = path.dirname(file);
@@ -46,6 +53,7 @@ export class TextureConverter extends Converter {
         }
         for (var [index, texture] of textures.entries()) {
           this._logger.log(`  <= ${lodLevels ? `LOD ${index}: ` : ''}${path.relative(path.dirname(file), path.relative(outFolder, path.join(targetFolder, texture)))}`);
+          cache.output(path.join(targetFolder, texture));
         }
       }
       catch (exception: any)
