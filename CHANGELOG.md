@@ -34,6 +34,11 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Converter
   - .fc/.cf7 cfgyaml variants
 
+### Added
+
+- Added `PriorityFeedbackBlocker` to IFO import
+- Added multiple `BuildBlocker` to IFO import
+
 ## [1.0.0]
 
 Bump version to 1.0 as the majority of features I want as of now are implemented.

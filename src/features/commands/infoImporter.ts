@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as xmldoc from 'xmldoc';
-import ProppedModel from '../../other/proppedModel';
+import ProppedModel, { BlockerType } from '../../other/proppedModel';
 import AnnoXml from '../../other/annoXml';
 import * as channel from '../channel';
 import { Quaternion } from '../../other/math';
@@ -43,9 +43,14 @@ export class InfoImporter {
     const importer = new InfoImporter();
     importer.importHitBoxes(model, xml);
     importer.importDummies(model, xml);
-    importer.importBuildBlocker(model, xml);
-    importer.importFeedbackBlocker(model, xml);
+    importer.importBuildBlocker(model, xml); // legacy BuildBlocker 'ground'
+    let afterElements = [ BlockerType.Build, 'Sequence', 'Dummy', 'IntersectBox', 'DisableFeedbackArea', 'MeshBoundingBox', 'BoundingBox' ];
+    importer.importBlocker(model, xml, BlockerType.Build, afterElements); // new, aligned 'BuildBlocker'. note: rounded same as feedbackblocker now
+    afterElements = [ BlockerType.Feedback, ...afterElements];
+    importer.importBlocker(model, xml, BlockerType.Feedback, afterElements);
     importer.importUnevenBlocker(model, xml);
+    afterElements = [ BlockerType.Priority, 'UnevenBlocker', ...afterElements];
+    importer.importBlocker(model, xml, BlockerType.Priority, afterElements);
     fs.writeFileSync(cfgFilePath, xml.toString());
   }
 
@@ -120,20 +125,20 @@ export class InfoImporter {
     }
   }
 
-  public importFeedbackBlocker(model: ProppedModel, xml: AnnoXml) {
-    const feedbacks = model.getFeedbackBlocker();
+  public importBlocker(model: ProppedModel, xml: AnnoXml, type: BlockerType, afterElements: string[]) {
+    const feedbacks = model.getBlocker(type);
     xml.ensureSection('Info', [ { } ]);
     const parent = xml.findElement('Info');
     if (feedbacks && parent) {
-      channel.log('Import FeedbackBlocker from nodes/meshes starting with \'FeedbackBlocker\'');
-      xml.remove('//Info/FeedbackBlocker', { all: true, silent: true });
+      channel.log(`Import ${type} from nodes/meshes starting with \'${type}\'`);
+      xml.remove(`//Info/${type}`, { all: true, silent: true });
       for (let feedback of feedbacks) {
-        const afterElements = [ 'FeedbackBlocker', 'BuildBlocker', 'Sequence', 'Dummy', 'IntersectBox', 'DisableFeedbackArea', 'MeshBoundingBox', 'BoundingBox' ];
-        parent.createChild('FeedbackBlocker', { after: afterElements }).fill('Position', feedback.map(e => e.round(4).toF()));
+        // const afterElements = [ 'FeedbackBlocker', 'BuildBlocker', 'Sequence', 'Dummy', 'IntersectBox', 'DisableFeedbackArea', 'MeshBoundingBox', 'BoundingBox' ];
+        parent.createChild(type, { after: afterElements }).fill('Position', feedback.map(e => e.round(4).toF()));
       }
     }
     else {
-      channel.log('No node/mesh starting with \'FeedbackBlocker\' found. Skip FeedbackBlocker');
+      channel.log(`No node/mesh starting with \'${type}\' found. Skip ${type}`);
     }
   }
 
