@@ -451,10 +451,9 @@ export default class ProppedModel {
           return undefined;
         }
 
-        // TODO rotation must be DEFAULT
-
         const translation = Vector.fromArray(hitbox.node.translation) || Vector.zero;
         const scale = Vector.fromArray(hitbox.node.scale) || Vector.one;
+        const rotation = Quaternion.fromArray(hitbox.node.rotation) || Quaternion.default;
 
         let minVector = Vector.fromArray(buffer) as Vector;
         let maxVector = minVector;
@@ -463,10 +462,11 @@ export default class ProppedModel {
           maxVector = maxVector.up(Vector.fromArray(buffer, i) as Vector);
         }
 
+        // apply scale and translation, but not rotation
         minVector = minVector.mul(scale).add(translation);
         maxVector = maxVector.mul(scale).add(translation);
 
-        this._hitboxes.push(Box.fromMinMax(hitbox.name, minVector, maxVector));
+        this._hitboxes.push(Box.fromMinMax(hitbox.name, minVector, maxVector, rotation));
       }
     }
 

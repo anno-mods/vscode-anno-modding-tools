@@ -38,6 +38,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Added `PriorityFeedbackBlocker` to IFO import
 - Added multiple `BuildBlocker` to IFO import
+- Support hitbox rotation for IFO import
 
 ## [1.0.0]
 

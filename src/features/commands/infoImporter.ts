@@ -68,7 +68,7 @@ export class InfoImporter {
           parent.createChild('IntersectBox', { after: [ 'IntersectBox', 'DisableFeedbackArea', 'MeshBoundingBox', 'BoundingBox' ] }).set({
             Name: hitbox.name,
             Position: hitbox.center.toFixedF(),
-            Rotation: Quaternion.default.toFixedF(0),
+            Rotation: hitbox.rotation.toFixedF(),
             Extents: hitbox.size.div(2).toFixedF()
           });
           /* eslint-enable @typescript-eslint/naming-convention */
