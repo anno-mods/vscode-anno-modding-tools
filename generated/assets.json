@@ -1,8 +1,26 @@
 {
+  "270": {
+    "template": "ProductionChain",
+    "name": "Scenario02 Schnaps",
+    "english": "Schnaps"
+  },
+  "271": {
+    "template": "ProductionChain",
+    "name": "Scenario02 Beer"
+  },
+  "272": {
+    "template": "ProductionChain",
+    "name": "Scenario02 Hot Sauce"
+  },
   "355": {
     "template": "Product",
     "name": "BotanicalGarden_Need",
     "english": "Botanical Garden"
+  },
+  "368": {
+    "template": "ItemEffectTargetPool",
+    "name": "all buildings with maintenance DLC10",
+    "english": "All Buildings with Maintenance Costs"
   },
   "403": {
     "template": "Monument",
@@ -23,6 +41,11 @@
     "template": "OrnamentalBuilding",
     "name": "fountain_system",
     "english": "Splash Fountains"
+  },
+  "435": {
+    "template": "ItemEffectTargetPool",
+    "name": "AllHaciendaBreweries",
+    "english": "All Hacienda breweries"
   },
   "451": {
     "template": "Street",
@@ -64,6 +87,11 @@
     "name": "Specialists - HighLife - Rare - Town",
     "english": "-"
   },
+  "668": {
+    "template": "FreeAreaBuilding",
+    "name": "TreePlanter_GGJ_TEST",
+    "english": "Tree Planter Testr"
+  },
   "669": {
     "template": "AssetPool",
     "name": "Tourist Items Unlock"
@@ -71,6 +99,50 @@
   "671": {
     "template": "AssetPool",
     "name": "HighLife Items Unlock"
+  },
+  "680": {
+    "template": "Monument",
+    "name": "GGJDam_01_01",
+    "english": "Dam Phase 2/3: Foundations"
+  },
+  "685": {
+    "template": "Monument",
+    "name": "GGJDam_01_02",
+    "english": "Dam Phase 3/3: Structure"
+  },
+  "686": {
+    "template": "Monument",
+    "name": "GGJDam_01_03",
+    "english": "Dam"
+  },
+  "741": {
+    "template": "Resource",
+    "name": "fish_slot_small",
+    "english": "Fish Shoals"
+  },
+  "769": {
+    "template": "GuildhouseItem",
+    "name": "DemoEcoProviderUpgrade"
+  },
+  "893": {
+    "template": "OrnamentalBuilding",
+    "name": "GGJ_2x2_Reward_Bronze",
+    "english": "Eden Burning Bronze Reward Tree"
+  },
+  "895": {
+    "template": "OrnamentalBuilding",
+    "name": "GGJ_2x2_Reward_Silver",
+    "english": "Eden Burning Silver Reward Tree"
+  },
+  "896": {
+    "template": "OrnamentalBuilding",
+    "name": "GGJ_2x2_Reward_Gold",
+    "english": "Eden Burning Gold Reward Tree"
+  },
+  "949": {
+    "template": "Monument",
+    "name": "GGJDam_01_00",
+    "english": "Dam Phase 1/3: Scaffolding"
   },
   "17030": {
     "template": "RewardPool",
@@ -135,6 +207,1068 @@
   "17055": {
     "template": "RewardPool",
     "name": "AllBigProductsPool"
+  },
+  "24012": {
+    "template": "GuildhouseItem",
+    "name": "Soil Sampler I",
+    "english": "Soil Sampler"
+  },
+  "24014": {
+    "template": "GuildhouseItem",
+    "name": "Soil Sampler II",
+    "english": "Advanced Soil Sampler"
+  },
+  "24016": {
+    "template": "GuildhouseItem",
+    "name": "Waste Treatment I",
+    "english": "Waste Treatment Tank"
+  },
+  "24018": {
+    "template": "GuildhouseItem",
+    "name": "Waste Treatment II",
+    "english": "Capacious Waste Treatment Tank"
+  },
+  "24019": {
+    "template": "GuildhouseItem",
+    "name": "Industrial Filter I",
+    "english": "Industrial Toxin Filter"
+  },
+  "24023": {
+    "template": "GuildhouseItem",
+    "name": "Industrial Filter II",
+    "english": "Advanced Industrial Toxin Filter"
+  },
+  "24030": {
+    "template": "ItemEffectTargetPool",
+    "name": "all air polluters",
+    "english": "all heavy industry buildings"
+  },
+  "24033": {
+    "template": "GuildhouseItem",
+    "name": "Industrial Filter III",
+    "english": "Refined Industrial Toxin Filter"
+  },
+  "24034": {
+    "template": "GuildhouseItem",
+    "name": "Destillery I",
+    "english": "Water Distiller"
+  },
+  "24036": {
+    "template": "GuildhouseItem",
+    "name": "Destillery III",
+    "english": "Refined Water Distiller"
+  },
+  "24043": {
+    "template": "GuildhouseItem",
+    "name": "Trash filter I",
+    "english": "Trash Filter"
+  },
+  "24044": {
+    "template": "GuildhouseItem",
+    "name": "Trash filter II",
+    "english": "Advanced Trash Filter"
+  },
+  "24048": {
+    "template": "GuildhouseItem",
+    "name": "Local Garden II",
+    "english": "Large Communal Garden"
+  },
+  "24053": {
+    "template": "ItemEffectTargetPool",
+    "name": "all GGJ Residences",
+    "english": "all heavy industry buildings"
+  },
+  "24054": {
+    "template": "GuildhouseItem",
+    "name": "Local Garden I",
+    "english": "Communal Garden"
+  },
+  "24055": {
+    "template": "FactoryBuilding7",
+    "name": "Fish"
+  },
+  "24061": {
+    "template": "GuildhouseItem",
+    "name": "Fisher",
+    "english": "Angler"
+  },
+  "24064": {
+    "template": "GuildhouseItem",
+    "name": "Marine Biologist",
+    "english": "Marine Biologist"
+  },
+  "24065": {
+    "template": "GuildhouseItem",
+    "name": "Algologist",
+    "english": "Algologist"
+  },
+  "24068": {
+    "template": "GuildhouseItem",
+    "name": "Arboriculturist",
+    "english": "Arboriculturist"
+  },
+  "24077": {
+    "template": "GuildhouseItem",
+    "name": "Botanist",
+    "english": "Botanist"
+  },
+  "24078": {
+    "template": "GuildhouseItem",
+    "name": "Industrial Chemist",
+    "english": "Industrial Chemist"
+  },
+  "24079": {
+    "template": "GuildhouseItem",
+    "name": "Landscape Planner",
+    "english": "Landscape Planner"
+  },
+  "24081": {
+    "template": "GuildhouseItem",
+    "name": "Micro Biologist",
+    "english": "Microbiologist"
+  },
+  "24082": {
+    "template": "GuildhouseItem",
+    "name": "Recycling Specialist",
+    "english": "Recycling Specialist"
+  },
+  "24086": {
+    "template": "GuildhouseItem",
+    "name": "Recycling Master",
+    "english": "Recycling Expert"
+  },
+  "24087": {
+    "template": "GuildhouseItem",
+    "name": "Mathematician",
+    "english": "Mathematician"
+  },
+  "24100": {
+    "template": "GuildhouseItem",
+    "name": "Bio Fertilizer",
+    "english": "Basic Fertiliser"
+  },
+  "24107": {
+    "template": "GuildhouseItem",
+    "name": "Fertilizer",
+    "english": "Advanced Fertiliser"
+  },
+  "24108": {
+    "template": "GuildhouseItem",
+    "name": "Super Fertilizer",
+    "english": "Refined Fertiliser"
+  },
+  "24109": {
+    "template": "GuildhouseItem",
+    "name": "Fodder Supplements I",
+    "english": "Fodder Supplements"
+  },
+  "24110": {
+    "template": "FactoryBuilding7",
+    "name": "Poncho"
+  },
+  "24113": {
+    "template": "GuildhouseItem",
+    "name": "Fodder Supplements III",
+    "english": "Refined Fodder Supplements"
+  },
+  "24114": {
+    "template": "GuildhouseItem",
+    "name": "Agrarian reform I",
+    "english": "Basic Agricultural Textbook"
+  },
+  "24116": {
+    "template": "FactoryBuilding7",
+    "name": "Burrito"
+  },
+  "24117": {
+    "template": "FactoryBuilding7",
+    "name": "Tools"
+  },
+  "24118": {
+    "template": "FactoryBuilding7",
+    "name": "Drip Coffee Pot"
+  },
+  "24119": {
+    "template": "FactoryBuilding7",
+    "name": "Steel"
+  },
+  "24120": {
+    "template": "FactoryBuilding7",
+    "name": "Coal Burner"
+  },
+  "24121": {
+    "template": "FactoryBuilding7",
+    "name": "Carbon"
+  },
+  "24122": {
+    "template": "FactoryBuilding7",
+    "name": "Fedora"
+  },
+  "24123": {
+    "template": "FactoryBuilding7",
+    "name": "Atole"
+  },
+  "24124": {
+    "template": "FactoryBuilding7",
+    "name": "Concrete Factory"
+  },
+  "24125": {
+    "template": "FactoryBuilding7",
+    "name": "Cement Mine"
+  },
+  "24126": {
+    "template": "FactoryBuilding7",
+    "name": "Cement Mine Groundstation"
+  },
+  "24127": {
+    "template": "FactoryBuilding7",
+    "name": "Iron Mine"
+  },
+  "24128": {
+    "template": "FactoryBuilding7",
+    "name": "Iron Mine Groundstation"
+  },
+  "24129": {
+    "template": "FactoryBuilding7",
+    "name": "Copper Mine"
+  },
+  "24130": {
+    "template": "FactoryBuilding7",
+    "name": "Coal Mine"
+  },
+  "24133": {
+    "template": "FactoryBuilding7",
+    "name": "Forestation"
+  },
+  "24134": {
+    "template": "FactoryBuilding7",
+    "name": "Aquafarm"
+  },
+  "24135": {
+    "template": "FactoryBuilding7",
+    "name": "Water Purification"
+  },
+  "24136": {
+    "template": "FactoryBuilding7",
+    "name": "Pump House"
+  },
+  "24137": {
+    "template": "FactoryBuilding7",
+    "name": "Dam"
+  },
+  "24151": {
+    "template": "GuildhouseItem",
+    "name": "Agrarian reform II",
+    "english": "Advanced Agricultural Textbook"
+  },
+  "24152": {
+    "template": "GuildhouseItem",
+    "name": "Agrarian reform III",
+    "english": "Expert Agricultural Textbook"
+  },
+  "24153": {
+    "template": "GuildhouseItem",
+    "name": "Regulation I",
+    "english": "Factory Regulations"
+  },
+  "24154": {
+    "template": "GuildhouseItem",
+    "name": "Regulation II",
+    "english": "Working Hours Adjustments"
+  },
+  "24155": {
+    "template": "GuildhouseItem",
+    "name": "Regulation III",
+    "english": "Factory Overcrowding Regulations"
+  },
+  "24159": {
+    "template": "TownhallItem",
+    "name": "Enactment A",
+    "english": "Public Campaign: Eat those Proteins!"
+  },
+  "24160": {
+    "template": "TownhallItem",
+    "name": "Enactment C",
+    "english": "Dietary Advice"
+  },
+  "24162": {
+    "template": "GuildhouseItem",
+    "name": "Calciner I",
+    "english": "Pyrphorian Calciner"
+  },
+  "24163": {
+    "template": "GuildhouseItem",
+    "name": "Calciner II",
+    "english": "Advanced Pyrphorian Calciner"
+  },
+  "24164": {
+    "template": "GuildhouseItem",
+    "name": "Publication",
+    "english": "Pyrphorian Machine Instructions"
+  },
+  "24179": {
+    "template": "GuildhouseItem",
+    "name": "Coral I",
+    "english": "Sunrise Coral"
+  },
+  "24187": {
+    "template": "Product",
+    "name": "FakeProductTree",
+    "english": "Trees"
+  },
+  "24191": {
+    "template": "GuildhouseItem",
+    "name": "Coral II",
+    "english": "Zenith Coral"
+  },
+  "24192": {
+    "template": "GuildhouseItem",
+    "name": "Coral III",
+    "english": "Moonshine Coral"
+  },
+  "24195": {
+    "template": "GuildhouseItem",
+    "name": "Pond Plants I",
+    "english": "Lilies"
+  },
+  "24196": {
+    "template": "GuildhouseItem",
+    "name": "Pond Plants II",
+    "english": "Reeds"
+  },
+  "24197": {
+    "template": "GuildhouseItem",
+    "name": "Pond Plants III",
+    "english": "Giant Water Lilies"
+  },
+  "24198": {
+    "template": "GuildhouseItem",
+    "name": "Urban Greenery III",
+    "english": "Flowering Urban Tree"
+  },
+  "24199": {
+    "template": "GuildhouseItem",
+    "name": "Urban Greenery II",
+    "english": "Urban Tree"
+  },
+  "24201": {
+    "template": "GuildhouseItem",
+    "name": "Urban Greenery I",
+    "english": "Vines"
+  },
+  "24320": {
+    "template": "Product",
+    "name": "Herbarium",
+    "english": "Herbarium"
+  },
+  "24347": {
+    "template": "AssetPool",
+    "name": "GGJ Items"
+  },
+  "24350": {
+    "template": "ItemEffectTargetPool",
+    "name": "all non-polluters",
+    "english": "all non-polluting production buildings"
+  },
+  "24589": {
+    "template": "OrnamentalBuilding",
+    "name": "eoy21_CharityTree",
+    "english": "Charity Tree"
+  },
+  "24608": {
+    "template": "Resource",
+    "name": "fish_slot_large",
+    "english": "Fish Shoals"
+  },
+  "24652": {
+    "template": "FactoryBuilding7_BuildPermit",
+    "name": "Water Purifier",
+    "english": "Fishery"
+  },
+  "24657": {
+    "template": "FreeAreaBuilding_BuildPermit",
+    "name": "Forester",
+    "english": "Lumberjack&apos;s Hut"
+  },
+  "24658": {
+    "template": "FarmBuilding_BuildPermit",
+    "name": "Aquafarm",
+    "english": "Pig Farm"
+  },
+  "24768": {
+    "template": "Hacienda",
+    "name": "Hacienda",
+    "english": "Hacienda"
+  },
+  "24770": {
+    "template": "AdditionalModule",
+    "name": "Courtyard module",
+    "english": "Hacienda Paving"
+  },
+  "24774": {
+    "template": "Street",
+    "name": "Courtyard Groundplate",
+    "english": "Courtyard ground"
+  },
+  "24775": {
+    "template": "HarborDepot",
+    "name": "Hacienda storage module",
+    "english": "Hacienda Storeroom"
+  },
+  "24792": {
+    "template": "ResidenceBuilding7_Colony",
+    "name": "Hacienda residence module tier01",
+    "english": "Hacienda Jornalero Quarters"
+  },
+  "24793": {
+    "template": "ResidenceBuilding7_Colony",
+    "name": "Hacienda residence module tier02",
+    "english": "Hacienda Obrera Quarters"
+  },
+  "24794": {
+    "template": "RecipeFarm",
+    "name": "Hacienda universal farm blank",
+    "english": "Hacienda Farm"
+  },
+  "24795": {
+    "template": "RecipeList",
+    "name": "RecipeList"
+  },
+  "24796": {
+    "template": "Recipe",
+    "name": "Recipe_01 Sugar Cane",
+    "english": "Sugar Cane"
+  },
+  "24798": {
+    "template": "RecipeFarm",
+    "name": "Hacienda universal farm Sugar Cane",
+    "english": "Hacienda Sugar Cane Farm"
+  },
+  "24800": {
+    "template": "Multifactory",
+    "name": "Hacienda alternative production blank",
+    "english": "Hacienda Brewery"
+  },
+  "24801": {
+    "template": "Multifactory",
+    "name": "Hacienda alternative production Rum",
+    "english": "Hacienda Rum Distillery"
+  },
+  "24802": {
+    "template": "RecipeList",
+    "name": "RecipeList"
+  },
+  "24803": {
+    "template": "Recipe",
+    "name": "Recipe_01 Rum",
+    "english": "Rum Recipe"
+  },
+  "24805": {
+    "template": "BuffFactoryCulture",
+    "name": "Hacienda fertilizer module",
+    "english": "Hacienda Fertiliser Works"
+  },
+  "24807": {
+    "template": "Product",
+    "name": "Dung",
+    "english": "Dung"
+  },
+  "24808": {
+    "template": "Product",
+    "name": "Fertilizer",
+    "english": "Fertiliser"
+  },
+  "24820": {
+    "template": "FactoryBuilding7",
+    "name": "factory_Scenario02_01(Coke)",
+    "english": "Coal Coking Furnace"
+  },
+  "24821": {
+    "template": "Product",
+    "name": "Coke",
+    "english": "Coke"
+  },
+  "24824": {
+    "template": "Product",
+    "name": "Gum Scenario02",
+    "english": "Chewing Gum"
+  },
+  "24825": {
+    "template": "FactoryBuilding7",
+    "name": "factory_Scenario02_02(Gum)",
+    "english": "Chewing Gum Factory"
+  },
+  "24827": {
+    "template": "ProductionChain",
+    "name": "Scenario02 Gum Scenario02 Chain",
+    "english": "Chewing Gum"
+  },
+  "24828": {
+    "template": "Monument",
+    "name": "Basin_Base",
+    "english": "Basin: Foundations"
+  },
+  "24829": {
+    "template": "IrrigationPropagationSourceNoSlot",
+    "name": "Basin",
+    "english": "Basin"
+  },
+  "24830": {
+    "template": "ProductionChain",
+    "name": "Scenario02 irrigation chain",
+    "english": "Irrigation"
+  },
+  "24836": {
+    "template": "FarmBuilding",
+    "name": "factory_Scenario02_Fuel"
+  },
+  "24837": {
+    "template": "Product",
+    "name": "Scenario02 Fuel",
+    "english": "Fuel"
+  },
+  "24844": {
+    "template": "FarmBuilding",
+    "name": "Cyanide Leacher",
+    "english": "Cyanide Leacher"
+  },
+  "24845": {
+    "template": "BuffFactoryModule",
+    "name": "Cyanide Pool Module",
+    "english": "Oxidation Pool"
+  },
+  "24846": {
+    "template": "Product",
+    "name": "SilverDust",
+    "english": "Silver Amalgam"
+  },
+  "24850": {
+    "template": "Product",
+    "name": "SilverBars",
+    "english": "Silver Bars"
+  },
+  "24851": {
+    "template": "Product",
+    "name": "SilverCoins",
+    "english": "Silver Coins"
+  },
+  "24852": {
+    "template": "Product",
+    "name": "Cyanide",
+    "english": "Cyanide"
+  },
+  "24856": {
+    "template": "FactoryBuilding7",
+    "name": "SilverSmelter",
+    "english": "Silver Smelter"
+  },
+  "24857": {
+    "template": "FactoryBuilding7",
+    "name": "SilverMint",
+    "english": "Royal Mint"
+  },
+  "24860": {
+    "template": "HeavyFreeAreaBuilding",
+    "name": "Scenario02 heavy_03 (Coal Heavy Industry)",
+    "english": "Charcoal Kiln"
+  },
+  "24861": {
+    "template": "BuffFactoryModule",
+    "name": "Amoniac Factory",
+    "english": "Ammonia Plant"
+  },
+  "24863": {
+    "template": "Product",
+    "name": "LinseedOil",
+    "english": "Industrial lubricant"
+  },
+  "24876": {
+    "template": "ProductionChain",
+    "name": "Scenario02 SilverBarChain",
+    "english": "Silver Bars"
+  },
+  "24879": {
+    "template": "ProductionChain",
+    "name": "Scenario02 SilverDustChain",
+    "english": "Silver Amalgam"
+  },
+  "24893": {
+    "template": "ProductionChain",
+    "name": "Scenario02 FinalSilverChain",
+    "english": "Silver Coins"
+  },
+  "24894": {
+    "template": "ConstructionCategory",
+    "name": "Scenario02 Silver category",
+    "english": "Silver Production"
+  },
+  "25003": {
+    "template": "RecipeFarm",
+    "name": "Hacienda universal farm Corn",
+    "english": "Hacienda Corn Farm"
+  },
+  "25005": {
+    "template": "RecipeFarm",
+    "name": "Hacienda universal farm Coffee",
+    "english": "Hacienda Coffee Farm"
+  },
+  "25006": {
+    "template": "RecipeFarm",
+    "name": "Hacienda universal farm Caoutchouc",
+    "english": "Hacienda Caoutchouc Plantation"
+  },
+  "25009": {
+    "template": "RecipeFarm",
+    "name": "Hacienda universal farm Cocoa",
+    "english": "Hacienda Cocoa Farm"
+  },
+  "25010": {
+    "template": "Recipe",
+    "name": "Recipe_02 Corn",
+    "english": "Corn"
+  },
+  "25012": {
+    "template": "Recipe",
+    "name": "Recipe_03 Coffee",
+    "english": "Coffee"
+  },
+  "25013": {
+    "template": "Recipe",
+    "name": "Recipe_04 Caoutchouc",
+    "english": "Caoutchouc"
+  },
+  "25015": {
+    "template": "Recipe",
+    "name": "Recipe_05 Cocoa",
+    "english": "Cocoa"
+  },
+  "25019": {
+    "template": "RecipeFarm",
+    "name": "Hacienda universal farm Potatoes",
+    "english": "Hacienda Potato Farm"
+  },
+  "25020": {
+    "template": "RecipeFarm",
+    "name": "Hacienda universal farm Spices",
+    "english": "Hacienda Spice Farm"
+  },
+  "25023": {
+    "template": "Recipe",
+    "name": "Recipe_06 Potatoes",
+    "english": "Potatoes"
+  },
+  "25024": {
+    "template": "Recipe",
+    "name": "Recipe_07 Spices",
+    "english": "Spices"
+  },
+  "25054": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 fertilizer"
+  },
+  "25055": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 hacienda all modules"
+  },
+  "25058": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 universal farm all recipes"
+  },
+  "25061": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 brewery all recipes"
+  },
+  "25062": {
+    "template": "Recipe",
+    "name": "Recipe_02 Beer",
+    "english": "Beer Recipe"
+  },
+  "25064": {
+    "template": "Multifactory",
+    "name": "Hacienda alternative production Beer",
+    "english": "Hacienda Beer Brewery"
+  },
+  "25073": {
+    "template": "Product",
+    "name": "FakeProductWaste",
+    "english": "Waste Water"
+  },
+  "25077": {
+    "template": "OrnamentalBuilding",
+    "name": "Flower Ornament"
+  },
+  "25079": {
+    "template": "OrnamentalBuilding",
+    "name": "Flower Shop"
+  },
+  "25080": {
+    "template": "OrnamentalBuilding",
+    "name": "Balloon Stand"
+  },
+  "25081": {
+    "template": "OrnamentalBuilding",
+    "name": "Flower Sculpture"
+  },
+  "25082": {
+    "template": "OrnamentalBuilding",
+    "name": "Valentine&apos;s Day Hedge"
+  },
+  "25083": {
+    "template": "OrnamentalBuilding",
+    "name": "Flower Gate"
+  },
+  "25089": {
+    "template": "OrnamentalBuilding",
+    "name": "Wine Stand small"
+  },
+  "25091": {
+    "template": "OrnamentalBuilding",
+    "name": "Wine Stand large"
+  },
+  "25092": {
+    "template": "OrnamentalBuilding",
+    "name": "Table"
+  },
+  "25093": {
+    "template": "OrnamentalBuilding",
+    "name": "Large Barrel"
+  },
+  "25094": {
+    "template": "OrnamentalBuilding",
+    "name": "May Pole"
+  },
+  "25095": {
+    "template": "OrnamentalBuilding",
+    "name": "Wine Fest Gate"
+  },
+  "25101": {
+    "template": "OrnamentalBuilding",
+    "name": "Wagon with Pumpkins"
+  },
+  "25103": {
+    "template": "OrnamentalBuilding",
+    "name": "Barrel Table"
+  },
+  "25105": {
+    "template": "OrnamentalBuilding",
+    "name": "Bonfire"
+  },
+  "25106": {
+    "template": "OrnamentalBuilding",
+    "name": "Pumpkin Competition"
+  },
+  "25107": {
+    "template": "OrnamentalBuilding",
+    "name": "Cider Stall"
+  },
+  "25108": {
+    "template": "OrnamentalBuilding",
+    "name": "Autumn Gate"
+  },
+  "25126": {
+    "template": "Multifactory",
+    "name": "Hacienda alternative production Atole",
+    "english": "Hacienda Atole Maker"
+  },
+  "25128": {
+    "template": "RecipeFarm",
+    "name": "Hacienda universal farm Grain",
+    "english": "Hacienda Grain Farm"
+  },
+  "25130": {
+    "template": "Recipe",
+    "name": "Recipe_03 Atole",
+    "english": "Atole Recipe"
+  },
+  "25131": {
+    "template": "Product",
+    "name": "Atole",
+    "english": "Atole"
+  },
+  "25134": {
+    "template": "OrnamentalBuilding",
+    "name": "Ice Skating"
+  },
+  "25135": {
+    "template": "OrnamentalBuilding",
+    "name": "Chestnut Stall"
+  },
+  "25136": {
+    "template": "OrnamentalBuilding",
+    "name": "Festive Pyramid"
+  },
+  "25137": {
+    "template": "OrnamentalBuilding",
+    "name": "Festive Arch"
+  },
+  "25138": {
+    "template": "OrnamentalBuilding",
+    "name": "Snow Globe"
+  },
+  "25139": {
+    "template": "OrnamentalBuilding",
+    "name": "Lantern Gate"
+  },
+  "25141": {
+    "template": "ConstructionCategory",
+    "name": "Sesonal Decoration",
+    "english": "Pedestrian Zone Pack"
+  },
+  "25168": {
+    "template": "OrnamentalBuilding",
+    "name": "Hacienda Ornamental Gate Large",
+    "english": "Large Hacienda Gateway"
+  },
+  "25169": {
+    "template": "OrnamentalBuilding",
+    "name": "Hacienda Ornamental Gate Small",
+    "english": "Small Hacienda Gateway"
+  },
+  "25172": {
+    "template": "OrnamentalBuilding",
+    "name": "Hacienda Ornamental Water Basin",
+    "english": "Hacienda Pool"
+  },
+  "25173": {
+    "template": "OrnamentalBuilding",
+    "name": "Hacienda Ornamental Tree 01",
+    "english": "Hacienda Flowerbed"
+  },
+  "25174": {
+    "template": "OrnamentalBuilding",
+    "name": "Hacienda Ornamental Tree 02",
+    "english": "Hacienda Palm Tree"
+  },
+  "25175": {
+    "template": "OrnamentalBuilding",
+    "name": "Hacienda Ornamental Tree 03",
+    "english": "Hacienda Large Palm Tree"
+  },
+  "25176": {
+    "template": "OrnamentalBuilding",
+    "name": "Hacienda Ornamental Tree 04",
+    "english": "Hacienda Palm Tree with Bushes"
+  },
+  "25177": {
+    "template": "AssetPool",
+    "name": "asset pool clony01 hacienda all ornaments"
+  },
+  "25178": {
+    "template": "ConstructionCategory",
+    "name": "Hacienda Menu",
+    "english": "Hacienda"
+  },
+  "25194": {
+    "template": "OrnamentalBuilding",
+    "name": "Hacienda Ornamental FenceSystem",
+    "english": "Hacienda Wall"
+  },
+  "25224": {
+    "template": "AdditionalModule",
+    "name": "Pathway module",
+    "english": "Hacienda Pathway"
+  },
+  "25227": {
+    "template": "OrnamentalBuilding",
+    "name": "Hacienda Ornamental ArcadeSystem",
+    "english": "Hacienda Colonnade"
+  },
+  "25240": {
+    "template": "BuffFactoryModule",
+    "name": "Farm Fertilizer Module Moderate",
+    "english": "Fertiliser Silo"
+  },
+  "25241": {
+    "template": "BuffFactoryModule",
+    "name": "Farm Fertilizer Module Colony01",
+    "english": "Fertiliser Silo"
+  },
+  "25242": {
+    "template": "BuffFactoryModule",
+    "name": "Farm Fertilizer Module Africa",
+    "english": "Fertiliser Silo"
+  },
+  "25320": {
+    "template": "AssetPool",
+    "name": "Scenario02_SilverDustGroup"
+  },
+  "25321": {
+    "template": "AssetPool",
+    "name": "Scenario02_SilverBarsGroup"
+  },
+  "25322": {
+    "template": "AssetPool",
+    "name": "Scenario02_SilverEnd"
+  },
+  "25324": {
+    "template": "AssetPool",
+    "name": "Scenario02_SilverMineGroup"
+  },
+  "25327": {
+    "template": "AssetPool",
+    "name": "Scenario02_BasinGroup"
+  },
+  "25330": {
+    "template": "AssetPool",
+    "name": "Scenario02_Oil"
+  },
+  "25339": {
+    "template": "AssetPool",
+    "name": "Sceanrio02_Gum"
+  },
+  "25349": {
+    "template": "Recipe",
+    "name": "Recipe_08 Grain",
+    "english": "Grain"
+  },
+  "25350": {
+    "template": "Multifactory",
+    "name": "Hacienda alternative production Schnapps",
+    "english": "Hacienda Schnapps Distillery"
+  },
+  "25351": {
+    "template": "Recipe",
+    "name": "Recipe_04 Schnapps",
+    "english": "Schnapps Recipe"
+  },
+  "25375": {
+    "template": "ProductionChain",
+    "name": "Scenario02 Atole Chain",
+    "english": "Atole"
+  },
+  "25506": {
+    "template": "Product",
+    "name": "Tabasco",
+    "english": "Hot Sauce"
+  },
+  "25507": {
+    "template": "Recipe",
+    "name": "Recipe_05 Tabasco",
+    "english": "Hot Sauce Recipe"
+  },
+  "25508": {
+    "template": "Multifactory",
+    "name": "Hacienda alternative production Tabasco",
+    "english": "Hacienda Hot Sauce Brewery"
+  },
+  "25546": {
+    "template": "Product",
+    "name": "Hacienda",
+    "english": "Hacienda"
+  },
+  "25547": {
+    "template": "BuffFactoryModule",
+    "name": "Scenario02_tractor_module_01 (Tractor)",
+    "english": "Tractor Barn"
+  },
+  "25548": {
+    "template": "BuffFactoryModule",
+    "name": "Scenario02_tractor_module_02 (Harvester)",
+    "english": "Tractor Barn"
+  },
+  "25549": {
+    "template": "BuffFactoryModule",
+    "name": "Scenario02_Silo (Corn)",
+    "english": "Silo"
+  },
+  "25599": {
+    "template": "ItemEffectTargetPool",
+    "name": "AllProductionBuildings",
+    "english": "All Production Buildings"
+  },
+  "25608": {
+    "template": "ItemEffectTargetPool",
+    "name": "MonsoonFireChanceBuildings",
+    "english": "All Buildings"
+  },
+  "25672": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 hacienda all buildings"
+  },
+  "25674": {
+    "template": "ItemEffectTargetPool",
+    "name": "All Hacienda Buildings",
+    "english": "All Hacienda Modules"
+  },
+  "25677": {
+    "template": "ItemEffectTargetPool",
+    "name": "All SA Residences",
+    "english": "All New World Residences"
+  },
+  "25703": {
+    "template": "OrnamentalBuilding",
+    "name": "Hacienda Ornamental Crate Stack",
+    "english": "Hacienda Crate Stack"
+  },
+  "25704": {
+    "template": "OrnamentalBuilding",
+    "name": "Hacienda Ornamental  Shed",
+    "english": "Hacienda Shed"
+  },
+  "25705": {
+    "template": "OrnamentalBuilding",
+    "name": "Hacienda Ornamental Hay",
+    "english": "Hacienda Haystacks"
+  },
+  "25706": {
+    "template": "OrnamentalBuilding",
+    "name": "Hacienda Ornamental Cart",
+    "english": "Hacienda Cart"
+  },
+  "25736": {
+    "template": "ItemEffectTargetPool",
+    "name": "SAWoodcutting",
+    "english": "Lumberjack&apos;s Huts and Sawmills"
+  },
+  "25764": {
+    "template": "ItemEffectTargetPool",
+    "name": "SilverProductionBuildings",
+    "english": "All Silver Production Buildings"
+  },
+  "25767": {
+    "template": "ItemEffectTargetPool",
+    "name": "Non-SilverProductionBuildings",
+    "english": "All Production Buildings"
+  },
+  "25846": {
+    "template": "AssetPool",
+    "name": "AssetPool_TractorFarms_EurAfrica"
+  },
+  "25890": {
+    "template": "Farmfield",
+    "name": "agriculture_colony01_12_field (Spice)",
+    "english": "Spice Field"
+  },
+  "25894": {
+    "template": "ItemEffectTargetPool",
+    "name": "AllHaciendaFarms",
+    "english": "All Hacienda Farms"
+  },
+  "25929": {
+    "template": "OrnamentalBuilding",
+    "name": "Season 4 - Fountain"
+  },
+  "25930": {
+    "template": "OrnamentalBuilding",
+    "name": "Season 4 - Blimp"
+  },
+  "25931": {
+    "template": "OrnamentalBuilding",
+    "name": "Season 4 - Gate"
+  },
+  "26008": {
+    "template": "AssetPool",
+    "name": "asset pool colony01 hacienda all farms"
+  },
+  "26029": {
+    "template": "ItemEffectTargetPool",
+    "name": "AllJornaleroResidences",
+    "english": "All Jornalero residences"
+  },
+  "26030": {
+    "template": "ItemEffectTargetPool",
+    "name": "AllObreroResidences",
+    "english": "All Obrera residences"
   },
   "80001": {
     "template": "OrnamentalBuilding",
@@ -398,6 +1532,36 @@
   "80173": {
     "template": "HarborPropObject",
     "name": "Harbor Prop Collection 3D"
+  },
+  "80212": {
+    "template": "OrnamentalBuilding",
+    "name": "twitchdrops_ornament_Flag_DLC10",
+    "english": "&quot;Seeds of Change&quot; Banner"
+  },
+  "80213": {
+    "template": "OrnamentalBuilding",
+    "name": "twitchdrops_ornament_Flag_DLC11",
+    "english": "&quot;Empire of the Skies&quot; Banner"
+  },
+  "80214": {
+    "template": "OrnamentalBuilding",
+    "name": "twitchdrops_ornament_Flag_DLC12",
+    "english": "&quot;New World Rising&quot; Banner"
+  },
+  "80215": {
+    "template": "OrnamentalBuilding",
+    "name": "twitchdrops_ornament_billboard_DLC10",
+    "english": "&quot;Seeds of Change&quot; Mural"
+  },
+  "80216": {
+    "template": "OrnamentalBuilding",
+    "name": "twitchdrops_ornament_billboard_DLC11",
+    "english": "&quot;Empire of the Skies&quot; Mural"
+  },
+  "80217": {
+    "template": "OrnamentalBuilding",
+    "name": "twitchdrops_ornament_billboard_DLC12",
+    "english": "&quot;New World Rising&quot; Mural"
   },
   "100415": {
     "template": "Guildhouse",
@@ -6120,17 +7284,17 @@
     "english": "Consumables"
   },
   "119025": {
-    "template": "BuffFactory",
+    "template": "BuffFactoryModule",
     "name": "africa_silo (Teff)",
     "english": "Silo"
   },
   "119026": {
-    "template": "BuffFactory",
+    "template": "BuffFactoryModule",
     "name": "africa_tractor_module_01 (Tractor)",
     "english": "Tractor Barn"
   },
   "119027": {
-    "template": "BuffFactory",
+    "template": "BuffFactoryModule",
     "name": "africa_tractor_module_02 (Harvester)",
     "english": "Tractor Barn"
   },
@@ -6324,7 +7488,7 @@
   },
   "120055": {
     "template": "ProductStorageList",
-    "name": "StandartProductStorageList"
+    "name": "StandardProductStorageList"
   },
   "120056": {
     "template": "ProductStorageList",
@@ -10938,6 +12102,146 @@
     "template": "RewardPool",
     "name": "TouristSeason - Epic All Chem"
   },
+  "137937": {
+    "template": "ItemCrafterHarbor",
+    "name": "Third_party_Yaosca_Crafting_Harbor",
+    "english": "Yaosca&apos;s Harbour"
+  },
+  "137943": {
+    "template": "ScenarioRuinEco",
+    "name": "Test_RuinTBD",
+    "english": "Ruin"
+  },
+  "138761": {
+    "template": "ScenarioRuinEco",
+    "name": "Barracks",
+    "english": "Barracks"
+  },
+  "138762": {
+    "template": "ScenarioRuinEco",
+    "name": "Jail",
+    "english": "Jail"
+  },
+  "138763": {
+    "template": "ScenarioRuinEco",
+    "name": "Powerplant",
+    "english": "Pyrphorian Generator"
+  },
+  "138764": {
+    "template": "ScenarioRuinEco",
+    "name": "WeaponIndustry",
+    "english": "Pyrphorian Factory"
+  },
+  "138771": {
+    "template": "ScenarioRuinEco",
+    "name": "Ruins general 01",
+    "english": "Pyrphorian Ruins"
+  },
+  "138772": {
+    "template": "ScenarioRuinEco",
+    "name": "Ruins general 02",
+    "english": "Pyrphorian Ruins"
+  },
+  "138773": {
+    "template": "ScenarioRuinEco",
+    "name": "Ruins general 03",
+    "english": "Pyrphorian Ruins"
+  },
+  "138774": {
+    "template": "ScenarioRuinEco",
+    "name": "Ruins general 04",
+    "english": "Pyrphorian Ruins"
+  },
+  "138775": {
+    "template": "ScenarioRuinEco",
+    "name": "Ruins air 01",
+    "english": "Pyrphorian Ruins"
+  },
+  "138776": {
+    "template": "ScenarioRuinEco",
+    "name": "Ruins air 02",
+    "english": "Pyrphorian Ruins"
+  },
+  "138777": {
+    "template": "ScenarioRuinEco",
+    "name": "Ruins water 01",
+    "english": "Pyrphorian Ruins"
+  },
+  "138778": {
+    "template": "ScenarioRuinEco",
+    "name": "Ruins water 02",
+    "english": "Pyrphorian Ruins"
+  },
+  "138779": {
+    "template": "ScenarioRuinEco",
+    "name": "Ruins general small 01",
+    "english": "Pyrphorian Ruins"
+  },
+  "138780": {
+    "template": "ScenarioRuinEco",
+    "name": "Ruins general small 02",
+    "english": "Pyrphorian Ruins"
+  },
+  "138963": {
+    "template": "RewardPool",
+    "name": "VillageCrate_Area1_RewardPool_ConstructionMaterials"
+  },
+  "138987": {
+    "template": "RewardPool",
+    "name": "VillageCrate_Area2_RewardPool_PyrMachines"
+  },
+  "138988": {
+    "template": "RewardPool",
+    "name": "VillageCrate_Area3_RewardPool_ConstructionMaterials"
+  },
+  "138989": {
+    "template": "RewardPool",
+    "name": "VillageCrate_Area4_RewardPool_RefillItems"
+  },
+  "138990": {
+    "template": "RewardPool",
+    "name": "VillageCrate_Area5_RewardPool_Food"
+  },
+  "139093": {
+    "template": "RewardPool",
+    "name": "Plants_RewardPool"
+  },
+  "139314": {
+    "template": "RewardPool",
+    "name": "MayanRuins_RewardPool"
+  },
+  "139315": {
+    "template": "RewardPool",
+    "name": "PyrShipwreck_RewardPool"
+  },
+  "139537": {
+    "template": "RewardPool",
+    "name": "PyrSettlement_RewardPool"
+  },
+  "139859": {
+    "template": "ItemEffectTargetPool",
+    "name": "all production buildings GGJ",
+    "english": "all production buildings"
+  },
+  "139892": {
+    "template": "RewardPool",
+    "name": "Scrap_RewardPool"
+  },
+  "139904": {
+    "template": "ItemEffectTargetPool",
+    "name": "GGJ All Factories BuffEffectTargetPool",
+    "english": "All Factories"
+  },
+  "139917": {
+    "template": "ItemEffectTargetPool",
+    "name": "GGJ All Production BuffEffectTargetPool",
+    "english": "All Factories"
+  },
+  "139935": {
+    "template": "ItemEffectTargetPool",
+    "name": "GGJ All Buildings BuffEffectTargetPool",
+    "english": "All Factories"
+  },
   "140027": {
     "template": "AssetPool",
     "name": "asset pool sausage"
@@ -11041,6 +12345,43 @@
   "140053": {
     "template": "AssetPool",
     "name": "asset pool advanced weapon"
+  },
+  "144008": {
+    "template": "OrnamentalBuilding",
+    "name": "Ruins Church",
+    "english": "Deserted Church"
+  },
+  "144009": {
+    "template": "OrnamentalBuilding",
+    "name": "Ruins Marketplace1",
+    "english": "Abandoned Marketplace"
+  },
+  "144010": {
+    "template": "OrnamentalBuilding",
+    "name": "Ruins Marketplace2",
+    "english": "Desolate Marketplace"
+  },
+  "144023": {
+    "template": "AssetPool",
+    "name": "KontorsPool"
+  },
+  "144038": {
+    "template": "OrnamentalBuilding",
+    "name": "Ruins ResidenceGeneric",
+    "english": "Ruined Residence"
+  },
+  "144187": {
+    "template": "ItemEffectTargetPool",
+    "name": "AllAgriculturalBuildings",
+    "english": "All Agricultural Buildings"
+  },
+  "144201": {
+    "template": "AssetPool",
+    "name": "asset pool jornalero residences"
+  },
+  "144202": {
+    "template": "AssetPool",
+    "name": "asset pool obrero residences"
   },
   "151049": {
     "template": "RewardPool",
@@ -11826,7 +13167,7 @@
   "190609": {
     "template": "ItemEffectTargetPool",
     "name": "all zoos and museums",
-    "english": "Zoos and Museums"
+    "english": "All Zoos and Museums"
   },
   "190611": {
     "template": "ItemEffectTargetPool",
@@ -12444,7 +13785,7 @@
   "190762": {
     "template": "ItemEffectTargetPool",
     "name": "all residences EU &amp; SA + Africa &amp; Scholar",
-    "english": "Residences"
+    "english": "All Residences"
   },
   "190774": {
     "template": "RewardItemPool",
@@ -12453,56 +13794,56 @@
   "190775": {
     "template": "ItemEffectTargetPool",
     "name": "all fire stations",
-    "english": "Fire Stations"
+    "english": "All Fire Stations"
   },
   "190776": {
     "template": "ItemEffectTargetPool",
     "name": "all police stations",
-    "english": "Police Stations"
+    "english": "All Police Stations"
   },
   "190777": {
     "template": "ItemEffectTargetPool",
     "name": "all hospitals",
-    "english": "Hospitals"
+    "english": "All Hospitals"
   },
   "190778": {
     "template": "ItemEffectTargetPool",
     "name": "all timber yards",
-    "english": "Lumberjack&apos;s Huts"
+    "english": "All Lumberjack&apos;s Huts"
   },
   "190779": {
     "template": "ItemEffectTargetPool",
     "name": "all fisheries",
-    "english": "Fisheries"
+    "english": "All Fisheries"
   },
   "190781": {
     "template": "ItemEffectTargetPool",
     "name": "all town halls",
-    "english": "Town Halls"
+    "english": "All Town Halls"
   },
   "190782": {
     "template": "ItemEffectTargetPool",
     "name": "all pubs",
-    "english": "Pubs"
+    "english": "All Pubs"
   },
   "190783": {
     "template": "ItemEffectTargetPool",
     "name": "all shipyards",
-    "english": "Shipyards"
+    "english": "All Shipyards"
   },
   "190784": {
     "template": "ItemEffectTargetPool",
     "name": "all churches",
-    "english": "Churches"
+    "english": "All Churches"
   },
   "190785": {
     "template": "ItemEffectTargetPool",
     "name": "all potato and banana farms",
-    "english": "Potato Farms"
+    "english": "All Potato Farms"
   },
   "190786": {
     "template": "ItemEffectTargetPool",
-    "name": "all mines",
+    "name": "all mines and quarries",
     "english": "All Mines and Quarries"
   },
   "190797": {
@@ -12632,7 +13973,7 @@
   "190846": {
     "template": "ItemEffectTargetPool",
     "name": "all industrial processing",
-    "english": "Industrial Processing"
+    "english": "All Industrial Processing"
   },
   "190847": {
     "template": "GuildhouseItem",
@@ -12727,7 +14068,7 @@
   "190865": {
     "template": "ItemEffectTargetPool",
     "name": "all crops farms",
-    "english": "Crop Farms"
+    "english": "All Crop Farms"
   },
   "190866": {
     "template": "GuildhouseItem",
@@ -12762,7 +14103,7 @@
   "190872": {
     "template": "ItemEffectTargetPool",
     "name": "all animals farms",
-    "english": "Animal Farms"
+    "english": "All Animal Farms"
   },
   "190873": {
     "template": "GuildhouseItem",
@@ -12832,7 +14173,7 @@
   "190886": {
     "template": "ItemEffectTargetPool",
     "name": "all quarries",
-    "english": "Quarries"
+    "english": "All Quarries"
   },
   "190887": {
     "template": "GuildhouseItem",
@@ -13289,7 +14630,7 @@
   "191042": {
     "template": "ItemEffectTargetPool",
     "name": "all oil wells",
-    "english": "Oil Wells"
+    "english": "All Oil Wells"
   },
   "191048": {
     "template": "RewardPool",
@@ -14613,22 +15954,22 @@
   "191443": {
     "template": "ItemEffectTargetPool",
     "name": "all military buildings",
-    "english": "Defense Turrets"
+    "english": "All Defense Turrets"
   },
   "191454": {
     "template": "ItemEffectTargetPool",
     "name": "all ships",
-    "english": "Ships"
+    "english": "All Ships"
   },
   "191455": {
     "template": "ItemEffectTargetPool",
     "name": "all sailships",
-    "english": "Sailships"
+    "english": "All Sailships"
   },
   "191456": {
     "template": "ItemEffectTargetPool",
     "name": "all steamships",
-    "english": "Steamships"
+    "english": "All Steamships"
   },
   "191457": {
     "template": "ItemEffectTargetPool",
@@ -14638,7 +15979,7 @@
   "191458": {
     "template": "ItemEffectTargetPool",
     "name": "all warships",
-    "english": "Warships"
+    "english": "All Warships"
   },
   "191459": {
     "template": "GuildhouseItem",
@@ -14745,7 +16086,7 @@
   "191501": {
     "template": "ItemEffectTargetPool",
     "name": "all public services",
-    "english": "Public Services"
+    "english": "All Public Services"
   },
   "191502": {
     "template": "RewardPool",
@@ -14774,7 +16115,7 @@
   "191508": {
     "template": "ItemEffectTargetPool",
     "name": "all harbour buildings",
-    "english": "Harbour Buildings"
+    "english": "All Harbour Buildings"
   },
   "191510": {
     "template": "RewardPool",
@@ -14783,22 +16124,22 @@
   "191540": {
     "template": "ItemEffectTargetPool",
     "name": "all marketplaces",
-    "english": "Marketplaces"
+    "english": "All Marketplaces"
   },
   "191561": {
     "template": "ItemEffectTargetPool",
     "name": "all zoos",
-    "english": "Zoological Gardens"
+    "english": "All Zoological Gardens"
   },
   "191562": {
     "template": "ItemEffectTargetPool",
     "name": "all museums",
-    "english": "Museums"
+    "english": "All Museums"
   },
   "191563": {
     "template": "ItemEffectTargetPool",
     "name": "all visitors piers",
-    "english": "Public Moorings"
+    "english": "All Public Moorings"
   },
   "191564": {
     "template": "TownhallItem",
@@ -14938,12 +16279,12 @@
   "191592": {
     "template": "ItemEffectTargetPool",
     "name": "all clay",
-    "english": "Clay Pits"
+    "english": "All Clay Pits"
   },
   "191593": {
     "template": "ItemEffectTargetPool",
     "name": "all niter",
-    "english": "Salpeter Works"
+    "english": "All Salpeter Works"
   },
   "191637": {
     "template": "RewardPool",
@@ -15737,7 +17078,7 @@
   "191887": {
     "template": "ItemEffectTargetPool",
     "name": "all repair cranes",
-    "english": "Repair Cranes"
+    "english": "All Repair Cranes"
   },
   "191888": {
     "template": "HarborOfficeItem",
@@ -16042,7 +17383,7 @@
   "192408": {
     "template": "ItemEffectTargetPool",
     "name": "all framework knitters and fur dealers",
-    "english": "Framework Knitters and Fur Dealers"
+    "english": "All Framework Knitters and Fur Dealers"
   },
   "192414": {
     "template": "RewardItemPool",
@@ -16060,12 +17401,12 @@
   "192418": {
     "template": "ItemEffectTargetPool",
     "name": "all pubs and boxing arenas",
-    "english": "Pubs and Boxing Arenas"
+    "english": "All Pubs and Boxing Arenas"
   },
   "192423": {
     "template": "ItemEffectTargetPool",
     "name": "all engineer production",
-    "english": "Buildings employing Engineers"
+    "english": "All Buildings employing Engineers"
   },
   "192427": {
     "template": "RewardItemPool",
@@ -16079,7 +17420,7 @@
   "192436": {
     "template": "ItemEffectTargetPool",
     "name": "all weapons production chains",
-    "english": "Weapons Production Chain"
+    "english": "All Weapons Production Chain"
   },
   "192438": {
     "template": "TownhallItem",
@@ -16104,12 +17445,12 @@
   "192445": {
     "template": "ItemEffectTargetPool",
     "name": "all farmers and workers residences",
-    "english": "Farmer and Worker Residences"
+    "english": "All Farmer and Worker Residences"
   },
   "192446": {
     "template": "ItemEffectTargetPool",
     "name": "all investor and obrero residences",
-    "english": "Investor and Obrero Residences"
+    "english": "All Investor and Obrero Residences"
   },
   "192450": {
     "template": "GuildhouseItem",
@@ -16164,7 +17505,7 @@
   "192466": {
     "template": "ItemEffectTargetPool",
     "name": "all sailing shipyards",
-    "english": "Sailing Shipyards"
+    "english": "All Sailing Shipyards"
   },
   "192468": {
     "template": "TownhallItem",
@@ -19570,7 +20911,7 @@
   "193480": {
     "template": "ItemEffectTargetPool",
     "name": "all loading time buildings",
-    "english": "Harbour Buildings"
+    "english": "All Harbour Buildings"
   },
   "193483": {
     "template": "RewardPool",
@@ -20187,12 +21528,12 @@
   "193666": {
     "template": "ItemEffectTargetPool",
     "name": "all culture buildings",
-    "english": "Cultural Buildings"
+    "english": "All Cultural Buildings"
   },
   "193667": {
     "template": "ItemEffectTargetPool",
     "name": "all botanical gardens",
-    "english": "Botanical Gardens"
+    "english": "All Botanical Gardens"
   },
   "193673": {
     "template": "RewardPool",
@@ -20837,12 +22178,12 @@
   "193859": {
     "template": "ItemEffectTargetPool",
     "name": "all oil harbours moderate",
-    "english": "Oil Harbours"
+    "english": "All Oil Harbours"
   },
   "193860": {
     "template": "ItemEffectTargetPool",
     "name": "all trade unions EU for Palace",
-    "english": "Trade Unions"
+    "english": "All Trade Unions"
   },
   "193861": {
     "template": "ItemEffectTargetPool",
@@ -20857,37 +22198,37 @@
   "193863": {
     "template": "ItemEffectTargetPool",
     "name": "all variety theatres",
-    "english": "Variety Theatres"
+    "english": "All Variety Theatres"
   },
   "193864": {
     "template": "ItemEffectTargetPool",
     "name": "all power plants",
-    "english": "Power Plants"
+    "english": "All Power Plants"
   },
   "193865": {
     "template": "ItemEffectTargetPool",
     "name": "all harbourmaster&apos;s offices",
-    "english": "Harbourmaster&apos;s Offices"
+    "english": "All Harbourmaster&apos;s Offices"
   },
   "193866": {
     "template": "ItemEffectTargetPool",
     "name": "all depots",
-    "english": "Depots"
+    "english": "All Depots"
   },
   "193867": {
     "template": "ItemEffectTargetPool",
     "name": "all oil storages",
-    "english": "Oil Stores"
+    "english": "All Oil Stores"
   },
   "193868": {
     "template": "ItemEffectTargetPool",
     "name": "all pubs",
-    "english": "Pubs"
+    "english": "All Pubs"
   },
   "193869": {
     "template": "ItemEffectTargetPool",
     "name": "all members clubs",
-    "english": "Members Clubs"
+    "english": "All Members Clubs"
   },
   "193870": {
     "template": "RewardPool",
@@ -20896,12 +22237,12 @@
   "193871": {
     "template": "ItemEffectTargetPool",
     "name": "all banks",
-    "english": "Banks"
+    "english": "All Banks"
   },
   "193872": {
     "template": "ItemEffectTargetPool",
     "name": "all universities",
-    "english": "Universities"
+    "english": "All Universities"
   },
   "193875": {
     "template": "ItemEffectTargetPool",
@@ -20910,7 +22251,7 @@
   },
   "193879": {
     "template": "ItemEffectTargetPool",
-    "name": "all buildings with maintenance NEW",
+    "name": "all buildings with maintenance DONT USE",
     "english": "All Buildings with Maintenance Costs"
   },
   "193883": {
@@ -20936,7 +22277,7 @@
   "193897": {
     "template": "ItemEffectTargetPool",
     "name": "all kontors and piers",
-    "english": "Trading Posts and Piers"
+    "english": "All Trading Posts and Piers"
   },
   "193898": {
     "template": "ItemEffectTargetPool",
@@ -21111,12 +22452,12 @@
   "193957": {
     "template": "ItemEffectTargetPool",
     "name": "all residences EU &amp; SA without Africa &amp; Scholar",
-    "english": "Old and New World Residences, except Scholar Residences"
+    "english": "All Old and New World Residences, except Scholar Residences"
   },
   "193958": {
     "template": "ItemEffectTargetPool",
     "name": "all cattle farms",
-    "english": "Cattle Farm"
+    "english": "All Cattle Farms"
   },
   "193959": {
     "template": "ItemEffectTargetPool",
@@ -21213,7 +22554,7 @@
   "193990": {
     "template": "ItemEffectTargetPool",
     "name": "all trade unions EU &amp; SA for Museum Effects",
-    "english": "Trade Unions"
+    "english": "All Trade Unions"
   },
   "194005": {
     "template": "ItemEffectTargetPool",
@@ -21895,12 +23236,12 @@
     "english": "Fuel"
   },
   "269837": {
-    "template": "BuffFactory",
+    "template": "BuffFactoryModule",
     "name": "tractor_module_01 (Tractor)",
     "english": "Tractor Barn"
   },
   "269839": {
-    "template": "BuffFactory",
+    "template": "BuffFactoryModule",
     "name": "tractor_module_02 (Harvester)",
     "english": "Tractor Barn"
   },
@@ -21920,12 +23261,12 @@
     "english": "Low Wall Entrance"
   },
   "269848": {
-    "template": "BuffFactory",
+    "template": "BuffFactoryModule",
     "name": "colony01_tractor_module_01 (Tractor)",
     "english": "Tractor Barn"
   },
   "269849": {
-    "template": "BuffFactory",
+    "template": "BuffFactoryModule",
     "name": "colony01_tractor_module_02 (Harvester)",
     "english": "Tractor Barn"
   },
@@ -21960,12 +23301,12 @@
     "english": "Silo_Test"
   },
   "269957": {
-    "template": "BuffFactory",
+    "template": "BuffFactoryModule",
     "name": "Silo (Grain)",
     "english": "Silo"
   },
   "269958": {
-    "template": "BuffFactory",
+    "template": "BuffFactoryModule",
     "name": "Silo (Corn)",
     "english": "Silo"
   },
@@ -22010,7 +23351,7 @@
     "english": "Tractor Barn"
   },
   "270041": {
-    "template": "BuffFactory",
+    "template": "BuffFactoryModule",
     "name": "tractor_module_01 (GASOLINE TEST)",
     "english": "Tractor Barn (Gasoline Good)"
   },
@@ -22132,11 +23473,6 @@
     "template": "ForwardBuff",
     "name": "Productivity - Decree Buff 3 Forward",
     "english": "Skilled Labour Act"
-  },
-  "420006": {
-    "template": "Warehouse",
-    "name": "logistic_04 (Warehouse III)",
-    "english": "Large Warehouse"
   },
   "500002": {
     "template": "ProductionChain",
@@ -24351,10 +25687,6 @@
     "template": "PopulationLevel7",
     "name": "Colony01 Population 2",
     "english": "Obreros"
-  },
-  "20000002": {
-    "template": "SimpleBuilding",
-    "name": "world_fair_02"
   },
   "25000189": {
     "template": "ConstructionCategory",
