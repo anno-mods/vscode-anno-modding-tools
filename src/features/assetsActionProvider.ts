@@ -1,7 +1,8 @@
 import * as vscode from 'vscode';
 
 const DEPRECATED_ALL = '190611';
-const DEPRECATED_ALL_FIX = '193879';
+const DEPRECATED_ALL2 = '193879';
+const DEPRECATED_ALL_FIX = '368';
 const DEPRECATED_ALL_CODE = 'all_buildings_with_maintenance_DONTUSE';
 
 export class AssetsActionProvider {
@@ -19,16 +20,29 @@ export class AssetsActionProvider {
   }
 }
 
+function includesAsWord(line: string, text: string)
+{
+  const pos = line.indexOf(text);
+  if (pos <= 0) return false;
+
+  const charBefore = line.charAt(pos - 1);
+  const charAfter = line.charAt(pos + text.length);
+
+  return (charBefore === '\'' || charAfter === '\'' ||
+    charBefore === '"' || charAfter === '"' ||
+    charBefore === ',' && charAfter === ',')
+}
+
 export function refreshDiagnostics(doc: vscode.TextDocument, collection: vscode.DiagnosticCollection): void {
   const diagnostics: vscode.Diagnostic[] = [];
 
   for (let lineIndex = 0; lineIndex < doc.lineCount; lineIndex++) {
     const lineOfText = doc.lineAt(lineIndex);
-    if (lineOfText.text.includes(DEPRECATED_ALL)) {
-      // do different quote variations only when there was a match - otherwise we scan every line twice
-      if (lineOfText.text.includes(`'${DEPRECATED_ALL}'`) || lineOfText.text.includes(`"${DEPRECATED_ALL}"`)) {
-        diagnostics.push(createDiagnostic(doc, lineOfText, lineIndex));
-      }
+    if (includesAsWord(lineOfText.text, DEPRECATED_ALL)) {
+      diagnostics.push(createDiagnostic(doc, lineOfText, lineIndex));
+    }
+    else if (includesAsWord(lineOfText.text, DEPRECATED_ALL2)) {
+      diagnostics.push(createDiagnostic2(doc, lineOfText, lineIndex));
     }
   }
 
@@ -41,6 +55,18 @@ function createDiagnostic(doc: vscode.TextDocument, lineOfText: vscode.TextLine,
 
   const diagnostic = new vscode.Diagnostic(range,
     `\`${DEPRECATED_ALL}\` is deprecated and won't work with Captain of Industry properly. Use \`${DEPRECATED_ALL_FIX}\` instead.`,
+    vscode.DiagnosticSeverity.Error);
+  diagnostic.code = DEPRECATED_ALL_CODE;
+  return diagnostic;
+}
+
+// TODO this is not how you do things 😆
+function createDiagnostic2(doc: vscode.TextDocument, lineOfText: vscode.TextLine, lineIndex: number): vscode.Diagnostic {
+  const index = lineOfText.text.indexOf(`${DEPRECATED_ALL2}`);
+  const range = new vscode.Range(lineIndex, index, lineIndex, index + DEPRECATED_ALL2.length);
+
+  const diagnostic = new vscode.Diagnostic(range,
+    `\`${DEPRECATED_ALL2}\` is deprecated and won't work with Captain of Industry properly. Use \`${DEPRECATED_ALL_FIX}\` instead.`,
     vscode.DiagnosticSeverity.Error);
   diagnostic.code = DEPRECATED_ALL_CODE;
   return diagnostic;
