@@ -1,8 +1,8 @@
 {
   "name": "anno-modding-tools",
-  "displayName": "Modding Tools for Anno",
+  "displayName": "Anno Modding Tools",
   "description": "Modding tools for Anno 1800",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "publisher": "JakobHarder",
   "repository": {
     "type": "git",
@@ -259,7 +259,7 @@
     "pretest": "tsc -p ./ && npm run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
-    "assets": "tsc -p ./ && node ./out/compileAssets.js /mnt/c/anno/all-rda/data/config/export/main/asset/assets.xml",
+    "assets": "tsc -p ./ && node ./out/compileAssets.js c:/anno/all-rda/data/config/export/main/asset/assets.xml",
     "buildmod:compile": "tsc -p ./",
     "buildmod:pack": "npm run buildmod:compile && npm pack"
   },

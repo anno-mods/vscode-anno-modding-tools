@@ -220,12 +220,14 @@ export class Box {
   name: string = "";
   center: Vector = Vector.zero;
   size: Vector = Vector.zero;
+  rotation: Quaternion = Quaternion.default;
 
-  public static fromMinMax(name: string, min: Vector, max: Vector) {
+  public static fromMinMax(name: string, min: Vector, max: Vector, rotation: Quaternion = Quaternion.default) {
     let box = new Box();
     box.center = min.add(max).div(2);
     box.size = max.sub(min);
     box.name = name;
+    box.rotation = rotation;
     return box;
   }
 }

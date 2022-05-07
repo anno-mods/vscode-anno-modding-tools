@@ -167,6 +167,12 @@ function buildArrayBuffer<T extends ArrayLike<number>>(typedArray: any, data: Ar
   return targetBuffer;
 }
 
+export const enum BlockerType {
+  Build = 'BuildBlocker',
+  Feedback = 'FeedbackBlocker',
+  Priority = 'PriorityFeedbackBlocker'
+};
+
 export default class ProppedModel {
   private readonly props: IPropMap;
   private readonly particles: IParticleMap;
@@ -367,22 +373,23 @@ export default class ProppedModel {
     return (this._unevenBlocker.length > 0) ? this._unevenBlocker : undefined;
   }
 
-  private _feedbackBlocker: Vector2[][] | undefined;
-  public getFeedbackBlocker() {
-    if (!this._feedbackBlocker) {
-      this._feedbackBlocker = [];
-      const nodes = _findNodes(this.gltf, 'FeedbackBlocker', this.resourceFolder);
+  private _blocker: { [index: string] : Vector2[][] } = {};
+  public getBlocker(type: BlockerType) {
+    if (!this._blocker[type]) {
+      const blocker = [];
+      const nodes = _findNodes(this.gltf, type, this.resourceFolder);
       for (let node of nodes) {
         let vectors = _readVectors(node).map(e => e.toVector2());
         if (node?.indices) {
           vectors = sortVectorsByOutline(vectors, node.indices);
         }
         if (vectors) {
-          this._feedbackBlocker.push(vectors);
+          blocker.push(vectors);
         }
       }
+      this._blocker[type] = blocker;
     }
-    return (this._feedbackBlocker.length > 0) ? this._feedbackBlocker : undefined;
+    return (this._blocker[type]?.length > 0) ? this._blocker[type] : undefined;
   }
 
   private _dummies: { name: string, position: Vector, rotation: Quaternion, extends: Vector }[] | undefined;
@@ -444,10 +451,9 @@ export default class ProppedModel {
           return undefined;
         }
 
-        // TODO rotation must be DEFAULT
-
         const translation = Vector.fromArray(hitbox.node.translation) || Vector.zero;
         const scale = Vector.fromArray(hitbox.node.scale) || Vector.one;
+        const rotation = Quaternion.fromArray(hitbox.node.rotation) || Quaternion.default;
 
         let minVector = Vector.fromArray(buffer) as Vector;
         let maxVector = minVector;
@@ -456,10 +462,11 @@ export default class ProppedModel {
           maxVector = maxVector.up(Vector.fromArray(buffer, i) as Vector);
         }
 
+        // apply scale and translation, but not rotation
         minVector = minVector.mul(scale).add(translation);
         maxVector = maxVector.mul(scale).add(translation);
 
-        this._hitboxes.push(Box.fromMinMax(hitbox.name, minVector, maxVector));
+        this._hitboxes.push(Box.fromMinMax(hitbox.name, minVector, maxVector, rotation));
       }
     }
 

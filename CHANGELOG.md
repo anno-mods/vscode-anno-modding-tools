@@ -34,6 +34,15 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Converter
   - .fc/.cf7 cfgyaml variants
 
+## [1.1.0]
+
+### Added
+
+- GU14 GUIDs
+- Added `PriorityFeedbackBlocker` to IFO import
+- Added multiple `BuildBlocker` to IFO import
+- Support hitbox rotation for IFO import
+
 ## [1.0.0]
 
 Bump version to 1.0 as the majority of features I want as of now are implemented.
