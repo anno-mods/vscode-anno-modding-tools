@@ -34,6 +34,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Converter
   - .fc/.cf7 cfgyaml variants
 
+## [1.2.0]
+
+### Added
+
+- CF7 support in cfgyaml
+
 ## [1.1.0]
 
 ### Added
