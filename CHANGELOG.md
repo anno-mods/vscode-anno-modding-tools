@@ -34,6 +34,17 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Converter
   - .fc/.cf7 cfgyaml variants
 
+## [1.3.0]
+
+### Added
+
+- XSD for validation and auto complete (in combination with Red Hat XML plugin)
+
+### Changed
+
+- Fixed GUIDs sometimes being not found
+- Improved GUID auto conversion
+
 ## [1.2.0]
 
 ### Added

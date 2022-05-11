@@ -4,72 +4,59 @@ This project is not affiliated in any way with Ubisoft.
 
 Anno 1800 is a trademark of Ubisoft Entertainment in the US and/or other countries. Anno is a trademark of Ubisoft GmbH in the US and/or other countries.
 
-## Features
+## Overview
 
-- Outlines, coloring, GUID auto-conversion and hover tips: `assets.xml`, `.cfg`, `.ifo`, `.cf7`
-- Blender/glTF export to `.cfg`: `PROP`, feedback location, BuildBlocker, hitboxes, ...
-- Quickly reskin models without touching `.cfg`, ...
-- Batch create DDS (with LODs), RDM (with LODs and animation) using `F1` > `Build Anno Mod` and `annomod.json` description.
+- [Outline](#assets-outline), [GUID conversion](#guid-conversion) and [auto aompletion](#auto-completion) for `assets.xml`, `.cfg`, `.ifo`, `.cf7`
+- [Import from Blender or glTF](#import-from-blender-or-gltf) to `.cfg`, `.ifo` and `.cf7`
+- [Reskin existing models](#quickly-reskin-existing-models) without touching `.cfg`, ...
+- [Batch create](#build-anno-mod) DDS (with LODs), RDM (with LODs and animation) using `F1` > `Build Anno Mod` and `annomod.json` description.
 - Various right-click utilities to convert between Anno and editable formats (glTF, PNG, ...)
 
-Read all the [Feature Details](#feature-details) below.
+### Recommended Plug-ins
 
----
+- [XML Language Support by Red Hat](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-xml)
+- [glTF Tools](https://marketplace.visualstudio.com/items?itemName=cesium.gltf-vscode)
 
-### GUID Hover and Auto-conversion Preview
+### Other Documentation
 
-![](./doc/guid-utils.gif)
-
-### Outline
-
-![](./doc/images/assets-outline.png)
-
-### Blender/glTF to .cfg Preview
-
-![](./doc/quickintro.gif)
-
-## Best Practices
-
-### Use Git repository for imported files
-
-- It's easier to see which lines have changed when you use `Import from glTF`, and you don't need to fear you loose work.
-- Btw, as long as the file is open in editor Undo should also work.
-
-### Use VS Code to browse through RDA data
-
-- Browse and use right-click `Convert to ..` to convert all your .rdm and .dds assets.
-- Use right-click `Copy Relative Path` to easily copy asset pathes like `data/graphics/.../gas_bottle_01.prp` for `.cfg`s.
-- Preparation: Extract all data with the [RDAExplorer](https://github.com/lysannschlegel/RDAExplorer) in proper order into one folder. Open that folder with VS Code.
-
-### Use Blender copy&paste source
-
-- Have a Blender file with all your favorite `prop_` objects with `.prp` path set.
-
-### glTF Tools VS Code extension
-
-- There's an extension to preview glTF files.
-
----
-
-## Feature Details
-
-* [Assets Outline](#assets-outline)
-* [Import from Blender or glTF](#import-from-blender-or-gltf)
-* [Quickly Reskin Existing Models](#quickly-reskin-existing-models)
-* [GUID hover and auto-correct](#guid-hover-and-auto-correct)
-* [Build Anno mod](#build-anno-mod)
 * [Working with models](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-models.md) (separate page)
 * [Working with particles](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-particles.md) (separate page)
 
+## Features
+
 ### Assets Outline
+
+![](./doc/images/assets-outline.png)
 
 The assets.xml outline shows `ModOp`s, `Assets` and where possible names instead of GUIDs.
 
 You have the ability to group by writing `<!-- # your text -->` comments in your code.
 
-![](./doc/images/assets-outline.png)
+### GUID Conversion
+
+![](./doc/guid-utils.gif)
+
+You can type a name tags that expect GUID. You get a list of possible GUID matches to replace to.
+
+Not all GUIDs can be converted automatically due to performance. Most notable exclusions are `Test` and `Audio`.
+
+### Auto Completion
+
+Go to settings and search for `xml file associations` and add the following pattern:
+
+```
+"xml.fileAssociations": [
+  {
+      "pattern": "assets*.xml",
+      "systemId": "https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/generated/assets.xsd"
+  }
+]
+```
+Now your code gets validated and you can press `Ctrl` + `Space` anywhere in the document and get a list of possible tags, enums or GUIDs.
 
 ### Import from Blender or glTF
+
+![](./doc/quickintro.gif)
 
 Steps:
 
@@ -168,15 +155,6 @@ variant:
       Position:
         yf: 4.34346
 ```
-
-### GUID Hover and Auto-conversion
-
-Hover works on GUIDs in XPath strings and in the tags `Ingredient`, `Product`, `ItemLink`, `Good` or `GUID`. Hover is mostly limited to products, buildings, production chains, items and effect pools.
-
-Auto-conversion works when in the same tags as above in editing mode.
-Conversion is limited to products (including residents) and items at the moment.
-
-Including all GUIDs is too much for many reasons. New GUID types will be added if there's a need (meaning: ping me with a request).
 
 ### Build Anno Mod
 

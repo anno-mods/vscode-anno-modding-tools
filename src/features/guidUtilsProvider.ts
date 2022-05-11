@@ -3,35 +3,21 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import { AssetsTocProvider } from './outline/assetsTocProvider';
 import * as xmldoc from 'xmldoc';
+import { AssetsDocument, IAsset } from '../other/assetsXml';
 
-const _TAGS_TO_COMPLETE: { [index: string]: string[] } = {
-  /* eslint-disable @typescript-eslint/naming-convention */
-  'Ingredient': [ 'Product' ],
-  'Product': [ 'Product' ],
-  'ItemLink': [ 'GuildhouseItem', 'HarborOfficeItem', 'TownhallItem', 'CultureItem', 'VehicleItem' ],
-  'Good': [ 'Product' ], // TODO and items?
-  'GUID': [ '*' ],
-  'Asset': [ '*'],
-  'Building': [ '*' ],
-  'ProvidedNeed': [ 'Product' ],
-  'SubstituteNeed': [ 'Product' ],
-  /* eslint-enable @typescript-eslint/naming-convention */
-};
+let assetsDocument: AssetsDocument | undefined;
 
-interface IAsset {
-  guid: string;
-  template?: string;
-  name?: string;
-  english?: string;
-}
+import * as channel from './channel';
+
+import { AllGuidCompletionItems, GuidCompletionItems } from './guidCompletionItems';
 
 export function resolveGUID(guid: string) {
   let entry = undefined;
-  if (_vanillaAssets) {
-    entry = _vanillaAssets[guid];
+  if (AllGuidCompletionItems.assets) {
+    entry = AllGuidCompletionItems.assets[guid];
   }
-  if (_customAssets && !entry) {
-    entry = _customAssets[guid];
+  if (assetsDocument?.assets && !entry) {
+    entry = assetsDocument.assets[guid];
   }
   return entry;
 }
@@ -51,7 +37,7 @@ function resolveGuidRange(guid: string) {
   }
 
   if (entry) {
-    result.push(`${entry.name}'s GUID range`);
+    result.push(`${entry.name}'s GUID range. See [github.com/anno-mods/GuidRanges](https://github.com/anno-mods/GuidRanges)`);
   }
   return result;
 }
@@ -135,14 +121,9 @@ function findKeywordBeforePosition(document: vscode.TextDocument, position: vsco
   if (!keyword) {
     return undefined;
   }
-  // let parent = undefined;
-  // if (keyword && keyword.type === 'tag' && position.line > 0) {
-  //   parent = _findLastKeywordInLine(document.lineAt(position.line - 1).text + thisLine.substring(0, keyword.position));
-  // }
-  // else {
-  // }
-
-  return { ...keyword, parent: undefined };
+  
+  let path = assetsDocument?.getPath(position.line, keyword.position);
+  return { ...keyword, path };
 }
 
 function findKeywordAtPosition(document: vscode.TextDocument, position: vscode.Position) {
@@ -195,50 +176,6 @@ function getValueAt(line: string, position: number) {
   };
 }
 
-function _updateCompletionItems(assets: { [index: string]: IAsset }) {
-  const completionItems: { [ index: string]: vscode.CompletionItem[] } = {};
-  
-  // prepare CompletionItem lists
-  for (let tag of Object.keys(_TAGS_TO_COMPLETE)) {
-    completionItems[tag] = [];
-  }
-
-  // fill CompletionItem lists for the different kind of tags
-  for (let guid of Object.keys(assets)) {
-    const asset = assets[guid];
-    const item = new vscode.CompletionItem({
-      label: `${asset.english||asset.name}`,
-      description: `${asset.template}: ${guid} (${asset.name})`
-    }, vscode.CompletionItemKind.Snippet);
-    item.insertText = guid;
-
-    for (let tag of Object.keys(_TAGS_TO_COMPLETE)) {
-      if (_TAGS_TO_COMPLETE[tag].indexOf('*') !== -1 || asset.template && _TAGS_TO_COMPLETE[tag].indexOf(asset.template) !== -1) {
-        completionItems[tag].push(item);
-      }
-    }
-  }
-
-  return completionItems;
-}
-
-let _completionItems: { [ index: string]: vscode.CompletionItem[] } = {};
-let _vanillaCompletionItems: { [ index: string]: vscode.CompletionItem[] } = {};
-let _customCompletionItems: { [ index: string]: vscode.CompletionItem[] } | undefined = undefined;
-let _vanillaAssets: { [index: string]: IAsset } | undefined = undefined;
-async function loadVanillaAssets(context: vscode.ExtensionContext) {
-  if (!_vanillaAssets) {
-    const assetPath = context.asAbsolutePath('./generated/assets.json');
-    _vanillaAssets = JSON.parse(fs.readFileSync(assetPath, { encoding: 'utf8' }));
-    if (_vanillaAssets) {
-      _vanillaCompletionItems = _updateCompletionItems(_vanillaAssets);
-      _completionItems = _vanillaCompletionItems;
-    }
-  }
-
-  return _vanillaAssets;
-}
-
 let _guidRanges: { safe: { start: number, end: number }, ranges: { name: string, start: number, end: number }[] };
 async function loadGuidRanges(context: vscode.ExtensionContext) {
   if (!_guidRanges) {
@@ -270,58 +207,27 @@ async function loadKeywordHelp(context: vscode.ExtensionContext) {
   return _keywordHelp;
 }
 
-let _customAssets: { [index: string]: IAsset } | undefined = undefined;
+let _customCompletionItems: GuidCompletionItems | undefined = undefined;
 export function refreshCustomAssets(document: vscode.TextDocument | undefined): void {
-  if (!document) {
-    _customAssets = undefined;
-    _customCompletionItems = undefined;
+  if (!document || (!document.fileName.endsWith('assets.xml') && !document.fileName.endsWith('input.xml') &&!document.fileName.endsWith('expectation.xml'))) {
+    // _customAssets = undefined;
+    // _customCompletionItems = undefined;
     return;
   }
-
-  _customAssets = {};
-
-  const relevantNodes = new Set<string>(['ModOps', 'ModOp', 'Asset', 'Values', 'Standard', 'GUID']);
 
   let xmlContent;
   try {
     xmlContent = new xmldoc.XmlDocument(document.getText());
   }
   catch {
+    // be quiet, this happens a lot during typing
     return;
   }
-  const nodeStack: { history: xmldoc.XmlElement[], element: xmldoc.XmlNode }[] = [{ history: [], element: xmlContent }];
-  while (nodeStack.length > 0) {
-    const top = nodeStack.pop();
-    if (top?.element.type === 'element' && relevantNodes.has(top.element.name)) {
-      const name = top.element.name;
-      if (top.element.name === 'GUID') {
-        const guid = top.element.val;
-        const parent = top.history.length >= 2 ? top.history[top.history.length - 2] : undefined;
-        const name = parent?.valueWithPath('Name');
 
-        if (name) {
-          _customAssets[guid] = {
-            guid,
-            name,
-            template: top.history.length >= 4 ? top.history[top.history.length - 4].valueWithPath('Template') : undefined
-          };
-        }
-      }
+  assetsDocument = new AssetsDocument(xmlContent);
 
-      const children = (top.element.children ? top.element.children.filter((e) => e.type === 'element') : []).map((e) => (
-        { history: [...top.history, e as xmldoc.XmlElement], element: e }
-      ));
-      if (children.length > 0) {
-        // has tag children
-        nodeStack.push(...children.reverse());
-      }
-    }
-    else {
-      // ignore
-    }
-  }
-
-  _customCompletionItems = _updateCompletionItems(_customAssets);
+  _customCompletionItems = new GuidCompletionItems();
+  _customCompletionItems.fromAssets(assetsDocument.assets, AllGuidCompletionItems.tags);
 }
 
 function subscribeToDocumentChanges(context: vscode.ExtensionContext): void {
@@ -347,7 +253,7 @@ function subscribeToDocumentChanges(context: vscode.ExtensionContext): void {
 }
 
 export function registerGuidUtilsProvider(context: vscode.ExtensionContext): vscode.Disposable[] {
-  loadVanillaAssets(context);
+  AllGuidCompletionItems.load(context);
   loadGuidRanges(context);
   loadKeywordHelp(context);
   subscribeToDocumentChanges(context);
@@ -365,13 +271,13 @@ function provideCompletionItems(document: vscode.TextDocument, position: vscode.
   }
 
   if (_customCompletionItems) {
-    const customItems = _customCompletionItems[keyword.name];
+    const customItems = _customCompletionItems.get(keyword.name, keyword.path);
     if (customItems) {
-      return [ ..._vanillaCompletionItems[keyword.name], ...customItems ];
+      return [ ...AllGuidCompletionItems.get(keyword.name, keyword.path) ?? [], ...customItems ];
     }
   }
 
-  return _completionItems[keyword.name];
+  return AllGuidCompletionItems.get(keyword.name, keyword.path);
 }
 
 function provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken) {
@@ -392,21 +298,23 @@ function provideHover(document: vscode.TextDocument, position: vscode.Position, 
     return undefined;
   }
 
-  if (-1 !== Object.keys(_TAGS_TO_COMPLETE).indexOf(value.name)) {
+  const path = assetsDocument?.getPath(position.line, position.character, true);
+  if (AllGuidCompletionItems.get(value.name, path)) {
     const guid = value.text;
     if (guid) {
       const namedGuid = resolveGUID(guid);
+      const templateText = namedGuid?.template ? `${namedGuid.template}: ` : '';
       let name = [ ];
       if (namedGuid) {
         if (namedGuid.english) {
-          name = [ `${namedGuid.template}: ${namedGuid.english} (${namedGuid.name})` ];
+          name = [ `${templateText}${namedGuid.english} (${namedGuid.name})` ];
         }
         else {
-          name = [ `${namedGuid.template}: ${namedGuid.name}` ];
+          name = [ `${templateText}${namedGuid.name}` ];
         }
       }
       else {
-        name = [ `GUID ${guid} not found.` ];
+        name = [ `GUID ${guid} not found. Some assets like Audio are omitted due to performance.` ];
       }
       const range = resolveGuidRange(guid);
       const safe = (namedGuid || range.length > 0) ? [] : resolveSafeRange(guid);

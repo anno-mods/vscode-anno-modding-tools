@@ -23,6 +23,6 @@ curl -L https://github.com/jakobharder/rdm4/releases/download/jakob%2F0.6.0-alph
 unzip -o ./dl/rdm4.zip
 
 # annotex / bc7enc, MIT
-curl -L https://github.com/jakobharder/annotex/releases/download/jakob%2Fv1.0.0/annotex.exe > ./annotex.exe
+curl -L https://github.com/jakobharder/annotex/releases/download/jakob%2Fv1.0.1/annotex.exe > ./annotex.exe
 
 rm -r ./dl
