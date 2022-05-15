@@ -29,10 +29,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
   - Show strong warning when there's no tangent information on the mesh
   - error handling for invalid xml files
   - empty annomod project breaks the extension (tradepatent-fish)
-- Internal
-  - replace all texconv usage to reduce number of tools
-- Converter
-  - .fc/.cf7 cfgyaml variants
+
+## [1.3.1]
+
+### Changed
+
+- Ignore assets.xml with 20MB+ size
 
 ## [1.3.0]
 

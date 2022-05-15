@@ -42,7 +42,9 @@ Not all GUIDs can be converted automatically due to performance. Most notable ex
 
 ### Auto Completion
 
-Go to settings and search for `xml file associations` and add the following pattern:
+![](./doc/images/autocompletion.gif)
+
+You need the Red Hat XML plugin installed. Then go to settings and search for `xml file associations` and add the following pattern:
 
 ```
 "xml.fileAssociations": [

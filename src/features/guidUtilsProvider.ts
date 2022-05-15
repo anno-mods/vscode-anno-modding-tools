@@ -215,9 +215,19 @@ export function refreshCustomAssets(document: vscode.TextDocument | undefined): 
     return;
   }
 
+  if (fs.existsSync(document.fileName) && fs.statSync(document.fileName).size > 1024 * 1024 * 20) {
+    // ignore files above 20MB
+    return;
+  }
+  const text = document.getText();
+  if (text.length > 1024 * 1024 * 20) {
+    // ignore files above 20MB
+    return;
+  }
+
   let xmlContent;
   try {
-    xmlContent = new xmldoc.XmlDocument(document.getText());
+    xmlContent = new xmldoc.XmlDocument(text);
   }
   catch {
     // be quiet, this happens a lot during typing
