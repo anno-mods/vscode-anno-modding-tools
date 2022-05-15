@@ -48,7 +48,7 @@ Go to settings and search for `xml file associations` and add the following patt
 "xml.fileAssociations": [
   {
       "pattern": "assets*.xml",
-      "systemId": "https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/generated/assets.xsd"
+      "systemId": "https://raw.githubusercontent.com/anno-mods/vscode-anno-modding-tools/main/generated/assets.xsd"
   }
 ]
 ```
