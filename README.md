@@ -6,7 +6,7 @@ Anno 1800 is a trademark of Ubisoft Entertainment in the US and/or other countri
 
 ## Overview
 
-- [Outline](#assets-outline), [GUID conversion](#guid-conversion) and [auto aompletion](#auto-completion) for `assets.xml`, `.cfg`, `.ifo`, `.cf7`
+- [Outline](#assets-outline), [GUID conversion](#guid-conversion) and [auto completion](#auto-completion) for `assets.xml`, `.cfg`, `.ifo`, `.cf7`
 - [Import from Blender or glTF](#import-from-blender-or-gltf) to `.cfg`, `.ifo` and `.cf7`
 - [Reskin existing models](#quickly-reskin-existing-models) without touching `.cfg`, ...
 - [Batch create](#build-anno-mod) DDS (with LODs), RDM (with LODs and animation) using `F1` > `Build Anno Mod` and `annomod.json` description.
