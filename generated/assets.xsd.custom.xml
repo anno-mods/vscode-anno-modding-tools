@@ -1,0 +1,75 @@
+<xs:element name='ModOps'>
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element name='ModOp' type='ModOp' minOccurs='0' maxOccurs='unbounded' />
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+
+<xs:complexType name='ModOp'>
+  <xs:sequence>
+    <xs:element name='Asset' type='Asset' minOccurs='0' maxOccurs='unbounded' />
+    <xs:any processContents='skip' minOccurs='0' maxOccurs='unbounded' />
+  </xs:sequence>
+  <xs:attribute name='GUID' type='xs:string' />
+  <xs:attribute name='Type' type='ModOpType' use='required' />
+  <xs:attribute name='Path' type='xs:string' />
+</xs:complexType>
+
+<xs:complexType name='Asset'>
+  <xs:sequence>
+    <xs:choice>
+      <xs:element name='Template' type='xs:string' />
+      <xs:element name='BaseAssetGUID' type='xs:string' />
+    </xs:choice>
+    <xs:sequence>
+      <xs:element name='Values' type='Values_Type' minOccurs='1' maxOccurs='1' />
+    </xs:sequence>
+  </xs:sequence>
+</xs:complexType>
+
+<xs:simpleType name="Flag">
+  <xs:restriction base="xs:integer">
+    <xs:minInclusive value="0" />
+    <xs:maxInclusive value="1" />
+  </xs:restriction>
+</xs:simpleType>
+
+<xs:complexType name="Empty">
+</xs:complexType>
+
+<xs:simpleType name="GUID">
+  <xs:restriction base="xs:integer">
+    <xs:minInclusive value="0" />
+  </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="ModOpType">
+  <xs:restriction base="xs:string">
+    <xs:enumeration value="add" />
+    <xs:enumeration value="merge" />
+    <xs:enumeration value="addNextSibling" />
+    <xs:enumeration value="addPrevSibling" />
+    <xs:enumeration value="remove" />
+    <xs:enumeration value="replace" />
+  </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="RotationType">
+  <xs:restriction base="xs:integer">
+    <xs:enumeration value="90" />
+    <xs:enumeration value="180" />
+  </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="ConditionQuestStateIsBlacklistType">
+  <xs:restriction base="xs:integer">
+    <xs:enumeration value="0" />
+    <xs:enumeration value="1" />
+  </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="ConditionQuestStateQuestGUIDType">
+  <xs:restriction base="xs:integer">
+  </xs:restriction>
+</xs:simpleType>
