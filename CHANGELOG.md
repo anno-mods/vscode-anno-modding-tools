@@ -30,6 +30,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
   - error handling for invalid xml files
   - empty annomod project breaks the extension (tradepatent-fish)
 
+## [Unreleased]
+
+### Changed
+
+- Fixed import of dummies without mesh
+
 ## [1.3.1]
 
 ### Changed

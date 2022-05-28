@@ -491,7 +491,7 @@ function _findNodes(gltf: any, name: string, resourceFolder: string, prefixSearc
       nodeIdx = idx;
       meshIdx = node.mesh;
 
-      const buffer = _getPositions(gltf, meshIdx, resourceFolder);
+      const buffer = meshIdx !== undefined ? _getPositions(gltf, meshIdx, resourceFolder) : undefined;
       if (!buffer) {
         console.warn(`Invalid glTF. Buffer for node ${nodeIdx} not found.`);
         continue;
@@ -504,7 +504,7 @@ function _findNodes(gltf: any, name: string, resourceFolder: string, prefixSearc
         translation: Vector.fromArray(gltf.nodes[nodeIdx].translation) ?? Vector.zero,
         scale: Vector.fromArray(gltf.nodes[nodeIdx].scale) ?? Vector.one,
         rotation: Quaternion.fromArray(gltf.nodes[nodeIdx].rotation) ?? Quaternion.default,
-        buffer: buffer as ArrayLike<number>,
+        buffer: buffer as ArrayLike<number> | undefined,
         indices: indices
       });
 
@@ -559,8 +559,8 @@ function _getBuffer(gltf: any, accessorIdx: number, resourceFolder: string, numC
   return undefined;
 }
 
-function _readVectors(node: { translation: Vector | undefined, scale: Vector | undefined, rotation: Quaternion | undefined, buffer: ArrayLike<number> } | undefined) {
-  if (!node) {
+function _readVectors(node: { translation: Vector | undefined, scale: Vector | undefined, rotation: Quaternion | undefined, buffer?: ArrayLike<number> } | undefined) {
+  if (!node || !node.buffer) {
     return [];
   }
   const translation = node.translation ?? Vector.zero;
