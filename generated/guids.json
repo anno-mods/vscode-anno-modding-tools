@@ -1,4 +1,10 @@
 {
+  "AudioText": {
+    "templates": [],
+    "paths": {
+      "/Values/AudioTextPool/AudioTextList/Item": []
+    }
+  },
   "AudioPool": {
     "templates": [],
     "paths": {
@@ -167,6 +173,299 @@
       ]
     }
   },
+  "Text": {
+    "templates": [
+      "UplayProduct",
+      "SessionModerate",
+      "SessionSouthAmerica",
+      "SessionArctic",
+      "EffectContainer",
+      "Matcher",
+      "DivingBellShip",
+      "DocklandMain"
+    ],
+    "paths": {
+      "/Values/TextPool/TextList/Item": [],
+      "/Values/ActionTriggerTextBook": [],
+      "/Values/Monument/ConstructionStateText/Interrupted": [],
+      "/Values/Monument/ConstructionStateText/OutOfWorkforce": [],
+      "/Values/Monument/ConstructionStateText/WaitingForResources": [],
+      "/Values/Monument/ConstructionStateText/Processing": [],
+      "/Values/GUIConfig/LanguageTexts/Chinese": [],
+      "/Values/GUIConfig/LanguageTexts/Taiwanese": [],
+      "/Values/GUIConfig/LanguageTexts/Japanese": [],
+      "/Values/GUIConfig/LanguageTexts/Korean": [],
+      "/Values/GUIConfig/LanguageTexts/Italian": [],
+      "/Values/QuestConfig/QuestChapterTexts/Chapter0": [],
+      "/Values/QuestConfig/QuestChapterTexts/Chapter1": [],
+      "/Values/QuestConfig/QuestChapterTexts/Chapter2": [],
+      "/Values/QuestConfig/QuestChapterTexts/Chapter3": [],
+      "/Values/QuestConfig/QuestChapterTexts/Chapter4": [],
+      "/Values/HighscoreFeature/HighscoreUIEntries/UrbanizationScore": [],
+      "/Values/HighscoreFeature/HighscoreUIEntries/TotalAttractivenessScore": [],
+      "/Values/HighscoreFeature/HighscoreUIEntries/DiscoveredItemsScore": [],
+      "/Values/HighscoreFeature/HighscoreUIEntries/SocketedItemsScore": [],
+      "/Values/HighscoreFeature/HighscoreUIEntries/CompletedSetsScore": [],
+      "/Values/HighscoreFeature/HighscoreUIEntries/AirshipScore": [],
+      "/Values/HighscoreFeature/HighscoreUIEntries/MilitaryShipScore": [],
+      "/Values/HighscoreFeature/HighscoreUIEntries/TradeShipScore": [],
+      "/Values/HighscoreFeature/HighscoreUIEntries/MostAttractiveIsland": [],
+      "/Values/PlayerCounterConfig/CounterConfig/FunFactsCounter/Item": [],
+      "/Values/TradeContractFeature/ExportLevelNames/Common": [],
+      "/Values/TradeContractFeature/ExportLevelNames/Uncommon": [],
+      "/Values/TradeContractFeature/ExportLevelNames/Rare": [],
+      "/Values/TradeContractFeature/ExportLevelNames/Epic": [],
+      "/Values/TradeContractFeature/ExportLevelNames/Legendary": [],
+      "/Values/PassiveTradeWindow/TradeButtons/None": [],
+      "/Values/PassiveTradeWindow/TradeButtons/BuySell": [],
+      "/Values/PassiveTradeWindow/TradeButtons/SellOnly": [],
+      "/Values/PassiveTradeWindow/TradeButtons/BuyOnly": [],
+      "/Values/NotificationConfiguration/SideNotificationFilter/System": [],
+      "/Values/NotificationConfiguration/SideNotificationFilter/Progress": [],
+      "/Values/NotificationConfiguration/SideNotificationFilter/Railway": [],
+      "/Values/NotificationConfiguration/SideNotificationFilter/Trade": [],
+      "/Values/NotificationConfiguration/SideNotificationFilter/TradeRouteWarning": [],
+      "/Values/NotificationConfiguration/SideNotificationFilter/TradeRouteError": [],
+      "/Values/NotificationConfiguration/SideNotificationFilter/Items": [],
+      "/Values/NotificationConfiguration/SideNotificationFilter/Incidents": [],
+      "/Values/NotificationConfiguration/SideNotificationFilter/VisitorsAndCulture": [],
+      "/Values/NotificationConfiguration/SideNotificationFilter/DiplomaticRelations": [],
+      "/Values/NotificationConfiguration/SideNotificationFilter/Military": [],
+      "/Values/NotificationConfiguration/SideNotificationFilter/HostileTakeover": [],
+      "/Values/NotificationConfiguration/SideNotificationFilter/Heating": [],
+      "/Values/DiplomacyScene/GiftButtons/Item": [],
+      "/Values/IslandBarScene/WarStatusTexts/Item": [],
+      "/Values/LoadingScene/LoadingTips/Item/Texts/Item": [],
+      "/Values/MinimapScene/Filters/ImperialKontor": [],
+      "/Values/MinimapScene/Filters/Kontor": [],
+      "/Values/MinimapScene/Filters/Quest": [],
+      "/Values/MinimapScene/Filters/Lodes": [],
+      "/Values/MinimapScene/Filters/Ships": [],
+      "/Values/MinimapScene/Filters/Mine": [],
+      "/Values/MinimapScene/Filters/Treasure": [],
+      "/Values/MinimapScene/Filters/WindDirection": [],
+      "/Values/MinimapScene/Filters/Transparency": [],
+      "/Values/QuestBookScene/QuestBookCategories/Main": [],
+      "/Values/QuestBookScene/QuestBookCategories/LandOfLions": [],
+      "/Values/QuestBookScene/QuestBookCategories/ThePassage": [
+        "UplayProduct"
+      ],
+      "/Values/QuestBookScene/QuestBookCategories/SunkenTreasure": [
+        "UplayProduct"
+      ],
+      "/Values/QuestBookScene/QuestBookCategories/GGJ": [],
+      "/Values/QuestBookScene/QuestBookCategories/Scenario2": [],
+      "/Values/QuestBookScene/QuestBookCategories/Optional": [],
+      "/Values/SessionScene/SessionList/Item": [
+        "SessionModerate",
+        "SessionSouthAmerica",
+        "SessionArctic"
+      ],
+      "/Values/SessionTradeRouteOverviewScene/GroupContextMenu/Entries/Item": [],
+      "/Values/SessionTradeRouteOverviewScene/RouteContextMenu/Entries/Item": [],
+      "/Values/SessionTradeRoutesScene/FolderContextMenu/Entries/Item": [],
+      "/Values/ObjectMenuGuildHouseScene/BonusLabelTexts/Item": [
+        "EffectContainer"
+      ],
+      "/Values/ShipListConfig/ShipCategories/All": [],
+      "/Values/ShipListConfig/ShipCategories/Idle": [],
+      "/Values/ShipListConfig/ShipCategories/TradeRoute": [],
+      "/Values/ShipListConfig/ShipCategories/Patrolling": [],
+      "/Values/ShipListConfig/ShipCategories/Escorting": [],
+      "/Values/ShipListConfig/ShipCategories/Transit": [],
+      "/Values/FilteredSelectionPopup/ShipFilterTexts/None": [],
+      "/Values/FilteredSelectionPopup/ShipFilterTexts/Available": [],
+      "/Values/FilteredSelectionPopup/ShipFilterTexts/Idle": [],
+      "/Values/FilteredSelectionPopup/ShipFilterTexts/Session": [],
+      "/Values/FilteredSelectionPopup/KontorFilterTexts/None": [],
+      "/Values/FilteredSelectionPopup/KontorFilterTexts/Session": [],
+      "/Values/GenericPopup/Popups/Quit/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/DestroyItem/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/NotImplemented/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/DiscardExpedition/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/ForceTakeoverIsland/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/CancelMonumentEvent/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/DestroyConfirmation/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/ShipDestroyConfirmation/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/IslandDestroyConfirmation/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/DeleteSavegame/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/CampaignReadLetter/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/SendToSessionSingle/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/SendToSessionMulti/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/OverrideShortcut/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/UnloadCorporation/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/ResetExpeditionPreparation/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/MultiplayerGenericError/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/TutorialHappiness/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/RemoveTradeRoute/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/UplayInviteFailed/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/UplayError/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/UplayConnectionError/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/PlayerLeft/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/ConnectToLobby/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/InviteReceived/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/GameVersionMismatch/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/NATError/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/Kicked/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/FileNotFound/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/FileLoadedSuccessfully/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/RestartRequired/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/ConfirmOptions/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/SettingsSaved/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/ResetCustomDifficulty/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/PlayerDisconnected/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/ConnectionLost/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/LeaveLobbyToTitle/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/LeaveLobbyToLastScene/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/LoadGameAndLeaveMatch/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/FailedToLoadSavegame/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/DLCBreadcrumbsNote/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/UpgradeSavegame/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/HostLeftLobby/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/UpgradeSavegameMP/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/ContinentalIslandDestroyConfirmation/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/LobbyFull/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/LobbyFull_Mercier/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/GameAlreadyStarted/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/InviteTimedOut/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/MPSingleGameStart/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/IslandDestroyCampaignWarning/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/SessionStorytellingSpear/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/MoveRequireGodlikeConfirmation/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/DontMissStoryQuest/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/NewShortcuts/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/UnificationPrompt/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/FatalError/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/ConfirmIslandDestroyArctic/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/ForceAlternativeGrassColor/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/EnableAntiAlias/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/ResetScenarioConfirmationGGJ/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/MoveWaterPumpConfirmation/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/ResetScenarioConfirmationElNino/Buttons/Item": [],
+      "/Values/NegotiationPopup/ButtonLists/Item/Buttons/Item": [],
+      "/Values/SettingsMenu/Container/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionCombobox/Entries/Item": [],
+      "/Values/Quest/QuestHints/Item": [],
+      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl3": [],
+      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl1": [],
+      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl2": [],
+      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl4": [],
+      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl0": [],
+      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl10": [],
+      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl11": [],
+      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl5": [],
+      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl6": [],
+      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl7": [],
+      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl8": [],
+      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl9": [],
+      "/Values/ItemConfig/RarityText/Narrative": [],
+      "/Values/ItemConfig/RarityText/Common": [],
+      "/Values/ItemConfig/RarityText/Uncommon": [],
+      "/Values/ItemConfig/RarityText/Rare": [],
+      "/Values/ItemConfig/RarityText/Epic": [],
+      "/Values/ItemConfig/RarityText/Legendary": [],
+      "/Values/ItemConfig/RarityText/Quest": [],
+      "/Values/ItemConfig/ExclusiveGroupText/Specialist": [],
+      "/Values/ItemConfig/ExclusiveGroupText/Gear": [],
+      "/Values/ItemConfig/ExclusiveGroupText/Sail": [],
+      "/Values/ItemConfig/ExclusiveGroupText/Motor": [],
+      "/Values/ItemConfig/ExclusiveGroupText/Captain": [],
+      "/Values/ItemConfig/ExclusiveGroupText/Priest": [],
+      "/Values/ItemConfig/ExclusiveGroupText/Navigator": [],
+      "/Values/ItemConfig/ExclusiveGroupText/Doctor": [],
+      "/Values/ItemConfig/ExclusiveGroupText/Craftsman": [],
+      "/Values/ItemConfig/ExclusiveGroupText/Hunter": [],
+      "/Values/ItemConfig/ExclusiveGroupText/Police": [],
+      "/Values/ItemConfig/ExclusiveGroupText/Diplomat": [],
+      "/Values/ItemConfig/ExclusiveGroupText/AutoAttackProjectile": [],
+      "/Values/ItemConfig/ExclusiveGroupText/FactoryAct": [],
+      "/Values/ItemConfig/ExclusiveGroupText/CleanAirAct": [],
+      "/Values/ItemConfig/ExclusiveGroupText/AdministrationAct": [],
+      "/Values/ItemConfig/ExclusiveGroupText/EntertainmentAct": [],
+      "/Values/ItemConfig/ExclusiveGroupText/ResearchAct": [],
+      "/Values/ItemConfig/ExclusiveGroupText/EducationAct": [],
+      "/Values/ItemConfig/ExclusiveGroupText/Ordinance": [],
+      "/Values/ItemConfig/ExclusiveGroupText/EconomyAct": [],
+      "/Values/ItemConfig/ExclusiveGroupText/PublicHealthAct": [],
+      "/Values/ItemConfig/ExclusiveGroupText/FirePreventionAct": [],
+      "/Values/ItemConfig/ExclusiveGroupText/PublicGatheringAct": [],
+      "/Values/ItemConfig/ExclusiveGroupText/ChildRightsAct": [],
+      "/Values/ItemConfig/ExclusiveGroupText/HumanRightsAct": [],
+      "/Values/ItemConfig/ExclusiveGroupText/AlcoholAct": [],
+      "/Values/ItemConfig/ExclusiveGroupText/AlcoholTaxesAct": [],
+      "/Values/ItemConfig/ExclusiveGroupText/SecularizationAct": [],
+      "/Values/ItemConfig/ExclusiveGroupText/TaxesManagementAct": [],
+      "/Values/ItemConfig/ExclusiveGroupText/WorkingConditionsAct": [],
+      "/Values/ItemConfig/ExclusiveGroupText/CharityEdict": [],
+      "/Values/ItemConfig/ExclusiveGroupText/AmnestyEdict": [],
+      "/Values/ItemConfig/ExclusiveGroupText/TourismAdCampaign": [],
+      "/Values/ItemConfig/ExclusiveGroupText/NatalityRegulationEdict": [],
+      "/Values/ItemConfig/ExclusiveGroupText/WomenRightsAct": [],
+      "/Values/ItemConfig/ExclusiveGroupText/Flag": [],
+      "/Values/ItemConfig/ExclusiveGroupText/TradingTaxBill": [],
+      "/Values/ItemConfig/ExclusiveGroupText/Telescopes": [],
+      "/Values/ItemConfig/ExclusiveGroupText/Newspaper": [],
+      "/Values/ItemConfig/ExclusiveGroupText/Propaganda": [],
+      "/Values/ItemConfig/ExclusiveGroupText/EconomicDoctrine": [],
+      "/Values/ItemConfig/ExclusiveGroupText/AnarchyEssay": [],
+      "/Values/ItemConfig/ExclusiveGroupText/Sonar": [
+        "Matcher"
+      ],
+      "/Values/ItemConfig/ExclusiveGroupText/Diver": [
+        "Matcher"
+      ],
+      "/Values/ItemConfig/ExclusiveGroupText/DivingBell": [],
+      "/Values/ItemConfig/ExclusiveGroupText/Cables": [],
+      "/Values/ItemConfig/ExclusiveGroupText/Canons": [],
+      "/Values/ItemConfig/ExclusiveGroupText/GGJDistillery": [],
+      "/Values/ItemConfig/ExclusiveGroupText/GGJWasteManagement": [],
+      "/Values/ItemConfig/ExclusiveGroupText/GGJCoralPlants": [],
+      "/Values/ItemConfig/ExclusiveGroupText/GGJIndustrialAirFilters": [],
+      "/Values/ItemConfig/ExclusiveGroupText/GGJFertilizer": [],
+      "/Values/ItemConfig/ExclusiveGroupText/GGJSoilSampler": [],
+      "/Values/ItemConfig/ExclusiveGroupText/GGJLocalGarden": [],
+      "/Values/ItemConfig/ExclusiveGroupText/GGJEnactments": [],
+      "/Values/ItemConfig/ExclusiveGroupText/GGJRecyclingSpecialists": [],
+      "/Values/ItemConfig/ExclusiveGroupText/GGJPondPlants": [],
+      "/Values/ItemConfig/ExclusiveGroupText/GGJUrbanPlants": [],
+      "/Values/ItemConfig/AllocationText/RadiusBuilding": [],
+      "/Values/ItemConfig/AllocationText/GuildHouse": [],
+      "/Values/ItemConfig/AllocationText/TownHall": [],
+      "/Values/ItemConfig/AllocationText/HarborOffice": [],
+      "/Values/ItemConfig/AllocationText/Headquarter": [],
+      "/Values/ItemConfig/AllocationText/Culture": [],
+      "/Values/ItemConfig/AllocationText/Zoo": [],
+      "/Values/ItemConfig/AllocationText/BotanicGarden": [],
+      "/Values/ItemConfig/AllocationText/Museum": [],
+      "/Values/ItemConfig/AllocationText/Ship": [],
+      "/Values/ItemConfig/AllocationText/SailShip": [],
+      "/Values/ItemConfig/AllocationText/SteamShip": [],
+      "/Values/ItemConfig/AllocationText/Expedition": [],
+      "/Values/ItemConfig/AllocationText/Warship": [],
+      "/Values/ItemConfig/AllocationText/Tradeship": [],
+      "/Values/ItemConfig/AllocationText/DivingVessel": [
+        "DivingBellShip"
+      ],
+      "/Values/ItemConfig/AllocationText/Pavilion": [],
+      "/Values/ItemConfig/AllocationText/AirShip": [],
+      "/Values/ItemConfig/AllocationText/Lodge": [],
+      "/Values/ItemConfig/AllocationText/BuildPermit": [],
+      "/Values/ItemConfig/AllocationText/Dockland": [
+        "DocklandMain"
+      ],
+      "/Values/ItemConfig/NotSockableText/WrongAllocation": [],
+      "/Values/ItemConfig/NotSockableText/Duplicate": [],
+      "/Values/ItemConfig/NotSockableText/Exclusive": [],
+      "/Values/ItemConfig/NotSockableText/NoSpaceLeft": [],
+      "/Values/PopulationLevel7/MoodText/Angry": [],
+      "/Values/PopulationLevel7/MoodText/Unhappy": [],
+      "/Values/PopulationLevel7/MoodText/Neutral": [],
+      "/Values/PopulationLevel7/MoodText/Happy": [],
+      "/Values/PopulationLevel7/MoodText/Euphoric": [],
+      "/Values/GeneralIncidentConfiguration/IncidentTypesPositiveText/Fire": [],
+      "/Values/GeneralIncidentConfiguration/IncidentTypesPositiveText/Riot": [],
+      "/Values/GeneralIncidentConfiguration/IncidentTypesPositiveText/Illness": []
+    }
+  },
   "Pool": {
     "templates": [
       "RewardPool",
@@ -265,7 +564,19 @@
   "BuildingInfotip": {
     "templates": [],
     "paths": {
-      "/Values/CustomizableButtonConfig": []
+      "/Values/CustomizableButtonConfig": [],
+      "/Values/RightClickMenu/RightClickMenuRegions/Moderate/RightClickBuildings/Item/Config/Values/CustomizableButtonConfig": [],
+      "/Values/RightClickMenu/RightClickMenuRegions/Colony01/RightClickBuildings/Item/Config/Values/CustomizableButtonConfig": [],
+      "/Values/RightClickMenu/RightClickMenuRegions/Arctic/RightClickBuildings/Item/Config/Values/CustomizableButtonConfig": [],
+      "/Values/RightClickMenu/RightClickMenuRegions/Africa/RightClickBuildings/Item/Config/Values/CustomizableButtonConfig": [],
+      "/Values/ConstructionMenu/PinButtonRegions/Moderate/PinButtonListLeft/Item/Config/Values/CustomizableButtonConfig": [],
+      "/Values/ConstructionMenu/PinButtonRegions/Moderate/PinButtonListRight/Item/Config/Values/CustomizableButtonConfig": [],
+      "/Values/ConstructionMenu/PinButtonRegions/Colony01/PinButtonListLeft/Item/Config/Values/CustomizableButtonConfig": [],
+      "/Values/ConstructionMenu/PinButtonRegions/Colony01/PinButtonListRight/Item/Config/Values/CustomizableButtonConfig": [],
+      "/Values/ConstructionMenu/PinButtonRegions/Arctic/PinButtonListLeft/Item/Config/Values/CustomizableButtonConfig": [],
+      "/Values/ConstructionMenu/PinButtonRegions/Arctic/PinButtonListRight/Item/Config/Values/CustomizableButtonConfig": [],
+      "/Values/ConstructionMenu/PinButtonRegions/Africa/PinButtonListLeft/Item/Config/Values/CustomizableButtonConfig": [],
+      "/Values/ConstructionMenu/PinButtonRegions/Africa/PinButtonListRight/Item/Config/Values/CustomizableButtonConfig": []
     }
   },
   "ObjectGUID": {
@@ -1059,23 +1370,33 @@
   },
   "Quest": {
     "templates": [
+      "A7_QuestDeliveryObject",
+      "MainQuest",
       "A7_QuestStatusQuo",
       "A7_QuestSelectObject",
-      "MainQuest",
       "A7_QuestDecision",
-      "A7_QuestSustain",
       "Quest",
-      "A7_QuestDestroyObjects",
-      "A7_QuestEscortObject",
+      "A7_QuestSmugglerWOScanners",
+      "A7_QuestSustain",
       "A7_QuestPickupObject",
+      "A7_QuestExpedition",
+      "A7_QuestDestroyObjects",
+      "A7_QuestSmuggler",
+      "A7_QuestEscortObject",
       "A7_QuestPicturePuzzleObject",
-      "A7_QuestDeliveryObject",
+      "TriggerQuest",
+      "A7_QuestPhotography",
       "A7_QuestFollowShip",
-      "A7_QuestPhotography"
+      "QuestLine"
     ],
     "paths": {
       "/Values/ActionEndQuest": [],
       "/Values/ActionStartQuest": [],
+      "/Values/Collectable/OnCollect/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [
+        "A7_QuestDeliveryObject",
+        "MainQuest"
+      ],
+      "/Values/Collectable/OnCollect/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [],
       "/Values/QuestConfig/InvitationCancelPopupConfirmation/Item": [
         "A7_QuestStatusQuo",
         "A7_QuestSelectObject"
@@ -1090,12 +1411,45 @@
         "A7_QuestSelectObject",
         "A7_QuestStatusQuo"
       ],
+      "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [
+        "Quest",
+        "A7_QuestSelectObject"
+      ],
+      "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
+        "A7_QuestSelectObject",
+        "A7_QuestDeliveryObject",
+        "A7_QuestSmugglerWOScanners",
+        "A7_QuestDecision"
+      ],
+      "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
+        "A7_QuestDeliveryObject",
+        "A7_QuestSustain",
+        "A7_QuestSelectObject",
+        "A7_QuestPickupObject",
+        "A7_QuestStatusQuo",
+        "A7_QuestExpedition",
+        "MainQuest"
+      ],
+      "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [
+        "A7_QuestDeliveryObject",
+        "A7_QuestPickupObject",
+        "A7_QuestExpedition",
+        "A7_QuestSelectObject",
+        "A7_QuestSmugglerWOScanners"
+      ],
       "/Values/Quest/OnQuestDeclined/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
         "A7_QuestSustain",
         "Quest"
       ],
       "/Values/Quest/OnQuestActive/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
         "A7_QuestDecision",
+        "Quest",
+        "A7_QuestDestroyObjects"
+      ],
+      "/Values/Quest/OnQuestActive/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
+        "A7_QuestSmuggler",
+        "A7_QuestSelectObject",
+        "A7_QuestStatusQuo",
         "Quest",
         "A7_QuestDestroyObjects"
       ],
@@ -1126,10 +1480,48 @@
         "A7_QuestDestroyObjects",
         "A7_QuestDecision"
       ],
+      "/Values/Quest/OnQuestFailed/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
+        "Quest",
+        "A7_QuestSelectObject",
+        "A7_QuestDestroyObjects",
+        "A7_QuestSmugglerWOScanners",
+        "A7_QuestDecision",
+        "A7_QuestPickupObject"
+      ],
+      "/Values/Quest/OnQuestFailed/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [
+        "A7_QuestSelectObject",
+        "A7_QuestStatusQuo",
+        "Quest",
+        "A7_QuestDestroyObjects"
+      ],
       "/Values/Quest/OnQuestDiscarded/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
         "A7_QuestSustain",
         "Quest",
         "A7_QuestDecision"
+      ],
+      "/Values/Quest/OnQuestDiscarded/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [
+        "A7_QuestSelectObject",
+        "A7_QuestDecision",
+        "A7_QuestSmugglerWOScanners",
+        "A7_QuestPicturePuzzleObject",
+        "A7_QuestDeliveryObject",
+        "TriggerQuest",
+        "A7_QuestStatusQuo",
+        "A7_QuestPhotography"
+      ],
+      "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [
+        "A7_QuestPicturePuzzleObject",
+        "A7_QuestDestroyObjects",
+        "A7_QuestSmuggler",
+        "A7_QuestSelectObject",
+        "A7_QuestDeliveryObject",
+        "Quest",
+        "A7_QuestSustain",
+        "A7_QuestStatusQuo",
+        "A7_QuestSmugglerWOScanners",
+        "A7_QuestDecision",
+        "A7_QuestPickupObject",
+        "MainQuest"
       ],
       "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
         "A7_QuestStatusQuo",
@@ -1144,12 +1536,56 @@
         "A7_QuestFollowShip",
         "A7_QuestPhotography"
       ],
+      "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [
+        "A7_QuestDestroyObjects",
+        "A7_QuestDeliveryObject",
+        "A7_QuestSelectObject",
+        "Quest"
+      ],
       "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
         "A7_QuestDeliveryObject",
         "A7_QuestDecision"
       ],
+      "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
+        "A7_QuestEscortObject",
+        "A7_QuestPickupObject",
+        "A7_QuestDestroyObjects",
+        "A7_QuestPicturePuzzleObject",
+        "A7_QuestSmuggler",
+        "A7_QuestSelectObject",
+        "A7_QuestStatusQuo",
+        "Quest",
+        "A7_QuestDecision",
+        "A7_QuestSustain",
+        "A7_QuestPhotography",
+        "A7_QuestDeliveryObject"
+      ],
+      "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [
+        "A7_QuestSelectObject",
+        "Quest",
+        "MainQuest",
+        "A7_QuestExpedition"
+      ],
+      "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
+        "A7_QuestStatusQuo",
+        "MainQuest",
+        "A7_QuestPickupObject"
+      ],
       "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [
         "Quest"
+      ],
+      "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
+        "A7_QuestDecision",
+        "A7_QuestDeliveryObject"
+      ],
+      "/Values/QuestPool/Quests/Item": [
+        "Quest",
+        "QuestLine",
+        "A7_QuestPicturePuzzleObject",
+        "A7_QuestStatusQuo",
+        "A7_QuestDecision",
+        "A7_QuestSelectObject",
+        "A7_QuestSmugglerWOScanners"
       ]
     }
   },
@@ -1287,7 +1723,35 @@
   "Sound": {
     "templates": [],
     "paths": {
-      "/Values/ActionPlaySound": []
+      "/Values/ActionPlaySound": [],
+      "/Values/SoundEmitter/ActiveSounds/Item": [],
+      "/Values/SoundEmitter/DestroySounds/Item": [],
+      "/Values/SoundEmitter/SelectionSounds/Item": [],
+      "/Values/SoundEmitter/ConstructionSounds/BuildFailed/Item": [],
+      "/Values/SoundEmitter/ConstructionSounds/BuildMoveStart/Item": [],
+      "/Values/SoundEmitter/ConstructionSounds/BuildMoveEnd/Item": [],
+      "/Values/SoundEmitter/ConstructionSounds/BuildSuccessful/Item": [],
+      "/Values/SoundEmitter/ConstructionSounds/BuildUpgradeFailed/Item": [],
+      "/Values/SoundEmitter/ConstructionSounds/BuildDowngrade/Item": [],
+      "/Values/SoundEmitter/ConstructionSounds/BuildUpgrade/Item": [],
+      "/Values/SoundEmitter/ConstructionSounds/BuildSuccessfulUnique/Item": [],
+      "/Values/SoundEmitter/ConstructionStreetSounds/BuildAddWaypoint/Item": [],
+      "/Values/SoundEmitter/VehicleSounds/MovementStart/Item": [],
+      "/Values/SoundEmitter/ProjectileSounds/ProjectileLaunch/Item": [],
+      "/Values/SoundEmitter/ProjectileSounds/ProjectileImpact/Item": [],
+      "/Values/SoundEmitter/ProjectileSounds/ProjectileVolley/Item": [],
+      "/Values/SoundEmitter/SpawnSounds/Item": [],
+      "/Values/SoundEmitter/CollectedSounds/Item": [],
+      "/Values/SoundEmitter/IncidentSounds/ExplosionOneShots/Item": [],
+      "/Values/SoundEmitter/IncidentSounds/InfectedFire/Item": [],
+      "/Values/SoundEmitter/IncidentSounds/InfectedIllness/Item": [],
+      "/Values/SoundEmitter/IncidentSounds/InfectedRiot/Item": [],
+      "/Values/SoundEmitter/BuildingRuined/Item": [],
+      "/Values/SoundEmitter/BuildingRepaired/Item": [],
+      "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionPlaySound": [],
+      "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionPlaySound": [],
+      "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionPlaySound": [],
+      "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionPlaySound": []
     }
   },
   "Article": {
@@ -1645,6 +2109,12 @@
       "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
         "SessionSouthAmerica"
       ],
+      "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
+        "SessionSouthAmerica",
+        "SessionModerate",
+        "SessionArctic",
+        "Region"
+      ],
       "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
         "SessionSouthAmerica",
         "SessionModerate"
@@ -1678,298 +2148,6 @@
         "SessionSouthAmerica",
         "SessionArctic"
       ]
-    }
-  },
-  "Text": {
-    "templates": [
-      "UplayProduct",
-      "SessionModerate",
-      "SessionSouthAmerica",
-      "SessionArctic",
-      "EffectContainer",
-      "Matcher",
-      "DivingBellShip",
-      "DocklandMain"
-    ],
-    "paths": {
-      "/Values/ActionTriggerTextBook": [],
-      "/Values/Monument/ConstructionStateText/Interrupted": [],
-      "/Values/Monument/ConstructionStateText/OutOfWorkforce": [],
-      "/Values/Monument/ConstructionStateText/WaitingForResources": [],
-      "/Values/Monument/ConstructionStateText/Processing": [],
-      "/Values/GUIConfig/LanguageTexts/Chinese": [],
-      "/Values/GUIConfig/LanguageTexts/Taiwanese": [],
-      "/Values/GUIConfig/LanguageTexts/Japanese": [],
-      "/Values/GUIConfig/LanguageTexts/Korean": [],
-      "/Values/GUIConfig/LanguageTexts/Italian": [],
-      "/Values/QuestConfig/QuestChapterTexts/Chapter0": [],
-      "/Values/QuestConfig/QuestChapterTexts/Chapter1": [],
-      "/Values/QuestConfig/QuestChapterTexts/Chapter2": [],
-      "/Values/QuestConfig/QuestChapterTexts/Chapter3": [],
-      "/Values/QuestConfig/QuestChapterTexts/Chapter4": [],
-      "/Values/HighscoreFeature/HighscoreUIEntries/UrbanizationScore": [],
-      "/Values/HighscoreFeature/HighscoreUIEntries/TotalAttractivenessScore": [],
-      "/Values/HighscoreFeature/HighscoreUIEntries/DiscoveredItemsScore": [],
-      "/Values/HighscoreFeature/HighscoreUIEntries/SocketedItemsScore": [],
-      "/Values/HighscoreFeature/HighscoreUIEntries/CompletedSetsScore": [],
-      "/Values/HighscoreFeature/HighscoreUIEntries/AirshipScore": [],
-      "/Values/HighscoreFeature/HighscoreUIEntries/MilitaryShipScore": [],
-      "/Values/HighscoreFeature/HighscoreUIEntries/TradeShipScore": [],
-      "/Values/HighscoreFeature/HighscoreUIEntries/MostAttractiveIsland": [],
-      "/Values/PlayerCounterConfig/CounterConfig/FunFactsCounter/Item": [],
-      "/Values/TradeContractFeature/ExportLevelNames/Common": [],
-      "/Values/TradeContractFeature/ExportLevelNames/Uncommon": [],
-      "/Values/TradeContractFeature/ExportLevelNames/Rare": [],
-      "/Values/TradeContractFeature/ExportLevelNames/Epic": [],
-      "/Values/TradeContractFeature/ExportLevelNames/Legendary": [],
-      "/Values/PassiveTradeWindow/TradeButtons/None": [],
-      "/Values/PassiveTradeWindow/TradeButtons/BuySell": [],
-      "/Values/PassiveTradeWindow/TradeButtons/SellOnly": [],
-      "/Values/PassiveTradeWindow/TradeButtons/BuyOnly": [],
-      "/Values/NotificationConfiguration/SideNotificationFilter/System": [],
-      "/Values/NotificationConfiguration/SideNotificationFilter/Progress": [],
-      "/Values/NotificationConfiguration/SideNotificationFilter/Railway": [],
-      "/Values/NotificationConfiguration/SideNotificationFilter/Trade": [],
-      "/Values/NotificationConfiguration/SideNotificationFilter/TradeRouteWarning": [],
-      "/Values/NotificationConfiguration/SideNotificationFilter/TradeRouteError": [],
-      "/Values/NotificationConfiguration/SideNotificationFilter/Items": [],
-      "/Values/NotificationConfiguration/SideNotificationFilter/Incidents": [],
-      "/Values/NotificationConfiguration/SideNotificationFilter/VisitorsAndCulture": [],
-      "/Values/NotificationConfiguration/SideNotificationFilter/DiplomaticRelations": [],
-      "/Values/NotificationConfiguration/SideNotificationFilter/Military": [],
-      "/Values/NotificationConfiguration/SideNotificationFilter/HostileTakeover": [],
-      "/Values/NotificationConfiguration/SideNotificationFilter/Heating": [],
-      "/Values/DiplomacyScene/GiftButtons/Item": [],
-      "/Values/IslandBarScene/WarStatusTexts/Item": [],
-      "/Values/LoadingScene/LoadingTips/Item/Texts/Item": [],
-      "/Values/MinimapScene/Filters/ImperialKontor": [],
-      "/Values/MinimapScene/Filters/Kontor": [],
-      "/Values/MinimapScene/Filters/Quest": [],
-      "/Values/MinimapScene/Filters/Lodes": [],
-      "/Values/MinimapScene/Filters/Ships": [],
-      "/Values/MinimapScene/Filters/Mine": [],
-      "/Values/MinimapScene/Filters/Treasure": [],
-      "/Values/MinimapScene/Filters/WindDirection": [],
-      "/Values/MinimapScene/Filters/Transparency": [],
-      "/Values/QuestBookScene/QuestBookCategories/Main": [],
-      "/Values/QuestBookScene/QuestBookCategories/LandOfLions": [],
-      "/Values/QuestBookScene/QuestBookCategories/ThePassage": [
-        "UplayProduct"
-      ],
-      "/Values/QuestBookScene/QuestBookCategories/SunkenTreasure": [
-        "UplayProduct"
-      ],
-      "/Values/QuestBookScene/QuestBookCategories/GGJ": [],
-      "/Values/QuestBookScene/QuestBookCategories/Scenario2": [],
-      "/Values/QuestBookScene/QuestBookCategories/Optional": [],
-      "/Values/SessionScene/SessionList/Item": [
-        "SessionModerate",
-        "SessionSouthAmerica",
-        "SessionArctic"
-      ],
-      "/Values/SessionTradeRouteOverviewScene/GroupContextMenu/Entries/Item": [],
-      "/Values/SessionTradeRouteOverviewScene/RouteContextMenu/Entries/Item": [],
-      "/Values/SessionTradeRoutesScene/FolderContextMenu/Entries/Item": [],
-      "/Values/ObjectMenuGuildHouseScene/BonusLabelTexts/Item": [
-        "EffectContainer"
-      ],
-      "/Values/ShipListConfig/ShipCategories/All": [],
-      "/Values/ShipListConfig/ShipCategories/Idle": [],
-      "/Values/ShipListConfig/ShipCategories/TradeRoute": [],
-      "/Values/ShipListConfig/ShipCategories/Patrolling": [],
-      "/Values/ShipListConfig/ShipCategories/Escorting": [],
-      "/Values/ShipListConfig/ShipCategories/Transit": [],
-      "/Values/FilteredSelectionPopup/ShipFilterTexts/None": [],
-      "/Values/FilteredSelectionPopup/ShipFilterTexts/Available": [],
-      "/Values/FilteredSelectionPopup/ShipFilterTexts/Idle": [],
-      "/Values/FilteredSelectionPopup/ShipFilterTexts/Session": [],
-      "/Values/FilteredSelectionPopup/KontorFilterTexts/None": [],
-      "/Values/FilteredSelectionPopup/KontorFilterTexts/Session": [],
-      "/Values/GenericPopup/Popups/Quit/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/DestroyItem/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/NotImplemented/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/DiscardExpedition/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/ForceTakeoverIsland/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/CancelMonumentEvent/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/DestroyConfirmation/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/ShipDestroyConfirmation/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/IslandDestroyConfirmation/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/DeleteSavegame/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/CampaignReadLetter/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/SendToSessionSingle/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/SendToSessionMulti/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/OverrideShortcut/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/UnloadCorporation/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/ResetExpeditionPreparation/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/MultiplayerGenericError/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/TutorialHappiness/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/RemoveTradeRoute/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/UplayInviteFailed/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/UplayError/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/UplayConnectionError/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/PlayerLeft/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/ConnectToLobby/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/InviteReceived/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/GameVersionMismatch/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/NATError/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/Kicked/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/FileNotFound/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/FileLoadedSuccessfully/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/RestartRequired/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/ConfirmOptions/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/SettingsSaved/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/ResetCustomDifficulty/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/PlayerDisconnected/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/ConnectionLost/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/LeaveLobbyToTitle/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/LeaveLobbyToLastScene/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/LoadGameAndLeaveMatch/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/FailedToLoadSavegame/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/DLCBreadcrumbsNote/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/UpgradeSavegame/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/HostLeftLobby/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/UpgradeSavegameMP/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/ContinentalIslandDestroyConfirmation/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/LobbyFull/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/LobbyFull_Mercier/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/GameAlreadyStarted/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/InviteTimedOut/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/MPSingleGameStart/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/IslandDestroyCampaignWarning/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/SessionStorytellingSpear/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/MoveRequireGodlikeConfirmation/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/DontMissStoryQuest/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/NewShortcuts/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/UnificationPrompt/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/FatalError/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/ConfirmIslandDestroyArctic/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/ForceAlternativeGrassColor/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/EnableAntiAlias/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/ResetScenarioConfirmationGGJ/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/MoveWaterPumpConfirmation/Buttons/Item": [],
-      "/Values/GenericPopup/Popups/ResetScenarioConfirmationElNino/Buttons/Item": [],
-      "/Values/NegotiationPopup/ButtonLists/Item/Buttons/Item": [],
-      "/Values/SettingsMenu/Container/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionCombobox/Entries/Item": [],
-      "/Values/Quest/QuestHints/Item": [],
-      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl3": [],
-      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl1": [],
-      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl2": [],
-      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl4": [],
-      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl0": [],
-      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl10": [],
-      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl11": [],
-      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl5": [],
-      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl6": [],
-      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl7": [],
-      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl8": [],
-      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl9": [],
-      "/Values/ItemConfig/RarityText/Narrative": [],
-      "/Values/ItemConfig/RarityText/Common": [],
-      "/Values/ItemConfig/RarityText/Uncommon": [],
-      "/Values/ItemConfig/RarityText/Rare": [],
-      "/Values/ItemConfig/RarityText/Epic": [],
-      "/Values/ItemConfig/RarityText/Legendary": [],
-      "/Values/ItemConfig/RarityText/Quest": [],
-      "/Values/ItemConfig/ExclusiveGroupText/Specialist": [],
-      "/Values/ItemConfig/ExclusiveGroupText/Gear": [],
-      "/Values/ItemConfig/ExclusiveGroupText/Sail": [],
-      "/Values/ItemConfig/ExclusiveGroupText/Motor": [],
-      "/Values/ItemConfig/ExclusiveGroupText/Captain": [],
-      "/Values/ItemConfig/ExclusiveGroupText/Priest": [],
-      "/Values/ItemConfig/ExclusiveGroupText/Navigator": [],
-      "/Values/ItemConfig/ExclusiveGroupText/Doctor": [],
-      "/Values/ItemConfig/ExclusiveGroupText/Craftsman": [],
-      "/Values/ItemConfig/ExclusiveGroupText/Hunter": [],
-      "/Values/ItemConfig/ExclusiveGroupText/Police": [],
-      "/Values/ItemConfig/ExclusiveGroupText/Diplomat": [],
-      "/Values/ItemConfig/ExclusiveGroupText/AutoAttackProjectile": [],
-      "/Values/ItemConfig/ExclusiveGroupText/FactoryAct": [],
-      "/Values/ItemConfig/ExclusiveGroupText/CleanAirAct": [],
-      "/Values/ItemConfig/ExclusiveGroupText/AdministrationAct": [],
-      "/Values/ItemConfig/ExclusiveGroupText/EntertainmentAct": [],
-      "/Values/ItemConfig/ExclusiveGroupText/ResearchAct": [],
-      "/Values/ItemConfig/ExclusiveGroupText/EducationAct": [],
-      "/Values/ItemConfig/ExclusiveGroupText/Ordinance": [],
-      "/Values/ItemConfig/ExclusiveGroupText/EconomyAct": [],
-      "/Values/ItemConfig/ExclusiveGroupText/PublicHealthAct": [],
-      "/Values/ItemConfig/ExclusiveGroupText/FirePreventionAct": [],
-      "/Values/ItemConfig/ExclusiveGroupText/PublicGatheringAct": [],
-      "/Values/ItemConfig/ExclusiveGroupText/ChildRightsAct": [],
-      "/Values/ItemConfig/ExclusiveGroupText/HumanRightsAct": [],
-      "/Values/ItemConfig/ExclusiveGroupText/AlcoholAct": [],
-      "/Values/ItemConfig/ExclusiveGroupText/AlcoholTaxesAct": [],
-      "/Values/ItemConfig/ExclusiveGroupText/SecularizationAct": [],
-      "/Values/ItemConfig/ExclusiveGroupText/TaxesManagementAct": [],
-      "/Values/ItemConfig/ExclusiveGroupText/WorkingConditionsAct": [],
-      "/Values/ItemConfig/ExclusiveGroupText/CharityEdict": [],
-      "/Values/ItemConfig/ExclusiveGroupText/AmnestyEdict": [],
-      "/Values/ItemConfig/ExclusiveGroupText/TourismAdCampaign": [],
-      "/Values/ItemConfig/ExclusiveGroupText/NatalityRegulationEdict": [],
-      "/Values/ItemConfig/ExclusiveGroupText/WomenRightsAct": [],
-      "/Values/ItemConfig/ExclusiveGroupText/Flag": [],
-      "/Values/ItemConfig/ExclusiveGroupText/TradingTaxBill": [],
-      "/Values/ItemConfig/ExclusiveGroupText/Telescopes": [],
-      "/Values/ItemConfig/ExclusiveGroupText/Newspaper": [],
-      "/Values/ItemConfig/ExclusiveGroupText/Propaganda": [],
-      "/Values/ItemConfig/ExclusiveGroupText/EconomicDoctrine": [],
-      "/Values/ItemConfig/ExclusiveGroupText/AnarchyEssay": [],
-      "/Values/ItemConfig/ExclusiveGroupText/Sonar": [
-        "Matcher"
-      ],
-      "/Values/ItemConfig/ExclusiveGroupText/Diver": [
-        "Matcher"
-      ],
-      "/Values/ItemConfig/ExclusiveGroupText/DivingBell": [],
-      "/Values/ItemConfig/ExclusiveGroupText/Cables": [],
-      "/Values/ItemConfig/ExclusiveGroupText/Canons": [],
-      "/Values/ItemConfig/ExclusiveGroupText/GGJDistillery": [],
-      "/Values/ItemConfig/ExclusiveGroupText/GGJWasteManagement": [],
-      "/Values/ItemConfig/ExclusiveGroupText/GGJCoralPlants": [],
-      "/Values/ItemConfig/ExclusiveGroupText/GGJIndustrialAirFilters": [],
-      "/Values/ItemConfig/ExclusiveGroupText/GGJFertilizer": [],
-      "/Values/ItemConfig/ExclusiveGroupText/GGJSoilSampler": [],
-      "/Values/ItemConfig/ExclusiveGroupText/GGJLocalGarden": [],
-      "/Values/ItemConfig/ExclusiveGroupText/GGJEnactments": [],
-      "/Values/ItemConfig/ExclusiveGroupText/GGJRecyclingSpecialists": [],
-      "/Values/ItemConfig/ExclusiveGroupText/GGJPondPlants": [],
-      "/Values/ItemConfig/ExclusiveGroupText/GGJUrbanPlants": [],
-      "/Values/ItemConfig/AllocationText/RadiusBuilding": [],
-      "/Values/ItemConfig/AllocationText/GuildHouse": [],
-      "/Values/ItemConfig/AllocationText/TownHall": [],
-      "/Values/ItemConfig/AllocationText/HarborOffice": [],
-      "/Values/ItemConfig/AllocationText/Headquarter": [],
-      "/Values/ItemConfig/AllocationText/Culture": [],
-      "/Values/ItemConfig/AllocationText/Zoo": [],
-      "/Values/ItemConfig/AllocationText/BotanicGarden": [],
-      "/Values/ItemConfig/AllocationText/Museum": [],
-      "/Values/ItemConfig/AllocationText/Ship": [],
-      "/Values/ItemConfig/AllocationText/SailShip": [],
-      "/Values/ItemConfig/AllocationText/SteamShip": [],
-      "/Values/ItemConfig/AllocationText/Expedition": [],
-      "/Values/ItemConfig/AllocationText/Warship": [],
-      "/Values/ItemConfig/AllocationText/Tradeship": [],
-      "/Values/ItemConfig/AllocationText/DivingVessel": [
-        "DivingBellShip"
-      ],
-      "/Values/ItemConfig/AllocationText/Pavilion": [],
-      "/Values/ItemConfig/AllocationText/AirShip": [],
-      "/Values/ItemConfig/AllocationText/Lodge": [],
-      "/Values/ItemConfig/AllocationText/BuildPermit": [],
-      "/Values/ItemConfig/AllocationText/Dockland": [
-        "DocklandMain"
-      ],
-      "/Values/ItemConfig/NotSockableText/WrongAllocation": [],
-      "/Values/ItemConfig/NotSockableText/Duplicate": [],
-      "/Values/ItemConfig/NotSockableText/Exclusive": [],
-      "/Values/ItemConfig/NotSockableText/NoSpaceLeft": [],
-      "/Values/PopulationLevel7/MoodText/Angry": [],
-      "/Values/PopulationLevel7/MoodText/Unhappy": [],
-      "/Values/PopulationLevel7/MoodText/Neutral": [],
-      "/Values/PopulationLevel7/MoodText/Happy": [],
-      "/Values/PopulationLevel7/MoodText/Euphoric": [],
-      "/Values/GeneralIncidentConfiguration/IncidentTypesPositiveText/Fire": [],
-      "/Values/GeneralIncidentConfiguration/IncidentTypesPositiveText/Riot": [],
-      "/Values/GeneralIncidentConfiguration/IncidentTypesPositiveText/Illness": []
     }
   },
   "PopupText": {
@@ -2021,7 +2199,8 @@
   "AudioSliderInfotip": {
     "templates": [],
     "paths": {
-      "/Values/OptionAudioSlider": []
+      "/Values/OptionAudioSlider": [],
+      "/Values/SettingsMenu/Container/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionAudioSlider": []
     }
   },
   "ComboboxHeadline": {
@@ -2046,7 +2225,8 @@
   "SliderInfotip": {
     "templates": [],
     "paths": {
-      "/Values/OptionSlider": []
+      "/Values/OptionSlider": [],
+      "/Values/SettingsMenu/Container/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionSlider": []
     }
   },
   "ToggleHeadline": {
@@ -2178,6 +2358,23 @@
       "PopulationLevel7",
       "UnlockableAsset",
       "Skin",
+      "A7_QuestExpedition",
+      "A7_QuestDeliveryObject",
+      "A7_QuestDivingBellGeneric",
+      "A7_QuestStatusQuo",
+      "Quest",
+      "A7_QuestSelectObject",
+      "A7_QuestDivingBellSonar",
+      "A7_QuestSmuggler",
+      "A7_QuestSustain",
+      "A7_QuestPicturePuzzleObject",
+      "A7_QuestPickupObject",
+      "A7_QuestPhotography",
+      "A7_QuestDecision",
+      "A7_QuestEscortObject",
+      "A7_QuestSmugglerWOScanners",
+      "A7_QuestDestroyObjects",
+      "A7_QuestItemUsage",
       "VisualObject",
       "TestData_Simple",
       "Inhabitant"
@@ -2269,6 +2466,11 @@
         "CityInstitutionBuilding",
         "PopulationLevel7"
       ],
+      "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionUnlockAsset/UnlockAssets/Item": [
+        "Monument",
+        "FeatureUnlock",
+        "UnlockableAsset"
+      ],
       "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionUnlockAsset/UnhideAssets/Item": [
         "ProductionChain"
       ],
@@ -2299,6 +2501,25 @@
       ],
       "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionLockAsset/LockAssets/Item": [
         "FeatureUnlock"
+      ],
+      "/Values/QuestLine/QuestLineQuests/Item": [
+        "A7_QuestExpedition",
+        "A7_QuestDeliveryObject",
+        "A7_QuestDivingBellGeneric",
+        "A7_QuestStatusQuo",
+        "Quest",
+        "A7_QuestSelectObject",
+        "A7_QuestDivingBellSonar",
+        "A7_QuestSmuggler",
+        "A7_QuestSustain",
+        "A7_QuestPicturePuzzleObject",
+        "A7_QuestPickupObject",
+        "A7_QuestPhotography",
+        "A7_QuestDecision",
+        "A7_QuestEscortObject",
+        "A7_QuestSmugglerWOScanners",
+        "A7_QuestDestroyObjects",
+        "A7_QuestItemUsage"
       ],
       "/Values/Region/ConstructionMaterialList/Item": [
         "Product"
@@ -2571,6 +2792,11 @@
       "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/AudioNotification": [
         "Portrait"
       ],
+      "/Values/Quest/OnQuestAborted/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/AudioNotification": [],
+      "/Values/Quest/OnQuestFailed/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/AudioNotification": [],
+      "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/AudioNotification": [
+        "Portrait"
+      ],
       "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/AudioNotification": [
         "Portrait"
       ]
@@ -2680,6 +2906,7 @@
       "/Values/Quest/SuccessMessage/Notification/Values/BaseNotification": [],
       "/Values/Quest/FailureMessage/Notification/Values/BaseNotification": [],
       "/Values/Quest/SelectionReminderMessage/Notification/Values/BaseNotification": [],
+      "/Values/Quest/AbortedManuallyMessage/Notification/Values/BaseNotification": [],
       "/Values/Quest/AbortedAutomaticallyMessage/Notification/Values/BaseNotification": [],
       "/Values/Quest/InvitationMessage/Notification/Values/BaseNotification": [],
       "/Values/Quest/EscortShipSelectedMessage/Notification/Values/BaseNotification": [],
@@ -2749,11 +2976,78 @@
     "paths": {
       "/Values/Exploder/HitSuccessNotification/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
       "/Values/Exploder/HitFailNotification/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
+      "/Values/Selection/OnSelection/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
+      "/Values/Notification/NotificationType/Values/NotificationSubtitle": [],
       "/Values/NotificationSubtitle": [],
+      "/Values/Quest/StarterMessage/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/SuccessMessage/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/FailureMessage/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/SelectionReminderMessage/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/AbortedManuallyMessage/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/InvitationMessage/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/EscortShipSelectedMessage/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/ReminderMessage/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/ResolveConfirmationMessage/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/InvitationSmugglerQuestMessage/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/SmugglerQuestTradingStationReached/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/StartInvitationGiveItemMessage/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/StartFollowShipMessage/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/OnQuestActive/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
       "/Values/Quest/OnQuestActive/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionExecuteActionByChance/ActionListChanceSuccess/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/OnQuestActive/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/OnQuestAborted/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/OnActiveQuestTimedOut/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/OnQuestFailed/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/OnQuestFailed/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/OnQuestDiscarded/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/OnQuestDiscarded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/QuestGiverIdleMessages/Item": [],
       "/Values/ParticipantMessages/MessageTriggers/ClickKontor/Reactions/Item/Notification/Values/NotificationSubtitle": [],
       "/Values/ParticipantMessages/MessageTriggers/MilitaryShipDestroyed/Reactions/Item/Notification/Values/NotificationSubtitle": [],
-      "/Values/ParticipantMessages/MessageTriggers/MenuWelcomeMessage/Reactions/Item/Notification/Values/NotificationSubtitle": []
+      "/Values/ParticipantMessages/MessageTriggers/MenuWelcomeMessage/Reactions/Item/Notification/Values/NotificationSubtitle": [],
+      "/Values/ParticipantMessages/MessageTriggers/GreatEasternReplacementOffered/Reactions/Item/Notification/Values/NotificationSubtitle": [],
+      "/Values/ParticipantMessages/MessageTriggers/MenuRoadMissing/Reactions/Item/Notification/Values/NotificationSubtitle": [],
+      "/Values/ItemWithUI/ItemActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": []
+    }
+  },
+  "Profile": {
+    "templates": [],
+    "paths": {
+      "/Values/Exploder/HitSuccessNotification/Values/ActionNotification/Notification/Values/CharacterNotification": [],
+      "/Values/Exploder/HitFailNotification/Values/ActionNotification/Notification/Values/CharacterNotification": [],
+      "/Values/Selection/OnSelection/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
+      "/Values/DifficultySettings/AvailableThirdParties/Item": [],
+      "/Values/DifficultySettings/CampaignAutoParticipants/Item": [],
+      "/Values/DifficultySettings/NormalAutoParticipants/Item": [],
+      "/Values/DifficultySetup/ThirdParties/Item": [],
+      "/Values/Notification/NotificationType/Values/CharacterNotification": [],
+      "/Values/CharacterNotification": [],
+      "/Values/GenericPopup/Popups/TutorialHappiness/Buttons/Item/Actions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
+      "/Values/GenericPopup/Popups/TutorialHappiness/Buttons/Item/Actions/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
+      "/Values/Quest/SelectionReminderMessage/Notification/Values/CharacterNotification": [],
+      "/Values/Quest/AbortedManuallyMessage/Notification/Values/CharacterNotification": [],
+      "/Values/Quest/AbortedAutomaticallyMessage/Notification/Values/CharacterNotification": [],
+      "/Values/Quest/ReminderMessage/Notification/Values/CharacterNotification": [],
+      "/Values/Quest/StartFollowShipMessage/Notification/Values/CharacterNotification": [],
+      "/Values/Quest/OnQuestActive/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
+      "/Values/Quest/OnQuestActive/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
+      "/Values/Quest/OnQuestAborted/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
+      "/Values/Quest/OnActiveQuestTimedOut/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
+      "/Values/Quest/OnQuestFailed/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
+      "/Values/Quest/OnQuestFailed/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
+      "/Values/Quest/OnQuestDiscarded/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
+      "/Values/Quest/OnQuestDiscarded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
+      "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
+      "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/MenuWelcomeMessage/Reactions/Item/Notification/Values/CharacterNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/MenuFirstWelcomeMessage/Reactions/Item/Notification/Values/CharacterNotification": [],
+      "/Values/ItemWithUI/ItemActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": []
     }
   },
   "KamikazeRadiusDecal": {
@@ -2820,6 +3114,18 @@
       "/Values/MinimapToken": [
         "MinimapDot"
       ]
+    }
+  },
+  "Tooltip": {
+    "templates": [
+      "Collectable"
+    ],
+    "paths": {
+      "/Values/MinimapTokenSettings": [
+        "Collectable"
+      ],
+      "/Values/DiplomacyScene/RadialMenuButton/Item": [],
+      "/Values/DiplomacyScene/GiftButtons/Item": []
     }
   },
   "OverwriteNameWithTextAsset": {
@@ -2897,6 +3203,18 @@
       "/Values/RandomMapObject": []
     }
   },
+  "FiniteResourceVariationThreshold": {
+    "templates": [],
+    "paths": {
+      "/Values/RandomMapObject": []
+    }
+  },
+  "InfoCorner": {
+    "templates": [],
+    "paths": {
+      "/Values/Selection": []
+    }
+  },
   "PickingColor": {
     "templates": [],
     "paths": {
@@ -2955,6 +3273,18 @@
       "/Values/Street": [
         "BridgeBuilding"
       ]
+    }
+  },
+  "NeighbourToTransitionRule": {
+    "templates": [],
+    "paths": {
+      "/Values/Street": []
+    }
+  },
+  "BuildSound": {
+    "templates": [],
+    "paths": {
+      "/Values/Tree": []
     }
   },
   "GroundDecalAsset": {
@@ -3084,17 +3414,22 @@
       "Guildhouse",
       "PublicServiceBuildingWithBus",
       "Monument",
+      "ConstructionCategory",
+      "CultureBuilding",
+      "ProductionChain",
+      "ResearchCenter",
+      "Mall",
       "Street",
+      "Warehouse",
+      "Market",
       "FactoryBuilding7_BuildPermit",
       "BuffFactoryModule",
       "HarborWarehouseStrategic",
       "HarborDepot",
-      "Warehouse",
       "HarborOffice",
       "SlotFactoryBuilding7_Arctic",
       "HarborBuildingAttacker",
-      "CultureBuildingColony",
-      "CultureBuilding"
+      "CultureBuildingColony"
     ],
     "paths": {
       "/Values/Building/InfluencedByNeighbors/Item": [
@@ -3172,6 +3507,24 @@
       "/Values/CharacterInteractionConfig/UpgradeBuildingWhitelist/Item": [
         "ResidenceBuilding7_Colony",
         "ResidenceBuilding"
+      ],
+      "/Values/ConstructionCategory/BuildingList/Item": [
+        "Monument",
+        "ConstructionCategory",
+        "Guildhouse",
+        "CultureBuilding",
+        "ResidenceBuilding7_BuildPermit",
+        "ProductionChain",
+        "ResearchCenter",
+        "Mall",
+        "Street",
+        "FactoryBuilding7",
+        "ResidenceBuilding",
+        "PublicServiceBuilding",
+        "PublicServiceBuildingWithBus",
+        "Warehouse",
+        "Market",
+        "CityInstitutionBuilding"
       ],
       "/Values/ProductionChain": [
         "FactoryBuilding7",
@@ -3277,6 +3630,12 @@
         "CultureBuildingColony",
         "CultureBuilding"
       ]
+    }
+  },
+  "BuildModeRandomRotation": {
+    "templates": [],
+    "paths": {
+      "/Values/Building": []
     }
   },
   "BusNeed": {
@@ -3642,6 +4001,12 @@
       ]
     }
   },
+  "UISceneHeaderText": {
+    "templates": [],
+    "paths": {
+      "/Values/Monument": []
+    }
+  },
   "InfolayerWhileWorking": {
     "templates": [
       "InfoLayerIcon"
@@ -3660,6 +4025,12 @@
       "/Values/Monument": [
         "Notification"
       ]
+    }
+  },
+  "OrnamentIconInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/Ornament": []
     }
   },
   "OrnamentDescription": {
@@ -3740,6 +4111,12 @@
         "VisitorPier",
         "ResidenceBuilding"
       ]
+    }
+  },
+  "Animal_AudioLoop": {
+    "templates": [],
+    "paths": {
+      "/Values/AnimalBase": []
     }
   },
   "IndividualPositionChangeInterval": {
@@ -3852,6 +4229,12 @@
       "/Values/MusicArea": [
         "Video"
       ]
+    }
+  },
+  "HarbourBlockerPercentage": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildingBaseTiles": []
     }
   },
   "BuildPermit": {
@@ -4180,6 +4563,12 @@
       ]
     }
   },
+  "RefillRatePercent": {
+    "templates": [],
+    "paths": {
+      "/Values/DifficultySettings/TraderRefillRate/Medium": []
+    }
+  },
   "DefaultSetting": {
     "templates": [
       "DifficultySetup"
@@ -4227,6 +4616,62 @@
       "/Values/DifficultySettings/Presets/Scenario02": [
         "DifficultySetup"
       ]
+    }
+  },
+  "InfoTip": {
+    "templates": [
+      "SessionSouthAmerica",
+      "SessionModerate",
+      "SessionArctic"
+    ],
+    "paths": {
+      "/Values/DifficultySettings/Descriptions/ConstructionCostRefund": [],
+      "/Values/DifficultySettings/Descriptions/DistributionWorkforce": [],
+      "/Values/DifficultySettings/Descriptions/Fertility": [],
+      "/Values/DifficultySettings/Descriptions/HostileTakeover": [],
+      "/Values/DifficultySettings/Descriptions/InactiveCosts": [],
+      "/Values/DifficultySettings/Descriptions/Incidents": [],
+      "/Values/DifficultySettings/Descriptions/LossCondition": [],
+      "/Values/DifficultySettings/Descriptions/OptionalQuestFrequency": [],
+      "/Values/DifficultySettings/Descriptions/RawMaterial": [],
+      "/Values/DifficultySettings/Descriptions/RelocateBuildings": [],
+      "/Values/DifficultySettings/Descriptions/RevealedMap": [],
+      "/Values/DifficultySettings/Descriptions/Revenue": [],
+      "/Values/DifficultySettings/Descriptions/StartCredits": [],
+      "/Values/DifficultySettings/Descriptions/StartSession": [],
+      "/Values/DifficultySettings/Descriptions/StartSessionIslandDifficulty": [],
+      "/Values/DifficultySettings/Descriptions/StartSessionIslandSize": [],
+      "/Values/DifficultySettings/Descriptions/StartShips": [],
+      "/Values/DifficultySettings/Descriptions/StartWithKontor": [],
+      "/Values/DifficultySettings/Descriptions/TraderRefillRate": [],
+      "/Values/DifficultySettings/Descriptions/VictoryConditionMonuments": [],
+      "/Values/DifficultySettings/Descriptions/VictoryConditionInvestors": [],
+      "/Values/DifficultySettings/Descriptions/VictoryConditionPopulation": [],
+      "/Values/DifficultySettings/Descriptions/VictoryConditionWealth": [],
+      "/Values/DifficultySettings/Descriptions/VictoryConditionIncome": [],
+      "/Values/DifficultySettings/Descriptions/VictoryConditionAllOrOne": [],
+      "/Values/DifficultySettings/Descriptions/VictoryConditionDiplomacy": [],
+      "/Values/DifficultySettings/Descriptions/MapType": [],
+      "/Values/DifficultySettings/Descriptions/Influence": [],
+      "/Values/DifficultySettings/Descriptions/SkyscraperMaintentance": [],
+      "/Values/PassiveTradeWindow/TradeButtons/None": [],
+      "/Values/PassiveTradeWindow/TradeButtons/BuySell": [],
+      "/Values/PassiveTradeWindow/TradeButtons/SellOnly": [],
+      "/Values/PassiveTradeWindow/TradeButtons/BuyOnly": [],
+      "/Values/SessionTradeRouteOverviewScene/RouteCreateButtons/Normal": [],
+      "/Values/SessionTradeRouteOverviewScene/RouteCreateButtons/Charter": [],
+      "/Values/SessionTradeRouteOverviewScene/RouteCreateButtons/Oil": [],
+      "/Values/IncidentBuffConfig/PerIncidentBuffConfig/Fire": [],
+      "/Values/IncidentBuffConfig/PerIncidentBuffConfig/Riot": [],
+      "/Values/IncidentBuffConfig/PerIncidentBuffConfig/Illness": [],
+      "/Values/IncidentBuffConfig/PerIncidentBuffConfig/ArcticIllness": [],
+      "/Values/ObjectmenuHeader/BuffDisplayList/Item": [],
+      "/Values/ObjectmenuKontorScene/RegionGoodFilter/Item": [
+        "SessionSouthAmerica",
+        "SessionModerate",
+        "SessionArctic"
+      ],
+      "/Values/UplayProductPromotion/BreadcrumbInfoList/Item": []
     }
   },
   "Amount": {
@@ -4300,6 +4745,12 @@
       "/Values/GlobalConfig/SequenceMetaInfos/pray01": []
     }
   },
+  "RiotSpecial02": {
+    "templates": [],
+    "paths": {
+      "/Values/GlobalConfig/FeedbackSequenceIDs": []
+    }
+  },
   "LanguagePack": {
     "templates": [
       "UplayProduct"
@@ -4340,6 +4791,12 @@
       ]
     }
   },
+  "Common02": {
+    "templates": [],
+    "paths": {
+      "/Values/GlobalConfig/RenderConditionIDs": []
+    }
+  },
   "EffectShield": {
     "templates": [
       "Notification"
@@ -4348,6 +4805,12 @@
       "/Values/GlobalConfig/RenderConditionIDs": [
         "Notification"
       ]
+    }
+  },
+  "GroundDecalVariation": {
+    "templates": [],
+    "paths": {
+      "/Values/GlobalConfig/RenderConditionIDs": []
     }
   },
   "ReputationLogTextGuid": {
@@ -4436,6 +4899,12 @@
       "/Values/GlobalConfig/ParticipantMessageCategories/FirstTimeEventHappened": [],
       "/Values/GlobalConfig/ParticipantMessageCategories/WorkingConditionsHigh": [],
       "/Values/GlobalConfig/ParticipantMessageCategories/WorkingConditionsLow": []
+    }
+  },
+  "MaxDropPercent": {
+    "templates": [],
+    "paths": {
+      "/Values/GlobalConfig/ShipItemDropCalculation": []
     }
   },
   "idle01": {
@@ -4818,6 +5287,12 @@
     }
   },
   "Configurable": {
+    "templates": [],
+    "paths": {
+      "/Values/GUIConfig/KeyBindings/Item": []
+    }
+  },
+  "AudioEvent": {
     "templates": [],
     "paths": {
       "/Values/GUIConfig/KeyBindings/Item": []
@@ -5233,6 +5708,12 @@
       "/Values/Incident/InfectionChanceSourceNameMapping/Heat": []
     }
   },
+  "Top": {
+    "templates": [],
+    "paths": {
+      "/Values/GUIConfig/HintMarkerPadding": []
+    }
+  },
   "PopulationLevel": {
     "templates": [
       "PopulationLevel7"
@@ -5419,7 +5900,9 @@
     "paths": {
       "/Values/FeedbackParametersGlobal/ClippingInfos/HugeVehicle/ClipDistances/High": [
         "TrafficFeedbackUnit"
-      ]
+      ],
+      "/Values/FeedbackParametersGlobal/ClippingInfos/Person/ClipDistances/Low": [],
+      "/Values/FeedbackParametersGlobal/ClippingInfos/Person/ClipDistances/Medium": []
     }
   },
   "ClipDistanceMax": {
@@ -5481,6 +5964,18 @@
       "/Values/FeedbackSessionDescription/CulturalBuildingSpawnGroup": [
         "FeedbackUnitClass"
       ]
+    }
+  },
+  "MaxLookDuration": {
+    "templates": [],
+    "paths": {
+      "/Values/FeedbackSessionDescription/CulturalBuildingSpawnGroup": []
+    }
+  },
+  "MaxSpawnBuildingsToShrink": {
+    "templates": [],
+    "paths": {
+      "/Values/FeedbackSessionDescription/CulturalBuildingSpawnGroup": []
     }
   },
   "TouristSpawnClass": {
@@ -5930,6 +6425,12 @@
       ]
     }
   },
+  "ClipDistance": {
+    "templates": [],
+    "paths": {
+      "/Values/AnimalParametersGlobal/AnimalClipping/Medium": []
+    }
+  },
   "AllowHerdAutoSpawning": {
     "templates": [],
     "paths": {
@@ -5987,6 +6488,18 @@
       "/Values/CoopFeature": [
         "VisualObject"
       ]
+    }
+  },
+  "CoopMarker2DSound": {
+    "templates": [],
+    "paths": {
+      "/Values/CoopFeature": []
+    }
+  },
+  "LocalCoopMarker3DSound": {
+    "templates": [],
+    "paths": {
+      "/Values/CoopFeature": []
     }
   },
   "PingMarkerLifetime": {
@@ -6214,6 +6727,12 @@
       ]
     }
   },
+  "ThresholdUp": {
+    "templates": [],
+    "paths": {
+      "/Values/EcoSystemFeature/AudioConfiguration/IslandHealthAudioState/Healthy": []
+    }
+  },
   "IslandHealthRTPC": {
     "templates": [
       "GameParameter"
@@ -6374,6 +6893,12 @@
       ]
     }
   },
+  "IntroductionMessage": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/MiniQuests/Item/Quest/Tasks/Item/Task": []
+    }
+  },
   "IntroductionMessageText": {
     "templates": [],
     "paths": {
@@ -6386,10 +6911,171 @@
       "/Values/FirstPersonFeature/MiniQuests/Item/Quest/Tasks/Item/Task": []
     }
   },
+  "SuccessMessage": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/MiniQuests/Item/Quest": []
+    }
+  },
   "SuccessMessageText": {
     "templates": [],
     "paths": {
       "/Values/FirstPersonFeature/MiniQuests/Item/Quest": []
+    }
+  },
+  "Kill": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/Audio": []
+    }
+  },
+  "Follow": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/Audio": []
+    }
+  },
+  "Pray": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/Audio": []
+    }
+  },
+  "ChaseAway": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/Audio": []
+    }
+  },
+  "Honk": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/Audio": []
+    }
+  },
+  "Carousel": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/Audio": []
+    }
+  },
+  "Faster": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/Audio": []
+    }
+  },
+  "Slower": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/Audio": []
+    }
+  },
+  "Talk": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/Audio": []
+    }
+  },
+  "TorchOn": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/Audio": []
+    }
+  },
+  "TorchOff": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/Audio": []
+    }
+  },
+  "MountVehicle": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/Audio": []
+    }
+  },
+  "UnmountVehicle": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/Audio": []
+    }
+  },
+  "Jump": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/Audio": []
+    }
+  },
+  "Land": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/Audio": []
+    }
+  },
+  "Footsteps": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/Audio": []
+    }
+  },
+  "ElephantTroet": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/Audio": []
+    }
+  },
+  "QuestSuccess": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/Audio": []
+    }
+  },
+  "Audio": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/Audio/RewardTriggerAudios/Weather_Rain": [],
+      "/Values/FirstPersonFeature/Audio/RewardTriggerAudios/Weather_Snow": [],
+      "/Values/FirstPersonFeature/Audio/RewardTriggerAudios/Particles_Konfetti": [],
+      "/Values/FirstPersonFeature/Audio/RewardTriggerAudios/Particles_Water": [],
+      "/Values/FirstPersonFeature/Audio/RewardTriggerAudios/Particles_Firework": [],
+      "/Values/VideoSubtitle/AudioScenes/Item/PortraitType/Right": []
+    }
+  },
+  "EnterBoat": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/Audio": []
+    }
+  },
+  "HitBlocking": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/Audio": []
+    }
+  },
+  "ElevatorMusic": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/Audio": []
+    }
+  },
+  "ElevatorStart": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/Audio": []
+    }
+  },
+  "ElevatorStop": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/Audio": []
+    }
+  },
+  "IceSkatingMusic": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/Audio": []
     }
   },
   "NormalSpeedIcon": {
@@ -6440,6 +7126,18 @@
       "/Values/GameSpeedFeature": [
         "Icon"
       ]
+    }
+  },
+  "PauseResumeButtonInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/GameSpeedFeature": []
+    }
+  },
+  "SpeedButtonInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/GameSpeedFeature": []
     }
   },
   "OldGUID": {
@@ -6549,6 +7247,12 @@
       "/Values/HarborPropFeature/AutoSpawnProps/Africa/AutoSpawnProps/Item": [
         "HarborPropObject"
       ]
+    }
+  },
+  "LocalInfluence": {
+    "templates": [],
+    "paths": {
+      "/Values/HardFarmsFeature/HardFarmParams/Medium/Config/Item": []
     }
   },
   "MainSize": {
@@ -6763,6 +7467,50 @@
       ]
     }
   },
+  "Infotip": {
+    "templates": [],
+    "paths": {
+      "/Values/HighscoreFeature/HighscoreUIEntries/UrbanizationScore": [],
+      "/Values/HighscoreFeature/HighscoreUIEntries/TotalAttractivenessScore": [],
+      "/Values/HighscoreFeature/HighscoreUIEntries/DiscoveredItemsScore": [],
+      "/Values/HighscoreFeature/HighscoreUIEntries/SocketedItemsScore": [],
+      "/Values/HighscoreFeature/HighscoreUIEntries/CompletedSetsScore": [],
+      "/Values/HighscoreFeature/HighscoreUIEntries/AirshipScore": [],
+      "/Values/HighscoreFeature/HighscoreUIEntries/MilitaryShipScore": [],
+      "/Values/HighscoreFeature/HighscoreUIEntries/TradeShipScore": [],
+      "/Values/HighscoreFeature/HighscoreUIEntries/GlobalStorageScore": [],
+      "/Values/HighscoreFeature/HighscoreUIEntries/GlobalProductionScore": [],
+      "/Values/HighscoreFeature/HighscoreUIEntries/GlobalCostsScore": [],
+      "/Values/HighscoreFeature/HighscoreUIEntries/MostAttractiveIsland": [],
+      "/Values/Notification/NotificationType/Values/CharacterNotification/ThirdpartyNotificationButtons/Item": [],
+      "/Values/Notification/NotificationType/Values/SideNotification": [],
+      "/Values/SideNotification": [],
+      "/Values/SideNotificationsArchive/ArchiveButtons/Scenario": [],
+      "/Values/SideNotificationsArchive/ArchiveButtons/Quest": [],
+      "/Values/SideNotificationsArchive/ArchiveButtons/Newspaper": [],
+      "/Values/SideNotificationsArchive/ArchiveButtons/Expedition": [],
+      "/Values/SideNotificationsArchive/ArchiveButtons/Event": [],
+      "/Values/SideNotificationsArchive/ArchiveButtons/General": [],
+      "/Values/SideNotificationsArchive/ArchiveButtons/Warning": [],
+      "/Values/ObjectMenuResidenceHappinessSceneConfig/ResidentHappinessCategory/WorkingConditions": [],
+      "/Values/ObjectMenuResidenceHappinessSceneConfig/ResidentHappinessCategory/Pollution": [],
+      "/Values/ObjectMenuResidenceHappinessSceneConfig/ResidentHappinessCategory/Needs": [],
+      "/Values/ObjectMenuResidenceHappinessSceneConfig/ResidentHappinessCategory/War": [],
+      "/Values/ObjectMenuResidenceHappinessSceneConfig/ResidentHappinessCategory/Newspaper": [],
+      "/Values/ObjectMenuResidenceHappinessSceneConfig/ResidentHappinessCategory/Hotspots": [],
+      "/Values/ObjectMenuResidenceHappinessSceneConfig/ResidentHappinessCategory/Attractiveness": [],
+      "/Values/ObjectmenuResidenceScene/FeedbackBubbles/IncidentBubbles/Fire": [],
+      "/Values/ObjectmenuResidenceScene/FeedbackBubbles/IncidentBubbles/Riot": [],
+      "/Values/ObjectmenuResidenceScene/FeedbackBubbles/IncidentBubbles/Illness": [],
+      "/Values/ObjectmenuResidenceScene/FeedbackBubbles/IncidentBubbles/ArcticIllness": [],
+      "/Values/Quest/OnQuestDeclined/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/SideNotification": [],
+      "/Values/Quest/OnQuestDiscarded/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/SideNotification": [],
+      "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/SideNotification": [],
+      "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/SideNotification": [],
+      "/Values/Reward/PenaltyList/Item/Penalty": [],
+      "/Values/ParticipantMessages/MessageTriggers/NewspaperCreated/Reactions/Item/Notification/Values/CharacterNotification/ThirdpartyNotificationButtons/Item": []
+    }
+  },
   "NeededDLC": {
     "templates": [
       "UplayProduct"
@@ -6783,6 +7531,60 @@
     }
   },
   "PlaytimeLabel": {
+    "templates": [],
+    "paths": {
+      "/Values/HighscoreFeature": []
+    }
+  },
+  "PopulationInfotipGuid": {
+    "templates": [],
+    "paths": {
+      "/Values/HighscoreFeature": []
+    }
+  },
+  "SessionBalanceInfotipGuid": {
+    "templates": [],
+    "paths": {
+      "/Values/HighscoreFeature": []
+    }
+  },
+  "TopStoredGoodInfotipGuid": {
+    "templates": [],
+    "paths": {
+      "/Values/HighscoreFeature": []
+    }
+  },
+  "TopProducedGoodInfotipGuid": {
+    "templates": [],
+    "paths": {
+      "/Values/HighscoreFeature": []
+    }
+  },
+  "ScreenshotInfotipGuid": {
+    "templates": [],
+    "paths": {
+      "/Values/HighscoreFeature": []
+    }
+  },
+  "DlcIconInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/HighscoreFeature": []
+    }
+  },
+  "HighscoreAmountInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/HighscoreFeature": []
+    }
+  },
+  "HighscoreMultiplierInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/HighscoreFeature": []
+    }
+  },
+  "HighscoreTotalInfotip": {
     "templates": [],
     "paths": {
       "/Values/HighscoreFeature": []
@@ -6984,6 +7786,26 @@
       "/Values/InfluenceFeature/InfluenceConfig/AirShip": []
     }
   },
+  "SubCategoryInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/InfluenceFeature/InfluenceConfig/GuildHouse": [],
+      "/Values/InfluenceFeature/InfluenceConfig/Townhall": [],
+      "/Values/InfluenceFeature/InfluenceConfig/HarborOffice": [],
+      "/Values/InfluenceFeature/InfluenceConfig/WarShip": [],
+      "/Values/InfluenceFeature/InfluenceConfig/DefenseBuilding": [],
+      "/Values/InfluenceFeature/InfluenceConfig/TradeShip": [],
+      "/Values/InfluenceFeature/InfluenceConfig/ZooModule": [],
+      "/Values/InfluenceFeature/InfluenceConfig/MuseumModule": [],
+      "/Values/InfluenceFeature/InfluenceConfig/Kontor": [],
+      "/Values/InfluenceFeature/InfluenceConfig/WorkforceTransfer": [],
+      "/Values/InfluenceFeature/InfluenceConfig/CharterRoutes": [],
+      "/Values/InfluenceFeature/InfluenceConfig/Shares": [],
+      "/Values/InfluenceFeature/InfluenceConfig/BotanicModule": [],
+      "/Values/InfluenceFeature/InfluenceConfig/AirShip": [],
+      "/Values/ConstructionMenu": []
+    }
+  },
   "CategoryName": {
     "templates": [
       "UplayProduct"
@@ -7060,10 +7882,22 @@
       ]
     }
   },
+  "SourceSpreadMax": {
+    "templates": [],
+    "paths": {
+      "/Values/IrrigationConfig/IrrigationTiles/IrrigationTileDefinitions/Source_Lake_Small": []
+    }
+  },
   "WaterPlaneFadeOutDuration": {
     "templates": [],
     "paths": {
       "/Values/IrrigationConfig/VisualsAndEffects/WaterFill": []
+    }
+  },
+  "KontorBuildDistance": {
+    "templates": [],
+    "paths": {
+      "/Values/KontorFeature": []
     }
   },
   "KontorSwitchCosts": {
@@ -7368,6 +8202,13 @@
       ]
     }
   },
+  "ResearchGain": {
+    "templates": [],
+    "paths": {
+      "/Values/ResearchFeature/ItemDonationConfig/Uncommon": [],
+      "/Values/ResearchFeature/ItemDonationConfig/Godlike": []
+    }
+  },
   "SideNotificationMajorDiscoveryDone": {
     "templates": [
       "Notification"
@@ -7612,7 +8453,8 @@
       "/Values/StreetFeature/OverbuildableBy/IrrigationPipe": [],
       "/Values/StreetFeature/OverbuildableBy/IrrigationPipeStreetCrossing": [],
       "/Values/StreetFeature/OverbuildableBy/Harbour": [],
-      "/Values/StreetFeature/OverbuildableBy/QuayStreet": []
+      "/Values/StreetFeature/OverbuildableBy/QuayStreet": [],
+      "/Values/MPLobbyScene/LobbyInfoTips/DlcButtonInfoTips": []
     }
   },
   "BadStreet": {
@@ -7928,6 +8770,14 @@
       "/Values/StatisticMenu/ItemSourceData/ArcticCrate": [],
       "/Values/StatisticMenu/ItemSourceData/ResearchCrafting": [],
       "/Values/TextPopup/Pages/BeekeeperList/Names/Item": [],
+      "/Values/ExpeditionFeature/AttributeNames/Diplomacy": [],
+      "/Values/ExpeditionFeature/AttributeNames/Melee": [],
+      "/Values/ExpeditionFeature/AttributeNames/Might": [],
+      "/Values/ExpeditionFeature/AttributeNames/Navigation": [],
+      "/Values/ExpeditionFeature/AttributeNames/Medicine": [],
+      "/Values/ExpeditionFeature/AttributeNames/Faith": [],
+      "/Values/ExpeditionFeature/AttributeNames/Crafting": [],
+      "/Values/ExpeditionFeature/AttributeNames/Hunting": [],
       "/Values/ExpeditionFeature/AttributeNames/PerkAnthropologist": [],
       "/Values/ExpeditionFeature/AttributeNames/PerkHypnotist": [],
       "/Values/ExpeditionFeature/AttributeNames/PerkFormerPirate": [],
@@ -8046,6 +8896,12 @@
       ]
     }
   },
+  "AttractivenessWarThreshold": {
+    "templates": [],
+    "paths": {
+      "/Values/TourismFeature": []
+    }
+  },
   "TraderShip": {
     "templates": [
       "TradeShip"
@@ -8059,7 +8915,8 @@
   "TraderName": {
     "templates": [],
     "paths": {
-      "/Values/TradeContractFeature/Traders/Item": []
+      "/Values/TradeContractFeature/Traders/Item": [],
+      "/Values/ExpeditionTrade": []
     }
   },
   "TraderDesc": {
@@ -8245,6 +9102,12 @@
       "/Values/TradeRouteFeature": []
     }
   },
+  "CheckBestCoastDistance": {
+    "templates": [],
+    "paths": {
+      "/Values/TradeRouteFeature": []
+    }
+  },
   "EstimatedTimeForNpcTrades": {
     "templates": [],
     "paths": {
@@ -8280,6 +9143,13 @@
       "/Values/WeatherFeature/WeatherPresets/ChristmasModerate_ForceAllowSnow/Wind": [
         "Video"
       ]
+    }
+  },
+  "MaxDirectionChange": {
+    "templates": [],
+    "paths": {
+      "/Values/WeatherFeature/WeatherPresets/Default/Wind": [],
+      "/Values/WeatherFeature/WeatherPresets/ChristmasModerate_ForceAllowSnow/Wind": []
     }
   },
   "MinTimeUntilNextDensityUpdate": {
@@ -8372,6 +9242,12 @@
       ]
     }
   },
+  "RoughFeedbackShipDistance": {
+    "templates": [],
+    "paths": {
+      "/Values/WorkforceTransferFeature": []
+    }
+  },
   "TransferInterruptedNotification": {
     "templates": [
       "Notification"
@@ -8383,6 +9259,12 @@
     }
   },
   "PriceChangeText": {
+    "templates": [],
+    "paths": {
+      "/Values/WorldMarketFeature/NewsTicker": []
+    }
+  },
+  "TitleText": {
     "templates": [],
     "paths": {
       "/Values/WorldMarketFeature/NewsTicker": []
@@ -8735,6 +9617,30 @@
       "/Values/NewspaperBalancing": [
         "Icon"
       ]
+    }
+  },
+  "ArchiveButtonInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/NewspaperBalancing": []
+    }
+  },
+  "ShowNewspaperInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/NewspaperBalancing": []
+    }
+  },
+  "PublishNewspaperInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/NewspaperBalancing": []
+    }
+  },
+  "NewspaperCategoryInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/NewspaperBalancing": []
     }
   },
   "Filler": {
@@ -9815,6 +10721,54 @@
       "/Values/Chat/TextChatChannels/Whisper": []
     }
   },
+  "IncomingOpen": {
+    "templates": [],
+    "paths": {
+      "/Values/Chat/MessageSounds": []
+    }
+  },
+  "IncomingClosed": {
+    "templates": [],
+    "paths": {
+      "/Values/Chat/MessageSounds": []
+    }
+  },
+  "ChannelSwitch": {
+    "templates": [],
+    "paths": {
+      "/Values/Chat/VoiceChatSounds": []
+    }
+  },
+  "OtherJoin": {
+    "templates": [],
+    "paths": {
+      "/Values/Chat/VoiceChatSounds": []
+    }
+  },
+  "OtherLeave": {
+    "templates": [],
+    "paths": {
+      "/Values/Chat/VoiceChatSounds": []
+    }
+  },
+  "MutePlayerButtonInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/Chat/InfoTips": []
+    }
+  },
+  "MuteOwnAudioButtonInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/Chat/InfoTips": []
+    }
+  },
+  "MuteOwnMicButtonInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/Chat/InfoTips": []
+    }
+  },
   "MaxChatHistoryLength": {
     "templates": [],
     "paths": {
@@ -9887,6 +10841,18 @@
       "/Values/InfolayerConfig": [
         "InfoLayerIcon"
       ]
+    }
+  },
+  "LowWorkforceProductivity": {
+    "templates": [],
+    "paths": {
+      "/Values/InfolayerConfig": []
+    }
+  },
+  "InfoLayerInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/InfoLayerIcon": []
     }
   },
   "InteractionCursor": {
@@ -10051,10 +11017,28 @@
       "/Values/WorldMapCardConfig": []
     }
   },
+  "CameraAngle": {
+    "templates": [],
+    "paths": {
+      "/Values/WorldMapConfig/Camera": []
+    }
+  },
   "TransitionTime": {
     "templates": [],
     "paths": {
       "/Values/WorldMapConfig/Camera": []
+    }
+  },
+  "ShipInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/WorldMapConfig/Infotips": []
+    }
+  },
+  "FleetInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/WorldMapConfig/Infotips": []
     }
   },
   "Globe": {
@@ -10065,6 +11049,21 @@
       "/Values/WorldMapConfig/Assets": [
         "WorldMapGlobe"
       ]
+    }
+  },
+  "WindDirection": {
+    "templates": [],
+    "paths": {
+      "/Values/WorldMapConfig": []
+    }
+  },
+  "NotificationAudioAsset": {
+    "templates": [],
+    "paths": {
+      "/Values/Notification/NotificationType/Values/BaseNotification": [],
+      "/Values/BaseNotification": [],
+      "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/QuestAbortedAutomatically/Reactions/Item/Notification/Values/BaseNotification": []
     }
   },
   "CampaignNotificationTitle": {
@@ -10274,16 +11273,6 @@
       ]
     }
   },
-  "Infotip": {
-    "templates": [],
-    "paths": {
-      "/Values/Notification/NotificationType/Values/SideNotification": [],
-      "/Values/Quest/OnQuestDeclined/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/SideNotification": [],
-      "/Values/Quest/OnQuestDiscarded/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/SideNotification": [],
-      "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/SideNotification": [],
-      "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/SideNotification": []
-    }
-  },
   "HasJumpLocation": {
     "templates": [],
     "paths": {
@@ -10344,12 +11333,6 @@
       "/Values/NotificationConfiguration": []
     }
   },
-  "Profile": {
-    "templates": [],
-    "paths": {
-      "/Values/CharacterNotification": []
-    }
-  },
   "NotificationTextFemale": {
     "templates": [],
     "paths": {
@@ -10383,6 +11366,12 @@
       "/Values/ActiveTradeScene": [
         "Icon"
       ]
+    }
+  },
+  "BuysEverythingInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ActiveTradeScene": []
     }
   },
   "StackModeText": {
@@ -10433,6 +11422,12 @@
       "/Values/CraftingPopup": [
         "Icon"
       ]
+    }
+  },
+  "SelectedItemInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/CraftingPopup": []
     }
   },
   "CraftingItemFilter": {
@@ -10518,6 +11513,18 @@
       "/Values/DifficultySettingsScene/PlayerInfo": []
     }
   },
+  "PortraitInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/CreateGameScene": []
+    }
+  },
+  "TextBoxWidth": {
+    "templates": [],
+    "paths": {
+      "/Values/CreditsScene": []
+    }
+  },
   "PageContent": {
     "templates": [],
     "paths": {
@@ -10590,6 +11597,24 @@
       "/Values/DifficultySettingsScene": []
     }
   },
+  "SecondPartyDlcWarningInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/DifficultySettingsScene": []
+    }
+  },
+  "SecondPartyConfirmBtnWarningInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/DifficultySettingsScene": []
+    }
+  },
+  "TooltipHuman": {
+    "templates": [],
+    "paths": {
+      "/Values/DiplomacyScene/RadialMenuButton/Item": []
+    }
+  },
   "FaceIcon": {
     "templates": [
       "Icon"
@@ -10598,6 +11623,31 @@
       "/Values/DiplomacyScene/RadialMenuButton/Item": [
         "Icon"
       ]
+    }
+  },
+  "PeaceTooltip": {
+    "templates": [],
+    "paths": {
+      "/Values/DiplomacyScene/NegotiationButton": [],
+      "/Values/DiplomacyScene/ThreatButton": []
+    }
+  },
+  "WarTootlip": {
+    "templates": [],
+    "paths": {
+      "/Values/DiplomacyScene/NegotiationButton": []
+    }
+  },
+  "QueenKnighthoodTooltip": {
+    "templates": [],
+    "paths": {
+      "/Values/DiplomacyScene/NegotiationButton": []
+    }
+  },
+  "WarTooltip": {
+    "templates": [],
+    "paths": {
+      "/Values/DiplomacyScene/ThreatButton": []
     }
   },
   "VisibleWithAI": {
@@ -10623,6 +11673,60 @@
     "templates": [],
     "paths": {
       "/Values/DiplomacyScene/PlayerResources": []
+    }
+  },
+  "PyramidExportGoodInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/DocklandsScene": []
+    }
+  },
+  "TradeContractExportGoodInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/DocklandsScene": []
+    }
+  },
+  "TradeContractImportGoodInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/DocklandsScene": []
+    }
+  },
+  "TradeContractEmptyInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/DocklandsScene": []
+    }
+  },
+  "TradeContractRatioInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/DocklandsScene": []
+    }
+  },
+  "TradeContractModuleWarningInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/DocklandsScene": []
+    }
+  },
+  "ImportTraderInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/DocklandsScene": []
+    }
+  },
+  "ImportGoodInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/DocklandsScene": []
+    }
+  },
+  "GoodAlreadyInUseInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/DocklandsScene": []
     }
   },
   "TraderStatusWaitingForTraderText": {
@@ -10669,7 +11773,25 @@
       ]
     }
   },
+  "TradeContractExportWarningInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/DocklandsScene": []
+    }
+  },
+  "TradeContractImportWarningInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/DocklandsScene": []
+    }
+  },
   "ExpeditionShowEventButtonText": {
+    "templates": [],
+    "paths": {
+      "/Values/ExpeditionOverviewScene": []
+    }
+  },
+  "ExpeditionShowEventButtonSound": {
     "templates": [],
     "paths": {
       "/Values/ExpeditionOverviewScene": []
@@ -10681,13 +11803,31 @@
       "/Values/ExpeditionOverviewScene": []
     }
   },
+  "StartExpeditionWithTradeButtonSound": {
+    "templates": [],
+    "paths": {
+      "/Values/ExpeditionOverviewScene": []
+    }
+  },
   "StartExpeditionButtonText": {
     "templates": [],
     "paths": {
       "/Values/ExpeditionOverviewScene": []
     }
   },
+  "StartExpeditionButtonSound": {
+    "templates": [],
+    "paths": {
+      "/Values/ExpeditionOverviewScene": []
+    }
+  },
   "AssignShipToExpeditionButtonText": {
+    "templates": [],
+    "paths": {
+      "/Values/ExpeditionOverviewScene": []
+    }
+  },
+  "AssignShipToExpeditionButtonSound": {
     "templates": [],
     "paths": {
       "/Values/ExpeditionOverviewScene": []
@@ -10779,6 +11919,14 @@
       "/Values/InfluencePopup": []
     }
   },
+  "TresholdInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/IslandBarPollutionScene/PerQualityConfiguration/Water/VisibleThresholds/Item": [],
+      "/Values/IslandBarPollutionScene/PerQualityConfiguration/Soil/VisibleThresholds/Item": [],
+      "/Values/IslandBarPollutionScene/PerQualityConfiguration/Air/VisibleThresholds/Item": []
+    }
+  },
   "TextCropDiversity": {
     "templates": [],
     "paths": {
@@ -10801,6 +11949,18 @@
     "templates": [],
     "paths": {
       "/Values/IslandBarPollutionScene/IslandHealthConfiguration": []
+    }
+  },
+  "WorkforceInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/IslandBarScene": []
+    }
+  },
+  "CultureSizeIndicatorInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/IslandBarScene": []
     }
   },
   "AttractivenessButton": {
@@ -10842,6 +12002,24 @@
       "/Values/IslandBarScene": []
     }
   },
+  "ResourceInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/IslandBarScene": []
+    }
+  },
+  "EmptyResourceInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/IslandBarScene": []
+    }
+  },
+  "GoodPopupResourceInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/IslandBarScene": []
+    }
+  },
   "WorkforceEntry": {
     "templates": [
       "Product"
@@ -10850,6 +12028,12 @@
       "/Values/IslandBarScene/WorkforceOrder/Item": [
         "Product"
       ]
+    }
+  },
+  "WorkforceInfotip_NotCommutable": {
+    "templates": [],
+    "paths": {
+      "/Values/IslandBarScene": []
     }
   },
   "TradeBuySellIconSmall": {
@@ -10984,6 +12168,24 @@
       "/Values/MinimapScene": []
     }
   },
+  "LodesInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/MinimapScene": []
+    }
+  },
+  "FertilitiesInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/MinimapScene": []
+    }
+  },
+  "SwappableFertilityInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/MinimapScene": []
+    }
+  },
   "TargetBuilding": {
     "templates": [
       "ResidenceBuilding-Unique",
@@ -11039,6 +12241,72 @@
       "/Values/MPLobbyScene/TeamNames/Team4": []
     }
   },
+  "StartButtonWarningInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyScene/LobbyInfoTips/DlcWarnings": []
+    }
+  },
+  "FixButtonDisabledInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyScene/LobbyInfoTips/DlcWarnings": []
+    }
+  },
+  "DisabledLocked": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyScene/LobbyInfoTips/DlcButtonInfoTips": []
+    }
+  },
+  "EnabledLocked": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyScene/LobbyInfoTips/DlcButtonInfoTips": []
+    }
+  },
+  "DisabledUnlocked": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyScene/LobbyInfoTips/DlcButtonInfoTips": []
+    }
+  },
+  "DlcDescriptionInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyScene/LobbyInfoTips": []
+    }
+  },
+  "DlcMissingInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyScene/LobbyInfoTips": []
+    }
+  },
+  "KickPlayerInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyScene/LobbyInfoTips": []
+    }
+  },
+  "DisabledStartGameInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyScene/LobbyInfoTips": []
+    }
+  },
+  "ReinvitePlayerInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyScene/LobbyInfoTips": []
+    }
+  },
+  "DlcMissingInfoStartBtnInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyScene/LobbyInfoTips": []
+    }
+  },
   "StateTextLine1": {
     "templates": [],
     "paths": {
@@ -11082,6 +12350,12 @@
     }
   },
   "NewspaperHeadlineText": {
+    "templates": [],
+    "paths": {
+      "/Values/NewspaperScene": []
+    }
+  },
+  "EditorText": {
     "templates": [],
     "paths": {
       "/Values/NewspaperScene": []
@@ -11216,6 +12490,18 @@
       "/Values/NewspaperScene/EffectVisualization/Productivity": []
     }
   },
+  "ArticleInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/NewspaperScene": []
+    }
+  },
+  "ArchiveArticleInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/NewspaperScene": []
+    }
+  },
   "AnarchyCategoryText": {
     "templates": [],
     "paths": {
@@ -11340,7 +12626,19 @@
       "/Values/OnlineMarketScene": []
     }
   },
+  "StartDistance": {
+    "templates": [],
+    "paths": {
+      "/Values/OnScreenNotificationScene": []
+    }
+  },
   "ResolutionHeadline": {
+    "templates": [],
+    "paths": {
+      "/Values/OptionsScene": []
+    }
+  },
+  "ResolutionInfotip": {
     "templates": [],
     "paths": {
       "/Values/OptionsScene": []
@@ -11352,13 +12650,31 @@
       "/Values/OptionsScene": []
     }
   },
+  "TextLanguageInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/OptionsScene": []
+    }
+  },
   "AudioLanguageHeadline": {
     "templates": [],
     "paths": {
       "/Values/OptionsScene": []
     }
   },
+  "AudioLanguageInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/OptionsScene": []
+    }
+  },
   "DirectXHeadline": {
+    "templates": [],
+    "paths": {
+      "/Values/OptionsScene": []
+    }
+  },
+  "DirectXInfotip": {
     "templates": [],
     "paths": {
       "/Values/OptionsScene": []
@@ -11382,6 +12698,12 @@
       "/Values/OptionsScene": []
     }
   },
+  "GraphicAdapterInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/OptionsScene": []
+    }
+  },
   "ToggleOn": {
     "templates": [],
     "paths": {
@@ -11389,6 +12711,18 @@
     }
   },
   "ToggleOff": {
+    "templates": [],
+    "paths": {
+      "/Values/OptionsScene": []
+    }
+  },
+  "ShortcutChangeableInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/OptionsScene": []
+    }
+  },
+  "ShortcutUnchangableInfotip": {
     "templates": [],
     "paths": {
       "/Values/OptionsScene": []
@@ -11448,6 +12782,30 @@
       "/Values/QuestTrackerScene/QuestCategories/Optional": []
     }
   },
+  "StoryTextInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/QuestTrackerScene": []
+    }
+  },
+  "RewardInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/QuestTrackerScene": []
+    }
+  },
+  "RewardItemInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/QuestTrackerScene": []
+    }
+  },
+  "RewardReputationInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/QuestTrackerScene": []
+    }
+  },
   "RewardDisguisedInfotip": {
     "templates": [],
     "paths": {
@@ -11484,6 +12842,18 @@
     "templates": [],
     "paths": {
       "/Values/QuestTrackerScene": []
+    }
+  },
+  "IngredientInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/RecipeBuildingScene": []
+    }
+  },
+  "LockedRecipeInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/RecipeBuildingScene": []
     }
   },
   "ItemRecipeResearchButtonText": {
@@ -11540,6 +12910,18 @@
       "/Values/ResearchCentreScene": []
     }
   },
+  "CraftingItemInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResearchCentreScene": []
+    }
+  },
+  "DonationItemInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResearchCentreScene": []
+    }
+  },
   "Godlike": {
     "templates": [
       "Godlike"
@@ -11574,6 +12956,78 @@
       "/Values/ResearchCentreScene": [
         "Icon"
       ]
+    }
+  },
+  "MissingElectricityInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResearchCentreScene": []
+    }
+  },
+  "NotEnoughResearchInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResearchCentreScene": []
+    }
+  },
+  "NotEnoughWorkforceInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResearchCentreScene": []
+    }
+  },
+  "NoGodlikeSelectedInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResearchCentreScene": []
+    }
+  },
+  "NoResearchFieldSelectedInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResearchCentreScene": []
+    }
+  },
+  "NoItemSelectedInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResearchCentreScene": []
+    }
+  },
+  "NoPackageSelectedInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResearchCentreScene": []
+    }
+  },
+  "QueueFullInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResearchCentreScene": []
+    }
+  },
+  "CraftingInProcessInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResearchCentreScene": []
+    }
+  },
+  "GodlikeRewardInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResearchCentreScene": []
+    }
+  },
+  "InvestResearchFieldButtonInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResearchCentreScene": []
+    }
+  },
+  "IdentifyRecipesButtonInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResearchCentreScene": []
     }
   },
   "RecipePoolCompletedText": {
@@ -11630,6 +13084,24 @@
       "/Values/ResearchCentreScene": []
     }
   },
+  "DevelopmentWarningInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResearchCentreScene": []
+    }
+  },
+  "QueueEntryInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResearchCentreScene": []
+    }
+  },
+  "CreditsInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResourceBarScene/CreditInfo": []
+    }
+  },
   "ProductMoneyAsset": {
     "templates": [
       "Product"
@@ -11640,16 +13112,34 @@
       ]
     }
   },
+  "BalanceInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResourceBarScene/BalanceInfo": []
+    }
+  },
   "BalanceAsset": {
     "templates": [],
     "paths": {
       "/Values/ResourceBarScene/BalanceInfo": []
     }
   },
+  "PopulationInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResourceBarScene/PopulationInfo": []
+    }
+  },
   "GlobalPopulationAsset": {
     "templates": [],
     "paths": {
       "/Values/ResourceBarScene/PopulationInfo": []
+    }
+  },
+  "ResearchInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResourceBarScene/ResearchInfo": []
     }
   },
   "ProductResearchAsset": {
@@ -11660,6 +13150,12 @@
       "/Values/ResourceBarScene/ResearchInfo": [
         "Product"
       ]
+    }
+  },
+  "InfluenceInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResourceBarScene/InfluenceInfo": []
     }
   },
   "ProductInfluenceAsset": {
@@ -11690,6 +13186,30 @@
       "/Values/ResourceBarScene": [
         "Icon"
       ]
+    }
+  },
+  "DawnBtnInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResourceBarScene": []
+    }
+  },
+  "DayBtnInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResourceBarScene": []
+    }
+  },
+  "DuskBtnInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResourceBarScene": []
+    }
+  },
+  "NightBtnInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResourceBarScene": []
     }
   },
   "Session": {
@@ -11802,7 +13322,37 @@
       ]
     }
   },
+  "NoGoodsInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteOverviewScene": []
+    }
+  },
+  "NoShipsInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteOverviewScene": []
+    }
+  },
+  "AllShipsPausedInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteOverviewScene": []
+    }
+  },
+  "GeneralWarningInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteOverviewScene": []
+    }
+  },
   "DefaultTradeRouteName": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRoutesScene": []
+    }
+  },
+  "ShipListInfoTip": {
     "templates": [],
     "paths": {
       "/Values/SessionTradeRoutesScene": []
@@ -11826,6 +13376,42 @@
       "/Values/SessionTradeRoutesScene": [
         "Icon"
       ]
+    }
+  },
+  "NotEnoughSlotsInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRoutesScene": []
+    }
+  },
+  "NotEnoughStationsInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRoutesScene": []
+    }
+  },
+  "InvalidStationInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRoutesScene": []
+    }
+  },
+  "GoodsWarningInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRoutesScene": []
+    }
+  },
+  "LongWaitingInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRoutesScene": []
+    }
+  },
+  "MismatchingGoodInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRoutesScene": []
     }
   },
   "Filter": {
@@ -11877,6 +13463,12 @@
       "/Values/SessionTradeRoutesScene/SelectGoodPopup": []
     }
   },
+  "GoodsInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRoutesScene/SelectGoodPopup": []
+    }
+  },
   "PirateText": {
     "templates": [],
     "paths": {
@@ -11903,6 +13495,12 @@
     "templates": [],
     "paths": {
       "/Values/SessionTradeRoutesScene/ParticipantFilter": []
+    }
+  },
+  "LostShipMarkerInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRoutesScene": []
     }
   },
   "EmptyGoodSlotIcon": {
@@ -12003,6 +13601,18 @@
       "/Values/SideNotificationsArchive/TimestampTexts": []
     }
   },
+  "CoopPeerButtonInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/SideNotificationsArchive": []
+    }
+  },
+  "CategoryInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/SideNotificationScene": []
+    }
+  },
   "IslandSelectionGlobal": {
     "templates": [],
     "paths": {
@@ -12035,6 +13645,72 @@
       "/Values/ObjectmenuKontorScene/Regions/Africa": [
         "ProductFilter"
       ]
+    }
+  },
+  "ProductionGoodInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/StatisticMenu/StatisticMenuInfotips": []
+    }
+  },
+  "WarehouseGoodInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/StatisticMenu/StatisticMenuInfotips": []
+    }
+  },
+  "PopulationGraphInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/StatisticMenu/StatisticMenuInfotips": []
+    }
+  },
+  "ProductionGraphGenerationInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/StatisticMenu/StatisticMenuInfotips": []
+    }
+  },
+  "ProductionGraphConsumptionInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/StatisticMenu/StatisticMenuInfotips": []
+    }
+  },
+  "WarehouseGraphInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/StatisticMenu/StatisticMenuInfotips": []
+    }
+  },
+  "HappinessGraphInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/StatisticMenu/StatisticMenuInfotips": []
+    }
+  },
+  "ProductionCheckboxGenerationInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/StatisticMenu/StatisticMenuInfotips": []
+    }
+  },
+  "ProductionCheckboxConsumptionInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/StatisticMenu/StatisticMenuInfotips": []
+    }
+  },
+  "ProductionCheckboxProcessingInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/StatisticMenu/StatisticMenuInfotips": []
+    }
+  },
+  "PopulationCheckboxInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/StatisticMenu/StatisticMenuInfotips": []
     }
   },
   "BuildingsTabText": {
@@ -12246,6 +13922,12 @@
       ]
     }
   },
+  "RepairInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/MaintenanceBarConfig": []
+    }
+  },
   "LoadingSpeedIcon": {
     "templates": [
       "Icon"
@@ -12254,6 +13936,12 @@
       "/Values/MaintenanceBarConfig": [
         "Icon"
       ]
+    }
+  },
+  "LoadingSpeedInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/MaintenanceBarConfig": []
     }
   },
   "LoadingSpeedBonusIcon": {
@@ -12266,13 +13954,31 @@
       ]
     }
   },
+  "LoadingSpeedBonusInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/MaintenanceBarConfig": []
+    }
+  },
   "DamageIcon": {
     "templates": [],
     "paths": {
       "/Values/MaintenanceBarConfig": []
     }
   },
+  "DamageInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/MaintenanceBarConfig": []
+    }
+  },
   "HitpointsIcon": {
+    "templates": [],
+    "paths": {
+      "/Values/MaintenanceBarConfig": []
+    }
+  },
+  "HitpointsInfotip": {
     "templates": [],
     "paths": {
       "/Values/MaintenanceBarConfig": []
@@ -12288,6 +13994,36 @@
       ]
     }
   },
+  "MaintenanceInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/MaintenanceBarConfig": []
+    }
+  },
+  "ShipMaintenanceInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/MaintenanceBarConfig": []
+    }
+  },
+  "MaintenanceWorkforceInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/MaintenanceBarConfig": []
+    }
+  },
+  "GenerateWorkforceInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/MaintenanceBarConfig": []
+    }
+  },
+  "ResearchWorkforceInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/MaintenanceBarConfig": []
+    }
+  },
   "StorageBonusIcon": {
     "templates": [
       "Icon"
@@ -12296,6 +14032,12 @@
       "/Values/MaintenanceBarConfig": [
         "Icon"
       ]
+    }
+  },
+  "StorageBonusInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/MaintenanceBarConfig": []
     }
   },
   "AttractivenessIcon": {
@@ -12311,6 +14053,13 @@
       ]
     }
   },
+  "AttractivenessInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/MaintenanceBarConfig": [],
+      "/Values/ObjectmenuResidenceScene/FeedbackBubbles": []
+    }
+  },
   "ResidenceInfluenceIcon": {
     "templates": [
       "Product"
@@ -12319,6 +14068,12 @@
       "/Values/MaintenanceBarConfig": [
         "Product"
       ]
+    }
+  },
+  "ResidenceInfluenceInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/MaintenanceBarConfig": []
     }
   },
   "IncomeIcon": {
@@ -12331,6 +14086,12 @@
       ]
     }
   },
+  "IncomeInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/MaintenanceBarConfig": []
+    }
+  },
   "ResearchOutputIcon": {
     "templates": [
       "Product"
@@ -12341,6 +14102,18 @@
       ]
     }
   },
+  "ResearchOutputInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/MaintenanceBarConfig": []
+    }
+  },
+  "EcoMaintenanceInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/MaintenanceBarConfig": []
+    }
+  },
   "HaciendaRadiusIcon": {
     "templates": [
       "Product"
@@ -12349,6 +14122,12 @@
       "/Values/MaintenanceBarConfig": [
         "Product"
       ]
+    }
+  },
+  "HaciendaRadiusInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/MaintenanceBarConfig": []
     }
   },
   "BeforeIncidentChanceHeadline": {
@@ -12377,6 +14156,18 @@
       "/Values/ObjectmenuCityInstitutionScene": [
         "Icon"
       ]
+    }
+  },
+  "OverallBarInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuCommuterHarbourScene": []
+    }
+  },
+  "IslandEntryInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuCommuterHarbourScene": []
     }
   },
   "UpdateInterval": {
@@ -12480,19 +14271,22 @@
       ]
     }
   },
-  "InfoTip": {
-    "templates": [
-      "SessionSouthAmerica",
-      "SessionModerate",
-      "SessionArctic"
-    ],
+  "CartSlotInfotip": {
+    "templates": [],
     "paths": {
-      "/Values/ObjectmenuKontorScene/RegionGoodFilter/Item": [
-        "SessionSouthAmerica",
-        "SessionModerate",
-        "SessionArctic"
-      ],
-      "/Values/UplayProductPromotion/BreadcrumbInfoList/Item": []
+      "/Values/ObjectmenuKontorScene": []
+    }
+  },
+  "KontorUpgradeInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuKontorScene": []
+    }
+  },
+  "WarehouseUpgradeInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuKontorScene": []
     }
   },
   "MinistryName": {
@@ -12658,6 +14452,13 @@
       "/Values/ObjectmenuResearchCentreScene": []
     }
   },
+  "PosY": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectMenuResidenceHappinessSceneConfig/ResidentHappinessCategory/WorkingConditions/UIPosition": [],
+      "/Values/ObjectMenuResidenceHappinessSceneConfig/ResidentHappinessCategory/Pollution/UIPosition": []
+    }
+  },
   "ResidenceEmpty": {
     "templates": [],
     "paths": {
@@ -12695,7 +14496,46 @@
       ]
     }
   },
+  "ProximityInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuResidenceScene/FeedbackBubbles/IncidentBubbles/Fire": [],
+      "/Values/ObjectmenuResidenceScene/FeedbackBubbles/IncidentBubbles/Riot": [],
+      "/Values/ObjectmenuResidenceScene/FeedbackBubbles/IncidentBubbles/Illness": [],
+      "/Values/ObjectmenuResidenceScene/FeedbackBubbles/IncidentBubbles/ArcticIllness": []
+    }
+  },
+  "DisabledStateInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuResidenceScene/FeedbackBubbles": []
+    }
+  },
+  "SatisfactionMissingInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuResidenceScene/FeedbackBubbles": []
+    }
+  },
+  "NeedLockedInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuResidenceScene/FeedbackBubbles": []
+    }
+  },
+  "OccupancyMissingInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuResidenceScene/FeedbackBubbles": []
+    }
+  },
   "OccupancyMissingIcon": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuResidenceScene/FeedbackBubbles": []
+    }
+  },
+  "UpgradeInfotip": {
     "templates": [],
     "paths": {
       "/Values/ObjectmenuResidenceScene/FeedbackBubbles": []
@@ -12711,6 +14551,12 @@
       ]
     }
   },
+  "NewspaperInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuResidenceScene/FeedbackBubbles": []
+    }
+  },
   "NewspaperIcon": {
     "templates": [
       "Icon"
@@ -12719,6 +14565,12 @@
       "/Values/ObjectmenuResidenceScene/FeedbackBubbles": [
         "Icon"
       ]
+    }
+  },
+  "WorkforceStressInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuResidenceScene/FeedbackBubbles": []
     }
   },
   "WorkforceStressIcon": {
@@ -12739,6 +14591,12 @@
       "/Values/ObjectmenuResidenceScene/FeedbackBubbles": [
         "Icon"
       ]
+    }
+  },
+  "PollutionInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuResidenceScene/FeedbackBubbles": []
     }
   },
   "HappinessText": {
@@ -12819,6 +14677,12 @@
       ]
     }
   },
+  "MallSummaryInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuResidenceScene/MallPopup": []
+    }
+  },
   "NeedProvider": {
     "templates": [
       "Mall"
@@ -12851,6 +14715,48 @@
       "/Values/ObjectMenuScenarioRuinScene/RuinObjectType/SouthAmericaBasin/RuinProgressState/BeforeProgress": [],
       "/Values/ObjectMenuScenarioRuinScene/RuinObjectType/SouthAmericaBasin/RuinProgressState/InProgress": [],
       "/Values/ObjectMenuScenarioRuinScene/RuinObjectType/SouthAmericaBasin/RuinProgressState/Completed": []
+    }
+  },
+  "SwitchSessionButtonEnabledInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuShipScene": []
+    }
+  },
+  "SwitchSessionButtonDisabledInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuShipScene": []
+    }
+  },
+  "SwitchSessionAreaButtonInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuShipScene": []
+    }
+  },
+  "SellButtonInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuShipScene/ConsoleButtonInfo": []
+    }
+  },
+  "CustomiseButtonInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuShipScene/ConsoleButtonInfo": []
+    }
+  },
+  "DestroyButtonInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuShipScene/ConsoleButtonInfo": []
+    }
+  },
+  "StanceButtonInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuShipScene/ConsoleButtonInfo": []
     }
   },
   "WaitingText": {
@@ -12918,10 +14824,34 @@
       ]
     }
   },
+  "BuildButtonInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ConstructionMenu": []
+    }
+  },
+  "ProductionChainButtonInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ConstructionMenu": []
+    }
+  },
   "DragAndDropHint": {
     "templates": [],
     "paths": {
       "/Values/ConstructionMenu": []
+    }
+  },
+  "EmptyPinInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ConstructionMenu": []
+    }
+  },
+  "PinButtonInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ShipListConfig": []
     }
   },
   "CategoryAsset": {
@@ -13533,6 +15463,12 @@
       "/Values/ScenarioGameOverScene": []
     }
   },
+  "DefaultScenario": {
+    "templates": [],
+    "paths": {
+      "/Values/ScenarioLoadingScene": []
+    }
+  },
   "ScenarioLoadingTipInterval": {
     "templates": [],
     "paths": {
@@ -13578,6 +15514,7 @@
       "/Values/GenericPopup/Popups/SettingsSaved": [],
       "/Values/GenericPopup/Popups/ResetCustomDifficulty": [],
       "/Values/GenericPopup/Popups/PlayerDisconnected": [],
+      "/Values/GenericPopup/Popups/ConnectionLost": [],
       "/Values/GenericPopup/Popups/LeaveLobbyToTitle": [],
       "/Values/GenericPopup/Popups/LeaveLobbyToLastScene": [],
       "/Values/GenericPopup/Popups/LoadGameAndLeaveMatch": [],
@@ -13675,6 +15612,12 @@
       ]
     }
   },
+  "CellSizeY": {
+    "templates": [],
+    "paths": {
+      "/Values/SettingsMenu/Container/Item/Container/Values/OptionGrid": []
+    }
+  },
   "Topic": {
     "templates": [
       "StaticHelpTopic"
@@ -13744,7 +15687,20 @@
       ]
     }
   },
+  "Scenario": {
+    "templates": [],
+    "paths": {
+      "/Values/StaticHelpTopic/ScenariosRequired/Item": [],
+      "/Values/Session": []
+    }
+  },
   "AlternativeText": {
+    "templates": [],
+    "paths": {
+      "/Values/Audio": []
+    }
+  },
+  "StopEvent": {
     "templates": [],
     "paths": {
       "/Values/Audio": []
@@ -13753,7 +15709,40 @@
   "AudioLink": {
     "templates": [],
     "paths": {
+      "/Values/Audio/ClusterEvent/Values/AudioLink": [],
       "/Values/AudioLink": []
+    }
+  },
+  "AudioAsset": {
+    "templates": [],
+    "paths": {
+      "/Values/AudioText": []
+    }
+  },
+  "ClusteringDistance": {
+    "templates": [],
+    "paths": {
+      "/Values/GlobalSoundEventConfig/ClusteringDetails/Default": [],
+      "/Values/GlobalSoundEventConfig/ClusteringDetails/SmallBuildingSound": [],
+      "/Values/GlobalSoundEventConfig/ClusteringDetails/MiddleBuildingSound": []
+    }
+  },
+  "MusicEvent": {
+    "templates": [],
+    "paths": {
+      "/Values/MetaSoundConfig": []
+    }
+  },
+  "EnvironmentEvent": {
+    "templates": [],
+    "paths": {
+      "/Values/MetaSoundConfig": []
+    }
+  },
+  "MoodEvent": {
+    "templates": [],
+    "paths": {
+      "/Values/MetaSoundConfig": []
     }
   },
   "STScreenGroup": {
@@ -13990,6 +15979,12 @@
       "/Values/MusicSoundConfig/IncidentMusic": [
         "StateGroup"
       ]
+    }
+  },
+  "TriggerDistance": {
+    "templates": [],
+    "paths": {
+      "/Values/MusicSoundConfig/IncidentMusic": []
     }
   },
   "MusicEnding_StateGroup": {
@@ -14289,6 +16284,12 @@
       ]
     }
   },
+  "TriggerEvent": {
+    "templates": [],
+    "paths": {
+      "/Values/RFX": []
+    }
+  },
   "StreetIntermediateSuccess": {
     "templates": [],
     "paths": {
@@ -14319,7 +16320,37 @@
       "/Values/SessionSoundConfig": []
     }
   },
+  "PipettePick": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionSoundConfig": []
+    }
+  },
+  "CommandMovement_Ship": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionSoundConfig": []
+    }
+  },
+  "CommandAttack": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionSoundConfig": []
+    }
+  },
   "PlayerVehicleCollectCompleted": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionSoundConfig": []
+    }
+  },
+  "CityUpgrade": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionSoundConfig": []
+    }
+  },
+  "ItemRadiusEffect": {
     "templates": [],
     "paths": {
       "/Values/SessionSoundConfig": []
@@ -14329,6 +16360,122 @@
     "templates": [],
     "paths": {
       "/Values/SessionSoundConfig": []
+    }
+  },
+  "Priority": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionSoundConfig/EnvironmentTypePriorities/Building_Industry": [],
+      "/Values/SessionSoundConfig/EnvironmentTypePriorities/ResidenceScholars": []
+    }
+  },
+  "MurmurEvent": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionSoundConfig/MurmurTypeMapping/IncidentRiot": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/IncidentFire": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/IncidentIllness": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/ResidenceSatisfied": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/ZooHighAttractiveness": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/ZooMedAttractiveness": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/ZooLowAttractiveness": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/MuseumHighAttractiveness": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/MuseumMedAttractiveness": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/MuseumLowAttractiveness": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/FarmerContent": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/FarmerHappy": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/FarmerUnhappy": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/WorkerContent": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/WorkerHappy": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/WorkerUnhappy": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/ArtisanContent": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/ArtisanHappy": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/ArtisanUnhappy": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/EngineerContent": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/EngineerHappy": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/EngineerUnhappy": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/InvestorContent": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/InvestorHappy": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/InvestorUnhappy": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/JornaleroContent": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/JornaleroHappy": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/JornaleroUnhappy": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/OberaContent": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/OberaHappy": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/OberaUnhappy": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Market": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Factory": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Mine": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Farm": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Warehouse": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Harbor": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/TouristsLowAttractiveness": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/TouristsMedAttractiveness": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/TouristsHighAttractiveness": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Festival": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/MonumentConstruction": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/MonumentEvent": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/ThirdPartyEdvard": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/ThirdPartyIzabell": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/ThirdPartyPirateAnne": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/ThirdPartyPirateJean": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/ThirdPartyBlake": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/ThirdPartyJailor": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/WarAction": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/WarDeclared": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/WarSurrenderLikely": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/WarSurrenderUnlikely": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/DM_SecondPartyMercier": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Arctic_BasicTundra": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Arctic_BasicGlacier": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Arctic_Mine": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Arctic_Factory": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Arctic_Farm": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Arctic_AirshipHangar": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Arctic_IncidentFire": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Arctic_IncidentIllness": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Arctic_AirshipHangarConstruction": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Palace": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Africa_ShepherdHappy": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Africa_ShepherdUnhappy": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Africa_ElderHappy": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Africa_ElderUnhappy": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Africa_Farms": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Africa_Factories": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Africa_Harbour": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Africa_Monastery": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Africa_ThirdPartyKetema": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Africa_ThirdPartyAngereb": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Africa_ThirdPartyKidusi": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Africa_ThirdPartyWaha": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/ScholarHappy": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/ScholarUnhappy": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/ResearchCenter": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Cosmetic_AmusementPark": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Cosmetic_CityLife": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Tourist_Bar": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Tourist_Cafe": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Tourist_ChemicalPlantOldWorld": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Tourist_OrchardNewWorld": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Tourist_Restaurant": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Tourist_Tower": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Tourist_TowerRestaurant": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/HighLife_Mall_Drugstore": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/HighLife_Mall_Furniture": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/HighLife_Mall_Homeware": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/HighLife_Monument": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Skyscraper_Resident_Engineer": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Skyscraper_Resident_Investor": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/HighLife_Monument_Phase_Conversation_01": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/HighLife_Monument_Phase_Conversation_02": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/HighLife_Monument_Phase_Conversation_03": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/GGJ_Dam_01": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/GGJ_Buildings": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/GGJ_YaoscaVillage": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/GGJ_Dam_02": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/GGJ_Dam_03": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/Hacienda": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/SoS_Residence": []
     }
   },
   "AssociatedGameParameterSector1": {
@@ -15046,6 +17193,24 @@
       ]
     }
   },
+  "DestructRectFallback": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionSoundConfig": []
+    }
+  },
+  "RiverSound": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionSoundConfig": []
+    }
+  },
+  "CanalSound": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionSoundConfig": []
+    }
+  },
   "RiverSpeedRtpc": {
     "templates": [
       "GameParameter"
@@ -15126,6 +17291,12 @@
       ]
     }
   },
+  "FeedbackDensitySoundEvent": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionSoundConfig": []
+    }
+  },
   "FeedbackDensityCountRTPC": {
     "templates": [
       "GameParameter"
@@ -15186,7 +17357,67 @@
       ]
     }
   },
+  "CommandMovement_Airship": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionSoundConfig": []
+    }
+  },
+  "PlaceRallyPoint_Ship": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionSoundConfig": []
+    }
+  },
+  "PlaceRallyPoint_Airship": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionSoundConfig": []
+    }
+  },
+  "CommandCollect": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionSoundConfig": []
+    }
+  },
+  "GameSpeedChange_Normal": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionSoundConfig": []
+    }
+  },
+  "GameSpeedChange_Fast": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionSoundConfig": []
+    }
+  },
+  "GameSpeedChange_Fastest": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionSoundConfig": []
+    }
+  },
   "GameSpeedChange_Slowdown": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionSoundConfig": []
+    }
+  },
+  "CanalFillingSound": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionSoundConfig": []
+    }
+  },
+  "CanalEmptyingSound": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionSoundConfig": []
+    }
+  },
+  "TreeFallSound": {
     "templates": [],
     "paths": {
       "/Values/SessionSoundConfig": []
@@ -15242,6 +17473,12 @@
       ]
     }
   },
+  "ListenerMaxHeight": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionSoundConfig": []
+    }
+  },
   "DelayBetweenMurmur": {
     "templates": [],
     "paths": {
@@ -15270,6 +17507,114 @@
       "/Values/SwitchGroup/SwitchChoices/Item": [
         "SwitchChoice"
       ]
+    }
+  },
+  "Tab": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig/GeneralUiSounds": []
+    }
+  },
+  "Select": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig/GeneralUiSounds": []
+    }
+  },
+  "Deselect": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig/GeneralUiSounds": []
+    }
+  },
+  "MouseHover": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig/GeneralUiSounds": []
+    }
+  },
+  "SliderPress": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig/GeneralUiSounds": []
+    }
+  },
+  "SliderRelease": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig/GeneralUiSounds": []
+    }
+  },
+  "Cancel": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig/GeneralUiSounds": []
+    }
+  },
+  "CheckboxCheck": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig/GeneralUiSounds": []
+    }
+  },
+  "CheckboxUnchecked": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig/GeneralUiSounds": []
+    }
+  },
+  "NextShort": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig/GeneralUiSounds": []
+    }
+  },
+  "NextLong": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig/GeneralUiSounds": []
+    }
+  },
+  "BackShort": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig/GeneralUiSounds": []
+    }
+  },
+  "BackLong": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig/GeneralUiSounds": []
+    }
+  },
+  "WindowOpen": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig/GeneralUiSounds": []
+    }
+  },
+  "WindowClose": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig/GeneralUiSounds": []
+    }
+  },
+  "Dropdown": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig/GeneralUiSounds": []
+    }
+  },
+  "GameZoomTransitionIN": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig/UITransitions": []
+    }
+  },
+  "WorldMapZoomTransitionIN": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig/UITransitions": []
     }
   },
   "StateGroup": {
@@ -15302,6 +17647,63 @@
       ]
     }
   },
+  "SoundGuid": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig/SimpleEventSounds/ObjectSelected": [],
+      "/Values/UISoundConfig/SimpleEventSounds/ObjectBuilt": [],
+      "/Values/UISoundConfig/SimpleEventSounds/ObjectGUIDChanged": [],
+      "/Values/UISoundConfig/SimpleEventSounds/EnterUIState": []
+    }
+  },
+  "SideQuestSuccess": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig": []
+    }
+  },
+  "SideQuestAccept": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig": []
+    }
+  },
+  "ItemAdded": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig": []
+    }
+  },
+  "ItemDeleted": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig": []
+    }
+  },
+  "OnTooltipShow": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig": []
+    }
+  },
+  "ConstructionModeEnd": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig": []
+    }
+  },
+  "MinimapPling": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig": []
+    }
+  },
+  "ExchangeGoods": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig": []
+    }
+  },
   "ExpeditionMusicStateGroup": {
     "templates": [
       "StateGroup"
@@ -15310,6 +17712,35 @@
       "/Values/UISoundConfig": [
         "StateGroup"
       ]
+    }
+  },
+  "SoundEvent": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig/ExpeditionOptionSoundEventFallback/Diplomacy": [],
+      "/Values/UISoundConfig/ExpeditionOptionSoundEventFallback/Melee": [],
+      "/Values/UISoundConfig/ExpeditionOptionSoundEventFallback/Might": [],
+      "/Values/UISoundConfig/ExpeditionOptionSoundEventFallback/Navigation": [],
+      "/Values/UISoundConfig/ExpeditionOptionSoundEventFallback/Medicine": [],
+      "/Values/UISoundConfig/ExpeditionOptionSoundEventFallback/Faith": [],
+      "/Values/UISoundConfig/ExpeditionOptionSoundEventFallback/Crafting": [],
+      "/Values/UISoundConfig/ExpeditionOptionSoundEventFallback/Hunting": [],
+      "/Values/UISoundConfig/ExpeditionOptionSoundEventFallback/PerkAnthropologist": [],
+      "/Values/UISoundConfig/ExpeditionOptionSoundEventFallback/PerkHypnotist": [],
+      "/Values/UISoundConfig/ExpeditionOptionSoundEventFallback/PerkFormerPirate": [],
+      "/Values/UISoundConfig/ExpeditionOptionSoundEventFallback/PerkDiver": [],
+      "/Values/UISoundConfig/ExpeditionOptionSoundEventFallback/PerkMilitaryShip": [],
+      "/Values/UISoundConfig/ExpeditionOptionSoundEventFallback/PerkTradeShip": [],
+      "/Values/UISoundConfig/ExpeditionOptionSoundEventFallback/PerkZoologist": [],
+      "/Values/UISoundConfig/ExpeditionOptionSoundEventFallback/PerkJackOfAllTraits": [],
+      "/Values/UISoundConfig/ExpeditionOptionSoundEventFallback/PerkEntertainer": [],
+      "/Values/UISoundConfig/ExpeditionOptionSoundEventFallback/PerkArcheologist": [],
+      "/Values/UISoundConfig/ExpeditionOptionSoundEventFallback/PerkPolyglot": [],
+      "/Values/UISoundConfig/ExpeditionOptionSoundEventFallback/PerkSailingShip": [],
+      "/Values/UISoundConfig/ExpeditionOptionSoundEventFallback/PerkSteamShip": [],
+      "/Values/UISoundConfig/ExpeditionOptionSoundEventFallback/PerkMale": [],
+      "/Values/UISoundConfig/ExpeditionOptionSoundEventFallback/PerkFemale": [],
+      "/Values/ExpeditionOption": []
     }
   },
   "ExpeditionMusicStateChoiceDefault": {
@@ -15322,7 +17753,31 @@
       ]
     }
   },
+  "ExpeditionNotificationShowUiButtonSound": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig": []
+    }
+  },
+  "ExpeditionNotificationDiscardButtonSound": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig": []
+    }
+  },
+  "BuildModeRotateSound": {
+    "templates": [],
+    "paths": {
+      "/Values/UISoundConfig": []
+    }
+  },
   "ActiveAudioEvent": {
+    "templates": [],
+    "paths": {
+      "/Values/WorldMapSound": []
+    }
+  },
+  "UIClickEvent": {
     "templates": [],
     "paths": {
       "/Values/WorldMapSound": []
@@ -15340,6 +17795,31 @@
       "/Values/Expedition": []
     }
   },
+  "NewExpedition": {
+    "templates": [],
+    "paths": {
+      "/Values/Expedition/MandatoryFailExpedition/Item": []
+    }
+  },
+  "EventOrEventPool": {
+    "templates": [],
+    "paths": {
+      "/Values/Expedition/EventList/Item": [],
+      "/Values/ExpeditionEventPool/EventPool/Item": []
+    }
+  },
+  "FillEventPool": {
+    "templates": [],
+    "paths": {
+      "/Values/Expedition": []
+    }
+  },
+  "Threat": {
+    "templates": [],
+    "paths": {
+      "/Values/Expedition/Threats/Item": []
+    }
+  },
   "None": {
     "templates": [],
     "paths": {
@@ -15347,6 +17827,18 @@
     }
   },
   "UseValue": {
+    "templates": [],
+    "paths": {
+      "/Values/Expedition/OptionThresholds": []
+    }
+  },
+  "LossMediumThreshold": {
+    "templates": [],
+    "paths": {
+      "/Values/Expedition/OptionThresholds": []
+    }
+  },
+  "RewardHighThreshold": {
     "templates": [],
     "paths": {
       "/Values/Expedition/OptionThresholds": []
@@ -15376,11 +17868,92 @@
       ]
     }
   },
+  "Reward": {
+    "templates": [
+      "RewardPool",
+      "ItemWithUI",
+      "QuestItem",
+      "Product",
+      "ResourcePool",
+      "CultureItem",
+      "RewardItemPool",
+      "GuildhouseItem",
+      "TownhallItem",
+      "ActiveItem",
+      "MonumentEventReward"
+    ],
+    "paths": {
+      "/Values/Expedition": [],
+      "/Values/Reward/RewardAssets/Item": [
+        "RewardPool",
+        "ItemWithUI",
+        "QuestItem",
+        "Product",
+        "ResourcePool",
+        "CultureItem",
+        "RewardItemPool",
+        "GuildhouseItem",
+        "TownhallItem",
+        "ActiveItem"
+      ],
+      "/Values/MonumentEvent/RewardThresholds/Item": [
+        "MonumentEventReward"
+      ]
+    }
+  },
+  "Event": {
+    "templates": [
+      "MonumentEvent"
+    ],
+    "paths": {
+      "/Values/Expedition/BackgroundVideoSounds/Item": [],
+      "/Values/Expedition/ContinueVideoSounds/Item": [],
+      "/Values/ExpeditionDecision/DecisionVideoSounds/Item": [],
+      "/Values/ExpeditionEvent/EventVideoSounds/Item": [],
+      "/Values/ExpeditionFeature/SuccessVideoSounds/Item": [],
+      "/Values/MonumentEventCategory/Events/Item": [
+        "MonumentEvent"
+      ]
+    }
+  },
+  "Decision": {
+    "templates": [],
+    "paths": {
+      "/Values/Expedition/DecisionsToVisitForSpecialBehaviour/Item": [],
+      "/Values/ExpeditionOption/FollowupDecisions/Item": [],
+      "/Values/ExpeditionOption/Requirements/Item/NotVisitedDecisions/Item": [],
+      "/Values/ExpeditionOption/Requirements/Item/VisitedDecisions/Item": []
+    }
+  },
   "FluffText": {
     "templates": [],
     "paths": {
       "/Values/ExpeditionAttribute": [],
       "/Values/Buff/PossibleFluffTexts/Item": []
+    }
+  },
+  "Option": {
+    "templates": [],
+    "paths": {
+      "/Values/ExpeditionDecision/Options/Item": []
+    }
+  },
+  "CurrentEventToAdd": {
+    "templates": [],
+    "paths": {
+      "/Values/ExpeditionDecision": []
+    }
+  },
+  "InsertEvent": {
+    "templates": [],
+    "paths": {
+      "/Values/ExpeditionDecision": []
+    }
+  },
+  "Conclusion": {
+    "templates": [],
+    "paths": {
+      "/Values/ExpeditionDecision": []
     }
   },
   "SpecificLoss": {
@@ -15405,6 +17978,18 @@
       "/Values/ExpeditionDecision/MapPath": []
     }
   },
+  "EventThreat": {
+    "templates": [],
+    "paths": {
+      "/Values/ExpeditionEvent": []
+    }
+  },
+  "StartDecision": {
+    "templates": [],
+    "paths": {
+      "/Values/ExpeditionEvent": []
+    }
+  },
   "EventMusicChoice": {
     "templates": [
       "StateChoice"
@@ -15413,6 +17998,18 @@
       "/Values/ExpeditionEvent": [
         "StateChoice"
       ]
+    }
+  },
+  "MinAverageMoraleLoss": {
+    "templates": [],
+    "paths": {
+      "/Values/ExpeditionFeature/EventLimits/Easy": []
+    }
+  },
+  "ThreatInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ExpeditionFeature/ThreatImpactOnEventRarity/Item": []
     }
   },
   "Region": {
@@ -15455,6 +18052,18 @@
       ]
     }
   },
+  "ShowUiButtonInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ExpeditionFeature/CharacterMessage": []
+    }
+  },
+  "DiscardButtonInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ExpeditionFeature/CharacterMessage": []
+    }
+  },
   "DiscardButtonIcon": {
     "templates": [
       "Icon"
@@ -15489,16 +18098,17 @@
       ]
     }
   },
-  "SoundEvent": {
+  "OptionDescription": {
     "templates": [],
     "paths": {
       "/Values/ExpeditionOption": []
     }
   },
-  "OptionDescription": {
+  "Expedition": {
     "templates": [],
     "paths": {
-      "/Values/ExpeditionOption": []
+      "/Values/ExpeditionSlot/SpecialExpeditionsSlot/Item": [],
+      "/Values/ItemStartExpedition": []
     }
   },
   "Hint": {
@@ -15551,6 +18161,18 @@
       ]
     }
   },
+  "FollowupSuccessOption": {
+    "templates": [],
+    "paths": {
+      "/Values/ExpeditionTrade": []
+    }
+  },
+  "FollowupFailOrCancelOption": {
+    "templates": [],
+    "paths": {
+      "/Values/ExpeditionTrade": []
+    }
+  },
   "SuccessConclusion": {
     "templates": [],
     "paths": {
@@ -15558,6 +18180,12 @@
     }
   },
   "FailOrCancelConclusion": {
+    "templates": [],
+    "paths": {
+      "/Values/ExpeditionTrade": []
+    }
+  },
+  "OptionInfotip": {
     "templates": [],
     "paths": {
       "/Values/ExpeditionTrade": []
@@ -15741,6 +18369,8 @@
       "/Values/ParticipantMessages/MessageTriggers/QuestStartFollowShip/Reactions/Item/Notification/Values/BaseNotification": [
         "TrafficFeedbackUnit"
       ],
+      "/Values/ParticipantMessages/MessageTriggers/NewspaperPublishedWithPropaganda/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/NoQuestAvailable/Reactions/Item/Notification/Values/BaseNotification": [],
       "/Values/ParticipantMessages/MessageTriggers/DiplomacyAllianceNeedsHelp/Reactions/Item/Notification/Values/BaseNotification": [
         "TrafficFeedbackUnit"
       ],
@@ -15966,6 +18596,27 @@
       "/Values/Region": [
         "IrrigationFeature"
       ]
+    }
+  },
+  "AttractivenessInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/Region": []
+    }
+  },
+  "Min": {
+    "templates": [],
+    "paths": {
+      "/Values/Session/SpawnAreaBorderDistanceRange/Far": []
+    }
+  },
+  "Max": {
+    "templates": [],
+    "paths": {
+      "/Values/Session/SpawnAreaBorderDistanceRange/Near": [],
+      "/Values/MapGenerator/MineSlotCountPerResourceAmount/Medium/Region/Moderate/IslandSize/Large": [],
+      "/Values/MapGenerator/MineSlotCountPerResourceAmount/High/Region/Moderate/IslandSize/Small": [],
+      "/Values/MapGenerator/MineSlotCountPerResourceAmount/High/Region/Colony01/IslandSize/Large": []
     }
   },
   "WorldMapCardBackground": {
@@ -16234,6 +18885,12 @@
       "/Values/ConstructionAI/Budgets/ActiveTrade": []
     }
   },
+  "WeightsThreatened": {
+    "templates": [],
+    "paths": {
+      "/Values/ConstructionAI/Budgets/Military": []
+    }
+  },
   "SeamineAsset": {
     "templates": [
       "Seamine"
@@ -16254,10 +18911,34 @@
       ]
     }
   },
+  "MilitaryStrengthRatio": {
+    "templates": [],
+    "paths": {
+      "/Values/MilitaryAI/Attack": []
+    }
+  },
   "DefendInterval": {
     "templates": [],
     "paths": {
       "/Values/MilitaryAI/Defend": []
+    }
+  },
+  "MinStrengthRatio": {
+    "templates": [],
+    "paths": {
+      "/Values/MilitaryAI/SquadLogic/TargetPriorities/Item": []
+    }
+  },
+  "Value": {
+    "templates": [],
+    "paths": {
+      "/Values/MilitaryAI/Escort/Priorities/SettleMission": []
+    }
+  },
+  "MaxShipCount": {
+    "templates": [],
+    "paths": {
+      "/Values/MilitaryAI/WarFleet/ShipLimits/Peace/Progress/LateMidGame": []
     }
   },
   "SellShipRequestNotification": {
@@ -16418,6 +19099,39 @@
       "/Values/BuyShares": [
         "Video"
       ]
+    }
+  },
+  "DiceRollProposalMax": {
+    "templates": [],
+    "paths": {
+      "/Values/Diplomacy": []
+    }
+  },
+  "ActionWeight": {
+    "templates": [],
+    "paths": {
+      "/Values/Diplomacy/DiplomacyActionBalancing/RequestPeace": [],
+      "/Values/Diplomacy/DiplomacyActionBalancing/RequestTraderights": [],
+      "/Values/Diplomacy/DiplomacyActionBalancing/RequestCeaseFire": []
+    }
+  },
+  "AgreementThreshold": {
+    "templates": [],
+    "paths": {
+      "/Values/Diplomacy/DiplomacyActionBalancing/RequestNonAttack": []
+    }
+  },
+  "PosBorderMax": {
+    "templates": [],
+    "paths": {
+      "/Values/Diplomacy/ReputationChangeCalculation/EconomyPowerTempReputation": []
+    }
+  },
+  "BelowChance": {
+    "templates": [],
+    "paths": {
+      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl3": [],
+      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl9": []
     }
   },
   "ReputationTriggerDelayMax": {
@@ -16593,6 +19307,12 @@
       ]
     }
   },
+  "InfoCornerInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/Profile": []
+    }
+  },
   "InfoCornerDescription": {
     "templates": [],
     "paths": {
@@ -16760,6 +19480,12 @@
       "/Values/Item": []
     }
   },
+  "BroadcastMusicEvent": {
+    "templates": [],
+    "paths": {
+      "/Values/Item": []
+    }
+  },
   "ItemFilterCategory": {
     "templates": [
       "ItemCategory"
@@ -16768,6 +19494,12 @@
       "/Values/Item": [
         "ItemCategory"
       ]
+    }
+  },
+  "ScenarioFilter": {
+    "templates": [],
+    "paths": {
+      "/Values/Item": []
     }
   },
   "ActionTarget": {
@@ -16812,6 +19544,18 @@
       ]
     }
   },
+  "ActivateActionSound": {
+    "templates": [],
+    "paths": {
+      "/Values/ItemAction": []
+    }
+  },
+  "DeactivateActionSound": {
+    "templates": [],
+    "paths": {
+      "/Values/ItemAction": []
+    }
+  },
   "ItemGenCrateAsset": {
     "templates": [
       "Specialist"
@@ -16836,6 +19580,18 @@
       "/Values/ItemContainer": [
         "Product"
       ]
+    }
+  },
+  "SocketSound": {
+    "templates": [],
+    "paths": {
+      "/Values/ItemContainer": []
+    }
+  },
+  "UnsocketSound": {
+    "templates": [],
+    "paths": {
+      "/Values/ItemContainer": []
     }
   },
   "BuildingDecoration": {
@@ -16888,12 +19644,6 @@
       "/Values/ItemSocketSet/RegionSetBuff/Colony01": [
         "GuildhouseBuff"
       ]
-    }
-  },
-  "Expedition": {
-    "templates": [],
-    "paths": {
-      "/Values/ItemStartExpedition": []
     }
   },
   "MouseEffect": {
@@ -17368,6 +20118,7 @@
       "ProductionChain"
     ],
     "paths": {
+      "/Values/MapGenerator/IslandSizes/Small": [],
       "/Values/MapGenerator/IslandSizes/Medium": [
         "ProductionChain"
       ]
@@ -17378,6 +20129,7 @@
       "ProductionChain"
     ],
     "paths": {
+      "/Values/MapGenerator/IslandSizes/Small": [],
       "/Values/MapGenerator/IslandSizes/Medium": [
         "ProductionChain"
       ]
@@ -17413,6 +20165,24 @@
       "/Values/BuffFactory/PublicServiceData/PublicServices/Item": [
         "Product"
       ]
+    }
+  },
+  "FullSatisfactionDistance": {
+    "templates": [],
+    "paths": {
+      "/Values/BuffFactory/PublicServiceData": []
+    }
+  },
+  "NoSatisfactionDistance": {
+    "templates": [],
+    "paths": {
+      "/Values/BuffFactory/PublicServiceData": []
+    }
+  },
+  "PointCount": {
+    "templates": [],
+    "paths": {
+      "/Values/EconomyFeature7/AreaStorageTrend": []
     }
   },
   "StartOffset": {
@@ -17469,6 +20239,12 @@
       "/Values/FactoryBase": [
         "InfoLayerIcon"
       ]
+    }
+  },
+  "ProductionOutputInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/FactoryBase": []
     }
   },
   "MissingHeatInfolayer": {
@@ -17744,6 +20520,16 @@
       ]
     }
   },
+  "DebuffInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/PopulationLevel7/HappinessDebuff/Needs": [],
+      "/Values/PopulationLevel7/HappinessDebuff/War": [],
+      "/Values/PopulationLevel7/HappinessDebuff/Newspaper": [],
+      "/Values/PopulationLevel7/HappinessDebuff/Hotspots": [],
+      "/Values/PopulationLevel7/HappinessDebuff/Attractiveness": []
+    }
+  },
   "LowWorkforceInfolayer": {
     "templates": [
       "InfoLayerIcon"
@@ -17780,6 +20566,12 @@
       ]
     }
   },
+  "MinBusDistance": {
+    "templates": [],
+    "paths": {
+      "/Values/Product": []
+    }
+  },
   "FunctionDescription": {
     "templates": [],
     "paths": {
@@ -17794,6 +20586,12 @@
       "/Values/Residence7": [
         "PopulationLevel7"
       ]
+    }
+  },
+  "TimeBeforeRuin": {
+    "templates": [],
+    "paths": {
+      "/Values/Residence7": []
     }
   },
   "GoodViewBuff": {
@@ -17944,6 +20742,14 @@
       "/Values/GeneralIncidentConfiguration/IncidentTypesConfig/ArcticIllness": [
         "ArcticIllnessIncident"
       ]
+    }
+  },
+  "TargetInfectionFactor_DEPRECATED": {
+    "templates": [],
+    "paths": {
+      "/Values/GeneralIncidentConfiguration/ProgressConfig/EarlyMidGame/PerIncidentConfig/Fire": [],
+      "/Values/GeneralIncidentConfiguration/ProgressConfig/EarlyMidGame/PerIncidentConfig/Riot": [],
+      "/Values/GeneralIncidentConfiguration/ProgressConfig/EarlyMidGame/PerIncidentConfig/Explosion": []
     }
   },
   "RegionIncidentUnlock": {
@@ -18288,6 +21094,12 @@
       ]
     }
   },
+  "ArcticMoveOutInterval": {
+    "templates": [],
+    "paths": {
+      "/Values/IncidentArcticIllness": []
+    }
+  },
   "IncidentStartNotification": {
     "templates": [
       "Notification"
@@ -18596,6 +21408,36 @@
       ]
     }
   },
+  "ParadeSoundEvent": {
+    "templates": [],
+    "paths": {
+      "/Values/IncidentFestival/FestivalTypes/BeerFestival": [],
+      "/Values/IncidentFestival/FestivalTypes/HarvestFestival": [],
+      "/Values/IncidentFestival/FestivalTypes/ArtsFestival": [],
+      "/Values/IncidentFestival/FestivalTypes/Commemoration": [],
+      "/Values/IncidentFestival/FestivalTypes/Carnival": [],
+      "/Values/IncidentFestival/FestivalTypes/AnarchyFest": [],
+      "/Values/IncidentFestival/FestivalTypes/SpiritualFestivalAfrica": [],
+      "/Values/IncidentFestival/FestivalTypes/HarvestFestivalAfrica": [],
+      "/Values/IncidentFestival/FestivalTypes/TradeFestivalAfrica": [],
+      "/Values/IncidentFestival/FestivalTypes/QueenParade": []
+    }
+  },
+  "CrowdSoundEvent": {
+    "templates": [],
+    "paths": {
+      "/Values/IncidentFestival/FestivalTypes/BeerFestival": [],
+      "/Values/IncidentFestival/FestivalTypes/HarvestFestival": [],
+      "/Values/IncidentFestival/FestivalTypes/ArtsFestival": [],
+      "/Values/IncidentFestival/FestivalTypes/Commemoration": [],
+      "/Values/IncidentFestival/FestivalTypes/Carnival": [],
+      "/Values/IncidentFestival/FestivalTypes/AnarchyFest": [],
+      "/Values/IncidentFestival/FestivalTypes/SpiritualFestivalAfrica": [],
+      "/Values/IncidentFestival/FestivalTypes/HarvestFestivalAfrica": [],
+      "/Values/IncidentFestival/FestivalTypes/TradeFestivalAfrica": [],
+      "/Values/IncidentFestival/FestivalTypes/QueenParade": []
+    }
+  },
   "FestivalDecoration": {
     "templates": [
       "StandaloneIncidentEffectConfiguration"
@@ -18649,6 +21491,7 @@
   "Weight": {
     "templates": [],
     "paths": {
+      "/Values/IncidentFestival/FestivalTypes/Carnival": [],
       "/Values/IncidentFestival/FestivalTypes/AnarchyFest": []
     }
   },
@@ -18667,6 +21510,12 @@
       "/Values/IncidentInfectable/Infectable/Illness": [],
       "/Values/IncidentInfectable/Infectable/Riot": [],
       "/Values/IncidentInfectable/Infectable/Fire": []
+    }
+  },
+  "NoHeatFactor": {
+    "templates": [],
+    "paths": {
+      "/Values/IncidentInfectable/IncidentInfectionChanceFactors/ArcticIllness": []
     }
   },
   "ResolverUnit": {
@@ -18751,6 +21600,12 @@
       "/Values/IncidentRiot": [
         "FeedbackUnitClass"
       ]
+    }
+  },
+  "MobSoundAsset": {
+    "templates": [],
+    "paths": {
+      "/Values/IncidentRiot": []
     }
   },
   "SeasonNameText": {
@@ -18843,6 +21698,12 @@
         "Fish",
         "Bird"
       ]
+    }
+  },
+  "AdditionalModuleSoundLoop": {
+    "templates": [],
+    "paths": {
+      "/Values/CultureUpgrade": []
     }
   },
   "AddedFertility": {
@@ -19203,6 +22064,12 @@
       ]
     }
   },
+  "_OneFrom": {
+    "templates": [],
+    "paths": {
+      "/Values/PlacementScore/SubScores/Item/Rating/Values/RatingBuildableWithinRadius": []
+    }
+  },
   "ValuesArePercentage": {
     "templates": [],
     "paths": {
@@ -19283,16 +22150,6 @@
       "/Values/MonumentEvent": []
     }
   },
-  "Reward": {
-    "templates": [
-      "MonumentEventReward"
-    ],
-    "paths": {
-      "/Values/MonumentEvent/RewardThresholds/Item": [
-        "MonumentEventReward"
-      ]
-    }
-  },
   "Requirement": {
     "templates": [],
     "paths": {
@@ -19312,16 +22169,6 @@
     "paths": {
       "/Values/MonumentEvent": [
         "SwitchChoice"
-      ]
-    }
-  },
-  "Event": {
-    "templates": [
-      "MonumentEvent"
-    ],
-    "paths": {
-      "/Values/MonumentEventCategory/Events/Item": [
-        "MonumentEvent"
       ]
     }
   },
@@ -19367,6 +22214,7 @@
     "templates": [],
     "paths": {
       "/Values/Test345/MatrixI/Self": [],
+      "/Values/Test345/MatrixI/SelfRadius": [],
       "/Values/Test345/MatrixI/Target": [],
       "/Values/Test345/MatrixI/TargetRadius": [],
       "/Values/Test456/MatrixII/Self": [],
@@ -19417,6 +22265,18 @@
       ]
     }
   },
+  "UnsignedInt64II": {
+    "templates": [],
+    "paths": {
+      "/Values/Test456": []
+    }
+  },
+  "ScenarioAsset": {
+    "templates": [],
+    "paths": {
+      "/Values/ScenarioBalancing/Scenarios/Item": []
+    }
+  },
   "DefaultGameSetup": {
     "templates": [
       "SinglePlayerGame"
@@ -19424,6 +22284,16 @@
     "paths": {
       "/Values/ScenarioMetaInfo": [
         "SinglePlayerGame"
+      ]
+    }
+  },
+  "DefaultPlayerProfile": {
+    "templates": [
+      "Portrait"
+    ],
+    "paths": {
+      "/Values/ScenarioMetaInfo": [
+        "Portrait"
       ]
     }
   },
@@ -19473,6 +22343,12 @@
     "templates": [],
     "paths": {
       "/Values/ScenarioMetaInfo/ScenarioTexts": []
+    }
+  },
+  "ScenarioLoadingAudio": {
+    "templates": [],
+    "paths": {
+      "/Values/ScenarioMetaInfo/ScenarioTexts/ScenarioLoadingAudioTexts/Item": []
     }
   },
   "ScenarioLoadingText": {
@@ -19573,10 +22449,22 @@
       "/Values/ScenarioMetaInfo/ScenarioTexts/ScenarioPreVictoryData/Item/ScenarioPreVictoryAudioAndTexts/Item": []
     }
   },
+  "ScenarioPreVictoryAudio": {
+    "templates": [],
+    "paths": {
+      "/Values/ScenarioMetaInfo/ScenarioTexts/ScenarioPreVictoryData/Item/ScenarioPreVictoryAudioAndTexts/Item": []
+    }
+  },
   "ResetScenarioInfotipText": {
     "templates": [],
     "paths": {
       "/Values/ScenarioMetaInfo/ScenarioTexts": []
+    }
+  },
+  "ScenarioBookAudio": {
+    "templates": [],
+    "paths": {
+      "/Values/ScenarioMetaInfo/ScenarioTexts/ScenarioBookAudioTexts/Item": []
     }
   },
   "ScenarioBookText": {
@@ -19599,6 +22487,18 @@
     "templates": [],
     "paths": {
       "/Values/ScenarioMetaInfo/SavegameUIData": []
+    }
+  },
+  "LinkedScenarioAsset": {
+    "templates": [],
+    "paths": {
+      "/Values/ScenarioSelectionMarker": []
+    }
+  },
+  "ScenarioMarkerInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/ScenarioSelectionMarker": []
     }
   }
 }
