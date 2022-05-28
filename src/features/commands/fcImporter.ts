@@ -49,7 +49,8 @@ export class FcImporter {
   public importFeedback(xml: AnnoXml, model: ProppedModel) {
     // update existing particles
     for (let feedback of model.getFeedbacks()) {
-      const feedbackName = feedback.Name.substr(3);
+      const dotIndex = feedback.Name.lastIndexOf('.');
+      const feedbackName = feedback.Name.substring(3, dotIndex === -1 ? undefined : dotIndex);
 
       channel.log(`Import feedback ${feedbackName} position and orientation`);
       const path = `//DummyRoot/Groups/i/Dummies/i[Name=${feedbackName}]`;
