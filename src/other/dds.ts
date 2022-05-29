@@ -27,9 +27,12 @@ export function convertToTexture(sourceFile: string, targetFolder: string, forma
         `-f=${format?(format===TextureFormat.bc7Unorm?'diff':'mask'):'auto'}`,
         `-l=${lods||0}`
       ], { cwd: targetFolder, stdio: 'pipe' }).toString();
+
+    const expectedBasename = sourceFile.endsWith('_rga.png') ? path.basename(sourceFile, '_rga.png') + '_norm.dds' : path.basename(sourceFile, '.png') + '.dds';
+
     // ignore stdout
-    if (!lods && !fs.existsSync(path.join(targetFolder, path.basename(sourceFile, '.png') + '.dds')) ||
-      lods && lods > 0 && !fs.existsSync(path.join(targetFolder, path.basename(sourceFile, '.png') + '_0.dds'))) {
+    if (!lods && !fs.existsSync(path.join(targetFolder, expectedBasename)) ||
+      lods && lods > 0 && !fs.existsSync(path.join(targetFolder, path.basename(expectedBasename, '.dds') + '_0.dds'))) {
       logger.error(`annotex failed to convert ${sourceFile} due to mysterious reasons.`);
       return false;
     }

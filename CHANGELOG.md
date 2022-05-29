@@ -32,6 +32,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+### Added
+
+- Convert `_rga.png` to `_norm.dds`
+
 ### Changed
 
 - Fixed import of dummies without mesh
