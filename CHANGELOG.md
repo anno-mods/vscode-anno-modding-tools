@@ -30,7 +30,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
   - error handling for invalid xml files
   - empty annomod project breaks the extension (tradepatent-fish)
 
-## [Unreleased]
+## [1.4.0]
 
 ### Added
 
