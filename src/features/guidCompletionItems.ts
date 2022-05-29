@@ -50,6 +50,7 @@ export class GuidCompletionItems {
   assets: { [index: string]: IAsset } | undefined = undefined;
 
   items: { [ template: string]: vscode.CompletionItem[] } = {};
+  public AllItems: vscode.CompletionItem[] | undefined;
 
   load(context: vscode.ExtensionContext) {
     if (!this.assets) {
@@ -76,6 +77,7 @@ export class GuidCompletionItems {
     this.tags = tags;
     this.assets = assets;
     this.items = {};
+    this.AllItems = [];
     for (let guid of Object.keys(assets)) {
       const asset = assets[guid];
       if (asset.template) {
@@ -94,6 +96,11 @@ export class GuidCompletionItems {
     const items = this.items[templateName] ?? [];
     items.push(item);
     this.items[templateName] = items;
+
+    if (!this.AllItems) {
+      this.AllItems = [];
+    }
+    this.AllItems.push(item);
   }
 
   get(tagName: string, path?: string) {
