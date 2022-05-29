@@ -91,14 +91,17 @@ export class InfoImporter {
     if (dummies && parent) {
       channel.log('Import Dummy from nodes/meshes starting with \'dummy_\'');
       for (let dummy of dummies) {
-        let dummyNode = parent.findElement(`//Dummy[Name='${dummy.name}']`);
+        const dotIndex = dummy.name.lastIndexOf('.');
+        const dummyName = dummy.name.substring(0, dotIndex === -1 ? undefined : dotIndex);
+
+        let dummyNode = parent.findElement(`//Dummy[Name='${dummyName}']`);
         if (!dummyNode) {
           const afterElements = [ 'Dummy', 'IntersectBox', 'DisableFeedbackArea', 'MeshBoundingBox', 'BoundingBox' ];
           dummyNode = parent.createChild('Dummy', { after: afterElements });
         }
         dummyNode.set({
           /* eslint-disable @typescript-eslint/naming-convention */
-          Name: dummy.name,
+          Name: dummyName,
           Position: dummy.position.toFixedF(),
           Rotation: dummy.rotation.round(1000000).toF(),
           Extents: dummy.extends.round(1000000).toF()

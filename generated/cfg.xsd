@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" vc:minVersion="1.1" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning">
+  
+  <xs:element name="Config">
+    
+  </xs:element>
+
+  <xs:simpleType name="Flag">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="1" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PropContainerConfigType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PROPCONTAINER" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PropConfigType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PROP" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:element name="PropContainers">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Config" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ConfigType" type="PropContainerConfigType" minOccurs="1" />
+              <xs:element name="VariationEnabled" type="Flag" minOccurs="1" />
+              <xs:element name="VariationProbability" type="xs:positiveInteger" minOccurs="1" />
+              <xs:element name="AllowYScale" type="Flag" minOccurs="1" />
+              <xs:element name="Name" type="xs:string" minOccurs="1" />
+              <xs:element name="Transformer" minOccurs="0" />
+              <xs:element name="Props" minOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name='Config' minOccurs='0' maxOccurs='unbounded'>
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element name="ConfigType" type="PropConfigType" minOccurs="1" />
+                          <xs:element name="Flags" type="Flag" minOccurs="1" />
+                          <xs:element name="FileName" type="xs:string" minOccurs="1" />
+                          <xs:element name="Name" type="xs:string" minOccurs="1" />
+                          <xs:element name="Position.x" type="xs:float" minOccurs="1" />
+                          <xs:element name="Position.z" type="xs:float" minOccurs="1" />
+                          <xs:element name="Position.y" type="xs:float" minOccurs="1" />
+                          <xs:element name="Rotation.x" type="xs:float" minOccurs="1" />
+                          <xs:element name="Rotation.y" type="xs:float" minOccurs="1" />
+                          <xs:element name="Rotation.z" type="xs:float" minOccurs="1" />
+                          <xs:element name="Rotation.w" type="xs:float" minOccurs="1" />
+                          <xs:element name="Scale.x" type="xs:float" minOccurs="1" />
+                          <xs:element name="Scale.y" type="xs:float" minOccurs="1" />
+                          <xs:element name="Scale.z" type="xs:float" minOccurs="1" />
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

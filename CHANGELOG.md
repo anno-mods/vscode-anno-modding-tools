@@ -30,6 +30,18 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
   - error handling for invalid xml files
   - empty annomod project breaks the extension (tradepatent-fish)
 
+## [1.4.0]
+
+### Added
+
+- Convert `_rga.png` to `_norm.dds`
+
+### Changed
+
+- Fixed import of dummies without mesh
+- Better detection of tags expecting GUIDs in assets.xml
+- Ignore `.001` etc. when importing `fc_` feedbacks or `dummy_` feedbacks
+
 ## [1.3.1]
 
 ### Changed

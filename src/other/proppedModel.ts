@@ -492,10 +492,6 @@ function _findNodes(gltf: any, name: string, resourceFolder: string, prefixSearc
       meshIdx = node.mesh;
 
       const buffer = _getPositions(gltf, meshIdx, resourceFolder);
-      if (!buffer) {
-        console.warn(`Invalid glTF. Buffer for node ${nodeIdx} not found.`);
-        continue;
-      }
       const indices = _getIndices(gltf, meshIdx, resourceFolder);
       result.push({
         nodeIdx,
@@ -525,16 +521,21 @@ function _findFirstNode(gltf: any, name: string, resourceFolder: string) {
 }
 
 function _getPositions(gltf: any, meshIdx: number, resourceFolder: string) {
-  const accessorIdx = gltf.meshes[meshIdx].primitives[0].attributes.POSITION;
+  const accessorIdx = gltf.meshes[meshIdx]?.primitives[0]?.attributes?.POSITION;
+  if (accessorIdx === undefined) {
+    return undefined;
+  }
+
   const ACESSOR_TYPE_VEC3 = 3;
   return _getBuffer(gltf, accessorIdx, resourceFolder, ACESSOR_TYPE_VEC3, Float32Array);
 }
 
 function _getIndices(gltf: any, meshIdx: number, resourceFolder: string) {
-  const accessorIdx = gltf.meshes[meshIdx].primitives[0].indices;
+  const accessorIdx = gltf.meshes[meshIdx]?.primitives[0]?.indices;
   if (accessorIdx === undefined) {
     return undefined;
   }
+  
   const ACESSOR_TYPE_SCALAR = 1;
   return _getBuffer(gltf, accessorIdx, resourceFolder, ACESSOR_TYPE_SCALAR, Uint16Array);
 }
@@ -559,8 +560,8 @@ function _getBuffer(gltf: any, accessorIdx: number, resourceFolder: string, numC
   return undefined;
 }
 
-function _readVectors(node: { translation: Vector | undefined, scale: Vector | undefined, rotation: Quaternion | undefined, buffer: ArrayLike<number> } | undefined) {
-  if (!node) {
+function _readVectors(node: { translation: Vector | undefined, scale: Vector | undefined, rotation: Quaternion | undefined, buffer?: ArrayLike<number> } | undefined) {
+  if (!node || !node.buffer) {
     return [];
   }
   const translation = node.translation ?? Vector.zero;

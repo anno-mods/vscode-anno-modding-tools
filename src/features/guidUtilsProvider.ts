@@ -280,14 +280,20 @@ function provideCompletionItems(document: vscode.TextDocument, position: vscode.
     return undefined;
   }
 
+  const useAnyTemplate = (keyword.type === 'xpath');
+
+  // ignore path in case of xpath checks and allow all templates instead
+  const path = keyword.type !== 'xpath' ? keyword.path : undefined;
+
+  const vanillaItems = (useAnyTemplate ? AllGuidCompletionItems.AllItems : AllGuidCompletionItems.get(keyword.name, path)) ?? [];
   if (_customCompletionItems) {
-    const customItems = _customCompletionItems.get(keyword.name, keyword.path);
+    const customItems = useAnyTemplate ? _customCompletionItems.AllItems : _customCompletionItems.get(keyword.name, path);
     if (customItems) {
-      return [ ...AllGuidCompletionItems.get(keyword.name, keyword.path) ?? [], ...customItems ];
+      return [ ... vanillaItems, ...customItems ];
     }
   }
 
-  return AllGuidCompletionItems.get(keyword.name, keyword.path);
+  return vanillaItems;
 }
 
 function provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken) {

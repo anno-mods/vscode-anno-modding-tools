@@ -274,8 +274,17 @@ class SchemeType {
 
   private _isGUID(list: string[]) {
     if (list.length === 0) return false;
+
+    // assets for example are linked by humans over 5 years
+    // there are some loose ends, allow them
+    const allowedErrors = list.length / 100;
+    
+    let error = 0;
     for (var i of list) {
-      if (i != '0' && !assets[i]) {
+      if (i != '0' && !assets[i] && !filteredAssets.has(i)) {
+        error++;
+      }
+      if (error > allowedErrors) {
         return false;
       }
     }
@@ -415,6 +424,9 @@ function scanAssets(node: xmldoc.XmlElement, assets: { [index: string]: IAsset }
             };
           }
         }
+        else {
+          filteredAssets.add(guid);
+        }
       }
     }
   }
@@ -452,6 +464,7 @@ console.log(`read ${assetPath}`);
 const assetXml = new xmldoc.XmlDocument(fs.readFileSync(assetPath, { encoding: 'utf8' }));
 
 let assets: { [index: string]: IAsset } = {};
+const filteredAssets = new Set<string>();
 
 scanAssets(new xmldoc.XmlDocument(fs.readFileSync(assetPath.replace('assets.xml', 'properties.xml'), { encoding: 'utf8' })), assets);
 scanAssets(new xmldoc.XmlDocument(fs.readFileSync(assetPath.replace('assets.xml', 'templates.xml'), { encoding: 'utf8' })), assets);
@@ -466,16 +479,6 @@ scanAssets(assetXml, assets);
   for (let template of templateNames) {
     console.log(`${templates[template].usageCount} of ${template}`);
   }
-}
-
-// write assets.json
-{
-  if (!fs.existsSync(path.dirname(OUTPUT_FILEPATH))) {
-    fs.mkdirSync(path.dirname(OUTPUT_FILEPATH), { recursive: true });
-  }
-  fs.writeFileSync(OUTPUT_FILEPATH, JSON.stringify(assets, undefined, 2));
-
-  console.log(`written to ${OUTPUT_FILEPATH}`);
 }
 
 /*
@@ -519,6 +522,16 @@ overallScheme.keys['ignore'] = ignore;
 const guids: { [index: string]: GuidDefinition } = {};
 overallScheme.getGuidDefinitions(guids);
 fs.writeFileSync('./generated/guids.json', JSON.stringify(guids, undefined, 2));
+
+// write assets.json
+{
+  if (!fs.existsSync(path.dirname(OUTPUT_FILEPATH))) {
+    fs.mkdirSync(path.dirname(OUTPUT_FILEPATH), { recursive: true });
+  }
+  fs.writeFileSync(OUTPUT_FILEPATH, JSON.stringify(assets, undefined, 2));
+
+  console.log(`written to ${OUTPUT_FILEPATH}`);
+}
 
 // write guidranges.json
 const guidrangesMd = fs.readFileSync('./src/guidranges.md', 'utf8') || '';
