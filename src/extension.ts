@@ -7,6 +7,7 @@ import { AnnomodCommands } from './features/commands/annomod';
 import { PropImporter } from './features/commands/propImporter';
 import { InfoImporter } from './features/commands/infoImporter';
 import { RdmGlbConverter } from './features/commands/rdmGlbConverter';
+import { GltfRdmConverter } from './features/commands/gltfRdmConverter';
 import { RdpConverter } from './features/commands/rdpConverter';
 import { FcImporter } from './features/commands/fcImporter';
 import * as dds from './other/dds';
@@ -35,6 +36,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(...PropImporter.register(context));
 	context.subscriptions.push(...InfoImporter.register(context));
 	context.subscriptions.push(...RdmGlbConverter.register(context));
+	context.subscriptions.push(...GltfRdmConverter.register(context));
 	context.subscriptions.push(...RdpConverter.register(context));
 	context.subscriptions.push(...FcImporter.register(context));
 	context.subscriptions.push(...CfgYamlCommands.register(context));

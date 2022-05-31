@@ -30,6 +30,16 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
   - error handling for invalid xml files
   - empty annomod project breaks the extension (tradepatent-fish)
 
+## [1.5.0]
+
+### Added
+
+- Right-click on `.gltf` to convert to `.rdm`
+
+### Changed
+
+- Allow more than one layer of bones for animations
+
 ## [1.4.0]
 
 ### Added

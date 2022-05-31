@@ -5,10 +5,11 @@ import { ConvertToGLB } from 'gltf-import-export';
 import * as child from 'child_process';
 
 import * as utils from '../../other/utils';
+import { chdir } from 'process';
 
 interface IAnimation {
   name: string,
-  bonesIdx: number,
+  // bonesIdx: number,
   animIdx: number,
   children: { idx: number, name: string }[]
 }
@@ -218,16 +219,21 @@ export class GltfConverter extends Converter {
       }
 
       const children = [];
-      for (let child of animParent.children) {
+      const addStack = [...animParent.children];
+      while (addStack.length > 0) {
+        const child = addStack.shift();
         children.push({
           idx: child,
           name: gltf.nodes[child].name.slice()
         });
+        if (gltf.nodes[child].children) {
+          addStack.push([...gltf.nodes[child].children]);
+        }
       }
 
       animations.push({
         name: animParent.name || animParent.idx.toString(),
-        bonesIdx: animParent.idx,
+        // bonesIdx: animParent.idx,
         animIdx: i,
         children 
       });
@@ -244,7 +250,7 @@ export class GltfConverter extends Converter {
 
     for (let anim of anims) {
       for (let child of anim.children) {
-        gltf.nodes[child.idx].name = (keepSame && anim.name === keepSame) ? child.name.slice() : (anim.name + '_' + child.name);
+        gltf.nodes[child.idx].name = (keepSame && anim.name === keepSame) ? child.name.slice() : (anim.name + '_' + child.name + '_' + anim.name);
       }
     }
 
