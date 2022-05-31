@@ -30,8 +30,16 @@ export class AssetsDocument {
     while (nodeStack.length > 0) {
       const top = nodeStack.pop();
       if (top?.element.type === 'element' /*&& relevantNodes.has(top.element.name)*/) {
+        if (top.element.name === 'ModOp') {
+          // const xpath = top.element.attr['Path'];
+        }
+        
         const p = top.element.column - (top.element.position - top.element.startTagPosition + 1);
-        this.getLine(top.element.line).push({ history: top.history.slice(), element: top.element, position: p });
+        this.getLine(top.element.line).push({ 
+          history: top.history.slice(), 
+          element: top.element, 
+          position: p
+        });
 
         if (top.element.name === 'GUID') {
           const guid = top.element.val;
@@ -94,12 +102,26 @@ export class AssetsDocument {
   }
 
   getPath(line: number, position: number, removeLast: boolean = false) {
-    let path = this.getClosestElementLeft(line, position)?.history.map(e => e.name);
-    while (path && path.length > 0 && (path[0] === 'Asset' || path[0] === 'ModOp' || path[0] === 'Assets'))
-      path = path.slice(1);
+    let path = this.getClosestElementLeft(line, position)?.history;
+    let prefix = undefined;
+    while (path && path.length > 0 && (path[0].name === 'Asset' || path[0].name === 'ModOp' || path[0].name === 'Assets'))
+    {
+      if (path[0].name === 'ModOp' && path[0].attr['Path']) {
+        // TODO replace brackets []
+        prefix = path[0].attr['Path'];
+        if (!prefix.endsWith('/')) {
+          prefix += '/';
+        }
+        path = path.slice(1);
+      }
+      else {
+        prefix = undefined;
+        path = path.slice(1);
+      }
+    }
     if (path && path.length > 0 && removeLast) {
       path = path.slice(0, -1);
     }
-    return path ? ('/' + path.join('/')) : undefined;
+    return path ? ((prefix ?? '/') + path.map(e => e.name).join('/')) : undefined;
   }
 }
