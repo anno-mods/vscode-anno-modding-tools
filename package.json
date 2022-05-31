@@ -2,7 +2,7 @@
   "name": "anno-modding-tools",
   "displayName": "Anno Modding Tools",
   "description": "Modding tools for Anno 1800",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "publisher": "JakobHarder",
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "onCommand:anno-modding-tools.importProps",
     "onCommand:anno-modding-tools.importInfo",
     "onCommand:anno-modding-tools.convertRdmToGlb",
+    "onCommand:anno-modding-tools.convertGltfToRdm",
     "onCommand:anno-modding-tools.convertToRdpYaml",
     "workspaceContains:**/assets.xml",
     "onLanguage:xml"
@@ -144,6 +145,10 @@
         "title": "Convert to glTF Binary"
       },
       {
+        "command": "anno-modding-tools.convertGltfToRdm",
+        "title": "Convert to RDM"
+      },
+      {
         "command": "anno-modding-tools.rdpToXml",
         "title": "Convert to RDP XML (CDATA as is)"
       },
@@ -193,6 +198,10 @@
         {
           "when": "resourceExtname == .rdm",
           "command": "anno-modding-tools.convertRdmToGlb"
+        },
+        {
+          "when": "resourceExtname == .gltf",
+          "command": "anno-modding-tools.convertGltfToRdm"
         },
         {
           "when": "resourceExtname == .rdp",
