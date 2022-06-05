@@ -36,7 +36,10 @@ You have the ability to group by writing `<!-- # your text -->` comments in your
 
 ![](./doc/guid-utils.gif)
 
-You can type a name tags that expect GUID. You get a list of possible GUID matches to replace to.
+You get a list of possible GUID matches to replace to.
+The list is shown automatically in XML tags that expect a GUID, or after typing `GUID="` in ModOps. 
+
+Otherwise, trigger the list manually with `Ctrl` + `Space`.
 
 Not all GUIDs can be converted automatically due to performance. Most notable exclusions are `Test` and `Audio`.
 

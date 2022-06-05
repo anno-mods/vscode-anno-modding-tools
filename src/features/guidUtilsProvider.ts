@@ -1,13 +1,11 @@
-import path = require('path');
 import * as vscode from 'vscode';
 import * as fs from 'fs';
-import { AssetsTocProvider } from './outline/assetsTocProvider';
 import * as xmldoc from 'xmldoc';
-import { AssetsDocument, IAsset } from '../other/assetsXml';
+import * as minimatch from 'minimatch';
+import { AssetsTocProvider } from './outline/assetsTocProvider';
+import { AssetsDocument, ASSETS_FILENAME_PATTERN } from '../other/assetsXml';
 
 let assetsDocument: AssetsDocument | undefined;
-
-import * as channel from './channel';
 
 import { AllGuidCompletionItems, GuidCompletionItems } from './guidCompletionItems';
 
@@ -209,7 +207,7 @@ async function loadKeywordHelp(context: vscode.ExtensionContext) {
 
 let _customCompletionItems: GuidCompletionItems | undefined = undefined;
 export function refreshCustomAssets(document: vscode.TextDocument | undefined): void {
-  if (!document || (!document.fileName.endsWith('assets.xml') && !document.fileName.endsWith('input.xml') &&!document.fileName.endsWith('expectation.xml'))) {
+  if (!document || !minimatch(document.fileName, ASSETS_FILENAME_PATTERN)) {
     // _customAssets = undefined;
     // _customCompletionItems = undefined;
     return;
@@ -269,8 +267,8 @@ export function registerGuidUtilsProvider(context: vscode.ExtensionContext): vsc
   subscribeToDocumentChanges(context);
 
 	return [
-    vscode.Disposable.from(vscode.languages.registerHoverProvider({ language: 'xml', pattern: '{**/assets.xml,**/tests/*-input.xml,**/tests/*-expectation.xml}' }, { provideHover })), 
-    vscode.Disposable.from(vscode.languages.registerCompletionItemProvider({ language: 'xml', pattern: '{**/assets.xml,**/tests/*-input.xml,**/tests/*-expectation.xml}' }, { provideCompletionItems }, '\''))
+    vscode.Disposable.from(vscode.languages.registerHoverProvider({ language: 'xml', pattern: ASSETS_FILENAME_PATTERN }, { provideHover })), 
+    vscode.Disposable.from(vscode.languages.registerCompletionItemProvider({ language: 'xml', pattern: ASSETS_FILENAME_PATTERN }, { provideCompletionItems }, '\'', '"'))
   ];
 }
 

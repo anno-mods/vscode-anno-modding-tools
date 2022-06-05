@@ -34,7 +34,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ### Changed
 
-- Issue scan will now only consider `assets*.xml` and `test/*-input.xml` / `test/*-expectation.xml`.
+- Issue scan will now only consider `assets*.xml` and `test/*-input.xml` / `test/*-expectation.xml`
+- Double tick quotation (i.e. `GUID="`) properly triggers GUID conversion now
 
 ## [1.5.0]
 

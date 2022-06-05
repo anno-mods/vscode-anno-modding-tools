@@ -1,5 +1,7 @@
 import * as xmldoc from 'xmldoc';
 
+export const ASSETS_FILENAME_PATTERN = '**/{assets*.xml,tests/*-input.xml,tests/*-expectation.xml}';
+
 export interface IAsset {
   guid: string;
   template?: string;
