@@ -1,16 +1,19 @@
 import * as vscode from 'vscode';
+import * as minimatch from 'minimatch';
 
 const DEPRECATED_ALL = '190611';
 const DEPRECATED_ALL2 = '193879';
 const DEPRECATED_ALL_FIX = '368';
 const DEPRECATED_ALL_CODE = 'all_buildings_with_maintenance_DONTUSE';
 
+const PARSE_GLOB = '**/{assets*.xml,tests/*-input.xml,tests/*-expectation.xml}';
+
 export class AssetsActionProvider {
   public static register(context: vscode.ExtensionContext): vscode.Disposable[] {
     const diagnostics = vscode.languages.createDiagnosticCollection("assets-xml");
     subscribeToDocumentChanges(context, diagnostics);
 
-    const selector: vscode.DocumentSelector = { language: 'xml', scheme: '*', pattern: '{**/assets.xml,**/tests/*-input.xml,**/tests/*-expectation.xml}' };
+    const selector: vscode.DocumentSelector = { language: 'xml', scheme: '*', pattern: PARSE_GLOB };
     return [
       diagnostics,
       vscode.languages.registerCodeActionsProvider(selector, new AssetsCodeActionProvider(), {
@@ -34,6 +37,11 @@ function includesAsWord(line: string, text: string)
 }
 
 export function refreshDiagnostics(doc: vscode.TextDocument, collection: vscode.DiagnosticCollection): void {
+  if (doc.lineCount > 10000 || !minimatch(doc.fileName, PARSE_GLOB)) {
+    // ignore large files and non-assets.xmls
+    return;
+  }
+
   const diagnostics: vscode.Diagnostic[] = [];
 
   for (let lineIndex = 0; lineIndex < doc.lineCount; lineIndex++) {

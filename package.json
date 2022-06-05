@@ -2,7 +2,7 @@
   "name": "anno-modding-tools",
   "displayName": "Anno Modding Tools",
   "description": "Modding tools for Anno 1800",
-  "version": "1.5.0",
+  "version": "1.5.1-alpha",
   "publisher": "JakobHarder",
   "repository": {
     "type": "git",

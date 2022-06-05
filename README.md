@@ -6,7 +6,7 @@ Anno 1800 is a trademark of Ubisoft Entertainment in the US and/or other countri
 
 ## Overview
 
-- [Outline](#assets-outline), [GUID conversion](#guid-conversion) and [auto completion](#auto-completion) for `assets.xml`, `.cfg`, `.ifo`, `.cf7`
+- [Outline](#assets-outline), [GUID conversion](#guid-conversion), [auto completion](#auto-completion) and [syntax check](#syntax-check) for `assets.xml`, `.cfg`, `.ifo`, `.cf7`
 - [Import from Blender or glTF](#import-from-blender-or-gltf) to `.cfg`, `.ifo` and `.cf7`
 - [Reskin existing models](#quickly-reskin-existing-models) without touching `.cfg`, ...
 - [Batch create](#build-anno-mod) DDS (with LODs), RDM (with LODs and animation) using `F1` > `Build Anno Mod` and `annomod.json` description.
@@ -55,6 +55,11 @@ You need the Red Hat XML plugin installed. Then go to settings and search for `x
 ]
 ```
 Now your code gets validated and you can press `Ctrl` + `Space` anywhere in the document and get a list of possible tags, enums or GUIDs.
+
+### Syntax Check
+
+The plugin will scan you asset files for common problems like the use of outdated pools (e.g. `190611`).
+The file must match the naming scheme `assets*.xml` to be considered.
 
 ### Import from Blender or glTF
 
