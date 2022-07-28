@@ -30,6 +30,13 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
   - error handling for invalid xml files
   - empty annomod project breaks the extension (tradepatent-fish)
 
+## [Unreleased]
+
+### Changed
+
+- Issue scan will now only consider `assets*.xml` and `test/*-input.xml` / `test/*-expectation.xml`
+- Double tick quotation (i.e. `GUID="`) properly triggers GUID conversion now
+
 ## [1.5.0]
 
 ### Added

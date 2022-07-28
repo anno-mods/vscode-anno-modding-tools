@@ -6,7 +6,7 @@ Anno 1800 is a trademark of Ubisoft Entertainment in the US and/or other countri
 
 ## Overview
 
-- [Outline](#assets-outline), [GUID conversion](#guid-conversion) and [auto completion](#auto-completion) for `assets.xml`, `.cfg`, `.ifo`, `.cf7`
+- [Outline](#assets-outline), [GUID conversion](#guid-conversion), [auto completion](#auto-completion) and [syntax check](#syntax-check) for `assets.xml`, `.cfg`, `.ifo`, `.cf7`
 - [Import from Blender or glTF](#import-from-blender-or-gltf) to `.cfg`, `.ifo` and `.cf7`
 - [Reskin existing models](#quickly-reskin-existing-models) without touching `.cfg`, ...
 - [Batch create](#build-anno-mod) DDS (with LODs), RDM (with LODs and animation) using `F1` > `Build Anno Mod` and `annomod.json` description.
@@ -20,7 +20,7 @@ Anno 1800 is a trademark of Ubisoft Entertainment in the US and/or other countri
 ### Other Documentation
 
 * [Working with models](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-models.md) (separate page)
-* [Working with particles](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-particles.md) (separate page)
+* [Modding Guide](https://github.com/anno-mods/modding-guide#readme) (separate page)
 
 ## Features
 
@@ -36,7 +36,10 @@ You have the ability to group by writing `<!-- # your text -->` comments in your
 
 ![](./doc/guid-utils.gif)
 
-You can type a name tags that expect GUID. You get a list of possible GUID matches to replace to.
+You get a list of possible GUID matches to replace to.
+The list is shown automatically in XML tags that expect a GUID, or after typing `GUID="` in ModOps. 
+
+Otherwise, trigger the list manually with `Ctrl` + `Space`.
 
 Not all GUIDs can be converted automatically due to performance. Most notable exclusions are `Test` and `Audio`.
 
@@ -55,6 +58,11 @@ You need the Red Hat XML plugin installed. Then go to settings and search for `x
 ]
 ```
 Now your code gets validated and you can press `Ctrl` + `Space` anywhere in the document and get a list of possible tags, enums or GUIDs.
+
+### Syntax Check
+
+The plugin will scan you asset files for common problems like the use of outdated pools (e.g. `190611`).
+The file must match the naming scheme `assets*.xml` to be considered.
 
 ### Import from Blender or glTF
 
@@ -160,68 +168,13 @@ variant:
 
 ### Build Anno Mod
 
+Automatically copy and convert mod files.
+
 Press `F1` or right-click on `annomod.json` files to run `Build Anno Mod`.
 
-Example: [Sources on GitHub](https://github.com/jakobharder/anno-1800-jakobs-mods/), [Compiled Mods](https://github.com/jakobharder/anno-1800-jakobs-mods/releases)
+Manual: [How to use annomod.json](./doc/annomod.md)
 
-#### `annomod.json` Format
-
-```json
-{
-  "src": "src",
-  "out": "${annoMods}/${modName}",  
-  "converter": [
-    {
-      "action": "static",
-      "pattern": "**/*.{cfg,ifo,prp,fc,rdm,dds}"
-    },
-    {
-      "action": "cf7",
-      "pattern": "**/*.cf7"
-    },
-    {
-      "action": "texture",
-      "pattern": "**/*_{diff,norm,height,metal}.png",
-      "lods": 1
-    },
-    {
-      "action": "gltf",
-      "pattern": "**/*.{glb,gltf}"
-    },
-    {
-      "action": "modinfo",
-      "content_en": true
-    }
-  ],
-  "modinfo": {}
-} 
-```
-
-Converter actions:
-
-- `static`: copies files according to [glob](https://github.com/isaacs/node-glob) `pattern`.
-- `texture`: converts .pngs into .dds.
-  - `lods`: number of LOD levels to generate, saved as `_0.dds` and so on. Set to 0 to disable LODs. Default is 3.
-  - `changePath`: move texture to another folder, e.g. `maps`. Default is no change.
-- `cf7`: converts .cf7 into .fc (using [AnnoFCConverter](https://github.com/taubenangriff/AnnoFCConverter/))
-- `gltf`: converts .gltf to .rdm. (using [rdm4](https://github.com/lukts30/rdm4))
-  - `lods`: number of LOD levels to pull out of .gltf files. Meshes must end with `_lod0` and so on to be considered. Set to 0 to disable LODs. Default is 4.
-  - `changePath`: move model to another folder, e.g. `rdm`. Default is no change.
-  - `animPath`: move anim to another folder, e.g. `anim`. Default is no change.
-- `modinfo`: generate `modinfo.json`.
-  - `content_en`: generate `content_en.txt` file with same content as `modinfo.Description.English`.
-- `rdpxml`: convert .rdp.xml into .rdp. [More on a separate page](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-particles.md)
-- `cfgyaml`: generate CFG, IFO and FC files. [More in a separate chapter](#create-variants-from-templates).
-
-Out folder variables:
-
-- Use `${modName}` to get `[Category] Name` created from `modinfo.Category.English` and `modinfo.ModName.English`. Works only with `out`.
-- Use `${annoMods}` to get your local Anno `mods/` directory set in the Extension configuration. Works only with `out`.
-
-Modinfo:
-
-- Basically Anno Mod Manager [modinfo.json](https://github.com/anno-mods/Modinfo) content.
-- `modinfo.Description` differs from what the Anno Mod Manager uses. Instead of text use a relative path to a Markdown file. Images will be excluded from the Markdown.
+Examples: [Sources on GitHub](https://github.com/jakobharder/anno-1800-jakobs-mods/), [Compiled Mods](https://github.com/jakobharder/anno-1800-jakobs-mods/releases)
 
 ---
 
