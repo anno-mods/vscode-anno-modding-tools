@@ -14,7 +14,7 @@ curl -L https://github.com/xforce/anno1800-mod-loader/releases/download/v0.8.2/x
 unzip -o ./dl/xmltest.zip
 
 # FileDBReader.exe, informal permission to bundle with the extension
-curl -L https://github.com/anno-mods/FileDBReader/releases/download/v2.0.1/FileDBReader.zip > ./dl/filedb.zip
+curl -L https://github.com/anno-mods/FileDBReader/releases/download/v2.1.1/FileDBReader.zip > ./dl/filedb.zip
 mkdir FileDBCompressor
 unzip -o ./dl/filedb.zip -d ./FileDBCompressor 
 
