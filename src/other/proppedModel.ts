@@ -363,7 +363,7 @@ export default class ProppedModel {
   private _unevenBlocker: Vector2[] | undefined;
   public getUnevenBlocker() {
     if (!this._unevenBlocker) {
-      const node = _findFirstNode(this.gltf, 'UnevenBlocker', this.resourceFolder);
+      const node = _findFirstNode(this.gltf, 'UnevenBlocker', this.resourceFolder, true);
       let vectors = _readVectors(node).map(e => e.toVector2());
       if (node?.indices) {
         vectors = sortVectorsByOutline(vectors, node.indices);
@@ -421,7 +421,7 @@ export default class ProppedModel {
   private groundVertices: Vector[] | undefined;
   private _findGround() {
     if (!this.groundVertices) {
-      const node = _findFirstNode(this.gltf, 'ground', this.resourceFolder);
+      const node = _findFirstNode(this.gltf, 'ground', this.resourceFolder, true);
       const ground = _readVectors(node);
       let ground2 = ground.map(e => e.toVector2());
       if (node?.indices) {
@@ -479,15 +479,18 @@ function _toRotation(q: { w: number, x: number, y: number, z: number }) {
   return q.y > 0 ? Math.PI * 2 - acos : acos;
 }
 
-function _findNodes(gltf: any, name: string, resourceFolder: string, prefixSearch: boolean = true) {
+function _findNodes(gltf: any, name: string, resourceFolder: string, prefixSearch: boolean = true, ignoreTrailingNumber: boolean = false) {
   const result = [];
 
   let nodeIdx = -1;
   let meshIdx = -1;
   for (let idx = 0; idx < gltf.nodes.length; idx++) {
     const node = gltf.nodes[idx];
-    if (prefixSearch && (node.name?.startsWith(name) || gltf.meshes[node.mesh]?.name?.startsWith(name)) ||
-        !prefixSearch && (node.name === name || gltf.meshes[node.mesh]?.name === name)) {
+
+    const noTrailName = (node.name && ignoreTrailingNumber) ? node.name.replace(/\.\d\d\d$/, '') : node.name;
+
+    if (prefixSearch && (noTrailName?.startsWith(name) || gltf.meshes[node.mesh]?.name?.startsWith(name)) ||
+        !prefixSearch && (noTrailName === name || gltf.meshes[node.mesh]?.name === name)) {
       nodeIdx = idx;
       meshIdx = node.mesh;
 
@@ -504,7 +507,7 @@ function _findNodes(gltf: any, name: string, resourceFolder: string, prefixSearc
         indices: indices
       });
 
-      if (!prefixSearch) {
+      if (!prefixSearch && !ignoreTrailingNumber) {
         return result;
       }
     }
@@ -512,8 +515,8 @@ function _findNodes(gltf: any, name: string, resourceFolder: string, prefixSearc
   return result;
 }
 
-function _findFirstNode(gltf: any, name: string, resourceFolder: string) {
-  const nodes = _findNodes(gltf, name, resourceFolder, false);
+function _findFirstNode(gltf: any, name: string, resourceFolder: string, ignoreTrailingNumber: boolean = false) {
+  const nodes = _findNodes(gltf, name, resourceFolder, false, true);
   if (!nodes || nodes.length < 1) {
     return undefined;
   }
