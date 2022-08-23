@@ -1,303 +1,309 @@
 {
-  "name": "anno-modding-tools",
-  "displayName": "Anno Modding Tools",
-  "description": "Modding tools for Anno 1800",
-  "version": "1.5.1-alpha",
-  "publisher": "JakobHarder",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/anno-mods/vscode-anno-modding-tools"
-  },
-  "engines": {
-    "vscode": "^1.60.0"
-  },
-  "icon": "images/icon.png",
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [
-    "onLanguage:anno-cfg",
-    "onLanguage:anno-ifo",
-    "onLanguage:anno-cf7",
-    "onLanguage:anno-prp",
-    "onCommand:anno-modding-tools.buildMod",
-    "onCommand:anno-modding-tools.convertFcCf7",
-    "onCommand:anno-modding-tools.convertCf7Fc",
-    "onCommand:anno-modding-tools.pngToDds",
-    "onCommand:anno-modding-tools.ddsToPng",
-    "onCommand:anno-modding-tools.importProps",
-    "onCommand:anno-modding-tools.importInfo",
-    "onCommand:anno-modding-tools.convertRdmToGlb",
-    "onCommand:anno-modding-tools.convertGltfToRdm",
-    "onCommand:anno-modding-tools.convertToRdpYaml",
-    "workspaceContains:**/assets.xml",
-    "onLanguage:xml"
-  ],
-  "main": "./dist/extension.js",
-  "contributes": {
-    "languages": [
-      {
-        "id": "anno-cfg",
-        "extensions": [
-          ".cfg"
-        ],
-        "firstLine": "\\<Config",
-        "aliases": [
-          "Anno Model Config",
-          "anno-cfg"
-        ],
-        "configuration": "./languages/cfg.language-configuration.json"
-      },
-      {
-        "id": "anno-ifo",
-        "extensions": [
-          ".ifo"
-        ],
-        "firstLine": "\\<Info",
-        "aliases": [
-          "Anno Model Info",
-          "anno-ifo"
-        ],
-        "configuration": "./languages/cfg.language-configuration.json"
-      },
-      {
-        "id": "anno-cf7",
-        "extensions": [
-          ".cf7"
-        ],
-        "firstLine": "\\<DummyRoot",
-        "aliases": [
-          "Anno Feedbacks (decoded)",
-          "anno-cf7"
-        ],
-        "configuration": "./languages/cfg.language-configuration.json"
-      },
-      {
-        "id": "anno-prp",
-        "extensions": [
-          ".prp"
-        ],
-        "firstLine": "\\<Config",
-        "aliases": [
-          "Anno Prop Config",
-          "anno-prp"
-        ],
-        "configuration": "./languages/cfg.language-configuration.json"
-      }
-    ],
-    "grammars": [
-      {
-        "language": "anno-cfg",
-        "scopeName": "text.cfg",
-        "path": "./languages/cfg.tmLanguage.json"
-      },
-      {
-        "language": "anno-ifo",
-        "scopeName": "text.ifo",
-        "path": "./languages/ifo.tmLanguage.json"
-      },
-      {
-        "language": "anno-cf7",
-        "scopeName": "text.cf7",
-        "path": "./languages/cf7.tmLanguage.json"
-      },
-      {
-        "language": "anno-prp",
-        "scopeName": "text.prp",
-        "path": "./languages/prp.tmLanguage.json"
-      }
-    ],
-    "commands": [
-      {
-        "command": "anno-modding-tools.convertFcCf7",
-        "title": "Convert to CF7"
-      },
-      {
-        "command": "anno-modding-tools.convertCf7Fc",
-        "title": "Convert to FC"
-      },
-      {
-        "command": "anno-modding-tools.pngToDds",
-        "title": "Convert to BC7_UNORM DDS"
-      },
-      {
-        "command": "anno-modding-tools.ddsToPng",
-        "title": "Convert to PNG"
-      },
-      {
-        "command": "anno-modding-tools.buildMod",
-        "title": "Build Anno Mod"
-      },
-      {
-        "command": "anno-modding-tools.importProps",
-        "title": "Import PROPs from glTF"
-      },
-      {
-        "command": "anno-modding-tools.importInfo",
-        "title": "Import from glTF"
-      },
-      {
-        "command": "anno-modding-tools.importFeedback",
-        "title": "Import from glTF"
-      },
-      {
-        "command": "anno-modding-tools.convertRdmToGlb",
-        "title": "Convert to glTF Binary"
-      },
-      {
-        "command": "anno-modding-tools.convertGltfToRdm",
-        "title": "Convert to RDM"
-      },
-      {
-        "command": "anno-modding-tools.rdpToXml",
-        "title": "Convert to RDP XML (CDATA as is)"
-      },
-      {
-        "command": "anno-modding-tools.rdpToSimplified",
-        "title": "Convert to RDP XML (simplified)"
-      },
-      {
-        "command": "anno-modding-tools.xmlToRdp",
-        "title": "Convert to RDP"
-      },
-      {
-        "command": "anno-modding-tools.cfgyamlToCfg",
-        "title": "Generate CFG, IFO, FC files"
-      }
-    ],
-    "menus": {
-      "explorer/context": [
-        {
-          "when": "resourceExtname == .fc",
-          "command": "anno-modding-tools.convertFcCf7"
-        },
-        {
-          "when": "resourceLangId == anno-cf7",
-          "command": "anno-modding-tools.convertCf7Fc"
-        },
-        {
-          "when": "resourceExtname == .png",
-          "command": "anno-modding-tools.pngToDds"
-        },
-        {
-          "when": "resourceExtname == .dds",
-          "command": "anno-modding-tools.ddsToPng"
-        },
-        {
-          "when": "resourceLangId == anno-cfg",
-          "command": "anno-modding-tools.importProps"
-        },
-        {
-          "when": "resourceLangId == anno-ifo",
-          "command": "anno-modding-tools.importInfo"
-        },
-        {
-          "when": "resourceLangId == anno-cf7",
-          "command": "anno-modding-tools.importFeedback"
-        },
-        {
-          "when": "resourceExtname == .rdm",
-          "command": "anno-modding-tools.convertRdmToGlb"
-        },
-        {
-          "when": "resourceExtname == .gltf",
-          "command": "anno-modding-tools.convertGltfToRdm"
-        },
-        {
-          "when": "resourceExtname == .rdp",
-          "command": "anno-modding-tools.rdpToXml"
-        },
-        {
-          "when": "resourceExtname == .rdp",
-          "command": "anno-modding-tools.rdpToSimplified"
-        },
-        {
-          "when": "resourceFilename =~ /.rdp.xml$/",
-          "command": "anno-modding-tools.xmlToRdp"
-        },
-        {
-          "when": "resourceFilename =~ /.cfg.yaml$/",
-          "command": "anno-modding-tools.cfgyamlToCfg"
-        },
-        {
-          "when": "resourceFilename == annomod.json",
-          "command": "anno-modding-tools.buildMod"
-        }
-      ]
-    },
-    "configuration": {
-      "title": "Modding Tools for Anno",
-      "properties": {
-        "anno.modsFolder": {
-          "type": "string",
-          "format": "uri",
-          "markdownDescription": "mods/ folder used for `${annoMods}` in `annomod.json` files."
-        },
-        "anno.rdaFolder": {
-          "type": "string",
-          "format": "uri",
-          "markdownDescription": "Folder containing RDA data extracted for `${andoRda}` in `*.cfg.yaml` files."
-        },
-        "anno.outlineFolderDepth": {
-          "type": "number",
-          "default": 0,
-          "minimum": 0,
-          "markdownDescription": "Folder depth of props, materials and alike shown .cfg outline."
-        }
-      }
-    }
-  },
-  "bin": {
-    "buildMod": "./out/buildMod.js"
-  },
-  "pkg": {
-    "scripts": "out/buildMod.js",
-    "assets": [
-      "external/**/*"
-    ],
-    "targets": [
-      "node16-win-x64"
-    ],
-    "outputPath": "out"
-  },
-  "scripts": {
-    "download": "bash -c '(cd external; ./download.sh)'",
-    "vscode:prepublish": "webpack --mode production",
-    "compile": "webpack --mode none",
-    "watch": "webpack --mode none --watch",
-    "pretest": "tsc -p ./ && npm run lint",
-    "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js",
-    "assets": "tsc -p ./ && node ./out/scripts/compileAssets.js c:/anno/all-rda/data/config/export/main/asset/assets.xml",
-    "height": "tsc -p ./ && node ./out/scripts/heightmap.js ./generated/update.xml",
-    "buildmod:compile": "tsc -p ./",
-    "buildmod:pack": "npm run buildmod:compile && npm pack"
-  },
-  "devDependencies": {
-    "@types/glob": "^7.1.4",
-    "@types/mocha": "^9.0.0",
-    "@types/node": "14.x",
-    "@types/vscode": "^1.60.0",
-    "@types/xml2js": "^0.4.9",
-    "@types/xmldoc": "^1.1.6",
-    "@typescript-eslint/eslint-plugin": "^4.31.1",
-    "@typescript-eslint/parser": "^4.31.1",
-    "@vscode/test-electron": "^1.6.2",
-    "eslint": "^7.32.0",
-    "mocha": "^9.1.1",
-    "ts-loader": "^9.2.6",
-    "typescript": "^4.4.3",
-    "webpack": "^5.58.1",
-    "webpack-cli": "^4.9.0"
-  },
-  "dependencies": {
-    "@types/js-yaml": "^4.0.3",
-    "dxt-js": "^0.0.3",
-    "glob": "^7.2.0",
-    "gltf-import-export": "^1.0.18",
-    "jimp": "^0.16.1",
-    "js-yaml": "^4.1.0",
-    "xml2js": "^0.4.23",
-    "xmldoc": "^1.1.2"
-  }
+	"name": "anno-modding-tools",
+	"displayName": "Anno Modding Tools",
+	"description": "Modding tools for Anno 1800",
+	"version": "1.6.0",
+	"publisher": "JakobHarder",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/anno-mods/vscode-anno-modding-tools"
+	},
+	"engines": {
+		"vscode": "^1.60.0"
+	},
+	"icon": "images/icon.png",
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onLanguage:anno-cfg",
+		"onLanguage:anno-ifo",
+		"onLanguage:anno-cf7",
+		"onLanguage:anno-prp",
+		"onCommand:anno-modding-tools.buildMod",
+		"onCommand:anno-modding-tools.convertFcCf7",
+		"onCommand:anno-modding-tools.convertCf7Fc",
+		"onCommand:anno-modding-tools.pngToDds",
+		"onCommand:anno-modding-tools.ddsToPng",
+		"onCommand:anno-modding-tools.importProps",
+		"onCommand:anno-modding-tools.importInfo",
+		"onCommand:anno-modding-tools.convertRdmToGlb",
+		"onCommand:anno-modding-tools.convertGltfToRdm",
+		"onCommand:anno-modding-tools.convertToRdpYaml",
+		"workspaceContains:**/assets.xml",
+		"onLanguage:xml"
+	],
+	"main": "./dist/extension.js",
+	"contributes": {
+		"languages": [
+			{
+				"id": "anno-cfg",
+				"extensions": [
+					".cfg"
+				],
+				"firstLine": "\\<Config",
+				"aliases": [
+					"Anno Model Config",
+					"anno-cfg"
+				],
+				"configuration": "./languages/cfg.language-configuration.json"
+			},
+			{
+				"id": "anno-ifo",
+				"extensions": [
+					".ifo"
+				],
+				"firstLine": "\\<Info",
+				"aliases": [
+					"Anno Model Info",
+					"anno-ifo"
+				],
+				"configuration": "./languages/cfg.language-configuration.json"
+			},
+			{
+				"id": "anno-cf7",
+				"extensions": [
+					".cf7"
+				],
+				"firstLine": "\\<DummyRoot",
+				"aliases": [
+					"Anno Feedbacks (decoded)",
+					"anno-cf7"
+				],
+				"configuration": "./languages/cfg.language-configuration.json"
+			},
+			{
+				"id": "anno-prp",
+				"extensions": [
+					".prp"
+				],
+				"firstLine": "\\<Config",
+				"aliases": [
+					"Anno Prop Config",
+					"anno-prp"
+				],
+				"configuration": "./languages/cfg.language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "anno-cfg",
+				"scopeName": "text.cfg",
+				"path": "./languages/cfg.tmLanguage.json"
+			},
+			{
+				"language": "anno-ifo",
+				"scopeName": "text.ifo",
+				"path": "./languages/ifo.tmLanguage.json"
+			},
+			{
+				"language": "anno-cf7",
+				"scopeName": "text.cf7",
+				"path": "./languages/cf7.tmLanguage.json"
+			},
+			{
+				"language": "anno-prp",
+				"scopeName": "text.prp",
+				"path": "./languages/prp.tmLanguage.json"
+			}
+		],
+		"commands": [
+			{
+				"command": "anno-modding-tools.convertFcCf7",
+				"title": "Convert to CF7"
+			},
+			{
+				"command": "anno-modding-tools.convertCf7Fc",
+				"title": "Convert to FC"
+			},
+			{
+				"command": "anno-modding-tools.pngToDds",
+				"title": "Convert to BC7_UNORM DDS"
+			},
+			{
+				"command": "anno-modding-tools.ddsToPng",
+				"title": "Convert to PNG"
+			},
+			{
+				"command": "anno-modding-tools.buildMod",
+				"title": "Build Anno Mod"
+			},
+			{
+				"command": "anno-modding-tools.importProps",
+				"title": "Import PROPs from glTF"
+			},
+			{
+				"command": "anno-modding-tools.importInfo",
+				"title": "Import from glTF"
+			},
+			{
+				"command": "anno-modding-tools.importFeedback",
+				"title": "Import from glTF"
+			},
+			{
+				"command": "anno-modding-tools.convertRdmToGlb",
+				"title": "Convert to glTF Binary"
+			},
+			{
+				"command": "anno-modding-tools.convertGltfToRdm",
+				"title": "Convert to RDM"
+			},
+			{
+				"command": "anno-modding-tools.rdpToXml",
+				"title": "Convert to RDP XML (CDATA as is)"
+			},
+			{
+				"command": "anno-modding-tools.rdpToSimplified",
+				"title": "Convert to RDP XML (simplified)"
+			},
+			{
+				"command": "anno-modding-tools.xmlToRdp",
+				"title": "Convert to RDP"
+			},
+			{
+				"command": "anno-modding-tools.cfgyamlToCfg",
+				"title": "Generate CFG, IFO, FC files"
+			}
+		],
+		"menus": {
+			"explorer/context": [
+				{
+					"when": "resourceExtname == .fc",
+					"command": "anno-modding-tools.convertFcCf7"
+				},
+				{
+					"when": "resourceLangId == anno-cf7",
+					"command": "anno-modding-tools.convertCf7Fc"
+				},
+				{
+					"when": "resourceExtname == .png",
+					"command": "anno-modding-tools.pngToDds"
+				},
+				{
+					"when": "resourceExtname == .dds",
+					"command": "anno-modding-tools.ddsToPng"
+				},
+				{
+					"when": "resourceLangId == anno-cfg",
+					"command": "anno-modding-tools.importProps"
+				},
+				{
+					"when": "resourceLangId == anno-ifo",
+					"command": "anno-modding-tools.importInfo"
+				},
+				{
+					"when": "resourceLangId == anno-cf7",
+					"command": "anno-modding-tools.importFeedback"
+				},
+				{
+					"when": "resourceExtname == .rdm",
+					"command": "anno-modding-tools.convertRdmToGlb"
+				},
+				{
+					"when": "resourceExtname == .gltf",
+					"command": "anno-modding-tools.convertGltfToRdm"
+				},
+				{
+					"when": "resourceExtname == .rdp",
+					"command": "anno-modding-tools.rdpToXml"
+				},
+				{
+					"when": "resourceExtname == .rdp",
+					"command": "anno-modding-tools.rdpToSimplified"
+				},
+				{
+					"when": "resourceFilename =~ /.rdp.xml$/",
+					"command": "anno-modding-tools.xmlToRdp"
+				},
+				{
+					"when": "resourceFilename =~ /.cfg.yaml$/",
+					"command": "anno-modding-tools.cfgyamlToCfg"
+				},
+				{
+					"when": "resourceFilename == annomod.json",
+					"command": "anno-modding-tools.buildMod"
+				}
+			]
+		},
+		"configuration": {
+			"title": "Modding Tools for Anno",
+			"properties": {
+				"anno.modsFolder": {
+					"type": "string",
+					"format": "uri",
+					"markdownDescription": "mods/ folder used for `${annoMods}` in `annomod.json` files."
+				},
+				"anno.rdaFolder": {
+					"type": "string",
+					"format": "uri",
+					"markdownDescription": "Folder containing RDA data extracted for `${andoRda}` in `*.cfg.yaml` files."
+				},
+				"anno.outlineFolderDepth": {
+					"type": "number",
+					"default": 0,
+					"minimum": 0,
+					"markdownDescription": "Folder depth of props, materials and alike shown .cfg outline."
+				}
+			}
+		}
+	},
+	"bin": {
+		"buildMod": "./out/buildMod.js"
+	},
+	"pkg": {
+		"scripts": "out/buildMod.js",
+		"assets": [
+			"external/**/*"
+		],
+		"targets": [
+			"node16-win-x64"
+		],
+		"outputPath": "out"
+	},
+	"scripts": {
+		"download": "bash -c '(cd external; ./download.sh)'",
+		"vscode:prepublish": "webpack --mode production",
+		"compile": "webpack --mode none",
+		"watch": "webpack --mode none --watch",
+		"pretest": "tsc -p ./ && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js",
+		"assets": "tsc -p ./ && node ./out/scripts/compileAssets.js c:/anno/all-rda/data/config/export/main/asset/assets.xml",
+		"height": "tsc -p ./ && node ./out/scripts/heightmap.js ./generated/update.xml",
+		"buildmod:compile": "tsc -p ./",
+		"buildmod:pack": "npm run buildmod:compile && npm pack"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.4",
+		"@types/mocha": "^9.0.0",
+		"@types/node": "14.x",
+		"@types/vscode": "^1.60.0",
+		"@types/xml2js": "^0.4.9",
+		"@types/xmldoc": "^1.1.6",
+		"@typescript-eslint/eslint-plugin": "^4.31.1",
+		"@typescript-eslint/parser": "^4.31.1",
+		"@vscode/test-electron": "^1.6.2",
+		"eslint": "^7.32.0",
+		"mocha": "^9.1.1",
+		"ts-loader": "^9.2.6",
+		"typescript": "^4.4.3",
+		"webpack": "^5.58.1",
+		"webpack-cli": "^4.9.0"
+	},
+	"dependencies": {
+		"@types/js-yaml": "^4.0.3",
+		"dxt-js": "^0.0.3",
+		"glob": "^7.2.0",
+		"gltf-import-export": "^1.0.18",
+		"jimp": "^0.16.1",
+		"js-yaml": "^4.1.0",
+		"xml2js": "^0.4.23",
+		"xmldoc": "^1.1.2"
+	},
+	"__metadata": {
+		"id": "7e365771-9709-4845-98f2-bfa6030bb2d6",
+		"publisherDisplayName": "Jakob Harder",
+		"publisherId": "495d2164-b783-4434-97a1-e66f9816cd97",
+		"isPreReleaseVersion": false
+	}
 }

@@ -32,6 +32,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+### Added
+
+- Convert `_r_a.png` to `_metal.dds`
+
 ### Changed
 
 - Issue scan will now only consider `assets*.xml` and `test/*-input.xml` / `test/*-expectation.xml`
