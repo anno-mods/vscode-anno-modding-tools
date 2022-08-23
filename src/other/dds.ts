@@ -28,7 +28,16 @@ export function convertToTexture(sourceFile: string, targetFolder: string, forma
         `-l=${lods||0}`
       ], { cwd: targetFolder, stdio: 'pipe' }).toString();
 
-    const expectedBasename = sourceFile.endsWith('_rga.png') ? path.basename(sourceFile, '_rga.png') + '_norm.dds' : path.basename(sourceFile, '.png') + '.dds';
+    let expectedBasename = path.basename(sourceFile, '.png') + '.dds';
+    if (sourceFile.endsWith('_rga.png')) {
+      expectedBasename = path.basename(sourceFile, '_rga.png') + '_norm.dds';
+    }
+    else if (sourceFile.endsWith('_r_a.png')) {
+      expectedBasename = path.basename(sourceFile, '_r_a.png') + '_metal.dds';
+    }
+    else if (sourceFile.endsWith('_r_a+b.png')) {
+      expectedBasename = path.basename(sourceFile, '_r_a+b.png') + '_metal.dds';
+    }
 
     // ignore stdout
     if (!lods && !fs.existsSync(path.join(targetFolder, expectedBasename)) ||
