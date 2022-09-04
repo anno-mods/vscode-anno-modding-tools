@@ -51,11 +51,11 @@ export class AssetsTocProvider {
     }
   }
 
-  private _getName(element: xmldoc.XmlElement) {
+  private _getName(element: xmldoc.XmlElement): string {
     if (element.name === 'ModOp') {
       return element.attr['Type'] || 'ModOp';
     }
-    if (element.name === 'Asset') {
+    else if (element.name === 'Asset') {
       const template = element.valueWithPath('Template');
       if (template) {
         return template;
@@ -70,6 +70,10 @@ export class AssetsTocProvider {
           return `${base}`;
         }
       }
+    }
+    else if (element.name === 'Template')
+    {
+      return element.valueWithPath('Name') ?? element.name;
     }
     return element.name;
   }
@@ -99,15 +103,17 @@ export class AssetsTocProvider {
 
     const relevantSections: { [index: string]: any } = {
       /* eslint-disable @typescript-eslint/naming-convention */
-      'ModOp': {},
-      'Asset': {}
+      'ModOp': { minChildren: 0 },
+      'Asset': { minChildren: 1 },
+      'Template': { minChildren: 1 }
       /* eslint-enable @typescript-eslint/naming-convention */
     };
 
     const symbolMap: { [index: string]: vscode.SymbolKind } = {
       /* eslint-disable @typescript-eslint/naming-convention */
       'ModOp': vscode.SymbolKind.Property,
-      'Asset': vscode.SymbolKind.Class
+      'Asset': vscode.SymbolKind.Class,
+      'Template': vscode.SymbolKind.Class
       /* eslint-enable @typescript-eslint/naming-convention */
     };
 
@@ -135,7 +141,7 @@ export class AssetsTocProvider {
       }
       else if (top.element.type === 'element') {
         // open ModOp section
-        if (sectionComment && top.element.name === 'ModOp') {
+        if (sectionComment && (top.element.name === 'ModOp' || top.element.name === 'Template')) {
           const line = Math.max(0, top?.element.line - 1);
           toc.push({
             text: sectionComment,
@@ -160,7 +166,7 @@ export class AssetsTocProvider {
 
         // check if relevant, also ignore simple items
         const tocRelevant = relevantSections[top.element.name];
-        if (tocRelevant && children.length > 0) {
+        if (tocRelevant && children.length >= tocRelevant.minChildren) {
           toc.push({
             text: this._getName(top.element),
             detail: this._getDetail(top.element),
