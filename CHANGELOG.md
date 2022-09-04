@@ -6,35 +6,14 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
-- glTF
-  - support glTF binary in `gltf` converter
-  - add `Convert to glTF JSON`
-  - one-click preview of RDM using glTF Tools extension
-- Import
-  - Right-click `Import Materials`. Reorders material list and fills some gaps.
-  - `<Materials>` and `<MaterialLODInfos>` import
-- Outline
-  - ConfigType LIGHT
-  - better outline behavior when writing new tags
-- Editing
-  - support and strip comments from `.cfg`, `.ifo`
-  - FC GUID hover
-  - Include XML formatter / declare as xml format?
-- Testing
-  - Allow comments in `-expectation.xml` files
-- Issues
-  - single named entry, e.g. _2f_lod0, doesn't take the name
-  - Convert To FC on .fc files?
-  - removing _removed on imports works only for first container
-  - Show strong warning when there's no tangent information on the mesh
-  - error handling for invalid xml files
-  - empty annomod project breaks the extension (tradepatent-fish)
-
-## [Unreleased]
+## [1.6.1]
 
 ### Changed
 
 - Fixed `.rdp` and `.rdp.xml` conversions
+- Fixed missing empty `ModOp` in outline
+- Show outline for `templates.xml`
+- `ImyaTweak`, `ImyaExpose` and `Include` as valid tags in `assets.xml`
 
 ## [1.6.0]
 
