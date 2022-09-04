@@ -52,6 +52,12 @@
     <xs:enumeration value="addPrevSibling" />
     <xs:enumeration value="remove" />
     <xs:enumeration value="replace" />
+    <xs:enumeration value="Add" />
+    <xs:enumeration value="Merge" />
+    <xs:enumeration value="AddNextSibling" />
+    <xs:enumeration value="AddPrevSibling" />
+    <xs:enumeration value="Remove" />
+    <xs:enumeration value="Replace" />
   </xs:restriction>
 </xs:simpleType>
 

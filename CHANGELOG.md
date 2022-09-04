@@ -32,6 +32,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+### Changed
+
+- Fixed `.rdp` and `.rdp.xml` conversions
+
+## [1.6.0]
+
 ### Added
 
 - Convert `_r_a.png` to `_metal.dds`

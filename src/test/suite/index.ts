@@ -6,7 +6,8 @@ export function run(): Promise<void> {
 	// Create the mocha test
 	const mocha = new Mocha({
 		ui: 'tdd',
-		color: true
+		color: true,
+		timeout: 30000 // lengthy 30s calling executables can sometimes lead to quite some delay
 	});
 
 	const testsRoot = path.resolve(__dirname, '..');
