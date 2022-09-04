@@ -1,7 +1,11 @@
 <xs:element name='ModOps'>
   <xs:complexType>
     <xs:sequence>
+      <xs:element name='Include' type='Include' minOccurs='0' maxOccurs='unbounded' />
       <xs:element name='ModOp' type='ModOp' minOccurs='0' maxOccurs='unbounded' />
+      <xs:element name='ImyaTweaks' type='ImyaTweaks' minOccurs='0' maxOccurs='1' />
+      <xs:element name='ImyaExpose' type='ImyaExpose' minOccurs='0' maxOccurs='unbounded' />
+      <xs:element name='Include' type='Include' minOccurs='0' maxOccurs='unbounded' />
     </xs:sequence>
   </xs:complexType>
 </xs:element>
@@ -14,7 +18,51 @@
   <xs:attribute name='GUID' type='xs:string' />
   <xs:attribute name='Type' type='ModOpType' use='required' />
   <xs:attribute name='Path' type='xs:string' />
+  <xs:attribute name='ModOpID' type='xs:string' />
+  <xs:attribute name='Skip' type='ModOpSkip' />
 </xs:complexType>
+
+<xs:complexType name='Include'>
+  <xs:attribute name='File' type='xs:string' use='required' />
+</xs:complexType>
+
+<xs:complexType name='ImyaTweaks'>
+  <xs:attribute name='Title' type='xs:string' />
+</xs:complexType>
+
+<xs:complexType name='ImyaExpose'>
+  <xs:sequence>
+    <xs:any processContents='skip' minOccurs='0' maxOccurs='unbounded' />
+  </xs:sequence>
+  <xs:attribute name='Path' type='xs:string' use='required' />
+  <xs:attribute name='ModOpID' type='xs:string' use='required' />
+  <xs:attribute name='Kind' type='ExposeKind' />
+  <xs:attribute name='Invert' type='ExposeInvert' />
+  <xs:attribute name='ExposeID' type='xs:string' use='required' />
+  <xs:attribute name='Description' type='xs:string' />
+</xs:complexType>
+
+<xs:simpleType name="ExposeKind">
+  <xs:restriction base="xs:string">
+    <xs:enumeration value="SimpleValue" />
+    <xs:enumeration value="Enum" />
+    <xs:enumeration value="Slider" />
+    <xs:enumeration value="Toggle" />
+  </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="ExposeInvert">
+  <xs:restriction base="xs:string">
+    <xs:enumeration value="True" />
+    <xs:enumeration value="False" />
+  </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="ModOpSkip">
+  <xs:restriction base="xs:string">
+    <xs:enumeration value="1" />
+  </xs:restriction>
+</xs:simpleType>
 
 <xs:complexType name='Asset'>
   <xs:sequence>
@@ -52,6 +100,12 @@
     <xs:enumeration value="addPrevSibling" />
     <xs:enumeration value="remove" />
     <xs:enumeration value="replace" />
+    <xs:enumeration value="Add" />
+    <xs:enumeration value="Merge" />
+    <xs:enumeration value="AddNextSibling" />
+    <xs:enumeration value="AddPrevSibling" />
+    <xs:enumeration value="Remove" />
+    <xs:enumeration value="Replace" />
   </xs:restriction>
 </xs:simpleType>
 

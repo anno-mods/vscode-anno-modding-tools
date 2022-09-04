@@ -53,9 +53,9 @@ export function dontOverwriteFolder(sourceFile: string, targetExtension: string,
   command(sourceFile, targetFolder);
 }
 
-export function swapExtension(filePath: string, extension: string) {
+export function swapExtension(filePath: string, extension: string, firstDot?: boolean) {
   const base = path.basename(filePath);
-  const dot = base.lastIndexOf('.');
+  const dot = firstDot === true ? base.indexOf('.') : base.lastIndexOf('.');
   if (dot === -1) {
     return filePath + extension;
   }

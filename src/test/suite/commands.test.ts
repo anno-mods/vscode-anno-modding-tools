@@ -60,4 +60,97 @@ suite('file conversion tests', () => {
 
     assert.deepStrictEqual(resultContent, expectedContent);
   });
+
+  suite('.rdp.xml commands', () => {
+    // clear to avoid old files leading to wrong results
+    if (fs.existsSync('../../out/test/suite/data')) {
+      fs.rmdirSync('../../out/test/suite/data', { recursive: true });
+    }
+
+    test('fetch test XML', async () => {
+      const originalRdp = path.resolve('../../src/test/suite/data/sparks.rdp.xml');
+      const convertingRdp = path.resolve('../../out/test/suite/data/sparks.rdp.xml');
+  
+      utils.ensureDir(path.dirname(convertingRdp));
+      fs.copyFileSync(originalRdp, convertingRdp);
+  
+      const originalBuffer = fs.readFileSync(originalRdp, 'utf8');
+      
+      // cross check
+      assert(fs.existsSync(convertingRdp));
+      assert.strictEqual(originalBuffer, fs.readFileSync(convertingRdp, 'utf8'));
+    });
+
+    test('convert to native RDP, const must differ', async () => {
+      const originalRdp = path.resolve('../../src/test/suite/data/sparks.rdp.xml');
+      const convertingRdp = path.resolve('../../out/test/suite/data/sparks.rdp.xml');
+      const targetRdp = utils.swapExtension(convertingRdp, '.rdp', true);
+
+      const originalBuffer = fs.readFileSync(originalRdp, 'utf8');
+  
+      // convert to native RDP, filename doesn't change
+      await vscode.commands.executeCommand('anno-modding-tools.xmlToRdp', vscode.Uri.file(convertingRdp));
+      assert(fs.existsSync(targetRdp));
+      assert.notStrictEqual(originalBuffer, fs.readFileSync(targetRdp));
+    });
+
+    test('convert back, content must be equal', async () => {
+      const convertingRdp = path.resolve('../../out/test/suite/data/sparks.rdp.xml');
+      const targetRdp = utils.swapExtension(convertingRdp, '.rdp', true);
+  
+      // convert back, content must be equal
+      await vscode.commands.executeCommand('anno-modding-tools.rdpToSimplified', vscode.Uri.file(targetRdp));
+      assert(fs.existsSync(convertingRdp));
+    });
+
+    test('compare original with roundtrip', async () => {
+      const originalRdp = path.resolve('../../src/test/suite/data/sparks.rdp.xml');
+      const convertingRdp = path.resolve('../../out/test/suite/data/sparks.rdp.xml');
+  
+      const originalBuffer = fs.readFileSync(originalRdp, 'utf8');
+  
+      // parse as json to avoid errors on formatting differences we don't care about (e.g. newlines)
+      const resultContent = await xml2js.parseStringPromise(fs.readFileSync(convertingRdp, 'utf8'));
+      const expectedContent = await xml2js.parseStringPromise(originalBuffer);
+  
+      assert.deepStrictEqual(resultContent, expectedContent);
+    });
+
+    // test('roundtrip', async () => {
+    //   const originalRdp = path.resolve('../../src/test/suite/data/sparks.rdp.xml');
+    //   const convertingRdp = path.resolve('../../out/test/suite/data/sparks.rdp.xml');
+    //   const targetRdp = utils.swapExtension(convertingRdp, '.rdp', true);
+  
+    //   utils.ensureDir(path.dirname(convertingRdp));
+    //   fs.copyFileSync(originalRdp, convertingRdp);
+  
+    //   const originalBuffer = fs.readFileSync(originalRdp, 'utf8');
+      
+    //   // cross check
+    //   assert(fs.existsSync(convertingRdp));
+    //   assert.strictEqual(originalBuffer, fs.readFileSync(convertingRdp, 'utf8'));
+  
+    //   // convert to native RDP, filename doesn't change
+    //   console.log("xml to rdp");
+    //   await vscode.commands.executeCommand('anno-modding-tools.xmlToRdp', vscode.Uri.file(convertingRdp));
+    //   assert(fs.existsSync(targetRdp));
+    //   assert.notStrictEqual(originalBuffer, fs.readFileSync(targetRdp));
+  
+    //   // remove for roundtrip
+    //   fs.rmSync(convertingRdp);
+    //   assert(!fs.existsSync(convertingRdp));
+  
+    //   // convert back, content must be equal
+    //   console.log("rdp to xml");
+    //   await vscode.commands.executeCommand('anno-modding-tools.rdpToSimplified', vscode.Uri.file(targetRdp));
+    //   assert(fs.existsSync(convertingRdp));
+  
+    //   // parse as json to avoid errors on formatting differences we don't care about (e.g. newlines)
+    //   console.log("roundtrip compare");
+    //   const resultContent = await xml2js.parseStringPromise(fs.readFileSync(convertingRdp, 'utf8'));
+    //   const expectedContent = await xml2js.parseStringPromise(originalBuffer);
+  
+    //   assert.deepStrictEqual(resultContent, expectedContent);
+    // });
+  })
 });

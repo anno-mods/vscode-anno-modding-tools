@@ -14,8 +14,8 @@ import * as utils from './utils';
 let _converterPath: string | undefined;
 let _interpreterPath: string | undefined;
 export function init(externalPath: string) {
-  _converterPath = path.join(externalPath, 'FileDBCompressor/FileDBReader.exe');
-  _interpreterPath = path.join(externalPath, 'FileDBCompressor/FileFormats/rdp.xml');
+  _converterPath = path.join(externalPath, 'FileDBReader/FileDBReader.exe');
+  _interpreterPath = path.join(externalPath, 'FileDBReader/FileFormats/rdp.xml');
 }
 
 interface IRdpContent {
@@ -72,7 +72,9 @@ export class Rdp {
         'fctohex',
         '-f', sourceFile, 
         '-i', _interpreterPath as string
-      ]);
+      ], {
+        cwd: path.dirname(sourceFile)
+      });
       if (res.toString()) {
         logger.log(res.toString());
       }
@@ -186,7 +188,9 @@ export class Rdp {
 
     try {
       const dirname = path.dirname(targetFile);
-      const tempname = targetFile + '-temp.xml';
+
+      // FileDBReader takes the the first dot and replaces everything after with xml
+      let tempname = utils.swapExtension(targetFile, '-temp.xml', true);
 
       utils.ensureDir(dirname);
       this.writeXml(tempname);
@@ -195,11 +199,16 @@ export class Rdp {
         'hextofc',
         '-f', tempname, 
         '-i', _interpreterPath as string
-      ]);
+      ], {
+        cwd: path.dirname(tempname)
+      });
       if (res.toString()) {
         logger.log(res.toString());
       }
   
+      fs.rmSync(tempname);
+      // FileDBReader adds _fcexport if input filename ends with .xml?
+      tempname = utils.swapExtension(targetFile, '-temp_fcexport.xml', true);
       fs.renameSync(tempname, targetFile);
     }
     catch (exception: any) {
