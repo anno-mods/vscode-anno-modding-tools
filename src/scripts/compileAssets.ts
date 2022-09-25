@@ -534,7 +534,7 @@ fs.writeFileSync('./generated/guids.json', JSON.stringify(guids, undefined, 2));
 }
 
 // write guidranges.json
-const guidrangesMd = fs.readFileSync('./src/guidranges.md', 'utf8') || '';
+const guidrangesMd = fs.readFileSync('./external/guidranges.md', 'utf8') || '';
 const guidrangeLines = guidrangesMd.split('\n').filter((e: string) => e.trim().startsWith('|'));
 
 const ranges: { name: string | null, start: number, end: number }[] = [];

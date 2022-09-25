@@ -6,6 +6,15 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## [1.6.2]
+
+### Changed
+
+- Show outline for `texts_*.xml`
+- Updated assets, GUIDs for GU15
+- Updated `xmltest` to modloader 0.9
+- Updated reserved GUID ranges
+
 ## [1.6.1]
 
 ### Changed

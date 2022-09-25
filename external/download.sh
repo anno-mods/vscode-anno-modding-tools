@@ -10,7 +10,7 @@ mkdir dl
 curl -L https://github.com/microsoft/DirectXTex/releases/download/sept2021/texconv.exe > ./texconv.exe
 
 # xmltest.exe, MIT
-curl -L https://github.com/xforce/anno1800-mod-loader/releases/download/v0.8.2/xmltest.zip > ./dl/xmltest.zip
+curl -L https://github.com/xforce/anno1800-mod-loader/releases/download/v0.9.0/xmltest.zip > ./dl/xmltest.zip
 unzip -o ./dl/xmltest.zip
 
 # FileDBReader.exe, informal permission to bundle with the extension
@@ -25,3 +25,6 @@ unzip -o ./dl/rdm4.zip
 curl -L https://github.com/jakobharder/annotex/releases/download/jakob%2Fv1.2.0/annotex.exe > ./annotex.exe
 
 rm -r ./dl
+
+# guidranges
+curl -L https://raw.githubusercontent.com/anno-mods/GuidRanges/main/README.md > ./guidranges.md

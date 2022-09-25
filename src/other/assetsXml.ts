@@ -1,6 +1,6 @@
 import * as xmldoc from 'xmldoc';
 
-export const ASSETS_FILENAME_PATTERN = '**/{assets*.xml,tests/*-input.xml,tests/*-expectation.xml}';
+export const ASSETS_FILENAME_PATTERN = '**/{assets*.xml,templates.xml,tests/*-input.xml,tests/*-expectation.xml,gui/texts_*.xml}';
 
 export interface IAsset {
   guid: string;
