@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import { SkinnyTextDocument, AssetsTocProvider, TocEntry } from './assetsTocProvider';
+import { ASSETS_FILENAME_PATTERN } from '../../other/assetsXml';
 
 interface MarkdownSymbol {
 	readonly level: number;
@@ -12,7 +13,7 @@ export class AssetsSymbolProvider {
     const selector: vscode.DocumentSelector = {
 			language: 'xml', 
 			scheme: '*', 
-			pattern: '{**/assets.xml,**/templates.xml,**/tests/*-input.xml,**/tests/*-expectation.xml}' };
+			pattern: ASSETS_FILENAME_PATTERN };
     const symbolProvider = new AssetsSymbolProvider();
     return [ vscode.Disposable.from(
       vscode.languages.registerDocumentSymbolProvider(selector, symbolProvider)
