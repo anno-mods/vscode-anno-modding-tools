@@ -1,12 +1,11 @@
 <xs:element name='ModOps'>
   <xs:complexType>
-    <xs:sequence>
-      <xs:element name='Include' type='Include' minOccurs='0' maxOccurs='unbounded' />
-      <xs:element name='ModOp' type='ModOp' minOccurs='0' maxOccurs='unbounded' />
-      <xs:element name='ImyaTweaks' type='ImyaTweaks' minOccurs='0' maxOccurs='1' />
-      <xs:element name='ImyaExpose' type='ImyaExpose' minOccurs='0' maxOccurs='unbounded' />
-      <xs:element name='Include' type='Include' minOccurs='0' maxOccurs='unbounded' />
-    </xs:sequence>
+    <xs:choice maxOccurs="unbounded">
+      <xs:element name='Include' type='Include' />
+      <xs:element name='ModOp' type='ModOp' />
+      <xs:element name='ImyaTweaks' type='ImyaTweaks' />
+      <xs:element name='ImyaExpose' type='ImyaExpose' />
+    </xs:choice>
   </xs:complexType>
 </xs:element>
 
