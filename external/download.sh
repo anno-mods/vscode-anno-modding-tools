@@ -25,3 +25,6 @@ unzip -o ./dl/rdm4.zip
 curl -L https://github.com/jakobharder/annotex/releases/download/jakob%2Fv1.2.0/annotex.exe > ./annotex.exe
 
 rm -r ./dl
+
+# guidranges
+curl -L https://raw.githubusercontent.com/anno-mods/GuidRanges/main/README.md > ./guidranges.md
