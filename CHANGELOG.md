@@ -6,6 +6,13 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## [1.6.3]
+
+### Changed
+
+- Added faked plant support (P4h_N4b_G4b_B4b_T2h_C4b_C4b) using `plantPattern` in `gltf` converter
+- GUIDs for auto completion and hover will be searched in the complete mod folder now
+
 ## [1.6.2]
 
 ### Changed

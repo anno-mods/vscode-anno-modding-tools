@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
+import * as path from 'path';
 import * as xmldoc from 'xmldoc';
 import * as minimatch from 'minimatch';
 import { AssetsTocProvider } from './outline/assetsTocProvider';
@@ -8,15 +9,20 @@ import { AssetsDocument, ASSETS_FILENAME_PATTERN } from '../other/assetsXml';
 let assetsDocument: AssetsDocument | undefined;
 
 import { AllGuidCompletionItems, GuidCompletionItems } from './guidCompletionItems';
+import { glob } from 'glob';
 
 export function resolveGUID(guid: string) {
   let entry = undefined;
-  if (AllGuidCompletionItems.assets) {
-    entry = AllGuidCompletionItems.assets[guid];
-  }
-  if (assetsDocument?.assets && !entry) {
+  if (assetsDocument?.assets) {
     entry = assetsDocument.assets[guid];
   }
+  if (!entry && _customCompletionItems?.assets) {
+    entry = _customCompletionItems.assets[guid];
+  }
+  if (!entry && AllGuidCompletionItems.assets) {
+    entry = AllGuidCompletionItems.assets[guid];
+  }
+
   return entry;
 }
 
@@ -217,12 +223,47 @@ export function refreshCustomAssets(document: vscode.TextDocument | undefined): 
     // ignore files above 20MB
     return;
   }
+
+  if (document.lineCount > 100000) {
+    // ignore 100k+ lines
+    return;
+  }
   const text = document.getText();
   if (text.length > 1024 * 1024 * 20) {
-    // ignore files above 20MB
+    // ignore 20MB+ files
     return;
   }
 
+  // Don't clear completion items anymore
+  // _customCompletionItems = new GuidCompletionItems();
+  
+  const modRoot = _findModRoot(document.fileName);
+  if (modRoot) {
+    const files = glob.sync('**/assets*.xml', { cwd: modRoot, nodir: true });
+    for (let file of files) {
+      _readGuidsFromText(fs.readFileSync(path.join(modRoot, file), 'utf8'));
+    }
+  }
+
+  _readGuidsFromText(text);
+}
+
+function _findModRoot(filePath: string)
+{
+  let dir = path.dirname(filePath);
+  while (dir) {
+    if (fs.existsSync(path.join(dir, 'data/config/export/main/asset/assets.xml'))) {
+      return dir;
+    }
+
+    dir = path.dirname(dir);
+  }
+
+  return undefined;
+}
+
+function _readGuidsFromText(text: string)
+{
   let xmlContent;
   try {
     xmlContent = new xmldoc.XmlDocument(text);
@@ -232,10 +273,17 @@ export function refreshCustomAssets(document: vscode.TextDocument | undefined): 
     return;
   }
 
+  _readGuidsFromXmlContent(xmlContent);
+}
+
+function _readGuidsFromXmlContent(xmlContent: xmldoc.XmlDocument)
+{
   assetsDocument = new AssetsDocument(xmlContent);
 
-  _customCompletionItems = new GuidCompletionItems();
-  _customCompletionItems.fromAssets(assetsDocument.assets, AllGuidCompletionItems.tags);
+  if (!_customCompletionItems) {
+    _customCompletionItems = new GuidCompletionItems();
+  }
+  _customCompletionItems.addAssets(assetsDocument.assets, AllGuidCompletionItems.tags);
 }
 
 function subscribeToDocumentChanges(context: vscode.ExtensionContext): void {
@@ -283,9 +331,9 @@ function provideCompletionItems(document: vscode.TextDocument, position: vscode.
   // ignore path in case of xpath checks and allow all templates instead
   const path = keyword.type !== 'xpath' ? keyword.path : undefined;
 
-  const vanillaItems = (useAnyTemplate ? AllGuidCompletionItems.AllItems : AllGuidCompletionItems.get(keyword.name, path)) ?? [];
+  const vanillaItems = (useAnyTemplate ? AllGuidCompletionItems.getAllItems() : AllGuidCompletionItems.get(keyword.name, path)) ?? [];
   if (_customCompletionItems) {
-    const customItems = useAnyTemplate ? _customCompletionItems.AllItems : _customCompletionItems.get(keyword.name, path);
+    const customItems = useAnyTemplate ? _customCompletionItems.getAllItems() : _customCompletionItems.get(keyword.name, path);
     if (customItems) {
       return [ ... vanillaItems, ...customItems ];
     }

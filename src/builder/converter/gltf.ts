@@ -3,6 +3,7 @@ import * as path from 'path';
 import { Converter } from '../Converter';
 import { ConvertToGLB } from 'gltf-import-export';
 import * as child from 'child_process';
+import * as glob from 'glob';
 
 import * as utils from '../../other/utils';
 import { chdir } from 'process';
@@ -14,6 +15,18 @@ interface IAnimation {
   children: { idx: number, name: string }[]
 }
 
+enum VertexFormat {
+  Normal,
+  Skeleton,
+  Plant
+}
+
+const VertexFormatStrings = new Map<VertexFormat, string>([
+  [ VertexFormat.Skeleton, 'P4h_N4b_G4b_B4b_T2h_I4b'],
+  [ VertexFormat.Normal, 'P4h_N4b_G4b_B4b_T2h'],
+  [ VertexFormat.Plant, 'P4h_N4b_G4b_B4b_T2h_C4b_C4b']
+]);
+
 export class GltfConverter extends Converter {
   public getName() {
     return 'gltf';
@@ -24,9 +37,10 @@ export class GltfConverter extends Converter {
     converterOptions: any }) {
 
     const fakePngPath = this._asAbsolutePath("./images/fake.png");
-    const rdmPath = this._asAbsolutePath("./external/rdm4-bin.exe");
+    const rdmPath = this._asAbsolutePath("./external/rdm4-bin-plant.exe");
     const changePath = options.converterOptions.changePath || '';
     const animPath = options.converterOptions.animPath || '';
+    const plantPattern = options.converterOptions.plantPattern || '';
     
     for (const file of files) {
       this._logger.log(`  => ${file}`);
@@ -114,7 +128,8 @@ export class GltfConverter extends Converter {
                 this._replaceImages(gltfForAnim, fakePngPath);
 
                 this._makeUniqueBoneNames(gltfForAnim, anims, anim.name);
-                await this._writeRdmFile(gltfForAnim, tempAnimFile, tempGlbFile, resourceDirectory, rdmPath, meshIdx, useAnimation, useSkeleton);
+                await this._writeRdmFile(gltfForAnim, tempAnimFile, tempGlbFile, resourceDirectory, rdmPath, meshIdx, useAnimation, 
+                  useSkeleton ? VertexFormat.Skeleton : VertexFormat.Normal);
                 // move only anim rdm to target location
                 fs.rmSync(tempGlbFile);
                 fs.rmSync(targetFile, { force: true });
@@ -130,6 +145,9 @@ export class GltfConverter extends Converter {
               }
             }
 
+            const isPlant = plantPattern ? new RegExp(plantPattern).test(file) : false;
+            const plantText = isPlant ? ' (plant)' : '';
+
             // convert
             const lodname = basename + (variantName ? variantName + '_lod' + lodLevel : (lodDisabled ? '' : '_lod' + lodLevel));
             const targetFile = path.join(outFolder, dirname, changePath, lodname + '.rdm');
@@ -140,13 +158,20 @@ export class GltfConverter extends Converter {
               this._makeUniqueBoneNames(gltf, anims);
 
               const tempGlbFile = path.join(options.cache, dirname, lodname + '.glb');
-              await this._writeRdmFile(gltf, targetFile, tempGlbFile, resourceDirectory, rdmPath, meshIdx, useAnimation, useSkeleton);
+              let vertexFormat = VertexFormat.Normal;
+              if (useSkeleton) {
+                vertexFormat = VertexFormat.Skeleton;
+              }
+              if (isPlant) {
+                vertexFormat = VertexFormat.Plant;
+              }
+              await this._writeRdmFile(gltf, targetFile, tempGlbFile, resourceDirectory, rdmPath, meshIdx, useAnimation, vertexFormat);
               fs.rmSync(tempGlbFile);
             }
             else {
               fs.renameSync(alreadyExportedModel, targetFile);
             }
-            this._logger.log(`  <= ${lodDisabled ? '' : `LOD ${lodLevel}: `}${path.relative(path.join(outFolder, dirname), targetFile)}`);
+            this._logger.log(`  <= ${lodDisabled ? '' : `LOD ${lodLevel}: `}${path.relative(path.join(outFolder, dirname), targetFile)}${plantText}`);
           }
         }
       }
@@ -260,17 +285,20 @@ export class GltfConverter extends Converter {
     }
   }
 
-  private _writeRdmFile(gltf: any, targetFile: string, tempFile: string, resourceDirectory: string, rdmPath: string, meshIdx: number, useAnimation: boolean, useSkeleton: boolean) {
+  private _writeRdmFile(gltf: any, targetFile: string, tempFile: string, resourceDirectory: string, rdmPath: string, 
+    meshIdx: number, 
+    useAnimation: boolean, 
+    vertexFormat: VertexFormat) {
     return new Promise((resolve, reject) => {
       try {
         ConvertToGLB(gltf, path.join(resourceDirectory, 'fake.gltf'), tempFile);
 
         const stdout = child.execFileSync(rdmPath, [
           '--gltf-mesh-index', meshIdx.toString(),
-          '-g', useSkeleton ? 'P4h_N4b_G4b_B4b_T2h_I4b' : 'P4h_N4b_G4b_B4b_T2h',
+          '-g', VertexFormatStrings.get(vertexFormat) ?? 'P4h_N4b_G4b_B4b_T2h',
           '-n', '-o', path.dirname(targetFile),
           '-i', tempFile,
-          ...(useSkeleton ? [ '--skeleton' ] : []),
+          ...(vertexFormat == VertexFormat.Skeleton ? [ '--skeleton' ] : []),
           ...(useAnimation ? [ '--animation'] : []),
           '--force' // overwrite existing files
         ], { stdio : 'pipe' });
