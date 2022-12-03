@@ -45,12 +45,14 @@ class TagCompletionItem {
   }
 }
 
+type CompletionItemMap = { [ guid: string]: vscode.CompletionItem };
+
 export class GuidCompletionItems {
   tags: { [tag: string]: TagCompletionItem } | undefined;
   assets: { [index: string]: IAsset } | undefined = undefined;
 
-  items: { [ template: string]: vscode.CompletionItem[] } = {};
-  public AllItems: vscode.CompletionItem[] | undefined;
+  _items: { [ template: string]: CompletionItemMap } = {};
+  _allItems: CompletionItemMap = {};
 
   load(context: vscode.ExtensionContext) {
     if (!this.assets) {
@@ -76,8 +78,8 @@ export class GuidCompletionItems {
   fromAssets(assets: { [guid: string]: IAsset}, tags?: { [tag: string]: TagCompletionItem }) {
     this.tags = tags;
     this.assets = assets;
-    this.items = {};
-    this.AllItems = [];
+    this._items = {};
+    this._allItems = {};
     for (let guid of Object.keys(assets)) {
       const asset = assets[guid];
       if (asset.template) {
@@ -86,28 +88,47 @@ export class GuidCompletionItems {
     }
   }
 
-  push(templateName: string, guid: string, asset: IAsset) {
+  addAssets(assets: { [guid: string]: IAsset}, tags?: { [tag: string]: TagCompletionItem })
+  {
+    this.tags = tags;
+    if (!this.assets) {
+      this.assets = {};
+    }
+
+    for (let guid of Object.keys(assets)) {
+      const asset = assets[guid];
+      if (asset.template) {
+        this.push(asset.template, guid, asset, this.assets[guid] != undefined);
+      }
+      this.assets[guid] = asset;
+    }
+  }
+
+  push(templateName: string, guid: string, asset: IAsset, remove: boolean = false) {
     const item = new vscode.CompletionItem({
       label: `${asset.english||asset.name}`,
       description: `${asset.template}: ${guid} (${asset.name})`
     }, vscode.CompletionItemKind.Snippet);
     item.insertText = guid;
     
-    const items = this.items[templateName] ?? [];
-    items.push(item);
-    this.items[templateName] = items;
+    const items = this._items[templateName] ?? {};
+    items[guid] = item;
+    this._items[templateName] = items;
 
-    if (!this.AllItems) {
-      this.AllItems = [];
+    if (!this._allItems) {
+      this._allItems = {};
     }
-    this.AllItems.push(item);
+    this._allItems[guid] = item;
   }
 
   get(tagName: string, path?: string) {
-    if (!this.tags) return undefined;
-
+    if (!this.tags) {
+      return undefined;
+    }
     const tag = this.tags[tagName];
-    if (!tag) return undefined;
+    if (!tag) {
+      return undefined;
+    }
 
     if (path && path.endsWith(tagName)) {
       path = path.substring(0, path.length - tagName.length - 1);
@@ -126,9 +147,13 @@ export class GuidCompletionItems {
 
     let items = [];
     for (var t of templates) {
-      items.push(...(this.items[t]??[]));
+      items.push(...(Object.values(this._items[t])??[]));
     }
     return items;
+  }
+
+  getAllItems() {
+    return Object.values(this._allItems);
   }
 }
 
