@@ -77,7 +77,7 @@
     {
       "name": "Spice it Up 3.0",
       "start": 1440133000,
-      "end": 1440135999
+      "end": 1440136099
     },
     {
       "name": "Mod_Taro",
@@ -88,6 +88,11 @@
       "name": "Lethani",
       "start": 1337499000,
       "end": 1337499999
+    },
+    {
+      "name": "Lordys",
+      "start": 1404410000,
+      "end": 1404449999
     },
     {
       "name": "New Horizons",
@@ -115,6 +120,16 @@
       "end": 1500200999
     },
     {
+      "name": "Qurila",
+      "start": 1500300000,
+      "end": 1500300999
+    },
+    {
+      "name": "Drakkam",
+      "start": 1555000000,
+      "end": 1556000000
+    },
+    {
       "name": "Fam",
       "start": 1660010000,
       "end": 1660019999
@@ -122,7 +137,7 @@
     {
       "name": "Hier0nimus",
       "start": 1742000000,
-      "end": 1742009999
+      "end": 1742999999
     },
     {
       "name": "Lady Meridonia",
