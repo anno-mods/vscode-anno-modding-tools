@@ -21,6 +21,9 @@ unzip -o ./dl/FileDBReader.zip
 curl -L https://github.com/jakobharder/rdm4/releases/download/jakob%2F0.6.0-alpha.1%2B3/rdm4-bin-windows-amd64.zip > ./dl/rdm4.zip
 unzip -o ./dl/rdm4.zip
 
+# fake plant support, 0.8.0-alpha.1-jakob1
+curl -L https://github.com/jakobharder/rdm4/releases/download/jakob%2F0.8.0-alpha.1-jakob1/rdm4-bin-plant.exe > ./rdm4-bin-plant.exe
+
 # annotex / bc7enc, MIT
 curl -L https://github.com/jakobharder/annotex/releases/download/jakob%2Fv1.2.0/annotex.exe > ./annotex.exe
 

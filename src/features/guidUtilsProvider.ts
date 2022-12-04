@@ -251,12 +251,16 @@ export function refreshCustomAssets(document: vscode.TextDocument | undefined): 
 function _findModRoot(filePath: string)
 {
   let dir = path.dirname(filePath);
-  while (dir) {
+  for (let depth = 0; depth < 10 && dir; depth++) {
     if (fs.existsSync(path.join(dir, 'data/config/export/main/asset/assets.xml'))) {
       return dir;
     }
 
-    dir = path.dirname(dir);
+    let newdir = path.dirname(dir);
+    if (newdir === dir) {
+      break;
+    }
+    dir = newdir;
   }
 
   return undefined;

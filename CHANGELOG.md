@@ -6,6 +6,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## [1.6.4]
+
+- Fixed assets XML search being endless in some cases
+
 ## [1.6.3]
 
 ### Changed
