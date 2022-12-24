@@ -26,20 +26,6 @@
   },
   "GUID": {
     "templates": [
-      "SlotFactoryBuilding7",
-      "WorkArea",
-      "FactoryBuilding7",
-      "FarmBuilding",
-      "Farmfield",
-      "Slot",
-      "OilPumpBuilding",
-      "PublicServiceBuildingWithBus",
-      "FreeAreaBuilding",
-      "HeavyFactoryBuilding",
-      "HeavyFreeAreaBuilding",
-      "ResidenceBuilding",
-      "PublicServiceBuilding",
-      "CityInstitutionBuilding",
       "ItemEffectTargetPool",
       "Target",
       "IncidentResolverUnit",
@@ -48,32 +34,27 @@
       "Prop",
       "A7_QuestDestroyObjects",
       "TriggerQuest",
+      "FarmBuilding",
       "ResidenceBuilding7_Colony",
       "RecipeFarm",
       "Multifactory",
+      "FactoryBuilding7",
+      "FreeAreaBuilding",
       "DivingBellShip",
+      "PublicServiceBuilding",
       "FactoryBuilding7_BuildPermit",
       "FreeAreaRecipeBuilding",
+      "ResidenceBuilding",
+      "PublicServiceBuildingWithBus",
       "Shipyard",
-      "PowerplantBuilding"
+      "SlotFactoryBuilding7",
+      "PowerplantBuilding",
+      "FarmBuilding_Electrifiable",
+      "HeavyFactoryBuilding",
+      "HeavyFreeAreaBuilding"
     ],
     "paths": {
-      "/Values/Standard": [
-        "SlotFactoryBuilding7",
-        "WorkArea",
-        "FactoryBuilding7",
-        "FarmBuilding",
-        "Farmfield",
-        "Slot",
-        "OilPumpBuilding",
-        "PublicServiceBuildingWithBus",
-        "FreeAreaBuilding",
-        "HeavyFactoryBuilding",
-        "HeavyFreeAreaBuilding",
-        "ResidenceBuilding",
-        "PublicServiceBuilding",
-        "CityInstitutionBuilding"
-      ],
+      "/Values/Standard": [],
       "/Values/Projectile/Effectivities/Item": [
         "ItemEffectTargetPool"
       ],
@@ -145,17 +126,16 @@
       ],
       "/Values/ItemEffect/EffectTargets/Item": [
         "ItemEffectTargetPool",
+        "FarmBuilding",
         "ResidenceBuilding7_Colony",
         "RecipeFarm",
         "Multifactory",
-        "FarmBuilding",
         "FactoryBuilding7",
         "FreeAreaBuilding",
         "DivingBellShip",
         "PublicServiceBuilding",
         "FactoryBuilding7_BuildPermit",
         "FreeAreaRecipeBuilding",
-        "HeavyFactoryBuilding",
         "ResidenceBuilding",
         "PublicServiceBuildingWithBus",
         "Shipyard"
@@ -166,28 +146,9 @@
         "FarmBuilding",
         "PowerplantBuilding",
         "FreeAreaBuilding",
+        "FarmBuilding_Electrifiable",
         "HeavyFactoryBuilding",
         "HeavyFreeAreaBuilding"
-      ]
-    }
-  },
-  "TextOverride": {
-    "templates": [
-      "Product",
-      "EffectContainer",
-      "HarbourOfficeBuff",
-      "WarShip",
-      "ItemEffectTargetPool",
-      "FactoryBuilding7"
-    ],
-    "paths": {
-      "/Values/Text": [
-        "Product",
-        "EffectContainer",
-        "HarbourOfficeBuff",
-        "WarShip",
-        "ItemEffectTargetPool",
-        "FactoryBuilding7"
       ]
     }
   },
@@ -276,13 +237,13 @@
       "/Values/QuestBookScene/QuestBookCategories/DLC11Quest": [],
       "/Values/QuestBookScene/QuestBookCategories/Scenario3": [],
       "/Values/QuestBookScene/QuestBookCategories/Optional": [],
+      "/Values/QuestBookScene/QuestBookCategories/Scenario4": [],
       "/Values/SessionScene/SessionList/Item": [
         "SessionModerate",
         "SessionSouthAmerica",
         "SessionArctic"
       ],
       "/Values/SessionTradeRouteOverviewScene/GroupContextMenu/Entries/Item": [],
-      "/Values/SessionTradeRouteOverviewScene/RouteContextMenu/Entries/Item": [],
       "/Values/SessionTradeRoutesScene/FolderContextMenu/Entries/Item": [],
       "/Values/ObjectMenuGuildHouseScene/BonusLabelTexts/Item": [
         "EffectContainer"
@@ -349,6 +310,9 @@
       "/Values/GenericPopup/Popups/MoveWaterPumpConfirmation/Buttons/Item": [],
       "/Values/GenericPopup/Popups/ResetScenarioConfirmationElNino/Buttons/Item": [],
       "/Values/GenericPopup/Popups/ResetScenarioConfirmationPostman/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/ResetScenarioConfirmationExportMaster/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/OldSavegame/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/MultiDestruction/Buttons/Item": [],
       "/Values/GenericPopup/ErrorPopups/FirstPartyInviteFailed/Buttons/Item": [],
       "/Values/GenericPopup/ErrorPopups/APIDisconnected/Buttons/Item": [],
       "/Values/GenericPopup/ErrorPopups/GameVersionMismatch/Buttons/Item": [],
@@ -365,6 +329,9 @@
       "/Values/GenericPopup/ErrorPopups/StormGeneric/Buttons/Item": [],
       "/Values/GenericPopup/ErrorPopups/LeaveReasonGeneric/Buttons/Item": [],
       "/Values/GenericPopup/ErrorPopups/ConcurrentLoginDetected/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/FirstPartySignedOut/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/ConnectionLostInMPGame/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/FailedToJoinLobby/Buttons/Item": [],
       "/Values/NegotiationPopup/ButtonLists/Item/Buttons/Item": [],
       "/Values/SettingsMenu/Container/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionCombobox/Entries/Item": [],
       "/Values/Quest/QuestHints/Item": [],
@@ -475,10 +442,12 @@
       "/Values/ItemConfig/AllocationText/Dockland": [
         "DocklandMain"
       ],
+      "/Values/ItemConfig/AllocationText/AarhantShip": [],
       "/Values/ItemConfig/NotSockableText/WrongAllocation": [],
       "/Values/ItemConfig/NotSockableText/Duplicate": [],
       "/Values/ItemConfig/NotSockableText/Exclusive": [],
       "/Values/ItemConfig/NotSockableText/NoSpaceLeft": [],
+      "/Values/ItemWithUI/ItemActions/Values/ActionList/Actions/Item/Action/Values/ActionTriggerTextBook": [],
       "/Values/PopulationLevel7/MoodText/Angry": [],
       "/Values/PopulationLevel7/MoodText/Unhappy": [],
       "/Values/PopulationLevel7/MoodText/Neutral": [],
@@ -614,6 +583,7 @@
       "CollectablePicturePuzzle",
       "VisualQuestSessionObject",
       "LandSpy",
+      "BuffFactory",
       "Restaurant",
       "Mall",
       "AirShip",
@@ -624,6 +594,7 @@
       "ResidenceBuilding7_Colony",
       "HeavyFactoryBuilding",
       "ResidenceBuilding",
+      "PublicServiceBuildingWithMusicInfluencer",
       "PublicServiceBuilding",
       "QuestLighthouse",
       "TradeShip",
@@ -679,6 +650,7 @@
         "LandSpy"
       ],
       "/Values/Objectives/WinConditions/Item/Objective/Values/ObjectFilter": [
+        "BuffFactory",
         "Restaurant",
         "Mall"
       ],
@@ -707,6 +679,7 @@
         "ResidenceBuilding7_Colony",
         "HeavyFactoryBuilding",
         "ResidenceBuilding",
+        "PublicServiceBuildingWithMusicInfluencer",
         "PublicServiceBuilding"
       ],
       "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionAddGoodsToItemContainer/ItemContainerObjects/Values/ObjectFilter": [
@@ -844,7 +817,7 @@
         "ResidenceBuilding7_Colony",
         "WarShip",
         "QuestObjectInfectable",
-        "PublicServiceBuilding"
+        "PublicServiceBuildingWithMusicInfluencer"
       ],
       "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionAddGoodsToItemContainer/ItemContainerObjects/Values/ObjectFilter": [
         "WarShip",
@@ -863,13 +836,13 @@
         "TradeShip",
         "Collectable",
         "AirShip",
+        "VisualQuestSessionObject",
         "CampaignQuestObject",
         "DivingBellObject",
         "PublicServiceBuilding",
         "VisualObject",
         "LandSpy",
         "ResearchCenter",
-        "VisualQuestSessionObject",
         "A7_QuestEscortObject",
         "FactoryBuilding7"
       ],
@@ -899,6 +872,7 @@
         "HeavyFactoryBuilding",
         "ResidenceBuilding",
         "PublicServiceBuilding",
+        "PublicServiceBuildingWithMusicInfluencer",
         "Market"
       ],
       "/Values/ItemWithUI/ItemActions/Values/ActionList/Actions/Item/Action/Values/ActionReplaceItem/ItemContainerFilter/Values/ObjectFilter": [
@@ -928,6 +902,9 @@
       ],
       "/Values/Selection/OnSelection/Values/ActionList/Actions/Item/Action/Values/ObjectFilter": [
         "SessionModerate"
+      ],
+      "/Values/Objectives/WinConditions/Item/Objective/Values/ObjectFilter": [
+        "SessionSouthAmerica"
       ],
       "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ObjectFilter": [
         "SessionSouthAmerica"
@@ -1018,6 +995,7 @@
       "HarborLandingStage7_BuildPermit",
       "AssetPool",
       "HeavyFactoryBuilding",
+      "PublicServiceBuildingWithMusicInfluencer",
       "PublicServiceBuildingWithBus",
       "Warehouse",
       "Market",
@@ -1049,6 +1027,7 @@
         "HarborLandingStage7_BuildPermit",
         "AssetPool",
         "HeavyFactoryBuilding",
+        "PublicServiceBuildingWithMusicInfluencer",
         "PublicServiceBuildingWithBus",
         "Warehouse",
         "Market",
@@ -1221,6 +1200,7 @@
         "Market",
         "QuestObject",
         "PositionMarker",
+        "WarShip",
         "PublicServiceBuilding",
         "LandSpy",
         "VisualQuestSessionObject",
@@ -1252,6 +1232,7 @@
         "Market",
         "TradeShip",
         "WarShip",
+        "VisualQuestSessionObject",
         "PublicServiceBuilding",
         "PositionMarker",
         "QuestObject",
@@ -1264,6 +1245,9 @@
       ],
       "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/SpawnArea": [
         "PositionMarker"
+      ],
+      "/Values/ItemWithUI/ItemActions/Values/ActionList/Actions/Item/Action/Values/SpawnArea": [
+        "WarShip"
       ]
     }
   },
@@ -1321,6 +1305,7 @@
   },
   "ItemToBind": {
     "templates": [
+      "CultureItem",
       "QuestItem",
       "ItemWithUI",
       "GuildhouseItem"
@@ -1328,6 +1313,7 @@
     "paths": {
       "/Values/ActionBindItemToQuest": [],
       "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionBindItemToQuest": [
+        "CultureItem",
         "QuestItem",
         "ItemWithUI",
         "GuildhouseItem"
@@ -1448,7 +1434,8 @@
       "A7_QuestDestroyObjects",
       "A7_QuestPickupObject",
       "A7_QuestEscortObject",
-      "A7_QuestDeliveryObject"
+      "A7_QuestDeliveryObject",
+      "A7_QuestStatusQuo"
     ],
     "paths": {
       "/Values/ActionEnableQuest": [],
@@ -1457,6 +1444,9 @@
         "A7_QuestPickupObject",
         "A7_QuestEscortObject",
         "A7_QuestDeliveryObject"
+      ],
+      "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionEnableQuest": [
+        "A7_QuestStatusQuo"
       ]
     }
   },
@@ -1508,6 +1498,7 @@
       "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [
         "Quest",
         "A7_QuestDeliveryObject",
+        "A7_QuestStatusQuo",
         "A7_QuestSelectObject"
       ],
       "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
@@ -1542,7 +1533,8 @@
         "Quest"
       ],
       "/Values/Quest/OnQuestActive/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [
-        "Quest"
+        "Quest",
+        "A7_QuestStatusQuo"
       ],
       "/Values/Quest/OnQuestActive/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
         "A7_QuestSelectObject",
@@ -1589,8 +1581,8 @@
         "A7_QuestPickupObject"
       ],
       "/Values/Quest/OnQuestFailed/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [
-        "A7_QuestSelectObject",
         "A7_QuestStatusQuo",
+        "A7_QuestSelectObject",
         "Quest",
         "A7_QuestDestroyObjects"
       ],
@@ -1663,14 +1655,6 @@
         "A7_QuestPhotography",
         "A7_QuestDeliveryObject"
       ],
-      "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [
-        "A7_QuestDeliveryObject",
-        "A7_QuestDestroyObjects",
-        "Quest",
-        "A7_QuestSelectObject",
-        "MainQuest",
-        "A7_QuestExpedition"
-      ],
       "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
         "A7_QuestPhotography",
         "Quest",
@@ -1680,6 +1664,7 @@
         "A7_QuestPickupObject"
       ],
       "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [
+        "A7_QuestStatusQuo",
         "Quest"
       ],
       "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
@@ -1692,16 +1677,21 @@
         "A7_QuestDecision",
         "Quest",
         "A7_QuestLostCargo",
+        "A7_QuestStatusQuo",
         "A7_QuestAirdrop",
         "A7_QuestSmuggler",
         "A7_QuestDeliveryObject",
         "QuestLine",
         "A7_QuestPicturePuzzleObject",
-        "A7_QuestStatusQuo",
         "A7_QuestSmugglerWOScanners"
       ],
       "/Values/ItemWithUI/ItemActions/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
-        "A7_QuestDeliveryObject"
+        "A7_QuestDeliveryObject",
+        "A7_QuestSelectObject"
+      ],
+      "/Values/ItemWithUI/ItemActions/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [
+        "A7_QuestStatusQuo",
+        "A7_QuestLostCargo"
       ]
     }
   },
@@ -1833,6 +1823,9 @@
       ],
       "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionPlayMovie": [
         "Video"
+      ],
+      "/Values/ItemWithUI/ItemActions/Values/ActionList/Actions/Item/Action/Values/ActionPlayMovie": [
+        "Video"
       ]
     }
   },
@@ -1869,7 +1862,8 @@
       "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionPlaySound": [],
       "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionPlaySound": [],
       "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionPlaySound": [],
-      "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionPlaySound": []
+      "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionPlaySound": [],
+      "/Values/ItemWithUI/ItemActions/Values/ActionList/Actions/Item/Action/Values/ActionPlaySound": []
     }
   },
   "Article": {
@@ -1944,10 +1938,6 @@
     ],
     "paths": {
       "/Values/ActionRegisterTrigger": [],
-      "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionRegisterTrigger": [
-        "TriggerQuest",
-        "TriggerCampaign"
-      ],
       "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionRegisterTrigger": [
         "TriggerQuest"
       ],
@@ -1979,8 +1969,8 @@
         "TriggerQuest"
       ],
       "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionRegisterTrigger": [
-        "TriggerQuest",
         "Trigger",
+        "TriggerQuest",
         "FeatureUnlock"
       ],
       "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionRegisterTrigger": [
@@ -2103,11 +2093,11 @@
       "VisualQuestObject",
       "TradeShip",
       "WarAirShip",
+      "VisualQuestSessionObject",
       "DivingBellObject",
       "VisualObject",
       "LandSpy",
       "QuestObjectFeedback",
-      "VisualQuestSessionObject",
       "CampaignQuestObject",
       "DivingBellShip",
       "FeedbackVehicle"
@@ -2130,12 +2120,12 @@
         "VisualQuestObject",
         "TradeShip",
         "WarAirShip",
+        "VisualQuestSessionObject",
         "DivingBellObject",
         "Collectable",
         "VisualObject",
         "LandSpy",
-        "QuestObjectFeedback",
-        "VisualQuestSessionObject"
+        "QuestObjectFeedback"
       ],
       "/Values/Quest/OnQuestActive/Values/ActionList/Actions/Item/Action/Values/ActionSpawnObjects": [
         "TradeShip",
@@ -2178,6 +2168,9 @@
       ],
       "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionSpawnObjects": [
         "TradeShip"
+      ],
+      "/Values/ItemWithUI/ItemActions/Values/ActionList/Actions/Item/Action/Values/ActionSpawnObjects": [
+        "WarShip"
       ]
     }
   },
@@ -2335,14 +2328,16 @@
     "templates": [],
     "paths": {
       "/Values/OptionAudioSlider": [],
-      "/Values/SettingsMenu/Container/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionAudioSlider": []
+      "/Values/SettingsMenu/Container/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionAudioSlider": [],
+      "/Values/SettingsMenu/AlternativeContainer/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionAudioSlider": []
     }
   },
   "AudioSliderInfotip": {
     "templates": [],
     "paths": {
       "/Values/OptionAudioSlider": [],
-      "/Values/SettingsMenu/Container/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionAudioSlider": []
+      "/Values/SettingsMenu/Container/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionAudioSlider": [],
+      "/Values/SettingsMenu/AlternativeContainer/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionAudioSlider": []
     }
   },
   "ComboboxHeadline": {
@@ -2361,14 +2356,16 @@
     "templates": [],
     "paths": {
       "/Values/OptionSlider": [],
-      "/Values/SettingsMenu/Container/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionSlider": []
+      "/Values/SettingsMenu/Container/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionSlider": [],
+      "/Values/SettingsMenu/AlternativeContainer/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionSlider": []
     }
   },
   "SliderInfotip": {
     "templates": [],
     "paths": {
       "/Values/OptionSlider": [],
-      "/Values/SettingsMenu/Container/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionSlider": []
+      "/Values/SettingsMenu/Container/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionSlider": [],
+      "/Values/SettingsMenu/AlternativeContainer/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionSlider": []
     }
   },
   "ToggleHeadline": {
@@ -2400,6 +2397,7 @@
       "FactoryBuilding7",
       "ResidenceBuilding",
       "PublicServiceBuilding",
+      "PublicServiceBuildingWithMusicInfluencer",
       "CultureBuilding",
       "Shipyard",
       "HarborWarehouse7",
@@ -2427,6 +2425,7 @@
         "FactoryBuilding7",
         "ResidenceBuilding",
         "PublicServiceBuilding",
+        "PublicServiceBuildingWithMusicInfluencer",
         "CultureBuilding",
         "Shipyard",
         "HarborWarehouse7"
@@ -2466,15 +2465,18 @@
   },
   "Asset": {
     "templates": [
-      "FactoryBuilding7",
+      "ResidenceBuilding-Unique",
+      "Monument_with_Shipyard",
+      "PowerplantBuilding",
+      "MonumentColony",
       "HarborWarehouse7",
       "CultureModule",
       "OrnamentalBuilding",
       "OrnamentalModule",
       "Product",
+      "TowerRestaurant",
       "ItemSpecialAction",
       "ProductionChain",
-      "FreeAreaBuilding",
       "Warehouse",
       "Market",
       "Monument",
@@ -2482,6 +2484,7 @@
       "Icon",
       "NewspaperEffectIcon",
       "TradeShip",
+      "FactoryBuilding7",
       "CityInstitutionBuilding",
       "CityInstitutionBuilding_Africa",
       "FeedbackUnitClass",
@@ -2498,10 +2501,12 @@
       "ResidenceBuilding7_Colony",
       "CampaignQuestObject",
       "PlayerCounterContextPool",
+      "FreeAreaBuilding",
       "HeavyFactoryBuilding",
       "HeavyFreeAreaBuilding",
       "PublicServiceBuilding",
       "PopulationLevel7",
+      "CultureItem",
       "Skin",
       "UnlockableAsset",
       "A7_QuestExpedition",
@@ -2527,15 +2532,18 @@
     ],
     "paths": {
       "/Values/AssetPool/AssetList/Item": [
-        "FactoryBuilding7",
+        "ResidenceBuilding-Unique",
+        "Monument_with_Shipyard",
+        "PowerplantBuilding",
+        "MonumentColony",
         "HarborWarehouse7",
         "CultureModule",
         "OrnamentalBuilding",
         "OrnamentalModule",
         "Product",
+        "TowerRestaurant",
         "ItemSpecialAction",
         "ProductionChain",
-        "FreeAreaBuilding",
         "Warehouse",
         "Market",
         "Monument",
@@ -2592,6 +2600,7 @@
         "Product"
       ],
       "/Values/PlayerCounterContextPool/Contexts/Item": [
+        "HarborBuildingAttacker",
         "SlotFactoryBuilding7",
         "WarShip",
         "TradeShip",
@@ -2600,7 +2609,6 @@
         "FarmBuilding",
         "ResidenceBuilding7_Colony",
         "CampaignQuestObject",
-        "HarborBuildingAttacker",
         "Product",
         "PlayerCounterContextPool",
         "FreeAreaBuilding",
@@ -2613,6 +2621,7 @@
         "PopulationLevel7"
       ],
       "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionUnlockAsset/UnlockAssets/Item": [
+        "CultureItem",
         "Monument",
         "Skin",
         "FeatureUnlock",
@@ -2631,6 +2640,9 @@
         "FeatureUnlock"
       ],
       "/Values/Quest/OnQuestAborted/Values/ActionList/Actions/Item/Action/Values/ActionLockAsset/LockAssets/Item": [
+        "UnlockableAsset"
+      ],
+      "/Values/Quest/OnQuestFailed/Values/ActionList/Actions/Item/Action/Values/ActionLockAsset/LockAssets/Item": [
         "UnlockableAsset"
       ],
       "/Values/Quest/OnQuestDiscarded/Values/ActionList/Actions/Item/Action/Values/ActionUnlockAsset/UnlockAssets/Item": [
@@ -2681,6 +2693,10 @@
         "TestData_Simple",
         "Inhabitant"
       ],
+      "/Values/ItemWithUI/ItemActions/Values/ActionList/Actions/Item/Action/Values/ActionUnlockAsset/UnlockAssets/Item": [
+        "Skin",
+        "FeatureUnlock"
+      ],
       "/Values/Test345/VectorI/Item": [
         "ResidenceBuilding"
       ]
@@ -2729,6 +2745,7 @@
       "/Values/Objectives/WinConditions/Item/VectorElement": [],
       "/Values/Quest/ReputationQuestFail/ReputationFailList/Item/VectorElement": [],
       "/Values/Reward/RewardReputation/Item/VectorElement": [],
+      "/Values/Session/TransferData/Item/VectorElement": [],
       "/Values/ConstructionAI/MonumentConfiguration/Item/VectorElement": [],
       "/Values/Diplomacy/RepeatableActionBalancing/Actions/Flatter/Subdivisions/Item/VectorElement": [],
       "/Values/Diplomacy/RepeatableActionBalancing/Actions/Gift/Subdivisions/Item/VectorElement": [],
@@ -2945,12 +2962,18 @@
       "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/AudioNotification": [
         "Portrait"
       ],
+      "/Values/Quest/OnQuestActive/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/AudioNotification": [
+        "Portrait"
+      ],
       "/Values/Quest/OnQuestAborted/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/AudioNotification": [],
       "/Values/Quest/OnQuestFailed/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/AudioNotification": [],
       "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/AudioNotification": [
         "Portrait"
       ],
       "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/AudioNotification": [
+        "Portrait"
+      ],
+      "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/AudioNotification": [
         "Portrait"
       ]
     }
@@ -3339,12 +3362,50 @@
     }
   },
   "DefaultSkinName": {
+    "templates": [
+      "WarShip",
+      "WarAirShip",
+      "BuffFactory",
+      "Guildhouse",
+      "TradeShip",
+      "HarborOffice",
+      "ResidenceBuilding7_Colony",
+      "PublicServiceBuilding",
+      "PublicServiceBuildingWithBus",
+      "TradeShipPermit",
+      "CultureModule",
+      "ResidenceBuilding",
+      "PublicServiceBuildingWithMusicInfluencer",
+      "Market",
+      "CityInstitutionBuilding"
+    ],
+    "paths": {
+      "/Values/Object/Skins": [
+        "WarShip",
+        "WarAirShip",
+        "BuffFactory",
+        "Guildhouse",
+        "TradeShip",
+        "HarborOffice",
+        "ResidenceBuilding7_Colony",
+        "PublicServiceBuilding",
+        "PublicServiceBuildingWithBus",
+        "TradeShipPermit",
+        "CultureModule",
+        "ResidenceBuilding",
+        "PublicServiceBuildingWithMusicInfluencer",
+        "Market",
+        "CityInstitutionBuilding"
+      ]
+    }
+  },
+  "DefaultSkinDescription": {
     "templates": [],
     "paths": {
       "/Values/Object/Skins": []
     }
   },
-  "DefaultSkinDescription": {
+  "DefaultSkinCategoryName": {
     "templates": [],
     "paths": {
       "/Values/Object/Skins": []
@@ -3393,20 +3454,22 @@
       ]
     }
   },
-  "SpawnImpactObject": {
-    "templates": [
-      "Seamine"
-    ],
-    "paths": {
-      "/Values/Projectile": [
-        "Seamine"
-      ]
-    }
-  },
   "StatusEffectChainDescription": {
     "templates": [],
     "paths": {
       "/Values/Projectile": []
+    }
+  },
+  "SpawnImpactObject": {
+    "templates": [
+      "Seamine",
+      "VisualQuestSessionObject"
+    ],
+    "paths": {
+      "/Values/Projectile": [
+        "Seamine",
+        "VisualQuestSessionObject"
+      ]
     }
   },
   "CausedIncidentBuff": {
@@ -3456,6 +3519,26 @@
       ]
     }
   },
+  "OrDLC": {
+    "templates": [
+      "UplayProduct"
+    ],
+    "paths": {
+      "/Values/RandomMapObject/DLCSlotReplacements/Item": [
+        "UplayProduct"
+      ]
+    }
+  },
+  "Replacement": {
+    "templates": [
+      "Slot"
+    ],
+    "paths": {
+      "/Values/RandomMapObject/DLCSlotReplacements/Item": [
+        "Slot"
+      ]
+    }
+  },
   "FiniteResourceVariationThreshold": {
     "templates": [],
     "paths": {
@@ -3464,25 +3547,15 @@
   },
   "NotificationPriority": {
     "templates": [
-      "OrnamentalBuilding",
-      "Skin",
       "A7_QuestDecision",
-      "Target",
+      "Skin",
       "Inhabitant",
       "TrafficFeedbackUnit"
     ],
     "paths": {
       "/Values/Selection/OnSelection/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/BaseNotification": [],
-      "/Values/Quest/SuccessMessage/Notification/Values/BaseNotification": [
-        "OrnamentalBuilding",
-        "Skin"
-      ],
       "/Values/Quest/InvitationMessage/Notification/Values/BaseNotification": [
         "A7_QuestDecision"
-      ],
-      "/Values/Quest/ResolveConfirmationMessage/Notification/Values/BaseNotification": [
-        "A7_QuestDecision",
-        "Target"
       ],
       "/Values/Quest/StartInvitationGiveItemMessage/Notification/Values/BaseNotification": [
         "Skin"
@@ -3575,6 +3648,16 @@
       ]
     }
   },
+  "UnlockSecondGUI": {
+    "templates": [
+      "PowerplantBuilding"
+    ],
+    "paths": {
+      "/Values/Selection": [
+        "PowerplantBuilding"
+      ]
+    }
+  },
   "SellInfolayerIcon": {
     "templates": [
       "InfoLayerIcon"
@@ -3588,13 +3671,22 @@
   "SkinName": {
     "templates": [],
     "paths": {
-      "/Values/Skin": []
+      "/Values/Skin": [],
+      "/Values/SkinDescriptionFeature/FakeSkinsThatAreFeedbackUnits/Item": []
     }
   },
   "SkinDescription": {
     "templates": [],
     "paths": {
-      "/Values/Skin": []
+      "/Values/Skin": [],
+      "/Values/SkinDescriptionFeature/FakeSkinsThatAreFeedbackUnits/Item": []
+    }
+  },
+  "SkinCategoryDescription": {
+    "templates": [],
+    "paths": {
+      "/Values/Skin": [],
+      "/Values/SkinDescriptionFeature/FakeSkinsThatAreFeedbackUnits/Item": []
     }
   },
   "BridgeAsset": {
@@ -3623,6 +3715,16 @@
     "templates": [],
     "paths": {
       "/Values/Tree": []
+    }
+  },
+  "Skin": {
+    "templates": [
+      "Skin"
+    ],
+    "paths": {
+      "/Values/MusicInfluencer/RelevantSkinGUIDs/Item": [
+        "Skin"
+      ]
     }
   },
   "GroundDecalAsset": {
@@ -3678,6 +3780,7 @@
       "Monument",
       "Street",
       "Monument_with_Shipyard",
+      "MonumentColony",
       "CultureModule",
       "HarborLandingStage7",
       "HarborWarehouseStrategic",
@@ -3694,6 +3797,7 @@
         "Monument",
         "Street",
         "Monument_with_Shipyard",
+        "MonumentColony",
         "CultureModule",
         "HarborLandingStage7",
         "HarborWarehouseStrategic",
@@ -3729,8 +3833,8 @@
       "ResidenceBuilding-Unique",
       "Monument_with_Shipyard",
       "Multifactory",
-      "Hacienda",
       "ResidenceBuilding7_Colony",
+      "Hacienda",
       "SlotFactoryBuilding7",
       "FactoryBuilding7",
       "FarmBuilding",
@@ -3750,11 +3854,13 @@
       "VisitorPierColony",
       "HarborOrnament",
       "RecipeFarm",
+      "BuffFactory",
       "IrrigationPropagationSource",
       "PowerplantBuilding",
       "PublicServiceBuilding",
       "CityInstitutionBuilding",
       "Guildhouse",
+      "PublicServiceBuildingWithMusicInfluencer",
       "PublicServiceBuildingWithBus",
       "Monument",
       "ConstructionCategory",
@@ -3765,6 +3871,7 @@
       "Warehouse",
       "Market",
       "FactoryBuilding7_BuildPermit",
+      "FarmBuilding_Electrifiable",
       "BuffFactoryModule",
       "HarborWarehouseStrategic",
       "HarborDepot",
@@ -3793,8 +3900,8 @@
         "ResidenceBuilding-Unique",
         "Monument_with_Shipyard",
         "Multifactory",
-        "Hacienda",
         "ResidenceBuilding7_Colony",
+        "Hacienda",
         "SlotFactoryBuilding7",
         "FactoryBuilding7",
         "FarmBuilding",
@@ -3822,15 +3929,18 @@
         "FactoryBuilding7_Arctic"
       ],
       "/Values/FeedbackSessionDescription/WoodcutterConfig/WoodcutterBuildings/Item": [
+        "HeavyFreeAreaBuilding",
         "FreeAreaBuilding",
         "FreeAreaBuilding_Arctic",
         "HeavyFreeAreaBuilding_Arctic",
-        "FreeAreaRecipeBuilding",
-        "HeavyFreeAreaBuilding"
+        "FreeAreaRecipeBuilding"
       ],
       "/Values/FeedbackSessionDescription/FarmFieldConfig/FarmFieldBuildings/Item": [
-        "RecipeFarm",
-        "FarmBuilding"
+        "FarmBuilding",
+        "RecipeFarm"
+      ],
+      "/Values/FeedbackSessionDescription/BeachConfig/BeachBuildings/Item": [
+        "BuffFactory"
       ],
       "/Values/RiverSlotFeature/RiverslotBuildings/Item": [
         "IrrigationPropagationSource",
@@ -3846,6 +3956,7 @@
         "SlotFactoryBuilding7",
         "FarmBuilding",
         "FreeAreaBuilding",
+        "PublicServiceBuildingWithMusicInfluencer",
         "PublicServiceBuildingWithBus",
         "Monument"
       ],
@@ -3854,8 +3965,10 @@
         "ResidenceBuilding"
       ],
       "/Values/ConstructionCategory/BuildingList/Item": [
+        "Monument",
         "ConstructionCategory",
         "Monument_with_Shipyard",
+        "Multifactory",
         "Guildhouse",
         "CultureBuilding",
         "ProductionChain",
@@ -3864,30 +3977,33 @@
         "FactoryBuilding7",
         "ResidenceBuilding",
         "PublicServiceBuilding",
+        "PublicServiceBuildingWithMusicInfluencer",
         "PublicServiceBuildingWithBus",
         "Warehouse",
         "Market",
-        "CityInstitutionBuilding",
-        "Monument"
+        "CityInstitutionBuilding"
       ],
       "/Values/ProductionChain": [
         "FactoryBuilding7",
         "SlotFactoryBuilding7",
+        "BuffFactory",
+        "HeavyFactoryBuilding",
         "FarmBuilding",
         "Multifactory",
         "PowerplantBuilding",
         "FactoryBuilding7_Arctic",
         "Street",
         "Heater_Arctic",
-        "FactoryBuilding7_BuildPermit",
-        "HeavyFactoryBuilding"
+        "FactoryBuilding7_BuildPermit"
       ],
       "/Values/ProductionChain/Tier1/Item": [
+        "FactoryBuilding7",
         "SlotFactoryBuilding7",
         "HeavyFreeAreaBuilding",
-        "FactoryBuilding7",
-        "Monument",
+        "FarmBuilding_Electrifiable",
         "FarmBuilding",
+        "HeavyFactoryBuilding",
+        "Monument",
         "BuffFactoryModule",
         "RecipeFarm",
         "HarborWarehouseStrategic",
@@ -3898,35 +4014,36 @@
         "IrrigationPropagationSource",
         "HeavyFreeAreaBuilding_Arctic",
         "FreeAreaRecipeBuilding",
-        "Multifactory",
-        "HeavyFactoryBuilding"
+        "Multifactory"
       ],
       "/Values/ProductionChain/Tier1/Item/Tier2/Item": [
-        "FactoryBuilding7",
-        "FarmBuilding",
+        "SlotFactoryBuilding7",
         "HeavyFreeAreaBuilding",
+        "PowerplantBuilding",
+        "FarmBuilding_Electrifiable",
+        "Multifactory",
+        "FarmBuilding",
+        "HeavyFactoryBuilding",
+        "FactoryBuilding7",
         "BuffFactoryModule",
         "HarborDepot",
         "FreeAreaBuilding",
-        "SlotFactoryBuilding7",
         "FactoryBuilding7_Arctic",
         "FreeAreaBuilding_Arctic",
         "Street",
-        "FreeAreaRecipeBuilding",
-        "Multifactory",
-        "HeavyFactoryBuilding"
+        "FreeAreaRecipeBuilding"
       ],
       "/Values/ProductionChain/Tier1/Item/Tier2/Item/Tier3/Item": [
         "HeavyFreeAreaBuilding",
+        "SlotFactoryBuilding7",
+        "PowerplantBuilding",
         "BuffFactoryModule",
         "FreeAreaBuilding",
         "FarmBuilding",
+        "FarmBuilding_Electrifiable",
         "FactoryBuilding7",
-        "SlotFactoryBuilding7"
-      ],
-      "/Values/ProductionChain/SupportBuildings/Item": [
-        "Street",
-        "Warehouse"
+        "FreeAreaRecipeBuilding",
+        "Multifactory"
       ],
       "/Values/ObjectmenuCommuterHarbourScene/BuildingSpecificData/Item": [
         "AirshipPlatformModuleWorkforceTransfer",
@@ -3967,6 +4084,12 @@
       "/Values/Region/SlotBuildings/SAGas": [
         "SlotFactoryBuilding7"
       ],
+      "/Values/Region/SlotBuildings/DLC12Ore1": [
+        "SlotFactoryBuilding7"
+      ],
+      "/Values/Region/SlotBuildings/DLC12Ore2": [
+        "SlotFactoryBuilding7"
+      ],
       "/Values/ConstructionAI/EconomyRules/LimitBuildingsPerIsland/Item": [
         "HeavyFreeAreaBuilding_Arctic"
       ],
@@ -4000,6 +4123,9 @@
       "/Values/GlobalConstructionAIBalancing/BuildingRotationOffset/Item": [
         "CultureBuildingColony",
         "CultureBuilding"
+      ],
+      "/Values/ResidenceUpgradeFeature/BuildingsExcludedFromDefaultVariationRule/Item": [
+        "ResidenceBuilding"
       ]
     }
   },
@@ -4007,6 +4133,18 @@
     "templates": [],
     "paths": {
       "/Values/Building": []
+    }
+  },
+  "OwnerChangeTarget": {
+    "templates": [
+      "MonumentColony",
+      "PowerplantBuilding"
+    ],
+    "paths": {
+      "/Values/Building": [
+        "MonumentColony",
+        "PowerplantBuilding"
+      ]
     }
   },
   "BusNeed": {
@@ -4195,14 +4333,15 @@
       "AirshipPlatformModuleItemTransfer",
       "AirshipPlatformPostModule",
       "AirshipPlatformModuleWorkforceTransfer",
+      "Farmfield",
+      "ResidenceBuilding7_Colony",
+      "FactoryModuleElectric",
       "AdditionalModule",
       "HarborDepot",
-      "ResidenceBuilding7_Colony",
       "RecipeFarm",
       "Multifactory",
       "BuffFactoryCulture",
       "BuffFactoryModule",
-      "Farmfield",
       "CultureModule",
       "OilPumpBuilding",
       "OrnamentalModule",
@@ -4219,14 +4358,15 @@
         "AirshipPlatformModuleItemTransfer",
         "AirshipPlatformPostModule",
         "AirshipPlatformModuleWorkforceTransfer",
+        "Farmfield",
+        "ResidenceBuilding7_Colony",
+        "FactoryModuleElectric",
         "AdditionalModule",
         "HarborDepot",
-        "ResidenceBuilding7_Colony",
         "RecipeFarm",
         "Multifactory",
         "BuffFactoryCulture",
         "BuffFactoryModule",
-        "Farmfield",
         "CultureModule",
         "OilPumpBuilding",
         "OrnamentalModule",
@@ -4292,12 +4432,16 @@
     "templates": [
       "AirshipPlatform",
       "Hacienda",
+      "CultureBuildingColony",
+      "CultureBuilding",
       "Icon"
     ],
     "paths": {
       "/Values/ModuleOwner/BlueprintModuleOption": [
         "AirshipPlatform",
         "Hacienda",
+        "CultureBuildingColony",
+        "CultureBuilding",
         "Icon"
       ]
     }
@@ -4307,6 +4451,8 @@
       "Monument",
       "ResidenceBuilding-Unique",
       "Monument_with_Shipyard",
+      "MonumentColony",
+      "PowerplantBuilding",
       "IrrigationPropagationSourceNoSlot",
       "ResearchCenter",
       "TowerRestaurant",
@@ -4317,6 +4463,8 @@
         "Monument",
         "ResidenceBuilding-Unique",
         "Monument_with_Shipyard",
+        "MonumentColony",
+        "PowerplantBuilding",
         "IrrigationPropagationSourceNoSlot",
         "ResearchCenter",
         "TowerRestaurant",
@@ -4402,6 +4550,7 @@
     "templates": [
       "ResidenceBuilding-Unique",
       "Monument_with_Shipyard",
+      "MonumentColony",
       "Monument",
       "ResearchCenter",
       "TowerRestaurant"
@@ -4410,6 +4559,7 @@
       "/Values/Monument": [
         "ResidenceBuilding-Unique",
         "Monument_with_Shipyard",
+        "MonumentColony",
         "Monument",
         "ResearchCenter",
         "TowerRestaurant"
@@ -4439,6 +4589,68 @@
     "paths": {
       "/Values/Monument": [
         "Notification"
+      ]
+    }
+  },
+  "MissingElectricityDescription": {
+    "templates": [
+      "InfoLayerIcon"
+    ],
+    "paths": {
+      "/Values/Monument/EventUITexts": [
+        "InfoLayerIcon"
+      ]
+    }
+  },
+  "SelectEventTheme": {
+    "templates": [],
+    "paths": {
+      "/Values/Monument/EventUITexts": []
+    }
+  },
+  "SelectEventSize": {
+    "templates": [],
+    "paths": {
+      "/Values/Monument/EventUITexts": []
+    }
+  },
+  "PreparationAttractivenessHeader": {
+    "templates": [],
+    "paths": {
+      "/Values/Monument/EventUITexts": []
+    }
+  },
+  "RewardHeader": {
+    "templates": [],
+    "paths": {
+      "/Values/Monument/EventUITexts": []
+    }
+  },
+  "EventConclusionText": {
+    "templates": [],
+    "paths": {
+      "/Values/Monument/EventUITexts": []
+    }
+  },
+  "CooldownText": {
+    "templates": [],
+    "paths": {
+      "/Values/Monument/EventUITexts": []
+    }
+  },
+  "AccessEventText": {
+    "templates": [],
+    "paths": {
+      "/Values/Monument": []
+    }
+  },
+  "VariationSoundSwitch": {
+    "templates": [
+      "SwitchChoice"
+    ],
+    "paths": {
+      "/Values/Monument/RandomIdleVariations/Item": [
+        "SwitchChoice"
       ]
     }
   },
@@ -4530,9 +4742,10 @@
   },
   "NextGUID": {
     "templates": [
+      "ResidenceBuilding7_Colony",
+      "CityInstitutionBuildingAdvanced",
       "HarborWarehouse7",
       "Warehouse",
-      "ResidenceBuilding7_Colony",
       "HarborWarehouseStrategic",
       "ResidenceBuilding7_Arctic",
       "HarborLandingStage7_BuildPermit",
@@ -4541,15 +4754,22 @@
     ],
     "paths": {
       "/Values/Upgradable": [
+        "ResidenceBuilding7_Colony",
+        "CityInstitutionBuildingAdvanced",
         "HarborWarehouse7",
         "Warehouse",
-        "ResidenceBuilding7_Colony",
         "HarborWarehouseStrategic",
         "ResidenceBuilding7_Arctic",
         "HarborLandingStage7_BuildPermit",
         "VisitorPier",
         "ResidenceBuilding"
       ]
+    }
+  },
+  "OwnerChangeGUID": {
+    "templates": [],
+    "paths": {
+      "/Values/Upgradable": []
     }
   },
   "Animal_AudioLoop": {
@@ -5094,6 +5314,9 @@
       ],
       "/Values/DifficultySettings/Presets/Scenario03": [
         "DifficultySetup"
+      ],
+      "/Values/DifficultySettings/Presets/Scenario04": [
+        "DifficultySetup"
       ]
     }
   },
@@ -5315,6 +5538,12 @@
     }
   },
   "GroundDecalVariation": {
+    "templates": [],
+    "paths": {
+      "/Values/GlobalConfig/RenderConditionIDs": []
+    }
+  },
+  "Electricity": {
     "templates": [],
     "paths": {
       "/Values/GlobalConfig/RenderConditionIDs": []
@@ -5668,6 +5897,28 @@
       "/Values/GlobalConfig/SequenceIDs": []
     }
   },
+  "pray01": {
+    "templates": [
+      "OrnamentalBuilding"
+    ],
+    "paths": {
+      "/Values/GlobalConfig/SequenceIDs": [
+        "OrnamentalBuilding"
+      ]
+    }
+  },
+  "protestwalk01": {
+    "templates": [],
+    "paths": {
+      "/Values/GlobalConfig/SequenceIDs": []
+    }
+  },
+  "protestwalk02": {
+    "templates": [],
+    "paths": {
+      "/Values/GlobalConfig/SequenceIDs": []
+    }
+  },
   "protest05": {
     "templates": [
       "WarAirShip"
@@ -5714,7 +5965,35 @@
       "/Values/GlobalConfig/SequenceIDs": []
     }
   },
+  "takeoff01": {
+    "templates": [
+      "Product"
+    ],
+    "paths": {
+      "/Values/GlobalConfig/SequenceIDs": [
+        "Product"
+      ]
+    }
+  },
   "boosted": {
+    "templates": [],
+    "paths": {
+      "/Values/GlobalConfig/SequenceIDs": []
+    }
+  },
+  "sitdown01": {
+    "templates": [],
+    "paths": {
+      "/Values/GlobalConfig/SequenceIDs": []
+    }
+  },
+  "sitdown02": {
+    "templates": [],
+    "paths": {
+      "/Values/GlobalConfig/SequenceIDs": []
+    }
+  },
+  "sitdown03": {
     "templates": [],
     "paths": {
       "/Values/GlobalConfig/SequenceIDs": []
@@ -5762,6 +6041,12 @@
       "/Values/GlobalConfig/SequenceIDs": []
     }
   },
+  "work13": {
+    "templates": [],
+    "paths": {
+      "/Values/GlobalConfig/SequenceIDs": []
+    }
+  },
   "work14": {
     "templates": [],
     "paths": {
@@ -5787,6 +6072,12 @@
     }
   },
   "work18": {
+    "templates": [],
+    "paths": {
+      "/Values/GlobalConfig/SequenceIDs": []
+    }
+  },
+  "work19": {
     "templates": [],
     "paths": {
       "/Values/GlobalConfig/SequenceIDs": []
@@ -5874,6 +6165,7 @@
       "Street",
       "ResidenceBuilding",
       "Warehouse",
+      "Market",
       "ResidenceBuilding7_Colony",
       "ResidenceBuilding7_Arctic"
     ],
@@ -5882,10 +6174,12 @@
         "FarmBuilding",
         "Street",
         "ResidenceBuilding",
-        "Warehouse"
+        "Warehouse",
+        "Market"
       ],
       "/Values/GlobalConfig/GUIDRegionReplacements/Item/GUIDGroup/Colony01": [
         "ResidenceBuilding7_Colony",
+        "Market",
         "Street",
         "Warehouse",
         "FarmBuilding"
@@ -5893,11 +6187,13 @@
       "/Values/GlobalConfig/GUIDRegionReplacements/Item/GUIDGroup/Arctic": [
         "ResidenceBuilding7_Arctic",
         "Street",
-        "Warehouse"
+        "Warehouse",
+        "Market"
       ],
       "/Values/GlobalConfig/GUIDRegionReplacements/Item/GUIDGroup/Africa": [
         "ResidenceBuilding7_Colony",
         "Warehouse",
+        "Market",
         "Street"
       ]
     }
@@ -5932,13 +6228,17 @@
   },
   "GUIDToUnlock": {
     "templates": [
+      "Skin",
+      "OrnamentalBuilding",
       "Portrait",
-      "Skin"
+      "PlayerLogo"
     ],
     "paths": {
       "/Values/GlobalConfig/UnlockAssetsOnAccountLoaded/Item": [
+        "Skin",
+        "OrnamentalBuilding",
         "Portrait",
-        "Skin"
+        "PlayerLogo"
       ]
     }
   },
@@ -6087,6 +6387,8 @@
   "Icon": {
     "templates": [
       "Icon",
+      "Product",
+      "ItemEffectTargetPool",
       "InfoLayerIcon",
       "SessionSouthAmerica",
       "SessionModerate",
@@ -6113,6 +6415,10 @@
       ],
       "/Values/DayNightFeature/FixTimes/Night": [
         "Icon"
+      ],
+      "/Values/Season/TradeEffects/Item": [
+        "Product",
+        "ItemEffectTargetPool"
       ],
       "/Values/InfolayerConfig/InfoLayerPriority/Item": [
         "InfoLayerIcon"
@@ -6334,6 +6640,12 @@
       "/Values/SessionTradeRoutesScene/ShipErrors/Unspecified": [
         "Icon"
       ],
+      "/Values/SessionTradeRoutesScene/ShipErrors/NotEnoughSlots": [
+        "Icon"
+      ],
+      "/Values/SessionTradeRoutesScene/ShipErrors/MismatchingGood": [
+        "Icon"
+      ],
       "/Values/StatisticMenu/BuildingStatus/Ruin": [
         "Icon"
       ],
@@ -6411,24 +6723,12 @@
       "/Values/ObjectmenuResidenceScene/HappinessConfig/Euphoric": [
         "Icon"
       ],
-      "/Values/ShipListConfig/ShipCategories/All": [
-        "Icon"
-      ],
-      "/Values/ShipListConfig/ShipCategories/Idle": [
-        "Icon"
-      ],
-      "/Values/ShipListConfig/ShipCategories/TradeRoute": [
-        "Icon"
-      ],
-      "/Values/ShipListConfig/ShipCategories/Patrolling": [
-        "Icon"
-      ],
-      "/Values/ShipListConfig/ShipCategories/Escorting": [
-        "Icon"
-      ],
-      "/Values/ShipListConfig/ShipCategories/Transit": [
-        "Icon"
-      ],
+      "/Values/ShipListConfig/ShipCategories/All": [],
+      "/Values/ShipListConfig/ShipCategories/Idle": [],
+      "/Values/ShipListConfig/ShipCategories/TradeRoute": [],
+      "/Values/ShipListConfig/ShipCategories/Patrolling": [],
+      "/Values/ShipListConfig/ShipCategories/Escorting": [],
+      "/Values/ShipListConfig/ShipCategories/Transit": [],
       "/Values/ProductFilter/Categories/Item": [],
       "/Values/FilteredSelectionPopup/ShipFilterTexts/None": [
         "Icon"
@@ -6568,6 +6868,18 @@
       ]
     }
   },
+  "Original": {
+    "templates": [],
+    "paths": {
+      "/Values/GUIConfig/TextOverrides/GamepadModeOverrides/Item": []
+    }
+  },
+  "TutorialAutoCompleteDelay": {
+    "templates": [],
+    "paths": {
+      "/Values/GUIConfig": []
+    }
+  },
   "DisplayUnit": {
     "templates": [
       "IncidentResolverUnit"
@@ -6675,18 +6987,27 @@
     }
   },
   "DummyInteractionDurationMin": {
-    "templates": [],
+    "templates": [
+      "Recipe"
+    ],
     "paths": {
       "/Values/FeedbackParametersGlobal/InteractionInfos/DummyTalk": [],
       "/Values/FeedbackParametersGlobal/InteractionInfos/DummyVanish": [],
-      "/Values/FeedbackParametersGlobal/InteractionInfos/DummyCelebrate": []
+      "/Values/FeedbackParametersGlobal/InteractionInfos/DummyCelebrate": [],
+      "/Values/FeedbackParametersGlobal/InteractionInfos/DummyWorkHands": [
+        "Recipe"
+      ]
     }
   },
   "DummyInteractionDurationMax": {
     "templates": [
+      "Recipe",
       "Season"
     ],
     "paths": {
+      "/Values/FeedbackParametersGlobal/InteractionInfos/DummyTalk": [
+        "Recipe"
+      ],
       "/Values/FeedbackParametersGlobal/InteractionInfos/DummyTrade": [],
       "/Values/FeedbackParametersGlobal/InteractionInfos/DummyVanish": [],
       "/Values/FeedbackParametersGlobal/InteractionInfos/DummyLayDown": [],
@@ -6703,6 +7024,25 @@
     "templates": [],
     "paths": {
       "/Values/FeedbackParametersGlobal/InteractionInfos/DummySit": []
+    }
+  },
+  "KeepUnitsCount": {
+    "templates": [],
+    "paths": {
+      "/Values/FeedbackParametersGlobal/MemoryLimitsConfig/Productions": []
+    }
+  },
+  "DespawnUnitsOnLimitPercent": {
+    "templates": [],
+    "paths": {
+      "/Values/FeedbackParametersGlobal/MemoryLimitsConfig/Inhabitants": []
+    }
+  },
+  "Limit": {
+    "templates": [],
+    "paths": {
+      "/Values/FeedbackParametersGlobal/MemoryLimitsConfig/Vehicles": [],
+      "/Values/ConstructionAI/Budgets/ActiveTrade": []
     }
   },
   "DemagogueClass": {
@@ -6737,12 +7077,40 @@
       "/Values/FeedbackSessionDescription/CulturalBuildingSpawnGroup": []
     }
   },
-  "MaxVisitorsMonument_EventRunning": {
+  "MonumentBuilding": {
+    "templates": [
+      "MonumentColony",
+      "Monument",
+      "Monument_with_Shipyard",
+      "ResearchCenter"
+    ],
+    "paths": {
+      "/Values/FeedbackSessionDescription/CulturalBuildingSpawnGroup/MonumentConfigs/Item": [
+        "MonumentColony",
+        "Monument"
+      ],
+      "/Values/ConstructionAI/MonumentConfiguration/Item": [
+        "Monument_with_Shipyard",
+        "ResearchCenter"
+      ]
+    }
+  },
+  "MaxVisitorsEventRunning": {
     "templates": [
       "Inhabitant"
     ],
     "paths": {
-      "/Values/FeedbackSessionDescription/CulturalBuildingSpawnGroup": [
+      "/Values/FeedbackSessionDescription/CulturalBuildingSpawnGroup/MonumentConfigs/Item": [
+        "Inhabitant"
+      ]
+    }
+  },
+  "MaxVisitorsEventOver": {
+    "templates": [
+      "Inhabitant"
+    ],
+    "paths": {
+      "/Values/FeedbackSessionDescription/CulturalBuildingSpawnGroup/MonumentConfigs/Item": [
         "Inhabitant"
       ]
     }
@@ -6892,6 +7260,9 @@
         "FeedbackUnitClass"
       ],
       "/Values/FeedbackSessionDescription/LogisticConfig/TransporterClasses/MailTransporter": [
+        "FeedbackUnitClass"
+      ],
+      "/Values/FeedbackSessionDescription/LogisticConfig/TransporterClasses/FactoryTransporterScooter": [
         "FeedbackUnitClass"
       ]
     }
@@ -7162,6 +7533,22 @@
       ]
     }
   },
+  "VisitorPerBuilding": {
+    "templates": [],
+    "paths": {
+      "/Values/FeedbackSessionDescription/BeachConfig": []
+    }
+  },
+  "VisitorUnitClass": {
+    "templates": [
+      "FeedbackUnitClass"
+    ],
+    "paths": {
+      "/Values/FeedbackSessionDescription/BeachConfig": [
+        "FeedbackUnitClass"
+      ]
+    }
+  },
   "SpawnBuildings": {
     "templates": [
       "FeedbackBuildingGroup"
@@ -7172,6 +7559,26 @@
       ],
       "/Values/FeedbackSessionDescriptionOverwritable/Performers/Item": [
         "FeedbackBuildingGroup"
+      ]
+    }
+  },
+  "NeedSatisfactionPopulation": {
+    "templates": [
+      "PopulationLevel7"
+    ],
+    "paths": {
+      "/Values/FeedbackSessionDescriptionOverwritable/Inhabitants/Item/Classes/Item": [
+        "PopulationLevel7"
+      ]
+    }
+  },
+  "NeedSatisfactionProduct": {
+    "templates": [
+      "Product"
+    ],
+    "paths": {
+      "/Values/FeedbackSessionDescriptionOverwritable/Inhabitants/Item/Classes/Item": [
+        "Product"
       ]
     }
   },
@@ -7236,7 +7643,8 @@
   "AttractivenessThreshold": {
     "templates": [
       "Skin",
-      "VehicleBuff"
+      "VehicleBuff",
+      "OrnamentalBuilding"
     ],
     "paths": {
       "/Values/AttractivenessFeature/AttractivenessLevel/Pleasant": [
@@ -7249,7 +7657,11 @@
       ],
       "/Values/AttractivenessFeature/AttractivenessLevel/Enticing": [],
       "/Values/AttractivenessFeature/AttractivenessLevel/Beautiful": [],
-      "/Values/AttractivenessFeature/AttractivenessLevel/Glamorous": []
+      "/Values/AttractivenessFeature/AttractivenessLevel/Glamorous": [],
+      "/Values/AttractivenessFeature/AttractivenessLevel/Impeccable": [
+        "OrnamentalBuilding"
+      ],
+      "/Values/AttractivenessFeature/AttractivenessLevel/Superior": []
     }
   },
   "Guid": {
@@ -8702,6 +9114,9 @@
       ],
       "/Values/AchievementBalancing/CategoryDesc/DLC11": [
         "UplayProduct"
+      ],
+      "/Values/AchievementBalancing/CategoryDesc/DLC12": [
+        "UplayProduct"
       ]
     }
   },
@@ -9008,7 +9423,10 @@
       "/Values/PlayerCounterConfig/CounterConfig/PlayerCounter/PopulationTotalAccount": [],
       "/Values/PlayerCounterConfig/CounterConfig/PlayerCounter/InvestorResidences": [],
       "/Values/PlayerCounterConfig/CounterConfig/PlayerCounter/MonumentEventsFinished": [],
-      "/Values/PlayerCounterConfig/CounterConfig/PlayerCounter/DropActionsPerformed": []
+      "/Values/PlayerCounterConfig/CounterConfig/PlayerCounter/GamepadActionsConsumed": [],
+      "/Values/PlayerCounterConfig/CounterConfig/PlayerCounter/DropActionsPerformed": [],
+      "/Values/PlayerCounterConfig/CounterConfig/PlayerCounter/TradeMoneyEarned": [],
+      "/Values/PlayerCounterConfig/CounterConfig/PlayerCounter/TradeMoneyPayed": []
     }
   },
   "ResearchPopulation": {
@@ -9197,28 +9615,6 @@
       ]
     }
   },
-  "Season": {
-    "templates": [
-      "Season"
-    ],
-    "paths": {
-      "/Values/SeasonFeature/Seasons/Item": [
-        "Season"
-      ]
-    }
-  },
-  "UnknownNextSeasonNameText": {
-    "templates": [],
-    "paths": {
-      "/Values/SeasonFeature": []
-    }
-  },
-  "UnknownNextSeasonTypeText": {
-    "templates": [],
-    "paths": {
-      "/Values/SeasonFeature": []
-    }
-  },
   "BaseBuilding": {
     "templates": [
       "HarborLandingStage7",
@@ -9370,6 +9766,16 @@
       ]
     }
   },
+  "FeedbackUnit": {
+    "templates": [
+      "TrafficFeedbackUnit"
+    ],
+    "paths": {
+      "/Values/SkinDescriptionFeature/FakeSkinsThatAreFeedbackUnits/Item": [
+        "TrafficFeedbackUnit"
+      ]
+    }
+  },
   "Default": {
     "templates": [],
     "paths": {
@@ -9516,7 +9922,8 @@
   "NeededAmount": {
     "templates": [
       "Inhabitant",
-      "VehicleBuff"
+      "VehicleBuff",
+      "Recipe"
     ],
     "paths": {
       "/Values/TourismFeature/CitySize/City": [
@@ -9531,7 +9938,10 @@
       "/Values/TourismFeature/CitySize/Colony": [],
       "/Values/TradeContractFeature/TradeUpgrades/Uncommon": [],
       "/Values/TradeContractFeature/TradeUpgrades/Rare": [],
-      "/Values/TradeContractFeature/TradeUpgrades/Epic": []
+      "/Values/TradeContractFeature/TradeUpgrades/Epic": [],
+      "/Values/TradeContractFeature/TradeUpgrades/Legendary": [
+        "Recipe"
+      ]
     }
   },
   "CityStatusFluff": {
@@ -9638,7 +10048,7 @@
       "Festival",
       "DocklandMain",
       "Monument",
-      "CityInstitutionBuilding"
+      "CityInstitutionBuildingHeated"
     ],
     "paths": {
       "/Values/TourismFeature/AttractivenessNameMapping/Culture": [],
@@ -9669,6 +10079,8 @@
       "/Values/TourismFeature/AttractivenessNameMapping/Ornament_PedestrianZone": [],
       "/Values/TourismFeature/AttractivenessNameMapping/Ornament_SeasonsPack": [],
       "/Values/TourismFeature/AttractivenessNameMapping/Ornament_IndustrialPack": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/Ornament_OldTown": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/Ornament_Beach": [],
       "/Values/QuestTrackerScene/QuestTypes/MainQuest": [],
       "/Values/QuestTrackerScene/QuestTypes/RandomQuest": [],
       "/Values/QuestTrackerScene/QuestTypes/ExplorationQuest": [],
@@ -9679,6 +10091,7 @@
       "/Values/QuestTrackerScene/QuestTypes/Scenario2Quest": [],
       "/Values/QuestTrackerScene/QuestTypes/DLC11Quest": [],
       "/Values/QuestTrackerScene/QuestTypes/Scenario3Quest": [],
+      "/Values/QuestTrackerScene/QuestTypes/Scenario4Quest": [],
       "/Values/SideNotificationsArchive/ArchiveButtons/Scenario": [],
       "/Values/SideNotificationsArchive/ArchiveButtons/Quest": [],
       "/Values/SideNotificationsArchive/ArchiveButtons/Newspaper": [],
@@ -9710,6 +10123,7 @@
       "/Values/StatisticMenu/IncomeCategoryNames/Skyscrapers": [],
       "/Values/StatisticMenu/IncomeCategoryNames/Restaurants": [],
       "/Values/StatisticMenu/IncomeCategoryNames/Malls": [],
+      "/Values/StatisticMenu/IncomeCategoryNames/Trade": [],
       "/Values/StatisticMenu/ItemSourceData/Quest": [],
       "/Values/StatisticMenu/ItemSourceData/Expedition": [],
       "/Values/StatisticMenu/ItemSourceData/Trader": [],
@@ -9722,6 +10136,7 @@
       "/Values/StatisticMenu/ItemSourceData/DivingBell": [],
       "/Values/StatisticMenu/ItemSourceData/ArcticCrate": [],
       "/Values/StatisticMenu/ItemSourceData/ResearchCrafting": [],
+      "/Values/StatisticMenu/ItemSourceData/GGJPlants": [],
       "/Values/TextPopup/Pages/BeekeeperList/Names/Item": [],
       "/Values/ExpeditionFeature/AttributeNames/Diplomacy": [],
       "/Values/ExpeditionFeature/AttributeNames/Melee": [],
@@ -9789,7 +10204,7 @@
       "/Values/Incident/InfectionChanceSourceNameMapping/Upgrades": [],
       "/Values/Incident/InfectionChanceSourceNameMapping/InfluencerPositive": [],
       "/Values/Incident/InfectionChanceSourceNameMapping/InfluencerNegative": [
-        "CityInstitutionBuilding"
+        "CityInstitutionBuildingHeated"
       ],
       "/Values/Incident/InfectionChanceSourceNameMapping/WorkingConditionResidence": [],
       "/Values/Incident/InfectionChanceSourceNameMapping/Heat": []
@@ -9935,6 +10350,16 @@
       ]
     }
   },
+  "ShipToRent": {
+    "templates": [
+      "TradeShip"
+    ],
+    "paths": {
+      "/Values/TradeRouteFeature": [
+        "TradeShip"
+      ]
+    }
+  },
   "Good": {
     "templates": [
       "Product",
@@ -9946,9 +10371,6 @@
       "Product_Ammunition"
     ],
     "paths": {
-      "/Values/TradeContractFeature/Traders/Item/TradeLevels/Item/Trades/Item": [
-        "Product"
-      ],
       "/Values/TradeRouteFeature/TransportationTypes/Normal/ExcludingGoods/Item": [
         "Product"
       ],
@@ -10027,16 +10449,6 @@
       "/Values/Trader/Progression/EndGame/OfferingGoods/Item/GoodSets/Item": [
         "Product",
         "Product_Ammunition"
-      ]
-    }
-  },
-  "ShipToRent": {
-    "templates": [
-      "TradeShip"
-    ],
-    "paths": {
-      "/Values/TradeRouteFeature": [
-        "TradeShip"
       ]
     }
   },
@@ -10284,6 +10696,9 @@
     "paths": {
       "/Values/WorkforceTransferFeature/TransferShipForRegion/Moderate": [
         "FeedbackVehicle"
+      ],
+      "/Values/WorkforceTransferFeature/TransferShipForRegion/Colony01": [
+        "FeedbackVehicle"
       ]
     }
   },
@@ -10401,6 +10816,82 @@
       ]
     }
   },
+  "UnknownNextSeasonNameText": {
+    "templates": [],
+    "paths": {
+      "/Values/SeasonFeature": []
+    }
+  },
+  "UnknownNextSeasonTypeText": {
+    "templates": [],
+    "paths": {
+      "/Values/SeasonFeature": []
+    }
+  },
+  "DefaultSeasonPool": {
+    "templates": [
+      "SeasonPool"
+    ],
+    "paths": {
+      "/Values/SeasonFeature": [
+        "SeasonPool"
+      ]
+    }
+  },
+  "SeasonNameText": {
+    "templates": [],
+    "paths": {
+      "/Values/Season": []
+    }
+  },
+  "SeasonTypeText": {
+    "templates": [],
+    "paths": {
+      "/Values/Season": []
+    }
+  },
+  "SeasonEffect": {
+    "templates": [
+      "GuildhouseBuff",
+      "TownhallBuff",
+      "HarbourOfficeBuff"
+    ],
+    "paths": {
+      "/Values/Season/SeasonEffects/Effects/Item": [
+        "GuildhouseBuff",
+        "TownhallBuff",
+        "HarbourOfficeBuff"
+      ]
+    }
+  },
+  "SeasonFluffText": {
+    "templates": [],
+    "paths": {
+      "/Values/Season": []
+    }
+  },
+  "TargetAssetOrPool": {
+    "templates": [
+      "Product",
+      "ItemEffectTargetPool"
+    ],
+    "paths": {
+      "/Values/Season/TradeEffects/Item": [
+        "Product",
+        "ItemEffectTargetPool"
+      ]
+    }
+  },
+  "Season": {
+    "templates": [
+      "Season"
+    ],
+    "paths": {
+      "/Values/SeasonPool/Seasons/Item": [
+        "Season"
+      ]
+    }
+  },
   "Fertility": {
     "templates": [
       "Fertility"
@@ -10411,6 +10902,16 @@
       ],
       "/Values/Region/AllowedFertilities/Item": [
         "Fertility"
+      ]
+    }
+  },
+  "EnlargeDLC": {
+    "templates": [
+      "UplayProduct"
+    ],
+    "paths": {
+      "/Values/MapTemplate": [
+        "UplayProduct"
       ]
     }
   },
@@ -10777,6 +11278,7 @@
       "FactoryBuilding7",
       "FarmBuilding",
       "FreeAreaBuilding",
+      "FarmBuilding_Electrifiable",
       "HeavyFreeAreaBuilding"
     ],
     "paths": {
@@ -10788,6 +11290,7 @@
         "FactoryBuilding7",
         "FarmBuilding",
         "FreeAreaBuilding",
+        "FarmBuilding_Electrifiable",
         "HeavyFactoryBuilding",
         "HeavyFreeAreaBuilding"
       ]
@@ -12076,6 +12579,22 @@
       "/Values/PassiveTradeWindow": []
     }
   },
+  "ForceIcon": {
+    "templates": [
+      "Product"
+    ],
+    "paths": {
+      "/Values/ProductionChain/Tier1/Item/Tier2/Item/Tier3/Item": [
+        "Product"
+      ],
+      "/Values/ProductionChain/Tier1/Item/Tier2/Item": [
+        "Product"
+      ],
+      "/Values/ProductionChain/Tier1/Item": [
+        "Product"
+      ]
+    }
+  },
   "DescriptionText": {
     "templates": [],
     "paths": {
@@ -12188,10 +12707,10 @@
   },
   "NotificationMainIconAsset": {
     "templates": [
+      "PopulationLevel7",
       "ResidenceBuilding7_Colony",
       "FactoryBuilding7",
       "SessionModerate",
-      "PopulationLevel7",
       "AirShip",
       "Heater_Arctic",
       "SessionSouthAmerica",
@@ -12204,10 +12723,10 @@
     ],
     "paths": {
       "/Values/Notification/NotificationType/Values/MainNotification": [
+        "PopulationLevel7",
         "ResidenceBuilding7_Colony",
         "FactoryBuilding7",
         "SessionModerate",
-        "PopulationLevel7",
         "AirShip",
         "Heater_Arctic",
         "SessionSouthAmerica",
@@ -12231,11 +12750,12 @@
   "Icon01": {
     "templates": [
       "Multifactory",
-      "HarborOffice",
       "FactoryBuilding7",
+      "HarborOffice",
       "CityInstitutionBuilding",
       "Warehouse",
       "OrnamentalBuilding",
+      "CityInstitutionBuildingHeated",
       "Monument_with_Shipyard",
       "FarmBuilding_Arctic",
       "PublicServiceBuilding",
@@ -12248,11 +12768,12 @@
     "paths": {
       "/Values/Notification/NotificationType/Values/MainNotification": [
         "Multifactory",
-        "HarborOffice",
         "FactoryBuilding7",
+        "HarborOffice",
         "CityInstitutionBuilding",
         "Warehouse",
         "OrnamentalBuilding",
+        "CityInstitutionBuildingHeated",
         "Monument_with_Shipyard",
         "FarmBuilding_Arctic",
         "PublicServiceBuilding",
@@ -12601,6 +13122,9 @@
       "/Values/CreateGameScene/Portraits/Item": [
         "Portrait"
       ],
+      "/Values/CreateGameScene/AlternativePortraitList/Item": [
+        "Portrait"
+      ],
       "/Values/VideoSubtitle/AudioScenes/Item/PortraitType/Right": [
         "Portrait"
       ],
@@ -12609,16 +13133,6 @@
       ],
       "/Values/Profile": [
         "Portrait"
-      ]
-    }
-  },
-  "Logo": {
-    "templates": [
-      "PlayerLogo"
-    ],
-    "paths": {
-      "/Values/CreateGameScene/Logos/Item": [
-        "PlayerLogo"
       ]
     }
   },
@@ -12664,6 +13178,25 @@
     "templates": [],
     "paths": {
       "/Values/CreateGameScene": []
+    }
+  },
+  "Logo": {
+    "templates": [
+      "PlayerLogo"
+    ],
+    "paths": {
+      "/Values/CreateGameScene/Logos/Item": [
+        "PlayerLogo"
+      ],
+      "/Values/CreateGameScene/AlternativeLogoList/Item": [
+        "PlayerLogo"
+      ]
+    }
+  },
+  "ScrollStartPosition": {
+    "templates": [],
+    "paths": {
+      "/Values/CreditsScene": []
     }
   },
   "TextBoxWidth": {
@@ -12751,6 +13284,12 @@
     }
   },
   "SecondPartyConfirmBtnWarningInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/DifficultySettingsScene": []
+    }
+  },
+  "ButtonPrompt_StartGame": {
     "templates": [],
     "paths": {
       "/Values/DifficultySettingsScene": []
@@ -13387,6 +13926,16 @@
       ]
     }
   },
+  "NeedsDLC": {
+    "templates": [
+      "UplayProduct"
+    ],
+    "paths": {
+      "/Values/MinimapScene/FertilityOrder/Item": [
+        "UplayProduct"
+      ]
+    }
+  },
   "UnsettledIslandText": {
     "templates": [],
     "paths": {
@@ -13414,6 +13963,7 @@
   "TargetBuilding": {
     "templates": [
       "ResidenceBuilding-Unique",
+      "PowerplantBuilding",
       "IrrigationPropagationSourceNoSlot",
       "TowerRestaurant",
       "QuestObject"
@@ -13421,6 +13971,7 @@
     "paths": {
       "/Values/MonumentScene/DataForNonMonumentTargets/Item": [
         "ResidenceBuilding-Unique",
+        "PowerplantBuilding",
         "IrrigationPropagationSourceNoSlot",
         "TowerRestaurant",
         "QuestObject"
@@ -14055,6 +14606,18 @@
       "/Values/OptionsScene": []
     }
   },
+  "ResetToDefaultGPAction": {
+    "templates": [],
+    "paths": {
+      "/Values/OptionsScene": []
+    }
+  },
+  "LanguageHeadlineHeadline": {
+    "templates": [],
+    "paths": {
+      "/Values/OptionsScene": []
+    }
+  },
   "PauseSinglePlayerHeadline": {
     "templates": [],
     "paths": {
@@ -14062,6 +14625,24 @@
     }
   },
   "PauseMultiPlayerHeadline": {
+    "templates": [],
+    "paths": {
+      "/Values/PauseMenuScene": []
+    }
+  },
+  "SavedShortTimeAgo": {
+    "templates": [],
+    "paths": {
+      "/Values/PauseMenuScene": []
+    }
+  },
+  "SavedXMinutesAgo": {
+    "templates": [],
+    "paths": {
+      "/Values/PauseMenuScene": []
+    }
+  },
+  "SavedLongAgo": {
     "templates": [],
     "paths": {
       "/Values/PauseMenuScene": []
@@ -14108,7 +14689,8 @@
       "/Values/QuestTrackerScene/QuestCategories/Scenario2": [],
       "/Values/QuestTrackerScene/QuestCategories/DLC11Quest": [],
       "/Values/QuestTrackerScene/QuestCategories/Scenario3": [],
-      "/Values/QuestTrackerScene/QuestCategories/Optional": []
+      "/Values/QuestTrackerScene/QuestCategories/Optional": [],
+      "/Values/QuestTrackerScene/QuestCategories/Scenario4": []
     }
   },
   "StoryTextInfotip": {
@@ -14545,90 +15127,6 @@
     "templates": [],
     "paths": {
       "/Values/ResourceBarScene": []
-    }
-  },
-  "ScenarioWorkshopHeadline": {
-    "templates": [],
-    "paths": {
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHeadlines/Highlight": [],
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHeadlines/Bundle": [],
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHeadlines/Ornament": [],
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHeadlines/Portrait": [],
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHeadlines/Skin": [],
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHeadlines/Items": []
-    }
-  },
-  "ScenarioWorkshopDescrition": {
-    "templates": [],
-    "paths": {
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopDescriptions/Highlight": [],
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopDescriptions/Bundle": [],
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopDescriptions/Ornament": [],
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopDescriptions/Portrait": [],
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopDescriptions/Skin": [],
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopDescriptions/Items": []
-    }
-  },
-  "ScenarioWorkshopHint": {
-    "templates": [],
-    "paths": {
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHints/Highlight": [],
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHints/Bundle": [],
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHints/Ornament": [],
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHints/Portrait": [],
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHints/Skin": [],
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHints/Items": []
-    }
-  },
-  "ScenarioWorkshopPackage": {
-    "templates": [],
-    "paths": {
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopCategories/Ornament/ScenarioWorkshopCategory/Item": [],
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopCategories/Portrait/ScenarioWorkshopCategory/Item": [],
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopCategories/Skin/ScenarioWorkshopCategory/Item": [],
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopCategories/Items/ScenarioWorkshopCategory/Item": []
-    }
-  },
-  "NotEnoughMoneyText": {
-    "templates": [],
-    "paths": {
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHoverTexts": []
-    }
-  },
-  "EnoughMoneyText": {
-    "templates": [],
-    "paths": {
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHoverTexts": []
-    }
-  },
-  "IntroductionText": {
-    "templates": [],
-    "paths": {
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopIntroPopup": []
-    }
-  },
-  "HintText": {
-    "templates": [],
-    "paths": {
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopIntroPopup": []
-    }
-  },
-  "CurrencyReoveryText": {
-    "templates": [],
-    "paths": {
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopIntroPopup": []
-    }
-  },
-  "HeadlineText": {
-    "templates": [],
-    "paths": {
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopIntroPopup": []
-    }
-  },
-  "ConfirmButtonText": {
-    "templates": [],
-    "paths": {
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopIntroPopup": []
     }
   },
   "Session": {
@@ -15301,6 +15799,9 @@
       "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionSetQuestPoolEnablement/QuestPoolListToChange/Item": [
         "QuestPool"
       ],
+      "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionSetQuestPoolEnablement/QuestPoolListToChange/Item": [
+        "QuestPool"
+      ],
       "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionSetQuestPoolEnablement/QuestPoolListToChange/Item": [
         "QuestPool"
       ],
@@ -15410,6 +15911,18 @@
       "/Values/WorkforceMenu": []
     }
   },
+  "BuildingGUID": {
+    "templates": [
+      "CityInstitutionBuildingAdvanced",
+      "CityInstitutionBuilding"
+    ],
+    "paths": {
+      "/Values/OnScreenIconScene/SpecialConstructionHighlights/Item/Buildings/Item": [
+        "CityInstitutionBuildingAdvanced",
+        "CityInstitutionBuilding"
+      ]
+    }
+  },
   "IconLock": {
     "templates": [
       "Icon"
@@ -15430,26 +15943,16 @@
       ]
     }
   },
-  "WarningIcon": {
-    "templates": [
-      "Icon"
-    ],
-    "paths": {
-      "/Values/ItemTransferScene": [
-        "Icon"
-      ]
-    }
-  },
-  "NoItemsTextAsset": {
+  "RetakeText": {
     "templates": [],
     "paths": {
-      "/Values/ItemTransferScene": []
+      "/Values/ScreenCaptureScene": []
     }
   },
-  "EmptySearchTextAsset": {
+  "CancelPhotoModeText": {
     "templates": [],
     "paths": {
-      "/Values/ItemTransferScene": []
+      "/Values/ScreenCaptureScene": []
     }
   },
   "OverlayText": {
@@ -15794,6 +16297,18 @@
       "/Values/ObjectmenuCityInstitutionScene/InstitutionStatusTexts": []
     }
   },
+  "UpgradeButtonText": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuCityInstitutionScene": []
+    }
+  },
+  "DowngradeButtonText": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuCityInstitutionScene": []
+    }
+  },
   "OverallBarInfotip": {
     "templates": [],
     "paths": {
@@ -15801,6 +16316,12 @@
     }
   },
   "IslandEntryInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuCommuterHarbourScene": []
+    }
+  },
+  "UpdateInterval": {
     "templates": [],
     "paths": {
       "/Values/ObjectmenuCommuterHarbourScene": []
@@ -15818,7 +16339,13 @@
       "/Values/ObjectmenuCommuterHarbourScene/BuildingSpecificData/Item": []
     }
   },
-  "UpdateInterval": {
+  "OverallTabText": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuCommuterHarbourScene": []
+    }
+  },
+  "OnIslandTabText": {
     "templates": [],
     "paths": {
       "/Values/ObjectmenuCommuterHarbourScene": []
@@ -15880,6 +16407,9 @@
       "/Values/GenericPopup/Popups/MoveWaterPumpConfirmation": [],
       "/Values/GenericPopup/Popups/ResetScenarioConfirmationElNino": [],
       "/Values/GenericPopup/Popups/ResetScenarioConfirmationPostman": [],
+      "/Values/GenericPopup/Popups/ResetScenarioConfirmationExportMaster": [],
+      "/Values/GenericPopup/Popups/OldSavegame": [],
+      "/Values/GenericPopup/Popups/MultiDestruction": [],
       "/Values/GenericPopup/ErrorPopups/FirstPartyInviteFailed": [],
       "/Values/GenericPopup/ErrorPopups/APIDisconnected": [],
       "/Values/GenericPopup/ErrorPopups/GameVersionMismatch": [],
@@ -15895,7 +16425,10 @@
       "/Values/GenericPopup/ErrorPopups/LobbyFull": [],
       "/Values/GenericPopup/ErrorPopups/StormGeneric": [],
       "/Values/GenericPopup/ErrorPopups/LeaveReasonGeneric": [],
-      "/Values/GenericPopup/ErrorPopups/ConcurrentLoginDetected": []
+      "/Values/GenericPopup/ErrorPopups/ConcurrentLoginDetected": [],
+      "/Values/GenericPopup/ErrorPopups/FirstPartySignedOut": [],
+      "/Values/GenericPopup/ErrorPopups/ConnectionLostInMPGame": [],
+      "/Values/GenericPopup/ErrorPopups/FailedToJoinLobby": []
     }
   },
   "SublineText": {
@@ -15936,6 +16469,18 @@
     }
   },
   "WarehouseUpgradeInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuKontorScene": []
+    }
+  },
+  "ButtonPromptLabelKontor": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuKontorScene": []
+    }
+  },
+  "ButtonPromptLabelWarehouse": {
     "templates": [],
     "paths": {
       "/Values/ObjectmenuKontorScene": []
@@ -16077,6 +16622,16 @@
     }
   },
   "IconPause": {
+    "templates": [
+      "Icon"
+    ],
+    "paths": {
+      "/Values/ObjectmenuProductionScene": [
+        "Icon"
+      ]
+    }
+  },
+  "IconElectrifiedPastureInput": {
     "templates": [
       "Icon"
     ],
@@ -16379,7 +16934,19 @@
       "/Values/ConstructionMenu/RegionMenu/Moderate/CategoryMode/Tier/Categories/Item": [
         "ConstructionCategory"
       ],
+      "/Values/ConstructionMenu/RegionMenu/Moderate/OrnamentsMode/OrnamentsSource/Categories/Item": [
+        "ConstructionCategory"
+      ],
+      "/Values/ConstructionMenu/RegionMenu/Moderate/OrnamentsMode/OrnamentsCategory/Categories/Item": [
+        "ConstructionCategory"
+      ],
       "/Values/ConstructionMenu/RegionMenu/Colony01/CategoryMode/Tier/Categories/Item": [
+        "ConstructionCategory"
+      ],
+      "/Values/ConstructionMenu/RegionMenu/Colony01/OrnamentsMode/OrnamentsSource/Categories/Item": [
+        "ConstructionCategory"
+      ],
+      "/Values/ConstructionMenu/RegionMenu/Colony01/OrnamentsMode/OrnamentsCategory/Categories/Item": [
         "ConstructionCategory"
       ],
       "/Values/ConstructionMenu/RegionMenu/Arctic/CategoryMode/Tier/Categories/Item": [
@@ -16390,14 +16957,16 @@
       ]
     }
   },
-  "BonusNeed": {
-    "templates": [
-      "Product"
-    ],
+  "DelightCategory": {
+    "templates": [],
     "paths": {
-      "/Values/ObjectmenuResidenceScene/BonusNeeds/BonusNeeds/Item/Needs/Item": [
-        "Product"
-      ]
+      "/Values/ObjectmenuResidenceScene/TutorialConfig": []
+    }
+  },
+  "FoodCategory": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuResidenceScene/TutorialConfig": []
     }
   },
   "MoveInOutInfotip": {
@@ -17108,10 +17677,10 @@
       "ResidenceBuilding7_BuildPermit",
       "ResidenceBuilding7_Hotel",
       "ResidenceBuilding",
-      "SessionModerate",
-      "SessionSouthAmerica",
       "PopulationLevel7",
       "Product",
+      "SessionModerate",
+      "SessionSouthAmerica",
       "SessionArctic"
     ],
     "paths": {
@@ -17137,10 +17706,10 @@
         "ItemEffectTargetPool"
       ],
       "/Values/KeywordFilter/Keywords/Item": [
-        "SessionModerate",
-        "SessionSouthAmerica",
         "PopulationLevel7",
         "Product",
+        "SessionModerate",
+        "SessionSouthAmerica",
         "SessionArctic"
       ]
     }
@@ -17273,6 +17842,9 @@
       "/Values/GenericPopup/Popups/MoveWaterPumpConfirmation": [],
       "/Values/GenericPopup/Popups/ResetScenarioConfirmationElNino": [],
       "/Values/GenericPopup/Popups/ResetScenarioConfirmationPostman": [],
+      "/Values/GenericPopup/Popups/ResetScenarioConfirmationExportMaster": [],
+      "/Values/GenericPopup/Popups/OldSavegame": [],
+      "/Values/GenericPopup/Popups/MultiDestruction": [],
       "/Values/GenericPopup/ErrorPopups/FirstPartyInviteFailed": [],
       "/Values/GenericPopup/ErrorPopups/APIDisconnected": [],
       "/Values/GenericPopup/ErrorPopups/GameVersionMismatch": [],
@@ -17287,7 +17859,9 @@
       "/Values/GenericPopup/ErrorPopups/MatchmakingFailed": [],
       "/Values/GenericPopup/ErrorPopups/LobbyFull": [],
       "/Values/GenericPopup/ErrorPopups/StormGeneric": [],
-      "/Values/GenericPopup/ErrorPopups/LeaveReasonGeneric": []
+      "/Values/GenericPopup/ErrorPopups/LeaveReasonGeneric": [],
+      "/Values/GenericPopup/ErrorPopups/ConnectionLostInMPGame": [],
+      "/Values/GenericPopup/ErrorPopups/FailedToJoinLobby": []
     }
   },
   "ActionLabel": {
@@ -17364,6 +17938,13 @@
       "/Values/SettingsMenu/Container/Item/Container/Values/OptionGrid": []
     }
   },
+  "HeadlineHeadline": {
+    "templates": [],
+    "paths": {
+      "/Values/SettingsMenu/Container/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionHeadline": [],
+      "/Values/SettingsMenu/AlternativeContainer/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionHeadline": []
+    }
+  },
   "Topic": {
     "templates": [
       "StaticHelpTopic"
@@ -17428,7 +18009,115 @@
       "/Values/StaticHelpConfig/StaticHelpSubTopics/ClashOfCouriers_Intro": [],
       "/Values/StaticHelpConfig/StaticHelpSubTopics/ClashOfCouriers_Stamps": [],
       "/Values/StaticHelpConfig/StaticHelpSubTopics/ClashOfCouriers_Competitors": [],
-      "/Values/StaticHelpConfig/StaticHelpSubTopics/General_Lifestyle": []
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/General_Lifestyle": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/HowToBuild_ConstructionMenu": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/HowToBuild_Ornaments": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/HowToBuild_ConstructionMaterial": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/HowToBuild_Streets": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/HowToBuild_StreetRange": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/HowToBuild_BlueprintMode": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/HowToBuild_ConstructingBlueprints": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/HowToBuild_Tools": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/HowToBuild_ContextualCommands": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/HowToBuild_Ruins": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/TradingPosts_IslandStorage": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/TradingPosts_StorageCapacity": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/TradingPosts_LoadingRamps": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/TradingPosts_Piers": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/MetaResources_Coins": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/MetaResources_GameOver": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/MetaResources_Influence": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/MetaResources_InfluenceSources": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Residents_BasicNeeds": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Residents_UpgradingResidences": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Residents_LuxuryNeeds": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Residents_Happiness": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Residents_UnlockingNeeds": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Residents_PausingNeeds": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Residents_Workforce": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Residents_WorkforceShortage": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Residents_CommuterPiers": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Residents_Festivals": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Production_InputOutput": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Production_Productivity": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Production_BonusProductivity": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Production_ProcessingTime": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Production_TransportCarts": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Production_TransportCartsCapacity": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Production_DistributionOfGoods": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Production_AnimalFarms": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Production_CropFarms": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Production_ForestryBuildings": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Production_CoastalBuildings": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Production_SlotBuildings": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Production_WorkingConditions": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/PublicServices_PublicServices": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Incidents_Incidents": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Incidents_CityInstitutions": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Islands_FertilitiesDeposits": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Islands_SettlingIslands": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Islands_Minimap": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Islands_RegionMap": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Islands_Worldmap": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Islands_IslandShares": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Islands_HostileTakeover": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Ships_ShipTypes": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Ships_ShipTasks": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Ships_ShipMenu": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Ships_TransferringGoods": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Ships_NavalCombat": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Ships_Stances": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Ships_HarbourDefenses": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Ships_ShipItems": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Ships_IslandWar": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Ships_MilitaryTakeover": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Ships_Shipyards": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Items_ItemTypes": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Items_ItemSources": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Attractiveness_Attractiveness": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Attractiveness_PublicMooring": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Attractiveness_VisitorsSpecialists": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Attractiveness_CulturalBuildings": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Attractiveness_CultureSets": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Trading_ActiveTrade": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Trading_PassiveTrade": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Trading_CharterRoutes": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Trading_TradeRoutes": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Trading_TradeRoutesExample": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Trading_Advanced": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Trading_Trousbleshooting": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Trading_OilRoutes": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Diplomacy_Reputation": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Diplomacy_Actions": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Diplomacy_Treaties": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Diplomacy_Comparison": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Rivals_Rivals": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Rivals_Traders": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Rivals_Pirates": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Electricity_Electricity": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Newspaper_Newspaper": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Newspaper_Propaganda": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Quests_Quests": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Quests_Questtracker": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Expeditions_Expeditions": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Expeditions_Preparation": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Expeditions_Events": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/WorldsFair_WorldsFair": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Statistics_Production": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Statistics_Storage": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Statistics_Finance": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Statistics_Population": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Statistics_Items": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/Misc_Archive": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/NewWorldRising_Electricity": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/NewWorldRising_CityInstitutions": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/NewWorldRising_Stadium": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/NewWorldRising_SambaCinema": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/NewWorldRising_Beach": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/PrideAndPeddlers_Intro": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/PrideAndPeddlers_Trading": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/PrideAndPeddlers_HighsLows": [],
+      "/Values/StaticHelpConfig/StaticHelpSubTopics/PrideAndPeddlers_BlackMarket": []
     }
   },
   "TopicText": {
@@ -17628,6 +18317,9 @@
         "StateChoice"
       ],
       "/Values/MetaSoundConfig/ScenarioGameModeState/MrPostMan": [
+        "StateChoice"
+      ],
+      "/Values/MetaSoundConfig/ScenarioGameModeState/ExportMaster": [
         "StateChoice"
       ]
     }
@@ -18054,6 +18746,46 @@
       ]
     }
   },
+  "InfluencerObject": {
+    "templates": [
+      "PublicServiceBuildingWithMusicInfluencer"
+    ],
+    "paths": {
+      "/Values/MusicSoundConfig/MusicInfluencers/Item": [
+        "PublicServiceBuildingWithMusicInfluencer"
+      ]
+    }
+  },
+  "MusicStateGroup": {
+    "templates": [
+      "StateGroup"
+    ],
+    "paths": {
+      "/Values/MusicSoundConfig/MusicInfluencers/Item": [
+        "StateGroup"
+      ]
+    }
+  },
+  "ActiveMusicState": {
+    "templates": [
+      "StateChoice"
+    ],
+    "paths": {
+      "/Values/MusicSoundConfig/MusicInfluencers/Item": [
+        "StateChoice"
+      ]
+    }
+  },
+  "InactiveMusicState": {
+    "templates": [
+      "StateChoice"
+    ],
+    "paths": {
+      "/Values/MusicSoundConfig/MusicInfluencers/Item": [
+        "StateChoice"
+      ]
+    }
+  },
   "Bank": {
     "templates": [
       "SoundBank"
@@ -18260,7 +18992,12 @@
       "/Values/SessionSoundConfig/MurmurTypeMapping/DLC11_BauxiteMine": [],
       "/Values/SessionSoundConfig/MurmurTypeMapping/DLC11_AluminiumSmelter": [],
       "/Values/SessionSoundConfig/MurmurTypeMapping/DLC11_AirshipPlatform": [],
-      "/Values/SessionSoundConfig/MurmurTypeMapping/DLC11_RigidAirshipHangar": []
+      "/Values/SessionSoundConfig/MurmurTypeMapping/DLC11_RigidAirshipHangar": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/DLC12_Beach": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/DLC12_Cinema": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/DLC12_SambaSchool": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/DLC12_Artistas": [],
+      "/Values/SessionSoundConfig/MurmurTypeMapping/DLC12_Stadium_Football": []
     }
   },
   "AssociatedGameParameterSector1": {
@@ -19920,12 +20657,9 @@
       "GuildhouseItem",
       "ShipSpecialist",
       "Product",
-      "VehicleItem",
-      "HarborOfficeItem",
       "TownhallItem",
-      "ActiveItem",
-      "ItemSpecialAction",
       "ItemWithUICrafting",
+      "ItemSpecialAction",
       "ItemWithUI"
     ],
     "paths": {
@@ -19938,18 +20672,13 @@
         "CultureItem",
         "Product"
       ],
-      "/Values/ItemCrafter/CraftableItemsInRegion/Moderate/CraftableItems/Item": [
-        "GuildhouseItem",
-        "VehicleItem",
-        "HarborOfficeItem",
-        "TownhallItem",
-        "ActiveItem",
-        "ItemSpecialAction"
-      ],
       "/Values/ItemCrafter/CraftableItemsInRegion/Colony01/CraftableItems/Item": [
         "GuildhouseItem",
         "TownhallItem",
         "ItemWithUICrafting"
+      ],
+      "/Values/ItemContainer/InitSocketItems/Item": [
+        "ItemSpecialAction"
       ],
       "/Values/ItemContainer/InitSlotItems/Item": [
         "ItemWithUI",
@@ -20231,7 +20960,29 @@
   "EnableSounds": {
     "templates": [],
     "paths": {
-      "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionSetObjectVisibility": []
+      "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionSetObjectVisibility": [],
+      "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionSetObjectVisibility": []
+    }
+  },
+  "NotificationBlockingTime": {
+    "templates": [],
+    "paths": {
+      "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ClickKontor/Reactions/Item/Notification/Values/BaseNotification": []
+    }
+  },
+  "DisplayTimeout": {
+    "templates": [],
+    "paths": {
+      "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ClickNPCBuilding/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ClickNPCShip/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ClickOwnResidence/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ClickProductionBuildingWithInfolayer/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ClickOwnRecipeBuffFactory/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/RecipeApplied/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ClickOwnSkyscraper/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/MenuWelcomeMessage/Reactions/Item/Notification/Values/BaseNotification": []
     }
   },
   "StoryText": {
@@ -20383,6 +21134,18 @@
         "ResidenceBuilding7_Colony",
         "ResidenceBuilding7_Arctic",
         "ResidenceBuilding"
+      ]
+    }
+  },
+  "ElectricityUnlock": {
+    "templates": [
+      "PowerplantBuilding",
+      "FeatureUnlock"
+    ],
+    "paths": {
+      "/Values/Region": [
+        "PowerplantBuilding",
+        "FeatureUnlock"
       ]
     }
   },
@@ -20667,24 +21430,6 @@
       ]
     }
   },
-  "MonumentBuilding": {
-    "templates": [
-      "Monument_with_Shipyard",
-      "ResearchCenter"
-    ],
-    "paths": {
-      "/Values/ConstructionAI/MonumentConfiguration/Item": [
-        "Monument_with_Shipyard",
-        "ResearchCenter"
-      ]
-    }
-  },
-  "Limit": {
-    "templates": [],
-    "paths": {
-      "/Values/ConstructionAI/Budgets/ActiveTrade": []
-    }
-  },
   "WeightsThreatened": {
     "templates": [],
     "paths": {
@@ -20799,7 +21544,8 @@
     "templates": [
       "TradeShip",
       "AirShip",
-      "WarShip"
+      "WarShip",
+      "WarAirShip"
     ],
     "paths": {
       "/Values/Trader/Progression/EarlyGame/TradeFleet/Item": [
@@ -20810,6 +21556,12 @@
         "WarShip",
         "TradeShip"
       ],
+      "/Values/Trader/Progression/EarlyGame/WarFleet/Item": [
+        "WarAirShip",
+        "AirShip",
+        "TradeShip",
+        "WarShip"
+      ],
       "/Values/Trader/Progression/EarlyMidGame/TradeFleet/Item": [
         "TradeShip"
       ],
@@ -20819,7 +21571,10 @@
         "TradeShip"
       ],
       "/Values/Trader/Progression/EarlyMidGame/WarFleet/Item": [
-        "WarShip"
+        "WarShip",
+        "WarAirShip",
+        "AirShip",
+        "TradeShip"
       ],
       "/Values/Trader/Progression/MidGame/TradeFleet/Item": [
         "TradeShip"
@@ -20830,7 +21585,10 @@
         "WarShip"
       ],
       "/Values/Trader/Progression/MidGame/WarFleet/Item": [
-        "WarShip"
+        "WarShip",
+        "WarAirShip",
+        "AirShip",
+        "TradeShip"
       ],
       "/Values/Trader/Progression/LateMidGame/TradeFleet/Item": [
         "TradeShip"
@@ -20841,7 +21599,10 @@
         "TradeShip"
       ],
       "/Values/Trader/Progression/LateMidGame/WarFleet/Item": [
-        "WarShip"
+        "WarShip",
+        "WarAirShip",
+        "AirShip",
+        "TradeShip"
       ],
       "/Values/Trader/Progression/LateGame/TradeFleet/Item": [
         "TradeShip"
@@ -20852,7 +21613,10 @@
         "TradeShip"
       ],
       "/Values/Trader/Progression/LateGame/WarFleet/Item": [
-        "WarShip"
+        "WarShip",
+        "WarAirShip",
+        "AirShip",
+        "TradeShip"
       ],
       "/Values/Trader/Progression/EndGame/TradeFleet/Item": [
         "TradeShip"
@@ -20863,39 +21627,41 @@
         "TradeShip"
       ],
       "/Values/Trader/Progression/EndGame/WarFleet/Item": [
-        "WarShip"
+        "WarShip",
+        "WarAirShip",
+        "TradeShip"
       ]
     }
   },
   "OfferingItems": {
     "templates": [
-      "RewardPool",
-      "RewardItemPool"
+      "RewardItemPool",
+      "RewardPool"
     ],
     "paths": {
       "/Values/Trader/Progression/EarlyGame": [
-        "RewardPool",
-        "RewardItemPool"
+        "RewardItemPool",
+        "RewardPool"
       ],
       "/Values/Trader/Progression/EarlyMidGame": [
-        "RewardPool",
-        "RewardItemPool"
+        "RewardItemPool",
+        "RewardPool"
       ],
       "/Values/Trader/Progression/MidGame": [
-        "RewardPool",
-        "RewardItemPool"
+        "RewardItemPool",
+        "RewardPool"
       ],
       "/Values/Trader/Progression/LateMidGame": [
-        "RewardPool",
-        "RewardItemPool"
+        "RewardItemPool",
+        "RewardPool"
       ],
       "/Values/Trader/Progression/LateGame": [
-        "RewardPool",
-        "RewardItemPool"
+        "RewardItemPool",
+        "RewardPool"
       ],
       "/Values/Trader/Progression/EndGame": [
-        "RewardPool",
-        "RewardItemPool"
+        "RewardItemPool",
+        "RewardPool"
       ]
     }
   },
@@ -21088,12 +21854,6 @@
       ]
     }
   },
-  "NotificationBlockingTime": {
-    "templates": [],
-    "paths": {
-      "/Values/ParticipantMessages/MessageTriggers/ClickKontor/Reactions/Item/Notification/Values/BaseNotification": []
-    }
-  },
   "RequiredContextAsset": {
     "templates": [
       "SimpleAsset",
@@ -21149,19 +21909,6 @@
     "paths": {
       "/Values/ParticipantMessages/MessageTriggers/MilitaryShipDestroyed/Reactions/Item": [],
       "/Values/ParticipantMessages/MessageTriggers/CulturalBuildingAttractivenessHigherThan/Reactions/Item": []
-    }
-  },
-  "DisplayTimeout": {
-    "templates": [],
-    "paths": {
-      "/Values/ParticipantMessages/MessageTriggers/ClickNPCBuilding/Reactions/Item/Notification/Values/BaseNotification": [],
-      "/Values/ParticipantMessages/MessageTriggers/ClickNPCShip/Reactions/Item/Notification/Values/BaseNotification": [],
-      "/Values/ParticipantMessages/MessageTriggers/ClickOwnResidence/Reactions/Item/Notification/Values/BaseNotification": [],
-      "/Values/ParticipantMessages/MessageTriggers/ClickProductionBuildingWithInfolayer/Reactions/Item/Notification/Values/BaseNotification": [],
-      "/Values/ParticipantMessages/MessageTriggers/ClickOwnRecipeBuffFactory/Reactions/Item/Notification/Values/BaseNotification": [],
-      "/Values/ParticipantMessages/MessageTriggers/RecipeApplied/Reactions/Item/Notification/Values/BaseNotification": [],
-      "/Values/ParticipantMessages/MessageTriggers/ClickOwnSkyscraper/Reactions/Item/Notification/Values/BaseNotification": [],
-      "/Values/ParticipantMessages/MessageTriggers/MenuWelcomeMessage/Reactions/Item/Notification/Values/BaseNotification": []
     }
   },
   "CooldownTime": {
@@ -21241,6 +21988,7 @@
   "Effect": {
     "templates": [
       "TownhallBuff",
+      "EffectContainer",
       "HarbourOfficeBuff",
       "GuildhouseBuff",
       "ForwardBuff",
@@ -21250,6 +21998,7 @@
     "paths": {
       "/Values/EffectContainer/Effects/Item": [
         "TownhallBuff",
+        "EffectContainer",
         "HarbourOfficeBuff",
         "GuildhouseBuff",
         "ForwardBuff",
@@ -21298,6 +22047,51 @@
         "FestivalBuff"
       ],
       "/Values/IncidentFestival/FestivalTypes/QueenParade/Effects/Item": [
+        "FestivalBuff"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium1/Effects/Item": [
+        "FestivalBuff"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium2/Effects/Item": [
+        "FestivalBuff"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium3/Effects/Item": [
+        "FestivalBuff"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium4/Effects/Item": [
+        "FestivalBuff"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium5/Effects/Item": [
+        "FestivalBuff"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium6/Effects/Item": [
+        "FestivalBuff"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium7/Effects/Item": [
+        "FestivalBuff"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium8/Effects/Item": [
+        "FestivalBuff"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium9/Effects/Item": [
+        "FestivalBuff"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium10/Effects/Item": [
+        "FestivalBuff"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium11/Effects/Item": [
+        "FestivalBuff"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium12/Effects/Item": [
+        "FestivalBuff"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium13/Effects/Item": [
+        "FestivalBuff"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium14/Effects/Item": [
+        "FestivalBuff"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium15/Effects/Item": [
         "FestivalBuff"
       ]
     }
@@ -21674,6 +22468,9 @@
       ],
       "/Values/AchievementBalancing/CategoryDesc/DLC11": [
         "Icon"
+      ],
+      "/Values/AchievementBalancing/CategoryDesc/DLC12": [
+        "Icon"
       ]
     }
   },
@@ -21761,6 +22558,9 @@
         "Icon"
       ],
       "/Values/AchievementBalancing/CategoryDesc/DLC11": [
+        "Icon"
+      ],
+      "/Values/AchievementBalancing/CategoryDesc/DLC12": [
         "Icon"
       ]
     }
@@ -21850,6 +22650,9 @@
       ],
       "/Values/AchievementBalancing/CategoryDesc/DLC11": [
         "Icon"
+      ],
+      "/Values/AchievementBalancing/CategoryDesc/DLC12": [
+        "Icon"
       ]
     }
   },
@@ -21905,21 +22708,25 @@
   },
   "NormalBuilding": {
     "templates": [
+      "Farmfield",
       "PublicServiceBuilding"
     ],
     "paths": {
       "/Values/DlcController/ReplaceBuildingsWhenDLCisActive/Item": [
+        "Farmfield",
         "PublicServiceBuilding"
       ]
     }
   },
   "ReplacementBuilding": {
     "templates": [
-      "PostBoxBuildingWithPublicService"
+      "PostBoxBuildingWithPublicService",
+      "FactoryModuleElectric"
     ],
     "paths": {
       "/Values/DlcController/ReplaceBuildingsWhenDLCisActive/Item": [
-        "PostBoxBuildingWithPublicService"
+        "PostBoxBuildingWithPublicService",
+        "FactoryModuleElectric"
       ]
     }
   },
@@ -22018,9 +22825,6 @@
       "TradeShipPermit",
       "TradeShip",
       "Skin",
-      "Portrait",
-      "OrnamentalBuilding",
-      "PlayerLogo",
       "WarShip"
     ],
     "paths": {
@@ -22028,9 +22832,6 @@
         "TradeShipPermit",
         "TradeShip",
         "Skin",
-        "Portrait",
-        "OrnamentalBuilding",
-        "PlayerLogo",
         "WarShip"
       ]
     }
@@ -22079,13 +22880,19 @@
       "/Values/BombardmentAmmo": []
     }
   },
-  "ImpactFlyout": {
+  "FlyoutIcon": {
     "templates": [],
     "paths": {
       "/Values/BombardmentAmmo": []
     }
   },
   "AmmoDescription": {
+    "templates": [],
+    "paths": {
+      "/Values/BombardmentAmmo": []
+    }
+  },
+  "ImpactFlyout": {
     "templates": [],
     "paths": {
       "/Values/BombardmentAmmo": []
@@ -22123,13 +22930,7 @@
       ]
     }
   },
-  "FullSatisfactionDistance": {
-    "templates": [],
-    "paths": {
-      "/Values/BuffFactory/PublicServiceData": []
-    }
-  },
-  "NoSatisfactionDistance": {
+  "AdditionalRangeFactor": {
     "templates": [],
     "paths": {
       "/Values/BuffFactory/PublicServiceData": []
@@ -22165,6 +22966,22 @@
       "/Values/EconomyFeature7/MissingWorkforce": [
         "Notification"
       ]
+    }
+  },
+  "ConsumedNeed": {
+    "templates": [
+      "Product"
+    ],
+    "paths": {
+      "/Values/EconomyFeature7/ConsumptionWaste/Item": [
+        "Product"
+      ]
+    }
+  },
+  "ElectrifiedEffect": {
+    "templates": [],
+    "paths": {
+      "/Values/Electrifiable": []
     }
   },
   "NeededFertility": {
@@ -22595,8 +23412,8 @@
   "RecipeBuilding": {
     "templates": [
       "Multifactory",
-      "RecipeFarm",
       "Restaurant",
+      "RecipeFarm",
       "FreeAreaRecipeBuilding",
       "TowerRestaurant",
       "Mall"
@@ -22604,8 +23421,8 @@
     "paths": {
       "/Values/Recipe": [
         "Multifactory",
-        "RecipeFarm",
         "Restaurant",
+        "RecipeFarm",
         "FreeAreaRecipeBuilding",
         "TowerRestaurant",
         "Mall"
@@ -23006,6 +23823,12 @@
       ]
     }
   },
+  "RiskChanceThreshold": {
+    "templates": [],
+    "paths": {
+      "/Values/GeneralIncidentConfiguration/IncidentRiskThresholds/High": []
+    }
+  },
   "IncidentInfolayerIcon": {
     "templates": [
       "InfoLayerIcon"
@@ -23248,6 +24071,51 @@
       ],
       "/Values/IncidentFestival/FestivalTypes/QueenParade": [
         "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium1": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium2": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium3": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium4": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium5": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium6": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium7": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium8": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium9": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium10": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium11": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium12": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium13": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium14": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium15": [
+        "Notification"
       ]
     }
   },
@@ -23284,6 +24152,51 @@
         "Notification"
       ],
       "/Values/IncidentFestival/FestivalTypes/QueenParade": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium1": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium2": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium3": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium4": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium5": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium6": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium7": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium8": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium9": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium10": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium11": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium12": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium13": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium14": [
+        "Notification"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium15": [
         "Notification"
       ]
     }
@@ -23337,13 +24250,29 @@
       "/Values/IncidentFestival/FestivalTypes/SpiritualFestivalAfrica": [],
       "/Values/IncidentFestival/FestivalTypes/HarvestFestivalAfrica": [],
       "/Values/IncidentFestival/FestivalTypes/TradeFestivalAfrica": [],
-      "/Values/IncidentFestival/FestivalTypes/QueenParade": []
+      "/Values/IncidentFestival/FestivalTypes/QueenParade": [],
+      "/Values/IncidentFestival/FestivalTypes/Stadium1": [],
+      "/Values/IncidentFestival/FestivalTypes/Stadium2": [],
+      "/Values/IncidentFestival/FestivalTypes/Stadium3": [],
+      "/Values/IncidentFestival/FestivalTypes/Stadium4": [],
+      "/Values/IncidentFestival/FestivalTypes/Stadium5": [],
+      "/Values/IncidentFestival/FestivalTypes/Stadium6": [],
+      "/Values/IncidentFestival/FestivalTypes/Stadium7": [],
+      "/Values/IncidentFestival/FestivalTypes/Stadium8": [],
+      "/Values/IncidentFestival/FestivalTypes/Stadium9": [],
+      "/Values/IncidentFestival/FestivalTypes/Stadium10": [],
+      "/Values/IncidentFestival/FestivalTypes/Stadium11": [],
+      "/Values/IncidentFestival/FestivalTypes/Stadium12": [],
+      "/Values/IncidentFestival/FestivalTypes/Stadium13": [],
+      "/Values/IncidentFestival/FestivalTypes/Stadium14": [],
+      "/Values/IncidentFestival/FestivalTypes/Stadium15": []
     }
   },
   "FestivalIcon": {
     "templates": [
       "Icon",
-      "TowerRestaurant"
+      "TowerRestaurant",
+      "MonumentEvent"
     ],
     "paths": {
       "/Values/IncidentFestival/FestivalTypes/BeerFestival": [],
@@ -23359,6 +24288,51 @@
       "/Values/IncidentFestival/FestivalTypes/TradeFestivalAfrica": [],
       "/Values/IncidentFestival/FestivalTypes/QueenParade": [
         "TowerRestaurant"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium1": [
+        "MonumentEvent"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium2": [
+        "MonumentEvent"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium3": [
+        "MonumentEvent"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium4": [
+        "MonumentEvent"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium5": [
+        "MonumentEvent"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium6": [
+        "MonumentEvent"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium7": [
+        "MonumentEvent"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium8": [
+        "MonumentEvent"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium9": [
+        "MonumentEvent"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium10": [
+        "MonumentEvent"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium11": [
+        "MonumentEvent"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium12": [
+        "MonumentEvent"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium13": [
+        "MonumentEvent"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium14": [
+        "MonumentEvent"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium15": [
+        "MonumentEvent"
       ]
     }
   },
@@ -23426,6 +24400,51 @@
       ],
       "/Values/IncidentFestival/FestivalTypes/QueenParade": [
         "StandaloneIncidentEffectConfiguration"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium1": [
+        "StandaloneIncidentEffectConfiguration"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium2": [
+        "StandaloneIncidentEffectConfiguration"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium3": [
+        "StandaloneIncidentEffectConfiguration"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium4": [
+        "StandaloneIncidentEffectConfiguration"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium5": [
+        "StandaloneIncidentEffectConfiguration"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium6": [
+        "StandaloneIncidentEffectConfiguration"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium7": [
+        "StandaloneIncidentEffectConfiguration"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium8": [
+        "StandaloneIncidentEffectConfiguration"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium9": [
+        "StandaloneIncidentEffectConfiguration"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium10": [
+        "StandaloneIncidentEffectConfiguration"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium11": [
+        "StandaloneIncidentEffectConfiguration"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium12": [
+        "StandaloneIncidentEffectConfiguration"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium13": [
+        "StandaloneIncidentEffectConfiguration"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium14": [
+        "StandaloneIncidentEffectConfiguration"
+      ],
+      "/Values/IncidentFestival/FestivalTypes/Stadium15": [
+        "StandaloneIncidentEffectConfiguration"
       ]
     }
   },
@@ -23469,12 +24488,6 @@
     "templates": [],
     "paths": {
       "/Values/IncidentInfectable/IncidentInfectionChanceFactors/ArcticIllness": []
-    }
-  },
-  "Distance": {
-    "templates": [],
-    "paths": {
-      "/Values/IncidentInfluencer/Influence/Riot": []
     }
   },
   "ResolverUnit": {
@@ -23565,32 +24578,6 @@
     "templates": [],
     "paths": {
       "/Values/IncidentRiot": []
-    }
-  },
-  "SeasonNameText": {
-    "templates": [],
-    "paths": {
-      "/Values/Season": []
-    }
-  },
-  "SeasonTypeText": {
-    "templates": [],
-    "paths": {
-      "/Values/Season": []
-    }
-  },
-  "SeasonEffect": {
-    "templates": [
-      "GuildhouseBuff",
-      "HarbourOfficeBuff",
-      "TownhallBuff"
-    ],
-    "paths": {
-      "/Values/Season/SeasonEffects/Effects/Item": [
-        "GuildhouseBuff",
-        "HarbourOfficeBuff",
-        "TownhallBuff"
-      ]
     }
   },
   "UseProjectile": {
@@ -24266,6 +25253,18 @@
       "/Values/Test456": []
     }
   },
+  "ArticleSelectionCategoryInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/NewspaperConsoleScene": []
+    }
+  },
+  "ButtonPromptHoldText": {
+    "templates": [],
+    "paths": {
+      "/Values/SystemPopupConsoleScene": []
+    }
+  },
   "ErrorMessageProfanityFilter": {
     "templates": [],
     "paths": {
@@ -24430,32 +25429,32 @@
       ]
     }
   },
-  "MedalUnlockReward": {
-    "templates": [
-      "OrnamentalBuilding",
-      "Skin"
-    ],
-    "paths": {
-      "/Values/ScenarioMetaInfo/ScenarioTexts/ScenarioMedalObjectives/ScenarioBronze": [
-        "OrnamentalBuilding",
-        "Skin"
-      ],
-      "/Values/ScenarioMetaInfo/ScenarioTexts/ScenarioMedalObjectives/ScenarioSilver": [
-        "OrnamentalBuilding",
-        "Skin"
-      ],
-      "/Values/ScenarioMetaInfo/ScenarioTexts/ScenarioMedalObjectives/ScenarioGold": [
-        "OrnamentalBuilding",
-        "Skin"
-      ]
-    }
-  },
   "MedalTitle": {
     "templates": [],
     "paths": {
       "/Values/ScenarioMetaInfo/ScenarioTexts/ScenarioMedalObjectives/ScenarioBronze": [],
       "/Values/ScenarioMetaInfo/ScenarioTexts/ScenarioMedalObjectives/ScenarioSilver": [],
       "/Values/ScenarioMetaInfo/ScenarioTexts/ScenarioMedalObjectives/ScenarioGold": []
+    }
+  },
+  "UnlockReward": {
+    "templates": [
+      "OrnamentalBuilding",
+      "Skin"
+    ],
+    "paths": {
+      "/Values/ScenarioMetaInfo/ScenarioTexts/ScenarioMedalObjectives/ScenarioBronze/MedalUnlockRewards/Item": [
+        "OrnamentalBuilding",
+        "Skin"
+      ],
+      "/Values/ScenarioMetaInfo/ScenarioTexts/ScenarioMedalObjectives/ScenarioSilver/MedalUnlockRewards/Item": [
+        "OrnamentalBuilding",
+        "Skin"
+      ],
+      "/Values/ScenarioMetaInfo/ScenarioTexts/ScenarioMedalObjectives/ScenarioGold/MedalUnlockRewards/Item": [
+        "OrnamentalBuilding",
+        "Skin"
+      ]
     }
   },
   "BadgeAsset": {
@@ -24470,11 +25469,13 @@
   },
   "BadgeIcon": {
     "templates": [
-      "Icon"
+      "Icon",
+      "TriggerScenarioBadge"
     ],
     "paths": {
       "/Values/ScenarioMetaInfo/ScenarioTexts/ScenarioBadgesObjectives/Item": [
-        "Icon"
+        "Icon",
+        "TriggerScenarioBadge"
       ]
     }
   },
@@ -24588,8 +25589,9 @@
       "Portrait",
       "VehicleItem",
       "Skin",
+      "GuildhouseItem",
       "TownhallItem",
-      "GuildhouseItem"
+      "ShipSpecialist"
     ],
     "paths": {
       "/Values/ScenarioWorkshopItem": [
@@ -24597,8 +25599,9 @@
         "Portrait",
         "VehicleItem",
         "Skin",
+        "GuildhouseItem",
         "TownhallItem",
-        "GuildhouseItem"
+        "ShipSpecialist"
       ]
     }
   },
@@ -24624,6 +25627,112 @@
     "templates": [],
     "paths": {
       "/Values/ScenarioWorkshopPackage": []
+    }
+  },
+  "WarningIcon": {
+    "templates": [
+      "Icon"
+    ],
+    "paths": {
+      "/Values/ItemTransferScene": [
+        "Icon"
+      ]
+    }
+  },
+  "NoItemsTextAsset": {
+    "templates": [],
+    "paths": {
+      "/Values/ItemTransferScene": []
+    }
+  },
+  "EmptySearchTextAsset": {
+    "templates": [],
+    "paths": {
+      "/Values/ItemTransferScene": []
+    }
+  },
+  "ScenarioWorkshopHeadline": {
+    "templates": [],
+    "paths": {
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHeadlines/Highlight": [],
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHeadlines/Bundle": [],
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHeadlines/Ornament": [],
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHeadlines/Portrait": [],
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHeadlines/Skin": [],
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHeadlines/Items": []
+    }
+  },
+  "ScenarioWorkshopDescrition": {
+    "templates": [],
+    "paths": {
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopDescriptions/Highlight": [],
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopDescriptions/Bundle": [],
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopDescriptions/Ornament": [],
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopDescriptions/Portrait": [],
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopDescriptions/Skin": [],
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopDescriptions/Items": []
+    }
+  },
+  "ScenarioWorkshopHint": {
+    "templates": [],
+    "paths": {
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHints/Highlight": [],
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHints/Bundle": [],
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHints/Ornament": [],
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHints/Portrait": [],
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHints/Skin": [],
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHints/Items": []
+    }
+  },
+  "ScenarioWorkshopPackage": {
+    "templates": [],
+    "paths": {
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopCategories/Ornament/ScenarioWorkshopCategory/Item": [],
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopCategories/Portrait/ScenarioWorkshopCategory/Item": [],
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopCategories/Skin/ScenarioWorkshopCategory/Item": [],
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopCategories/Items/ScenarioWorkshopCategory/Item": []
+    }
+  },
+  "IntroductionText": {
+    "templates": [],
+    "paths": {
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopIntroPopup": []
+    }
+  },
+  "HintText": {
+    "templates": [],
+    "paths": {
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopIntroPopup": []
+    }
+  },
+  "CurrencyReoveryText": {
+    "templates": [],
+    "paths": {
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopIntroPopup": []
+    }
+  },
+  "HeadlineText": {
+    "templates": [],
+    "paths": {
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopIntroPopup": []
+    }
+  },
+  "ConfirmButtonText": {
+    "templates": [],
+    "paths": {
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopIntroPopup": []
+    }
+  },
+  "NotEnoughMoneyText": {
+    "templates": [],
+    "paths": {
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHoverTexts": []
+    }
+  },
+  "EnoughMoneyText": {
+    "templates": [],
+    "paths": {
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopHoverTexts": []
     }
   }
 }

@@ -6,6 +6,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+- Copy `assets_.xml` to `assets.xml` to allow fallback ModOps for wrong installations
+
 ## [1.6.4]
 
 - Fixed assets XML search being endless in some cases

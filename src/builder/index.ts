@@ -17,6 +17,7 @@ import * as dds from '../other/dds';
 import * as xmltest from '../other/xmltest';
 import { ModCache } from './ModCache';
 import * as utils from '../other/utils';
+import { AssetsConverter } from './converter/assets';
 
 export class ModBuilder {
   _converters: { [index: string]: Converter } = {};
@@ -39,6 +40,7 @@ export class ModBuilder {
     this._addConverter(new ModinfoConverter());
     this._addConverter(new RdpxmlConverter());
     this._addConverter(new CfgYamlConverter());
+    this._addConverter(new AssetsConverter());
   }
 
   private _addConverter(converter: Converter) {
@@ -66,6 +68,10 @@ export class ModBuilder {
     utils.ensureDir(outFolder);
     const modCache = new ModCache(path.dirname(filePath), this._variables['annoRda']);
     modCache.load();
+
+    modJson.converter = [...modJson.converter, {
+      "action": 
+    }]
 
     for (const entry of modJson.converter) {
       const allFiles = entry.pattern ? glob.sync(entry.pattern, { cwd: sourceFolder, nodir: true }) : [];

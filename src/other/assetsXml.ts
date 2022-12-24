@@ -12,7 +12,7 @@ export interface IAsset {
 export interface IPositionedElement {
   history: xmldoc.XmlElement[];
   element: xmldoc.XmlElement;
-  position: number;
+  column: number;
 }
 
 export class AssetsDocument {
@@ -36,11 +36,19 @@ export class AssetsDocument {
           // const xpath = top.element.attr['Path'];
         }
         
-        const p = top.element.column - (top.element.position - top.element.startTagPosition + 1);
+        const column = top.element.column - (top.element.position - top.element.startTagPosition + 1);
+
+        // if Property
+        if (top.history.length >= 3 && top.history[top.history.length - 3].name === 'Asset') {
+          const template = top.history[top.history.length - 3].valueWithPath('Template')
+          // current node is a property
+          let a = 1;
+        }
+
         this.getLine(top.element.line).push({ 
           history: top.history.slice(), 
           element: top.element, 
-          position: p
+          column
         });
 
         if (top.element.name === 'GUID') {
@@ -86,7 +94,7 @@ export class AssetsDocument {
     if (line >= this.lines.length) return undefined;
 
     const thisLine = this.lines[line];
-    if (thisLine.length === 0 || thisLine[0].position > position) {
+    if (thisLine.length === 0 || thisLine[0].column > position) {
       while (line > 0) {
         line--;
         if (this.lines[line].length > 0) {
@@ -96,7 +104,7 @@ export class AssetsDocument {
     }
 
     let i = 0;
-    while (i < thisLine.length - 1 && (thisLine[i + 1].position <= position)) {
+    while (i < thisLine.length - 1 && (thisLine[i + 1].column <= position)) {
       i++
     }
 
