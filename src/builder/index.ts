@@ -103,7 +103,13 @@ export class ModBuilder {
     const testFolder = path.join(sourceFolder, 'tests');
     if (fs.existsSync(sourceFolder)) {
       this._logger.log(`Run tests from ${testFolder}`);
-      if (!xmltest.test(testFolder, path.join(sourceFolder, 'data/config/export/main/asset/assets.xml'), this._asAbsolutePath, cache)) {
+
+      let testRoot = path.join(sourceFolder, 'data/config/export/main/asset/assets_.xml');
+      if (!fs.existsSync(testRoot)) {
+        testRoot = path.join(sourceFolder, 'data/config/export/main/asset/assets.xml');
+      }
+
+      if (!xmltest.test(testFolder, testRoot, this._asAbsolutePath, cache)) {
         return false;
       }
     }
