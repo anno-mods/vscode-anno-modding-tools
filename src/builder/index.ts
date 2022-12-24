@@ -70,8 +70,8 @@ export class ModBuilder {
     modCache.load();
 
     modJson.converter = [...modJson.converter, {
-      "action": 
-    }]
+      "action": "assets"
+    }];
 
     for (const entry of modJson.converter) {
       const allFiles = entry.pattern ? glob.sync(entry.pattern, { cwd: sourceFolder, nodir: true }) : [];
