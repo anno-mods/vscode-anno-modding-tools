@@ -13,7 +13,7 @@ export class AssetsConverter extends Converter {
     const dontCopy = path.join(outFolder, "data/config/export/main/asset/assets_.xml");
 
     try {
-      if (fs.existsSync(path.dirname(sourceFile))) {
+      if (fs.existsSync(sourceFile)) {
         if (!fs.existsSync(path.dirname(targetFile))) {
           fs.mkdirSync(path.dirname(targetFile), { recursive: true });
         }

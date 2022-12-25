@@ -4,7 +4,7 @@ All notable changes to the "anno-modding-tools" extension will be documented in 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [Unreleased]
+## [1.6.5]
 
 - Copy `assets_.xml` to `assets.xml` to allow fallback ModOps for wrong installations
 
