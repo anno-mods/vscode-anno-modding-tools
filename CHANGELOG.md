@@ -4,6 +4,11 @@ All notable changes to the "anno-modding-tools" extension will be documented in 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.7]
+
+- Added `Anno: Compare with Vanilla` right click command for `assets*.xml` files.
+  That command will apply the mod and show you all changed assets in a diff view.
+
 ## [1.6.5]
 
 - Copy `assets_.xml` to `assets.xml` to allow fallback ModOps for wrong installations
