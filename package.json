@@ -2,7 +2,7 @@
 	"name": "anno-modding-tools",
 	"displayName": "Anno Modding Tools",
 	"description": "Modding tools for Anno 1800",
-	"version": "1.6.5",
+	"version": "1.7.0",
 	"publisher": "JakobHarder",
 	"repository": {
 		"type": "git",
@@ -23,6 +23,7 @@
 		"onCommand:anno-modding-tools.buildMod",
 		"onCommand:anno-modding-tools.convertFcCf7",
 		"onCommand:anno-modding-tools.convertCf7Fc",
+		"onCommand:anno-modding-tools.patchCheckDiff",
 		"onCommand:anno-modding-tools.pngToDds",
 		"onCommand:anno-modding-tools.ddsToPng",
 		"onCommand:anno-modding-tools.importProps",
@@ -163,6 +164,10 @@
 			{
 				"command": "anno-modding-tools.cfgyamlToCfg",
 				"title": "Generate CFG, IFO, FC files"
+			},
+			{
+				"command": "anno-modding-tools.patchCheckDiff",
+				"title": "Anno: Compare with Vanilla"
 			}
 		],
 		"menus": {
@@ -222,6 +227,10 @@
 				{
 					"when": "resourceFilename == annomod.json",
 					"command": "anno-modding-tools.buildMod"
+				},
+				{
+					"when": "resourceFilename =~ /assets.+xml$/",
+					"command": "anno-modding-tools.patchCheckDiff"
 				}
 			]
 		},

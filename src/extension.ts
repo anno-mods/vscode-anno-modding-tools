@@ -15,6 +15,7 @@ import * as rdp from './other/rdp';
 import { CfgYamlCommands } from './features/commands/cfgyaml';
 import { AssetsSymbolProvider } from './features/outline/assetsSymbolProvider';
 import { AssetsActionProvider } from './features/assetsActionProvider';
+import { PatchTester } from './features/commands/patchTester';
 
 import * as logger from './other/logger';
 import * as channel from './features/channel';
@@ -44,6 +45,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(...AssetsActionProvider.register(context));
 	context.subscriptions.push(...registerGuidUtilsProvider(context));
 	context.subscriptions.push(...cfgHoverProvider.registerHoverProvider(context));
+	context.subscriptions.push(...PatchTester.register(context));
 }
 
 function registerCfgLanguageFeatures(language: string): vscode.Disposable {
