@@ -171,6 +171,12 @@
 			}
 		],
 		"menus": {
+			"commandPalette":[
+        {
+            "command": "anno-modding-tools.patchCheckDiff",
+            "when": "false"
+        }
+    	],
 			"explorer/context": [
 				{
 					"when": "resourceExtname == .fc",
@@ -230,6 +236,10 @@
 				},
 				{
 					"when": "resourceFilename =~ /assets.+xml$/",
+					"command": "anno-modding-tools.patchCheckDiff"
+				},
+				{
+					"when": "resourceFilename == annomod.json",
 					"command": "anno-modding-tools.patchCheckDiff"
 				}
 			]

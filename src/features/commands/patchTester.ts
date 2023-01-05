@@ -3,7 +3,6 @@ import * as child from 'child_process';
 import * as channel from '../channel';
 import * as fs from 'fs';
 import * as path from 'path';
-import { resourceLimits } from 'worker_threads';
 
 let _originalPath: string;
 let _patchPath: string;
@@ -43,49 +42,34 @@ export class PatchTester {
           return;
         }
 
-        // TODO checksum??
-        // if (_originalPath !== vanillaAssetsFilePath) {
-          _originalPath = vanillaAssetsFilePath;
-          // _reload = true;
-        // }
-        // if (_patchPath !== fileUri.fsPath) {
-          _patchPath = fileUri.fsPath;
-          _reload = true;
-        // }
+        let patchFilePath = fileUri.fsPath;
+        if (path.basename(patchFilePath) === 'annomod.json') {
+          const assetsFilePath = path.join(path.dirname(patchFilePath), 'data/config/export/main/asset/assets');
+          if (fs.existsSync(assetsFilePath + '_.xml')) {
+            patchFilePath = assetsFilePath + '_.xml';
+          }
+          else {
+            patchFilePath = assetsFilePath + '.xml';
+          }
+        }
+
+        if (!fs.existsSync(patchFilePath)) {
+          vscode.window.showErrorMessage(`Cannot find '${patchFilePath}'`);
+          return;
+        }
+
+        // TODO cache with checksum?
+        _originalPath = vanillaAssetsFilePath;
+        _patchPath = patchFilePath;
+        _reload = true;
 
         const timestamp = Date.now();
-
         vscode.commands.executeCommand('vscode.diff', 
           vscode.Uri.parse('annodiff:' + _originalPath + '?original#' + timestamp),
           vscode.Uri.parse('annodiff:' + _patchPath + '?patch#' + timestamp),
           'Anno Diff: Original ↔ Patched');
       }),
-      vscode.workspace.registerTextDocumentContentProvider("annodiff", annodiffContentProvider),
-      // vscode.commands.registerCommand('anno-modding-tools.patchCheckLog', async (fileUri) => {
-      //   const vanillaAssetsFilePath = await this.getVanilla(fileUri);
-      //   if (!vanillaAssetsFilePath) {
-      //     return;
-      //   }
-
-      //   // TODO checksum??
-      //   // if (_originalPath !== vanillaAssetsFilePath) {
-      //     _originalPath = vanillaAssetsFilePath;
-      //     // _reload = true;
-      //   // }
-      //   // if (_patchPath !== fileUri.fsPath) {
-      //     _patchPath = fileUri.fsPath;
-      //     _reload = true;
-      //   // }
-
-      //   const timestamp = Date.now();
-
-      //   // TODO find mod name
-      //   vscode.commands.executeCommand('vscode.open', 
-      //     vscode.Uri.parse('annolog:' + fileUri.fsPath + '?' + vanillaAssetsFilePath + '#' + timestamp),
-      //     {},
-      //     'Modloader Log');
-      // }),
-      // vscode.workspace.registerTextDocumentContentProvider("annolog", modloaderLogProvider),
+      vscode.workspace.registerTextDocumentContentProvider("annodiff", annodiffContentProvider)
     ];
 
     return disposable;
