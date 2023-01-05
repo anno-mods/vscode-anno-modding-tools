@@ -4,6 +4,10 @@ All notable changes to the "anno-modding-tools" extension will be documented in 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [Unreleased]
+
+- Added support for multiple source folders in `annomod.json`.
+
 ## [1.7]
 
 - Added `Anno: Compare with Vanilla` right click command for `assets*.xml` files.

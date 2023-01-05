@@ -51,21 +51,21 @@ export class ModBuilder {
   public async build(filePath: string) {
     this._logger.log('Build ' + filePath);
     const modJson = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-    let sourceFolder = path.dirname(filePath) + '/' + modJson.src;
-    if (!sourceFolder.endsWith('/')) {
-      sourceFolder += '/';
+
+    let sourceFolders: string[] = Array.isArray(modJson.src) ? modJson.src : [ modJson.src ];
+    sourceFolders = sourceFolders.map(x => path.dirname(filePath) + '/' + x);
+    for (let folder of sourceFolders) {
+      if (!fs.existsSync(folder)) {
+        this._logger.error('Incorrect source folder: ' + folder);
+        return;
+      }
     }
+
     const outFolder = this._getOutFolder(filePath, modJson);
     const cache = path.join(path.dirname(filePath), '.modcache');
-    
     this._logger.log('Target folder: ' + outFolder);
-
-    if (!fs.existsSync(sourceFolder)) {
-      this._logger.error('Incorrect source folder: ' + sourceFolder);
-      return;
-    }
-
     utils.ensureDir(outFolder);
+
     const modCache = new ModCache(path.dirname(filePath), this._variables['annoRda']);
     modCache.load();
 
@@ -73,49 +73,52 @@ export class ModBuilder {
       "action": "assets"
     }];
 
-    for (const entry of modJson.converter) {
-      const allFiles = entry.pattern ? glob.sync(entry.pattern, { cwd: sourceFolder, nodir: true }) : [];
-      const converter = this._converters[entry.action];
-      if (converter) {
-        this._logger.log(`${entry.action}` + (entry.pattern?`: ${entry.pattern}`:''));
-        const result = await converter.run(allFiles, sourceFolder, outFolder, {
-          cache,
-          modJson,
-          converterOptions: entry,
-          variables: this._variables,
-          modCache
-        });
-        if (!result) {
+    for (const sourceFolder of sourceFolders) {
+      this._logger.log('Source folder: ' + sourceFolder);
+
+      for (const entry of modJson.converter) {
+        const allFiles = entry.pattern ? glob.sync(entry.pattern, { cwd: sourceFolder, nodir: true }) : [];
+        const converter = this._converters[entry.action];
+        if (converter) {
+          this._logger.log(`${entry.action}` + (entry.pattern?`: ${entry.pattern}`:''));
+          const result = await converter.run(allFiles, sourceFolder, outFolder, {
+            cache,
+            modJson,
+            converterOptions: entry,
+            variables: this._variables,
+            modCache
+          });
+          if (!result) {
+            return false;
+          }
+        }
+        else {
+          this._logger.error('Error: no converter with name: ' + entry.action);
           return false;
         }
       }
-      else {
-        this._logger.error('Error: no converter with name: ' + entry.action);
-        return false;
+    }
+
+    for (const sourceFolder of sourceFolders) {
+      const testInputFolder = path.join(sourceFolder, 'tests');
+      if (fs.existsSync(sourceFolder)) {
+        this._logger.log(`Run tests from ${testInputFolder}`);
+
+        const testTarget = path.join(outFolder, 'data/config/export/main/asset/assets.xml');
+
+        if (!xmltest.test(testInputFolder, testTarget, this._asAbsolutePath, cache)) {
+          return false;
+        }
       }
+      // else {
+      //   this._logger.log(`No test folder available: ${testFolder}`);
+      // }
     }
 
     if (!modCache.isCiRun()) {
       modCache.saveVanilla();
     }
     modCache.save();
-
-    const testFolder = path.join(sourceFolder, 'tests');
-    if (fs.existsSync(sourceFolder)) {
-      this._logger.log(`Run tests from ${testFolder}`);
-
-      let testRoot = path.join(sourceFolder, 'data/config/export/main/asset/assets_.xml');
-      if (!fs.existsSync(testRoot)) {
-        testRoot = path.join(sourceFolder, 'data/config/export/main/asset/assets.xml');
-      }
-
-      if (!xmltest.test(testFolder, testRoot, this._asAbsolutePath, cache)) {
-        return false;
-      }
-    }
-    else {
-      this._logger.log(`No test folder available: ${testFolder}`);
-    }
 
     this._logger.log(`${this._getModName(filePath, modJson)} done`);
     return true;
