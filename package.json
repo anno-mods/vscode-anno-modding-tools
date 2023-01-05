@@ -24,6 +24,7 @@
 		"onCommand:anno-modding-tools.convertFcCf7",
 		"onCommand:anno-modding-tools.convertCf7Fc",
 		"onCommand:anno-modding-tools.patchCheckDiff",
+		"onCommand:anno-modding-tools.runTests",
 		"onCommand:anno-modding-tools.pngToDds",
 		"onCommand:anno-modding-tools.ddsToPng",
 		"onCommand:anno-modding-tools.importProps",
@@ -168,6 +169,10 @@
 			{
 				"command": "anno-modding-tools.patchCheckDiff",
 				"title": "Anno: Compare with Vanilla"
+			},
+			{
+				"command": "anno-modding-tools.runTests",
+				"title": "Anno: Run Patch Tests"
 			}
 		],
 		"menus": {
@@ -175,7 +180,11 @@
         {
             "command": "anno-modding-tools.patchCheckDiff",
             "when": "false"
-        }
+        },
+				{
+					"command": "anno-modding-tools.runTests",
+					"when": "false"
+			}
     	],
 			"explorer/context": [
 				{
@@ -241,6 +250,10 @@
 				{
 					"when": "resourceFilename == annomod.json",
 					"command": "anno-modding-tools.patchCheckDiff"
+				},
+				{
+					"when": "resourceFilename == annomod.json",
+					"command": "anno-modding-tools.runTests"
 				}
 			]
 		},

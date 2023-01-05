@@ -1,21 +1,11 @@
 import * as vscode from 'vscode';
 import CfgDocumentSymbolProvider from './features/outline/cfgSymbolProvider';
 import { registerGuidUtilsProvider } from './features/guidUtilsProvider';
-import { FcConverter } from './features/commands/fcConverter';
-import { DdsConverter } from './features/commands/ddsConverter';
-import { AnnomodCommands } from './features/commands/annomod';
-import { PropImporter } from './features/commands/propImporter';
-import { InfoImporter } from './features/commands/infoImporter';
-import { RdmGlbConverter } from './features/commands/rdmGlbConverter';
-import { GltfRdmConverter } from './features/commands/gltfRdmConverter';
-import { RdpConverter } from './features/commands/rdpConverter';
-import { FcImporter } from './features/commands/fcImporter';
 import * as dds from './other/dds';
 import * as rdp from './other/rdp';
-import { CfgYamlCommands } from './features/commands/cfgyaml';
 import { AssetsSymbolProvider } from './features/outline/assetsSymbolProvider';
 import { AssetsActionProvider } from './features/assetsActionProvider';
-import { PatchTester } from './features/commands/patchTester';
+import * as commands from './features/commands';
 
 import * as logger from './other/logger';
 import * as channel from './features/channel';
@@ -31,21 +21,12 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(registerCfgLanguageFeatures('anno-cf7'));
 	context.subscriptions.push(registerCfgLanguageFeatures('anno-ifo'));
 	context.subscriptions.push(registerCfgLanguageFeatures('anno-prp'));
-	context.subscriptions.push(...FcConverter.register(context));
-	context.subscriptions.push(...DdsConverter.register(context));
-	context.subscriptions.push(...AnnomodCommands.register(context));
-	context.subscriptions.push(...PropImporter.register(context));
-	context.subscriptions.push(...InfoImporter.register(context));
-	context.subscriptions.push(...RdmGlbConverter.register(context));
-	context.subscriptions.push(...GltfRdmConverter.register(context));
-	context.subscriptions.push(...RdpConverter.register(context));
-	context.subscriptions.push(...FcImporter.register(context));
-	context.subscriptions.push(...CfgYamlCommands.register(context));
 	context.subscriptions.push(...AssetsSymbolProvider.register(context));
 	context.subscriptions.push(...AssetsActionProvider.register(context));
 	context.subscriptions.push(...registerGuidUtilsProvider(context));
 	context.subscriptions.push(...cfgHoverProvider.registerHoverProvider(context));
-	context.subscriptions.push(...PatchTester.register(context));
+
+	commands.registerCommands(context);
 }
 
 function registerCfgLanguageFeatures(language: string): vscode.Disposable {

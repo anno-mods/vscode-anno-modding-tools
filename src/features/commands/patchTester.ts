@@ -64,6 +64,7 @@ export class PatchTester {
         _reload = true;
 
         const timestamp = Date.now();
+        channel.show();
         vscode.commands.executeCommand('vscode.diff', 
           vscode.Uri.parse('annodiff:' + _originalPath + '?original#' + timestamp),
           vscode.Uri.parse('annodiff:' + _patchPath + '?patch#' + timestamp),
