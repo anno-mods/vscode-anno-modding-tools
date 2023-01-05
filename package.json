@@ -111,59 +111,59 @@
 		"commands": [
 			{
 				"command": "anno-modding-tools.convertFcCf7",
-				"title": "Convert to CF7"
+				"title": "Anno: Convert to CF7"
 			},
 			{
 				"command": "anno-modding-tools.convertCf7Fc",
-				"title": "Convert to FC"
+				"title": "Anno: Convert to FC"
 			},
 			{
 				"command": "anno-modding-tools.pngToDds",
-				"title": "Convert to BC7_UNORM DDS"
+				"title": "Anno: Convert to BC7_UNORM DDS"
 			},
 			{
 				"command": "anno-modding-tools.ddsToPng",
-				"title": "Convert to PNG"
+				"title": "Anno: Convert to PNG"
 			},
 			{
 				"command": "anno-modding-tools.buildMod",
-				"title": "Build Anno Mod"
+				"title": "Anno: Build Mod"
 			},
 			{
 				"command": "anno-modding-tools.importProps",
-				"title": "Import PROPs from glTF"
+				"title": "Anno: Import PROPs from glTF"
 			},
 			{
 				"command": "anno-modding-tools.importInfo",
-				"title": "Import from glTF"
+				"title": "Anno: Import from glTF"
 			},
 			{
 				"command": "anno-modding-tools.importFeedback",
-				"title": "Import from glTF"
+				"title": "Anno: Import from glTF"
 			},
 			{
 				"command": "anno-modding-tools.convertRdmToGlb",
-				"title": "Convert to glTF Binary"
+				"title": "Anno: Convert to glTF Binary"
 			},
 			{
 				"command": "anno-modding-tools.convertGltfToRdm",
-				"title": "Convert to RDM"
+				"title": "Anno: Convert to RDM"
 			},
 			{
 				"command": "anno-modding-tools.rdpToXml",
-				"title": "Convert to RDP XML (CDATA as is)"
+				"title": "Anno: Convert to RDP XML (CDATA as is)"
 			},
 			{
 				"command": "anno-modding-tools.rdpToSimplified",
-				"title": "Convert to RDP XML (simplified)"
+				"title": "Anno: Convert to RDP XML (simplified)"
 			},
 			{
 				"command": "anno-modding-tools.xmlToRdp",
-				"title": "Convert to RDP"
+				"title": "Anno: Convert to RDP"
 			},
 			{
 				"command": "anno-modding-tools.cfgyamlToCfg",
-				"title": "Generate CFG, IFO, FC files"
+				"title": "Anno: Generate CFG, IFO, FC files"
 			},
 			{
 				"command": "anno-modding-tools.patchCheckDiff",
