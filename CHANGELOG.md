@@ -9,6 +9,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Added support for multiple source folders in `annomod.json`.
 - Added `Anno: Compare with Vanilla` command to `annomod.json` context menu.
 - Added `Anno: Run Patch Tests` command to `annomod.json` context menu.
+- Added `Anno: Compare with Vanilla` command to the code editor.
+  All touched ModOps in within the selection will be checked.
 
 ## [1.7.0]
 

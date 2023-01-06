@@ -168,7 +168,11 @@
 			},
 			{
 				"command": "anno-modding-tools.patchCheckDiff",
-				"title": "Anno: Compare with Vanilla"
+				"title": "Anno: Compare Result with Vanilla"
+			},
+			{
+				"command": "anno-modding-tools.selectionCheckDiff",
+				"title": "Anno: Compare Result with Vanilla"
 			},
 			{
 				"command": "anno-modding-tools.runTests",
@@ -181,6 +185,10 @@
             "command": "anno-modding-tools.patchCheckDiff",
             "when": "false"
         },
+				{
+					"command": "anno-modding-tools.selectionCheckDiff",
+					"when": "false"
+				},
 				{
 					"command": "anno-modding-tools.runTests",
 					"when": "false"
@@ -241,7 +249,8 @@
 				},
 				{
 					"when": "resourceFilename == annomod.json",
-					"command": "anno-modding-tools.buildMod"
+					"command": "anno-modding-tools.buildMod",
+					"group": "anno@3"
 				},
 				{
 					"when": "resourceFilename =~ /assets.+xml$/",
@@ -249,11 +258,18 @@
 				},
 				{
 					"when": "resourceFilename == annomod.json",
-					"command": "anno-modding-tools.patchCheckDiff"
+					"command": "anno-modding-tools.patchCheckDiff",
+					"group": "anno@1"
 				},
 				{
 					"when": "resourceFilename == annomod.json",
-					"command": "anno-modding-tools.runTests"
+					"command": "anno-modding-tools.runTests",
+					"group": "anno@2"
+				}
+			],
+			"editor/context": [
+				{
+					"command": "anno-modding-tools.selectionCheckDiff"
 				}
 			]
 		},
@@ -268,7 +284,7 @@
 				"anno.rdaFolder": {
 					"type": "string",
 					"format": "uri",
-					"markdownDescription": "Folder containing RDA data extracted for `${andoRda}` in `*.cfg.yaml` files."
+					"markdownDescription": "Folder containing extracted RDA data. Used for assets diff and `cfg.yaml` to `cfg` conversion. E.g. `c:\\anno\\all-rda`"
 				},
 				"anno.outlineFolderDepth": {
 					"type": "number",

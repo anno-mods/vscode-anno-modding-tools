@@ -3,9 +3,11 @@ import * as child from 'child_process';
 import * as channel from '../channel';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as utils from '../../other/utils';
 
 let _originalPath: string;
 let _patchPath: string;
+let _patch: string;
 let _reload: boolean = false;
 
 let _originalContent: string;
@@ -26,15 +28,7 @@ export class PatchTester {
         }
       }
     })();
-
-    const modloaderLogProvider = new (class implements vscode.TextDocumentContentProvider {
-      provideTextDocumentContent(uri: vscode.Uri): string {
-        PatchTester.reload(context);
-
-        return _logContent;
-      }
-    })();
-
+    
     const disposable = [
       vscode.commands.registerCommand('anno-modding-tools.patchCheckDiff', async (fileUri) => {
         const vanillaAssetsFilePath = await this.getVanilla(fileUri);
@@ -61,6 +55,7 @@ export class PatchTester {
         // TODO cache with checksum?
         _originalPath = vanillaAssetsFilePath;
         _patchPath = patchFilePath;
+        _patch = "";
         _reload = true;
 
         const timestamp = Date.now();
@@ -68,6 +63,38 @@ export class PatchTester {
         vscode.commands.executeCommand('vscode.diff', 
           vscode.Uri.parse('annodiff:' + _originalPath + '?original#' + timestamp),
           vscode.Uri.parse('annodiff:' + _patchPath + '?patch#' + timestamp),
+          'Anno Diff: Original ↔ Patched');
+      }),
+      vscode.commands.registerCommand('anno-modding-tools.selectionCheckDiff', async (fileUri) => {
+        const vanillaAssetsFilePath = await this.getVanilla(fileUri);
+        if (!vanillaAssetsFilePath) {
+          return;
+        }
+
+        const editor = vscode.window.activeTextEditor;
+        if (!editor) {
+          return;
+        }
+
+        // TODO cache with checksum?
+        _originalPath = vanillaAssetsFilePath;
+        _patchPath = fileUri.fsPath;
+
+        const tagSelection = utils.getTagSelection('ModOp', editor.document, editor.selection);
+        if (!tagSelection) {
+          return;
+        }
+
+        _patch = editor.document.getText(tagSelection);
+        _reload = true;
+
+        _patch = _patch.replace(/<\/?ModOps>/g, '');
+
+        const timestamp = Date.now();
+        channel.show();
+        vscode.commands.executeCommand('vscode.diff', 
+          vscode.Uri.parse('annodiff:' + _originalPath + '?original#' + timestamp),
+          vscode.Uri.parse('annodiff:?patch#' + timestamp),
           'Anno Diff: Original ↔ Patched');
       }),
       vscode.workspace.registerTextDocumentContentProvider("annodiff", annodiffContentProvider)
@@ -97,6 +124,11 @@ export class PatchTester {
     if (_reload) {
       const start = Date.now()
 
+      if (_patch !== '') {
+        _patchPath += '.annodiff';
+        fs.writeFileSync(_patchPath, '<ModOps>' + _patch + '</ModOps>');
+      }
+
       const tester = new PatchTester(context);
       const result = tester.diff(_originalPath, _patchPath);
       _originalContent = result.original;
@@ -104,7 +136,11 @@ export class PatchTester {
       _logContent = result.log;
       _reload = false;
 
-      const stop = Date.now()
+      const stop = Date.now();
+
+      if (_patch !== '') {
+        fs.rmSync(_patchPath);
+      }
 
       channel.log(_logContent);
       channel.log(`annodiff: ${(stop - start)/1000}s`);
