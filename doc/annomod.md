@@ -56,6 +56,25 @@ Have a look at [Jakob's Collection's GitHub publish pipeline](https://github.com
 } 
 ```
 
+- `src`
+
+  One or multiple folders to read the input data from.
+  Use an array in case of multiple folders.
+
+- `out`
+
+  Folder to write the output mod to.
+
+  Use `${modName}` to get `[Category] Name` created from `modinfo.Category.English` and `modinfo.ModName.English`. Works only with `out`.
+  
+  Use `${annoMods}` to get your local Anno `mods/` directory set in the Extension configuration. Works only with `out`.
+
+- `modinfo`
+
+  Basically Anno Mod Manager [modinfo.json](https://github.com/anno-mods/Modinfo) content.
+
+  `modinfo.Description` differs from what the Anno Mod Manager uses. Instead of text use a relative path to a Markdown file. Images will be excluded from the Markdown.
+
 ### Converter Actions
 
 - `static`: copies files according to [glob](https://github.com/isaacs/node-glob) `pattern`.
@@ -72,12 +91,3 @@ Have a look at [Jakob's Collection's GitHub publish pipeline](https://github.com
 - `rdpxml`: convert .rdp.xml into .rdp. [More on a separate page](https://github.com/anno-mods/modding-guide/blob/main/guides/particles.md)
 - `cfgyaml`: generate CFG, IFO and FC files. [More in a separate page](../README.md#create-variants-from-templates).
 
-Out folder variables:
-
-- Use `${modName}` to get `[Category] Name` created from `modinfo.Category.English` and `modinfo.ModName.English`. Works only with `out`.
-- Use `${annoMods}` to get your local Anno `mods/` directory set in the Extension configuration. Works only with `out`.
-
-Modinfo:
-
-- Basically Anno Mod Manager [modinfo.json](https://github.com/anno-mods/Modinfo) content.
-- `modinfo.Description` differs from what the Anno Mod Manager uses. Instead of text use a relative path to a Markdown file. Images will be excluded from the Markdown.

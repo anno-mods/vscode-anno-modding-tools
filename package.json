@@ -2,7 +2,7 @@
 	"name": "anno-modding-tools",
 	"displayName": "Anno Modding Tools",
 	"description": "Modding tools for Anno 1800",
-	"version": "1.7.0",
+	"version": "1.8.0",
 	"publisher": "JakobHarder",
 	"repository": {
 		"type": "git",
@@ -24,6 +24,7 @@
 		"onCommand:anno-modding-tools.convertFcCf7",
 		"onCommand:anno-modding-tools.convertCf7Fc",
 		"onCommand:anno-modding-tools.patchCheckDiff",
+		"onCommand:anno-modding-tools.runTests",
 		"onCommand:anno-modding-tools.pngToDds",
 		"onCommand:anno-modding-tools.ddsToPng",
 		"onCommand:anno-modding-tools.importProps",
@@ -111,66 +112,88 @@
 		"commands": [
 			{
 				"command": "anno-modding-tools.convertFcCf7",
-				"title": "Convert to CF7"
+				"title": "Anno: Convert to CF7"
 			},
 			{
 				"command": "anno-modding-tools.convertCf7Fc",
-				"title": "Convert to FC"
+				"title": "Anno: Convert to FC"
 			},
 			{
 				"command": "anno-modding-tools.pngToDds",
-				"title": "Convert to BC7_UNORM DDS"
+				"title": "Anno: Convert to BC7_UNORM DDS"
 			},
 			{
 				"command": "anno-modding-tools.ddsToPng",
-				"title": "Convert to PNG"
+				"title": "Anno: Convert to PNG"
 			},
 			{
 				"command": "anno-modding-tools.buildMod",
-				"title": "Build Anno Mod"
+				"title": "Anno: Build Mod"
 			},
 			{
 				"command": "anno-modding-tools.importProps",
-				"title": "Import PROPs from glTF"
+				"title": "Anno: Import PROPs from glTF"
 			},
 			{
 				"command": "anno-modding-tools.importInfo",
-				"title": "Import from glTF"
+				"title": "Anno: Import from glTF"
 			},
 			{
 				"command": "anno-modding-tools.importFeedback",
-				"title": "Import from glTF"
+				"title": "Anno: Import from glTF"
 			},
 			{
 				"command": "anno-modding-tools.convertRdmToGlb",
-				"title": "Convert to glTF Binary"
+				"title": "Anno: Convert to glTF Binary"
 			},
 			{
 				"command": "anno-modding-tools.convertGltfToRdm",
-				"title": "Convert to RDM"
+				"title": "Anno: Convert to RDM"
 			},
 			{
 				"command": "anno-modding-tools.rdpToXml",
-				"title": "Convert to RDP XML (CDATA as is)"
+				"title": "Anno: Convert to RDP XML (CDATA as is)"
 			},
 			{
 				"command": "anno-modding-tools.rdpToSimplified",
-				"title": "Convert to RDP XML (simplified)"
+				"title": "Anno: Convert to RDP XML (simplified)"
 			},
 			{
 				"command": "anno-modding-tools.xmlToRdp",
-				"title": "Convert to RDP"
+				"title": "Anno: Convert to RDP"
 			},
 			{
 				"command": "anno-modding-tools.cfgyamlToCfg",
-				"title": "Generate CFG, IFO, FC files"
+				"title": "Anno: Generate CFG, IFO, FC files"
 			},
 			{
 				"command": "anno-modding-tools.patchCheckDiff",
-				"title": "Anno: Compare with Vanilla"
+				"title": "Anno: Compare Result with Vanilla"
+			},
+			{
+				"command": "anno-modding-tools.selectionCheckDiff",
+				"title": "Anno: Compare Result with Vanilla"
+			},
+			{
+				"command": "anno-modding-tools.runTests",
+				"title": "Anno: Run Patch Tests"
 			}
 		],
 		"menus": {
+			"commandPalette":[
+        {
+            "command": "anno-modding-tools.patchCheckDiff",
+            "when": "false"
+        },
+				{
+					"command": "anno-modding-tools.selectionCheckDiff",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.runTests",
+					"when": "false"
+			}
+    	],
 			"explorer/context": [
 				{
 					"when": "resourceExtname == .fc",
@@ -226,11 +249,27 @@
 				},
 				{
 					"when": "resourceFilename == annomod.json",
-					"command": "anno-modding-tools.buildMod"
+					"command": "anno-modding-tools.buildMod",
+					"group": "anno@3"
 				},
 				{
 					"when": "resourceFilename =~ /assets.+xml$/",
 					"command": "anno-modding-tools.patchCheckDiff"
+				},
+				{
+					"when": "resourceFilename == annomod.json",
+					"command": "anno-modding-tools.patchCheckDiff",
+					"group": "anno@1"
+				},
+				{
+					"when": "resourceFilename == annomod.json",
+					"command": "anno-modding-tools.runTests",
+					"group": "anno@2"
+				}
+			],
+			"editor/context": [
+				{
+					"command": "anno-modding-tools.selectionCheckDiff"
 				}
 			]
 		},
@@ -245,7 +284,7 @@
 				"anno.rdaFolder": {
 					"type": "string",
 					"format": "uri",
-					"markdownDescription": "Folder containing RDA data extracted for `${andoRda}` in `*.cfg.yaml` files."
+					"markdownDescription": "Folder containing extracted RDA data. Used for assets diff and `cfg.yaml` to `cfg` conversion. E.g. `c:\\anno\\all-rda`"
 				},
 				"anno.outlineFolderDepth": {
 					"type": "number",

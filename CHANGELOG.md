@@ -4,7 +4,16 @@ All notable changes to the "anno-modding-tools" extension will be documented in 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [1.7]
+## [1.8.0]
+
+- Added support for multiple source folders in `annomod.json`.
+- Added `Anno: Compare with Vanilla` command to `annomod.json` context menu.
+- Added `Anno: Run Patch Tests` command to `annomod.json` context menu.
+- Added `Anno: Compare with Vanilla` command to the code editor.
+  All touched ModOps in within the selection will be checked.
+- Added `Include` ModOps to outline.
+
+## [1.7.0]
 
 - Added `Anno: Compare with Vanilla` right click command for `assets*.xml` files.
   That command will apply the mod and show you all changed assets in a diff view.
@@ -12,17 +21,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [1.6.5]
 
 - Copy `assets_.xml` to `assets.xml` to allow fallback ModOps for wrong installations
-
-## [1.6.4]
-
 - Fixed assets XML search being endless in some cases
-
-## [1.6.3]
-
-### Changed
-
-- Added faked plant support (P4h_N4b_G4b_B4b_T2h_C4b_C4b) using `plantPattern` in `gltf` converter
 - GUIDs for auto completion and hover will be searched in the complete mod folder now
+- Updated assets, GUIDs for GU16
 
 ## [1.6.2]
 
