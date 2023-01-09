@@ -3,7 +3,7 @@ import * as child from 'child_process';
 import * as channel from '../channel';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as utils from '../../other/utils';
+import * as utils from '../../other/editorUtils';
 
 let _originalPath: string;
 let _patchPath: string;
