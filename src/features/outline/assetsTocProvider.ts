@@ -95,6 +95,9 @@ export class AssetsTocProvider {
       const guid = element.valueWithPath('Values.Standard.GUID');
       return [ name, guid ].filter((e) => e).join(', ');
     }
+    else if (element.name === 'Include') {
+      return element.attr['File'];
+    }
     return '';
   }
 
@@ -105,7 +108,8 @@ export class AssetsTocProvider {
       /* eslint-disable @typescript-eslint/naming-convention */
       'ModOp': { minChildren: 0 },
       'Asset': { minChildren: 1 },
-      'Template': { minChildren: 1 }
+      'Template': { minChildren: 1 },
+      'Include': { minChildren: 0 }
       /* eslint-enable @typescript-eslint/naming-convention */
     };
 
@@ -113,7 +117,8 @@ export class AssetsTocProvider {
       /* eslint-disable @typescript-eslint/naming-convention */
       'ModOp': vscode.SymbolKind.Property,
       'Asset': vscode.SymbolKind.Class,
-      'Template': vscode.SymbolKind.Class
+      'Template': vscode.SymbolKind.Class,
+      'Include': vscode.SymbolKind.Module
       /* eslint-enable @typescript-eslint/naming-convention */
     };
 
@@ -141,7 +146,7 @@ export class AssetsTocProvider {
       }
       else if (top.element.type === 'element') {
         // open ModOp section
-        if (sectionComment && (top.element.name === 'ModOp' || top.element.name === 'Template')) {
+        if (sectionComment && (top.element.name === 'ModOp' || top.element.name === 'Template' || top.element.name === 'Include')) {
           const line = Math.max(0, top?.element.line - 1);
           toc.push({
             text: sectionComment,
@@ -167,13 +172,16 @@ export class AssetsTocProvider {
         // check if relevant, also ignore simple items
         const tocRelevant = relevantSections[top.element.name];
         if (tocRelevant && children.length >= tocRelevant.minChildren) {
+
+          // TODO tagStartColumn is 0 for multiline tags, not correct but ...
+          const tagStartColumn = Math.max(0, top.element.column - top.element.position + top.element.startTagPosition - 1);
           toc.push({
             text: this._getName(top.element),
             detail: this._getDetail(top.element),
             level: top.depth,
             line: top.element.line,
             location: new vscode.Location(document.uri,
-              new vscode.Range(top.element.line, top.element.column - top.element.position + top.element.startTagPosition - 1, top.element.line, top.element.column)),
+              new vscode.Range(top.element.line, tagStartColumn, top.element.line, top.element.column)),
             symbol: symbolMap[top.element.name] || vscode.SymbolKind.String
           });
         }
