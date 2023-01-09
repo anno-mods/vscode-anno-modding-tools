@@ -110,7 +110,7 @@ export function findTagUp(tag: string, doc: vscode.TextDocument, position: vscod
     return new vscode.Position(lineNumber + 1, index);
   }
 
-  return undefined;
+  return new vscode.Position(0, 0);
 }
 
 export function findTagBegin(tag: string, doc: vscode.TextDocument, position: vscode.Position) {
@@ -130,7 +130,7 @@ export function findTagEnd(tag: string, doc: vscode.TextDocument, position: vsco
   let lineNumber = position.line;
   let line = doc.lineAt(lineNumber);
   let index = -1;
-  while (index === -1 && lineNumber >= 0) {
+  while (index === -1 && lineNumber < doc.lineCount) {
     line = doc.lineAt(lineNumber++);
     index = line.text.indexOf('</' + tag + '>');
   }
