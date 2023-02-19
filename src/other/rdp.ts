@@ -198,7 +198,7 @@ export class Rdp {
       const res = child.execFileSync(_converterPath, [
         'hextofc',
         '-f', tempname, 
-        '-i', _interpreterPath as string
+        '-i', _interpreterPath as string,
       ], {
         cwd: path.dirname(tempname)
       });
@@ -208,7 +208,7 @@ export class Rdp {
   
       fs.rmSync(tempname);
       // FileDBReader adds _fcexport if input filename ends with .xml?
-      tempname = utils.swapExtension(targetFile, '-temp_fcexport.xml', true);
+      tempname = utils.swapExtension(targetFile, '-temp.fc', true);
       fs.renameSync(tempname, targetFile);
     }
     catch (exception: any) {

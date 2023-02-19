@@ -13,8 +13,8 @@ curl -L https://github.com/microsoft/DirectXTex/releases/download/sept2021/texco
 curl -L https://github.com/xforce/anno1800-mod-loader/releases/download/v0.9.0/xmltest.zip > ./dl/xmltest.zip
 unzip -o ./dl/xmltest.zip
 
-# FileDBReader.exe, informal permission to bundle with the extension
-curl -L https://github.com/anno-mods/FileDBReader/releases/download/v2.1.1/FileDBReader.zip > ./dl/FileDBReader.zip
+# FileDBReader.exe, 2.3+2, informal permission to bundle with the extension
+curl -L https://github.com/jakobharder/FileDBReader/releases/download/v2.3%2B2/FileDBReader.zip > ./dl/FileDBReader.zip
 unzip -o ./dl/FileDBReader.zip 
 
 # rdm4-bin.exe, 0.6.0-alpha-1+3 (fetched from test action... I hope there will be an official build soon)
