@@ -63,7 +63,10 @@ export class AnnomodCommands {
     channel.show();
     const builder = new ModBuilder(channel, context.asAbsolutePath, { annoMods, annoRda });
     for (const mod of selectedMods) {
-      await builder.build(mod.detail as string);
+      if (!await builder.build(mod.detail as string)) {
+        console.error('building mods failed');
+        break;
+      }
     }
   }
 

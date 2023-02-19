@@ -257,7 +257,7 @@ export async function xmlToRdp(sourceFile: string, targetFolder: string, options
   if (options?.dontOverwrite) {
     targetFile = utils.dontOverwrite(targetFile, '.rdp');
   }
-  await rdp.writeRdp(targetFile);
+  return await rdp.writeRdp(targetFile);
 }
 
 function _cdataToArray(cdata: string) {

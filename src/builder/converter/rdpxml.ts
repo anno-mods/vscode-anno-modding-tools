@@ -22,7 +22,9 @@ export class RdpxmlConverter extends Converter {
 
         const sourceFile = path.join(sourceFolder, file);
         const targetFile = path.join(outFolder, dirname, basename + '.rdp');
-        await rdp.xmlToRdp(sourceFile, path.dirname(targetFile));
+        if (!await rdp.xmlToRdp(sourceFile, path.dirname(targetFile))) {
+          return false;
+        }
         this._logger.log(`  <= ${path.relative(path.join(outFolder), targetFile)}`);
       }
       catch (exception: any)

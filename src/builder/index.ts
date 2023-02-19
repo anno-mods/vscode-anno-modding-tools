@@ -48,7 +48,7 @@ export class ModBuilder {
     converter.init(this._logger, this._asAbsolutePath);
   }
 
-  public async build(filePath: string) {
+  public async build(filePath: string): Promise<boolean> {
     this._logger.log('Build ' + filePath);
     const modJson = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
@@ -57,7 +57,7 @@ export class ModBuilder {
     for (let folder of sourceFolders) {
       if (!fs.existsSync(folder)) {
         this._logger.error('Incorrect source folder: ' + folder);
-        return;
+        return false;
       }
     }
 
@@ -89,6 +89,7 @@ export class ModBuilder {
             modCache
           });
           if (!result) {
+            this._logger.error('Error: converter failed: ' + entry.action);
             return false;
           }
         }
