@@ -49,6 +49,11 @@ export class ModinfoConverter extends Converter {
         }
       }
 
+      const image = this._createBase64Image(sourceFolder, "base64.jpg");
+      if (image) {
+        modinfo.Image = image;
+      }
+
       fs.writeFileSync(targetFile, JSON.stringify(modinfo, null, 2));
       this._logger.log(`  <= modinfo.json`);
     }
@@ -71,5 +76,25 @@ export class ModinfoConverter extends Converter {
       content = content.replace(/!\[\]\([^)]+\)\r?\n?\r?\n?/g, '');
     }
     return content;
+  }
+  
+  private _createBase64Image(sourceFolder: string, sourceImage?: string): string | null {
+    if (!sourceImage) {
+      return null;
+    }
+
+    const filePath = path.join(sourceFolder, sourceImage);
+    if (!fs.existsSync(filePath)) {
+      this._logger.log(`  no base64 image at ${filePath}`);
+      return null; // be silent
+    }
+
+    const buffer = fs.readFileSync(filePath);
+    if (!buffer) {
+      this._logger.error(`  error reading ${filePath}`);
+      return null;
+    }
+
+    return "data:image/jpeg;base64," + buffer.toString('base64');
   }
 }

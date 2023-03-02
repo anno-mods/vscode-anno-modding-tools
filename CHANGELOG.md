@@ -4,6 +4,10 @@ All notable changes to the "anno-modding-tools" extension will be documented in 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [Unreleased]
+
+- Buildmod: read `base64.jpg` as base64 image into `modinfo.json`
+
 ## [1.8.0]
 
 - Added support for multiple source folders in `annomod.json`.
