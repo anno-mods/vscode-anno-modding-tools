@@ -71,6 +71,7 @@
     </xs:choice>
     <xs:sequence>
       <xs:element name='Values' type='Values_Type' minOccurs='1' maxOccurs='1' />
+      <xs:any processContents='skip' minOccurs='0' maxOccurs='unbounded' />
     </xs:sequence>
   </xs:sequence>
 </xs:complexType>
