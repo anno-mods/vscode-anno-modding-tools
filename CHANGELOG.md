@@ -6,6 +6,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+- Compare with Vanilla: support `templates.xml` and `texts_*.xml`
+- Compare with Vanilla: support loader 10 features (e.g. Conditions)
 - Buildmod: read `base64.jpg` as base64 image into `modinfo.json`
 
 ## [1.8.0]
