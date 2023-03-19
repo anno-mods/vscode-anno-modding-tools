@@ -3,11 +3,22 @@
     <xs:choice maxOccurs="unbounded">
       <xs:element name='Include' type='Include' />
       <xs:element name='ModOp' type='ModOp' />
+      <xs:element name='Group' type='Group' />
       <xs:element name='ImyaTweaks' type='ImyaTweaks' />
       <xs:element name='ImyaExpose' type='ImyaExpose' />
     </xs:choice>
   </xs:complexType>
 </xs:element>
+
+<xs:complexType name='Group'>
+  <xs:choice maxOccurs="unbounded">
+    <xs:element name='Include' type='Include' />
+    <xs:element name='ModOp' type='ModOp' />
+    <xs:element name='Group' type='Group' />
+  </xs:choice>
+  <xs:attribute name='Condition' type='xs:string' />
+  <xs:attribute name='Skip' type='ModOpSkip' />
+</xs:complexType>
 
 <xs:complexType name='ModOp'>
   <xs:sequence>
@@ -19,10 +30,14 @@
   <xs:attribute name='Path' type='xs:string' />
   <xs:attribute name='ModOpID' type='xs:string' />
   <xs:attribute name='Skip' type='ModOpSkip' />
+  <xs:attribute name='Condition' type='xs:string' />
+  <xs:attribute name='AllowNoMatch' type='ModOpSkip' />
+  <xs:attribute name='Content' type='xs:string' />
 </xs:complexType>
 
 <xs:complexType name='Include'>
   <xs:attribute name='File' type='xs:string' use='required' />
+  <xs:attribute name='Skip' type='ModOpSkip' />
 </xs:complexType>
 
 <xs:complexType name='ImyaTweaks'>
