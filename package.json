@@ -32,6 +32,8 @@
 		"onCommand:anno-modding-tools.convertRdmToGlb",
 		"onCommand:anno-modding-tools.convertGltfToRdm",
 		"onCommand:anno-modding-tools.convertToRdpYaml",
+		"onCommand:anno-modding-tools.checkLoca",
+		"onCommand:anno-modding-tools.addMissingLoca",
 		"workspaceContains:**/assets.xml",
 		"onLanguage:xml"
 	],
@@ -177,14 +179,22 @@
 			{
 				"command": "anno-modding-tools.runTests",
 				"title": "Anno: Run Patch Tests"
+			},
+			{
+				"command": "anno-modding-tools.checkLoca",
+				"title": "Anno: Find Missing Text"
+			},
+			{
+				"command": "anno-modding-tools.addMissingLoca",
+				"title": "Anno: Update Missing Text from English"
 			}
 		],
 		"menus": {
-			"commandPalette":[
-        {
-            "command": "anno-modding-tools.patchCheckDiff",
-            "when": "false"
-        },
+			"commandPalette": [
+				{
+					"command": "anno-modding-tools.patchCheckDiff",
+					"when": "false"
+				},
 				{
 					"command": "anno-modding-tools.selectionCheckDiff",
 					"when": "false"
@@ -192,8 +202,16 @@
 				{
 					"command": "anno-modding-tools.runTests",
 					"when": "false"
-			}
-    	],
+				},
+				{
+					"command": "anno-modding-tools.checkLoca",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.addMissingLoca",
+					"when": "false"
+				}
+			],
 			"explorer/context": [
 				{
 					"when": "resourceExtname == .fc",
@@ -259,6 +277,16 @@
 				{
 					"when": "resourceFilename == annomod.json",
 					"command": "anno-modding-tools.patchCheckDiff",
+					"group": "anno@1"
+				},
+				{
+					"when": "resourceFilename =~ /texts_.+xml$/",
+					"command": "anno-modding-tools.checkLoca",
+					"group": "anno@1"
+				},
+				{
+					"when": "resourceFilename =~ /texts_.+xml$/",
+					"command": "anno-modding-tools.addMissingLoca",
 					"group": "anno@1"
 				},
 				{
@@ -346,7 +374,7 @@
 		"jimp": "^0.16.1",
 		"js-yaml": "^4.1.0",
 		"xml2js": "^0.4.23",
-		"xmldoc": "^1.1.2"
+		"xmldoc": "^1.2.0"
 	},
 	"__metadata": {
 		"id": "7e365771-9709-4845-98f2-bfa6030bb2d6",

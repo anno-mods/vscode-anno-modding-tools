@@ -1,0 +1,31 @@
+<ModOps>
+  <!-- # Shared Goods -->
+  <Include File="../../../products/texts/texts_english.include.xml" />
+  <Include File="../../../products1/texts/texts_english.include.xml" />
+
+  <!-- # Alternative Needs -->
+  <ModOp Type="replace" Path="/TextExport/Texts/Text[GUID='500019']/Text">
+    <Text>Fine Clothes</Text>
+  </ModOp>
+  <ModOp Type="replace" Path="/TextExport/Texts/Text[GUID='500003']/Text">
+    <Text>[AssetData(984) Text]</Text> <!-- Tools -->
+  </ModOp>
+  <ModOp Type="replace" Path="/TextExport/Texts/Text[GUID='500902']/Text">
+    <Text>Hot Beverages</Text>
+  </ModOp>
+
+  <ModOp Type="add" Path="/TextExport/Texts">
+    <Text>
+      <GUID>1500010846</GUID>
+      <Text>Basic Food</Text> <!-- '"' &amp;&lt;< -->
+    </Text>
+    <Text>
+      <GUID>1500010808</GUID>
+      <Text>Alternative Needs</Text>
+    </Text>
+    <Text>
+      <GUID>1500010950</GUID>
+      <Text>Alternative &amp; Basic Need</Text>
+    </Text>
+  </ModOp>
+</ModOps>

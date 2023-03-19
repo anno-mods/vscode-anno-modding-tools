@@ -7,6 +7,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Unreleased]
 
 - Support loader 10 features (i.e. Group, Condition, ...)
+- Added `Anno: Check for Missing Localization`
+- Added `Anno: Create Missing Localization from English`
 - Compare with Vanilla: support `templates.xml` and `texts_*.xml`
 - Buildmod: read `base64.jpg` as base64 image into `modinfo.json`
 
