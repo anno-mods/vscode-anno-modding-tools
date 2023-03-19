@@ -80,12 +80,7 @@ export class PatchTester {
         _originalPath = vanillaAssetsFilePath;
         _patchPath = fileUri.fsPath;
 
-        const tagSelection = utils.getTagSelection('ModOp', editor.document, editor.selection);
-        if (!tagSelection) {
-          return;
-        }
-
-        _patch = editor.document.getText(tagSelection);
+        _patch = utils.getSelectedModOps(editor.document, editor.selection);
         _reload = true;
 
         _patch = _patch.replace(/<\/?ModOps>/g, '');
