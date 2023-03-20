@@ -3,7 +3,8 @@ import * as child from 'child_process';
 import * as channel from '../channel';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as utils from '../../other/editorUtils';
+import * as editorUtils from '../../other/editorUtils';
+import * as utils from '../../other/utils';
 
 let _originalPath: string;
 let _patchPath: string;
@@ -75,7 +76,7 @@ export class PatchTester {
         _originalPath = vanillaAssetsFilePath;
         _patchPath = fileUri.fsPath;
 
-        _patch = utils.getSelectedModOps(editor.document, editor.selection);
+        _patch = editorUtils.getSelectedModOps(editor.document, editor.selection);
         _reload = true;
 
         _patch = _patch.replace(/<\/?ModOps>/g, '');
@@ -123,7 +124,7 @@ export class PatchTester {
       _reload = false;
       const start = Date.now();
 
-      const searchModPath = this.searchModPath(_patchPath);
+      const searchModPath = utils.searchModPath(_patchPath);
 
       const tester = new PatchTester(context);
       const result = tester.diff(_originalPath, 
@@ -179,22 +180,5 @@ export class PatchTester {
     else {
       return assetsFilePath + '.xml';
     }
-  }
-
-  static searchModPath(patchFilePath: string) {
-    let searchPath = path.dirname(patchFilePath);
-
-    for (let i = 0; i < 100 && searchPath && searchPath !== '/'; i++) {
-      if (fs.existsSync(path.join(searchPath, "modinfo.json"))
-        || fs.existsSync(path.join(searchPath, "buildmod.json"))
-        || fs.existsSync(path.join(searchPath, "data/config/export/main/asset"))
-        || fs.existsSync(path.join(searchPath, "data/config/gui"))) {
-        return searchPath;
-      }
-
-      searchPath = path.dirname(searchPath);
-    }
-
-    return path.dirname(patchFilePath);
   }
 }

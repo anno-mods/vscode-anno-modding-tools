@@ -1,4 +1,8 @@
 import * as vscode from 'vscode';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as channel from '../features/channel';
+import glob = require('glob');
 
 export function getTagCloseAt(doc: vscode.TextDocument, position: vscode.Position) {
   let lineNumber = position.line;

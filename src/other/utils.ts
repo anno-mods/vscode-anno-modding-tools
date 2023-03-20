@@ -70,3 +70,43 @@ export function insertEnding(filePath: string, insert: string) {
   }
   return path.join(path.dirname(filePath), base.substring(0, dot) + insert + base.substr(dot));
 }
+
+export function searchModPath(patchFilePath: string) {
+  let searchPath = path.dirname(patchFilePath);
+
+  for (let i = 0; i < 100 && searchPath && searchPath !== '/'; i++) {
+    if (fs.existsSync(path.join(searchPath, "modinfo.json"))
+      || fs.existsSync(path.join(searchPath, "buildmod.json"))
+      || fs.existsSync(path.join(searchPath, "data/config/export/main/asset"))
+      || fs.existsSync(path.join(searchPath, "data/config/gui"))) {
+      return searchPath;
+    }
+
+    searchPath = path.dirname(searchPath);
+  }
+
+  return path.dirname(patchFilePath);
+}
+
+export function searchModPaths(patchFilePath: string) {
+  if (!fs.existsSync(patchFilePath)) {
+    return [];
+  }
+
+  const modPath = searchModPath(patchFilePath);
+
+  let annomod;
+  if (fs.existsSync(path.join(modPath, 'annomod.json'))) {
+    annomod = JSON.parse(fs.readFileSync(path.join(modPath, 'annomod.json'), 'utf8'));
+  }
+
+  if (!annomod?.src) {
+    return [ modPath ];
+  }
+
+  if (!Array.isArray(annomod.src)) {
+    return [ path.join(modPath, annomod.src) ];
+  }
+
+  return annomod.src.map((e: string) => path.join(modPath, e));
+}
