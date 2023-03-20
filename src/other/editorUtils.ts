@@ -1,4 +1,8 @@
 import * as vscode from 'vscode';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as channel from '../features/channel';
+import glob = require('glob');
 
 export function getTagCloseAt(doc: vscode.TextDocument, position: vscode.Position) {
   let lineNumber = position.line;
@@ -72,13 +76,26 @@ export function findTagEnd(tag: string, doc: vscode.TextDocument, position: vsco
   return doc.lineAt(doc.lineCount - 1).range.end;
 }
 
-export function getTagSelection(tag: string, doc: vscode.TextDocument, selection: vscode.Selection) {
-  let tagStart = findTagBegin('ModOp', doc, selection.start);
-  let tagEnd = findTagEnd('ModOp', doc, selection.end);
+export function getSelectedModOps(doc: vscode.TextDocument, selection: vscode.Selection) {
+  let content: string = doc.getText();
 
-  if (!tagStart || !tagEnd) {
-    return undefined;
+  const start = doc.offsetAt(selection.start);
+  const end = doc.offsetAt(selection.end);
+
+  const reduceRegexes = [
+    /<ModOp [^>]*>([\s\S]*?)<\/ModOp>/g,
+    /<(ModOp|Include) [^>]*\/>/g
+  ];
+
+  for (const regex of reduceRegexes) {
+    content = content.replace(regex, (match, group, offset) => {
+      if (offset + match.length <= start || offset >= end) {
+        return "";
+      } else {
+        return match;
+      }
+    });
   }
 
-  return new vscode.Selection(tagStart, tagEnd);
+  return content;
 }

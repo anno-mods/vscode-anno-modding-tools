@@ -1,6 +1,9 @@
 import * as vscode from 'vscode';
+import * as fs from 'fs';
 import * as minimatch from 'minimatch';
 import { ASSETS_FILENAME_PATTERN } from '../other/assetsXml';
+import * as utils from '../other/utils';
+import * as path from 'path';
 
 const DEPRECATED_ALL = '190611';
 const DEPRECATED_ALL2 = '193879';
@@ -35,6 +38,43 @@ function includesAsWord(line: string, text: string)
     charBefore === ',' && charAfter === ',')
 }
 
+function hasGraphicsFile(modPaths: string[], filePath: string) {
+  if (filePath.startsWith('data/ui') || filePath.startsWith('data/graphics') ||
+    filePath.startsWith('data\\ui') || filePath.startsWith('data\\graphics')) {
+    // don't check vanilla, for now...
+    return true;
+  }
+  
+  for (const modPath of modPaths) {  
+    if (fs.existsSync(path.join(modPath, filePath))) {
+      return true;
+    }
+
+    // try .cfg.yaml
+    if (filePath.endsWith('.cfg') && fs.existsSync(path.join(modPath, filePath + '.yaml'))) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function checkFileName(modPaths: string[], line: vscode.TextLine) {
+  const regEx = /<(Filename|FileName|IconFilename)>([^<]+)<\/\1>/g;
+  let match = regEx.exec(line.text);
+  if (match && !hasGraphicsFile(modPaths, match[2])) {
+    const index = line.text.indexOf(match[2]);
+    const range = new vscode.Range(line.lineNumber, index, line.lineNumber, index + match[2].length);
+
+    const diagnostic = new vscode.Diagnostic(range,
+      `\`${match[2]}\` seems to be missing.`,
+      vscode.DiagnosticSeverity.Warning);
+    return diagnostic;
+  }
+
+  return undefined;
+};
+
 export function refreshDiagnostics(doc: vscode.TextDocument, collection: vscode.DiagnosticCollection): void {
   if (doc.lineCount > 10000 || !minimatch(doc.fileName, ASSETS_FILENAME_PATTERN)) {
     // ignore large files and non-assets.xmls
@@ -43,6 +83,8 @@ export function refreshDiagnostics(doc: vscode.TextDocument, collection: vscode.
 
   const diagnostics: vscode.Diagnostic[] = [];
 
+  const modPaths = utils.searchModPaths(doc.uri.fsPath);
+
   for (let lineIndex = 0; lineIndex < doc.lineCount; lineIndex++) {
     const lineOfText = doc.lineAt(lineIndex);
     if (includesAsWord(lineOfText.text, DEPRECATED_ALL)) {
@@ -50,6 +92,11 @@ export function refreshDiagnostics(doc: vscode.TextDocument, collection: vscode.
     }
     else if (includesAsWord(lineOfText.text, DEPRECATED_ALL2)) {
       diagnostics.push(createDiagnostic2(doc, lineOfText, lineIndex));
+    }
+
+    const fileAction = checkFileName(modPaths, lineOfText);
+    if (fileAction) {
+      diagnostics.push(fileAction);
     }
   }
 

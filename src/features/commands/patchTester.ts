@@ -3,7 +3,8 @@ import * as child from 'child_process';
 import * as channel from '../channel';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as utils from '../../other/editorUtils';
+import * as editorUtils from '../../other/editorUtils';
+import * as utils from '../../other/utils';
 
 let _originalPath: string;
 let _patchPath: string;
@@ -38,14 +39,9 @@ export class PatchTester {
 
         let patchFilePath = fileUri.fsPath;
         if (path.basename(patchFilePath) === 'annomod.json') {
-          const assetsFilePath = path.join(path.dirname(patchFilePath), 'data/config/export/main/asset/assets');
-          if (fs.existsSync(assetsFilePath + '_.xml')) {
-            patchFilePath = assetsFilePath + '_.xml';
-          }
-          else {
-            patchFilePath = assetsFilePath + '.xml';
-          }
+          patchFilePath = this.getAssetsFromModinfo(patchFilePath);
         }
+        channel.error(patchFilePath);
 
         if (!fs.existsSync(patchFilePath)) {
           vscode.window.showErrorMessage(`Cannot find '${patchFilePath}'`);
@@ -80,12 +76,7 @@ export class PatchTester {
         _originalPath = vanillaAssetsFilePath;
         _patchPath = fileUri.fsPath;
 
-        const tagSelection = utils.getTagSelection('ModOp', editor.document, editor.selection);
-        if (!tagSelection) {
-          return;
-        }
-
-        _patch = editor.document.getText(tagSelection);
+        _patch = editorUtils.getSelectedModOps(editor.document, editor.selection);
         _reload = true;
 
         _patch = _patch.replace(/<\/?ModOps>/g, '');
@@ -94,7 +85,7 @@ export class PatchTester {
         channel.show();
         vscode.commands.executeCommand('vscode.diff', 
           vscode.Uri.parse('annodiff:' + _originalPath + '?original#' + timestamp),
-          vscode.Uri.parse('annodiff:?patch#' + timestamp),
+          vscode.Uri.parse('annodiff:' + _patchPath + '?patch#' + timestamp),
           'Anno Diff: Original ↔ Patched');
       }),
       vscode.workspace.registerTextDocumentContentProvider("annodiff", annodiffContentProvider)
@@ -106,9 +97,9 @@ export class PatchTester {
   static async getVanilla(fileUri: vscode.Uri) {
     const config = vscode.workspace.getConfiguration('anno', fileUri);
     const annoRda: string = config.get('rdaFolder') || "";
-    const vanillaAssetsFilePath = annoRda + '/data/config/export/main/asset/assets.xml'.toLowerCase();
+    let vanillaPath = path.join(annoRda, 'data/config/export/main/asset/assets.xml');
 
-    if (!fs.existsSync(vanillaAssetsFilePath)) {
+    if (!fs.existsSync(vanillaPath)) {
       const goSettings = 'Change Settings';
       const chosen = await vscode.window.showErrorMessage('Your `rdaFolder` is not set up correctly.', goSettings);
       if (chosen === goSettings) {
@@ -117,30 +108,34 @@ export class PatchTester {
       return undefined;
     }
 
-    return vanillaAssetsFilePath;
+    const basename = path.basename(fileUri.fsPath, path.extname(fileUri.fsPath));
+    if (basename.indexOf("templates") >= 0) {
+      vanillaPath = path.join(annoRda, 'data/config/export/main/asset/templates.xml');
+    }
+    else if (basename.indexOf("texts_") >= 0) {
+      vanillaPath = path.join(annoRda, 'data/config/gui/' + basename + '.xml');
+    }
+
+    return vanillaPath;
   }
 
   static reload(context: vscode.ExtensionContext) {
     if (_reload) {
-      const start = Date.now()
+      _reload = false;
+      const start = Date.now();
 
-      if (_patch !== '') {
-        _patchPath += '.annodiff';
-        fs.writeFileSync(_patchPath, '<ModOps>' + _patch + '</ModOps>');
-      }
+      const searchModPath = utils.searchModPath(_patchPath);
 
       const tester = new PatchTester(context);
-      const result = tester.diff(_originalPath, _patchPath);
+      const result = tester.diff(_originalPath, 
+        '<ModOps>' + _patch + '</ModOps>', 
+        _patchPath, 
+        searchModPath);
       _originalContent = result.original;
       _patchedContent = result.patched;
       _logContent = result.log;
-      _reload = false;
 
       const stop = Date.now();
-
-      if (_patch !== '') {
-        fs.rmSync(_patchPath);
-      }
 
       channel.log(_logContent);
       channel.log(`annodiff: ${(stop - start)/1000}s`);
@@ -154,17 +149,36 @@ export class PatchTester {
     this._context = context;
   }
   
-  diff(originalPath: string, patchedPath: string) {
+  diff(originalPath: string, patchContent: string, patchFilePath: string, modPath: string) {
     const differ = this._context.asAbsolutePath('./external/annodiff.exe');
 
-    if (!originalPath || !patchedPath) {
+    if (!originalPath || !patchContent) {
       return { original: '', patched: '', log: ''};
     }
-    this._workingDir = path.resolve(path.dirname(patchedPath));
+    this._workingDir = path.resolve(path.dirname(patchFilePath));
 
-    const res = child.execFileSync(differ, ["patchdiff", originalPath, patchedPath], { cwd: this._workingDir });
-    const split = res.toString().split('##annodiff##');
+    try {
+      const modRelativePath = path.relative(patchFilePath, modPath);
 
-    return { original: split[2], patched: split[1], log: split[0] };
+      const res = child.execFileSync(differ, ["patchdiff", originalPath, modRelativePath, modPath], { cwd: this._workingDir, input: patchContent });
+      const split = res.toString().split('##annodiff##');
+      
+      return { original: split[2], patched: split[1], log: split[0] };
+    }
+    catch (e)
+    {
+      channel.error((<Error>e).message);
+      throw e;
+    }
+  }
+
+  static getAssetsFromModinfo(modinfoPath: string) {
+    const assetsFilePath = path.join(path.dirname(modinfoPath), 'data/config/export/main/asset/assets');
+    if (fs.existsSync(assetsFilePath + '_.xml')) {
+      return assetsFilePath + '_.xml';
+    }
+    else {
+      return assetsFilePath + '.xml';
+    }
   }
 }

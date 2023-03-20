@@ -5,6 +5,7 @@ import * as xmldoc from 'xmldoc';
 import * as minimatch from 'minimatch';
 import { AssetsTocProvider } from './outline/assetsTocProvider';
 import { AssetsDocument, ASSETS_FILENAME_PATTERN } from '../other/assetsXml';
+import * as utils from '../other/utils';
 
 let assetsDocument: AssetsDocument | undefined;
 
@@ -237,33 +238,15 @@ export function refreshCustomAssets(document: vscode.TextDocument | undefined): 
   // Don't clear completion items anymore
   // _customCompletionItems = new GuidCompletionItems();
   
-  const modRoot = _findModRoot(document.fileName);
-  if (modRoot) {
-    const files = glob.sync('**/assets*.xml', { cwd: modRoot, nodir: true });
+  const modPaths = utils.searchModPaths(document.fileName);
+  for (const modPath of modPaths) {
+    const files = glob.sync('**/assets*.xml', { cwd: modPath, nodir: true });
     for (let file of files) {
-      _readGuidsFromText(fs.readFileSync(path.join(modRoot, file), 'utf8'));
+      _readGuidsFromText(fs.readFileSync(path.join(modPath, file), 'utf8'));
     }
   }
 
   _readGuidsFromText(text);
-}
-
-function _findModRoot(filePath: string)
-{
-  let dir = path.dirname(filePath);
-  for (let depth = 0; depth < 10 && dir; depth++) {
-    if (fs.existsSync(path.join(dir, 'data/config/export/main/asset/assets.xml'))) {
-      return dir;
-    }
-
-    let newdir = path.dirname(dir);
-    if (newdir === dir) {
-      break;
-    }
-    dir = newdir;
-  }
-
-  return undefined;
 }
 
 function _readGuidsFromText(text: string)

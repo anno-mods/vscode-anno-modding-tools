@@ -11,3 +11,4 @@ external/*
 
 # to be removed eventually
 !external/AnnoFCConverter.exe
+!external/annodiff.exe

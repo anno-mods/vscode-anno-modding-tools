@@ -4,8 +4,14 @@ All notable changes to the "anno-modding-tools" extension will be documented in 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [Unreleased]
+## [1.9.0]
 
+- Support loader 10 features (i.e. Group, Condition, ...)
+- Added inline GUID decoration with name and template
+- Added `Anno: Find Missing Text`
+- Added `Anno: Update Missing Text from English`
+- Added file checks for `IconFilename`, `Filename` and `FileName`
+- Compare with Vanilla: support `templates.xml` and `texts_*.xml`
 - Buildmod: read `base64.jpg` as base64 image into `modinfo.json`
 
 ## [1.8.0]

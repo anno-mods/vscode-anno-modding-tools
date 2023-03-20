@@ -1,0 +1,31 @@
+<ModOps>
+  <!-- # Shared Goods -->
+  <Include File="../../../products/texts/texts_chinese.include.xml" />
+  <Include File="../../../products2/texts/texts_chinese.include.xml" />
+
+  <!-- # Alternative Needs -->
+  <ModOp Type="replace" Path="/TextExport/Texts/Text[GUID='500019']/Text">
+    <Text>精制服装</Text>
+  </ModOp>
+  <ModOp Type="replace" Path="/TextExport/Texts/Text[GUID='25000244']/Text">
+    <Text>食物</Text>
+  </ModOp>
+  <ModOp Type="replace" Path="/TextExport/Texts/Text[GUID='500003']/Text">
+    <Text>[AssetData(984) Text]</Text> <!-- Tools -->
+  </ModOp>
+
+  <ModOp Type="add" Path="/TextExport/Texts">
+    <Text>
+      <GUID>1500010808</GUID>
+      <Text>可替代需求'</Text> <!-- TODO keep --> <!-- don't keep -->
+    </Text>
+    <Text>
+      <GUID>1500010823</GUID>
+      <Text>可替代需求的消费减少了基本需求。</Text>
+    </Text>
+    <Text>
+      <GUID>1500010950</GUID>
+      <Text>可替代 &amp; 基本 需求</Text>
+    </Text>
+  </ModOp>
+</ModOps>
