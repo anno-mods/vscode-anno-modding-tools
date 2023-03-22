@@ -89,7 +89,11 @@ export function activate(context: vscode.ExtensionContext) {
 
     traverse(activeEditor, 'terminal.ansiGreen' /*'button.background'*/, /<Asset>/g, (match) => {
       const startPos = activeEditor!.document.positionAt(match.index);
-      const standard = activeEditor!.document.getText(new vscode.Range(startPos.line, startPos.character, startPos.line + 20, 0));
+      let standard = activeEditor!.document.getText(new vscode.Range(startPos.line, startPos.character, startPos.line + 20, 0));
+      const endPos = standard.indexOf('</Asset>');
+      if (endPos >= 0) {
+        standard = standard.substring(0, endPos);
+      }
       const guidRegex = /<GUID>(\d+)<\/GUID>/g;
       let guidMatch = guidRegex.exec(standard);
       if (!guidMatch) {

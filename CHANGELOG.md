@@ -7,6 +7,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [1.9.1]
 
 - Fixed crash with large XML files
+- Fixed `<Asset>` within triggers wrongly decorated with asset name
 
 ## [1.9.0]
 
