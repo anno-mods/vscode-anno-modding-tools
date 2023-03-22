@@ -1,5 +1,6 @@
 import * as path from 'path';
 import * as fs from 'fs';
+import glob = require('glob');
 
 export function ensureDir(path: string) {
   if (!fs.existsSync(path)) {
@@ -109,4 +110,113 @@ export function searchModPaths(patchFilePath: string) {
   }
 
   return annomod.src.map((e: string) => path.join(modPath, e));
+}
+
+export function hasGraphicsFile(modPaths: string[], filePath: string, annoRda?: string) {
+  let searchPaths = modPaths;
+
+  // ignore some very common, but missing default textures
+  if (filePath.endsWith('default_height.png') || filePath.endsWith('default_model_mask.png')) {
+    return [];
+  }
+
+  filePath = filePath.replace(/\\/g, '/');
+
+  const folderAfterData = filePath.startsWith('data/') ? filePath.substring(5, Math.max(5, filePath.indexOf('/', 5))) : filePath;
+
+  if (folderAfterData == 'ui' || folderAfterData == 'graphics'
+    || folderAfterData.startsWith('dlc') || folderAfterData.startsWith('cdlc') 
+    || folderAfterData == 'eoy21/') {
+    if (annoRda && annoRda !== '') {
+      // check annoRda only if certain folders are there to ensure people actually extracted their RDAs
+      if (folderAfterData == 'graphics' && fs.existsSync(path.join(annoRda, 'data/graphics'))) {
+        searchPaths = [annoRda, ...modPaths];
+      }
+      else if (folderAfterData == 'ui' && fs.existsSync(path.join(annoRda, 'data/ui'))) {
+        searchPaths = [annoRda, ...modPaths];
+      }
+      else if (folderAfterData.startsWith('dlc')
+        && fs.existsSync(path.join(annoRda, 'data', folderAfterData))) {
+          searchPaths = [annoRda, ...modPaths];
+      }
+      else if (folderAfterData.startsWith('cdlc')
+        && fs.existsSync(path.join(annoRda, 'data', folderAfterData))) {
+          searchPaths = [annoRda, ...modPaths];
+      }
+      else if (folderAfterData == 'eoy21' && fs.existsSync(path.join(annoRda, 'data/eoy21'))) {
+        searchPaths = [annoRda, ...modPaths];
+      }
+      else {
+        return [];
+      }
+    }
+    else {
+      // don't check vanilla, for now...
+      return [];
+    }
+  }
+
+  let checked: string[] = [];
+
+  const fileExistsGlob = (pattern: string) => {
+    const files = glob.sync(pattern);
+    return files.length > 0;
+  }
+  
+  for (const modPath of searchPaths) {
+    checked = [];
+     
+    if (fs.existsSync(path.join(modPath, filePath))) {
+      return [];
+    }
+
+    checked.push(filePath);
+
+    // try .cfg.yaml
+    if (filePath.endsWith('.cfg')) {
+      if (fs.existsSync(path.join(modPath, filePath + '.yaml'))) {
+        return [];
+      }
+      checked.push(filePath + '.yaml');
+    }
+
+    const folderPath = path.dirname(filePath);
+    const fileName = path.basename(filePath);
+
+    // try .dds
+    if (fileName.endsWith('.psd')) {
+      if (fs.existsSync(path.join(modPath, folderPath, path.basename(fileName, '.psd') + '_0.dds'))) {
+        return [];
+      }
+      
+      checked.push(path.join(folderPath, path.basename(fileName, '.psd') + '_0.dds'));
+    }
+
+    // try .gltf
+    if (fileName.endsWith('_lod0.rdm') && folderPath.endsWith('rdm')) {
+      const baseName = fileName.split('_')[0];
+      if (fileExistsGlob(path.join(modPath, folderPath, '..', baseName + '_*.gltf'))) {
+        return [];
+      }
+      checked.push(path.join(folderPath, '..', baseName + '_*.gltf'));
+    }
+
+    // try .png
+    if (fileName.endsWith('.psd') && folderPath.endsWith('maps')) {
+      if (fs.existsSync(path.join(modPath, folderPath, '..', path.basename(fileName, '.psd') + '.png'))) {
+        return [];
+      }
+      checked.push(path.join(folderPath, '..', path.basename(fileName, '.psd') + '.png'));
+    }
+
+    // try .dds from .png
+    if (fileName.endsWith('.png')) {
+      if (fs.existsSync(path.join(modPath, folderPath, path.basename(fileName, '.png') + '_0.dds'))) {
+        return [];
+      }
+      checked.push(path.join(folderPath, path.basename(fileName, '.png') + '_0.dds'));
+    }
+  }
+
+  return checked;
 }

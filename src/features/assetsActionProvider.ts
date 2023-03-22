@@ -1,9 +1,7 @@
 import * as vscode from 'vscode';
-import * as fs from 'fs';
 import * as minimatch from 'minimatch';
 import { ASSETS_FILENAME_PATTERN } from '../other/assetsXml';
 import * as utils from '../other/utils';
-import * as path from 'path';
 
 const DEPRECATED_ALL = '190611';
 const DEPRECATED_ALL2 = '193879';
@@ -38,36 +36,16 @@ function includesAsWord(line: string, text: string)
     charBefore === ',' && charAfter === ',')
 }
 
-function hasGraphicsFile(modPaths: string[], filePath: string) {
-  if (filePath.startsWith('data/ui') || filePath.startsWith('data/graphics') ||
-    filePath.startsWith('data\\ui') || filePath.startsWith('data\\graphics')) {
-    // don't check vanilla, for now...
-    return true;
-  }
-  
-  for (const modPath of modPaths) {  
-    if (fs.existsSync(path.join(modPath, filePath))) {
-      return true;
-    }
-
-    // try .cfg.yaml
-    if (filePath.endsWith('.cfg') && fs.existsSync(path.join(modPath, filePath + '.yaml'))) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-function checkFileName(modPaths: string[], line: vscode.TextLine) {
+function checkFileName(modPaths: string[], line: vscode.TextLine, annoRda?: string) {
   const regEx = /<(Filename|FileName|IconFilename)>([^<]+)<\/\1>/g;
   let match = regEx.exec(line.text);
-  if (match && !hasGraphicsFile(modPaths, match[2])) {
+  let checked;
+  if (match && (checked = utils.hasGraphicsFile(modPaths, match[2], annoRda)).length > 0) {
     const index = line.text.indexOf(match[2]);
     const range = new vscode.Range(line.lineNumber, index, line.lineNumber, index + match[2].length);
 
     const diagnostic = new vscode.Diagnostic(range,
-      `\`${match[2]}\` seems to be missing.`,
+      `File seems to be missing. Checked paths:\n` + checked.join('\n'),
       vscode.DiagnosticSeverity.Warning);
     return diagnostic;
   }
@@ -83,6 +61,7 @@ export function refreshDiagnostics(doc: vscode.TextDocument, collection: vscode.
 
   const config = vscode.workspace.getConfiguration('anno', doc.uri);
   const checkFileNames = config.get('checkFileNames');
+  const annoRda: string | undefined = config.get('rdaFolder');
 
   const diagnostics: vscode.Diagnostic[] = [];
 
@@ -98,7 +77,7 @@ export function refreshDiagnostics(doc: vscode.TextDocument, collection: vscode.
     }
 
     if (checkFileNames) {
-      const fileAction = checkFileName(modPaths, lineOfText);
+      const fileAction = checkFileName(modPaths, lineOfText, annoRda);
       if (fileAction) {
         diagnostics.push(fileAction);
       }
