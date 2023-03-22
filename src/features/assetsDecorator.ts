@@ -46,7 +46,17 @@ export function activate(context: vscode.ExtensionContext) {
       regex: RegExp, onMatch: (match: RegExpExecArray) => string, 
       type: vscode.TextEditorDecorationType) => {
 
+      if (activeEditor.document.lineCount > 30000) {
+        // ignore 30k+ lines
+        return;
+      }
+
       const text = activeEditor.document.getText();
+      if (text.length > 1024 * 1024 * 10) {
+        // ignore 10MB+ files
+        return;
+      }
+
       const guids: vscode.DecorationOptions[] = [];
       let match;
       while ((match = regex.exec(text))) {
@@ -79,7 +89,11 @@ export function activate(context: vscode.ExtensionContext) {
 
     traverse(activeEditor, 'terminal.ansiGreen' /*'button.background'*/, /<Asset>/g, (match) => {
       const startPos = activeEditor!.document.positionAt(match.index);
-      const standard = activeEditor!.document.getText(new vscode.Range(startPos.line, startPos.character, startPos.line + 20, 0));
+      let standard = activeEditor!.document.getText(new vscode.Range(startPos.line, startPos.character, startPos.line + 20, 0));
+      const endPos = standard.indexOf('</Asset>');
+      if (endPos >= 0) {
+        standard = standard.substring(0, endPos);
+      }
       const guidRegex = /<GUID>(\d+)<\/GUID>/g;
       let guidMatch = guidRegex.exec(standard);
       if (!guidMatch) {

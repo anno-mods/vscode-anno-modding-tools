@@ -81,6 +81,9 @@ export function refreshDiagnostics(doc: vscode.TextDocument, collection: vscode.
     return;
   }
 
+  const config = vscode.workspace.getConfiguration('anno', doc.uri);
+  const checkFileNames = config.get('checkFileNames');
+
   const diagnostics: vscode.Diagnostic[] = [];
 
   const modPaths = utils.searchModPaths(doc.uri.fsPath);
@@ -94,9 +97,11 @@ export function refreshDiagnostics(doc: vscode.TextDocument, collection: vscode.
       diagnostics.push(createDiagnostic2(doc, lineOfText, lineIndex));
     }
 
-    const fileAction = checkFileName(modPaths, lineOfText);
-    if (fileAction) {
-      diagnostics.push(fileAction);
+    if (checkFileNames) {
+      const fileAction = checkFileName(modPaths, lineOfText);
+      if (fileAction) {
+        diagnostics.push(fileAction);
+      }
     }
   }
 

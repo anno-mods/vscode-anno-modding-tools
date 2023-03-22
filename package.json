@@ -2,7 +2,7 @@
 	"name": "anno-modding-tools",
 	"displayName": "Anno Modding Tools",
 	"description": "Modding tools for Anno 1800",
-	"version": "1.9.0",
+	"version": "1.9.1",
 	"publisher": "JakobHarder",
 	"repository": {
 		"type": "git",
@@ -319,6 +319,11 @@
 					"default": 0,
 					"minimum": 0,
 					"markdownDescription": "Folder depth of props, materials and alike shown .cfg outline."
+				},
+				"anno.checkFileNames": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Check file paths set in `Filename`, `FileName` and `IconFilename`."
 				}
 			}
 		}

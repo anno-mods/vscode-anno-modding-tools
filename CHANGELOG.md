@@ -4,6 +4,12 @@ All notable changes to the "anno-modding-tools" extension will be documented in 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.9.1]
+
+- Fixed crash with large XML files
+- Fixed `<Asset>` within triggers wrongly decorated with asset name
+- Added setting `Check File Names` to allow disabling file checks
+
 ## [1.9.0]
 
 - Support loader 10 features (i.e. Group, Condition, ...)
