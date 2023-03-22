@@ -46,7 +46,17 @@ export function activate(context: vscode.ExtensionContext) {
       regex: RegExp, onMatch: (match: RegExpExecArray) => string, 
       type: vscode.TextEditorDecorationType) => {
 
+      if (activeEditor.document.lineCount > 30000) {
+        // ignore 30k+ lines
+        return;
+      }
+
       const text = activeEditor.document.getText();
+      if (text.length > 1024 * 1024 * 10) {
+        // ignore 10MB+ files
+        return;
+      }
+
       const guids: vscode.DecorationOptions[] = [];
       let match;
       while ((match = regex.exec(text))) {
