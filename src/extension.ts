@@ -6,6 +6,7 @@ import * as rdp from './other/rdp';
 import { AssetsSymbolProvider } from './features/outline/assetsSymbolProvider';
 import { AssetsActionProvider } from './features/assetsActionProvider';
 import * as AssetsDecorator from './features/assetsDecorator';
+import * as CfgActionProvider from './features/cfgActionProvider';
 import * as commands from './features/commands';
 
 import * as logger from './other/logger';
@@ -27,6 +28,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(...registerGuidUtilsProvider(context));
 	context.subscriptions.push(...cfgHoverProvider.registerHoverProvider(context));
 	AssetsDecorator.activate(context);
+	CfgActionProvider.activate(context);
 
 	commands.registerCommands(context);
 }

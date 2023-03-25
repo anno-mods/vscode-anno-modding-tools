@@ -4,6 +4,13 @@ All notable changes to the "anno-modding-tools" extension will be documented in 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.9.2]
+
+- Added file `FileName` checks to `.cfg` files
+- File checks now also searches `ModDependencies`, `OptionalDependencies` and `LoadAfterIds` if `modsFolders` is set in the vscode configuration.
+- Improved GUID decoration for `<Asset>` and within `<Standard>` section
+- GUIDs from other mods now also show the mod name
+
 ## [1.9.1]
 
 - Fixed crash with large XML files

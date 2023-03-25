@@ -7,6 +7,7 @@ export interface IAsset {
   template?: string;
   name?: string;
   english?: string;
+  modName?: string;
 }
 
 export interface IPositionedElement {

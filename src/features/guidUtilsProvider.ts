@@ -237,19 +237,22 @@ export function refreshCustomAssets(document: vscode.TextDocument | undefined): 
 
   // Don't clear completion items anymore
   // _customCompletionItems = new GuidCompletionItems();
+  const config = vscode.workspace.getConfiguration('anno', document.uri);
+  const modsFolder: string | undefined = config.get('modsFolder');
   
-  const modPaths = utils.searchModPaths(document.fileName);
+  const modPaths = utils.searchModPaths(document.fileName, modsFolder);
   for (const modPath of modPaths) {
     const files = glob.sync('**/assets*.xml', { cwd: modPath, nodir: true });
     for (let file of files) {
-      _readGuidsFromText(fs.readFileSync(path.join(modPath, file), 'utf8'));
+      _readGuidsFromText(fs.readFileSync(path.join(modPath, file), 'utf8'), path.basename(modPath));
     }
   }
 
-  _readGuidsFromText(text);
+  const modName = path.basename(utils.searchModPath(document.uri.fsPath));
+  _readGuidsFromText(text, modName);
 }
 
-function _readGuidsFromText(text: string)
+function _readGuidsFromText(text: string, modName?: string)
 {
   let xmlContent;
   try {
@@ -260,17 +263,17 @@ function _readGuidsFromText(text: string)
     return;
   }
 
-  _readGuidsFromXmlContent(xmlContent);
+  _readGuidsFromXmlContent(xmlContent, modName);
 }
 
-function _readGuidsFromXmlContent(xmlContent: xmldoc.XmlDocument)
+function _readGuidsFromXmlContent(xmlContent: xmldoc.XmlDocument, modName?: string)
 {
   assetsDocument = new AssetsDocument(xmlContent);
 
   if (!_customCompletionItems) {
     _customCompletionItems = new GuidCompletionItems();
   }
-  _customCompletionItems.addAssets(assetsDocument.assets, AllGuidCompletionItems.tags);
+  _customCompletionItems.addAssets(assetsDocument.assets, AllGuidCompletionItems.tags, modName);
 }
 
 function subscribeToDocumentChanges(context: vscode.ExtensionContext): void {

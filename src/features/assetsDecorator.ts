@@ -1,6 +1,8 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import { resolveGUID } from './guidUtilsProvider';
+import * as utils from '../other/utils';
+import * as path from 'path';
 
 // this method is called when vs code is activated
 export function activate(context: vscode.ExtensionContext) {
@@ -16,9 +18,9 @@ export function activate(context: vscode.ExtensionContext) {
 
   let activeEditor = vscode.window.activeTextEditor;
 
-  function decorationText(tag: string, guid: string) {
+  function decorationText(tag: string, guid: string, mod?: string) {
     const tagInfo = allowedTags[tag];
-    if (tag !== 'BaseAssetGUID' && (!tagInfo || tagInfo.templates.length === 0 || tag === 'Amount')) {
+    if (tag !== 'BaseAssetGUID' && tag !== 'BonusNeed' && (!tagInfo || tagInfo.templates.length === 0 || tag === 'Amount')) {
       return '';
     }
 
@@ -34,13 +36,22 @@ export function activate(context: vscode.ExtensionContext) {
       return '??';
     }
 
-    return (resolved.english ?? resolved.name) + (resolved.template ? ` (${resolved.template})` : '');
+    let text = (resolved.english ?? resolved.name) + (resolved.template ? ` (${resolved.template})` : '');
+
+    if (mod && resolved.modName && mod !== resolved.modName) {
+      // TODO and not this mod
+      text += ` from '${resolved.modName}'`;
+    }
+
+    return text;
   }
 
   function updateDecorations() {
     if (!activeEditor) {
       return;
     }
+
+    const modName = path.basename(utils.searchModPath(activeEditor.document.uri.fsPath));
 
     const traverse = (activeEditor: vscode.TextEditor, color: string, 
       regex: RegExp, onMatch: (match: RegExpExecArray) => string, 
@@ -62,6 +73,7 @@ export function activate(context: vscode.ExtensionContext) {
       while ((match = regex.exec(text))) {
         const startPos = activeEditor.document.positionAt(match.index);
         const endPos = activeEditor.document.positionAt(match.index + match[0].length);
+
         const text = onMatch(match);
         if (!text) {
           continue;
@@ -83,13 +95,27 @@ export function activate(context: vscode.ExtensionContext) {
       activeEditor.setDecorations(type, guids);
     };
 
-    traverse(activeEditor, 'editorCodeLens.foreground', /<(\w+)>(\d+)<\/\1>/g, (match) => {
-      return decorationText(match[1], match[2]);
+    let withinStandard = false;
+    traverse(activeEditor, 'editorCodeLens.foreground', /(<\/?Standard>)|<(\w+)>(\d+)<\/\2>/g, (match) => {
+      if (match[1] === '<Standard>') {
+        withinStandard = true;
+      }
+      else if (match[1] === '</Standard>') {
+        withinStandard = false;
+      }
+      else if (!withinStandard || (match[2] !== 'GUID' && match[2] !== 'Name')) {
+        return decorationText(match[2], match[3], modName);
+      }
+
+      return '';
     }, guidDecorationType);
 
-    traverse(activeEditor, 'terminal.ansiGreen' /*'button.background'*/, /<Asset>/g, (match) => {
-      const startPos = activeEditor!.document.positionAt(match.index);
-      let standard = activeEditor!.document.getText(new vscode.Range(startPos.line, startPos.character, startPos.line + 20, 0));
+    traverse(activeEditor, 'editorCodeLens.foreground', /<Asset>/g, (match) => {
+      const doc = activeEditor?.document;
+      if (!doc) return '';
+
+      const startPos = doc.positionAt(match.index);
+      let standard = doc.getText(new vscode.Range(startPos.line, startPos.character, startPos.line + 20, 0));
       const endPos = standard.indexOf('</Asset>');
       if (endPos >= 0) {
         standard = standard.substring(0, endPos);

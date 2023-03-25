@@ -12,6 +12,7 @@ interface IAsset {
   template?: string;
   name?: string;
   english?: string;
+  modName?: string;
 }
 
 class PathCompletionItem {
@@ -88,7 +89,7 @@ export class GuidCompletionItems {
     }
   }
 
-  addAssets(assets: { [guid: string]: IAsset}, tags?: { [tag: string]: TagCompletionItem })
+  addAssets(assets: { [guid: string]: IAsset}, tags?: { [tag: string]: TagCompletionItem }, modName?: string)
   {
     this.tags = tags;
     if (!this.assets) {
@@ -99,6 +100,9 @@ export class GuidCompletionItems {
       const asset = assets[guid];
       if (asset.template) {
         this.push(asset.template, guid, asset, this.assets[guid] != undefined);
+      }
+      if (modName) {
+        asset.modName = modName ?? this.assets[guid]?.modName;
       }
       this.assets[guid] = asset;
     }
