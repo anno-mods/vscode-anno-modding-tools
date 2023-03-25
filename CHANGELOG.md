@@ -4,6 +4,10 @@ All notable changes to the "anno-modding-tools" extension will be documented in 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [Unreleased]
+
+- Added `F12 Go to` symbols for assets
+
 ## [1.9.4]
 
 - Fixed GUID decorations not working due to invalid modinfo.json in some mods

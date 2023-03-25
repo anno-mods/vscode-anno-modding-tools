@@ -102,10 +102,10 @@ export function searchModPath(patchFilePath: string) {
 export function readModinfo(modPath: string): any {
   try {
     if (fs.existsSync(path.join(modPath, 'modinfo.json'))) {
-      return JSON.parse(fs.readFileSync(path.join(modPath, 'modinfo.json'), 'utf8'));
+      return { 'modinfo': JSON.parse(fs.readFileSync(path.join(modPath, 'modinfo.json'), 'utf8')) };
     }
     else if (fs.existsSync(path.join(modPath, 'annomod.json'))) {
-      return JSON.parse(fs.readFileSync(path.join(modPath, 'annomod.json'), 'utf8'))?.modinfo;
+      return JSON.parse(fs.readFileSync(path.join(modPath, 'annomod.json'), 'utf8'));
     }
   }
   catch {
@@ -125,8 +125,8 @@ export function searchModPaths(patchFilePath: string, modsFolder?: string) {
 
   const sources = modinfo?.src ? ensureArray(modinfo.src).map((e: string) => path.join(modPath, e)) : [ modPath ];
   let deps: string[] = [];
-  if (modsFolder) {
-    deps = [...ensureArray(modinfo.ModDependencies), ...ensureArray(modinfo.OptionalDependencies), ...ensureArray(modinfo.LoadAfterIds)]
+  if (modsFolder && modinfo?.modinfo) {
+    deps = [...ensureArray(modinfo.modinfo?.ModDependencies), ...ensureArray(modinfo.modinfo?.OptionalDependencies), ...ensureArray(modinfo.modinfo?.LoadAfterIds)]
       .map((e: string) => ModFolder.getModFolder(modsFolder, e) ?? "")
       .filter((e: string) => e !== "");
   }

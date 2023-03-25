@@ -1,18 +1,11 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
+import { IAsset } from '../other/assetsXml';
 
 interface ITagJson 
 {
   templates: string[],
   paths: { [index: string]: string[] }
-}
-
-interface IAsset {
-  guid: string;
-  template?: string;
-  name?: string;
-  english?: string;
-  modName?: string;
 }
 
 class PathCompletionItem {
@@ -89,7 +82,8 @@ export class GuidCompletionItems {
     }
   }
 
-  addAssets(assets: { [guid: string]: IAsset}, tags?: { [tag: string]: TagCompletionItem }, modName?: string)
+  addAssets(assets: { [guid: string]: IAsset}, tags: { [tag: string]: TagCompletionItem } | undefined, 
+    filePath: string, modName?: string)
   {
     this.tags = tags;
     if (!this.assets) {

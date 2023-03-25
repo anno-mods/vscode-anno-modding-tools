@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { SkinnyTextDocument, AssetsTocProvider, TocEntry } from './assetsTocProvider';
 import { ASSETS_FILENAME_PATTERN } from '../../other/assetsXml';
+import * as channel from '../channel';
 
 interface MarkdownSymbol {
 	readonly level: number;
@@ -14,10 +15,13 @@ export class AssetsSymbolProvider {
 			language: 'xml', 
 			scheme: '*', 
 			pattern: ASSETS_FILENAME_PATTERN };
+
     const symbolProvider = new AssetsSymbolProvider();
-    return [ vscode.Disposable.from(
-      vscode.languages.registerDocumentSymbolProvider(selector, symbolProvider)
-    ) ];
+
+    return [ 
+      vscode.Disposable.from(vscode.languages.registerDocumentSymbolProvider(selector, symbolProvider)),
+      vscode.Disposable.from(vscode.languages.registerWorkspaceSymbolProvider(symbolProvider))
+    ];
   }
 
   public async provideDocumentSymbols(document: SkinnyTextDocument): Promise<vscode.DocumentSymbol[]> {
@@ -30,6 +34,14 @@ export class AssetsSymbolProvider {
 		this.buildTree(root, toc);
 		return root.children;
 	}
+
+  public provideWorkspaceSymbols(query: string, token: vscode. CancellationToken): vscode.ProviderResult<vscode.SymbolInformation[]> {
+    return undefined;
+  }
+
+  public resolveWorkspaceSymbol(symbol: vscode.SymbolInformation, token: vscode.CancellationToken): vscode.ProviderResult<vscode.SymbolInformation> {
+    return undefined;
+  }
 
 	private buildTree(parent: MarkdownSymbol, entries: TocEntry[]) {
 		if (!entries.length) {
@@ -57,6 +69,6 @@ export class AssetsSymbolProvider {
 	}
 
 	private getSymbolName(entry: TocEntry): string {
-		return entry.text;
+		return entry.guid ?? entry.text;
 	}
 }
