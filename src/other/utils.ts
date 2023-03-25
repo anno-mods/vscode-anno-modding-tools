@@ -204,16 +204,28 @@ export function hasGraphicsFile(modPaths: string[], filePath: string, annoRda?: 
         return [];
       }
       
+      if (fs.existsSync(path.join(modPath, folderPath, path.basename(fileName, '.psd') + '.png'))) {
+        return [];
+      }      
       checked.push(path.join(folderPath, path.basename(fileName, '.psd') + '_0.dds'));
+      checked.push(path.join(folderPath, path.basename(fileName, '.psd') + '.png'));
     }
 
     // try .gltf
-    if (fileName.endsWith('_lod0.rdm') && folderPath.endsWith('rdm')) {
+    if (fileName.endsWith('_lod0.rdm')) {
       const baseName = fileName.split('_')[0];
-      if (fileExistsGlob(path.join(modPath, folderPath, '..', baseName + '*.gltf'))) {
-        return [];
+      if (folderPath.endsWith('rdm')) {
+        if (fileExistsGlob(path.join(modPath, folderPath, '..', baseName + '*.gltf'))) {
+          return [];
+        }
+        checked.push(path.join(folderPath, '..', baseName + '*.gltf'));
       }
-      checked.push(path.join(folderPath, '..', baseName + '*.gltf'));
+      else {
+        if (fileExistsGlob(path.join(modPath, folderPath, baseName + '*.gltf'))) {
+          return [];
+        }
+        checked.push(path.join(folderPath, baseName + '*.gltf'));
+      }
     }
 
     // try .png
