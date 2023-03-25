@@ -123,7 +123,7 @@ export function searchModPaths(patchFilePath: string, modsFolder?: string) {
   const modPath = searchModPath(patchFilePath);
   const modinfo = readModinfo(modPath);
 
-  const sources = modinfo.src ? ensureArray(modinfo.src).map((e: string) => path.join(modPath, e)) : [ modPath ];
+  const sources = modinfo?.src ? ensureArray(modinfo.src).map((e: string) => path.join(modPath, e)) : [ modPath ];
   let deps: string[] = [];
   if (modsFolder) {
     deps = [...ensureArray(modinfo.ModDependencies), ...ensureArray(modinfo.OptionalDependencies), ...ensureArray(modinfo.LoadAfterIds)]
