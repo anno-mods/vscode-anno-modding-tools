@@ -8,6 +8,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Added file `FileName` checks to `.cfg` files
 - File checks now also searches `ModDependencies`, `OptionalDependencies` and `LoadAfterIds` if `modsFolders` is set in the vscode configuration.
+- Improved GUID decoration for `<Asset>` and within `<Standard>` section
 
 ## [1.9.1]
 
