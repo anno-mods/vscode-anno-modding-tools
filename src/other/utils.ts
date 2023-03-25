@@ -100,11 +100,17 @@ export function searchModPath(patchFilePath: string) {
 }
 
 export function readModinfo(modPath: string): any {
-  if (fs.existsSync(path.join(modPath, 'modinfo.json'))) {
-    return JSON.parse(fs.readFileSync(path.join(modPath, 'modinfo.json'), 'utf8'));
+  try {
+    if (fs.existsSync(path.join(modPath, 'modinfo.json'))) {
+      return JSON.parse(fs.readFileSync(path.join(modPath, 'modinfo.json'), 'utf8'));
+    }
+    else if (fs.existsSync(path.join(modPath, 'annomod.json'))) {
+      return JSON.parse(fs.readFileSync(path.join(modPath, 'annomod.json'), 'utf8'))?.modinfo;
+    }
   }
-  else if (fs.existsSync(path.join(modPath, 'annomod.json'))) {
-    return JSON.parse(fs.readFileSync(path.join(modPath, 'annomod.json'), 'utf8'))?.modinfo;
+  catch {
+    // mod jsons can be invalid pretty fast
+    return undefined;
   }
   return undefined;
 }
