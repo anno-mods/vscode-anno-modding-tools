@@ -3,6 +3,8 @@ import * as fs from 'fs';
 import { resolveGUID } from './guidUtilsProvider';
 import * as utils from '../other/utils';
 import * as path from 'path';
+import { ASSETS_FILENAME_PATTERN } from '../other/assetsXml';
+import * as minimatch from 'minimatch';
 
 // this method is called when vs code is activated
 export function activate(context: vscode.ExtensionContext) {
@@ -48,6 +50,10 @@ export function activate(context: vscode.ExtensionContext) {
 
   function updateDecorations() {
     if (!activeEditor) {
+      return;
+    }
+
+    if (!minimatch(activeEditor.document.fileName, ASSETS_FILENAME_PATTERN)) {
       return;
     }
 

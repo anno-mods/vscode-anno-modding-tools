@@ -4,6 +4,10 @@ All notable changes to the "anno-modding-tools" extension will be documented in 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [Unreleased]
+
+- Fixed GUID decorations being applied on all XMLs
+
 ## [1.9.2]
 
 - Added file `FileName` checks to `.cfg` files
