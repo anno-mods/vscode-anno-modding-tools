@@ -1,6 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import glob = require('glob');
+import { ModFolder } from './modFolder';
 
 export function ensureDir(path: string) {
   if (!fs.existsSync(path)) {
@@ -72,6 +73,15 @@ export function insertEnding(filePath: string, insert: string) {
   return path.join(path.dirname(filePath), base.substring(0, dot) + insert + base.substr(dot));
 }
 
+export function ensureArray(object: any) {
+  if (Array.isArray(object)) {
+    return object;
+  }
+  else {
+    return [ object ];
+  }
+}
+
 export function searchModPath(patchFilePath: string) {
   let searchPath = path.dirname(patchFilePath);
 
@@ -89,27 +99,32 @@ export function searchModPath(patchFilePath: string) {
   return path.dirname(patchFilePath);
 }
 
-export function searchModPaths(patchFilePath: string) {
+export function readModinfo(modPath: string): any {
+  if (fs.existsSync(path.join(modPath, 'modinfo.json'))) {
+    return JSON.parse(fs.readFileSync(path.join(modPath, 'modinfo.json'), 'utf8'));
+  }
+  else if (fs.existsSync(path.join(modPath, 'annomod.json'))) {
+    return JSON.parse(fs.readFileSync(path.join(modPath, 'annomod.json'), 'utf8'))?.modinfo;
+  }
+  return undefined;
+}
+
+export function searchModPaths(patchFilePath: string, modsFolder?: string) {
   if (!fs.existsSync(patchFilePath)) {
     return [];
   }
 
   const modPath = searchModPath(patchFilePath);
+  const modinfo = readModinfo(modPath);
 
-  let annomod;
-  if (fs.existsSync(path.join(modPath, 'annomod.json'))) {
-    annomod = JSON.parse(fs.readFileSync(path.join(modPath, 'annomod.json'), 'utf8'));
+  const sources = modinfo.src ? ensureArray(modinfo.src).map((e: string) => path.join(modPath, e)) : [ modPath ];
+  let deps: string[] = [];
+  if (modsFolder) {
+    deps = [...ensureArray(modinfo.ModDependencies), ...ensureArray(modinfo.OptionalDependencies), ...ensureArray(modinfo.LoadAfterIds)]
+      .map((e: string) => ModFolder.getModFolder(modsFolder, e) ?? "")
+      .filter((e: string) => e !== "");
   }
-
-  if (!annomod?.src) {
-    return [ modPath ];
-  }
-
-  if (!Array.isArray(annomod.src)) {
-    return [ path.join(modPath, annomod.src) ];
-  }
-
-  return annomod.src.map((e: string) => path.join(modPath, e));
+  return [...sources, ...deps];
 }
 
 export function hasGraphicsFile(modPaths: string[], filePath: string, annoRda?: string) {
@@ -195,10 +210,10 @@ export function hasGraphicsFile(modPaths: string[], filePath: string, annoRda?: 
     // try .gltf
     if (fileName.endsWith('_lod0.rdm') && folderPath.endsWith('rdm')) {
       const baseName = fileName.split('_')[0];
-      if (fileExistsGlob(path.join(modPath, folderPath, '..', baseName + '_*.gltf'))) {
+      if (fileExistsGlob(path.join(modPath, folderPath, '..', baseName + '*.gltf'))) {
         return [];
       }
-      checked.push(path.join(folderPath, '..', baseName + '_*.gltf'));
+      checked.push(path.join(folderPath, '..', baseName + '*.gltf'));
     }
 
     // try .png

@@ -44,8 +44,10 @@ function checkFileName(modPaths: string[], line: vscode.TextLine, annoRda?: stri
     const index = line.text.indexOf(match[2]);
     const range = new vscode.Range(line.lineNumber, index, line.lineNumber, index + match[2].length);
 
+    const allPaths = annoRda ? [annoRda, ...modPaths] : modPaths;
+
     const diagnostic = new vscode.Diagnostic(range,
-      `File seems to be missing. Checked paths:\n` + checked.join('\n'),
+      `File seems to be missing.\nChecked paths:\n${allPaths.join('\n')}\nChecked patterns:\n${checked.join('\n')}`,
       vscode.DiagnosticSeverity.Warning);
     return diagnostic;
   }
@@ -62,10 +64,11 @@ export function refreshDiagnostics(doc: vscode.TextDocument, collection: vscode.
   const config = vscode.workspace.getConfiguration('anno', doc.uri);
   const checkFileNames = config.get('checkFileNames');
   const annoRda: string | undefined = config.get('rdaFolder');
+  const modsFolder: string | undefined = config.get('modsFolder');
 
   const diagnostics: vscode.Diagnostic[] = [];
 
-  const modPaths = utils.searchModPaths(doc.uri.fsPath);
+  const modPaths = utils.searchModPaths(doc.uri.fsPath, modsFolder);
 
   for (let lineIndex = 0; lineIndex < doc.lineCount; lineIndex++) {
     const lineOfText = doc.lineAt(lineIndex);
