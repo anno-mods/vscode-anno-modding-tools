@@ -4,9 +4,9 @@ All notable changes to the "anno-modding-tools" extension will be documented in 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [Unreleased]
+## [1.9.3]
 
-- Fixed GUID decorations being applied on all XMLs
+- Fixed GUID decorations being applied on all files
 
 ## [1.9.2]
 
