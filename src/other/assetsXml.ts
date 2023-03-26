@@ -56,7 +56,7 @@ export class AssetsDocument {
   
           if (parent?.name === 'Standard' && name) {
             const location = (filePath && asset) ? {
-              filePath: vscode.Uri.parse(filePath),
+              filePath: vscode.Uri.file(filePath),
               line: asset?.line ?? 0
             } : undefined;
 

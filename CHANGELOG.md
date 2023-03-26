@@ -4,6 +4,10 @@ All notable changes to the "anno-modding-tools" extension will be documented in 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.10.1]
+
+- Fixed workspace symbols for custom assets
+
 ## [1.10]
 
 - Added `F12` Go to symbols for custom and vanilla assets
