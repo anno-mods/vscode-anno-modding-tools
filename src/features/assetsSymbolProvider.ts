@@ -3,6 +3,35 @@ import * as minimatch from 'minimatch';
 import { resolveGUID, getAllCustomSymbols } from './guidUtilsProvider';
 import { ASSETS_FILENAME_PATTERN } from '../other/assetsXml';
 import * as channel from './channel';
+import * as path from 'path';
+import * as child from 'child_process';
+
+let context_: vscode.ExtensionContext;
+
+const vanillaAssetContentProvider = new (class implements vscode.TextDocumentContentProvider {
+  provideTextDocumentContent(uri: vscode.Uri): string {
+    const differ = context_.asAbsolutePath('./external/annodiff.exe');
+    const config = vscode.workspace.getConfiguration('anno', uri);
+    const annoRda: string = config.get('rdaFolder') || "";
+    let vanillaPath = path.join(annoRda, 'data/config/export/main/asset/assets.xml');
+
+    const match = /(\d+)/g.exec(uri.fsPath);
+    if (!match) {
+      return 'GUID not found';
+    }
+    const guid = match[0];
+
+    try {
+      const res = child.execFileSync(differ, ["show", vanillaPath, guid, 'bla']);
+      return res.toString();
+    }
+    catch (e)
+    {
+      channel.error((<Error>e).message);
+      throw e;
+    }
+  }
+})();
 
 export class WorkspaceSymbolProvider implements vscode.WorkspaceSymbolProvider {
   public async provideWorkspaceSymbols(search: string, token: vscode.CancellationToken): Promise<vscode.SymbolInformation[]> {
@@ -13,16 +42,14 @@ export class WorkspaceSymbolProvider implements vscode.WorkspaceSymbolProvider {
       if (symbol.location) {
         result.push(
           new vscode.SymbolInformation(
-            symbol.name ?? symbol.guid + (symbol.template ? ` ${symbol.template}` : ''), 
+            (symbol.english ?? symbol.name ?? symbol.guid) + (symbol.template ? ` (${symbol.template})` : ''), 
             vscode.SymbolKind.Class, 
             new vscode.Range(symbol.location.line, 0, symbol.location.line, 0), 
-            vscode.Uri.file(symbol.location.filePath))
+            symbol.location.filePath)
         );
       }
-      else {
-        channel.error('no location');
-      }
     }
+
     return result;
   }
 }
@@ -39,7 +66,7 @@ export class DefinitionProvider implements vscode.DefinitionProvider {
 
     const asset = resolveGUID(text);
     if (asset && asset.location) {
-      return new vscode.Location(vscode.Uri.file(asset.location.filePath), new vscode.Position(asset.location.line, 0));
+      return new vscode.Location(asset.location.filePath, new vscode.Position(asset.location.line, 0));
     }
     return undefined;
   }
@@ -47,6 +74,9 @@ export class DefinitionProvider implements vscode.DefinitionProvider {
 
 export function activate(context: vscode.ExtensionContext) {
   const selector: vscode.DocumentSelector = { language: 'xml', scheme: '*', pattern: ASSETS_FILENAME_PATTERN };
+
+
+  context_ = context;
 
   context.subscriptions.push(
     vscode.Disposable.from(
@@ -57,4 +87,6 @@ export function activate(context: vscode.ExtensionContext) {
       vscode.languages.registerDefinitionProvider(
         selector,
         new DefinitionProvider())));
+
+  vscode.workspace.registerTextDocumentContentProvider("annoasset", vanillaAssetContentProvider);
 }

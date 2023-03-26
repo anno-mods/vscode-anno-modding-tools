@@ -1,4 +1,6 @@
 import * as xmldoc from 'xmldoc';
+import * as vscode from 'vscode';
+import * as channel from '../features/channel';
 
 export const ASSETS_FILENAME_PATTERN = '**/{assets*.xml,templates.xml,tests/*-input.xml,tests/*-expectation.xml,gui/texts_*.xml}';
 
@@ -9,7 +11,7 @@ export interface IAsset {
   english?: string;
   modName?: string;
   location?: {
-    filePath: string;
+    filePath: vscode.Uri;
     line: number;
   }
   baseAsset?: string;
@@ -54,16 +56,17 @@ export class AssetsDocument {
   
           if (parent?.name === 'Standard' && name) {
             const location = (filePath && asset) ? {
-              filePath,
+              filePath: vscode.Uri.parse(filePath),
               line: asset?.line ?? 0
             } : undefined;
 
             this.assets[guid] = {
               guid,
-              name,
+              name: name,
               template: asset?.valueWithPath('Template'),
               location
             };
+            continue;
           }
         }
   

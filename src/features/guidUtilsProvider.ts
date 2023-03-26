@@ -27,8 +27,18 @@ export function resolveGUID(guid: string) {
   return entry;
 }
 
-export function getAllCustomSymbols() {
-  return _customCompletionItems?.assets ? Object.values(_customCompletionItems?.assets) : [];
+export function getAllCustomSymbols(): IAsset[] {
+  if (AllGuidCompletionItems?.assets) {
+    if (_customCompletionItems?.assets) {
+      return [ 
+        ...Object.values(AllGuidCompletionItems.assets), 
+        ...Object.values(_customCompletionItems.assets) ];
+    }
+
+    return Object.values(AllGuidCompletionItems.assets);
+  }
+
+  return [];
 }
 
 export function findAssetSymbols(search: string): IAsset[] {
@@ -234,7 +244,9 @@ async function loadKeywordHelp(context: vscode.ExtensionContext) {
 
 let _customCompletionItems: GuidCompletionItems | undefined = undefined;
 export function refreshCustomAssets(document: vscode.TextDocument | undefined): void {
-  if (!document || !minimatch(document.fileName, ASSETS_FILENAME_PATTERN)) {
+  if (!document || !minimatch(document.fileName, ASSETS_FILENAME_PATTERN)
+    || document.uri.scheme == 'annoasset'
+    || document.uri.scheme == 'annodiff') {
     // _customAssets = undefined;
     // _customCompletionItems = undefined;
     return;

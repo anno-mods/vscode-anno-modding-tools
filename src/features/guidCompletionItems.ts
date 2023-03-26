@@ -65,6 +65,13 @@ export class GuidCompletionItems {
         this.tags[tagName] = new TagCompletionItem(tagName, tagsData[tagName].paths);
       }
 
+      for (var asset of Object.keys(this.assets)) {
+        this.assets[asset].location = {
+          filePath: vscode.Uri.parse('annoasset:assets-' + asset + '.xml'),
+          line: 0
+        };
+      }
+
       this.fromAssets(this.assets, this.tags, true);
     }
   

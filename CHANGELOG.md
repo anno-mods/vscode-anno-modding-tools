@@ -4,10 +4,11 @@ All notable changes to the "anno-modding-tools" extension will be documented in 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [Unreleased]
+## [1.10]
 
-- Added `F12 Go to` symbols for assets
-- Fixed Ctrl+Space GUID auto completion
+- Added `F12` Go to symbols for custom and vanilla assets
+- Added `Ctrl+T` workspace symbols for vanilla assets
+- Fixed `Ctrl+Space` GUID auto completion
 
 ## [1.9.4]
 
