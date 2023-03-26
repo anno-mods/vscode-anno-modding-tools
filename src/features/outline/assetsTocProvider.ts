@@ -6,6 +6,7 @@ export interface TocEntry {
   text: string;
   children?: string[];
   detail: string;
+  guid?: string;
   readonly level: number;
   readonly line: number;
   readonly location: vscode.Location;
@@ -101,6 +102,14 @@ export class AssetsTocProvider {
     return '';
   }
 
+  private _getSymbol(element: xmldoc.XmlElement) {
+    if (element.name === 'Asset') {
+      const guid = element.valueWithPath('Values.Standard.GUID');
+      return guid;
+    }
+    return undefined;
+  }
+
   private _buildToc(document: SkinnyTextDocument): TocEntry[] {
     const toc: TocEntry[] = [];
 
@@ -180,6 +189,7 @@ export class AssetsTocProvider {
             detail: this._getDetail(top.element),
             level: top.depth,
             line: top.element.line,
+            guid: this._getSymbol(top.element),
             location: new vscode.Location(document.uri,
               new vscode.Range(top.element.line, tagStartColumn, top.element.line, top.element.column)),
             symbol: symbolMap[top.element.name] || vscode.SymbolKind.String

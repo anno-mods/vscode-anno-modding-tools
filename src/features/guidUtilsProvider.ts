@@ -4,7 +4,7 @@ import * as path from 'path';
 import * as xmldoc from 'xmldoc';
 import * as minimatch from 'minimatch';
 import { AssetsTocProvider } from './outline/assetsTocProvider';
-import { AssetsDocument, ASSETS_FILENAME_PATTERN } from '../other/assetsXml';
+import { AssetsDocument, ASSETS_FILENAME_PATTERN, IAsset } from '../other/assetsXml';
 import * as utils from '../other/utils';
 
 let assetsDocument: AssetsDocument | undefined;
@@ -25,6 +25,36 @@ export function resolveGUID(guid: string) {
   }
 
   return entry;
+}
+
+export function getAllCustomSymbols(): IAsset[] {
+  if (AllGuidCompletionItems?.assets) {
+    if (_customCompletionItems?.assets) {
+      return [ 
+        ...Object.values(AllGuidCompletionItems.assets), 
+        ...Object.values(_customCompletionItems.assets) ];
+    }
+
+    return Object.values(AllGuidCompletionItems.assets);
+  }
+
+  return [];
+}
+
+export function findAssetSymbols(search: string): IAsset[] {
+  // const vanillaItems = AllGuidCompletionItems.getAllItems();
+  if (_customCompletionItems) {
+    const customItems = _customCompletionItems.getAllItems();
+    if (customItems) {
+      return customItems
+        // .filter(item => (<vscode.CompletionItemLabel>item.label).label.toLowerCase().startsWith(search.toLowerCase()))
+        .map(item => resolveGUID(<string>item.insertText ?? ''))
+        .filter((item): item is IAsset => !!item);
+    }
+  }
+
+  return [];
+  // return vanillaItems;
 }
 
 function resolveGuidRange(guid: string) {
@@ -214,7 +244,9 @@ async function loadKeywordHelp(context: vscode.ExtensionContext) {
 
 let _customCompletionItems: GuidCompletionItems | undefined = undefined;
 export function refreshCustomAssets(document: vscode.TextDocument | undefined): void {
-  if (!document || !minimatch(document.fileName, ASSETS_FILENAME_PATTERN)) {
+  if (!document || !minimatch(document.fileName, ASSETS_FILENAME_PATTERN)
+    || document.uri.scheme == 'annoasset'
+    || document.uri.scheme == 'annodiff') {
     // _customAssets = undefined;
     // _customCompletionItems = undefined;
     return;
@@ -244,15 +276,15 @@ export function refreshCustomAssets(document: vscode.TextDocument | undefined): 
   for (const modPath of modPaths) {
     const files = glob.sync('**/assets*.xml', { cwd: modPath, nodir: true });
     for (let file of files) {
-      _readGuidsFromText(fs.readFileSync(path.join(modPath, file), 'utf8'), path.basename(modPath));
+      _readGuidsFromText(fs.readFileSync(path.join(modPath, file), 'utf8'), path.join(modPath, file), path.basename(modPath));
     }
   }
 
   const modName = path.basename(utils.searchModPath(document.uri.fsPath));
-  _readGuidsFromText(text, modName);
+  _readGuidsFromText(text, document.uri.fsPath, modName);
 }
 
-function _readGuidsFromText(text: string, modName?: string)
+function _readGuidsFromText(text: string, filePath: string, modName?: string)
 {
   let xmlContent;
   try {
@@ -263,17 +295,17 @@ function _readGuidsFromText(text: string, modName?: string)
     return;
   }
 
-  _readGuidsFromXmlContent(xmlContent, modName);
+  _readGuidsFromXmlContent(xmlContent, filePath, modName);
 }
 
-function _readGuidsFromXmlContent(xmlContent: xmldoc.XmlDocument, modName?: string)
+function _readGuidsFromXmlContent(xmlContent: xmldoc.XmlDocument, filePath: string, modName?: string)
 {
-  assetsDocument = new AssetsDocument(xmlContent);
+  assetsDocument = new AssetsDocument(xmlContent, filePath);
 
   if (!_customCompletionItems) {
     _customCompletionItems = new GuidCompletionItems();
   }
-  _customCompletionItems.addAssets(assetsDocument.assets, AllGuidCompletionItems.tags, modName);
+  _customCompletionItems.addAssets(assetsDocument.assets, AllGuidCompletionItems.tags, filePath, modName);
 }
 
 function subscribeToDocumentChanges(context: vscode.ExtensionContext): void {

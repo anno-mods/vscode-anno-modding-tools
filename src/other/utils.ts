@@ -100,11 +100,17 @@ export function searchModPath(patchFilePath: string) {
 }
 
 export function readModinfo(modPath: string): any {
-  if (fs.existsSync(path.join(modPath, 'modinfo.json'))) {
-    return JSON.parse(fs.readFileSync(path.join(modPath, 'modinfo.json'), 'utf8'));
+  try {
+    if (fs.existsSync(path.join(modPath, 'modinfo.json'))) {
+      return { 'modinfo': JSON.parse(fs.readFileSync(path.join(modPath, 'modinfo.json'), 'utf8')) };
+    }
+    else if (fs.existsSync(path.join(modPath, 'annomod.json'))) {
+      return JSON.parse(fs.readFileSync(path.join(modPath, 'annomod.json'), 'utf8'));
+    }
   }
-  else if (fs.existsSync(path.join(modPath, 'annomod.json'))) {
-    return JSON.parse(fs.readFileSync(path.join(modPath, 'annomod.json'), 'utf8'))?.modinfo;
+  catch {
+    // mod jsons can be invalid pretty fast
+    return undefined;
   }
   return undefined;
 }
@@ -117,10 +123,10 @@ export function searchModPaths(patchFilePath: string, modsFolder?: string) {
   const modPath = searchModPath(patchFilePath);
   const modinfo = readModinfo(modPath);
 
-  const sources = modinfo.src ? ensureArray(modinfo.src).map((e: string) => path.join(modPath, e)) : [ modPath ];
+  const sources = modinfo?.src ? ensureArray(modinfo.src).map((e: string) => path.join(modPath, e)) : [ modPath ];
   let deps: string[] = [];
-  if (modsFolder) {
-    deps = [...ensureArray(modinfo.ModDependencies), ...ensureArray(modinfo.OptionalDependencies), ...ensureArray(modinfo.LoadAfterIds)]
+  if (modsFolder && modinfo?.modinfo) {
+    deps = [...ensureArray(modinfo.modinfo?.ModDependencies), ...ensureArray(modinfo.modinfo?.OptionalDependencies), ...ensureArray(modinfo.modinfo?.LoadAfterIds)]
       .map((e: string) => ModFolder.getModFolder(modsFolder, e) ?? "")
       .filter((e: string) => e !== "");
   }
@@ -204,16 +210,28 @@ export function hasGraphicsFile(modPaths: string[], filePath: string, annoRda?: 
         return [];
       }
       
+      if (fs.existsSync(path.join(modPath, folderPath, path.basename(fileName, '.psd') + '.png'))) {
+        return [];
+      }      
       checked.push(path.join(folderPath, path.basename(fileName, '.psd') + '_0.dds'));
+      checked.push(path.join(folderPath, path.basename(fileName, '.psd') + '.png'));
     }
 
     // try .gltf
-    if (fileName.endsWith('_lod0.rdm') && folderPath.endsWith('rdm')) {
+    if (fileName.endsWith('_lod0.rdm')) {
       const baseName = fileName.split('_')[0];
-      if (fileExistsGlob(path.join(modPath, folderPath, '..', baseName + '*.gltf'))) {
-        return [];
+      if (folderPath.endsWith('rdm')) {
+        if (fileExistsGlob(path.join(modPath, folderPath, '..', baseName + '*.gltf'))) {
+          return [];
+        }
+        checked.push(path.join(folderPath, '..', baseName + '*.gltf'));
       }
-      checked.push(path.join(folderPath, '..', baseName + '*.gltf'));
+      else {
+        if (fileExistsGlob(path.join(modPath, folderPath, baseName + '*.gltf'))) {
+          return [];
+        }
+        checked.push(path.join(folderPath, baseName + '*.gltf'));
+      }
     }
 
     // try .png

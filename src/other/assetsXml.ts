@@ -1,4 +1,6 @@
 import * as xmldoc from 'xmldoc';
+import * as vscode from 'vscode';
+import * as channel from '../features/channel';
 
 export const ASSETS_FILENAME_PATTERN = '**/{assets*.xml,templates.xml,tests/*-input.xml,tests/*-expectation.xml,gui/texts_*.xml}';
 
@@ -8,6 +10,11 @@ export interface IAsset {
   name?: string;
   english?: string;
   modName?: string;
+  location?: {
+    filePath: vscode.Uri;
+    line: number;
+  }
+  baseAsset?: string;
 }
 
 export interface IPositionedElement {
@@ -22,7 +29,7 @@ export class AssetsDocument {
 
   lines: IPositionedElement[][];
 
-  constructor(content: xmldoc.XmlDocument) {
+  constructor(content: xmldoc.XmlDocument, filePath?: string) {
     const relevantNodes = new Set<string>(['ModOps', 'ModOp', 'Asset', 'Values', 'Standard', 'GUID']);
 
     this.content = content;
@@ -33,18 +40,7 @@ export class AssetsDocument {
     while (nodeStack.length > 0) {
       const top = nodeStack.pop();
       if (top?.element.type === 'element' /*&& relevantNodes.has(top.element.name)*/) {
-        if (top.element.name === 'ModOp') {
-          // const xpath = top.element.attr['Path'];
-        }
-        
         const column = top.element.column - (top.element.position - top.element.startTagPosition + 1);
-
-        // if Property
-        if (top.history.length >= 3 && top.history[top.history.length - 3].name === 'Asset') {
-          const template = top.history[top.history.length - 3].valueWithPath('Template')
-          // current node is a property
-          let a = 1;
-        }
 
         this.getLine(top.element.line).push({ 
           history: top.history.slice(), 
@@ -55,14 +51,22 @@ export class AssetsDocument {
         if (top.element.name === 'GUID') {
           const guid = top.element.val;
           const parent = top.history.length >= 2 ? top.history[top.history.length - 2] : undefined;
+          const asset = top.history.length >= 4 ? top.history[top.history.length - 4] : undefined;
           const name = parent?.valueWithPath('Name');
   
           if (parent?.name === 'Standard' && name) {
+            const location = (filePath && asset) ? {
+              filePath: vscode.Uri.file(filePath),
+              line: asset?.line ?? 0
+            } : undefined;
+
             this.assets[guid] = {
               guid,
-              name,
-              template: top.history.length >= 4 ? top.history[top.history.length - 4].valueWithPath('Template') : undefined
+              name: name,
+              template: asset?.valueWithPath('Template'),
+              location
             };
+            continue;
           }
         }
   

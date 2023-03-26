@@ -2,7 +2,7 @@
 	"name": "anno-modding-tools",
 	"displayName": "Anno Modding Tools",
 	"description": "Modding tools for Anno 1800",
-	"version": "1.9.2",
+	"version": "1.10.1",
 	"publisher": "JakobHarder",
 	"repository": {
 		"type": "git",
@@ -307,23 +307,27 @@
 				"anno.modsFolder": {
 					"type": "string",
 					"format": "uri",
-					"markdownDescription": "mods/ folder used for `${annoMods}` in `annomod.json` files."
+					"markdownDescription": "mods/ folder used for `${annoMods}` in `annomod.json` files.",
+					"scope": "resource"
 				},
 				"anno.rdaFolder": {
 					"type": "string",
 					"format": "uri",
-					"markdownDescription": "Folder containing extracted RDA data. Used for assets diff and `cfg.yaml` to `cfg` conversion. E.g. `c:\\anno\\all-rda`"
+					"markdownDescription": "Folder containing extracted RDA data. Used for assets diff and `cfg.yaml` to `cfg` conversion. E.g. `c:\\anno\\all-rda`",
+					"scope": "resource"
 				},
 				"anno.outlineFolderDepth": {
 					"type": "number",
 					"default": 0,
 					"minimum": 0,
-					"markdownDescription": "Folder depth of props, materials and alike shown .cfg outline."
+					"markdownDescription": "Folder depth of props, materials and alike shown .cfg outline.",
+					"scope": "resource"
 				},
 				"anno.checkFileNames": {
 					"type": "boolean",
 					"default": true,
-					"markdownDescription": "Check file paths set in `Filename`, `FileName` and `IconFilename`."
+					"markdownDescription": "Check file paths set in `Filename`, `FileName` and `IconFilename`.",
+					"scope": "resource"
 				}
 			}
 		}

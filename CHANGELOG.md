@@ -4,6 +4,24 @@ All notable changes to the "anno-modding-tools" extension will be documented in 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.10.1]
+
+- Fixed workspace symbols for custom assets
+
+## [1.10]
+
+- Added `F12` Go to symbols for custom and vanilla assets
+- Added `Ctrl+T` workspace symbols for vanilla assets
+- Fixed `Ctrl+Space` GUID auto completion
+
+## [1.9.4]
+
+- Fixed GUID decorations not working due to invalid modinfo.json in some mods
+
+## [1.9.3]
+
+- Fixed GUID decorations being applied on all files
+
 ## [1.9.2]
 
 - Added file `FileName` checks to `.cfg` files

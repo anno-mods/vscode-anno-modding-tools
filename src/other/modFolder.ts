@@ -15,10 +15,15 @@ export namespace ModFolder {
     const modinfos = glob.sync('{,*/,*/*/}modinfo.json', { cwd: modsFolder, nodir: true });
     
     for (const modinfoPath of modinfos) {
-      const modinfo = JSON.parse(fs.readFileSync(path.join(modsFolder, modinfoPath), 'utf8'));
-      const id = modinfo?.ModID;
-      if (id) {
-        modIdFolderMap[id] = path.join(modsFolder, path.dirname(modinfoPath));
+      try {
+        const modinfo = JSON.parse(fs.readFileSync(path.join(modsFolder, modinfoPath), 'utf8'));
+        const id = modinfo?.ModID;
+        if (id) {
+          modIdFolderMap[id] = path.join(modsFolder, path.dirname(modinfoPath));
+        }
+      }
+      catch {
+        // silently ignore
       }
 
       // TODO versioning
