@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import { IAsset } from '../other/assetsXml';
+import { resolveGUID } from './guidUtilsProvider';
 
 interface ITagJson 
 {
@@ -47,6 +48,7 @@ export class GuidCompletionItems {
 
   _items: { [ template: string]: CompletionItemMap } = {};
   _allItems: CompletionItemMap = {};
+  _baseAssetItems: CompletionItemMap = {};
 
   load(context: vscode.ExtensionContext) {
     if (!this.assets) {
@@ -63,20 +65,21 @@ export class GuidCompletionItems {
         this.tags[tagName] = new TagCompletionItem(tagName, tagsData[tagName].paths);
       }
 
-      this.fromAssets(this.assets, this.tags);
+      this.fromAssets(this.assets, this.tags, true);
     }
   
     return this.assets;
   }
 
-  fromAssets(assets: { [guid: string]: IAsset}, tags?: { [tag: string]: TagCompletionItem }) {
+  fromAssets(assets: { [guid: string]: IAsset}, tags?: { [tag: string]: TagCompletionItem }, ignoreBaseAssets: boolean = false) {
     this.tags = tags;
     this.assets = assets;
     this._items = {};
     this._allItems = {};
+    this._baseAssetItems = {};
     for (let guid of Object.keys(assets)) {
       const asset = assets[guid];
-      if (asset.template) {
+      if (!ignoreBaseAssets || asset.template) {
         this.push(asset.template, guid, asset);
       }
     }
@@ -92,35 +95,37 @@ export class GuidCompletionItems {
 
     for (let guid of Object.keys(assets)) {
       const asset = assets[guid];
-      if (asset.template) {
-        this.push(asset.template, guid, asset, this.assets[guid] != undefined);
-      }
       if (modName) {
         asset.modName = modName ?? this.assets[guid]?.modName;
       }
+      this.push(asset.template, guid, asset, this.assets[guid] != undefined);
       this.assets[guid] = asset;
     }
   }
 
-  push(templateName: string, guid: string, asset: IAsset, remove: boolean = false) {
+  push(templateName: string | undefined, guid: string, asset: IAsset, remove: boolean = false) {
     const item = new vscode.CompletionItem({
       label: `${asset.english||asset.name}`,
       description: `${asset.template}: ${guid} (${asset.name})`
     }, vscode.CompletionItemKind.Snippet);
     item.insertText = guid;
     
-    const items = this._items[templateName] ?? {};
-    items[guid] = item;
-    this._items[templateName] = items;
-
-    if (!this._allItems) {
-      this._allItems = {};
+    if (templateName) {
+      // Template
+      const templateItems = this._items[templateName] ?? {};
+      templateItems[guid] = item;
+      this._items[templateName] = templateItems;
     }
+    else {
+      // BaseAssetGUID
+      this._baseAssetItems[guid] = (item);
+    }
+
     this._allItems[guid] = item;
   }
 
   get(tagName: string, path?: string) {
-    if (!this.tags) {
+    if (!this.tags || !this._items) {
       return undefined;
     }
     const tag = this.tags[tagName];
@@ -145,9 +150,27 @@ export class GuidCompletionItems {
 
     let items = [];
     for (var t of templates) {
-      items.push(...(Object.values(this._items[t])??[]));
+      const completionItems = this._items[t];
+      if (completionItems) {
+        items.push(...(Object.values(completionItems)));
+      }
     }
+
+    items.push(...Object.values(this._baseAssetItems));
     return items;
+  }
+
+  getTemplate(asset: IAsset): string | undefined {
+    if (asset.template) {
+      return asset.template;
+    }
+    else if (asset.baseAsset) {
+      const base = resolveGUID(asset.baseAsset);
+      if (base) {
+        return this.getTemplate(base);
+      }
+    }
+    return undefined;
   }
 
   getAllItems() {

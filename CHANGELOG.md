@@ -7,6 +7,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Unreleased]
 
 - Added `F12 Go to` symbols for assets
+- Fixed Ctrl+Space GUID auto completion
 
 ## [1.9.4]
 

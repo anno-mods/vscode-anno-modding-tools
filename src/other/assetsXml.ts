@@ -12,6 +12,7 @@ export interface IAsset {
     filePath: string;
     line: number;
   }
+  baseAsset?: string;
 }
 
 export interface IPositionedElement {
