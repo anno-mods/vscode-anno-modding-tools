@@ -4,12 +4,11 @@ All notable changes to the "anno-modding-tools" extension will be documented in 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [1.10.1]
-
-- Fixed workspace symbols for custom assets
 
 ## [1.10]
 
+- 1.10.2: Increased annodiff buffer and added specific error for that case
+- 1.10.1: Fixed workspace symbols for custom assets
 - Added `F12` Go to symbols for custom and vanilla assets
 - Added `Ctrl+T` workspace symbols for vanilla assets
 - Fixed `Ctrl+Space` GUID auto completion

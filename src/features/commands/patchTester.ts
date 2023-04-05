@@ -157,16 +157,23 @@ export class PatchTester {
     }
     this._workingDir = path.resolve(path.dirname(patchFilePath));
 
+    const maxBuffer = 20;
+
     try {
       const modRelativePath = path.relative(patchFilePath, modPath);
 
-      const res = child.execFileSync(differ, ["patchdiff", originalPath, modRelativePath, modPath], { cwd: this._workingDir, input: patchContent });
-      const split = res.toString().split('##annodiff##');
+      const res = child.execFileSync(differ, ["patchdiff", originalPath, modRelativePath, modPath], { cwd: this._workingDir, input: patchContent, encoding: 'utf-8',
+        maxBuffer: maxBuffer * 1024 * 1024 });
+      const split = res.split('##annodiff##');
       
       return { original: split[2], patched: split[1], log: split[0] };
     }
     catch (e)
     {
+      
+      if ((<Error>e).message.endsWith('ENOBUFS')) {
+        throw new Error(`Diff exceeds ${maxBuffer} MB!`);
+      }
       channel.error((<Error>e).message);
       throw e;
     }
