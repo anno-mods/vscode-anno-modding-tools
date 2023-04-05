@@ -44,14 +44,15 @@
       "PublicServiceBuilding",
       "FactoryBuilding7_BuildPermit",
       "FreeAreaRecipeBuilding",
+      "HeavyFactoryBuilding",
       "ResidenceBuilding",
       "PublicServiceBuildingWithBus",
       "Shipyard",
       "SlotFactoryBuilding7",
       "PowerplantBuilding",
       "FarmBuilding_Electrifiable",
-      "HeavyFactoryBuilding",
-      "HeavyFreeAreaBuilding"
+      "HeavyFreeAreaBuilding",
+      "VehicleBuff"
     ],
     "paths": {
       "/Values/Standard": [],
@@ -136,6 +137,7 @@
         "PublicServiceBuilding",
         "FactoryBuilding7_BuildPermit",
         "FreeAreaRecipeBuilding",
+        "HeavyFactoryBuilding",
         "ResidenceBuilding",
         "PublicServiceBuildingWithBus",
         "Shipyard"
@@ -149,6 +151,9 @@
         "FarmBuilding_Electrifiable",
         "HeavyFactoryBuilding",
         "HeavyFreeAreaBuilding"
+      ],
+      "/Values/GeneralIncidentConfiguration/AdditionalShipFireIncidentEffects/Item": [
+        "VehicleBuff"
       ]
     }
   },
@@ -215,6 +220,7 @@
       "/Values/DiplomacyScene/GiftButtons/Item": [],
       "/Values/IslandBarScene/WarStatusTexts/Item": [],
       "/Values/LoadingScene/LoadingTips/Item/Texts/Item": [],
+      "/Values/LoadingScene/LoadingMessageTexts/Item": [],
       "/Values/MinimapScene/Filters/ImperialKontor": [],
       "/Values/MinimapScene/Filters/Kontor": [],
       "/Values/MinimapScene/Filters/Quest": [],
@@ -224,6 +230,7 @@
       "/Values/MinimapScene/Filters/Treasure": [],
       "/Values/MinimapScene/Filters/WindDirection": [],
       "/Values/MinimapScene/Filters/Transparency": [],
+      "/Values/NavigationMenuScene/IslandInfoButtons/Item": [],
       "/Values/QuestBookScene/QuestBookCategories/Main": [],
       "/Values/QuestBookScene/QuestBookCategories/LandOfLions": [],
       "/Values/QuestBookScene/QuestBookCategories/ThePassage": [
@@ -244,7 +251,18 @@
         "SessionArctic"
       ],
       "/Values/SessionTradeRouteOverviewScene/GroupContextMenu/Entries/Item": [],
+      "/Values/SessionTradeRouteOverviewScene/RouteContextMenu/Entries/Item": [],
       "/Values/SessionTradeRoutesScene/FolderContextMenu/Entries/Item": [],
+      "/Values/SessionTradeRoutesScene/AddIslandTab": [],
+      "/Values/SessionTradeRoutesScene/ModifyGoodsTab": [],
+      "/Values/ShipMenuRadial/ShipCategoryTexts/All": [],
+      "/Values/ShipMenuRadial/ShipCategoryTexts/Idle": [],
+      "/Values/ShipMenuRadial/ShipCategoryTexts/TradeRoute": [],
+      "/Values/ShipMenuRadial/ShipCategoryTexts/Patrolling": [],
+      "/Values/ShipMenuRadial/ShipCategoryTexts/Escorting": [],
+      "/Values/ShipMenuRadial/ShipCategoryTexts/Transit": [],
+      "/Values/ShipMenuRadial/ShipArmedTypeTexts/Unarmed": [],
+      "/Values/ShipMenuRadial/ShipArmedTypeTexts/Armed": [],
       "/Values/ObjectMenuGuildHouseScene/BonusLabelTexts/Item": [
         "EffectContainer"
       ],
@@ -254,11 +272,48 @@
       "/Values/ShipListConfig/ShipCategories/Patrolling": [],
       "/Values/ShipListConfig/ShipCategories/Escorting": [],
       "/Values/ShipListConfig/ShipCategories/Transit": [],
+      "/Values/ItemSearchConfig/SearchCategories/Production": [],
+      "/Values/ItemSearchConfig/SearchCategories/Production/SubCategories/Item": [],
+      "/Values/ItemSearchConfig/SearchCategories/Residents": [],
+      "/Values/ItemSearchConfig/SearchCategories/Residents/SubCategories/Item": [],
+      "/Values/ItemSearchConfig/SearchCategories/Ships": [],
+      "/Values/ItemSearchConfig/SearchCategories/Ships/SubCategories/Item": [],
+      "/Values/ItemSearchConfig/SearchCategories/PublicServices": [],
+      "/Values/ItemSearchConfig/SearchCategories/Emergency": [],
+      "/Values/ItemSearchConfig/SearchCategories/Culture": [],
+      "/Values/ItemSearchConfig/SearchCategories/Expedition": [],
+      "/Values/ItemSearchConfig/SearchCategories/Special": [],
+      "/Values/ItemSearchConfig/SearchCategories/Special/SubCategories/Item": [],
       "/Values/FilteredSelectionPopup/ShipFilterTexts/None": [],
       "/Values/FilteredSelectionPopup/ShipFilterTexts/Idle": [],
       "/Values/FilteredSelectionPopup/ShipFilterTexts/Session": [],
       "/Values/FilteredSelectionPopup/KontorFilterTexts/None": [],
       "/Values/FilteredSelectionPopup/KontorFilterTexts/Session": [],
+      "/Values/GenericPopup/ErrorPopups/FirstPartyInviteFailed/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/APIDisconnected/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/GameVersionMismatch/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/NATError/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/FileNotFound/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/ConnectionLost/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/FailedToLoadSavegame/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/GameAlreadyStarted/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/InviteTimedOut/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/FatalError/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/Savegame_ErrorPopup_Autosave/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/Savegame_ErrorPopup_RegularSave/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/MultiplayerAccessDenied/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/MultiplayerAccessNeedsPremium/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/MultiplayerAccessBanned/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/MatchmakingFailed/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/LobbyFull/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/StormGeneric/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/LeaveReasonGeneric/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/ConcurrentLoginDetected/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/FirstPartySignedOut/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/ConnectionLostInMPGame/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/FailedToJoinLobby/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/UbisoftAccountMandatory/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/FirstPartySignInRequired/Buttons/Item": [],
       "/Values/GenericPopup/Popups/Quit/Buttons/Item": [],
       "/Values/GenericPopup/Popups/DestroyItem/Buttons/Item": [],
       "/Values/GenericPopup/Popups/NotImplemented/Buttons/Item": [],
@@ -311,29 +366,22 @@
       "/Values/GenericPopup/Popups/ResetScenarioConfirmationElNino/Buttons/Item": [],
       "/Values/GenericPopup/Popups/ResetScenarioConfirmationPostman/Buttons/Item": [],
       "/Values/GenericPopup/Popups/ResetScenarioConfirmationExportMaster/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/GameInOfflineMode/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/CantDeleteLastSavegame/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/MPLobbySwapRequested/Buttons/Item": [],
       "/Values/GenericPopup/Popups/OldSavegame/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/ResetConsoleOptionsConfirmation/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/PresetLoadedSuccessfully/Buttons/Item": [],
       "/Values/GenericPopup/Popups/MultiDestruction/Buttons/Item": [],
-      "/Values/GenericPopup/ErrorPopups/FirstPartyInviteFailed/Buttons/Item": [],
-      "/Values/GenericPopup/ErrorPopups/APIDisconnected/Buttons/Item": [],
-      "/Values/GenericPopup/ErrorPopups/GameVersionMismatch/Buttons/Item": [],
-      "/Values/GenericPopup/ErrorPopups/NATError/Buttons/Item": [],
-      "/Values/GenericPopup/ErrorPopups/FileNotFound/Buttons/Item": [],
-      "/Values/GenericPopup/ErrorPopups/ConnectionLost/Buttons/Item": [],
-      "/Values/GenericPopup/ErrorPopups/FailedToLoadSavegame/Buttons/Item": [],
-      "/Values/GenericPopup/ErrorPopups/GameAlreadyStarted/Buttons/Item": [],
-      "/Values/GenericPopup/ErrorPopups/InviteTimedOut/Buttons/Item": [],
-      "/Values/GenericPopup/ErrorPopups/FatalError/Buttons/Item": [],
-      "/Values/GenericPopup/ErrorPopups/MultiplayerAccessDenied/Buttons/Item": [],
-      "/Values/GenericPopup/ErrorPopups/MatchmakingFailed/Buttons/Item": [],
-      "/Values/GenericPopup/ErrorPopups/LobbyFull/Buttons/Item": [],
-      "/Values/GenericPopup/ErrorPopups/StormGeneric/Buttons/Item": [],
-      "/Values/GenericPopup/ErrorPopups/LeaveReasonGeneric/Buttons/Item": [],
-      "/Values/GenericPopup/ErrorPopups/ConcurrentLoginDetected/Buttons/Item": [],
-      "/Values/GenericPopup/ErrorPopups/FirstPartySignedOut/Buttons/Item": [],
-      "/Values/GenericPopup/ErrorPopups/ConnectionLostInMPGame/Buttons/Item": [],
-      "/Values/GenericPopup/ErrorPopups/FailedToJoinLobby/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/OnlineModeRequired/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/DiscardChanges/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/DLC09StoryPopup/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/DeleteStampConfirmation/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/DeleteStampFolderConfirmation/Buttons/Item": [],
+      "/Values/GenericPopup/Popups/ModdedFailure/Buttons/Item": [],
       "/Values/NegotiationPopup/ButtonLists/Item/Buttons/Item": [],
       "/Values/SettingsMenu/Container/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionCombobox/Entries/Item": [],
+      "/Values/SettingsMenu/AlternativeContainer/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionCombobox/Entries/Item": [],
       "/Values/Quest/QuestHints/Item": [],
       "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl3": [],
       "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl1": [],
@@ -607,7 +655,6 @@
       "Market",
       "CollectablePicturePuzzleWithPropRemoval",
       "DivingBellShip",
-      "SessionSouthAmerica",
       "ResearchCenter",
       "QuestObjectInfectable",
       "QuestObjectHarborBuildingAttacker",
@@ -775,7 +822,6 @@
         "WarAirShip",
         "Collectable",
         "DivingBellShip",
-        "SessionSouthAmerica",
         "CollectablePicturePuzzle",
         "ResearchCenter",
         "VisualQuestSessionObject",
@@ -1357,11 +1403,15 @@
   },
   "BuildObject": {
     "templates": [
-      "Street"
+      "Street",
+      "GamepadVibrationEffect"
     ],
     "paths": {
       "/Values/ActionBuildObject": [
         "Street"
+      ],
+      "/Values/GamepadConfig/VibrationConfig/VibrationEffects": [
+        "GamepadVibrationEffect"
       ]
     }
   },
@@ -1517,6 +1567,7 @@
         "MainQuest"
       ],
       "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [
+        "A7_QuestDestroyObjects",
         "A7_QuestDeliveryObject",
         "A7_QuestPickupObject",
         "A7_QuestExpedition",
@@ -1619,6 +1670,7 @@
         "MainQuest"
       ],
       "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
+        "A7_QuestFollowShip",
         "A7_QuestStatusQuo",
         "Quest",
         "A7_QuestPickupObject",
@@ -1628,7 +1680,6 @@
         "A7_QuestSustain",
         "A7_QuestEscortObject",
         "A7_QuestDeliveryObject",
-        "A7_QuestFollowShip",
         "A7_QuestPhotography"
       ],
       "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [
@@ -1642,6 +1693,7 @@
         "A7_QuestDecision"
       ],
       "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
+        "A7_QuestFollowShip",
         "A7_QuestEscortObject",
         "A7_QuestPickupObject",
         "A7_QuestDestroyObjects",
@@ -1654,6 +1706,14 @@
         "A7_QuestSustain",
         "A7_QuestPhotography",
         "A7_QuestDeliveryObject"
+      ],
+      "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [
+        "A7_QuestDeliveryObject",
+        "A7_QuestDestroyObjects",
+        "Quest",
+        "A7_QuestSelectObject",
+        "MainQuest",
+        "A7_QuestExpedition"
       ],
       "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
         "A7_QuestPhotography",
@@ -1858,6 +1918,35 @@
       "/Values/SoundEmitter/IncidentSounds/InfectedRiot/Item": [],
       "/Values/SoundEmitter/BuildingRuined/Item": [],
       "/Values/SoundEmitter/BuildingRepaired/Item": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/Tab": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/Select": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/Deselect": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/MouseHover": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/SliderPress": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/SliderRelease": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/CheckboxCheck": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/CheckboxUncheck": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/NextShort": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/NextLong": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/BackShort": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/BackLong": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/WindowOpen": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/WindowClose": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/Dropdown": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/InteractiveElementGotFocus": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/InteractiveElementLostFocus": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/NonInteractiveElementGotFocus": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/ButtonPress": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/AffirmativeAction": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/Cancel": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/ButtonHoldCompleted": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/ButtonHoldIncomplete": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/SwitchToTab": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/MenuOpen": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/MenuClose": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/SliderChanged": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/ForwardTransition": [],
+      "/Values/UISoundConfig/GeneralUiSounds/Sounds/BackTransition": [],
       "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionPlaySound": [],
       "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionPlaySound": [],
       "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionPlaySound": [],
@@ -1964,9 +2053,9 @@
         "TriggerQuest"
       ],
       "/Values/Quest/OnQuestDiscarded/Values/ActionList/Actions/Item/Action/Values/ActionRegisterTrigger": [
+        "TriggerQuest",
         "FeatureUnlock",
-        "Trigger",
-        "TriggerQuest"
+        "Trigger"
       ],
       "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionRegisterTrigger": [
         "Trigger",
@@ -2343,13 +2432,17 @@
   "ComboboxHeadline": {
     "templates": [],
     "paths": {
-      "/Values/OptionCombobox": []
+      "/Values/OptionCombobox": [],
+      "/Values/SettingsMenu/Container/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionCombobox": [],
+      "/Values/SettingsMenu/AlternativeContainer/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionCombobox": []
     }
   },
   "ComboboxInfotip": {
     "templates": [],
     "paths": {
-      "/Values/OptionCombobox": []
+      "/Values/OptionCombobox": [],
+      "/Values/SettingsMenu/Container/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionCombobox": [],
+      "/Values/SettingsMenu/AlternativeContainer/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionCombobox": []
     }
   },
   "SliderHeadline": {
@@ -2371,13 +2464,17 @@
   "ToggleHeadline": {
     "templates": [],
     "paths": {
-      "/Values/OptionToggle": []
+      "/Values/OptionToggle": [],
+      "/Values/SettingsMenu/Container/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionToggle": [],
+      "/Values/SettingsMenu/AlternativeContainer/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionToggle": []
     }
   },
   "ToggleInfotip": {
     "templates": [],
     "paths": {
-      "/Values/OptionToggle": []
+      "/Values/OptionToggle": [],
+      "/Values/SettingsMenu/Container/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionToggle": [],
+      "/Values/SettingsMenu/AlternativeContainer/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionToggle": []
     }
   },
   "ObjectMatched": {
@@ -2406,7 +2503,9 @@
       "PostBoxBuildingWithDepot",
       "Warehouse",
       "TowerRestaurant",
-      "Mall"
+      "Mall",
+      "LandSpy",
+      "VisualQuestSessionObject"
     ],
     "paths": {
       "/Values/Matcher/Criterion/Values/MatcherCriterionAnd/CriterionOperandListAnd/Item/CriterionOperand/Values/MatcherCriterionGUID": [
@@ -2447,6 +2546,8 @@
         "Restaurant",
         "TowerRestaurant",
         "Mall",
+        "LandSpy",
+        "VisualQuestSessionObject",
         "ResidenceBuilding"
       ],
       "/Values/MatcherCriterionGUID": []
@@ -2465,21 +2566,13 @@
   },
   "Asset": {
     "templates": [
-      "ResidenceBuilding-Unique",
-      "Monument_with_Shipyard",
-      "PowerplantBuilding",
-      "MonumentColony",
+      "Tree",
       "HarborWarehouse7",
       "CultureModule",
       "OrnamentalBuilding",
       "OrnamentalModule",
-      "Product",
-      "TowerRestaurant",
       "ItemSpecialAction",
-      "ProductionChain",
-      "Warehouse",
-      "Market",
-      "Monument",
+      "Product",
       "HarborBuildingAttacker",
       "Icon",
       "NewspaperEffectIcon",
@@ -2491,6 +2584,9 @@
       "FarmBuilding",
       "SessionModerate",
       "SessionMeta",
+      "SessionSouthAmerica",
+      "SessionArctic",
+      "Monument",
       "FeatureUnlock",
       "ResidenceBuilding",
       "Shipyard",
@@ -2498,17 +2594,19 @@
       "MinimapDot",
       "SlotFactoryBuilding7",
       "WarShip",
+      "Warehouse",
       "ResidenceBuilding7_Colony",
       "CampaignQuestObject",
-      "PlayerCounterContextPool",
       "FreeAreaBuilding",
       "HeavyFactoryBuilding",
       "HeavyFreeAreaBuilding",
       "PublicServiceBuilding",
+      "Market",
       "PopulationLevel7",
       "CultureItem",
       "Skin",
       "UnlockableAsset",
+      "ProductionChain",
       "A7_QuestExpedition",
       "A7_QuestDeliveryObject",
       "A7_QuestDivingBellGeneric",
@@ -2532,21 +2630,13 @@
     ],
     "paths": {
       "/Values/AssetPool/AssetList/Item": [
-        "ResidenceBuilding-Unique",
-        "Monument_with_Shipyard",
-        "PowerplantBuilding",
-        "MonumentColony",
+        "Tree",
         "HarborWarehouse7",
         "CultureModule",
         "OrnamentalBuilding",
         "OrnamentalModule",
-        "Product",
-        "TowerRestaurant",
         "ItemSpecialAction",
-        "ProductionChain",
-        "Warehouse",
-        "Market",
-        "Monument",
+        "Product",
         "HarborBuildingAttacker"
       ],
       "/Values/DistributionCenter/KontorUpgrades/Main": [
@@ -2580,7 +2670,9 @@
         "SessionMeta"
       ],
       "/Values/GameSetup/Maps/Item": [
-        "SessionModerate"
+        "SessionModerate",
+        "SessionSouthAmerica",
+        "SessionArctic"
       ],
       "/Values/CampaignSetupUnlocks/LockedAssets/Item": [
         "Monument",
@@ -2610,7 +2702,6 @@
         "ResidenceBuilding7_Colony",
         "CampaignQuestObject",
         "Product",
-        "PlayerCounterContextPool",
         "FreeAreaBuilding",
         "HeavyFactoryBuilding",
         "HeavyFreeAreaBuilding",
@@ -2656,11 +2747,11 @@
         "UnlockableAsset",
         "QuestPool"
       ],
-      "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionUnlockAsset/UnlockAssets/Item": [
-        "UnlockableAsset",
+      "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionLockAsset/LockAssets/Item": [
         "FeatureUnlock"
       ],
-      "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionLockAsset/LockAssets/Item": [
+      "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionUnlockAsset/UnlockAssets/Item": [
+        "UnlockableAsset",
         "FeatureUnlock"
       ],
       "/Values/QuestLine/QuestLineQuests/Item": [
@@ -2745,7 +2836,6 @@
       "/Values/Objectives/WinConditions/Item/VectorElement": [],
       "/Values/Quest/ReputationQuestFail/ReputationFailList/Item/VectorElement": [],
       "/Values/Reward/RewardReputation/Item/VectorElement": [],
-      "/Values/Session/TransferData/Item/VectorElement": [],
       "/Values/ConstructionAI/MonumentConfiguration/Item/VectorElement": [],
       "/Values/Diplomacy/RepeatableActionBalancing/Actions/Flatter/Subdivisions/Item/VectorElement": [],
       "/Values/Diplomacy/RepeatableActionBalancing/Actions/Gift/Subdivisions/Item/VectorElement": [],
@@ -3245,6 +3335,20 @@
       ]
     }
   },
+  "DefaultActorVariation": {
+    "templates": [
+      "LandAnimal",
+      "Fish",
+      "Bird"
+    ],
+    "paths": {
+      "/Values/FeedbackController": [
+        "LandAnimal",
+        "Fish",
+        "Bird"
+      ]
+    }
+  },
   "DeactivationDuration": {
     "templates": [],
     "paths": {
@@ -3363,39 +3467,37 @@
   },
   "DefaultSkinName": {
     "templates": [
-      "WarShip",
-      "WarAirShip",
-      "BuffFactory",
-      "Guildhouse",
-      "TradeShip",
-      "HarborOffice",
-      "ResidenceBuilding7_Colony",
-      "PublicServiceBuilding",
-      "PublicServiceBuildingWithBus",
-      "TradeShipPermit",
-      "CultureModule",
+      "SlotFactoryBuilding7",
+      "WorkArea",
+      "FactoryBuilding7",
+      "FarmBuilding",
+      "Farmfield",
+      "Slot",
+      "OilPumpBuilding",
+      "FreeAreaBuilding",
+      "HeavyFactoryBuilding",
+      "HeavyFreeAreaBuilding",
       "ResidenceBuilding",
+      "PublicServiceBuilding",
       "PublicServiceBuildingWithMusicInfluencer",
-      "Market",
-      "CityInstitutionBuilding"
+      "PublicServiceBuildingWithBus"
     ],
     "paths": {
       "/Values/Object/Skins": [
-        "WarShip",
-        "WarAirShip",
-        "BuffFactory",
-        "Guildhouse",
-        "TradeShip",
-        "HarborOffice",
-        "ResidenceBuilding7_Colony",
-        "PublicServiceBuilding",
-        "PublicServiceBuildingWithBus",
-        "TradeShipPermit",
-        "CultureModule",
+        "SlotFactoryBuilding7",
+        "WorkArea",
+        "FactoryBuilding7",
+        "FarmBuilding",
+        "Farmfield",
+        "Slot",
+        "OilPumpBuilding",
+        "FreeAreaBuilding",
+        "HeavyFactoryBuilding",
+        "HeavyFreeAreaBuilding",
         "ResidenceBuilding",
+        "PublicServiceBuilding",
         "PublicServiceBuildingWithMusicInfluencer",
-        "Market",
-        "CityInstitutionBuilding"
+        "PublicServiceBuildingWithBus"
       ]
     }
   },
@@ -3705,6 +3807,26 @@
       "/Values/Street": []
     }
   },
+  "UpgradeModeTarget": {
+    "templates": [
+      "Street"
+    ],
+    "paths": {
+      "/Values/Street": [
+        "Street"
+      ]
+    }
+  },
+  "DowngradeModeTarget": {
+    "templates": [
+      "Street"
+    ],
+    "paths": {
+      "/Values/Street": [
+        "Street"
+      ]
+    }
+  },
   "MinimumLoadingTime": {
     "templates": [],
     "paths": {
@@ -3724,7 +3846,8 @@
     "paths": {
       "/Values/MusicInfluencer/RelevantSkinGUIDs/Item": [
         "Skin"
-      ]
+      ],
+      "/Values/CustomizeModeScene/CustomizeOptionNames": []
     }
   },
   "GroundDecalAsset": {
@@ -3821,6 +3944,7 @@
     "templates": [
       "OrnamentalBuilding",
       "BuildPermitBuilding",
+      "OrnamentalBuildingRuin",
       "AdditionalModule",
       "OrnamentalModule",
       "DocklandModuleRepair",
@@ -3863,29 +3987,32 @@
       "PublicServiceBuildingWithMusicInfluencer",
       "PublicServiceBuildingWithBus",
       "Monument",
+      "HarborBuildingAttacker",
       "ConstructionCategory",
+      "HarborOffice",
       "CultureBuilding",
       "ProductionChain",
+      "ResearchCenter",
       "Mall",
       "Street",
       "Warehouse",
       "Market",
+      "HarborDepot",
+      "Shipyard",
       "FactoryBuilding7_BuildPermit",
       "FarmBuilding_Electrifiable",
       "BuffFactoryModule",
       "HarborWarehouseStrategic",
-      "HarborDepot",
       "AirshipPlatformModuleWorkforceTransfer",
       "WorkforceConnector",
-      "HarborOffice",
       "SlotFactoryBuilding7_Arctic",
-      "HarborBuildingAttacker",
       "CultureBuildingColony"
     ],
     "paths": {
       "/Values/Building/InfluencedByNeighbors/Item": [
         "OrnamentalBuilding",
         "BuildPermitBuilding",
+        "OrnamentalBuildingRuin",
         "AdditionalModule",
         "OrnamentalModule",
         "DocklandModuleRepair",
@@ -3966,22 +4093,27 @@
       ],
       "/Values/ConstructionCategory/BuildingList/Item": [
         "Monument",
+        "HarborBuildingAttacker",
         "ConstructionCategory",
-        "Monument_with_Shipyard",
-        "Multifactory",
         "Guildhouse",
+        "VisitorPier",
+        "HarborOffice",
         "CultureBuilding",
+        "ResidenceBuilding7_BuildPermit",
         "ProductionChain",
+        "PublicServiceBuilding",
+        "ResearchCenter",
         "Mall",
         "Street",
         "FactoryBuilding7",
         "ResidenceBuilding",
-        "PublicServiceBuilding",
         "PublicServiceBuildingWithMusicInfluencer",
         "PublicServiceBuildingWithBus",
         "Warehouse",
         "Market",
-        "CityInstitutionBuilding"
+        "CityInstitutionBuilding",
+        "HarborDepot",
+        "Shipyard"
       ],
       "/Values/ProductionChain": [
         "FactoryBuilding7",
@@ -4044,6 +4176,16 @@
         "FactoryBuilding7",
         "FreeAreaRecipeBuilding",
         "Multifactory"
+      ],
+      "/Values/ConstructionRadialScene/DefaultSupportButtons/Item": [
+        "Street",
+        "ResidenceBuilding",
+        "Warehouse"
+      ],
+      "/Values/NavigationMenuScene/BuildingOptions/Item": [
+        "Street",
+        "ResidenceBuilding",
+        "Warehouse"
       ],
       "/Values/ObjectmenuCommuterHarbourScene/BuildingSpecificData/Item": [
         "AirshipPlatformModuleWorkforceTransfer",
@@ -4191,6 +4333,16 @@
       "/Values/Constructable": []
     }
   },
+  "ConstructionMenuIcon": {
+    "templates": [
+      "PopulationLevel7"
+    ],
+    "paths": {
+      "/Values/Constructable": [
+        "PopulationLevel7"
+      ]
+    }
+  },
   "Set": {
     "templates": [
       "ItemSet"
@@ -4311,8 +4463,53 @@
         "Product"
       ],
       "/Values/DifficultySettings/Descriptions/SkyscraperMaintentance": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/Population": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/SessionBalance": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/GlobalCost": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/Production": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/TopProduction": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/Storage": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/TopStorage": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/TradeShips": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/MilitaryShips": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/CompletedSets": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/SocketedItems": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/DiscoveredItems": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/Attractiveness": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/TopAttractiveness": [],
       "/Values/ResearchSubcategory/ItemCardDescription": [],
       "/Values/AttractivenessPopup/DisplayedAttractivenessTypes/Item": [],
+      "/Values/SessionTradeRoutesScene/StationOptionsPopup/OptionButtons/LoadOptionNone": [],
+      "/Values/SessionTradeRoutesScene/StationOptionsPopup/OptionButtons/LoadOptionWaitUntilFull": [],
+      "/Values/SessionTradeRoutesScene/StationOptionsPopup/OptionButtons/UnloadOptionNone": [],
+      "/Values/SessionTradeRoutesScene/StationOptionsPopup/OptionButtons/UnloadOptionWaitUntilEmpty": [],
+      "/Values/SessionTradeRoutesScene/StationOptionsPopup/OptionButtons/UnloadOptionThrowOverboard": [],
+      "/Values/SessionTradeRoutesScene/StationErrors/NoError": [],
+      "/Values/SessionTradeRoutesScene/StationErrors/InvalidRoute": [],
+      "/Values/SessionTradeRoutesScene/StationErrors/NotEnoughStations": [],
+      "/Values/SessionTradeRoutesScene/StationErrors/IslandUnderSiege": [],
+      "/Values/SessionTradeRoutesScene/StationErrors/NoValidPier": [],
+      "/Values/SessionTradeRoutesScene/StationErrors/NoTradeRights": [],
+      "/Values/SessionTradeRoutesScene/StationErrors/LongWaitingTime": [],
+      "/Values/SessionTradeRoutesScene/StationErrors/Unspecified": [],
+      "/Values/SessionTradeRoutesScene/GoodErrors/NoError": [],
+      "/Values/SessionTradeRoutesScene/GoodErrors/NotEnoughStations": [],
+      "/Values/SessionTradeRoutesScene/GoodErrors/NoGoods": [],
+      "/Values/SessionTradeRoutesScene/GoodErrors/ConfiguredGoodNotTraded": [],
+      "/Values/SessionTradeRoutesScene/GoodErrors/LoadedGoodNeverUnloaded": [],
+      "/Values/SessionTradeRoutesScene/GoodErrors/UnloadedGoodNeverLoaded": [],
+      "/Values/SessionTradeRoutesScene/GoodErrors/GoodsDontMatch": [],
+      "/Values/SessionTradeRoutesScene/GoodErrors/StorageFull": [],
+      "/Values/SessionTradeRoutesScene/GoodErrors/StorageEmpty": [],
+      "/Values/SessionTradeRoutesScene/GoodErrors/Unspecified": [],
+      "/Values/SessionTradeRoutesScene/GoodErrors/GoldenPathUnload": [],
+      "/Values/SessionTradeRoutesScene/ShipErrors/NoError": [],
+      "/Values/SessionTradeRoutesScene/ShipErrors/ShipsWithErrors": [],
+      "/Values/SessionTradeRoutesScene/ShipErrors/NoShips": [],
+      "/Values/SessionTradeRoutesScene/ShipErrors/Unspecified": [],
+      "/Values/SessionTradeRoutesScene/ShipErrors/NotEnoughSlots": [],
+      "/Values/SessionTradeRoutesScene/ShipErrors/MismatchingGood": [],
+      "/Values/SessionTradeRoutesScene/ShipErrors/AllShipsPaused": [],
       "/Values/ConstructionMenu/ActionButtonDescriptions/List/Item": [],
       "/Values/ExpeditionFeature/CategoryConfig/Zoological": [],
       "/Values/ExpeditionFeature/CategoryConfig/PirateHunt": [],
@@ -4430,19 +4627,15 @@
   },
   "ModuleButtonIcon": {
     "templates": [
-      "AirshipPlatform",
-      "Hacienda",
+      "Icon",
       "CultureBuildingColony",
-      "CultureBuilding",
-      "Icon"
+      "CultureBuilding"
     ],
     "paths": {
       "/Values/ModuleOwner/BlueprintModuleOption": [
-        "AirshipPlatform",
-        "Hacienda",
+        "Icon",
         "CultureBuildingColony",
-        "CultureBuilding",
-        "Icon"
+        "CultureBuilding"
       ]
     }
   },
@@ -4550,6 +4743,7 @@
     "templates": [
       "ResidenceBuilding-Unique",
       "Monument_with_Shipyard",
+      "PowerplantBuilding",
       "MonumentColony",
       "Monument",
       "ResearchCenter",
@@ -4559,6 +4753,7 @@
       "/Values/Monument": [
         "ResidenceBuilding-Unique",
         "Monument_with_Shipyard",
+        "PowerplantBuilding",
         "MonumentColony",
         "Monument",
         "ResearchCenter",
@@ -4632,6 +4827,12 @@
       "/Values/Monument/EventUITexts": []
     }
   },
+  "InvestmentContribution": {
+    "templates": [],
+    "paths": {
+      "/Values/Monument/EventUITexts": []
+    }
+  },
   "CooldownText": {
     "templates": [],
     "paths": {
@@ -4681,6 +4882,7 @@
       "WarShip",
       "WarAirShip",
       "AirShip",
+      "DivingBellShip",
       "TradeShip",
       "TradeShipPermit"
     ],
@@ -4689,6 +4891,7 @@
         "WarShip",
         "WarAirShip",
         "AirShip",
+        "DivingBellShip",
         "TradeShip",
         "TradeShipPermit"
       ]
@@ -4870,13 +5073,53 @@
       ]
     }
   },
-  "TargetAsset": {
+  "SecondaryCursorTarget": {
     "templates": [
-      "Target"
+      "GamepadCursor"
     ],
     "paths": {
-      "/Values/TargetGroup/Elements/Item": [
-        "Target"
+      "/Values/Target/Secondary": [
+        "GamepadCursor"
+      ]
+    }
+  },
+  "SecondaryCursorDisable": {
+    "templates": [
+      "GamepadCursor"
+    ],
+    "paths": {
+      "/Values/Target/Secondary": [
+        "GamepadCursor"
+      ]
+    }
+  },
+  "SecondaryCursorMode": {
+    "templates": [
+      "GamepadCursor"
+    ],
+    "paths": {
+      "/Values/Target/Secondary": [
+        "GamepadCursor"
+      ]
+    }
+  },
+  "SecondaryCursorPosition": {
+    "templates": [
+      "GamepadCursor"
+    ],
+    "paths": {
+      "/Values/Target/Secondary": [
+        "GamepadCursor"
+      ]
+    }
+  },
+  "SecondaryCursorPositionDisable": {
+    "templates": [
+      "GamepadCursor"
+    ],
+    "paths": {
+      "/Values/Target/Secondary": [
+        "GamepadCursor"
       ]
     }
   },
@@ -4900,6 +5143,12 @@
     "templates": [],
     "paths": {
       "/Values/BuildingBaseTiles": []
+    }
+  },
+  "PermitSource": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildPermit": []
     }
   },
   "BuildPermit": {
@@ -5101,6 +5350,7 @@
       "/Values/DifficultySettings/Incidents/Medium": [],
       "/Values/DifficultySettings/StartSession/Small": [],
       "/Values/DifficultySettings/StartSessionIslandSize/Small": [],
+      "/Values/DifficultySettings/PointsNeeded/Hard": [],
       "/Values/DifficultySettings/PointsNeeded/Classic": [
         "Target"
       ]
@@ -5316,6 +5566,12 @@
         "DifficultySetup"
       ],
       "/Values/DifficultySettings/Presets/Scenario04": [
+        "DifficultySetup"
+      ],
+      "/Values/DifficultySettings/Presets/CreativeMode": [
+        "DifficultySetup"
+      ],
+      "/Values/DifficultySettings/Presets/CreativeModeMultiplayer": [
         "DifficultySetup"
       ]
     }
@@ -5535,6 +5791,12 @@
       "/Values/GlobalConfig/RenderConditionIDs": [
         "Notification"
       ]
+    }
+  },
+  "EffectRepair": {
+    "templates": [],
+    "paths": {
+      "/Values/GlobalConfig/RenderConditionIDs": []
     }
   },
   "GroundDecalVariation": {
@@ -5895,6 +6157,16 @@
     "templates": [],
     "paths": {
       "/Values/GlobalConfig/SequenceIDs": []
+    }
+  },
+  "portrait_angry_idle": {
+    "templates": [
+      "VisualObject"
+    ],
+    "paths": {
+      "/Values/GlobalConfig/SequenceIDs": [
+        "VisualObject"
+      ]
     }
   },
   "pray01": {
@@ -6390,6 +6662,7 @@
       "Product",
       "ItemEffectTargetPool",
       "InfoLayerIcon",
+      "QuestBookScene",
       "SessionSouthAmerica",
       "SessionModerate",
       "SessionArctic"
@@ -6519,6 +6792,12 @@
       "/Values/DifficultySettingsScene/CustomDifficultyIcon/HardQuickMP": [
         "Icon"
       ],
+      "/Values/DifficultySettingsScene/CustomDifficultyIcon/CreativeMode": [
+        "Icon"
+      ],
+      "/Values/DifficultySettingsScene/CustomDifficultyIcon/CreativeModeMultiplayer": [
+        "Icon"
+      ],
       "/Values/DiplomacyScene/RadialMenuButton/Item": [],
       "/Values/MinimapScene/Filters/ImperialKontor": [
         "Icon"
@@ -6545,6 +6824,28 @@
         "Icon"
       ],
       "/Values/MinimapScene/Filters/Transparency": [
+        "Icon"
+      ],
+      "/Values/NavigationMenuScene/MenuButtons/Item": [
+        "Icon",
+        "QuestBookScene"
+      ],
+      "/Values/NavigationMenuScene/ContextualCommands/Item": [
+        "Icon"
+      ],
+      "/Values/NavigationMenuScene/IncidentCommandIcons/Fire": [
+        "Icon"
+      ],
+      "/Values/NavigationMenuScene/IncidentCommandIcons/Riot": [
+        "Icon"
+      ],
+      "/Values/NavigationMenuScene/IncidentCommandIcons/Illness": [
+        "Icon"
+      ],
+      "/Values/NavigationMenuScene/IncidentCommandIcons/Explosion": [
+        "Icon"
+      ],
+      "/Values/NavigationMenuScene/IncidentCommandIcons/ArcticIllness": [
         "Icon"
       ],
       "/Values/QuestTrackerScene/QuestCategories/Main": [],
@@ -6577,73 +6878,16 @@
       "/Values/SessionTradeRoutesScene/ModifyGoodsTab": [
         "Icon"
       ],
-      "/Values/SessionTradeRoutesScene/StationErrors/NoError": [
+      "/Values/SessionTradeRoutesScene/WarningIconConfig/NoError": [
         "Icon"
       ],
-      "/Values/SessionTradeRoutesScene/StationErrors/InvalidRoute": [
+      "/Values/SessionTradeRoutesScene/WarningIconConfig/Hint": [
         "Icon"
       ],
-      "/Values/SessionTradeRoutesScene/StationErrors/NotEnoughStations": [
+      "/Values/SessionTradeRoutesScene/WarningIconConfig/Warning": [
         "Icon"
       ],
-      "/Values/SessionTradeRoutesScene/StationErrors/IslandUnderSiege": [
-        "Icon"
-      ],
-      "/Values/SessionTradeRoutesScene/StationErrors/NoValidPier": [
-        "Icon"
-      ],
-      "/Values/SessionTradeRoutesScene/StationErrors/NoTradeRights": [
-        "Icon"
-      ],
-      "/Values/SessionTradeRoutesScene/StationErrors/LongWaitingTime": [
-        "Icon"
-      ],
-      "/Values/SessionTradeRoutesScene/StationErrors/Unspecified": [
-        "Icon"
-      ],
-      "/Values/SessionTradeRoutesScene/GoodErrors/NoError": [
-        "Icon"
-      ],
-      "/Values/SessionTradeRoutesScene/GoodErrors/NotEnoughStations": [
-        "Icon"
-      ],
-      "/Values/SessionTradeRoutesScene/GoodErrors/NoGoods": [
-        "Icon"
-      ],
-      "/Values/SessionTradeRoutesScene/GoodErrors/ConfiguredGoodNotTraded": [
-        "Icon"
-      ],
-      "/Values/SessionTradeRoutesScene/GoodErrors/LoadedGoodNeverUnloaded": [
-        "Icon"
-      ],
-      "/Values/SessionTradeRoutesScene/GoodErrors/UnloadedGoodNeverLoaded": [
-        "Icon"
-      ],
-      "/Values/SessionTradeRoutesScene/GoodErrors/GoodsDontMatch": [
-        "Icon"
-      ],
-      "/Values/SessionTradeRoutesScene/GoodErrors/StorageFull": [
-        "Icon"
-      ],
-      "/Values/SessionTradeRoutesScene/GoodErrors/StorageEmpty": [
-        "Icon"
-      ],
-      "/Values/SessionTradeRoutesScene/GoodErrors/Unspecified": [
-        "Icon"
-      ],
-      "/Values/SessionTradeRoutesScene/ShipErrors/NoError": [
-        "Icon"
-      ],
-      "/Values/SessionTradeRoutesScene/ShipErrors/NoShips": [
-        "Icon"
-      ],
-      "/Values/SessionTradeRoutesScene/ShipErrors/Unspecified": [
-        "Icon"
-      ],
-      "/Values/SessionTradeRoutesScene/ShipErrors/NotEnoughSlots": [
-        "Icon"
-      ],
-      "/Values/SessionTradeRoutesScene/ShipErrors/MismatchingGood": [
+      "/Values/SessionTradeRoutesScene/WarningIconConfig/Error": [
         "Icon"
       ],
       "/Values/StatisticMenu/BuildingStatus/Ruin": [
@@ -6721,6 +6965,9 @@
         "Icon"
       ],
       "/Values/ObjectmenuResidenceScene/HappinessConfig/Euphoric": [
+        "Icon"
+      ],
+      "/Values/ConstructionMenu/PredefinedStampIcons/Item": [
         "Icon"
       ],
       "/Values/ShipListConfig/ShipCategories/All": [],
@@ -6871,13 +7118,32 @@
   "Original": {
     "templates": [],
     "paths": {
+      "/Values/GUIConfig/TextOverrides/GamepadModeOverrides/Item": [],
+      "/Values/GUIConfig/TextOverrides/PlatformOverrides/Item": []
+    }
+  },
+  "Override": {
+    "templates": [],
+    "paths": {
       "/Values/GUIConfig/TextOverrides/GamepadModeOverrides/Item": []
+    }
+  },
+  "XboxOverride": {
+    "templates": [],
+    "paths": {
+      "/Values/GUIConfig/TextOverrides/PlatformOverrides/Item": []
     }
   },
   "TutorialAutoCompleteDelay": {
     "templates": [],
     "paths": {
       "/Values/GUIConfig": []
+    }
+  },
+  "Right": {
+    "templates": [],
+    "paths": {
+      "/Values/GUIConfig/HintMarkerPaddingConsole": []
     }
   },
   "DisplayUnit": {
@@ -6992,8 +7258,10 @@
     ],
     "paths": {
       "/Values/FeedbackParametersGlobal/InteractionInfos/DummyTalk": [],
+      "/Values/FeedbackParametersGlobal/InteractionInfos/DummyTrade": [],
       "/Values/FeedbackParametersGlobal/InteractionInfos/DummyVanish": [],
       "/Values/FeedbackParametersGlobal/InteractionInfos/DummyCelebrate": [],
+      "/Values/FeedbackParametersGlobal/InteractionInfos/DummyWorkThink": [],
       "/Values/FeedbackParametersGlobal/InteractionInfos/DummyWorkHands": [
         "Recipe"
       ]
@@ -7026,15 +7294,10 @@
       "/Values/FeedbackParametersGlobal/InteractionInfos/DummySit": []
     }
   },
-  "KeepUnitsCount": {
-    "templates": [],
-    "paths": {
-      "/Values/FeedbackParametersGlobal/MemoryLimitsConfig/Productions": []
-    }
-  },
   "DespawnUnitsOnLimitPercent": {
     "templates": [],
     "paths": {
+      "/Values/FeedbackParametersGlobal/MemoryLimitsConfig/Productions": [],
       "/Values/FeedbackParametersGlobal/MemoryLimitsConfig/Inhabitants": []
     }
   },
@@ -7043,6 +7306,12 @@
     "paths": {
       "/Values/FeedbackParametersGlobal/MemoryLimitsConfig/Vehicles": [],
       "/Values/ConstructionAI/Budgets/ActiveTrade": []
+    }
+  },
+  "MaxUnitSpawnPerAreaPerTick": {
+    "templates": [],
+    "paths": {
+      "/Values/FeedbackParametersGlobal": []
     }
   },
   "DemagogueClass": {
@@ -7674,6 +7943,12 @@
       ]
     }
   },
+  "MaxRectSize": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeFeature/MultiMove": []
+    }
+  },
   "FadeDurationInMs": {
     "templates": [
       "TrafficFeedbackUnit"
@@ -8151,6 +8426,18 @@
     "templates": [],
     "paths": {
       "/Values/FirstPersonFeature/MiniQuests/Item/Quest": []
+    }
+  },
+  "QuestRewardText": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/QuestInfo": []
+    }
+  },
+  "QuestRewardKeyPrompt": {
+    "templates": [],
+    "paths": {
+      "/Values/FirstPersonFeature/QuestInfo": []
     }
   },
   "Kill": {
@@ -8716,6 +9003,9 @@
       "/Values/Notification/NotificationType/Values/CharacterNotification/ThirdpartyNotificationButtons/Item": [],
       "/Values/Notification/NotificationType/Values/SideNotification": [],
       "/Values/SideNotification": [],
+      "/Values/NavigationMenuScene/Tools/Item": [],
+      "/Values/NavigationMenuScene/BuildingOptions/Item": [],
+      "/Values/NavigationMenuScene/ContextualCommands/Item": [],
       "/Values/SideNotificationsArchive/ArchiveButtons/Scenario": [],
       "/Values/SideNotificationsArchive/ArchiveButtons/Quest": [],
       "/Values/SideNotificationsArchive/ArchiveButtons/Newspaper": [],
@@ -8836,6 +9126,213 @@
     "templates": [],
     "paths": {
       "/Values/HighscoreFeature": []
+    }
+  },
+  "Name": {
+    "templates": [
+      "Festival",
+      "DocklandMain",
+      "Monument",
+      "CityInstitutionBuildingHeated"
+    ],
+    "paths": {
+      "/Values/HighscoreFeature/HighscoreTexts/HighScoreCategoryTexts/GlobalPopulation": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighScoreCategoryTexts/EconomicBalance": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighScoreCategoryTexts/ProductionAndStorage": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighScoreCategoryTexts/Fleet": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighScoreCategoryTexts/ItemPossession": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighScoreCategoryTexts/Attractiveness": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/Culture": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/Monument": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/Ornament": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/Factory": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/Incident": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/War": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/Ruins": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/Nature": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/Military": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/MonumentEvent": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/NatureBonus": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/DisasterTourism": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/FestivalIncident": [
+        "Festival"
+      ],
+      "/Values/TourismFeature/AttractivenessNameMapping/Landscaping": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/Cyclideon": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/Palace": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/ParkBonus": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/Dockland": [
+        "DocklandMain"
+      ],
+      "/Values/TourismFeature/AttractivenessNameMapping/Ornament_XMasDeco": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/Ornament_AmusementPark": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/Ornament_CityLights": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/Ornament_PedestrianZone": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/Ornament_SeasonsPack": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/Ornament_IndustrialPack": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/Ornament_OldTown": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/Ornament_Beach": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/Ornament_DragonGarden": [],
+      "/Values/MultiplayerConfig/MultiplayerLobbyName/English": [],
+      "/Values/MultiplayerConfig/MultiplayerLobbyName/French": [],
+      "/Values/MultiplayerConfig/MultiplayerLobbyName/Polish": [],
+      "/Values/MultiplayerConfig/MultiplayerLobbyName/Russian": [],
+      "/Values/MultiplayerConfig/MultiplayerLobbyName/Spanish": [],
+      "/Values/MultiplayerConfig/MultiplayerLobbyName/German": [],
+      "/Values/MultiplayerConfig/MultiplayerLobbyName/Chinese": [],
+      "/Values/MultiplayerConfig/MultiplayerLobbyName/Taiwanese": [],
+      "/Values/MultiplayerConfig/MultiplayerLobbyName/Japanese": [],
+      "/Values/MultiplayerConfig/MultiplayerLobbyName/Korean": [],
+      "/Values/MultiplayerConfig/MultiplayerLobbyName/Italian": [],
+      "/Values/QuestTrackerScene/QuestTypes/MainQuest": [],
+      "/Values/QuestTrackerScene/QuestTypes/RandomQuest": [],
+      "/Values/QuestTrackerScene/QuestTypes/ExplorationQuest": [],
+      "/Values/QuestTrackerScene/QuestTypes/TutorialQuest": [],
+      "/Values/QuestTrackerScene/QuestTypes/HappyEventQuest": [],
+      "/Values/QuestTrackerScene/QuestTypes/ThePassageQuest": [],
+      "/Values/QuestTrackerScene/QuestTypes/GGJQuest": [],
+      "/Values/QuestTrackerScene/QuestTypes/Scenario2Quest": [],
+      "/Values/QuestTrackerScene/QuestTypes/DLC11Quest": [],
+      "/Values/QuestTrackerScene/QuestTypes/Scenario3Quest": [],
+      "/Values/QuestTrackerScene/QuestTypes/Scenario4Quest": [],
+      "/Values/SideNotificationsArchive/ArchiveButtons/IslandWar": [],
+      "/Values/SideNotificationsArchive/ArchiveButtons/Scenario": [],
+      "/Values/SideNotificationsArchive/ArchiveButtons/Quest": [],
+      "/Values/SideNotificationsArchive/ArchiveButtons/Newspaper": [],
+      "/Values/SideNotificationsArchive/ArchiveButtons/Expedition": [],
+      "/Values/SideNotificationsArchive/ArchiveButtons/Event": [],
+      "/Values/SideNotificationsArchive/ArchiveButtons/General": [],
+      "/Values/SideNotificationsArchive/ArchiveButtons/Warning": [],
+      "/Values/StatisticMenu/CategoryNames/Production": [],
+      "/Values/StatisticMenu/CategoryNames/Warehouse": [],
+      "/Values/StatisticMenu/CategoryNames/Income": [],
+      "/Values/StatisticMenu/CategoryNames/Population": [],
+      "/Values/StatisticMenu/CategoryNames/Item": [],
+      "/Values/StatisticMenu/IncomeCategoryNames/AdministrationBuildings": [],
+      "/Values/StatisticMenu/IncomeCategoryNames/BoughtShares": [],
+      "/Values/StatisticMenu/IncomeCategoryNames/CharterShips": [],
+      "/Values/StatisticMenu/IncomeCategoryNames/CityInstitutionBuildings": [],
+      "/Values/StatisticMenu/IncomeCategoryNames/CultureBuildings": [],
+      "/Values/StatisticMenu/IncomeCategoryNames/HarbourBuildings": [],
+      "/Values/StatisticMenu/IncomeCategoryNames/InfrastructureBuildings": [],
+      "/Values/StatisticMenu/IncomeCategoryNames/LostShares": [],
+      "/Values/StatisticMenu/IncomeCategoryNames/Newspaper": [],
+      "/Values/StatisticMenu/IncomeCategoryNames/ProductionBuildings": [],
+      "/Values/StatisticMenu/IncomeCategoryNames/PublicServiceBuildings": [],
+      "/Values/StatisticMenu/IncomeCategoryNames/RoyalTaxes": [],
+      "/Values/StatisticMenu/IncomeCategoryNames/Residences": [],
+      "/Values/StatisticMenu/IncomeCategoryNames/TradeShips": [],
+      "/Values/StatisticMenu/IncomeCategoryNames/Visitors": [],
+      "/Values/StatisticMenu/IncomeCategoryNames/WarShips": [],
+      "/Values/StatisticMenu/IncomeCategoryNames/Skyscrapers": [],
+      "/Values/StatisticMenu/IncomeCategoryNames/Restaurants": [],
+      "/Values/StatisticMenu/IncomeCategoryNames/Malls": [],
+      "/Values/StatisticMenu/IncomeCategoryNames/Trade": [],
+      "/Values/StatisticMenu/ItemSourceData/Quest": [],
+      "/Values/StatisticMenu/ItemSourceData/Expedition": [],
+      "/Values/StatisticMenu/ItemSourceData/Trader": [],
+      "/Values/StatisticMenu/ItemSourceData/Visitors": [],
+      "/Values/StatisticMenu/ItemSourceData/Monument": [
+        "Monument"
+      ],
+      "/Values/StatisticMenu/ItemSourceData/ItemCrafting": [],
+      "/Values/StatisticMenu/ItemSourceData/MilitaryDrops": [],
+      "/Values/StatisticMenu/ItemSourceData/DivingBell": [],
+      "/Values/StatisticMenu/ItemSourceData/ArcticCrate": [],
+      "/Values/StatisticMenu/ItemSourceData/ResearchCrafting": [],
+      "/Values/StatisticMenu/ItemSourceData/GGJPlants": [],
+      "/Values/CustomizeModeScene/CustomizeOptionNames": [],
+      "/Values/TextPopup/Pages/BeekeeperList/Names/Item": [],
+      "/Values/ExpeditionFeature/AttributeNames/Diplomacy": [],
+      "/Values/ExpeditionFeature/AttributeNames/Melee": [],
+      "/Values/ExpeditionFeature/AttributeNames/Might": [],
+      "/Values/ExpeditionFeature/AttributeNames/Navigation": [],
+      "/Values/ExpeditionFeature/AttributeNames/Medicine": [],
+      "/Values/ExpeditionFeature/AttributeNames/Faith": [],
+      "/Values/ExpeditionFeature/AttributeNames/Crafting": [],
+      "/Values/ExpeditionFeature/AttributeNames/Hunting": [],
+      "/Values/ExpeditionFeature/AttributeNames/PerkAnthropologist": [],
+      "/Values/ExpeditionFeature/AttributeNames/PerkHypnotist": [],
+      "/Values/ExpeditionFeature/AttributeNames/PerkFormerPirate": [],
+      "/Values/ExpeditionFeature/AttributeNames/PerkDiver": [],
+      "/Values/ExpeditionFeature/AttributeNames/PerkMilitaryShip": [],
+      "/Values/ExpeditionFeature/AttributeNames/PerkTradeShip": [],
+      "/Values/ExpeditionFeature/AttributeNames/PerkZoologist": [],
+      "/Values/ExpeditionFeature/AttributeNames/PerkJackOfAllTraits": [],
+      "/Values/ExpeditionFeature/AttributeNames/PerkEntertainer": [],
+      "/Values/ExpeditionFeature/AttributeNames/PerkArcheologist": [],
+      "/Values/ExpeditionFeature/AttributeNames/PerkPolyglot": [],
+      "/Values/ExpeditionFeature/CategoryConfig/Zoological": [],
+      "/Values/ExpeditionFeature/CategoryConfig/PirateHunt": [],
+      "/Values/ExpeditionFeature/CategoryConfig/RescueMission": [],
+      "/Values/ExpeditionFeature/CategoryConfig/Archeological": [],
+      "/Values/ExpeditionFeature/CategoryConfig/Botanical": [],
+      "/Values/Region/CityNames/Item": [],
+      "/Values/Region/ShipNames/Item": [],
+      "/Values/Region/PredefinedCityNames/Third_party_02_Blake/Names/Item": [],
+      "/Values/Region/PredefinedCityNames/Third_party_03_Pirate_Harlow/Names/Item": [],
+      "/Values/Region/PredefinedCityNames/Third_party_04_Pirate_LaFortune/Names/Item": [],
+      "/Values/Region/PredefinedCityNames/Third_party_05_Sarmento/Names/Item": [],
+      "/Values/Region/PredefinedCityNames/Third_party_06_Nate/Names/Item": [],
+      "/Values/Region/PredefinedCityNames/Third_party_07_Jailor_Bleakworth/Names/Item": [],
+      "/Values/Region/PredefinedCityNames/Third_party_08_Kahina/Names/Item": [],
+      "/Values/Region/PredefinedCityNames/Second_ai_01_Jorgensen/Names/Item": [],
+      "/Values/Region/PredefinedCityNames/Second_ai_02_Qing/Names/Item": [],
+      "/Values/Region/PredefinedCityNames/Second_ai_03_Wibblesock/Names/Item": [],
+      "/Values/Region/PredefinedCityNames/Second_ai_04_Smith/Names/Item": [],
+      "/Values/Region/PredefinedCityNames/Second_ai_05_OMara/Names/Item": [],
+      "/Values/Region/PredefinedCityNames/Second_ai_06_Gasparov/Names/Item": [],
+      "/Values/Region/PredefinedCityNames/Second_ai_07_von_Malching/Names/Item": [],
+      "/Values/Region/PredefinedCityNames/Second_ai_08_Gravez/Names/Item": [],
+      "/Values/Region/PredefinedCityNames/Second_ai_09_Silva/Names/Item": [],
+      "/Values/Region/PredefinedCityNames/Second_ai_10_Hunt/Names/Item": [],
+      "/Values/Region/PredefinedCityNames/Second_ai_11_Mercier/Names/Item": [],
+      "/Values/Region/PredefinedCityNames/Arctic_Inuit/Names/Item": [],
+      "/Values/Region/BusStopNames/Item": [],
+      "/Values/Region/RestaurantNames/Item": [],
+      "/Values/Region/BarNames/Item": [],
+      "/Values/Region/CafeNames/Item": [],
+      "/Values/DlcController/DLCPromoNames/SeasonPassDLC": [],
+      "/Values/DlcController/DLCPromoNames/Season2PassDLC": [],
+      "/Values/DlcController/DLCPromoNames/Season3PassDLC": [],
+      "/Values/DlcController/DLCPromoNames/Season4PassDLC": [],
+      "/Values/Incident/InfectionChanceSourceNameMapping/Base": [],
+      "/Values/Incident/InfectionChanceSourceNameMapping/Damage": [],
+      "/Values/Incident/InfectionChanceSourceNameMapping/Density": [],
+      "/Values/Incident/InfectionChanceSourceNameMapping/HappinessResidence": [],
+      "/Values/Incident/InfectionChanceSourceNameMapping/Satisfaction": [],
+      "/Values/Incident/InfectionChanceSourceNameMapping/WorkingConditionFactory": [],
+      "/Values/Incident/InfectionChanceSourceNameMapping/Productivity": [],
+      "/Values/Incident/InfectionChanceSourceNameMapping/Proximity": [],
+      "/Values/Incident/InfectionChanceSourceNameMapping/HappinessFactory": [],
+      "/Values/Incident/InfectionChanceSourceNameMapping/Newspaper": [],
+      "/Values/Incident/InfectionChanceSourceNameMapping/Upgrades": [],
+      "/Values/Incident/InfectionChanceSourceNameMapping/InfluencerPositive": [],
+      "/Values/Incident/InfectionChanceSourceNameMapping/InfluencerNegative": [
+        "CityInstitutionBuildingHeated"
+      ],
+      "/Values/Incident/InfectionChanceSourceNameMapping/WorkingConditionResidence": [],
+      "/Values/Incident/InfectionChanceSourceNameMapping/Heat": []
+    }
+  },
+  "Title": {
+    "templates": [],
+    "paths": {
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/SessionBalance": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/GlobalCost": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/Production": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/TopProduction": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/Storage": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/TopStorage": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/TradeShips": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/MilitaryShips": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/CompletedSets": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/SocketedItems": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/DiscoveredItems": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/Attractiveness": [],
+      "/Values/HighscoreFeature/HighscoreTexts/HighscoreCardTexts/TopAttractiveness": [],
+      "/Values/Notification/NotificationType/Values/MainNotification": [],
+      "/Values/MainNotification": []
     }
   },
   "PlayerTakeoverIslandFromOtherPlayer": {
@@ -9167,6 +9664,12 @@
     "templates": [],
     "paths": {
       "/Values/ItemTransferFeature/ItemCooldowns/Uncommon": []
+    }
+  },
+  "CreativeModeItemCooldown": {
+    "templates": [],
+    "paths": {
+      "/Values/ItemTransferFeature": []
     }
   },
   "KontorBuildDistance": {
@@ -10043,173 +10546,6 @@
       ]
     }
   },
-  "Name": {
-    "templates": [
-      "Festival",
-      "DocklandMain",
-      "Monument",
-      "CityInstitutionBuildingHeated"
-    ],
-    "paths": {
-      "/Values/TourismFeature/AttractivenessNameMapping/Culture": [],
-      "/Values/TourismFeature/AttractivenessNameMapping/Monument": [],
-      "/Values/TourismFeature/AttractivenessNameMapping/Ornament": [],
-      "/Values/TourismFeature/AttractivenessNameMapping/Factory": [],
-      "/Values/TourismFeature/AttractivenessNameMapping/Incident": [],
-      "/Values/TourismFeature/AttractivenessNameMapping/War": [],
-      "/Values/TourismFeature/AttractivenessNameMapping/Ruins": [],
-      "/Values/TourismFeature/AttractivenessNameMapping/Nature": [],
-      "/Values/TourismFeature/AttractivenessNameMapping/Military": [],
-      "/Values/TourismFeature/AttractivenessNameMapping/MonumentEvent": [],
-      "/Values/TourismFeature/AttractivenessNameMapping/NatureBonus": [],
-      "/Values/TourismFeature/AttractivenessNameMapping/DisasterTourism": [],
-      "/Values/TourismFeature/AttractivenessNameMapping/FestivalIncident": [
-        "Festival"
-      ],
-      "/Values/TourismFeature/AttractivenessNameMapping/Landscaping": [],
-      "/Values/TourismFeature/AttractivenessNameMapping/Cyclideon": [],
-      "/Values/TourismFeature/AttractivenessNameMapping/Palace": [],
-      "/Values/TourismFeature/AttractivenessNameMapping/ParkBonus": [],
-      "/Values/TourismFeature/AttractivenessNameMapping/Dockland": [
-        "DocklandMain"
-      ],
-      "/Values/TourismFeature/AttractivenessNameMapping/Ornament_XMasDeco": [],
-      "/Values/TourismFeature/AttractivenessNameMapping/Ornament_AmusementPark": [],
-      "/Values/TourismFeature/AttractivenessNameMapping/Ornament_CityLights": [],
-      "/Values/TourismFeature/AttractivenessNameMapping/Ornament_PedestrianZone": [],
-      "/Values/TourismFeature/AttractivenessNameMapping/Ornament_SeasonsPack": [],
-      "/Values/TourismFeature/AttractivenessNameMapping/Ornament_IndustrialPack": [],
-      "/Values/TourismFeature/AttractivenessNameMapping/Ornament_OldTown": [],
-      "/Values/TourismFeature/AttractivenessNameMapping/Ornament_Beach": [],
-      "/Values/QuestTrackerScene/QuestTypes/MainQuest": [],
-      "/Values/QuestTrackerScene/QuestTypes/RandomQuest": [],
-      "/Values/QuestTrackerScene/QuestTypes/ExplorationQuest": [],
-      "/Values/QuestTrackerScene/QuestTypes/TutorialQuest": [],
-      "/Values/QuestTrackerScene/QuestTypes/HappyEventQuest": [],
-      "/Values/QuestTrackerScene/QuestTypes/ThePassageQuest": [],
-      "/Values/QuestTrackerScene/QuestTypes/GGJQuest": [],
-      "/Values/QuestTrackerScene/QuestTypes/Scenario2Quest": [],
-      "/Values/QuestTrackerScene/QuestTypes/DLC11Quest": [],
-      "/Values/QuestTrackerScene/QuestTypes/Scenario3Quest": [],
-      "/Values/QuestTrackerScene/QuestTypes/Scenario4Quest": [],
-      "/Values/SideNotificationsArchive/ArchiveButtons/Scenario": [],
-      "/Values/SideNotificationsArchive/ArchiveButtons/Quest": [],
-      "/Values/SideNotificationsArchive/ArchiveButtons/Newspaper": [],
-      "/Values/SideNotificationsArchive/ArchiveButtons/Expedition": [],
-      "/Values/SideNotificationsArchive/ArchiveButtons/Event": [],
-      "/Values/SideNotificationsArchive/ArchiveButtons/General": [],
-      "/Values/SideNotificationsArchive/ArchiveButtons/Warning": [],
-      "/Values/StatisticMenu/CategoryNames/Production": [],
-      "/Values/StatisticMenu/CategoryNames/Warehouse": [],
-      "/Values/StatisticMenu/CategoryNames/Income": [],
-      "/Values/StatisticMenu/CategoryNames/Population": [],
-      "/Values/StatisticMenu/CategoryNames/Item": [],
-      "/Values/StatisticMenu/IncomeCategoryNames/AdministrationBuildings": [],
-      "/Values/StatisticMenu/IncomeCategoryNames/BoughtShares": [],
-      "/Values/StatisticMenu/IncomeCategoryNames/CharterShips": [],
-      "/Values/StatisticMenu/IncomeCategoryNames/CityInstitutionBuildings": [],
-      "/Values/StatisticMenu/IncomeCategoryNames/CultureBuildings": [],
-      "/Values/StatisticMenu/IncomeCategoryNames/HarbourBuildings": [],
-      "/Values/StatisticMenu/IncomeCategoryNames/InfrastructureBuildings": [],
-      "/Values/StatisticMenu/IncomeCategoryNames/LostShares": [],
-      "/Values/StatisticMenu/IncomeCategoryNames/Newspaper": [],
-      "/Values/StatisticMenu/IncomeCategoryNames/ProductionBuildings": [],
-      "/Values/StatisticMenu/IncomeCategoryNames/PublicServiceBuildings": [],
-      "/Values/StatisticMenu/IncomeCategoryNames/RoyalTaxes": [],
-      "/Values/StatisticMenu/IncomeCategoryNames/Residences": [],
-      "/Values/StatisticMenu/IncomeCategoryNames/TradeShips": [],
-      "/Values/StatisticMenu/IncomeCategoryNames/Visitors": [],
-      "/Values/StatisticMenu/IncomeCategoryNames/WarShips": [],
-      "/Values/StatisticMenu/IncomeCategoryNames/Skyscrapers": [],
-      "/Values/StatisticMenu/IncomeCategoryNames/Restaurants": [],
-      "/Values/StatisticMenu/IncomeCategoryNames/Malls": [],
-      "/Values/StatisticMenu/IncomeCategoryNames/Trade": [],
-      "/Values/StatisticMenu/ItemSourceData/Quest": [],
-      "/Values/StatisticMenu/ItemSourceData/Expedition": [],
-      "/Values/StatisticMenu/ItemSourceData/Trader": [],
-      "/Values/StatisticMenu/ItemSourceData/Visitors": [],
-      "/Values/StatisticMenu/ItemSourceData/Monument": [
-        "Monument"
-      ],
-      "/Values/StatisticMenu/ItemSourceData/ItemCrafting": [],
-      "/Values/StatisticMenu/ItemSourceData/MilitaryDrops": [],
-      "/Values/StatisticMenu/ItemSourceData/DivingBell": [],
-      "/Values/StatisticMenu/ItemSourceData/ArcticCrate": [],
-      "/Values/StatisticMenu/ItemSourceData/ResearchCrafting": [],
-      "/Values/StatisticMenu/ItemSourceData/GGJPlants": [],
-      "/Values/TextPopup/Pages/BeekeeperList/Names/Item": [],
-      "/Values/ExpeditionFeature/AttributeNames/Diplomacy": [],
-      "/Values/ExpeditionFeature/AttributeNames/Melee": [],
-      "/Values/ExpeditionFeature/AttributeNames/Might": [],
-      "/Values/ExpeditionFeature/AttributeNames/Navigation": [],
-      "/Values/ExpeditionFeature/AttributeNames/Medicine": [],
-      "/Values/ExpeditionFeature/AttributeNames/Faith": [],
-      "/Values/ExpeditionFeature/AttributeNames/Crafting": [],
-      "/Values/ExpeditionFeature/AttributeNames/Hunting": [],
-      "/Values/ExpeditionFeature/AttributeNames/PerkAnthropologist": [],
-      "/Values/ExpeditionFeature/AttributeNames/PerkHypnotist": [],
-      "/Values/ExpeditionFeature/AttributeNames/PerkFormerPirate": [],
-      "/Values/ExpeditionFeature/AttributeNames/PerkDiver": [],
-      "/Values/ExpeditionFeature/AttributeNames/PerkMilitaryShip": [],
-      "/Values/ExpeditionFeature/AttributeNames/PerkTradeShip": [],
-      "/Values/ExpeditionFeature/AttributeNames/PerkZoologist": [],
-      "/Values/ExpeditionFeature/AttributeNames/PerkJackOfAllTraits": [],
-      "/Values/ExpeditionFeature/AttributeNames/PerkEntertainer": [],
-      "/Values/ExpeditionFeature/AttributeNames/PerkArcheologist": [],
-      "/Values/ExpeditionFeature/AttributeNames/PerkPolyglot": [],
-      "/Values/ExpeditionFeature/CategoryConfig/Zoological": [],
-      "/Values/ExpeditionFeature/CategoryConfig/PirateHunt": [],
-      "/Values/ExpeditionFeature/CategoryConfig/RescueMission": [],
-      "/Values/ExpeditionFeature/CategoryConfig/Archeological": [],
-      "/Values/ExpeditionFeature/CategoryConfig/Botanical": [],
-      "/Values/Region/CityNames/Item": [],
-      "/Values/Region/ShipNames/Item": [],
-      "/Values/Region/PredefinedCityNames/Third_party_02_Blake/Names/Item": [],
-      "/Values/Region/PredefinedCityNames/Third_party_03_Pirate_Harlow/Names/Item": [],
-      "/Values/Region/PredefinedCityNames/Third_party_04_Pirate_LaFortune/Names/Item": [],
-      "/Values/Region/PredefinedCityNames/Third_party_05_Sarmento/Names/Item": [],
-      "/Values/Region/PredefinedCityNames/Third_party_06_Nate/Names/Item": [],
-      "/Values/Region/PredefinedCityNames/Third_party_07_Jailor_Bleakworth/Names/Item": [],
-      "/Values/Region/PredefinedCityNames/Third_party_08_Kahina/Names/Item": [],
-      "/Values/Region/PredefinedCityNames/Second_ai_01_Jorgensen/Names/Item": [],
-      "/Values/Region/PredefinedCityNames/Second_ai_02_Qing/Names/Item": [],
-      "/Values/Region/PredefinedCityNames/Second_ai_03_Wibblesock/Names/Item": [],
-      "/Values/Region/PredefinedCityNames/Second_ai_04_Smith/Names/Item": [],
-      "/Values/Region/PredefinedCityNames/Second_ai_05_OMara/Names/Item": [],
-      "/Values/Region/PredefinedCityNames/Second_ai_06_Gasparov/Names/Item": [],
-      "/Values/Region/PredefinedCityNames/Second_ai_07_von_Malching/Names/Item": [],
-      "/Values/Region/PredefinedCityNames/Second_ai_08_Gravez/Names/Item": [],
-      "/Values/Region/PredefinedCityNames/Second_ai_09_Silva/Names/Item": [],
-      "/Values/Region/PredefinedCityNames/Second_ai_10_Hunt/Names/Item": [],
-      "/Values/Region/PredefinedCityNames/Second_ai_11_Mercier/Names/Item": [],
-      "/Values/Region/PredefinedCityNames/Arctic_Inuit/Names/Item": [],
-      "/Values/Region/BusStopNames/Item": [],
-      "/Values/Region/RestaurantNames/Item": [],
-      "/Values/Region/BarNames/Item": [],
-      "/Values/Region/CafeNames/Item": [],
-      "/Values/DlcController/DLCPromoNames/SeasonPassDLC": [],
-      "/Values/DlcController/DLCPromoNames/Season2PassDLC": [],
-      "/Values/DlcController/DLCPromoNames/Season3PassDLC": [],
-      "/Values/DlcController/DLCPromoNames/Season4PassDLC": [],
-      "/Values/Incident/InfectionChanceSourceNameMapping/Base": [],
-      "/Values/Incident/InfectionChanceSourceNameMapping/Damage": [],
-      "/Values/Incident/InfectionChanceSourceNameMapping/Density": [],
-      "/Values/Incident/InfectionChanceSourceNameMapping/HappinessResidence": [],
-      "/Values/Incident/InfectionChanceSourceNameMapping/Satisfaction": [],
-      "/Values/Incident/InfectionChanceSourceNameMapping/WorkingConditionFactory": [],
-      "/Values/Incident/InfectionChanceSourceNameMapping/Productivity": [],
-      "/Values/Incident/InfectionChanceSourceNameMapping/Proximity": [],
-      "/Values/Incident/InfectionChanceSourceNameMapping/HappinessFactory": [],
-      "/Values/Incident/InfectionChanceSourceNameMapping/Newspaper": [],
-      "/Values/Incident/InfectionChanceSourceNameMapping/Upgrades": [],
-      "/Values/Incident/InfectionChanceSourceNameMapping/InfluencerPositive": [],
-      "/Values/Incident/InfectionChanceSourceNameMapping/InfluencerNegative": [
-        "CityInstitutionBuildingHeated"
-      ],
-      "/Values/Incident/InfectionChanceSourceNameMapping/WorkingConditionResidence": [],
-      "/Values/Incident/InfectionChanceSourceNameMapping/Heat": []
-    }
-  },
   "SpecialistAsset": {
     "templates": [
       "Specialist"
@@ -10268,6 +10604,48 @@
     "templates": [],
     "paths": {
       "/Values/TourismFeature": []
+    }
+  },
+  "TrackingHighContrastOption": {
+    "templates": [],
+    "paths": {
+      "/Values/TrackingFeature/AccessibilityOptionsTracking": []
+    }
+  },
+  "TrackingUseRomanOnlyOption": {
+    "templates": [],
+    "paths": {
+      "/Values/TrackingFeature/AccessibilityOptionsTracking": []
+    }
+  },
+  "TrackingUseSansSerifOnlyOption": {
+    "templates": [],
+    "paths": {
+      "/Values/TrackingFeature/AccessibilityOptionsTracking": []
+    }
+  },
+  "TrackingRadialMenuNeutralSelectionOption": {
+    "templates": [],
+    "paths": {
+      "/Values/TrackingFeature/AccessibilityOptionsTracking": []
+    }
+  },
+  "TrackingLongPressDurationOption": {
+    "templates": [],
+    "paths": {
+      "/Values/TrackingFeature/AccessibilityOptionsTracking": []
+    }
+  },
+  "TrackingSwapAnalogStickOption": {
+    "templates": [],
+    "paths": {
+      "/Values/TrackingFeature/AccessibilityOptionsTracking": []
+    }
+  },
+  "TrackingSwapShoulderTriggerOption": {
+    "templates": [],
+    "paths": {
+      "/Values/TrackingFeature/AccessibilityOptionsTracking": []
     }
   },
   "TraderShip": {
@@ -10350,16 +10728,6 @@
       ]
     }
   },
-  "ShipToRent": {
-    "templates": [
-      "TradeShip"
-    ],
-    "paths": {
-      "/Values/TradeRouteFeature": [
-        "TradeShip"
-      ]
-    }
-  },
   "Good": {
     "templates": [
       "Product",
@@ -10371,6 +10739,9 @@
       "Product_Ammunition"
     ],
     "paths": {
+      "/Values/TradeContractFeature/Traders/Item/TradeLevels/Item/Trades/Item": [
+        "Product"
+      ],
       "/Values/TradeRouteFeature/TransportationTypes/Normal/ExcludingGoods/Item": [
         "Product"
       ],
@@ -10449,6 +10820,16 @@
       "/Values/Trader/Progression/EndGame/OfferingGoods/Item/GoodSets/Item": [
         "Product",
         "Product_Ammunition"
+      ]
+    }
+  },
+  "ShipToRent": {
+    "templates": [
+      "TradeShip"
+    ],
+    "paths": {
+      "/Values/TradeRouteFeature": [
+        "TradeShip"
       ]
     }
   },
@@ -11144,14 +11525,24 @@
       "/Values/SessionTradeRouteOverviewScene/RouteCreateButtons/Mail": [],
       "/Values/SessionTradeRoutesScene/Headlines/Normal": [],
       "/Values/SessionTradeRoutesScene/Headlines/Oil": [],
-      "/Values/SessionTradeRoutesScene/Headlines/Mail": []
+      "/Values/SessionTradeRoutesScene/Headlines/Mail": [],
+      "/Values/ModPopup/Types/LoadSavegame": [],
+      "/Values/ModPopup/Types/JoinLobby": [],
+      "/Values/ModPopup/Types/NewGame": [],
+      "/Values/ModPopup/Types/NewMPGame": [],
+      "/Values/ModPopup/Types/NewQuickMatch": [],
+      "/Values/ModPopup/Types/Disclaimer": []
     }
   },
   "Subline": {
     "templates": [],
     "paths": {
       "/Values/NewspaperArticle": [],
-      "/Values/ResearchSubcategory/ItemCardDescription": []
+      "/Values/ResearchSubcategory/ItemCardDescription": [],
+      "/Values/SessionTradeRouteOverviewScene/RouteCreateButtons/Normal": [],
+      "/Values/SessionTradeRouteOverviewScene/RouteCreateButtons/Charter": [],
+      "/Values/SessionTradeRouteOverviewScene/RouteCreateButtons/Oil": [],
+      "/Values/SessionTradeRouteOverviewScene/RouteCreateButtons/Mail": []
     }
   },
   "Image": {
@@ -12567,6 +12958,15 @@
       "/Values/MainMenuNavigationConfig/BackButtonInfotips": []
     }
   },
+  "AlternativeInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/PassiveTradeWindow/TradeButtons/None": [],
+      "/Values/PassiveTradeWindow/TradeButtons/BuySell": [],
+      "/Values/PassiveTradeWindow/TradeButtons/SellOnly": [],
+      "/Values/PassiveTradeWindow/TradeButtons/BuyOnly": []
+    }
+  },
   "LoadingHeadline": {
     "templates": [],
     "paths": {
@@ -12609,6 +13009,13 @@
       "/Values/ObjectMenuScenarioRuinScene/RuinObjectType/SouthAmericaBasin/RuinProgressState/InProgress": [],
       "/Values/ObjectMenuScenarioRuinScene/RuinObjectType/SouthAmericaBasin/RuinProgressState/Completed": [],
       "/Values/Quest": []
+    }
+  },
+  "InfoTipGUID": {
+    "templates": [],
+    "paths": {
+      "/Values/ShipList/StanceIcons/Item": [],
+      "/Values/ShipList/GroupStanceIcons/Item": []
     }
   },
   "Video": {
@@ -12696,13 +13103,6 @@
     "paths": {
       "/Values/Notification/NotificationType/Values/CampaignNotification": [],
       "/Values/CampaignNotification": []
-    }
-  },
-  "Title": {
-    "templates": [],
-    "paths": {
-      "/Values/Notification/NotificationType/Values/MainNotification": [],
-      "/Values/MainNotification": []
     }
   },
   "NotificationMainIconAsset": {
@@ -12961,6 +13361,12 @@
       "/Values/NotificationConfiguration/NotificationTypeArray/Audio": []
     }
   },
+  "AdditionalDisplayTime": {
+    "templates": [],
+    "paths": {
+      "/Values/NotificationConfiguration/NotificationTypeArray/Character": []
+    }
+  },
   "Label": {
     "templates": [],
     "paths": {
@@ -13042,7 +13448,38 @@
       "/Values/ActiveTradeScene": []
     }
   },
+  "Add": {
+    "templates": [],
+    "paths": {
+      "/Values/ActiveTradeScene/TradeActionsTexts": []
+    }
+  },
+  "Remove": {
+    "templates": [],
+    "paths": {
+      "/Values/ActiveTradeScene/TradeActionsTexts": []
+    }
+  },
+  "Trade": {
+    "templates": [],
+    "paths": {
+      "/Values/ActiveTradeScene/TradeActionsTexts": []
+    }
+  },
+  "Cancel": {
+    "templates": [],
+    "paths": {
+      "/Values/ActiveTradeScene/TradeActionsTexts": [],
+      "/Values/AdvancedDifficultiesConsoleScene/AdvancedDifficultyButtonPrompts": []
+    }
+  },
   "RerollInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ActiveTradeScene": []
+    }
+  },
+  "RerollText": {
     "templates": [],
     "paths": {
       "/Values/ActiveTradeScene": []
@@ -13054,10 +13491,85 @@
       "/Values/AttractivenessPopup/DisplayedAttractivenessTypes/Item": []
     }
   },
+  "RespondText": {
+    "templates": [],
+    "paths": {
+      "/Values/CharacterNotificationScene": []
+    }
+  },
+  "DismissText": {
+    "templates": [],
+    "paths": {
+      "/Values/CharacterNotificationScene": []
+    }
+  },
+  "ViewText": {
+    "templates": [],
+    "paths": {
+      "/Values/CharacterNotificationScene": []
+    }
+  },
   "ChatLineTimeout": {
     "templates": [],
     "paths": {
       "/Values/ChatNotificationScene": []
+    }
+  },
+  "RadialBuildingInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/ConstructionRadialScene": []
+    }
+  },
+  "RadialSubCategoryInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/ConstructionRadialScene": []
+    }
+  },
+  "RadialProductionChainInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/ConstructionRadialScene": []
+    }
+  },
+  "SidePanelBuildingInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/ConstructionRadialScene": []
+    }
+  },
+  "RadialProductionChainSubtitle": {
+    "templates": [],
+    "paths": {
+      "/Values/ConstructionRadialScene": []
+    }
+  },
+  "SortingText": {
+    "templates": [],
+    "paths": {
+      "/Values/ConstructionRadialScene/BuildingModeSortingTexts/Tier": [],
+      "/Values/ConstructionRadialScene/BuildingModeSortingTexts/BuildingCategory": [],
+      "/Values/ConstructionRadialScene/OrnamentModeSortingTexts/OrnamentsSource": [],
+      "/Values/ConstructionRadialScene/OrnamentModeSortingTexts/OrnamentsCategory": []
+    }
+  },
+  "ChangeContentToOrnaments": {
+    "templates": [],
+    "paths": {
+      "/Values/ConstructionRadialScene/RadialButtonPrompts": []
+    }
+  },
+  "ChangeContentToBuildings": {
+    "templates": [],
+    "paths": {
+      "/Values/ConstructionRadialScene/RadialButtonPrompts": []
+    }
+  },
+  "FertilityJumpToButtonPromptLabel": {
+    "templates": [],
+    "paths": {
+      "/Values/ConstructionRadialScene/RadialButtonPrompts": []
     }
   },
   "CraftingIcon": {
@@ -13193,6 +13705,81 @@
       ]
     }
   },
+  "Continue": {
+    "templates": [],
+    "paths": {
+      "/Values/CreateGameScene/CreateGameButtonPrompts": []
+    }
+  },
+  "Back": {
+    "templates": [],
+    "paths": {
+      "/Values/CreateGameScene/CreateGameButtonPrompts": [],
+      "/Values/AttractivenessConsoleScene/GamepadButtonTexts": [],
+      "/Values/IslandDetailConsoleScene/ButtonPromptLabels": [],
+      "/Values/CulturalBuildingPopupConsoleScene/CulturalGamepadPrompts": [],
+      "/Values/BuildModeBalancing/BuildToolModifierTexts": []
+    }
+  },
+  "Exit": {
+    "templates": [],
+    "paths": {
+      "/Values/CreateGameScene/CreateGameButtonPrompts": []
+    }
+  },
+  "RandomName": {
+    "templates": [],
+    "paths": {
+      "/Values/CreateGameScene/CreateGameButtonPrompts": []
+    }
+  },
+  "EditName": {
+    "templates": [],
+    "paths": {
+      "/Values/CreateGameScene/CreateGameButtonPrompts": [],
+      "/Values/IslandDetailConsoleScene/ButtonPromptLabels": []
+    }
+  },
+  "SearchMPGame": {
+    "templates": [],
+    "paths": {
+      "/Values/CreateGameScene/CreateGameButtonPrompts": []
+    }
+  },
+  "CancelMPSearch": {
+    "templates": [],
+    "paths": {
+      "/Values/CreateGameScene/CreateGameButtonPrompts": []
+    }
+  },
+  "TabText": {
+    "templates": [],
+    "paths": {
+      "/Values/CreateGameScene/CompanyCustomizatonTabs/Item": []
+    }
+  },
+  "InUseInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/CreateGameScene": []
+    }
+  },
+  "BulletPoint": {
+    "templates": [],
+    "paths": {
+      "/Values/CreateGameScene/CreativeModeTutorial/Item": []
+    }
+  },
+  "CreativeModeName": {
+    "templates": [
+      "DifficultySetup"
+    ],
+    "paths": {
+      "/Values/CreateGameScene": [
+        "DifficultySetup"
+      ]
+    }
+  },
   "ScrollStartPosition": {
     "templates": [],
     "paths": {
@@ -13203,6 +13790,78 @@
     "templates": [],
     "paths": {
       "/Values/CreditsScene": []
+    }
+  },
+  "UseItem": {
+    "templates": [],
+    "paths": {
+      "/Values/CursorScene/ShipActionButtonPrompts": []
+    }
+  },
+  "CancelItem": {
+    "templates": [],
+    "paths": {
+      "/Values/CursorScene/ShipActionButtonPrompts": []
+    }
+  },
+  "AddPatrolPoint": {
+    "templates": [],
+    "paths": {
+      "/Values/CursorScene/ShipActionButtonPrompts": []
+    }
+  },
+  "CancelPatrolPoint": {
+    "templates": [],
+    "paths": {
+      "/Values/CursorScene/ShipActionButtonPrompts": []
+    }
+  },
+  "MoveShip": {
+    "templates": [],
+    "paths": {
+      "/Values/CursorScene/ShipActionButtonPrompts": []
+    }
+  },
+  "MoveAddWaypoint": {
+    "templates": [],
+    "paths": {
+      "/Values/CursorScene/ShipActionButtonPrompts": []
+    }
+  },
+  "EscortShip": {
+    "templates": [],
+    "paths": {
+      "/Values/CursorScene/ShipActionButtonPrompts": []
+    }
+  },
+  "AttackObject": {
+    "templates": [],
+    "paths": {
+      "/Values/CursorScene/ShipActionButtonPrompts": []
+    }
+  },
+  "OpenTransferGoods": {
+    "templates": [],
+    "paths": {
+      "/Values/CursorScene/ShipActionButtonPrompts": []
+    }
+  },
+  "StartTrade": {
+    "templates": [],
+    "paths": {
+      "/Values/CursorScene/ShipActionButtonPrompts": []
+    }
+  },
+  "DestroyShip": {
+    "templates": [],
+    "paths": {
+      "/Values/CursorScene/ShipActionButtonPrompts": []
+    }
+  },
+  "CollectItem": {
+    "templates": [],
+    "paths": {
+      "/Values/CursorScene/ShipActionButtonPrompts": []
     }
   },
   "PageContent": {
@@ -13216,7 +13875,8 @@
     "paths": {
       "/Values/DifficultySettingsScene/PresetDescription/Easy/Summary/Item": [],
       "/Values/DifficultySettingsScene/PresetDescription/Normal/Summary/Item": [],
-      "/Values/DifficultySettingsScene/PresetDescription/Hard/Summary/Item": []
+      "/Values/DifficultySettingsScene/PresetDescription/Hard/Summary/Item": [],
+      "/Values/DifficultySettingsScene/PresetDescription/CreativeMode/Summary/Item": []
     }
   },
   "PageName": {
@@ -13271,6 +13931,16 @@
       "/Values/DifficultySettingsScene/PlayerInfo": []
     }
   },
+  "GameModeCreative": {
+    "templates": [
+      "DifficultySetup"
+    ],
+    "paths": {
+      "/Values/DifficultySettingsScene/PlayerInfo": [
+        "DifficultySetup"
+      ]
+    }
+  },
   "SecondPartyDlcWarningText": {
     "templates": [],
     "paths": {
@@ -13293,6 +13963,28 @@
     "templates": [],
     "paths": {
       "/Values/DifficultySettingsScene": []
+    }
+  },
+  "ButtonPrompt_OpenCustomMenu": {
+    "templates": [],
+    "paths": {
+      "/Values/DifficultySettingsScene": []
+    }
+  },
+  "GameSeedInfotipGUID": {
+    "templates": [],
+    "paths": {
+      "/Values/DifficultySettingsScene": []
+    }
+  },
+  "GamepadIcon": {
+    "templates": [
+      "Icon"
+    ],
+    "paths": {
+      "/Values/DiplomacyScene/RadialMenuButton/Item": [
+        "Icon"
+      ]
     }
   },
   "TooltipHuman": {
@@ -13359,6 +14051,36 @@
     "templates": [],
     "paths": {
       "/Values/DiplomacyScene/PlayerResources": []
+    }
+  },
+  "ButtonPromptCloseText": {
+    "templates": [],
+    "paths": {
+      "/Values/DiplomacyScene/DiplomacyButtonPrompTexts": []
+    }
+  },
+  "ButtonPromptBackText": {
+    "templates": [],
+    "paths": {
+      "/Values/DiplomacyScene/DiplomacyButtonPrompTexts": []
+    }
+  },
+  "ButtonPromptOpenInfoText": {
+    "templates": [],
+    "paths": {
+      "/Values/DiplomacyScene/DiplomacyButtonPrompTexts": []
+    }
+  },
+  "ButtonPromptConfirmText": {
+    "templates": [],
+    "paths": {
+      "/Values/DiplomacyScene/DiplomacyButtonPrompTexts": []
+    }
+  },
+  "ButtonPromptCancelText": {
+    "templates": [],
+    "paths": {
+      "/Values/DiplomacyScene/DiplomacyButtonPrompTexts": []
     }
   },
   "PyramidExportGoodInfoTip": {
@@ -13519,7 +14241,19 @@
       "/Values/ExpeditionOverviewScene": []
     }
   },
+  "DiscardExpeditionButtonText": {
+    "templates": [],
+    "paths": {
+      "/Values/ExpeditionOverviewScene": []
+    }
+  },
   "DiscardExpeditionButtonSound": {
+    "templates": [],
+    "paths": {
+      "/Values/ExpeditionOverviewScene": []
+    }
+  },
+  "PrepareExpeditionButtonText": {
     "templates": [],
     "paths": {
       "/Values/ExpeditionOverviewScene": []
@@ -13535,6 +14269,30 @@
     "templates": [],
     "paths": {
       "/Values/ExpeditionOverviewScene": []
+    }
+  },
+  "NewExpeditionsTab": {
+    "templates": [],
+    "paths": {
+      "/Values/ExpeditionOverviewScene/ExpeditionTabsList": []
+    }
+  },
+  "RunningExpeditionsTab": {
+    "templates": [],
+    "paths": {
+      "/Values/ExpeditionOverviewScene/ExpeditionTabsList": []
+    }
+  },
+  "ShowAllAttributesText": {
+    "templates": [],
+    "paths": {
+      "/Values/ExpeditionOverviewScene/ExpeditionAttributeFilters": []
+    }
+  },
+  "ShowRecommendedAttributesText": {
+    "templates": [],
+    "paths": {
+      "/Values/ExpeditionOverviewScene/ExpeditionAttributeFilters": []
     }
   },
   "ShowRationsText": {
@@ -13635,6 +14393,12 @@
       "/Values/InfluencePopup": []
     }
   },
+  "InfluenceFlipBtnText": {
+    "templates": [],
+    "paths": {
+      "/Values/InfluencePopup": []
+    }
+  },
   "TresholdInfotip": {
     "templates": [],
     "paths": {
@@ -13719,6 +14483,24 @@
       ]
     }
   },
+  "CityNameUnsettledText": {
+    "templates": [],
+    "paths": {
+      "/Values/IslandBarScene": []
+    }
+  },
+  "CityNameParticipantText": {
+    "templates": [],
+    "paths": {
+      "/Values/IslandBarScene": []
+    }
+  },
+  "WaterText": {
+    "templates": [],
+    "paths": {
+      "/Values/IslandBarScene": []
+    }
+  },
   "Workforce": {
     "templates": [
       "Product"
@@ -13770,6 +14552,12 @@
     }
   },
   "WorkforceInfotip_NotCommutable": {
+    "templates": [],
+    "paths": {
+      "/Values/IslandBarScene": []
+    }
+  },
+  "FestivalTimeRemainingText": {
     "templates": [],
     "paths": {
       "/Values/IslandBarScene": []
@@ -13887,6 +14675,79 @@
       "/Values/ItemFiltersScene": []
     }
   },
+  "SearchText": {
+    "templates": [],
+    "paths": {
+      "/Values/ItemFiltersScene": []
+    }
+  },
+  "OpenKeyboardText": {
+    "templates": [],
+    "paths": {
+      "/Values/ItemFiltersScene": []
+    }
+  },
+  "Filter": {
+    "templates": [
+      "ProductFilter"
+    ],
+    "paths": {
+      "/Values/ItemFiltersScene/RegionFilter/Meta": [
+        "ProductFilter"
+      ],
+      "/Values/ItemFiltersScene/RegionFilter/Moderate": [
+        "ProductFilter"
+      ],
+      "/Values/ItemFiltersScene/RegionFilter/Colony01": [
+        "ProductFilter"
+      ],
+      "/Values/ItemFiltersScene/RegionFilter/Arctic": [
+        "ProductFilter"
+      ],
+      "/Values/ItemFiltersScene/RegionFilter/Africa": [
+        "ProductFilter"
+      ],
+      "/Values/SessionTradeRoutesScene/GoodFilter/Normal/FilterPerRegion/Meta": [
+        "ProductFilter"
+      ],
+      "/Values/SessionTradeRoutesScene/GoodFilter/Normal/FilterPerRegion/Moderate": [
+        "ProductFilter"
+      ],
+      "/Values/SessionTradeRoutesScene/GoodFilter/Normal/FilterPerRegion/Colony01": [
+        "ProductFilter"
+      ],
+      "/Values/SessionTradeRoutesScene/GoodFilter/Normal/FilterPerRegion/Arctic": [
+        "ProductFilter"
+      ],
+      "/Values/SessionTradeRoutesScene/GoodFilter/Normal/FilterPerRegion/Africa": [
+        "ProductFilter"
+      ],
+      "/Values/SessionTradeRoutesScene/GoodFilter/Oil/FilterPerRegion/Meta": [
+        "ProductFilter"
+      ],
+      "/Values/SessionTradeRoutesScene/GoodFilter/Oil/FilterPerRegion/Moderate": [
+        "ProductFilter"
+      ],
+      "/Values/SessionTradeRoutesScene/GoodFilter/Oil/FilterPerRegion/Colony01": [
+        "ProductFilter"
+      ],
+      "/Values/SessionTradeRoutesScene/GoodFilter/Oil/FilterPerRegion/Arctic": [
+        "ProductFilter"
+      ],
+      "/Values/SessionTradeRoutesScene/GoodFilter/Oil/FilterPerRegion/Africa": [
+        "ProductFilter"
+      ],
+      "/Values/SessionTradeRoutesScene/GoodFilter/Mail/FilterPerRegion/Meta": [
+        "ProductFilter"
+      ],
+      "/Values/SessionTradeRoutesScene/GoodFilter/Mail/FilterPerRegion/Moderate": [
+        "ProductFilter"
+      ],
+      "/Values/SessionTradeRoutesScene/GoodFilter/Mail/FilterPerRegion/Colony01": [
+        "ProductFilter"
+      ]
+    }
+  },
   "UnlockRequirement": {
     "templates": [
       "UplayProduct"
@@ -13901,6 +14762,24 @@
     "templates": [],
     "paths": {
       "/Values/LoadingScene": []
+    }
+  },
+  "DefaultLoadingMessageText": {
+    "templates": [],
+    "paths": {
+      "/Values/LoadingScene": []
+    }
+  },
+  "ButtonPromptCyclePrevText": {
+    "templates": [],
+    "paths": {
+      "/Values/LoadingScene/GamepadActionButtonPrompts": []
+    }
+  },
+  "ButtonPromptCycleNextText": {
+    "templates": [],
+    "paths": {
+      "/Values/LoadingScene/GamepadActionButtonPrompts": []
     }
   },
   "DaytimeValue": {
@@ -13937,6 +14816,13 @@
     }
   },
   "UnsettledIslandText": {
+    "templates": [],
+    "paths": {
+      "/Values/MinimapScene": [],
+      "/Values/NavigationMenuScene/MetaNavigationTexts/IslandInfoPage": []
+    }
+  },
+  "OceanText": {
     "templates": [],
     "paths": {
       "/Values/MinimapScene": []
@@ -14119,6 +15005,46 @@
       "/Values/MPQuickMatchLobbyScene/SearchingPlayersTexts/Slot2": [],
       "/Values/MPQuickMatchLobbyScene/SearchingPlayersTexts/Slot3": [],
       "/Values/MPQuickMatchLobbyScene/SearchingPlayersTexts/Slot4": []
+    }
+  },
+  "TutorialRefGUID": {
+    "templates": [],
+    "paths": {
+      "/Values/NavigationMenuScene/MenuButtons/Item": [],
+      "/Values/NavigationMenuScene/IslandInfoButtons/Item": []
+    }
+  },
+  "Tool": {
+    "templates": [
+      "Target"
+    ],
+    "paths": {
+      "/Values/NavigationMenuScene/Tools/Item": [
+        "Target"
+      ]
+    }
+  },
+  "InfotipDescription": {
+    "templates": [],
+    "paths": {
+      "/Values/NavigationMenuScene/Tools/Item": []
+    }
+  },
+  "OpenWatersText": {
+    "templates": [],
+    "paths": {
+      "/Values/NavigationMenuScene/MetaNavigationTexts/IslandInfoPage": []
+    }
+  },
+  "DiplomacyStateText": {
+    "templates": [],
+    "paths": {
+      "/Values/NavigationMenuScene/MetaNavigationTexts/DiplomacyInfoPage/DiplomacyStateTexts/War": [],
+      "/Values/NavigationMenuScene/MetaNavigationTexts/DiplomacyInfoPage/DiplomacyStateTexts/Peace": [],
+      "/Values/NavigationMenuScene/MetaNavigationTexts/DiplomacyInfoPage/DiplomacyStateTexts/TradeRights": [],
+      "/Values/NavigationMenuScene/MetaNavigationTexts/DiplomacyInfoPage/DiplomacyStateTexts/Alliance": [],
+      "/Values/NavigationMenuScene/MetaNavigationTexts/DiplomacyInfoPage/DiplomacyStateTexts/CeaseFire": [],
+      "/Values/NavigationMenuScene/MetaNavigationTexts/DiplomacyInfoPage/DiplomacyStateTexts/NonAttack": []
     }
   },
   "InfluenceText": {
@@ -14494,19 +15420,35 @@
       "/Values/OnlineMarketScene": []
     }
   },
-  "StartDistance": {
+  "StartDistancePC": {
     "templates": [],
     "paths": {
       "/Values/OnScreenNotificationScene": []
     }
   },
-  "EndDistance": {
+  "EndDistancePC": {
     "templates": [
       "A7_QuestDecision"
     ],
     "paths": {
       "/Values/OnScreenNotificationScene": [
         "A7_QuestDecision"
+      ]
+    }
+  },
+  "StartDistanceConsole": {
+    "templates": [],
+    "paths": {
+      "/Values/OnScreenNotificationScene": []
+    }
+  },
+  "EndDistanceConsole": {
+    "templates": [
+      "UplayProductPromotion"
+    ],
+    "paths": {
+      "/Values/OnScreenNotificationScene": [
+        "UplayProductPromotion"
       ]
     }
   },
@@ -14618,6 +15560,18 @@
       "/Values/OptionsScene": []
     }
   },
+  "InputSwapHeadline": {
+    "templates": [],
+    "paths": {
+      "/Values/OptionsScene": []
+    }
+  },
+  "ActionSwapHeadline": {
+    "templates": [],
+    "paths": {
+      "/Values/OptionsScene": []
+    }
+  },
   "PauseSinglePlayerHeadline": {
     "templates": [],
     "paths": {
@@ -14625,6 +15579,18 @@
     }
   },
   "PauseMultiPlayerHeadline": {
+    "templates": [],
+    "paths": {
+      "/Values/PauseMenuScene": []
+    }
+  },
+  "CurrentDayTime": {
+    "templates": [],
+    "paths": {
+      "/Values/PauseMenuScene": []
+    }
+  },
+  "TimeSinceSaving": {
     "templates": [],
     "paths": {
       "/Values/PauseMenuScene": []
@@ -14648,6 +15614,24 @@
       "/Values/PauseMenuScene": []
     }
   },
+  "CurrentlySaving": {
+    "templates": [],
+    "paths": {
+      "/Values/PauseMenuScene": []
+    }
+  },
+  "PlayerListTab": {
+    "templates": [],
+    "paths": {
+      "/Values/PauseMenuScene": []
+    }
+  },
+  "ControllerTab": {
+    "templates": [],
+    "paths": {
+      "/Values/PauseMenuScene": []
+    }
+  },
   "CampaignDescription": {
     "templates": [],
     "paths": {
@@ -14666,7 +15650,41 @@
       "/Values/ProfileSelectionScene": []
     }
   },
+  "QuicksaveName": {
+    "templates": [],
+    "paths": {
+      "/Values/ProfileSelectionScene": []
+    }
+  },
+  "CreativeModeDescription": {
+    "templates": [
+      "DifficultySetup"
+    ],
+    "paths": {
+      "/Values/ProfileSelectionScene": [
+        "DifficultySetup"
+      ]
+    }
+  },
+  "EmptySlotName": {
+    "templates": [],
+    "paths": {
+      "/Values/ProfileSelectionScene": []
+    }
+  },
   "QuestBookTitle": {
+    "templates": [],
+    "paths": {
+      "/Values/QuestBookScene": []
+    }
+  },
+  "SelectQuestText": {
+    "templates": [],
+    "paths": {
+      "/Values/QuestBookScene": []
+    }
+  },
+  "AbandonQuestText": {
     "templates": [],
     "paths": {
       "/Values/QuestBookScene": []
@@ -14756,6 +15774,18 @@
     }
   },
   "OpenQuestBook": {
+    "templates": [],
+    "paths": {
+      "/Values/QuestTrackerScene": []
+    }
+  },
+  "JumpToText": {
+    "templates": [],
+    "paths": {
+      "/Values/QuestTrackerScene": []
+    }
+  },
+  "MultipleSessionsText": {
     "templates": [],
     "paths": {
       "/Values/QuestTrackerScene": []
@@ -15129,6 +16159,18 @@
       "/Values/ResourceBarScene": []
     }
   },
+  "BuffInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResourceBarScene": []
+    }
+  },
+  "SeasonTradeEffectInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/ResourceBarScene": []
+    }
+  },
   "Session": {
     "templates": [
       "SessionModerate",
@@ -15233,6 +16275,22 @@
       ]
     }
   },
+  "ConsoleIcon": {
+    "templates": [
+      "Icon"
+    ],
+    "paths": {
+      "/Values/SessionTradeRouteOverviewScene/RouteCreateButtons/Normal": [
+        "Icon"
+      ],
+      "/Values/SessionTradeRouteOverviewScene/RouteCreateButtons/Charter": [
+        "Icon"
+      ],
+      "/Values/SessionTradeRouteOverviewScene/RouteCreateButtons/Oil": [
+        "Icon"
+      ]
+    }
+  },
   "NoGoodsInfoTip": {
     "templates": [],
     "paths": {
@@ -15252,6 +16310,60 @@
     }
   },
   "GeneralWarningInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteOverviewScene": []
+    }
+  },
+  "FocusStrategicMapText": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteOverviewScene": []
+    }
+  },
+  "MoveOrCreateGroupText": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteOverviewScene": []
+    }
+  },
+  "EditRouteText": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteOverviewScene": []
+    }
+  },
+  "CollapseGroupText": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteOverviewScene": []
+    }
+  },
+  "ExpandGroupText": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteOverviewScene": []
+    }
+  },
+  "NotEnoughInfluenceForCharterRouteText": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteOverviewScene": []
+    }
+  },
+  "BackPrompt": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteOverviewScene": []
+    }
+  },
+  "ResetFilterPrompt": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteOverviewScene": []
+    }
+  },
+  "SelectFilterPrompt": {
     "templates": [],
     "paths": {
       "/Values/SessionTradeRouteOverviewScene": []
@@ -15323,52 +16435,6 @@
     "templates": [],
     "paths": {
       "/Values/SessionTradeRoutesScene": []
-    }
-  },
-  "Filter": {
-    "templates": [
-      "ProductFilter"
-    ],
-    "paths": {
-      "/Values/SessionTradeRoutesScene/GoodFilter/Normal/FilterPerRegion/Meta": [
-        "ProductFilter"
-      ],
-      "/Values/SessionTradeRoutesScene/GoodFilter/Normal/FilterPerRegion/Moderate": [
-        "ProductFilter"
-      ],
-      "/Values/SessionTradeRoutesScene/GoodFilter/Normal/FilterPerRegion/Colony01": [
-        "ProductFilter"
-      ],
-      "/Values/SessionTradeRoutesScene/GoodFilter/Normal/FilterPerRegion/Arctic": [
-        "ProductFilter"
-      ],
-      "/Values/SessionTradeRoutesScene/GoodFilter/Normal/FilterPerRegion/Africa": [
-        "ProductFilter"
-      ],
-      "/Values/SessionTradeRoutesScene/GoodFilter/Oil/FilterPerRegion/Meta": [
-        "ProductFilter"
-      ],
-      "/Values/SessionTradeRoutesScene/GoodFilter/Oil/FilterPerRegion/Moderate": [
-        "ProductFilter"
-      ],
-      "/Values/SessionTradeRoutesScene/GoodFilter/Oil/FilterPerRegion/Colony01": [
-        "ProductFilter"
-      ],
-      "/Values/SessionTradeRoutesScene/GoodFilter/Oil/FilterPerRegion/Arctic": [
-        "ProductFilter"
-      ],
-      "/Values/SessionTradeRoutesScene/GoodFilter/Oil/FilterPerRegion/Africa": [
-        "ProductFilter"
-      ],
-      "/Values/SessionTradeRoutesScene/GoodFilter/Mail/FilterPerRegion/Meta": [
-        "ProductFilter"
-      ],
-      "/Values/SessionTradeRoutesScene/GoodFilter/Mail/FilterPerRegion/Moderate": [
-        "ProductFilter"
-      ],
-      "/Values/SessionTradeRoutesScene/GoodFilter/Mail/FilterPerRegion/Colony01": [
-        "ProductFilter"
-      ]
     }
   },
   "SelectGoodPopupHeadlineLoading": {
@@ -15443,6 +16509,18 @@
       ]
     }
   },
+  "ButtonText": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRoutesScene/StationOptionsPopup/OptionButtons/LoadOptionNone": [],
+      "/Values/SessionTradeRoutesScene/StationOptionsPopup/OptionButtons/LoadOptionWaitUntilFull": [],
+      "/Values/SessionTradeRoutesScene/StationOptionsPopup/OptionButtons/UnloadOptionNone": [],
+      "/Values/SessionTradeRoutesScene/StationOptionsPopup/OptionButtons/UnloadOptionWaitUntilEmpty": [],
+      "/Values/SessionTradeRoutesScene/StationOptionsPopup/OptionButtons/UnloadOptionThrowOverboard": [],
+      "/Values/ObjectmenuResidenceScene/MallPopup": [],
+      "/Values/ObjectmenuResidenceScene/BonusNeeds": []
+    }
+  },
   "ButtonIcon": {
     "templates": [
       "Icon"
@@ -15463,16 +16541,6 @@
       "/Values/SessionTradeRoutesScene/StationOptionsPopup/OptionButtons/UnloadOptionThrowOverboard": [
         "Icon"
       ]
-    }
-  },
-  "ButtonText": {
-    "templates": [],
-    "paths": {
-      "/Values/SessionTradeRoutesScene/StationOptionsPopup/OptionButtons/LoadOptionWaitUntilFull": [],
-      "/Values/SessionTradeRoutesScene/StationOptionsPopup/OptionButtons/UnloadOptionWaitUntilEmpty": [],
-      "/Values/SessionTradeRoutesScene/StationOptionsPopup/OptionButtons/UnloadOptionThrowOverboard": [],
-      "/Values/ObjectmenuResidenceScene/MallPopup": [],
-      "/Values/ObjectmenuResidenceScene/BonusNeeds": []
     }
   },
   "Category1Description": {
@@ -15541,10 +16609,101 @@
       "/Values/ShipMenuRadial": []
     }
   },
+  "ShipSortingBy": {
+    "templates": [],
+    "paths": {
+      "/Values/ShipMenuRadial/MenuTexts": []
+    }
+  },
+  "ShipSortingTask": {
+    "templates": [],
+    "paths": {
+      "/Values/ShipMenuRadial/MenuTexts": []
+    }
+  },
+  "ShipSortingType": {
+    "templates": [],
+    "paths": {
+      "/Values/ShipMenuRadial/MenuTexts": []
+    }
+  },
+  "ShipGroupText": {
+    "templates": [],
+    "paths": {
+      "/Values/ShipMenuRadial/MenuTexts": []
+    }
+  },
+  "Select": {
+    "templates": [],
+    "paths": {
+      "/Values/ShipMenuRadial/ButtonPromptTexts": []
+    }
+  },
+  "MultiSelect": {
+    "templates": [],
+    "paths": {
+      "/Values/ShipMenuRadial/ButtonPromptTexts": []
+    }
+  },
+  "ClearSelection": {
+    "templates": [],
+    "paths": {
+      "/Values/ShipMenuRadial/ButtonPromptTexts": []
+    }
+  },
+  "JumpToGroups": {
+    "templates": [],
+    "paths": {
+      "/Values/ShipMenuRadial/ButtonPromptTexts": []
+    }
+  },
+  "OverwriteGroup": {
+    "templates": [],
+    "paths": {
+      "/Values/ShipMenuRadial/ButtonPromptTexts": [],
+      "/Values/ShipMenuRadial/ButtonPopupTexts": []
+    }
+  },
+  "CreateGroup": {
+    "templates": [],
+    "paths": {
+      "/Values/ShipMenuRadial/ButtonPromptTexts": []
+    }
+  },
+  "ClearGroup": {
+    "templates": [],
+    "paths": {
+      "/Values/ShipMenuRadial/ButtonPromptTexts": []
+    }
+  },
+  "JumpToShip": {
+    "templates": [],
+    "paths": {
+      "/Values/ShipMenuRadial/ButtonPromptTexts": []
+    }
+  },
+  "SelectAndJumpToShip": {
+    "templates": [],
+    "paths": {
+      "/Values/ShipMenuRadial/ButtonPromptTexts": []
+    }
+  },
   "ShipGroupDefaultTextGUID": {
     "templates": [],
     "paths": {
       "/Values/ShipMenuRadial": []
+    }
+  },
+  "SelectGroup": {
+    "templates": [],
+    "paths": {
+      "/Values/ShipMenuRadial/ButtonPopupTexts": []
+    }
+  },
+  "MergeGroup": {
+    "templates": [],
+    "paths": {
+      "/Values/ShipMenuRadial/ButtonPopupTexts": []
     }
   },
   "TimestampSeconds": {
@@ -15571,7 +16730,25 @@
       "/Values/SideNotificationsArchive": []
     }
   },
+  "JumpToBtnText": {
+    "templates": [],
+    "paths": {
+      "/Values/SideNotificationsArchive": []
+    }
+  },
+  "DeleteNotificationText": {
+    "templates": [],
+    "paths": {
+      "/Values/SideNotificationsArchive": []
+    }
+  },
   "SeeExpeditionText": {
+    "templates": [],
+    "paths": {
+      "/Values/SideNotificationsArchive": []
+    }
+  },
+  "DeleteExpeditionText": {
     "templates": [],
     "paths": {
       "/Values/SideNotificationsArchive": []
@@ -15607,6 +16784,12 @@
       "/Values/SideNotificationsArchive": [
         "Icon"
       ]
+    }
+  },
+  "CloseNotificationText": {
+    "templates": [],
+    "paths": {
+      "/Values/SideNotificationsArchive": []
     }
   },
   "CategoryInfotip": {
@@ -15859,6 +17042,42 @@
       ]
     }
   },
+  "TextCompareItems": {
+    "templates": [],
+    "paths": {
+      "/Values/StatisticMenu": []
+    }
+  },
+  "TextCancelCompareItems": {
+    "templates": [],
+    "paths": {
+      "/Values/StatisticMenu": []
+    }
+  },
+  "ButtonPromptLabelShowPotential": {
+    "templates": [],
+    "paths": {
+      "/Values/StatisticMenu/ProductionStatisticButtonPromptLabels": []
+    }
+  },
+  "ButtonPromptLabelShowPerMinute": {
+    "templates": [],
+    "paths": {
+      "/Values/StatisticMenu/ProductionStatisticButtonPromptLabels": []
+    }
+  },
+  "ButtonPromptLabelMoreInformation": {
+    "templates": [],
+    "paths": {
+      "/Values/StatisticMenu/ProductionStatisticButtonPromptLabels": []
+    }
+  },
+  "ProductionPerMinuteUnitLabel": {
+    "templates": [],
+    "paths": {
+      "/Values/StatisticMenu": []
+    }
+  },
   "MinZoomMoveSpeed": {
     "templates": [
       "Inhabitant"
@@ -15943,6 +17162,120 @@
       ]
     }
   },
+  "MonumentEventFeedbackLabelConfirm": {
+    "templates": [],
+    "paths": {
+      "/Values/MonumentEventScene": []
+    }
+  },
+  "MonumentEventFeedbackLabelClose": {
+    "templates": [],
+    "paths": {
+      "/Values/MonumentEventScene": []
+    }
+  },
+  "MonumentEventFeedbackLabelStartPreparation": {
+    "templates": [],
+    "paths": {
+      "/Values/MonumentEventScene": []
+    }
+  },
+  "MonumentEventFeedbackLabelShowDetails": {
+    "templates": [],
+    "paths": {
+      "/Values/MonumentEventScene": []
+    }
+  },
+  "MonumentEventFeedbackLabelHideDetails": {
+    "templates": [],
+    "paths": {
+      "/Values/MonumentEventScene": []
+    }
+  },
+  "MonumentEventFeedbackLabelPauseDelivery": {
+    "templates": [],
+    "paths": {
+      "/Values/MonumentEventScene": []
+    }
+  },
+  "MonumentEventFeedbackLabelResumeDelivery": {
+    "templates": [],
+    "paths": {
+      "/Values/MonumentEventScene": []
+    }
+  },
+  "MonumentEventFeedbackLabelCancelExhibition": {
+    "templates": [],
+    "paths": {
+      "/Values/MonumentEventScene": []
+    }
+  },
+  "MonumentEventFeedbackLabelSelectReward": {
+    "templates": [],
+    "paths": {
+      "/Values/MonumentEventScene": []
+    }
+  },
+  "MonumentEventFeedbackLabelCollectReward": {
+    "templates": [],
+    "paths": {
+      "/Values/MonumentEventScene": []
+    }
+  },
+  "MonumentEventFeedbackLabelCollect": {
+    "templates": [],
+    "paths": {
+      "/Values/MonumentEventScene": []
+    }
+  },
+  "MonumentEventFeedbackLabelBack": {
+    "templates": [],
+    "paths": {
+      "/Values/MonumentEventScene": []
+    }
+  },
+  "AllParticipantsAsset": {
+    "templates": [],
+    "paths": {
+      "/Values/HostileTakeoverScene": []
+    }
+  },
+  "TotalShareIncomeText": {
+    "templates": [],
+    "paths": {
+      "/Values/HostileTakeoverScene": []
+    }
+  },
+  "SelectIslandOnMapText": {
+    "templates": [],
+    "paths": {
+      "/Values/HostileTakeoverScene": []
+    }
+  },
+  "CloseScreenText": {
+    "templates": [],
+    "paths": {
+      "/Values/HostileTakeoverScene": []
+    }
+  },
+  "SharesAcceptPrompt": {
+    "templates": [],
+    "paths": {
+      "/Values/HostileTakeoverScene": []
+    }
+  },
+  "SharesDeclinePrompt": {
+    "templates": [],
+    "paths": {
+      "/Values/HostileTakeoverScene": []
+    }
+  },
+  "ShareInfoHeadline": {
+    "templates": [],
+    "paths": {
+      "/Values/HostileTakeoverScene": []
+    }
+  },
   "RetakeText": {
     "templates": [],
     "paths": {
@@ -15953,6 +17286,90 @@
     "templates": [],
     "paths": {
       "/Values/ScreenCaptureScene": []
+    }
+  },
+  "RandomTrainSkin": {
+    "templates": [],
+    "paths": {
+      "/Values/CustomizeModeScene/CustomizeOptionNames": []
+    }
+  },
+  "Variation": {
+    "templates": [],
+    "paths": {
+      "/Values/CustomizeModeScene/CustomizeOptionNames": []
+    }
+  },
+  "GrassColor": {
+    "templates": [],
+    "paths": {
+      "/Values/CustomizeModeScene/CustomizeOptionNames": []
+    }
+  },
+  "Rotation": {
+    "templates": [],
+    "paths": {
+      "/Values/CustomizeModeScene/CustomizeOptionNames": []
+    }
+  },
+  "CopyHeaderText": {
+    "templates": [],
+    "paths": {
+      "/Values/CustomizeModeScene": []
+    }
+  },
+  "SwitchNewsTabGPActionLeft": {
+    "templates": [],
+    "paths": {
+      "/Values/TitleScene": []
+    }
+  },
+  "SwitchNewsTabGPActionRight": {
+    "templates": [],
+    "paths": {
+      "/Values/TitleScene": []
+    }
+  },
+  "WelcomePopupConnectButtonPromptLabel": {
+    "templates": [],
+    "paths": {
+      "/Values/TitleScene/TitleSceneButtonPromptLabels": []
+    }
+  },
+  "WelcomePopupBackButtonPromptLabel": {
+    "templates": [],
+    "paths": {
+      "/Values/TitleScene/TitleSceneButtonPromptLabels": []
+    }
+  },
+  "WelcomeBackPopupConnectButtonPromptLabel": {
+    "templates": [],
+    "paths": {
+      "/Values/TitleScene/TitleSceneButtonPromptLabels": []
+    }
+  },
+  "WelcomeBackPopupBackButtonPromptLabel": {
+    "templates": [],
+    "paths": {
+      "/Values/TitleScene/TitleSceneButtonPromptLabels": []
+    }
+  },
+  "ShowLogText": {
+    "templates": [],
+    "paths": {
+      "/Values/DesyncScene": []
+    }
+  },
+  "RecoverText": {
+    "templates": [],
+    "paths": {
+      "/Values/DesyncScene": []
+    }
+  },
+  "BackToTitleText": {
+    "templates": [],
+    "paths": {
+      "/Values/DesyncScene": []
     }
   },
   "OverlayText": {
@@ -16309,6 +17726,12 @@
       "/Values/ObjectmenuCityInstitutionScene": []
     }
   },
+  "AutomatedProtectionInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuCityInstitutionScene": []
+    }
+  },
   "OverallBarInfotip": {
     "templates": [],
     "paths": {
@@ -16330,7 +17753,8 @@
   "PauseText": {
     "templates": [],
     "paths": {
-      "/Values/ObjectmenuCommuterHarbourScene/BuildingSpecificData/Item": []
+      "/Values/ObjectmenuCommuterHarbourScene/BuildingSpecificData/Item": [],
+      "/Values/ObjectmenuResidenceScene/ButtonPrompt_Residence": []
     }
   },
   "NoOtherHarborText": {
@@ -16351,10 +17775,67 @@
       "/Values/ObjectmenuCommuterHarbourScene": []
     }
   },
+  "ButtonPrompt_PauseCommute": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuCommuterHarbourScene": []
+    }
+  },
+  "ButtonPrompt_ResumeCommute": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuCommuterHarbourScene": []
+    }
+  },
+  "OverallTabIcon": {
+    "templates": [
+      "Icon"
+    ],
+    "paths": {
+      "/Values/ObjectmenuCommuterHarbourScene": [
+        "Icon"
+      ]
+    }
+  },
+  "OnIslandTabIcon": {
+    "templates": [
+      "Icon"
+    ],
+    "paths": {
+      "/Values/ObjectmenuCommuterHarbourScene": [
+        "Icon"
+      ]
+    }
+  },
   "HeaderText": {
     "templates": [],
     "paths": {
       "/Values/ObjectmenuHeader": [],
+      "/Values/GenericPopup/ErrorPopups/FirstPartyInviteFailed": [],
+      "/Values/GenericPopup/ErrorPopups/APIDisconnected": [],
+      "/Values/GenericPopup/ErrorPopups/GameVersionMismatch": [],
+      "/Values/GenericPopup/ErrorPopups/NATError": [],
+      "/Values/GenericPopup/ErrorPopups/FileNotFound": [],
+      "/Values/GenericPopup/ErrorPopups/ConnectionLost": [],
+      "/Values/GenericPopup/ErrorPopups/FailedToLoadSavegame": [],
+      "/Values/GenericPopup/ErrorPopups/GameAlreadyStarted": [],
+      "/Values/GenericPopup/ErrorPopups/InviteTimedOut": [],
+      "/Values/GenericPopup/ErrorPopups/FatalError": [],
+      "/Values/GenericPopup/ErrorPopups/Savegame_ErrorPopup_Autosave": [],
+      "/Values/GenericPopup/ErrorPopups/Savegame_ErrorPopup_RegularSave": [],
+      "/Values/GenericPopup/ErrorPopups/MultiplayerAccessDenied": [],
+      "/Values/GenericPopup/ErrorPopups/MultiplayerAccessNeedsPremium": [],
+      "/Values/GenericPopup/ErrorPopups/MultiplayerAccessBanned": [],
+      "/Values/GenericPopup/ErrorPopups/MatchmakingFailed": [],
+      "/Values/GenericPopup/ErrorPopups/LobbyFull": [],
+      "/Values/GenericPopup/ErrorPopups/StormGeneric": [],
+      "/Values/GenericPopup/ErrorPopups/LeaveReasonGeneric": [],
+      "/Values/GenericPopup/ErrorPopups/ConcurrentLoginDetected": [],
+      "/Values/GenericPopup/ErrorPopups/FirstPartySignedOut": [],
+      "/Values/GenericPopup/ErrorPopups/ConnectionLostInMPGame": [],
+      "/Values/GenericPopup/ErrorPopups/FailedToJoinLobby": [],
+      "/Values/GenericPopup/ErrorPopups/UbisoftAccountMandatory": [],
+      "/Values/GenericPopup/ErrorPopups/FirstPartySignInRequired": [],
       "/Values/GenericPopup/Popups/Quit": [],
       "/Values/GenericPopup/Popups/DestroyItem": [],
       "/Values/GenericPopup/Popups/NotImplemented": [],
@@ -16408,27 +17889,20 @@
       "/Values/GenericPopup/Popups/ResetScenarioConfirmationElNino": [],
       "/Values/GenericPopup/Popups/ResetScenarioConfirmationPostman": [],
       "/Values/GenericPopup/Popups/ResetScenarioConfirmationExportMaster": [],
+      "/Values/GenericPopup/Popups/GameInOfflineMode": [],
+      "/Values/GenericPopup/Popups/CantDeleteLastSavegame": [],
+      "/Values/GenericPopup/Popups/MPLobbySwapRequested": [],
       "/Values/GenericPopup/Popups/OldSavegame": [],
+      "/Values/GenericPopup/Popups/ResetConsoleOptionsConfirmation": [],
+      "/Values/GenericPopup/Popups/PresetLoadedSuccessfully": [],
       "/Values/GenericPopup/Popups/MultiDestruction": [],
-      "/Values/GenericPopup/ErrorPopups/FirstPartyInviteFailed": [],
-      "/Values/GenericPopup/ErrorPopups/APIDisconnected": [],
-      "/Values/GenericPopup/ErrorPopups/GameVersionMismatch": [],
-      "/Values/GenericPopup/ErrorPopups/NATError": [],
-      "/Values/GenericPopup/ErrorPopups/FileNotFound": [],
-      "/Values/GenericPopup/ErrorPopups/ConnectionLost": [],
-      "/Values/GenericPopup/ErrorPopups/FailedToLoadSavegame": [],
-      "/Values/GenericPopup/ErrorPopups/GameAlreadyStarted": [],
-      "/Values/GenericPopup/ErrorPopups/InviteTimedOut": [],
-      "/Values/GenericPopup/ErrorPopups/FatalError": [],
-      "/Values/GenericPopup/ErrorPopups/MultiplayerAccessDenied": [],
-      "/Values/GenericPopup/ErrorPopups/MatchmakingFailed": [],
-      "/Values/GenericPopup/ErrorPopups/LobbyFull": [],
-      "/Values/GenericPopup/ErrorPopups/StormGeneric": [],
-      "/Values/GenericPopup/ErrorPopups/LeaveReasonGeneric": [],
-      "/Values/GenericPopup/ErrorPopups/ConcurrentLoginDetected": [],
-      "/Values/GenericPopup/ErrorPopups/FirstPartySignedOut": [],
-      "/Values/GenericPopup/ErrorPopups/ConnectionLostInMPGame": [],
-      "/Values/GenericPopup/ErrorPopups/FailedToJoinLobby": []
+      "/Values/GenericPopup/Popups/OnlineModeRequired": [],
+      "/Values/GenericPopup/Popups/DiscardChanges": [],
+      "/Values/GenericPopup/Popups/DLC09StoryPopup": [],
+      "/Values/GenericPopup/Popups/DeleteStampConfirmation": [],
+      "/Values/GenericPopup/Popups/DeleteStampFolderConfirmation": [],
+      "/Values/GenericPopup/Popups/ModdedWaitForLoading": [],
+      "/Values/GenericPopup/Popups/ModdedFailure": []
     }
   },
   "SublineText": {
@@ -16641,6 +18115,24 @@
       ]
     }
   },
+  "ButtonPromptResumeProduction": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuProductionScene/ProductionButtonPromptLabels": []
+    }
+  },
+  "ButtonPromptPauseProduction": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuProductionScene/ProductionButtonPromptLabels": []
+    }
+  },
+  "ButtonPromptCloseWorkforceCondition": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuProductionScene/ProductionButtonPromptLabels": []
+    }
+  },
   "NoCraftingText": {
     "templates": [],
     "paths": {
@@ -16812,25 +18304,7 @@
       "/Values/ObjectmenuResidenceScene": []
     }
   },
-  "MoneyText": {
-    "templates": [],
-    "paths": {
-      "/Values/ObjectmenuResidenceScene": []
-    }
-  },
-  "WorkforceText": {
-    "templates": [],
-    "paths": {
-      "/Values/ObjectmenuResidenceScene": []
-    }
-  },
   "PopulationText": {
-    "templates": [],
-    "paths": {
-      "/Values/ObjectmenuResidenceScene": []
-    }
-  },
-  "ResidenceInfluence": {
     "templates": [],
     "paths": {
       "/Values/ObjectmenuResidenceScene": []
@@ -16853,12 +18327,6 @@
     }
   },
   "HappinessTabText": {
-    "templates": [],
-    "paths": {
-      "/Values/ObjectmenuResidenceScene": []
-    }
-  },
-  "ResearchText": {
     "templates": [],
     "paths": {
       "/Values/ObjectmenuResidenceScene": []
@@ -16934,6 +18402,9 @@
       "/Values/ConstructionMenu/RegionMenu/Moderate/CategoryMode/Tier/Categories/Item": [
         "ConstructionCategory"
       ],
+      "/Values/ConstructionMenu/RegionMenu/Moderate/CategoryMode/BuildingCategory/Categories/Item": [
+        "ConstructionCategory"
+      ],
       "/Values/ConstructionMenu/RegionMenu/Moderate/OrnamentsMode/OrnamentsSource/Categories/Item": [
         "ConstructionCategory"
       ],
@@ -16941,6 +18412,9 @@
         "ConstructionCategory"
       ],
       "/Values/ConstructionMenu/RegionMenu/Colony01/CategoryMode/Tier/Categories/Item": [
+        "ConstructionCategory"
+      ],
+      "/Values/ConstructionMenu/RegionMenu/Colony01/CategoryMode/BuildingCategory/Categories/Item": [
         "ConstructionCategory"
       ],
       "/Values/ConstructionMenu/RegionMenu/Colony01/OrnamentsMode/OrnamentsSource/Categories/Item": [
@@ -16952,9 +18426,55 @@
       "/Values/ConstructionMenu/RegionMenu/Arctic/CategoryMode/Tier/Categories/Item": [
         "ConstructionCategory"
       ],
+      "/Values/ConstructionMenu/RegionMenu/Arctic/CategoryMode/BuildingCategory/Categories/Item": [
+        "ConstructionCategory"
+      ],
       "/Values/ConstructionMenu/RegionMenu/Africa/CategoryMode/Tier/Categories/Item": [
         "ConstructionCategory"
+      ],
+      "/Values/ConstructionMenu/RegionMenu/Africa/CategoryMode/BuildingCategory/Categories/Item": [
+        "ConstructionCategory"
       ]
+    }
+  },
+  "BonusNeed": {
+    "templates": [
+      "Product"
+    ],
+    "paths": {
+      "/Values/ObjectmenuResidenceScene/BonusNeeds/BonusNeeds/Item/Needs/Item": [
+        "Product"
+      ]
+    }
+  },
+  "UpgradeText": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuResidenceScene/ButtonPrompt_Residence": []
+    }
+  },
+  "DowngradeText": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuResidenceScene/ButtonPrompt_Residence": []
+    }
+  },
+  "ResumeText": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuResidenceScene/ButtonPrompt_Residence": []
+    }
+  },
+  "OpenPopulationStatisticsText": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuResidenceScene/ButtonPrompt_Residence": []
+    }
+  },
+  "OpenProductionStatisticsText": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuResidenceScene/ButtonPrompt_Residence": []
     }
   },
   "DelightCategory": {
@@ -17007,6 +18527,42 @@
       "/Values/ObjectmenuShipScene": []
     }
   },
+  "ActivateItemFeedbackLabel": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuShipScene/ButtonPromptFeedbackLabels": []
+    }
+  },
+  "ClosePopUpFeedbackLabel": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuShipScene/ButtonPromptFeedbackLabels": []
+    }
+  },
+  "OpenTransferFeedbackLabel": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuShipScene/ButtonPromptFeedbackLabels": []
+    }
+  },
+  "SwapItemFeedbackLabel": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuShipScene/ButtonPromptFeedbackLabels": []
+    }
+  },
+  "ThrowOverboardFeedbackLabel": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuShipScene/ButtonPromptFeedbackLabels": []
+    }
+  },
+  "InspectItemFeedbackLabel": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectmenuShipScene/ButtonPromptFeedbackLabels": []
+    }
+  },
   "WaitingText": {
     "templates": [],
     "paths": {
@@ -17045,6 +18601,18 @@
       "/Values/DropGoodPopup": []
     }
   },
+  "ButtonPromptJumpToTrain": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectMenuCoalOilHarbour": []
+    }
+  },
+  "FertilityText": {
+    "templates": [],
+    "paths": {
+      "/Values/ConstructionMenu/FertilityCategoryTexts": []
+    }
+  },
   "FertilityIcon": {
     "templates": [
       "Icon"
@@ -17074,6 +18642,24 @@
     }
   },
   "EmptyPinInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ConstructionMenu": []
+    }
+  },
+  "StampInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ConstructionMenu": []
+    }
+  },
+  "StampFolderInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/ConstructionMenu": []
+    }
+  },
+  "DeleteStampPopupBuildingThreshold": {
     "templates": [],
     "paths": {
       "/Values/ConstructionMenu": []
@@ -17790,6 +19376,31 @@
   "MainText": {
     "templates": [],
     "paths": {
+      "/Values/GenericPopup/ErrorPopups/FirstPartyInviteFailed": [],
+      "/Values/GenericPopup/ErrorPopups/APIDisconnected": [],
+      "/Values/GenericPopup/ErrorPopups/GameVersionMismatch": [],
+      "/Values/GenericPopup/ErrorPopups/NATError": [],
+      "/Values/GenericPopup/ErrorPopups/FileNotFound": [],
+      "/Values/GenericPopup/ErrorPopups/ConnectionLost": [],
+      "/Values/GenericPopup/ErrorPopups/FailedToLoadSavegame": [],
+      "/Values/GenericPopup/ErrorPopups/GameAlreadyStarted": [],
+      "/Values/GenericPopup/ErrorPopups/InviteTimedOut": [],
+      "/Values/GenericPopup/ErrorPopups/FatalError": [],
+      "/Values/GenericPopup/ErrorPopups/Savegame_ErrorPopup_Autosave": [],
+      "/Values/GenericPopup/ErrorPopups/Savegame_ErrorPopup_RegularSave": [],
+      "/Values/GenericPopup/ErrorPopups/MultiplayerAccessDenied": [],
+      "/Values/GenericPopup/ErrorPopups/MultiplayerAccessNeedsPremium": [],
+      "/Values/GenericPopup/ErrorPopups/MultiplayerAccessBanned": [],
+      "/Values/GenericPopup/ErrorPopups/MatchmakingFailed": [],
+      "/Values/GenericPopup/ErrorPopups/LobbyFull": [],
+      "/Values/GenericPopup/ErrorPopups/StormGeneric": [],
+      "/Values/GenericPopup/ErrorPopups/LeaveReasonGeneric": [],
+      "/Values/GenericPopup/ErrorPopups/ConcurrentLoginDetected": [],
+      "/Values/GenericPopup/ErrorPopups/FirstPartySignedOut": [],
+      "/Values/GenericPopup/ErrorPopups/ConnectionLostInMPGame": [],
+      "/Values/GenericPopup/ErrorPopups/FailedToJoinLobby": [],
+      "/Values/GenericPopup/ErrorPopups/UbisoftAccountMandatory": [],
+      "/Values/GenericPopup/ErrorPopups/FirstPartySignInRequired": [],
       "/Values/GenericPopup/Popups/Quit": [],
       "/Values/GenericPopup/Popups/DestroyItem": [],
       "/Values/GenericPopup/Popups/NotImplemented": [],
@@ -17843,25 +19454,45 @@
       "/Values/GenericPopup/Popups/ResetScenarioConfirmationElNino": [],
       "/Values/GenericPopup/Popups/ResetScenarioConfirmationPostman": [],
       "/Values/GenericPopup/Popups/ResetScenarioConfirmationExportMaster": [],
+      "/Values/GenericPopup/Popups/GameInOfflineMode": [],
+      "/Values/GenericPopup/Popups/CantDeleteLastSavegame": [],
+      "/Values/GenericPopup/Popups/MPLobbySwapRequested": [],
       "/Values/GenericPopup/Popups/OldSavegame": [],
+      "/Values/GenericPopup/Popups/ResetConsoleOptionsConfirmation": [],
+      "/Values/GenericPopup/Popups/PresetLoadedSuccessfully": [],
       "/Values/GenericPopup/Popups/MultiDestruction": [],
-      "/Values/GenericPopup/ErrorPopups/FirstPartyInviteFailed": [],
-      "/Values/GenericPopup/ErrorPopups/APIDisconnected": [],
-      "/Values/GenericPopup/ErrorPopups/GameVersionMismatch": [],
-      "/Values/GenericPopup/ErrorPopups/NATError": [],
-      "/Values/GenericPopup/ErrorPopups/FileNotFound": [],
-      "/Values/GenericPopup/ErrorPopups/ConnectionLost": [],
-      "/Values/GenericPopup/ErrorPopups/FailedToLoadSavegame": [],
-      "/Values/GenericPopup/ErrorPopups/GameAlreadyStarted": [],
-      "/Values/GenericPopup/ErrorPopups/InviteTimedOut": [],
-      "/Values/GenericPopup/ErrorPopups/FatalError": [],
-      "/Values/GenericPopup/ErrorPopups/MultiplayerAccessDenied": [],
-      "/Values/GenericPopup/ErrorPopups/MatchmakingFailed": [],
-      "/Values/GenericPopup/ErrorPopups/LobbyFull": [],
-      "/Values/GenericPopup/ErrorPopups/StormGeneric": [],
-      "/Values/GenericPopup/ErrorPopups/LeaveReasonGeneric": [],
-      "/Values/GenericPopup/ErrorPopups/ConnectionLostInMPGame": [],
-      "/Values/GenericPopup/ErrorPopups/FailedToJoinLobby": []
+      "/Values/GenericPopup/Popups/OnlineModeRequired": [],
+      "/Values/GenericPopup/Popups/DiscardChanges": [],
+      "/Values/GenericPopup/Popups/DLC09StoryPopup": [],
+      "/Values/GenericPopup/Popups/DeleteStampConfirmation": [],
+      "/Values/GenericPopup/Popups/DeleteStampFolderConfirmation": [],
+      "/Values/GenericPopup/Popups/ModdedWaitForLoading": [],
+      "/Values/GenericPopup/Popups/ModdedFailure": []
+    }
+  },
+  "NotificationMinDisplayTime": {
+    "templates": [],
+    "paths": {
+      "/Values/GenericPopup/Popups/TutorialHappiness/Buttons/Item/Actions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/BaseNotification": [],
+      "/Values/GenericPopup/Popups/TutorialHappiness/Buttons/Item/Actions/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/BaseNotification": [],
+      "/Values/Quest/ResolveConfirmationMessage/Notification/Values/BaseNotification": [],
+      "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/BaseNotification": [],
+      "/Values/Quest/OnQuestFailed/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/BaseNotification": [],
+      "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/BaseNotification": [],
+      "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOffer/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferThreat/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferPeace/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferCeasefire/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferTraderights/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferAlliance/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyCounterProposal/Reactions/Item/Notification/Values/BaseNotification": []
+    }
+  },
+  "ExecutionDelay": {
+    "templates": [],
+    "paths": {
+      "/Values/GenericPopup/Popups/TutorialHappiness/Buttons/Item/Actions/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions": []
     }
   },
   "ActionLabel": {
@@ -17922,6 +19553,87 @@
       "/Values/NegotiationPopup": []
     }
   },
+  "Body": {
+    "templates": [],
+    "paths": {
+      "/Values/ModPopup/Types/LoadSavegame": [],
+      "/Values/ModPopup/Types/JoinLobby": [],
+      "/Values/ModPopup/Types/NewGame": [],
+      "/Values/ModPopup/Types/NewMPGame": [],
+      "/Values/ModPopup/Types/NewQuickMatch": [],
+      "/Values/ModPopup/Types/Disclaimer": []
+    }
+  },
+  "InSyncCategory": {
+    "templates": [],
+    "paths": {
+      "/Values/ModPopup/Types/LoadSavegame": [],
+      "/Values/ModPopup/Types/JoinLobby": [],
+      "/Values/ModPopup/Types/NewGame": [],
+      "/Values/ModPopup/Types/NewMPGame": [],
+      "/Values/ModPopup/Types/NewQuickMatch": []
+    }
+  },
+  "NotActivatedCategory": {
+    "templates": [],
+    "paths": {
+      "/Values/ModPopup/Types/LoadSavegame": [],
+      "/Values/ModPopup/Types/JoinLobby": [],
+      "/Values/ModPopup/Types/NewGame": [],
+      "/Values/ModPopup/Types/NewMPGame": [],
+      "/Values/ModPopup/Types/NewQuickMatch": []
+    }
+  },
+  "DownloadableCategory": {
+    "templates": [],
+    "paths": {
+      "/Values/ModPopup/Types/LoadSavegame": [],
+      "/Values/ModPopup/Types/JoinLobby": [],
+      "/Values/ModPopup/Types/NewGame": [],
+      "/Values/ModPopup/Types/NewMPGame": [],
+      "/Values/ModPopup/Types/NewQuickMatch": []
+    }
+  },
+  "NotDownloadableCategory": {
+    "templates": [],
+    "paths": {
+      "/Values/ModPopup/Types/LoadSavegame": [],
+      "/Values/ModPopup/Types/JoinLobby": [],
+      "/Values/ModPopup/Types/NewGame": [],
+      "/Values/ModPopup/Types/NewMPGame": [],
+      "/Values/ModPopup/Types/NewQuickMatch": []
+    }
+  },
+  "OkayBtnOverride": {
+    "templates": [],
+    "paths": {
+      "/Values/ModPopup/Types/Disclaimer": []
+    }
+  },
+  "CancelBtnOverride": {
+    "templates": [],
+    "paths": {
+      "/Values/ModPopup/Types/Disclaimer": []
+    }
+  },
+  "Disaclaimer": {
+    "templates": [],
+    "paths": {
+      "/Values/ModPopup/Types/Disclaimer": []
+    }
+  },
+  "OkayBtn": {
+    "templates": [],
+    "paths": {
+      "/Values/ModPopup": []
+    }
+  },
+  "CancelBtn": {
+    "templates": [],
+    "paths": {
+      "/Values/ModPopup": []
+    }
+  },
   "CellSizeX": {
     "templates": [
       "TrafficFeedbackUnit"
@@ -17943,6 +19655,12 @@
     "paths": {
       "/Values/SettingsMenu/Container/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionHeadline": [],
       "/Values/SettingsMenu/AlternativeContainer/Item/Container/Values/OptionGrid/Controls/Item/Controls/Values/OptionHeadline": []
+    }
+  },
+  "SettingsTabText": {
+    "templates": [],
+    "paths": {
+      "/Values/SettingsMenu": []
     }
   },
   "Topic": {
@@ -18154,6 +19872,17 @@
       ]
     }
   },
+  "TutorialElement": {
+    "templates": [],
+    "paths": {
+      "/Values/TutorialUiBalancing/GamepadActionTutorials/OpenMetaMenuNavigation": [],
+      "/Values/TutorialUiBalancing/GamepadActionTutorials/OpenBuildTools": [],
+      "/Values/TutorialUiBalancing/GamepadActionTutorials/QuickNavigationOpenState": [],
+      "/Values/TutorialUiBalancing/GamepadActionTutorials/QuickNavigationShowPreviousSession": [],
+      "/Values/TutorialUiBalancing/GamepadActionTutorials/QuickNavigationShowNextSession": [],
+      "/Values/TutorialUiBalancing/GamepadActionTutorials/QuickNavigationTeleport": []
+    }
+  },
   "AlternativeText": {
     "templates": [],
     "paths": {
@@ -18343,6 +20072,26 @@
         "StateChoice"
       ],
       "/Values/MetaSoundConfig/SeasonGameModeState/RainSeason": [
+        "StateChoice"
+      ]
+    }
+  },
+  "GameSoundSpeed": {
+    "templates": [
+      "StateGroup"
+    ],
+    "paths": {
+      "/Values/MetaSoundConfig": [
+        "StateGroup"
+      ]
+    }
+  },
+  "GameSoundSpeedNormal": {
+    "templates": [
+      "StateChoice"
+    ],
+    "paths": {
+      "/Values/MetaSoundConfig": [
         "StateChoice"
       ]
     }
@@ -20031,102 +21780,6 @@
       ]
     }
   },
-  "Tab": {
-    "templates": [],
-    "paths": {
-      "/Values/UISoundConfig/GeneralUiSounds": []
-    }
-  },
-  "Select": {
-    "templates": [],
-    "paths": {
-      "/Values/UISoundConfig/GeneralUiSounds": []
-    }
-  },
-  "Deselect": {
-    "templates": [],
-    "paths": {
-      "/Values/UISoundConfig/GeneralUiSounds": []
-    }
-  },
-  "MouseHover": {
-    "templates": [],
-    "paths": {
-      "/Values/UISoundConfig/GeneralUiSounds": []
-    }
-  },
-  "SliderPress": {
-    "templates": [],
-    "paths": {
-      "/Values/UISoundConfig/GeneralUiSounds": []
-    }
-  },
-  "SliderRelease": {
-    "templates": [],
-    "paths": {
-      "/Values/UISoundConfig/GeneralUiSounds": []
-    }
-  },
-  "Cancel": {
-    "templates": [],
-    "paths": {
-      "/Values/UISoundConfig/GeneralUiSounds": []
-    }
-  },
-  "CheckboxCheck": {
-    "templates": [],
-    "paths": {
-      "/Values/UISoundConfig/GeneralUiSounds": []
-    }
-  },
-  "CheckboxUnchecked": {
-    "templates": [],
-    "paths": {
-      "/Values/UISoundConfig/GeneralUiSounds": []
-    }
-  },
-  "NextShort": {
-    "templates": [],
-    "paths": {
-      "/Values/UISoundConfig/GeneralUiSounds": []
-    }
-  },
-  "NextLong": {
-    "templates": [],
-    "paths": {
-      "/Values/UISoundConfig/GeneralUiSounds": []
-    }
-  },
-  "BackShort": {
-    "templates": [],
-    "paths": {
-      "/Values/UISoundConfig/GeneralUiSounds": []
-    }
-  },
-  "BackLong": {
-    "templates": [],
-    "paths": {
-      "/Values/UISoundConfig/GeneralUiSounds": []
-    }
-  },
-  "WindowOpen": {
-    "templates": [],
-    "paths": {
-      "/Values/UISoundConfig/GeneralUiSounds": []
-    }
-  },
-  "WindowClose": {
-    "templates": [],
-    "paths": {
-      "/Values/UISoundConfig/GeneralUiSounds": []
-    }
-  },
-  "Dropdown": {
-    "templates": [],
-    "paths": {
-      "/Values/UISoundConfig/GeneralUiSounds": []
-    }
-  },
   "GameZoomTransitionIN": {
     "templates": [],
     "paths": {
@@ -20506,6 +22159,22 @@
       "/Values/ExpeditionDecision/MapPath": []
     }
   },
+  "ShipSketchPosY": {
+    "templates": [
+      "StrategicMapConsoleScene",
+      "Street",
+      "TownhallBuff",
+      "WarShip"
+    ],
+    "paths": {
+      "/Values/ExpeditionDecision/MapPath/ShipSketch": [
+        "StrategicMapConsoleScene",
+        "Street",
+        "TownhallBuff",
+        "WarShip"
+      ]
+    }
+  },
   "EventThreat": {
     "templates": [],
     "paths": {
@@ -20846,19 +22515,6 @@
         "SessionArctic",
         "Region"
       ]
-    }
-  },
-  "NotificationMinDisplayTime": {
-    "templates": [],
-    "paths": {
-      "/Values/Quest/ResolveConfirmationMessage/Notification/Values/BaseNotification": [],
-      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOffer/Reactions/Item/Notification/Values/BaseNotification": [],
-      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferThreat/Reactions/Item/Notification/Values/BaseNotification": [],
-      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferPeace/Reactions/Item/Notification/Values/BaseNotification": [],
-      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferCeasefire/Reactions/Item/Notification/Values/BaseNotification": [],
-      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferTraderights/Reactions/Item/Notification/Values/BaseNotification": [],
-      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferAlliance/Reactions/Item/Notification/Values/BaseNotification": [],
-      "/Values/ParticipantMessages/MessageTriggers/DiplomacyCounterProposal/Reactions/Item/Notification/Values/BaseNotification": []
     }
   },
   "PingDuration": {
@@ -21233,7 +22889,7 @@
       "Inhabitant"
     ],
     "paths": {
-      "/Values/TransitionConfig/Session": [
+      "/Values/TransitionConfig/SessionPC": [
         "Inhabitant"
       ]
     }
@@ -21820,6 +23476,26 @@
       ]
     }
   },
+  "PositiveThresholdBase": {
+    "templates": [
+      "Recipe"
+    ],
+    "paths": {
+      "/Values/Interaction": [
+        "Recipe"
+      ]
+    }
+  },
+  "NegativeThresholdBase": {
+    "templates": [
+      "Recipe"
+    ],
+    "paths": {
+      "/Values/Interaction": [
+        "Recipe"
+      ]
+    }
+  },
   "TimeUntilActionIsForgotten": {
     "templates": [
       "Video"
@@ -22361,6 +24037,12 @@
       ]
     }
   },
+  "BarrageDuration": {
+    "templates": [],
+    "paths": {
+      "/Values/SpecialAction": []
+    }
+  },
   "CameraSequenceIsland": {
     "templates": [
       "Island"
@@ -22795,13 +24477,15 @@
   "ContentHeadline": {
     "templates": [],
     "paths": {
-      "/Values/UplayProductPromotion/ContentHints/Item": []
+      "/Values/UplayProductPromotion/ContentHints/Item": [],
+      "/Values/UplayProductPromotion/ContentHintsConsole/Item": []
     }
   },
   "ContentSubline": {
     "templates": [],
     "paths": {
-      "/Values/UplayProductPromotion/ContentHints/Item": []
+      "/Values/UplayProductPromotion/ContentHints/Item": [],
+      "/Values/UplayProductPromotion/ContentHintsConsole/Item": []
     }
   },
   "ProductAsset": {
@@ -23226,6 +24910,12 @@
     }
   },
   "AttractivenessRequiredForAnyAdditionalParagonLevel": {
+    "templates": [],
+    "paths": {
+      "/Values/Palace": []
+    }
+  },
+  "ParagonUpdateInterval": {
     "templates": [],
     "paths": {
       "/Values/Palace": []
@@ -25253,16 +26943,1310 @@
       "/Values/Test456": []
     }
   },
+  "DefaultText": {
+    "templates": [],
+    "paths": {
+      "/Values/ButtonPromptAppearanceConfig/Prompts/Item": []
+    }
+  },
+  "HoldActionSound": {
+    "templates": [],
+    "paths": {
+      "/Values/ButtonPromptAppearanceConfig": []
+    }
+  },
+  "HoldTime": {
+    "templates": [],
+    "paths": {
+      "/Values/GamepadConfig/InputConfig": []
+    }
+  },
+  "DoubleTapTime": {
+    "templates": [],
+    "paths": {
+      "/Values/GamepadConfig/InputConfig": []
+    }
+  },
+  "MaximumHoldDuration": {
+    "templates": [],
+    "paths": {
+      "/Values/GamepadConfig/InputConfig/ConfigThresholds": []
+    }
+  },
+  "InitialNavigationDelay": {
+    "templates": [
+      "Inhabitant"
+    ],
+    "paths": {
+      "/Values/GamepadConfig/Navigation": [
+        "Inhabitant"
+      ]
+    }
+  },
+  "HighestContinuousNavigationDelay": {
+    "templates": [],
+    "paths": {
+      "/Values/GamepadConfig/Navigation": []
+    }
+  },
+  "FastScrollLinearAccelerationMaxSpeedPx": {
+    "templates": [],
+    "paths": {
+      "/Values/GamepadConfig/Scrolling": []
+    }
+  },
+  "FastScrollSineAccelerationEndTimeMs": {
+    "templates": [],
+    "paths": {
+      "/Values/GamepadConfig/Scrolling": []
+    }
+  },
+  "FastScrollSineAccelerationEndSpeedPx": {
+    "templates": [],
+    "paths": {
+      "/Values/GamepadConfig/Scrolling": []
+    }
+  },
+  "DpadStepAccelerationMs": {
+    "templates": [],
+    "paths": {
+      "/Values/GamepadConfig/SliderConfig": []
+    }
+  },
+  "BuildObjectBlueprint": {
+    "templates": [
+      "GamepadVibrationEffect"
+    ],
+    "paths": {
+      "/Values/GamepadConfig/VibrationConfig/VibrationEffects": [
+        "GamepadVibrationEffect"
+      ]
+    }
+  },
+  "UpgradeObject": {
+    "templates": [
+      "GamepadVibrationEffect"
+    ],
+    "paths": {
+      "/Values/GamepadConfig/VibrationConfig/VibrationEffects": [
+        "GamepadVibrationEffect"
+      ]
+    }
+  },
+  "BuildToolMoveStart": {
+    "templates": [
+      "GamepadVibrationEffect"
+    ],
+    "paths": {
+      "/Values/GamepadConfig/VibrationConfig/VibrationEffects": [
+        "GamepadVibrationEffect"
+      ]
+    }
+  },
+  "BuildToolMoveEnd": {
+    "templates": [
+      "GamepadVibrationEffect"
+    ],
+    "paths": {
+      "/Values/GamepadConfig/VibrationConfig/VibrationEffects": [
+        "GamepadVibrationEffect"
+      ]
+    }
+  },
+  "BuildToolCopyObject": {
+    "templates": [
+      "GamepadVibrationEffect"
+    ],
+    "paths": {
+      "/Values/GamepadConfig/VibrationConfig/VibrationEffects": [
+        "GamepadVibrationEffect"
+      ]
+    }
+  },
+  "BuildToolDemolishObject": {
+    "templates": [
+      "GamepadVibrationEffect"
+    ],
+    "paths": {
+      "/Values/GamepadConfig/VibrationConfig/VibrationEffects": [
+        "GamepadVibrationEffect"
+      ]
+    }
+  },
+  "EnterWorldMap": {
+    "templates": [
+      "GamepadVibrationEffect"
+    ],
+    "paths": {
+      "/Values/GamepadConfig/VibrationConfig/VibrationEffects": [
+        "GamepadVibrationEffect"
+      ]
+    }
+  },
+  "ShipCommandMove": {
+    "templates": [
+      "GamepadVibrationEffect"
+    ],
+    "paths": {
+      "/Values/GamepadConfig/VibrationConfig/VibrationEffects": [
+        "GamepadVibrationEffect"
+      ]
+    }
+  },
+  "ShipCommandEscort": {
+    "templates": [
+      "GamepadVibrationEffect"
+    ],
+    "paths": {
+      "/Values/GamepadConfig/VibrationConfig/VibrationEffects": [
+        "GamepadVibrationEffect"
+      ]
+    }
+  },
+  "ShipCommandPickUp": {
+    "templates": [
+      "GamepadVibrationEffect"
+    ],
+    "paths": {
+      "/Values/GamepadConfig/VibrationConfig/VibrationEffects": [
+        "GamepadVibrationEffect"
+      ]
+    }
+  },
+  "ShipCommandAttack": {
+    "templates": [
+      "GamepadVibrationEffect"
+    ],
+    "paths": {
+      "/Values/GamepadConfig/VibrationConfig/VibrationEffects": [
+        "GamepadVibrationEffect"
+      ]
+    }
+  },
+  "ShipCommandUseItem": {
+    "templates": [
+      "GamepadVibrationEffect"
+    ],
+    "paths": {
+      "/Values/GamepadConfig/VibrationConfig/VibrationEffects": [
+        "GamepadVibrationEffect"
+      ]
+    }
+  },
+  "FlipAllCards": {
+    "templates": [],
+    "paths": {
+      "/Values/AttractivenessConsoleScene/GamepadButtonTexts": []
+    }
+  },
+  "FlipSingleCard": {
+    "templates": [],
+    "paths": {
+      "/Values/AttractivenessConsoleScene/GamepadButtonTexts": []
+    }
+  },
+  "InfotipGUID": {
+    "templates": [],
+    "paths": {
+      "/Values/AttractivenessConsoleScene/InfotipConfig": []
+    }
+  },
+  "HeaderTextGUID": {
+    "templates": [],
+    "paths": {
+      "/Values/AttractivenessConsoleScene/InfotipConfig": []
+    }
+  },
+  "CloseCancelPrompt": {
+    "templates": [],
+    "paths": {
+      "/Values/NewspaperConsoleScene/NewspaperButtonPrompts": []
+    }
+  },
+  "EnterEditPrompt": {
+    "templates": [],
+    "paths": {
+      "/Values/NewspaperConsoleScene/NewspaperButtonPrompts": []
+    }
+  },
+  "UndoArticleChanges": {
+    "templates": [],
+    "paths": {
+      "/Values/NewspaperConsoleScene/NewspaperButtonPrompts": []
+    }
+  },
+  "MarkAsFavorite": {
+    "templates": [],
+    "paths": {
+      "/Values/NewspaperConsoleScene/NewspaperButtonPrompts": []
+    }
+  },
+  "OpenAutoPublishPopup": {
+    "templates": [],
+    "paths": {
+      "/Values/NewspaperConsoleScene/NewspaperButtonPrompts": []
+    }
+  },
+  "CloseAutoPublishPopup": {
+    "templates": [],
+    "paths": {
+      "/Values/NewspaperConsoleScene/NewspaperButtonPrompts": []
+    }
+  },
+  "EnableAutoPublish": {
+    "templates": [],
+    "paths": {
+      "/Values/NewspaperConsoleScene/NewspaperButtonPrompts": []
+    }
+  },
+  "DisableAutoPublish": {
+    "templates": [],
+    "paths": {
+      "/Values/NewspaperConsoleScene/NewspaperButtonPrompts": []
+    }
+  },
+  "SelectPropagandaArticle": {
+    "templates": [],
+    "paths": {
+      "/Values/NewspaperConsoleScene/NewspaperButtonPrompts": []
+    }
+  },
+  "Draft": {
+    "templates": [],
+    "paths": {
+      "/Values/NewspaperConsoleScene/Tabs": []
+    }
+  },
+  "Archive": {
+    "templates": [],
+    "paths": {
+      "/Values/NewspaperConsoleScene/Tabs": []
+    }
+  },
   "ArticleSelectionCategoryInfotip": {
     "templates": [],
     "paths": {
       "/Values/NewspaperConsoleScene": []
     }
   },
+  "AddGood": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteConsoleScene/SessionTradeRouteButtonPrompts": [],
+      "/Values/TransferGoodsConsoleScene/ButtonPrompts": []
+    }
+  },
+  "UnloadGood": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteConsoleScene/SessionTradeRouteButtonPrompts": []
+    }
+  },
+  "EditGood": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteConsoleScene/SessionTradeRouteButtonPrompts": []
+    }
+  },
+  "RemoveGood": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteConsoleScene/SessionTradeRouteButtonPrompts": [],
+      "/Values/TransferGoodsConsoleScene/ButtonPrompts": []
+    }
+  },
+  "DeleteStation": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteConsoleScene/SessionTradeRouteButtonPrompts": []
+    }
+  },
+  "ChangeStationOrder": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteConsoleScene/SessionTradeRouteButtonPrompts": []
+    }
+  },
+  "StationOptions": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteConsoleScene/SessionTradeRouteButtonPrompts": []
+    }
+  },
+  "RemoveShip": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteConsoleScene/SessionTradeRouteButtonPrompts": []
+    }
+  },
+  "PauseShip": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteConsoleScene/SessionTradeRouteButtonPrompts": []
+    }
+  },
+  "ResumeShip": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteConsoleScene/SessionTradeRouteButtonPrompts": []
+    }
+  },
+  "ReplaceShip": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteConsoleScene/SessionTradeRouteButtonPrompts": []
+    }
+  },
+  "DiscardCargo": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteConsoleScene/SessionTradeRouteButtonPrompts": []
+    }
+  },
+  "ToggleShipDetails": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteConsoleScene/SessionTradeRouteButtonPrompts": []
+    }
+  },
+  "Leave": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteConsoleScene/SessionTradeRouteButtonPrompts": []
+    }
+  },
+  "FocusStrategicMap": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteConsoleScene/SessionTradeRouteButtonPrompts": []
+    }
+  },
+  "FocusTradeRouteMenu": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteConsoleScene/SessionTradeRouteButtonPrompts": [],
+      "/Values/StrategicMapConsoleScene/StrategicMapButtonPrompts": []
+    }
+  },
+  "CancelGoldenPath": {
+    "templates": [],
+    "paths": {
+      "/Values/SessionTradeRouteConsoleScene/SessionTradeRouteButtonPrompts": []
+    }
+  },
+  "AddStationText": {
+    "templates": [],
+    "paths": {
+      "/Values/StrategicMapConsoleScene/StrategicMapButtonPrompts": []
+    }
+  },
+  "FocusCharterRouteMenu": {
+    "templates": [],
+    "paths": {
+      "/Values/StrategicMapConsoleScene/StrategicMapButtonPrompts": []
+    }
+  },
+  "FocusOverviewMenu": {
+    "templates": [],
+    "paths": {
+      "/Values/StrategicMapConsoleScene/StrategicMapButtonPrompts": []
+    }
+  },
+  "ToggleFilter": {
+    "templates": [],
+    "paths": {
+      "/Values/StrategicMapConsoleScene/StrategicMapButtonPrompts": []
+    }
+  },
+  "SelectAllFilters": {
+    "templates": [],
+    "paths": {
+      "/Values/StrategicMapConsoleScene/StrategicMapButtonPrompts": []
+    }
+  },
+  "ClearAllFilters": {
+    "templates": [],
+    "paths": {
+      "/Values/StrategicMapConsoleScene/StrategicMapButtonPrompts": []
+    }
+  },
+  "CloseFilterPopup": {
+    "templates": [],
+    "paths": {
+      "/Values/StrategicMapConsoleScene/StrategicMapButtonPrompts": []
+    }
+  },
   "ButtonPromptHoldText": {
     "templates": [],
     "paths": {
       "/Values/SystemPopupConsoleScene": []
+    }
+  },
+  "MissingElectricity": {
+    "templates": [],
+    "paths": {
+      "/Values/MonumentConsoleScene/WarningTexts": []
+    }
+  },
+  "MissingHeat": {
+    "templates": [],
+    "paths": {
+      "/Values/MonumentConsoleScene/WarningTexts": []
+    }
+  },
+  "MissingGoods": {
+    "templates": [],
+    "paths": {
+      "/Values/MonumentConsoleScene/WarningTexts": []
+    }
+  },
+  "MissingWorkforce": {
+    "templates": [],
+    "paths": {
+      "/Values/MonumentConsoleScene/WarningTexts": []
+    }
+  },
+  "ButtonPrompt_Close": {
+    "templates": [],
+    "paths": {
+      "/Values/MonumentConsoleScene/MonumentButtonPrompts": []
+    }
+  },
+  "ReasonLocked": {
+    "templates": [],
+    "paths": {
+      "/Values/RuinedStateBalancing/NotRenovatableReasonTexts": []
+    }
+  },
+  "ReasonUnderAttack": {
+    "templates": [],
+    "paths": {
+      "/Values/RuinedStateBalancing/NotRenovatableReasonTexts": []
+    }
+  },
+  "ReasonIncidentNearby": {
+    "templates": [],
+    "paths": {
+      "/Values/RuinedStateBalancing/NotRenovatableReasonTexts": []
+    }
+  },
+  "ReasonRecentlyDamaged": {
+    "templates": [],
+    "paths": {
+      "/Values/RuinedStateBalancing/NotRenovatableReasonTexts": []
+    }
+  },
+  "ReasonMissingMaterial": {
+    "templates": [],
+    "paths": {
+      "/Values/RuinedStateBalancing/NotRenovatableReasonTexts": []
+    }
+  },
+  "SelectGood": {
+    "templates": [],
+    "paths": {
+      "/Values/TransferGoodsConsoleScene/ButtonPrompts": []
+    }
+  },
+  "SelectItem": {
+    "templates": [],
+    "paths": {
+      "/Values/TransferGoodsConsoleScene/ButtonPrompts": []
+    }
+  },
+  "Close": {
+    "templates": [],
+    "paths": {
+      "/Values/TransferGoodsConsoleScene/ButtonPrompts": [],
+      "/Values/MPLobbyConsoleScene/ProfileCreationButtonPrompts": []
+    }
+  },
+  "ThrowOverboard": {
+    "templates": [],
+    "paths": {
+      "/Values/TransferGoodsConsoleScene/ButtonPrompts": []
+    }
+  },
+  "ApplyFilter": {
+    "templates": [],
+    "paths": {
+      "/Values/TransferGoodsConsoleScene/ButtonPrompts": []
+    }
+  },
+  "ChangeAmount": {
+    "templates": [],
+    "paths": {
+      "/Values/TransferGoodsConsoleScene/ButtonPrompts": []
+    }
+  },
+  "ChangeTarget": {
+    "templates": [],
+    "paths": {
+      "/Values/TransferGoodsConsoleScene/ButtonPrompts": []
+    }
+  },
+  "ToItemSlot": {
+    "templates": [],
+    "paths": {
+      "/Values/TransferGoodsConsoleScene/ChangeTargetTexts": []
+    }
+  },
+  "ToCargoSlot": {
+    "templates": [],
+    "paths": {
+      "/Values/TransferGoodsConsoleScene/ChangeTargetTexts": []
+    }
+  },
+  "RandomizeName": {
+    "templates": [],
+    "paths": {
+      "/Values/IslandDetailConsoleScene/ButtonPromptLabels": []
+    }
+  },
+  "EditPinnedGood": {
+    "templates": [],
+    "paths": {
+      "/Values/IslandDetailConsoleScene/ButtonPromptLabels": []
+    }
+  },
+  "AcceptStorage": {
+    "templates": [],
+    "paths": {
+      "/Values/IslandDetailConsoleScene/ButtonPromptLabels": []
+    }
+  },
+  "CancelStorage": {
+    "templates": [],
+    "paths": {
+      "/Values/IslandDetailConsoleScene/ButtonPromptLabels": []
+    }
+  },
+  "FestivalInfotipGUID": {
+    "templates": [],
+    "paths": {
+      "/Values/IslandDetailConsoleScene": []
+    }
+  },
+  "JumpToIslandPrompt": {
+    "templates": [],
+    "paths": {
+      "/Values/GamepadButtonPromptScene": []
+    }
+  },
+  "EnableMultiSelectPrompt": {
+    "templates": [],
+    "paths": {
+      "/Values/GamepadButtonPromptScene": []
+    }
+  },
+  "DisableMultiSelectPrompt": {
+    "templates": [],
+    "paths": {
+      "/Values/GamepadButtonPromptScene": []
+    }
+  },
+  "DisableCameraModifierPrompt": {
+    "templates": [],
+    "paths": {
+      "/Values/GamepadButtonPromptScene": []
+    }
+  },
+  "ShipyardSetRallyPoint": {
+    "templates": [],
+    "paths": {
+      "/Values/GamepadButtonPromptScene": []
+    }
+  },
+  "WorldMapEnterRegion": {
+    "templates": [],
+    "paths": {
+      "/Values/GamepadButtonPromptScene": []
+    }
+  },
+  "WorldMapShowExpedition": {
+    "templates": [],
+    "paths": {
+      "/Values/GamepadButtonPromptScene": []
+    }
+  },
+  "ResidenceCameraToggleFastMove": {
+    "templates": [],
+    "paths": {
+      "/Values/GamepadButtonPromptScene": []
+    }
+  },
+  "PrologueSelectShip": {
+    "templates": [],
+    "paths": {
+      "/Values/GamepadButtonPromptScene": []
+    }
+  },
+  "ResetProductivity": {
+    "templates": [],
+    "paths": {
+      "/Values/WorkforceConsoleScene/WorkforceButtonPrompts": []
+    }
+  },
+  "OpenProductivityPopup": {
+    "templates": [],
+    "paths": {
+      "/Values/WorkforceConsoleScene/WorkforceButtonPrompts": []
+    }
+  },
+  "CloseAndSaveProductivityPopup": {
+    "templates": [],
+    "paths": {
+      "/Values/WorkforceConsoleScene/WorkforceButtonPrompts": []
+    }
+  },
+  "ConfirmChanges": {
+    "templates": [],
+    "paths": {
+      "/Values/WorkforceConsoleScene/WorkforceButtonPrompts": [],
+      "/Values/MPLobbyConsoleScene/ProfileCreationButtonPrompts": []
+    }
+  },
+  "SelectSet": {
+    "templates": [],
+    "paths": {
+      "/Values/CulturalBuildingPopupConsoleScene/CulturalGamepadPrompts": []
+    }
+  },
+  "OpenItemStorage": {
+    "templates": [],
+    "paths": {
+      "/Values/CulturalBuildingPopupConsoleScene/CulturalGamepadPrompts": []
+    }
+  },
+  "ShowItemFilter": {
+    "templates": [],
+    "paths": {
+      "/Values/CulturalBuildingPopupConsoleScene/CulturalGamepadPrompts": []
+    }
+  },
+  "CategoryTab_Text": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectMenuShipYardConsoleScene/ShipyardCategoryTabs/Item": []
+    }
+  },
+  "Prompt_SetRallyPoint": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectMenuShipYardConsoleScene/ShipyardButtonPrompts": []
+    }
+  },
+  "Prompt_BuildShip": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectMenuShipYardConsoleScene/ShipyardButtonPrompts": []
+    }
+  },
+  "Prompt_ActivateWorkforceBell": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectMenuShipYardConsoleScene/ShipyardButtonPrompts": []
+    }
+  },
+  "Prompt_DeactivateWorkforceBell": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectMenuShipYardConsoleScene/ShipyardButtonPrompts": []
+    }
+  },
+  "Prompt_RemoveShipFromQueue": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectMenuShipYardConsoleScene/ShipyardButtonPrompts": []
+    }
+  },
+  "Prompt_Back": {
+    "templates": [],
+    "paths": {
+      "/Values/ObjectMenuShipYardConsoleScene/ShipyardButtonPrompts": []
+    }
+  },
+  "GamepadActionDisplayName": {
+    "templates": [],
+    "paths": {
+      "/Values/ConsoleOptionScene/GamepadActionNames/CloseCancel": [],
+      "/Values/ConsoleOptionScene/GamepadActionNames/CameraReset": [],
+      "/Values/ConsoleOptionScene/GamepadActionNames/CameraNavigateToKontorOrNextOfSelection": [],
+      "/Values/ConsoleOptionScene/GamepadActionNames/FocusObjectMenu": [],
+      "/Values/ConsoleOptionScene/GamepadActionNames/OpenMetaMenuNavigation": [],
+      "/Values/ConsoleOptionScene/GamepadActionNames/OpenBuildTools": [],
+      "/Values/ConsoleOptionScene/GamepadActionNames/OpenConstructionMenu": [],
+      "/Values/ConsoleOptionScene/GamepadActionNames/OpenShipMenuRadial": [],
+      "/Values/ConsoleOptionScene/GamepadActionNames/QuickNavigationOpenState": [],
+      "/Values/ConsoleOptionScene/GamepadActionNames/OpenQuesttrackerOrArchive": []
+    }
+  },
+  "DPadActionName": {
+    "templates": [],
+    "paths": {
+      "/Values/ConsoleOptionScene": []
+    }
+  },
+  "DPadHorizontalActionName": {
+    "templates": [],
+    "paths": {
+      "/Values/ConsoleOptionScene": []
+    }
+  },
+  "ShareBtnActionName": {
+    "templates": [],
+    "paths": {
+      "/Values/ConsoleOptionScene": []
+    }
+  },
+  "RBActionName": {
+    "templates": [],
+    "paths": {
+      "/Values/ConsoleOptionScene": []
+    }
+  },
+  "AActionName": {
+    "templates": [],
+    "paths": {
+      "/Values/ConsoleOptionScene": []
+    }
+  },
+  "BActionName": {
+    "templates": [],
+    "paths": {
+      "/Values/ConsoleOptionScene": []
+    }
+  },
+  "XActionName": {
+    "templates": [],
+    "paths": {
+      "/Values/ConsoleOptionScene": []
+    }
+  },
+  "RSPressActionName": {
+    "templates": [],
+    "paths": {
+      "/Values/ConsoleOptionScene": []
+    }
+  },
+  "RSActionName": {
+    "templates": [],
+    "paths": {
+      "/Values/ConsoleOptionScene": []
+    }
+  },
+  "LSPressActionName": {
+    "templates": [],
+    "paths": {
+      "/Values/ConsoleOptionScene": []
+    }
+  },
+  "LSActionName": {
+    "templates": [],
+    "paths": {
+      "/Values/ConsoleOptionScene": []
+    }
+  },
+  "LBActionName": {
+    "templates": [],
+    "paths": {
+      "/Values/ConsoleOptionScene": []
+    }
+  },
+  "InfotipButtonRemappingAllowed": {
+    "templates": [],
+    "paths": {
+      "/Values/ConsoleOptionScene/RemappingInfotips": []
+    }
+  },
+  "InfotipActionRemappingAllowed": {
+    "templates": [],
+    "paths": {
+      "/Values/ConsoleOptionScene/RemappingInfotips": []
+    }
+  },
+  "InfotipActionRemappingForbidden": {
+    "templates": [],
+    "paths": {
+      "/Values/ConsoleOptionScene/RemappingInfotips": []
+    }
+  },
+  "LongPressDurationTextSource": {
+    "templates": [],
+    "paths": {
+      "/Values/ConsoleOptionScene": []
+    }
+  },
+  "ShortPressDurationTextSource": {
+    "templates": [],
+    "paths": {
+      "/Values/ConsoleOptionScene": []
+    }
+  },
+  "TabName": {
+    "templates": [],
+    "paths": {
+      "/Values/AdvancedDifficultiesConsoleScene/TabElements/Item": [],
+      "/Values/MPLobbyConsoleScene/FriendListTabConfig/Ingame": [],
+      "/Values/MPLobbyConsoleScene/FriendListTabConfig/Online": [],
+      "/Values/MPLobbyConsoleScene/FriendListTabConfig/Offline": [],
+      "/Values/MPLobbyConsoleScene/ProfileCreationTabConfig/Item": []
+    }
+  },
+  "RandomizeSeed": {
+    "templates": [],
+    "paths": {
+      "/Values/AdvancedDifficultiesConsoleScene/AdvancedDifficultyButtonPrompts": []
+    }
+  },
+  "EditSeed": {
+    "templates": [],
+    "paths": {
+      "/Values/AdvancedDifficultiesConsoleScene/AdvancedDifficultyButtonPrompts": []
+    }
+  },
+  "SelectElement": {
+    "templates": [],
+    "paths": {
+      "/Values/AdvancedDifficultiesConsoleScene/AdvancedDifficultyButtonPrompts": []
+    }
+  },
+  "RemoveElement": {
+    "templates": [],
+    "paths": {
+      "/Values/AdvancedDifficultiesConsoleScene/AdvancedDifficultyButtonPrompts": []
+    }
+  },
+  "StartGame": {
+    "templates": [],
+    "paths": {
+      "/Values/AdvancedDifficultiesConsoleScene/AdvancedDifficultyButtonPrompts": []
+    }
+  },
+  "SelectCharacter": {
+    "templates": [],
+    "paths": {
+      "/Values/AdvancedDifficultiesConsoleScene/AdvancedDifficultyButtonPrompts": []
+    }
+  },
+  "RemoveCharacter": {
+    "templates": [],
+    "paths": {
+      "/Values/AdvancedDifficultiesConsoleScene/AdvancedDifficultyButtonPrompts": []
+    }
+  },
+  "AddCharacter": {
+    "templates": [],
+    "paths": {
+      "/Values/AdvancedDifficultiesConsoleScene/AdvancedDifficultyButtonPrompts": []
+    }
+  },
+  "SavePreset": {
+    "templates": [],
+    "paths": {
+      "/Values/AdvancedDifficultiesConsoleScene/AdvancedDifficultyButtonPrompts": []
+    }
+  },
+  "LoadPreset": {
+    "templates": [],
+    "paths": {
+      "/Values/AdvancedDifficultiesConsoleScene/AdvancedDifficultyButtonPrompts": []
+    }
+  },
+  "DeletePreset": {
+    "templates": [],
+    "paths": {
+      "/Values/AdvancedDifficultiesConsoleScene/AdvancedDifficultyButtonPrompts": []
+    }
+  },
+  "SelectFactionTrader": {
+    "templates": [],
+    "paths": {
+      "/Values/AdvancedDifficultiesConsoleScene/AdvancedDifficultyButtonPrompts": []
+    }
+  },
+  "SelectFactionPirate": {
+    "templates": [],
+    "paths": {
+      "/Values/AdvancedDifficultiesConsoleScene/AdvancedDifficultyButtonPrompts": []
+    }
+  },
+  "MPConfirm": {
+    "templates": [],
+    "paths": {
+      "/Values/AdvancedDifficultiesConsoleScene/AdvancedDifficultyButtonPrompts": []
+    }
+  },
+  "SaveLoadSettingButtonText": {
+    "templates": [],
+    "paths": {
+      "/Values/AdvancedDifficultiesConsoleScene": []
+    }
+  },
+  "SaveLoadSettingsInfotipEmpty": {
+    "templates": [],
+    "paths": {
+      "/Values/AdvancedDifficultiesConsoleScene": []
+    }
+  },
+  "SaveLoadSettingsInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/AdvancedDifficultiesConsoleScene": []
+    }
+  },
+  "PreconfiguredSettingsInfotip": {
+    "templates": [],
+    "paths": {
+      "/Values/AdvancedDifficultiesConsoleScene": []
+    }
+  },
+  "EmptyPresetText": {
+    "templates": [],
+    "paths": {
+      "/Values/AdvancedDifficultiesConsoleScene": []
+    }
+  },
+  "NotHost": {
+    "templates": [],
+    "paths": {
+      "/Values/AdvancedDifficultiesConsoleScene/ReadOnlyReasonTexts": []
+    }
+  },
+  "HostIsCurrentlyChanging": {
+    "templates": [],
+    "paths": {
+      "/Values/AdvancedDifficultiesConsoleScene/ReadOnlyReasonTexts": []
+    }
+  },
+  "Savegame": {
+    "templates": [],
+    "paths": {
+      "/Values/AdvancedDifficultiesConsoleScene/ReadOnlyReasonTexts": []
+    }
+  },
+  "ReadyUp": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyConsoleScene/MPLobbyButtonPrompts": []
+    }
+  },
+  "Unready": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyConsoleScene/MPLobbyButtonPrompts": []
+    }
+  },
+  "RequestSwap": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyConsoleScene/MPLobbyButtonPrompts": []
+    }
+  },
+  "JumpTo": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyConsoleScene/MPLobbyButtonPrompts": []
+    }
+  },
+  "RandomizeTeamName": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyConsoleScene/ProfileCreationButtonPrompts": []
+    }
+  },
+  "ChangeTeamName": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyConsoleScene/ProfileCreationButtonPrompts": []
+    }
+  },
+  "OpenConnectOverlay": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyConsoleScene/ProfileCreationButtonPrompts": []
+    }
+  },
+  "NobodyInLobby": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyConsoleScene/GameStateTexts/Host": []
+    }
+  },
+  "WaitingForPendingInvites": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyConsoleScene/GameStateTexts/Host": []
+    }
+  },
+  "NotAllPlayersReinvited": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyConsoleScene/GameStateTexts/Host": []
+    }
+  },
+  "ClientsNotReady": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyConsoleScene/GameStateTexts/Host": []
+    }
+  },
+  "GameReady": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyConsoleScene/GameStateTexts/Host": []
+    }
+  },
+  "NotReady": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyConsoleScene/GameStateTexts/Client": []
+    }
+  },
+  "LastOneNotReady": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyConsoleScene/GameStateTexts/Client": []
+    }
+  },
+  "OthersNotReady": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyConsoleScene/GameStateTexts/Client": []
+    }
+  },
+  "WaitingForGameStart": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyConsoleScene/GameStateTexts/Client": []
+    }
+  },
+  "NotReady_Savegame": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyConsoleScene/GameStateTexts/Client": []
+    }
+  },
+  "PlayerIsHost": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyConsoleScene/GameStateTexts/ManageMode": []
+    }
+  },
+  "PlayerIsCoopTeamLead": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyConsoleScene/GameStateTexts/ManageMode": []
+    }
+  },
+  "LocalPlayerIsHost": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyConsoleScene/GameStateTexts/ManageMode": []
+    }
+  },
+  "LocalPlayerIsCoopTeamLead": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyConsoleScene/GameStateTexts/ManageMode": []
+    }
+  },
+  "SlotIsClosed": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyConsoleScene/GameStateTexts/ManageMode": []
+    }
+  },
+  "SlotIsDefeated": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyConsoleScene/GameStateTexts/ManageMode": []
+    }
+  },
+  "ButtonPrompt_ShowDetails": {
+    "templates": [],
+    "paths": {
+      "/Values/DLCOverviewConsoleScene/DLCOverviewButtonPrompts": []
+    }
+  },
+  "ButtonPrompt_EnterKey": {
+    "templates": [],
+    "paths": {
+      "/Values/DLCOverviewConsoleScene/DLCOverviewButtonPrompts": []
+    }
+  },
+  "ButtonPrompt_ChangeTabLeft": {
+    "templates": [],
+    "paths": {
+      "/Values/DLCOverviewConsoleScene/DLCOverviewButtonPrompts": []
+    }
+  },
+  "ButtonPrompt_ChangeTabRight": {
+    "templates": [],
+    "paths": {
+      "/Values/DLCOverviewConsoleScene/DLCOverviewButtonPrompts": []
+    }
+  },
+  "ButtonPrompt_BuyDLC": {
+    "templates": [],
+    "paths": {
+      "/Values/DLCPromotionPopupConsoleScene/DLCPromotionButtonPrompts": []
+    }
+  },
+  "RightBorderWidthAbs": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/DragModuleConfig/AutoZoomOutBorder": []
+    }
+  },
+  "TopBorderWidthAbs": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/DragModuleConfig/AutoZoomOutBorder": []
+    }
+  },
+  "BottomBorderWidthAbs": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/DragModuleConfig/AutoZoomOutBorder": []
+    }
+  },
+  "LeftBorderWidthPerc": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/DragModuleConfig/AutoZoomInBorder": []
+    }
+  },
+  "RightBorderWidthPerc": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/DragModuleConfig/AutoZoomInBorder": []
+    }
+  },
+  "DemolishIdenticalObjects": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/BuildToolModifierTexts": []
+    }
+  },
+  "DemolishSameCategory": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/BuildToolModifierTexts": []
+    }
+  },
+  "DemolishAll": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/BuildToolModifierTexts": []
+    }
+  },
+  "CopyWithoutModule": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/BuildToolModifierTexts": []
+    }
+  },
+  "CopyWithModule": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/BuildToolModifierTexts": []
+    }
+  },
+  "UpgradeIdenticalObjects": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/BuildToolModifierTexts": []
+    }
+  },
+  "UpgradeAll": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/BuildToolModifierTexts": []
+    }
+  },
+  "DowngradeIdenticalObjects": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/BuildToolModifierTexts": []
+    }
+  },
+  "DowngradeAll": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/BuildToolModifierTexts": []
+    }
+  },
+  "SwitchMode": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/BuildToolModifierTexts": []
+    }
+  },
+  "StartStreet": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/BuildToolModifierTexts": []
+    }
+  },
+  "EndStreet": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/BuildToolModifierTexts": []
+    }
+  },
+  "RotateStreet": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/BuildToolModifierTexts": []
+    }
+  },
+  "SetRallyPoint": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/BuildToolModifierTexts": []
+    }
+  },
+  "StartMove": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/BuildToolModifierTexts": []
+    }
+  },
+  "EndMove": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/BuildToolModifierTexts": []
+    }
+  },
+  "StartRailway": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/BuildToolModifierTexts": []
+    }
+  },
+  "EndRailway": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/BuildToolModifierTexts": []
+    }
+  },
+  "RotateRailway": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/BuildToolModifierTexts": []
+    }
+  },
+  "BluePrintOn": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/BuildToolModifierTexts": []
+    }
+  },
+  "BluePrintOff": {
+    "templates": [],
+    "paths": {
+      "/Values/BuildModeBalancing/BuildToolModifierTexts": []
     }
   },
   "ErrorMessageProfanityFilter": {
@@ -25293,6 +28277,76 @@
     "templates": [],
     "paths": {
       "/Values/ErrorMessageBalancing": []
+    }
+  },
+  "WorldMapCameraDistanceForMaxRadius": {
+    "templates": [],
+    "paths": {
+      "/Values/SelectionsBalancing/SelectionCircle": []
+    }
+  },
+  "GamepadCursor_EnqeueCommand": {
+    "templates": [
+      "GamepadCursor"
+    ],
+    "paths": {
+      "/Values/TargetBalancing": [
+        "GamepadCursor"
+      ]
+    }
+  },
+  "GamepadCursor_OpenTransferGoodsMenu": {
+    "templates": [
+      "GamepadCursor"
+    ],
+    "paths": {
+      "/Values/TargetBalancing": [
+        "GamepadCursor"
+      ]
+    }
+  },
+  "PanSpeed": {
+    "templates": [],
+    "paths": {
+      "/Values/GamepadWorldmapConfig/CameraMovement": []
+    }
+  },
+  "CreateGameCompanyName": {
+    "templates": [],
+    "paths": {
+      "/Values/VirtualKeyboardBalancing/MaximumCharacterInput": []
+    }
+  },
+  "CustomizeModeShipName": {
+    "templates": [],
+    "paths": {
+      "/Values/VirtualKeyboardBalancing/MaximumCharacterInput": []
+    }
+  },
+  "IslandDetailsCityName": {
+    "templates": [],
+    "paths": {
+      "/Values/VirtualKeyboardBalancing/MaximumCharacterInput": []
+    }
+  },
+  "SessionTradeRouteGroupName": {
+    "templates": [],
+    "paths": {
+      "/Values/VirtualKeyboardBalancing/MaximumCharacterInput": []
+    }
+  },
+  "ItemFilterSearchKeyword": {
+    "templates": [],
+    "paths": {
+      "/Values/VirtualKeyboardBalancing/MaximumCharacterInput": []
+    }
+  },
+  "ParamJsonID": {
+    "templates": [],
+    "paths": {
+      "/Values/PlatformBalancing/Prospero/RegionIDMapping/SIEE": [],
+      "/Values/PlatformBalancing/Prospero/RegionIDMapping/SIEA": [],
+      "/Values/PlatformBalancing/Prospero/RegionIDMapping/SIEJA": []
     }
   },
   "ScenarioAsset": {
@@ -25385,6 +28439,18 @@
     "templates": [],
     "paths": {
       "/Values/ScenarioMetaInfo/ScenarioTexts/ScenarioLoadingTips/Item": []
+    }
+  },
+  "ScenarioBookAudio": {
+    "templates": [],
+    "paths": {
+      "/Values/ScenarioMetaInfo/ScenarioTexts/ScenarioBookAudioTexts/Item": []
+    }
+  },
+  "ScenarioBookText": {
+    "templates": [],
+    "paths": {
+      "/Values/ScenarioMetaInfo/ScenarioTexts/ScenarioBookAudioTexts/Item": []
     }
   },
   "MedalIcon": {
@@ -25535,18 +28601,6 @@
     "templates": [],
     "paths": {
       "/Values/ScenarioMetaInfo/ScenarioTexts": []
-    }
-  },
-  "ScenarioBookAudio": {
-    "templates": [],
-    "paths": {
-      "/Values/ScenarioMetaInfo/ScenarioTexts/ScenarioBookAudioTexts/Item": []
-    }
-  },
-  "ScenarioBookText": {
-    "templates": [],
-    "paths": {
-      "/Values/ScenarioMetaInfo/ScenarioTexts/ScenarioBookAudioTexts/Item": []
     }
   },
   "ScenarioSession": {
