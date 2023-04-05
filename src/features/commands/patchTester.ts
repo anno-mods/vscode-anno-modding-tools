@@ -128,7 +128,7 @@ export class PatchTester {
 
       const tester = new PatchTester(context);
       const result = tester.diff(_originalPath, 
-        '<ModOps>' + _patch + '</ModOps>', 
+        _patch ? ('<ModOps>' + _patch + '</ModOps>') : fs.readFileSync(_patchPath, 'utf-8'), 
         _patchPath, 
         searchModPath);
       _originalContent = result.original;
@@ -160,10 +160,14 @@ export class PatchTester {
     const maxBuffer = 20;
 
     try {
-      const modRelativePath = path.relative(patchFilePath, modPath);
+      const modRelativePath = path.relative(modPath, patchFilePath);
 
-      const res = child.execFileSync(differ, ["patchdiff", originalPath, modRelativePath, modPath], { cwd: this._workingDir, input: patchContent, encoding: 'utf-8',
-        maxBuffer: maxBuffer * 1024 * 1024 });
+      const res = child.execFileSync(differ, ["patchdiff", originalPath, modRelativePath, modPath], {
+        cwd: this._workingDir, 
+        input: patchContent, 
+        encoding: 'utf-8',
+        maxBuffer: maxBuffer * 1024 * 1024
+      });
       const split = res.split('##annodiff##');
       
       return { original: split[2], patched: split[1], log: split[0] };
