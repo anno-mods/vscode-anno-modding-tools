@@ -2,20 +2,39 @@
   "AudioText": {
     "templates": [],
     "paths": {
-      "/Values/AudioTextPool/AudioTextList/Item": []
+      "/Values/AudioTextPool/AudioTextList/Item": [],
+      "/Values/Profile/ChooseNPC/Item": []
     }
   },
   "AudioPool": {
-    "templates": [],
+    "templates": [
+      "TextPool"
+    ],
     "paths": {
-      "/Values/AudioTextPool/AudioTextPools/Item": [],
-      "/Values/SoundEmitterCommandBarks/BarkMapping/Selection": [],
-      "/Values/SoundEmitterCommandBarks/BarkMapping/AttackCommand": [],
-      "/Values/SoundEmitterCommandBarks/BarkMapping/MoveCommand": [],
-      "/Values/SoundEmitterCommandBarks/BarkMapping/EscortCommand": [],
-      "/Values/SoundEmitterCommandBarks/BarkMapping/PatrolCommand": [],
-      "/Values/SoundEmitterCommandBarks/BarkMapping/SelectionDamaged": [],
-      "/Values/SoundEmitterCommandBarks/BarkMapping/DropCommand": []
+      "/Values/AudioTextPool/AudioTextPools/Item": [
+        "TextPool"
+      ],
+      "/Values/SoundEmitterCommandBarks/BarkMapping/Selection": [
+        "TextPool"
+      ],
+      "/Values/SoundEmitterCommandBarks/BarkMapping/AttackCommand": [
+        "TextPool"
+      ],
+      "/Values/SoundEmitterCommandBarks/BarkMapping/MoveCommand": [
+        "TextPool"
+      ],
+      "/Values/SoundEmitterCommandBarks/BarkMapping/EscortCommand": [
+        "TextPool"
+      ],
+      "/Values/SoundEmitterCommandBarks/BarkMapping/PatrolCommand": [
+        "TextPool"
+      ],
+      "/Values/SoundEmitterCommandBarks/BarkMapping/SelectionDamaged": [
+        "TextPool"
+      ],
+      "/Values/SoundEmitterCommandBarks/BarkMapping/DropCommand": [
+        "TextPool"
+      ]
     }
   },
   "InfoDescription": {
@@ -26,6 +45,10 @@
   },
   "GUID": {
     "templates": [
+      "Profile_Virtual_NeverOwnsObjects",
+      "Profile_3rdParty_NoDiplomacy_NoTrader",
+      "Profile_3rdParty_NoTrader_NoProperty3rdParty",
+      "PaMSy_Base",
       "ItemEffectTargetPool",
       "Target",
       "IncidentResolverUnit",
@@ -55,7 +78,12 @@
       "VehicleBuff"
     ],
     "paths": {
-      "/Values/Standard": [],
+      "/Values/Standard": [
+        "Profile_Virtual_NeverOwnsObjects",
+        "Profile_3rdParty_NoDiplomacy_NoTrader",
+        "Profile_3rdParty_NoTrader_NoProperty3rdParty",
+        "PaMSy_Base"
+      ],
       "/Values/Projectile/Effectivities/Item": [
         "ItemEffectTargetPool"
       ],
@@ -154,6 +182,46 @@
       ],
       "/Values/GeneralIncidentConfiguration/AdditionalShipFireIncidentEffects/Item": [
         "VehicleBuff"
+      ]
+    }
+  },
+  "TextOverride": {
+    "templates": [
+      "Profile_2ndParty",
+      "Slot",
+      "BuffFactory",
+      "CityInstitutionBuildingAdvanced",
+      "TradeShip",
+      "FactoryModuleElectric",
+      "Product",
+      "EffectContainer",
+      "HarbourOfficeBuff",
+      "Profile_1stParty_Scenario_Narrator",
+      "IncidentResolverUnit",
+      "Farmfield",
+      "WarShip",
+      "Profile_3rdParty_ItemCrafter-NoTrader",
+      "FactoryBuilding7",
+      "SlotFactoryBuilding7"
+    ],
+    "paths": {
+      "/Values/Text": [
+        "Profile_2ndParty",
+        "Slot",
+        "BuffFactory",
+        "CityInstitutionBuildingAdvanced",
+        "TradeShip",
+        "FactoryModuleElectric",
+        "Product",
+        "EffectContainer",
+        "HarbourOfficeBuff",
+        "Profile_1stParty_Scenario_Narrator",
+        "IncidentResolverUnit",
+        "Farmfield",
+        "WarShip",
+        "Profile_3rdParty_ItemCrafter-NoTrader",
+        "FactoryBuilding7",
+        "SlotFactoryBuilding7"
       ]
     }
   },
@@ -508,12 +576,16 @@
   },
   "Pool": {
     "templates": [
+      "TextPool",
       "RewardPool",
       "AssetPool",
-      "QuestPool"
+      "QuestPool",
+      "RewardItemPool"
     ],
     "paths": {
-      "/Values/TextPool/TextPools/Item": [],
+      "/Values/TextPool/TextPools/Item": [
+        "TextPool"
+      ],
       "/Values/TourismFeature/RegionSpecialistPools/Moderate/SpecialistPools/Item": [
         "RewardPool"
       ],
@@ -531,6 +603,24 @@
       ],
       "/Values/QuestPool/SubPools/Item": [
         "QuestPool"
+      ],
+      "/Values/ConstructionAI/ItemTradeConfig/ItemPools/EarlyGame": [
+        "RewardItemPool"
+      ],
+      "/Values/ConstructionAI/ItemTradeConfig/ItemPools/EarlyMidGame": [
+        "RewardItemPool"
+      ],
+      "/Values/ConstructionAI/ItemTradeConfig/ItemPools/MidGame": [
+        "RewardItemPool"
+      ],
+      "/Values/ConstructionAI/ItemTradeConfig/ItemPools/LateMidGame": [
+        "RewardItemPool"
+      ],
+      "/Values/ConstructionAI/ItemTradeConfig/ItemPools/LateGame": [
+        "RewardItemPool"
+      ],
+      "/Values/ConstructionAI/ItemTradeConfig/ItemPools/EndGame": [
+        "RewardItemPool"
       ]
     }
   },
@@ -1502,6 +1592,7 @@
   },
   "Quest": {
     "templates": [
+      "TutorialQuest",
       "A7_QuestDeliveryObject",
       "MainQuest",
       "A7_QuestStatusQuo",
@@ -1527,10 +1618,13 @@
       "/Values/ActionEndQuest": [],
       "/Values/ActionStartQuest": [],
       "/Values/Collectable/OnCollect/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [
+        "TutorialQuest",
         "A7_QuestDeliveryObject",
         "MainQuest"
       ],
-      "/Values/Collectable/OnCollect/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [],
+      "/Values/Collectable/OnCollect/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [
+        "TutorialQuest"
+      ],
       "/Values/QuestConfig/InvitationCancelPopupConfirmation/Item": [
         "A7_QuestStatusQuo",
         "A7_QuestSelectObject"
@@ -1549,9 +1643,11 @@
         "Quest",
         "A7_QuestDeliveryObject",
         "A7_QuestStatusQuo",
+        "TutorialQuest",
         "A7_QuestSelectObject"
       ],
       "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
+        "TutorialQuest",
         "A7_QuestSelectObject",
         "A7_QuestDeliveryObject",
         "A7_QuestSmugglerWOScanners",
@@ -1561,6 +1657,7 @@
         "A7_QuestDeliveryObject",
         "A7_QuestSustain",
         "A7_QuestSelectObject",
+        "TutorialQuest",
         "A7_QuestPickupObject",
         "A7_QuestStatusQuo",
         "A7_QuestExpedition",
@@ -1569,6 +1666,7 @@
       "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [
         "A7_QuestDestroyObjects",
         "A7_QuestDeliveryObject",
+        "TutorialQuest",
         "A7_QuestPickupObject",
         "A7_QuestExpedition",
         "A7_QuestSelectObject",
@@ -1580,6 +1678,7 @@
       ],
       "/Values/Quest/OnQuestActive/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
         "A7_QuestDestroyObjects",
+        "TutorialQuest",
         "A7_QuestDecision",
         "Quest"
       ],
@@ -1591,12 +1690,14 @@
         "A7_QuestSelectObject",
         "Quest",
         "A7_QuestSmuggler",
+        "TutorialQuest",
         "A7_QuestStatusQuo",
         "A7_QuestDestroyObjects"
       ],
       "/Values/Quest/OnQuestActive/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [
         "Quest",
         "A7_QuestStatusQuo",
+        "TutorialQuest",
         "A7_QuestDecision"
       ],
       "/Values/Quest/OnQuestAborted/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [
@@ -1628,12 +1729,14 @@
         "Quest",
         "A7_QuestSelectObject",
         "A7_QuestDestroyObjects",
+        "TutorialQuest",
         "A7_QuestSmugglerWOScanners",
         "A7_QuestPickupObject"
       ],
       "/Values/Quest/OnQuestFailed/Values/ActionList/Actions/Item/Action/Values/ActionEndQuest": [
         "A7_QuestStatusQuo",
         "A7_QuestSelectObject",
+        "TutorialQuest",
         "Quest",
         "A7_QuestDestroyObjects"
       ],
@@ -1648,6 +1751,7 @@
         "A7_QuestSmugglerWOScanners",
         "A7_QuestPicturePuzzleObject",
         "A7_QuestDeliveryObject",
+        "TutorialQuest",
         "TriggerQuest",
         "A7_QuestStatusQuo",
         "A7_QuestPhotography"
@@ -1665,6 +1769,7 @@
         "A7_QuestSustain",
         "A7_QuestStatusQuo",
         "A7_QuestSmugglerWOScanners",
+        "TutorialQuest",
         "A7_QuestDecision",
         "A7_QuestPickupObject",
         "MainQuest"
@@ -1686,7 +1791,8 @@
         "Quest",
         "A7_QuestDestroyObjects",
         "A7_QuestDeliveryObject",
-        "A7_QuestSelectObject"
+        "A7_QuestSelectObject",
+        "TutorialQuest"
       ],
       "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
         "A7_QuestDeliveryObject",
@@ -1703,6 +1809,7 @@
         "A7_QuestStatusQuo",
         "Quest",
         "A7_QuestDecision",
+        "TutorialQuest",
         "A7_QuestSustain",
         "A7_QuestPhotography",
         "A7_QuestDeliveryObject"
@@ -1711,6 +1818,7 @@
         "A7_QuestDeliveryObject",
         "A7_QuestDestroyObjects",
         "Quest",
+        "TutorialQuest",
         "A7_QuestSelectObject",
         "MainQuest",
         "A7_QuestExpedition"
@@ -1720,6 +1828,7 @@
         "Quest",
         "A7_QuestDeliveryObject",
         "A7_QuestStatusQuo",
+        "TutorialQuest",
         "MainQuest",
         "A7_QuestPickupObject"
       ],
@@ -1730,6 +1839,7 @@
       "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionStartQuest": [
         "Quest",
         "A7_QuestDecision",
+        "TutorialQuest",
         "A7_QuestDeliveryObject"
       ],
       "/Values/QuestPool/Quests/Item": [
@@ -1738,6 +1848,7 @@
         "Quest",
         "A7_QuestLostCargo",
         "A7_QuestStatusQuo",
+        "TutorialQuest",
         "A7_QuestAirdrop",
         "A7_QuestSmuggler",
         "A7_QuestDeliveryObject",
@@ -2115,7 +2226,9 @@
   },
   "SessionGUID": {
     "templates": [
-      "SessionModerate"
+      "SessionModerate",
+      "SessionSouthAmerica",
+      "SessionArctic"
     ],
     "paths": {
       "/Values/ActionSetCamera": [],
@@ -2124,6 +2237,11 @@
       ],
       "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionSetCamera": [
         "SessionModerate"
+      ],
+      "/Values/MilitaryAI/WarFleet/SessionOverride/Item": [
+        "SessionModerate",
+        "SessionSouthAmerica",
+        "SessionArctic"
       ]
     }
   },
@@ -2389,10 +2507,14 @@
     }
   },
   "LayoutData": {
-    "templates": [],
+    "templates": [
+      "TextPopupLayout"
+    ],
     "paths": {
       "/Values/ActionTriggerTextPopup": [],
-      "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionTriggerTextPopup": []
+      "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionTriggerTextPopup": [
+        "TextPopupLayout"
+      ]
     }
   },
   "UnloadSession": {
@@ -2603,6 +2725,8 @@
       "PublicServiceBuilding",
       "Market",
       "PopulationLevel7",
+      "Profile_3rdParty_NoDiplomacy_NoTrader",
+      "Profile_3rdParty_Queen",
       "CultureItem",
       "Skin",
       "UnlockableAsset",
@@ -2624,6 +2748,7 @@
       "A7_QuestSmugglerWOScanners",
       "A7_QuestDestroyObjects",
       "A7_QuestItemUsage",
+      "TutorialQuest",
       "VisualObject",
       "TestData_Simple",
       "Inhabitant"
@@ -2712,6 +2837,8 @@
         "PopulationLevel7"
       ],
       "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionUnlockAsset/UnlockAssets/Item": [
+        "Profile_3rdParty_NoDiplomacy_NoTrader",
+        "Profile_3rdParty_Queen",
         "CultureItem",
         "Monument",
         "Skin",
@@ -2771,7 +2898,8 @@
         "A7_QuestEscortObject",
         "A7_QuestSmugglerWOScanners",
         "A7_QuestDestroyObjects",
-        "A7_QuestItemUsage"
+        "A7_QuestItemUsage",
+        "TutorialQuest"
       ],
       "/Values/Region/ConstructionMaterialList/Item": [
         "Product"
@@ -2836,11 +2964,15 @@
       "/Values/Objectives/WinConditions/Item/VectorElement": [],
       "/Values/Quest/ReputationQuestFail/ReputationFailList/Item/VectorElement": [],
       "/Values/Reward/RewardReputation/Item/VectorElement": [],
+      "/Values/ConstructionAI/LookAndFeel/Ornaments/PerRegion/Moderate/PerRegionEntry/PerUsage/Production/AvenueOrnamentals1x1Middle/Item/VectorElement": [],
+      "/Values/ConstructionAI/LookAndFeel/Ornaments/PerRegion/Moderate/PerRegionEntry/PerUsage/City/AvenueOrnamentals1x1Middle/Item/VectorElement": [],
+      "/Values/ConstructionAI/LookAndFeel/Ornaments/PerRegion/Moderate/PerRegionEntry/PerUsage/Cultural/RegularOrnamentals/Item/VectorElement": [],
+      "/Values/ConstructionAI/LookAndFeel/Ornaments/PerRegion/Colony01/PerRegionEntry/PerUsage/City/AvenueOrnamentals1x1Middle/Item/VectorElement": [],
       "/Values/ConstructionAI/MonumentConfiguration/Item/VectorElement": [],
+      "/Values/ConstructionAI/UnlockReferenceAssets/Item/VectorElement": [],
       "/Values/Diplomacy/RepeatableActionBalancing/Actions/Flatter/Subdivisions/Item/VectorElement": [],
       "/Values/Diplomacy/RepeatableActionBalancing/Actions/Gift/Subdivisions/Item/VectorElement": [],
       "/Values/Diplomacy/RepeatableActionBalancing/Actions/Insult/Subdivisions/Item/VectorElement": [],
-      "/Values/ParticipantMessages/MessageTriggers/ClickKontor/Reactions/Item/VectorElement": [],
       "/Values/ParticipantMessages/MessageTriggers/QuestInvitation/Reactions/Item/VectorElement": [],
       "/Values/ParticipantMessages/MessageTriggers/QuestStarted/Reactions/Item/VectorElement": [],
       "/Values/ParticipantMessages/MessageTriggers/QuestSuccessful/Reactions/Item/VectorElement": [],
@@ -2854,8 +2986,6 @@
       "/Values/ParticipantMessages/MessageTriggers/DiplomacyOffer/Reactions/Item/VectorElement": [],
       "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferThreat/Reactions/Item/VectorElement": [],
       "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferAccept/Reactions/Item/VectorElement": [],
-      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferThreatAccepted/Reactions/Item/VectorElement": [],
-      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferThreatRejected/Reactions/Item/VectorElement": [],
       "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferPeaceAccepted/Reactions/Item/VectorElement": [],
       "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferTraderightsAccepted/Reactions/Item/VectorElement": [],
       "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferAllianceAccepted/Reactions/Item/VectorElement": [],
@@ -2886,6 +3016,27 @@
       "/Values/ParticipantMessages/MessageTriggers/DiplomacyCounterProposal/Reactions/Item/VectorElement": [],
       "/Values/ParticipantMessages/MessageTriggers/NewspaperPublishedWithPropaganda/Reactions/Item/VectorElement": [],
       "/Values/ParticipantMessages/MessageTriggers/NoQuestAvailable/Reactions/Item/VectorElement": [],
+      "/Values/ParticipantMessages/MessageTriggers/PassiveTradeConfirmation/Reactions/Item/VectorElement": [],
+      "/Values/ParticipantMessages/MessageTriggers/OpenActiveTradeMenu/Reactions/Item/VectorElement": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyAllianceNeedsHelp/Reactions/Item/VectorElement": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyAllianceNeedsDecision/Reactions/Item/VectorElement": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferNonAggressionPact/Reactions/Item/VectorElement": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferNonAggressionPactAccepted/Reactions/Item/VectorElement": [],
+      "/Values/ParticipantMessages/MessageTriggers/MenuIdleMessage/Reactions/Item/VectorElement": [],
+      "/Values/ParticipantMessages/MessageTriggers/AirshipDropDamageMessage/Reactions/Item/VectorElement": [],
+      "/Values/ParticipantMessages/MessageTriggers/AirshipDropIncidentResolvedMessage/Reactions/Item/VectorElement": [],
+      "/Values/ParticipantMessages/MessageTriggers/AirshipDropPositiveEffectMessage/Reactions/Item/VectorElement": [],
+      "/Values/ParticipantMessages/MessageTriggers/AirshipDropNegativeEffectMessage/Reactions/Item/VectorElement": [],
+      "/Values/ParticipantMessages/MessageTriggers/AIDropPositiveGeneric/Reactions/Item/VectorElement": [],
+      "/Values/ParticipantMessages/MessageTriggers/AIDropPositiveOwn/Reactions/Item/VectorElement": [],
+      "/Values/ParticipantMessages/MessageTriggers/AIDropNegativeGeneric/Reactions/Item/VectorElement": [],
+      "/Values/ParticipantMessages/MessageTriggers/AIDropNegativeOwn/Reactions/Item/VectorElement": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyPiratesResettled/Reactions/Item/VectorElement": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyPiratesDefeated/Reactions/Item/VectorElement": [],
+      "/Values/ParticipantMessages/MessageTriggers/SellIslandShare/Reactions/Item/VectorElement": [],
+      "/Values/ParticipantMessages/MessageTriggers/PauseProductionBuilding/Reactions/Item/VectorElement": [],
+      "/Values/ParticipantMessages/MessageTriggers/ResumeProductionBuilding/Reactions/Item/VectorElement": [],
+      "/Values/ParticipantMessages/MessageTriggers/GreatEasternReplacementOffered/Reactions/Item/VectorElement": [],
       "/Values/FactoryBase/FactoryInputs/Item/VectorElement": [],
       "/Values/FactoryBase/FactoryOutputs/Item/VectorElement": [],
       "/Values/PublicService/PublicServiceOutputs/Item/VectorElement": []
@@ -2912,27 +3063,31 @@
       "/Values/Objectives/WinConditions/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/Quest/ReputationQuestFail/ReputationFailList/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/Reward/RewardReputation/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ConstructionAI/LookAndFeel/Ornaments/PerRegion/Moderate/PerRegionEntry/PerUsage/Production/AvenueOrnamentals1x1Middle/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ConstructionAI/LookAndFeel/Ornaments/PerRegion/Moderate/PerRegionEntry/PerUsage/City/AvenueOrnamentals1x1Middle/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ConstructionAI/LookAndFeel/Ornaments/PerRegion/Moderate/PerRegionEntry/PerUsage/Cultural/RegularOrnamentals/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ConstructionAI/LookAndFeel/Ornaments/PerRegion/Colony01/PerRegionEntry/PerUsage/City/AvenueOrnamentals1x1Middle/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/ConstructionAI/MonumentConfiguration/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ConstructionAI/UnlockReferenceAssets/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/Diplomacy/RepeatableActionBalancing/Actions/Flatter/Subdivisions/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/Diplomacy/RepeatableActionBalancing/Actions/Gift/Subdivisions/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/Diplomacy/RepeatableActionBalancing/Actions/Insult/Subdivisions/Item/VectorElement/InheritanceMapV2/Entry": [],
-      "/Values/ParticipantMessages/MessageTriggers/ClickKontor/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/ParticipantMessages/MessageTriggers/QuestInvitation/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/ParticipantMessages/MessageTriggers/QuestStarted/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/ParticipantMessages/MessageTriggers/QuestSuccessful/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/ParticipantMessages/MessageTriggers/QuestFailed/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/ParticipantMessages/MessageTriggers/QuestAborted/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/QuestEscortShipSelected/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/QuestReminder/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/SettlePermissionRequest/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/ParticipantMessages/MessageTriggers/SettlePermissionAccepted/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/ParticipantMessages/MessageTriggers/SettlePermissionDeclined/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/ParticipantMessages/MessageTriggers/DiplomacyOffer/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferThreat/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferAccept/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
-      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferThreatAccepted/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
-      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferThreatRejected/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferPeaceAccepted/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferTraderightsAccepted/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferAllianceAccepted/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
-      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferGiftAccepted/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferGiftRejected/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/ParticipantMessages/MessageTriggers/DiplomacyAskForQuestRejected/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/ParticipantMessages/MessageTriggers/DiplomacyRequestSupportFleetAccepted/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
@@ -2944,12 +3099,55 @@
       "/Values/ParticipantMessages/MessageTriggers/DiplomacyMemoryCorrectionPositive/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/ParticipantMessages/MessageTriggers/DiplomacyMemoryCorrectionNegative/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/ParticipantMessages/MessageTriggers/ParticipantDiscovered/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferPeace/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferCeasefire/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferTraderights/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferAlliance/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/ParticipantMessages/MessageTriggers/QuestAbortedAutomatically/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/QuestResolveConfirmation/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/QuestInvitationSmugglerQuest/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/QuestSmugglerTradingStationReached/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/QuestStartInvitationGiveItem/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/QuestStartFollowShip/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferRejectedTooOften/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferCeasefireAccepted/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyCounterProposal/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/ParticipantMessages/MessageTriggers/NewspaperPublishedWithPropaganda/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/ParticipantMessages/MessageTriggers/NoQuestAvailable/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/PassiveTradeConfirmation/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/OpenActiveTradeMenu/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyAllianceNeedsHelp/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyAllianceNeedsDecision/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferNonAggressionPact/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferNonAggressionPactAccepted/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/MenuIdleMessage/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/AirshipDropDamageMessage/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/AirshipDropIncidentResolvedMessage/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/AirshipDropPositiveEffectMessage/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/AirshipDropNegativeEffectMessage/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/AIDropPositiveGeneric/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/AIDropPositiveOwn/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/AIDropNegativeGeneric/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/AIDropNegativeOwn/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyPiratesResettled/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyPiratesDefeated/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/SellIslandShare/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/PauseProductionBuilding/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/ResumeProductionBuilding/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionAssignShip/Reactions/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/FactoryBase/FactoryInputs/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/FactoryBase/FactoryOutputs/Item/VectorElement/InheritanceMapV2/Entry": [],
       "/Values/PublicService/PublicServiceOutputs/Item/VectorElement/InheritanceMapV2/Entry": []
+    }
+  },
+  "AlertRange": {
+    "templates": [
+      "PaMSy_Base"
+    ],
+    "paths": {
+      "/Values/Attackable": [
+        "PaMSy_Base"
+      ]
     }
   },
   "ProjectileAsset": {
@@ -3042,7 +3240,9 @@
   },
   "AudioNotificationPortrait": {
     "templates": [
-      "Portrait"
+      "Portrait",
+      "Profile_Virtual_NeverOwnsObjects",
+      "Profile_1stParty_Scenario_Narrator"
     ],
     "paths": {
       "/Values/Collectable/OnCollect/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/AudioNotification": [
@@ -3050,20 +3250,28 @@
       ],
       "/Values/AudioNotification": [],
       "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/AudioNotification": [
-        "Portrait"
+        "Portrait",
+        "Profile_Virtual_NeverOwnsObjects"
       ],
       "/Values/Quest/OnQuestActive/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/AudioNotification": [
         "Portrait"
       ],
-      "/Values/Quest/OnQuestAborted/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/AudioNotification": [],
-      "/Values/Quest/OnQuestFailed/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/AudioNotification": [],
+      "/Values/Quest/OnQuestAborted/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/AudioNotification": [
+        "Profile_1stParty_Scenario_Narrator"
+      ],
+      "/Values/Quest/OnQuestFailed/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/AudioNotification": [
+        "Profile_1stParty_Scenario_Narrator"
+      ],
       "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/AudioNotification": [
-        "Portrait"
+        "Portrait",
+        "Profile_Virtual_NeverOwnsObjects",
+        "Profile_1stParty_Scenario_Narrator"
       ],
       "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/AudioNotification": [
         "Portrait"
       ],
       "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/AudioNotification": [
+        "Profile_1stParty_Scenario_Narrator",
         "Portrait"
       ]
     }
@@ -3204,13 +3412,25 @@
       "/Values/ParticipantMessages/MessageTriggers/QuestFailed/Reactions/Item/Notification/Values/BaseNotification": [],
       "/Values/ParticipantMessages/MessageTriggers/QuestAborted/Reactions/Item/Notification/Values/BaseNotification": [],
       "/Values/ParticipantMessages/MessageTriggers/QuestReminder/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ShipTradeConfirmation/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyDeclareWar/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferPeaceAccepted/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferTraderightsAccepted/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferAllianceAccepted/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyMemoryCorrectionPositive/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyMemoryCorrectionNegative/Reactions/Item/Notification/Values/BaseNotification": [],
       "/Values/ParticipantMessages/MessageTriggers/ParticipantDiscovered/Reactions/Item/Notification/Values/BaseNotification": [],
       "/Values/ParticipantMessages/MessageTriggers/QuestAbortedAutomatically/Reactions/Item/Notification/Values/BaseNotification": [],
       "/Values/ParticipantMessages/MessageTriggers/QuestResolveConfirmation/Reactions/Item/Notification/Values/BaseNotification": [],
       "/Values/ParticipantMessages/MessageTriggers/QuestStartInvitationGiveItem/Reactions/Item/Notification/Values/BaseNotification": [],
       "/Values/ParticipantMessages/MessageTriggers/NewspaperPublishedWithPropaganda/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/MilitaryShipDestroyed/Reactions/Item/Notification/Values/BaseNotification": [],
       "/Values/ParticipantMessages/MessageTriggers/MilitaryParticipantDefeated/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ClickNPCShip/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ActiveTradeConfirmation/Reactions/Item/Notification/Values/BaseNotification": [],
       "/Values/ParticipantMessages/MessageTriggers/DiplomacyIdleMessage/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/BuyIslandShare/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/TakeOverIslandPossible/Reactions/Item/Notification/Values/BaseNotification": [],
       "/Values/ParticipantMessages/MessageTriggers/CulturalBuildingAttractivenessHigherThan/Reactions/Item/Notification/Values/BaseNotification": [],
       "/Values/ParticipantMessages/MessageTriggers/IslandPollutionHigherThan/Reactions/Item/Notification/Values/BaseNotification": [],
       "/Values/ParticipantMessages/MessageTriggers/AirshipDropDamageMessage/Reactions/Item/Notification/Values/BaseNotification": [],
@@ -3221,12 +3441,52 @@
       "/Values/ParticipantMessages/MessageTriggers/AIDropPositiveOwn/Reactions/Item/Notification/Values/BaseNotification": [],
       "/Values/ParticipantMessages/MessageTriggers/AIDropNegativeGeneric/Reactions/Item/Notification/Values/BaseNotification": [],
       "/Values/ParticipantMessages/MessageTriggers/AIDropNegativeOwn/Reactions/Item/Notification/Values/BaseNotification": [],
-      "/Values/ParticipantMessages/MessageTriggers/FlagshipReplacementOffered/Reactions/Item/Notification/Values/BaseNotification": [],
-      "/Values/ParticipantMessages/MessageTriggers/GreatEasternReplacementOffered/Reactions/Item/Notification/Values/BaseNotification": [],
-      "/Values/ParticipantMessages/MessageTriggers/NewspaperCreated/Reactions/Item/Notification/Values/BaseNotification": [],
-      "/Values/ParticipantMessages/MessageTriggers/NewspaperPublishedWithPropagandaGood/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionSetsOut/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/IncidentEscalate/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpansionHigherThanNPC/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpansionLowerThanNPC/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ProgressLevelLowerThanNPC/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/FirstTimeEventHappened/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/WorkingConditionsHigh/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/WorkingConditionsLow/Reactions/Item/Notification/Values/BaseNotification": [],
       "/Values/ParticipantMessages/MessageTriggers/NewspaperPublishedWithoutPropagandaGood/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/NewspaperPublishedWithoutPropagandaBad/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ProgressLevelHigherThanNPC/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/BuildingBuilt/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/MonumentFinished/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/IncidentStart/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ProgressLevelLevelUp/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/FlagshipReplacementOffered/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyPiratesResettled/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyPiratesDefeated/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/SellIslandShare/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/DivingBellShipReplacementOffered/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ResearchCenterFinishCrafting/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/MenuWelcomeMessage/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ClickOwnResidence/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ResearchCenterCollectReminder/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/MonumentExhibitionStarts/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/MonumentRewardReady/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionSpawn/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionOpenLog/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionEventStart/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionReturns/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionReturnsWithRewards/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionDiscover/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionFailed/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionPreparationFailed/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/MenuFirstWelcomeMessage/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/NewspaperCreated/Reactions/Item/Notification/Values/BaseNotification": [],
       "/Values/ParticipantMessages/MessageTriggers/NewspaperAutoPublished/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ScenarioItemTradeOffer/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ScenarioItemTradeConfirmation/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ScenarioItemTradeDeclined/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ScenarioItemTradeValidation/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/DocklandsExportGoodUpgraded/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/DocklandsModulesBuilt/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/DocklandsModulesConnected/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/GreatEasternReplacementOffered/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/NewspaperPublishedWithPropagandaGood/Reactions/Item/Notification/Values/BaseNotification": [],
       "/Values/ItemWithUI/ItemActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/BaseNotification": [],
       "/Values/Incident/InfectionChanceSourceNameMapping/Base": [],
       "/Values/Incident/InfectionChanceSourceNameMapping/Damage": [],
@@ -3246,83 +3506,601 @@
     }
   },
   "Subtitle": {
-    "templates": [],
+    "templates": [
+      "TextPool"
+    ],
     "paths": {
-      "/Values/Exploder/HitSuccessNotification/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
-      "/Values/Exploder/HitFailNotification/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
-      "/Values/Selection/OnSelection/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
-      "/Values/Notification/NotificationType/Values/NotificationSubtitle": [],
+      "/Values/Exploder/HitSuccessNotification/Values/ActionNotification/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/Exploder/HitFailNotification/Values/ActionNotification/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/Selection/OnSelection/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/Notification/NotificationType/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
       "/Values/NotificationSubtitle": [],
-      "/Values/Quest/StarterMessage/Notification/Values/NotificationSubtitle": [],
-      "/Values/Quest/SuccessMessage/Notification/Values/NotificationSubtitle": [],
-      "/Values/Quest/FailureMessage/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/StarterMessage/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/Quest/SuccessMessage/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/Quest/FailureMessage/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
       "/Values/Quest/SelectionReminderMessage/Notification/Values/NotificationSubtitle": [],
       "/Values/Quest/AbortedManuallyMessage/Notification/Values/NotificationSubtitle": [],
       "/Values/Quest/AbortedAutomaticallyMessage/Notification/Values/NotificationSubtitle": [],
-      "/Values/Quest/InvitationMessage/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/InvitationMessage/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
       "/Values/Quest/EscortShipSelectedMessage/Notification/Values/NotificationSubtitle": [],
       "/Values/Quest/ReminderMessage/Notification/Values/NotificationSubtitle": [],
-      "/Values/Quest/ResolveConfirmationMessage/Notification/Values/NotificationSubtitle": [],
-      "/Values/Quest/InvitationSmugglerQuestMessage/Notification/Values/NotificationSubtitle": [],
-      "/Values/Quest/SmugglerQuestTradingStationReached/Notification/Values/NotificationSubtitle": [],
-      "/Values/Quest/StartInvitationGiveItemMessage/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/ResolveConfirmationMessage/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/Quest/InvitationSmugglerQuestMessage/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/Quest/SmugglerQuestTradingStationReached/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/Quest/StartInvitationGiveItemMessage/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
       "/Values/Quest/StartFollowShipMessage/Notification/Values/NotificationSubtitle": [],
       "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
       "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
       "/Values/Quest/OnQuestActive/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
-      "/Values/Quest/OnQuestActive/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionExecuteActionByChance/ActionListChanceSuccess/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
-      "/Values/Quest/OnQuestActive/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/OnQuestActive/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionExecuteActionByChance/ActionListChanceSuccess/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/Quest/OnQuestActive/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
       "/Values/Quest/OnQuestAborted/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
       "/Values/Quest/OnActiveQuestTimedOut/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
       "/Values/Quest/OnQuestFailed/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
       "/Values/Quest/OnQuestFailed/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
       "/Values/Quest/OnQuestDiscarded/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
       "/Values/Quest/OnQuestDiscarded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
-      "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
+      "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
       "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
       "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
       "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": [],
       "/Values/Quest/QuestGiverIdleMessages/Item": [],
-      "/Values/ParticipantMessages/MessageTriggers/ClickKontor/Reactions/Item/Notification/Values/NotificationSubtitle": [],
-      "/Values/ParticipantMessages/MessageTriggers/MilitaryShipDestroyed/Reactions/Item/Notification/Values/NotificationSubtitle": [],
-      "/Values/ParticipantMessages/MessageTriggers/MenuWelcomeMessage/Reactions/Item/Notification/Values/NotificationSubtitle": [],
-      "/Values/ParticipantMessages/MessageTriggers/GreatEasternReplacementOffered/Reactions/Item/Notification/Values/NotificationSubtitle": [],
+      "/Values/ParticipantMessages/MessageTriggers/ClickKontor/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/QuestInvitation/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/QuestStarted/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/QuestSuccessful/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/QuestFailed/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/QuestAborted/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/QuestEscortShipSelected/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/QuestReminder/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ShipTradeConfirmation/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/SettlePermissionDeclined/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferRejected/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferThreatAccepted/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferThreatRejected/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyDeclareWar/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferPeaceAccepted/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferTraderightsAccepted/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferAllianceAccepted/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferGiftAccepted/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyAskForQuestRejected/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyAcceptFlatter/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyDeclineFlatter/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyAcceptInsult/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyDeclineInsult/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ParticipantDiscovered/Reactions/Item/Notification/Values/NotificationSubtitle": [],
+      "/Values/ParticipantMessages/MessageTriggers/QuestResolveConfirmation/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/QuestInvitationSmugglerQuest/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/QuestSmugglerTradingStationReached/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/QuestStartInvitationGiveItem/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/QuestStartFollowShip/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/NewspaperPublishedWithPropaganda/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/MilitaryShipDestroyed/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/NoQuestAvailable/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ClickNPCBuilding/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ClickNPCShip/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ActiveTradeConfirmation/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/OpenActiveTradeMenu/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferNonAggressionPact/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferNonAggressionPactAccepted/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyIdleMessage/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/BuyIslandShare/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/MenuIdleMessage/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/MilitaryTakeoverFailed/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/CulturalBuildingAttractivenessHigherThan/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/IslandPollutionHigherThan/Reactions/Item/Notification/Values/NotificationSubtitle": [],
+      "/Values/ParticipantMessages/MessageTriggers/AirshipDropDamageMessage/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/AirshipDropIncidentResolvedMessage/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/AirshipDropPositiveEffectMessage/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/AirshipDropNegativeEffectMessage/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/AIDropPositiveGeneric/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/AIDropPositiveOwn/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/AIDropNegativeGeneric/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/AIDropNegativeOwn/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionSetsOut/Reactions/Item/Notification/Values/NotificationSubtitle": [],
+      "/Values/ParticipantMessages/MessageTriggers/IncidentEscalate/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/FirstTimeEventHappened/Reactions/Item/Notification/Values/NotificationSubtitle": [],
+      "/Values/ParticipantMessages/MessageTriggers/WorkingConditionsHigh/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/WorkingConditionsLow/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/BuildingBuilt/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/MilitaryStrength/Reactions/Item/Notification/Values/NotificationSubtitle": [],
+      "/Values/ParticipantMessages/MessageTriggers/MonumentFinished/Reactions/Item/Notification/Values/NotificationSubtitle": [],
+      "/Values/ParticipantMessages/MessageTriggers/IncidentStart/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ProgressLevelLevelUp/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/SellIslandShare/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DivingBellShipReplacementOffered/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ResearchCenterFinishCrafting/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/MenuWelcomeMessage/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ClickOwnResidence/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ClickProductionBuildingWithInfolayer/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/PauseProductionBuilding/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ResumeProductionBuilding/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ClickOwnRecipeBuffFactory/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/RecipeApplied/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ClickOwnSkyscraper/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ResearchCenterRecipeUnlock/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ResearchCenterStartCrafting/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ResearchCenterDonateItem/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ResearchCenterCollectReminder/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ClickOwnHotel/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
       "/Values/ParticipantMessages/MessageTriggers/MenuRoadMissing/Reactions/Item/Notification/Values/NotificationSubtitle": [],
+      "/Values/ParticipantMessages/MessageTriggers/MonumentExhibitionStarts/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/MonumentRewardReady/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/MonumentMenuTrigger/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ClickOwnSkyscraperMonument/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionSpawn/Reactions/Item/Notification/Values/NotificationSubtitle": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionOpenLog/Reactions/Item/Notification/Values/NotificationSubtitle": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionAssignShip/Reactions/Item/Notification/Values/NotificationSubtitle": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionEventStart/Reactions/Item/Notification/Values/NotificationSubtitle": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionCallForEvent/Reactions/Item/Notification/Values/NotificationSubtitle": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionReward/Reactions/Item/Notification/Values/NotificationSubtitle": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionContinue/Reactions/Item/Notification/Values/NotificationSubtitle": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionReturns/Reactions/Item/Notification/Values/NotificationSubtitle": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionDiscover/Reactions/Item/Notification/Values/NotificationSubtitle": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionFailed/Reactions/Item/Notification/Values/NotificationSubtitle": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionPreparationFailed/Reactions/Item/Notification/Values/NotificationSubtitle": [],
+      "/Values/ParticipantMessages/MessageTriggers/MenuFirstWelcomeMessage/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/MenuSpecialVisit/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/NewspaperUsePropagandaArticle/Reactions/Item/Notification/Values/NotificationSubtitle": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DocklandsExportGoodUpgraded/Reactions/Item/Notification/Values/NotificationSubtitle": [],
+      "/Values/ParticipantMessages/MessageTriggers/GreatEasternReplacementOffered/Reactions/Item/Notification/Values/NotificationSubtitle": [],
       "/Values/ItemWithUI/ItemActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/NotificationSubtitle": []
     }
   },
   "Profile": {
-    "templates": [],
+    "templates": [
+      "Profile_3rdParty_NoDiplomacy_NoTrader",
+      "Profile_3rdParty_NoTrader_NoProperty3rdParty",
+      "Profile_Virtual_NeverOwnsObjects",
+      "Profile_2ndParty",
+      "Profile_3rdParty-PlayerCounter",
+      "Profile_3rdParty",
+      "Profile_3rdParty_Pirate",
+      "Profile_3rdParty_Queen",
+      "Profile_3rdParty_ItemCrafter",
+      "Profile_3rdParty-PlayerCounterPirate",
+      "Profile_3rdParty_NoTrader_NoInteraction",
+      "Profile_3rdParty_ItemCrafter-NoTrader",
+      "TextPool"
+    ],
     "paths": {
-      "/Values/Exploder/HitSuccessNotification/Values/ActionNotification/Notification/Values/CharacterNotification": [],
-      "/Values/Exploder/HitFailNotification/Values/ActionNotification/Notification/Values/CharacterNotification": [],
-      "/Values/Selection/OnSelection/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
-      "/Values/DifficultySettings/AvailableThirdParties/Item": [],
-      "/Values/DifficultySettings/CampaignAutoParticipants/Item": [],
-      "/Values/DifficultySettings/NormalAutoParticipants/Item": [],
-      "/Values/DifficultySetup/ThirdParties/Item": [],
-      "/Values/Notification/NotificationType/Values/CharacterNotification": [],
+      "/Values/Exploder/HitSuccessNotification/Values/ActionNotification/Notification/Values/CharacterNotification": [
+        "Profile_3rdParty_NoDiplomacy_NoTrader"
+      ],
+      "/Values/Exploder/HitFailNotification/Values/ActionNotification/Notification/Values/CharacterNotification": [
+        "Profile_3rdParty_NoDiplomacy_NoTrader"
+      ],
+      "/Values/Selection/OnSelection/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [
+        "Profile_3rdParty_NoDiplomacy_NoTrader",
+        "Profile_3rdParty_NoTrader_NoProperty3rdParty",
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/DifficultySettings/AvailableSecondParties/Item": [
+        "Profile_2ndParty"
+      ],
+      "/Values/DifficultySettings/AvailableThirdParties/Item": [
+        "Profile_3rdParty-PlayerCounter",
+        "Profile_3rdParty",
+        "Profile_3rdParty_Pirate"
+      ],
+      "/Values/DifficultySettings/CampaignAutoParticipants/Item": [
+        "Profile_3rdParty-PlayerCounter",
+        "Profile_3rdParty",
+        "Profile_3rdParty_Queen"
+      ],
+      "/Values/DifficultySettings/NormalAutoParticipants/Item": [
+        "Profile_3rdParty"
+      ],
+      "/Values/DifficultySetup/ThirdParties/Item": [
+        "Profile_3rdParty-PlayerCounter",
+        "Profile_3rdParty",
+        "Profile_3rdParty_Pirate",
+        "Profile_3rdParty_Queen"
+      ],
+      "/Values/Notification/NotificationType/Values/CharacterNotification": [
+        "Profile_3rdParty",
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
       "/Values/CharacterNotification": [],
-      "/Values/GenericPopup/Popups/TutorialHappiness/Buttons/Item/Actions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
-      "/Values/GenericPopup/Popups/TutorialHappiness/Buttons/Item/Actions/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
-      "/Values/Quest/SelectionReminderMessage/Notification/Values/CharacterNotification": [],
-      "/Values/Quest/AbortedManuallyMessage/Notification/Values/CharacterNotification": [],
-      "/Values/Quest/AbortedAutomaticallyMessage/Notification/Values/CharacterNotification": [],
-      "/Values/Quest/ReminderMessage/Notification/Values/CharacterNotification": [],
-      "/Values/Quest/StartFollowShipMessage/Notification/Values/CharacterNotification": [],
-      "/Values/Quest/OnQuestActive/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
-      "/Values/Quest/OnQuestActive/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
-      "/Values/Quest/OnQuestAborted/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
-      "/Values/Quest/OnActiveQuestTimedOut/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
-      "/Values/Quest/OnQuestFailed/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
-      "/Values/Quest/OnQuestFailed/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
-      "/Values/Quest/OnQuestDiscarded/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
-      "/Values/Quest/OnQuestDiscarded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
-      "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
-      "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [],
-      "/Values/ParticipantMessages/MessageTriggers/MenuWelcomeMessage/Reactions/Item/Notification/Values/CharacterNotification": [],
-      "/Values/ParticipantMessages/MessageTriggers/MenuFirstWelcomeMessage/Reactions/Item/Notification/Values/CharacterNotification": [],
-      "/Values/ItemWithUI/ItemActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": []
+      "/Values/GenericPopup/Popups/TutorialHappiness/Buttons/Item/Actions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/GenericPopup/Popups/TutorialHappiness/Buttons/Item/Actions/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [
+        "Profile_3rdParty_NoDiplomacy_NoTrader"
+      ],
+      "/Values/Quest/StarterMessage/Notification/Values/CharacterNotification": [
+        "Profile_Virtual_NeverOwnsObjects",
+        "Profile_3rdParty-PlayerCounter",
+        "Profile_3rdParty_NoDiplomacy_NoTrader",
+        "Profile_3rdParty",
+        "Profile_3rdParty_Pirate",
+        "Profile_3rdParty_Queen",
+        "Profile_3rdParty_ItemCrafter",
+        "Profile_3rdParty_NoTrader_NoProperty3rdParty",
+        "Profile_3rdParty-PlayerCounterPirate",
+        "Profile_3rdParty_NoTrader_NoInteraction",
+        "Profile_3rdParty_ItemCrafter-NoTrader"
+      ],
+      "/Values/Quest/SuccessMessage/Notification/Values/CharacterNotification": [
+        "Profile_Virtual_NeverOwnsObjects",
+        "Profile_3rdParty-PlayerCounter",
+        "Profile_3rdParty_NoDiplomacy_NoTrader",
+        "Profile_3rdParty",
+        "Profile_2ndParty",
+        "Profile_3rdParty_Pirate",
+        "Profile_3rdParty_Queen",
+        "Profile_3rdParty_ItemCrafter",
+        "Profile_3rdParty-PlayerCounterPirate",
+        "Profile_3rdParty_NoTrader_NoInteraction",
+        "Profile_3rdParty_ItemCrafter-NoTrader"
+      ],
+      "/Values/Quest/FailureMessage/Notification/Values/CharacterNotification": [
+        "Profile_Virtual_NeverOwnsObjects",
+        "Profile_3rdParty_NoDiplomacy_NoTrader",
+        "Profile_3rdParty",
+        "Profile_3rdParty_Pirate",
+        "Profile_3rdParty_ItemCrafter",
+        "Profile_2ndParty",
+        "Profile_3rdParty_NoTrader_NoInteraction",
+        "Profile_3rdParty_Queen",
+        "Profile_3rdParty_ItemCrafter-NoTrader"
+      ],
+      "/Values/Quest/SelectionReminderMessage/Notification/Values/CharacterNotification": [
+        "Profile_Virtual_NeverOwnsObjects",
+        "Profile_3rdParty_Queen"
+      ],
+      "/Values/Quest/AbortedManuallyMessage/Notification/Values/CharacterNotification": [
+        "Profile_Virtual_NeverOwnsObjects",
+        "Profile_3rdParty_Queen",
+        "Profile_3rdParty_ItemCrafter-NoTrader"
+      ],
+      "/Values/Quest/AbortedAutomaticallyMessage/Notification/Values/CharacterNotification": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/Quest/InvitationMessage/Notification/Values/CharacterNotification": [
+        "Profile_2ndParty",
+        "Profile_Virtual_NeverOwnsObjects",
+        "Profile_3rdParty_Queen",
+        "Profile_3rdParty_ItemCrafter",
+        "Profile_3rdParty"
+      ],
+      "/Values/Quest/EscortShipSelectedMessage/Notification/Values/CharacterNotification": [
+        "Profile_3rdParty",
+        "Profile_2ndParty",
+        "Profile_3rdParty_Queen",
+        "Profile_Virtual_NeverOwnsObjects",
+        "Profile_3rdParty_NoTrader_NoInteraction"
+      ],
+      "/Values/Quest/ReminderMessage/Notification/Values/CharacterNotification": [
+        "Profile_Virtual_NeverOwnsObjects",
+        "Profile_3rdParty_Queen"
+      ],
+      "/Values/Quest/ResolveConfirmationMessage/Notification/Values/CharacterNotification": [
+        "Profile_Virtual_NeverOwnsObjects",
+        "Profile_3rdParty-PlayerCounter",
+        "Profile_3rdParty_NoTrader_NoInteraction",
+        "Profile_3rdParty",
+        "Profile_2ndParty",
+        "Profile_3rdParty_Pirate",
+        "Profile_3rdParty_Queen",
+        "Profile_3rdParty_ItemCrafter",
+        "Profile_3rdParty_ItemCrafter-NoTrader"
+      ],
+      "/Values/Quest/InvitationSmugglerQuestMessage/Notification/Values/CharacterNotification": [
+        "Profile_3rdParty",
+        "Profile_2ndParty",
+        "Profile_Virtual_NeverOwnsObjects",
+        "Profile_3rdParty_Queen"
+      ],
+      "/Values/Quest/SmugglerQuestTradingStationReached/Notification/Values/CharacterNotification": [
+        "Profile_3rdParty-PlayerCounter",
+        "Profile_2ndParty",
+        "Profile_3rdParty_Pirate",
+        "Profile_3rdParty",
+        "Profile_3rdParty_NoDiplomacy_NoTrader",
+        "Profile_Virtual_NeverOwnsObjects",
+        "Profile_3rdParty_Queen"
+      ],
+      "/Values/Quest/StartInvitationGiveItemMessage/Notification/Values/CharacterNotification": [
+        "Profile_3rdParty_NoDiplomacy_NoTrader",
+        "Profile_3rdParty",
+        "Profile_3rdParty_Queen",
+        "Profile_3rdParty_ItemCrafter",
+        "Profile_2ndParty",
+        "Profile_Virtual_NeverOwnsObjects",
+        "Profile_3rdParty-PlayerCounterPirate",
+        "Profile_3rdParty_NoTrader_NoInteraction"
+      ],
+      "/Values/Quest/StartFollowShipMessage/Notification/Values/CharacterNotification": [
+        "Profile_3rdParty_NoDiplomacy_NoTrader",
+        "Profile_3rdParty_Queen"
+      ],
+      "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [
+        "Profile_3rdParty-PlayerCounter",
+        "Profile_3rdParty_NoDiplomacy_NoTrader",
+        "Profile_3rdParty",
+        "Profile_3rdParty_Queen",
+        "Profile_2ndParty",
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/Quest/OnQuestStart/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [
+        "Profile_Virtual_NeverOwnsObjects",
+        "Profile_3rdParty-PlayerCounter",
+        "Profile_3rdParty_NoDiplomacy_NoTrader",
+        "Profile_3rdParty",
+        "Profile_2ndParty",
+        "Profile_3rdParty_NoTrader_NoProperty3rdParty",
+        "Profile_3rdParty_Queen",
+        "Profile_3rdParty_NoTrader_NoInteraction"
+      ],
+      "/Values/Quest/OnQuestActive/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [
+        "Profile_3rdParty",
+        "Profile_3rdParty_Queen",
+        "Profile_3rdParty_ItemCrafter",
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/Quest/OnQuestActive/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionExecuteActionByChance/ActionListChanceSuccess/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [
+        "Profile_2ndParty"
+      ],
+      "/Values/Quest/OnQuestActive/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [
+        "Profile_3rdParty-PlayerCounter",
+        "Profile_3rdParty",
+        "Profile_3rdParty_Pirate",
+        "Profile_3rdParty_Queen",
+        "Profile_3rdParty_NoDiplomacy_NoTrader",
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/Quest/OnQuestAborted/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/Quest/OnActiveQuestTimedOut/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/Quest/OnQuestFailed/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/Quest/OnQuestFailed/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [
+        "Profile_Virtual_NeverOwnsObjects",
+        "Profile_3rdParty_Queen",
+        "Profile_3rdParty"
+      ],
+      "/Values/Quest/OnQuestDiscarded/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [
+        "Profile_3rdParty_Queen",
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/Quest/OnQuestDiscarded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [
+        "Profile_3rdParty-PlayerCounter",
+        "Profile_3rdParty",
+        "Profile_3rdParty_Pirate",
+        "Profile_3rdParty_Queen",
+        "Profile_3rdParty_ItemCrafter",
+        "Profile_Virtual_NeverOwnsObjects",
+        "Profile_3rdParty_NoDiplomacy_NoTrader",
+        "Profile_2ndParty",
+        "Profile_3rdParty_NoTrader_NoInteraction"
+      ],
+      "/Values/Quest/OnQuestSucceeded/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [
+        "Profile_Virtual_NeverOwnsObjects",
+        "Profile_3rdParty",
+        "Profile_3rdParty_Queen"
+      ],
+      "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [
+        "Profile_3rdParty_NoDiplomacy_NoTrader",
+        "Profile_2ndParty",
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionDelayedActions/DelayedActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [
+        "Profile_3rdParty_NoDiplomacy_NoTrader"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ParticipantDiscovered/Reactions/Item/Notification/Values/CharacterNotification": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/AIDropPositiveGeneric/Reactions/Item/Notification/Values/CharacterNotification": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/AIDropPositiveOwn/Reactions/Item/Notification/Values/CharacterNotification": [
+        "TextPool"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/MenuWelcomeMessage/Reactions/Item/Notification/Values/CharacterNotification": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/MenuFirstWelcomeMessage/Reactions/Item/Notification/Values/CharacterNotification": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/ItemWithUI/ItemActions/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/CharacterNotification": [
+        "Profile_3rdParty_NoDiplomacy_NoTrader"
+      ]
     }
   },
   "KamikazeRadiusDecal": {
@@ -3386,9 +4164,13 @@
     }
   },
   "FlyDuration": {
-    "templates": [],
+    "templates": [
+      "ScenarioWorkshopItem"
+    ],
     "paths": {
-      "/Values/Lifetime": []
+      "/Values/Lifetime": [
+        "ScenarioWorkshopItem"
+      ]
     }
   },
   "MoveEffectDuration": {
@@ -3633,31 +4415,47 @@
   },
   "Replacement": {
     "templates": [
-      "Slot"
+      "Slot",
+      "PublicServiceBuildingWithBus"
     ],
     "paths": {
       "/Values/RandomMapObject/DLCSlotReplacements/Item": [
         "Slot"
+      ],
+      "/Values/ConstructionAI/BuildingReplacements/Item": [
+        "PublicServiceBuildingWithBus"
       ]
     }
   },
   "FiniteResourceVariationThreshold": {
-    "templates": [],
+    "templates": [
+      "Profile_3rdParty_Queen"
+    ],
     "paths": {
-      "/Values/RandomMapObject": []
+      "/Values/RandomMapObject": [
+        "Profile_3rdParty_Queen"
+      ]
     }
   },
   "NotificationPriority": {
     "templates": [
       "A7_QuestDecision",
+      "Profile_3rdParty-PlayerCounter",
       "Skin",
       "Inhabitant",
-      "TrafficFeedbackUnit"
+      "TrafficFeedbackUnit",
+      "InputBalancing",
+      "ScenarioInformation",
+      "SessionSouthAmerica",
+      "OrnamentalBuilding"
     ],
     "paths": {
       "/Values/Selection/OnSelection/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/BaseNotification": [],
       "/Values/Quest/InvitationMessage/Notification/Values/BaseNotification": [
         "A7_QuestDecision"
+      ],
+      "/Values/Quest/ReminderMessage/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
       ],
       "/Values/Quest/StartInvitationGiveItemMessage/Notification/Values/BaseNotification": [
         "Skin"
@@ -3667,14 +4465,15 @@
         "Skin"
       ],
       "/Values/Quest/OnQuestFailed/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/BaseNotification": [],
-      "/Values/ParticipantMessages/MessageTriggers/ClickKontor/Reactions/Item/Notification/Values/BaseNotification": [
-        "Inhabitant"
-      ],
       "/Values/ParticipantMessages/MessageTriggers/QuestInvitation/Reactions/Item/Notification/Values/BaseNotification": [
-        "TrafficFeedbackUnit"
+        "TrafficFeedbackUnit",
+        "Skin"
       ],
-      "/Values/ParticipantMessages/MessageTriggers/SettlePermissionRequest/Reactions/Item/Notification/Values/BaseNotification": [
-        "TrafficFeedbackUnit"
+      "/Values/ParticipantMessages/MessageTriggers/QuestSuccessful/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/QuestReminder/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
       ],
       "/Values/ParticipantMessages/MessageTriggers/DiplomacyOffer/Reactions/Item/Notification/Values/BaseNotification": [
         "TrafficFeedbackUnit"
@@ -3682,11 +4481,37 @@
       "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferThreat/Reactions/Item/Notification/Values/BaseNotification": [
         "TrafficFeedbackUnit"
       ],
-      "/Values/ParticipantMessages/MessageTriggers/ParticipantDiscovered/Reactions/Item/Notification/Values/BaseNotification": [
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferPeaceAccepted/Reactions/Item/Notification/Values/BaseNotification": [
         "Inhabitant"
       ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferTraderightsAccepted/Reactions/Item/Notification/Values/BaseNotification": [
+        "Inhabitant"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyMemoryCorrectionPositive/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyMemoryCorrectionNegative/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ParticipantDiscovered/Reactions/Item/Notification/Values/BaseNotification": [
+        "InputBalancing",
+        "Inhabitant"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferPeace/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferCeasefire/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferTraderights/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferAlliance/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
       "/Values/ParticipantMessages/MessageTriggers/QuestResolveConfirmation/Reactions/Item/Notification/Values/BaseNotification": [
-        "TrafficFeedbackUnit"
+        "TrafficFeedbackUnit",
+        "ScenarioInformation"
       ],
       "/Values/ParticipantMessages/MessageTriggers/QuestInvitationSmugglerQuest/Reactions/Item/Notification/Values/BaseNotification": [
         "TrafficFeedbackUnit"
@@ -3700,8 +4525,10 @@
       "/Values/ParticipantMessages/MessageTriggers/QuestStartFollowShip/Reactions/Item/Notification/Values/BaseNotification": [
         "TrafficFeedbackUnit"
       ],
-      "/Values/ParticipantMessages/MessageTriggers/NewspaperPublishedWithPropaganda/Reactions/Item/Notification/Values/BaseNotification": [],
-      "/Values/ParticipantMessages/MessageTriggers/NoQuestAvailable/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/NewspaperPublishedWithPropaganda/Reactions/Item/Notification/Values/BaseNotification": [
+        "ScenarioInformation",
+        "SessionSouthAmerica"
+      ],
       "/Values/ParticipantMessages/MessageTriggers/DiplomacyAllianceNeedsHelp/Reactions/Item/Notification/Values/BaseNotification": [
         "TrafficFeedbackUnit"
       ],
@@ -3711,7 +4538,118 @@
       "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferNonAggressionPact/Reactions/Item/Notification/Values/BaseNotification": [
         "TrafficFeedbackUnit"
       ],
+      "/Values/ParticipantMessages/MessageTriggers/BuyIslandShare/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/MilitaryTakeoverFailed/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/CulturalBuildingAttractivenessHigherThan/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/IslandPollutionHigherThan/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionSetsOut/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter",
+        "ScenarioInformation"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/IncidentEnd/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/IncidentEscalate/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ExpansionHigherThanNPC/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ExpansionLowerThanNPC/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ProgressLevelLowerThanNPC/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/FirstTimeEventHappened/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/WorkingConditionsHigh/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/NewspaperPublishedWithoutPropagandaGood/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/NewspaperPublishedWithoutPropagandaBad/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter",
+        "OrnamentalBuilding"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ProgressLevelHigherThanNPC/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/BuildingBuilt/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter",
+        "Inhabitant"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/MilitaryStrength/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/MonumentFinished/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ProgressLevelLevelUp/Reactions/Item/Notification/Values/BaseNotification": [
+        "TrafficFeedbackUnit"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferGift/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ResearchCenterFinishCrafting/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter",
+        "Inhabitant"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ClickProductionBuildingWithInfolayer/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ResearchCenterCollectReminder/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ResearchCenterMissingElectricity/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/MonumentExhibitionStarts/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/MonumentRewardReady/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionSpawn/Reactions/Item/Notification/Values/BaseNotification": [
+        "Inhabitant"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionReward/Reactions/Item/Notification/Values/BaseNotification": [
+        "Inhabitant"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionReturns/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionFailed/Reactions/Item/Notification/Values/BaseNotification": [
+        "Skin"
+      ],
       "/Values/ParticipantMessages/MessageTriggers/MenuFirstWelcomeMessage/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter",
+        "Inhabitant"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/MenuVisitorDecline/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/MenuVisitorIncrease/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/MenuStableTourism/Reactions/Item/Notification/Values/BaseNotification": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DocklandsExportGoodUpgraded/Reactions/Item/Notification/Values/BaseNotification": [
+        "Inhabitant"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DocklandsModulesBuilt/Reactions/Item/Notification/Values/BaseNotification": [
+        "Inhabitant"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DocklandsModulesConnected/Reactions/Item/Notification/Values/BaseNotification": [
         "Inhabitant"
       ]
     }
@@ -3802,9 +4740,13 @@
     }
   },
   "NeighbourToTransitionRule": {
-    "templates": [],
+    "templates": [
+      "Profile_3rdParty_NoTrader_NoInteraction"
+    ],
     "paths": {
-      "/Values/Street": []
+      "/Values/Street": [
+        "Profile_3rdParty_NoTrader_NoInteraction"
+      ]
     }
   },
   "UpgradeModeTarget": {
@@ -3837,6 +4779,16 @@
     "templates": [],
     "paths": {
       "/Values/Tree": []
+    }
+  },
+  "ShipDoubleClickSelectionRange": {
+    "templates": [
+      "Profile_2ndParty"
+    ],
+    "paths": {
+      "/Values/Walking": [
+        "Profile_2ndParty"
+      ]
     }
   },
   "Skin": {
@@ -4262,6 +5214,9 @@
       "/Values/ConstructionAI/DefenseStructuresAir/Africa/AirDefenses/Item": [
         "HarborBuildingAttacker"
       ],
+      "/Values/ConstructionAI/BuildingReplacements/Item": [
+        "PublicServiceBuildingWithBus"
+      ],
       "/Values/GlobalConstructionAIBalancing/BuildingRotationOffset/Item": [
         "CultureBuildingColony",
         "CultureBuilding"
@@ -4272,9 +5227,15 @@
     }
   },
   "BuildModeRandomRotation": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects",
+      "Profile_3rdParty_NoTrader_NoProperty3rdParty"
+    ],
     "paths": {
-      "/Values/Building": []
+      "/Values/Building": [
+        "Profile_Virtual_NeverOwnsObjects",
+        "Profile_3rdParty_NoTrader_NoProperty3rdParty"
+      ]
     }
   },
   "OwnerChangeTarget": {
@@ -4394,6 +5355,20 @@
       ],
       "/Values/Cost/Costs/Item": [
         "Product"
+      ]
+    }
+  },
+  "ResidentThreshold": {
+    "templates": [
+      "Profile_3rdParty-PlayerCounter",
+      "TrafficFeedbackUnit",
+      "A7_QuestDecision"
+    ],
+    "paths": {
+      "/Values/Hacienda/AdditionalRadiusThresholds/Item": [
+        "Profile_3rdParty-PlayerCounter",
+        "TrafficFeedbackUnit",
+        "A7_QuestDecision"
       ]
     }
   },
@@ -4762,9 +5737,13 @@
     }
   },
   "UISceneHeaderText": {
-    "templates": [],
+    "templates": [
+      "ScenarioRuinEco"
+    ],
     "paths": {
-      "/Values/Monument": []
+      "/Values/Monument": [
+        "ScenarioRuinEco"
+      ]
     }
   },
   "InfolayerWhileWorking": {
@@ -4874,6 +5853,16 @@
     "paths": {
       "/Values/RepairCrane": [
         "InfoLayerIcon"
+      ]
+    }
+  },
+  "HealBuildingsPerMinute": {
+    "templates": [
+      "PaMSy_Base"
+    ],
+    "paths": {
+      "/Values/RepairCrane": [
+        "PaMSy_Base"
       ]
     }
   },
@@ -5140,9 +6129,13 @@
     }
   },
   "HarbourBlockerPercentage": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/BuildingBaseTiles": []
+      "/Values/BuildingBaseTiles": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "PermitSource": {
@@ -5343,6 +6336,7 @@
   },
   "Points": {
     "templates": [
+      "PaMSy_Base",
       "Target"
     ],
     "paths": {
@@ -5350,6 +6344,9 @@
       "/Values/DifficultySettings/Incidents/Medium": [],
       "/Values/DifficultySettings/StartSession/Small": [],
       "/Values/DifficultySettings/StartSessionIslandSize/Small": [],
+      "/Values/DifficultySettings/PointsNeeded/Normal": [
+        "PaMSy_Base"
+      ],
       "/Values/DifficultySettings/PointsNeeded/Hard": [],
       "/Values/DifficultySettings/PointsNeeded/Classic": [
         "Target"
@@ -5464,6 +6461,18 @@
         "Product",
         "Product_Ammunition"
       ],
+      "/Values/ConstructionAI/EconomyRules/ConstructionMaterials/SupplementSessionAdditions/PerRegion/Moderate/AdditionalProductionInEverySupplementSession/Item": [
+        "Product"
+      ],
+      "/Values/ConstructionAI/EconomyRules/ConstructionMaterials/SupplementSessionAdditions/PerRegion/Arctic/AdditionalProductionInEverySupplementSession/Item": [
+        "Product"
+      ],
+      "/Values/ConstructionAI/EconomyRules/ConstructionMaterials/SupplementSessionAdditions/PerRegion/Africa/AdditionalProductionInEverySupplementSession/Item": [
+        "Product"
+      ],
+      "/Values/ConstructionAI/TradeRules/Overproduction/Item": [
+        "Product"
+      ],
       "/Values/Distribution/Deltas/Item": [
         "Product"
       ],
@@ -5503,9 +6512,13 @@
     }
   },
   "RefillRatePercent": {
-    "templates": [],
+    "templates": [
+      "Profile_3rdParty_Queen"
+    ],
     "paths": {
-      "/Values/DifficultySettings/TraderRefillRate/Medium": []
+      "/Values/DifficultySettings/TraderRefillRate/Medium": [
+        "Profile_3rdParty_Queen"
+      ]
     }
   },
   "InfluenceForCompanyLevels": {
@@ -5635,17 +6648,30 @@
   },
   "Amount": {
     "templates": [
+      "ScenarioWorkshopItem",
       "Season",
+      "Profile_3rdParty-PlayerCounter",
       "TrafficFeedbackUnit"
     ],
     "paths": {
-      "/Values/DifficultySettings/VictoryConditionInvestors/Medium": [],
+      "/Values/DifficultySettings/VictoryConditionInvestors/Medium": [
+        "ScenarioWorkshopItem"
+      ],
       "/Values/DifficultySettings/VictoryConditionPopulation/Hard": [
         "Season"
       ],
       "/Values/DifficultySettings/VictoryConditionWealth/Medium": [],
       "/Values/DifficultySettings/VictoryConditionIncome/Hard": [
         "Season"
+      ],
+      "/Values/GeneralIncidentConfiguration/PerRegionUnlocks/Colony01/IncidentUnlocks/Fire/AreaPopulationUnlocks/Item": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/GeneralIncidentConfiguration/PerRegionUnlocks/Colony01/IncidentUnlocks/Explosion/AreaPopulationUnlocks/Item": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/GeneralIncidentConfiguration/PerRegionUnlocks/Arctic/IncidentUnlocks/Fire/AreaPopulationUnlocks/Item": [
+        "Profile_3rdParty-PlayerCounter"
       ],
       "/Values/GeneralIncidentConfiguration/PerRegionUnlocks/Africa/IncidentUnlocks/Fire/AreaPopulationUnlocks/Item": [
         "TrafficFeedbackUnit"
@@ -5707,9 +6733,13 @@
     }
   },
   "RiotSpecial02": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/GlobalConfig/FeedbackSequenceIDs": []
+      "/Values/GlobalConfig/FeedbackSequenceIDs": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "LanguagePack": {
@@ -5766,9 +6796,23 @@
     }
   },
   "Common02": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/GlobalConfig/RenderConditionIDs": []
+      "/Values/GlobalConfig/RenderConditionIDs": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
+    }
+  },
+  "Common06": {
+    "templates": [
+      "Profile_2ndParty"
+    ],
+    "paths": {
+      "/Values/GlobalConfig/RenderConditionIDs": [
+        "Profile_2ndParty"
+      ]
     }
   },
   "Common10": {
@@ -5800,15 +6844,23 @@
     }
   },
   "GroundDecalVariation": {
-    "templates": [],
+    "templates": [
+      "Profile_3rdParty-PlayerCounter"
+    ],
     "paths": {
-      "/Values/GlobalConfig/RenderConditionIDs": []
+      "/Values/GlobalConfig/RenderConditionIDs": [
+        "Profile_3rdParty-PlayerCounter"
+      ]
     }
   },
   "Electricity": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/GlobalConfig/RenderConditionIDs": []
+      "/Values/GlobalConfig/RenderConditionIDs": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "ReputationLogTextGuid": {
@@ -5904,9 +6956,13 @@
     }
   },
   "MaxDropPercent": {
-    "templates": [],
+    "templates": [
+      "Profile_3rdParty_Queen"
+    ],
     "paths": {
-      "/Values/GlobalConfig/ShipItemDropCalculation": []
+      "/Values/GlobalConfig/ShipItemDropCalculation": [
+        "Profile_3rdParty_Queen"
+      ]
     }
   },
   "idle01": {
@@ -7007,9 +8063,27 @@
     }
   },
   "Top": {
-    "templates": [],
+    "templates": [
+      "Profile_3rdParty_NoTrader_NoProperty3rdParty",
+      "PaMSy_Base"
+    ],
     "paths": {
-      "/Values/GUIConfig/HintMarkerPadding": []
+      "/Values/GUIConfig/HintMarkerPadding": [
+        "Profile_3rdParty_NoTrader_NoProperty3rdParty"
+      ],
+      "/Values/GUIConfig/HintMarkerPaddingConsole": [
+        "PaMSy_Base"
+      ]
+    }
+  },
+  "Bottom": {
+    "templates": [
+      "Profile_2ndParty"
+    ],
+    "paths": {
+      "/Values/GUIConfig/HintMarkerPadding": [
+        "Profile_2ndParty"
+      ]
     }
   },
   "PopulationLevel": {
@@ -7140,10 +8214,24 @@
       "/Values/GUIConfig": []
     }
   },
-  "Right": {
-    "templates": [],
+  "DragStartToleranceTime": {
+    "templates": [
+      "Profile_3rdParty-PlayerCounter"
+    ],
     "paths": {
-      "/Values/GUIConfig/HintMarkerPaddingConsole": []
+      "/Values/GUIConfig": [
+        "Profile_3rdParty-PlayerCounter"
+      ]
+    }
+  },
+  "Right": {
+    "templates": [
+      "ScenarioInformation"
+    ],
+    "paths": {
+      "/Values/GUIConfig/HintMarkerPaddingConsole": [
+        "ScenarioInformation"
+      ]
     }
   },
   "DisplayUnit": {
@@ -7225,30 +8313,78 @@
   "ClipDistanceMin": {
     "templates": [
       "TrafficFeedbackUnit",
-      "Inhabitant"
+      "PaMSy_Base",
+      "Profile_3rdParty-PlayerCounter",
+      "Inhabitant",
+      "Profile_Virtual_NeverOwnsObjects",
+      "Profile_2ndParty"
     ],
     "paths": {
       "/Values/FeedbackParametersGlobal/ClippingInfos/HugeVehicle/ClipDistances/High": [
         "TrafficFeedbackUnit"
       ],
+      "/Values/FeedbackParametersGlobal/ClippingInfos/HugeVehicle/ClipDistances/Low": [
+        "PaMSy_Base"
+      ],
+      "/Values/FeedbackParametersGlobal/ClippingInfos/HugeVehicle/ClipDistances/Medium": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
       "/Values/FeedbackParametersGlobal/ClippingInfos/HugeVehicle/ClipDistances/UltraHigh": [
         "Inhabitant"
       ],
-      "/Values/FeedbackParametersGlobal/ClippingInfos/Person/ClipDistances/Low": [],
-      "/Values/FeedbackParametersGlobal/ClippingInfos/Person/ClipDistances/Medium": []
+      "/Values/FeedbackParametersGlobal/ClippingInfos/Person/ClipDistances/Low": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/FeedbackParametersGlobal/ClippingInfos/Person/ClipDistances/Medium": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/FeedbackParametersGlobal/ClippingInfos/Person/ClipDistances/VeryHigh": [
+        "Profile_Virtual_NeverOwnsObjects",
+        "Profile_2ndParty"
+      ]
     }
   },
   "ClipDistanceMax": {
     "templates": [
       "TrafficFeedbackUnit",
-      "Inhabitant"
+      "PaMSy_Base",
+      "Profile_3rdParty-PlayerCounter",
+      "Inhabitant",
+      "Profile_2ndParty",
+      "Profile_Virtual_NeverOwnsObjects",
+      "Profile_3rdParty_NoTrader_NoProperty3rdParty"
     ],
     "paths": {
       "/Values/FeedbackParametersGlobal/ClippingInfos/HugeVehicle/ClipDistances/High": [
         "TrafficFeedbackUnit"
       ],
+      "/Values/FeedbackParametersGlobal/ClippingInfos/HugeVehicle/ClipDistances/Low": [
+        "PaMSy_Base"
+      ],
+      "/Values/FeedbackParametersGlobal/ClippingInfos/HugeVehicle/ClipDistances/Medium": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
       "/Values/FeedbackParametersGlobal/ClippingInfos/HugeVehicle/ClipDistances/UltraHigh": [
         "Inhabitant"
+      ],
+      "/Values/FeedbackParametersGlobal/ClippingInfos/Person/ClipDistances/VeryHigh": [
+        "Profile_2ndParty",
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/FeedbackParametersGlobal/ClippingInfos/Vehicle/ClipDistances/High": [
+        "PaMSy_Base"
+      ],
+      "/Values/FeedbackParametersGlobal/ClippingInfos/Vehicle/ClipDistances/Medium": [
+        "Profile_2ndParty",
+        "PaMSy_Base"
+      ],
+      "/Values/FeedbackParametersGlobal/ClippingInfos/Vehicle/ClipDistances/UltraHigh": [
+        "PaMSy_Base",
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/FeedbackParametersGlobal/ClippingInfos/Vehicle/ClipDistances/VeryHigh": [
+        "PaMSy_Base",
+        "Profile_3rdParty_NoTrader_NoProperty3rdParty"
       ]
     }
   },
@@ -7295,10 +8431,20 @@
     }
   },
   "DespawnUnitsOnLimitPercent": {
-    "templates": [],
+    "templates": [
+      "Profile_3rdParty_Queen",
+      "Profile_2ndParty"
+    ],
     "paths": {
-      "/Values/FeedbackParametersGlobal/MemoryLimitsConfig/Productions": [],
-      "/Values/FeedbackParametersGlobal/MemoryLimitsConfig/Inhabitants": []
+      "/Values/FeedbackParametersGlobal/MemoryLimitsConfig/Productions": [
+        "Profile_3rdParty_Queen"
+      ],
+      "/Values/FeedbackParametersGlobal/MemoryLimitsConfig/Inhabitants": [
+        "Profile_3rdParty_Queen"
+      ],
+      "/Values/FeedbackParametersGlobal/MemoryLimitsConfig/Vehicles": [
+        "Profile_2ndParty"
+      ]
     }
   },
   "Limit": {
@@ -7309,9 +8455,13 @@
     }
   },
   "MaxUnitSpawnPerAreaPerTick": {
-    "templates": [],
+    "templates": [
+      "Profile_3rdParty_Queen"
+    ],
     "paths": {
-      "/Values/FeedbackParametersGlobal": []
+      "/Values/FeedbackParametersGlobal": [
+        "Profile_3rdParty_Queen"
+      ]
     }
   },
   "DemagogueClass": {
@@ -7335,15 +8485,29 @@
     }
   },
   "MaxLookDuration": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/FeedbackSessionDescription/CulturalBuildingSpawnGroup": []
+      "/Values/FeedbackSessionDescription/CulturalBuildingSpawnGroup": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "MinVisitorsCultural": {
     "templates": [],
     "paths": {
       "/Values/FeedbackSessionDescription/CulturalBuildingSpawnGroup": []
+    }
+  },
+  "MaxVisitorsCultural": {
+    "templates": [
+      "Profile_3rdParty-PlayerCounter"
+    ],
+    "paths": {
+      "/Values/FeedbackSessionDescription/CulturalBuildingSpawnGroup": [
+        "Profile_3rdParty-PlayerCounter"
+      ]
     }
   },
   "MonumentBuilding": {
@@ -7366,11 +8530,23 @@
   },
   "MaxVisitorsEventRunning": {
     "templates": [
+      "Profile_Virtual_NeverOwnsObjects",
       "Inhabitant"
     ],
     "paths": {
       "/Values/FeedbackSessionDescription/CulturalBuildingSpawnGroup/MonumentConfigs/Item": [
+        "Profile_Virtual_NeverOwnsObjects",
         "Inhabitant"
+      ]
+    }
+  },
+  "MinVisitorsEventOver": {
+    "templates": [
+      "Profile_3rdParty-PlayerCounter"
+    ],
+    "paths": {
+      "/Values/FeedbackSessionDescription/CulturalBuildingSpawnGroup/MonumentConfigs/Item": [
+        "Profile_3rdParty-PlayerCounter"
       ]
     }
   },
@@ -7385,9 +8561,13 @@
     }
   },
   "MaxSpawnBuildingsToShrink": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/FeedbackSessionDescription/CulturalBuildingSpawnGroup": []
+      "/Values/FeedbackSessionDescription/CulturalBuildingSpawnGroup": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "TouristSpawnClass": {
@@ -7803,9 +8983,13 @@
     }
   },
   "VisitorPerBuilding": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/FeedbackSessionDescription/BeachConfig": []
+      "/Values/FeedbackSessionDescription/BeachConfig": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "VisitorUnitClass": {
@@ -7892,9 +9076,21 @@
     }
   },
   "ClipDistance": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects",
+      "Profile_3rdParty_NoTrader_NoProperty3rdParty",
+      "PaMSy_Base",
+      "Profile_2ndParty"
+    ],
     "paths": {
-      "/Values/AnimalParametersGlobal/AnimalClipping/Medium": []
+      "/Values/AnimalParametersGlobal/AnimalClipping/Medium": [
+        "Profile_Virtual_NeverOwnsObjects",
+        "Profile_3rdParty_NoTrader_NoProperty3rdParty"
+      ],
+      "/Values/AnimalParametersGlobal/AnimalClipping/VeryHigh": [
+        "PaMSy_Base",
+        "Profile_2ndParty"
+      ]
     }
   },
   "CityBuildingsPerDynamicFlock": {
@@ -7944,9 +9140,13 @@
     }
   },
   "MaxRectSize": {
-    "templates": [],
+    "templates": [
+      "PaMSy_Base"
+    ],
     "paths": {
-      "/Values/BuildModeFeature/MultiMove": []
+      "/Values/BuildModeFeature/MultiMove": [
+        "PaMSy_Base"
+      ]
     }
   },
   "FadeDurationInMs": {
@@ -8063,6 +9263,16 @@
       ]
     }
   },
+  "MaxFragmentSize": {
+    "templates": [
+      "Profile_3rdParty-PlayerCounter"
+    ],
+    "paths": {
+      "/Values/DiscoveryFeature": [
+        "Profile_3rdParty-PlayerCounter"
+      ]
+    }
+  },
   "IllnessChanceFactorZeroAt": {
     "templates": [
       "A7_QuestDecision"
@@ -8087,6 +9297,16 @@
     "templates": [],
     "paths": {
       "/Values/EcoSystemFeature": []
+    }
+  },
+  "AllAnimalGroupsVisibleAtIslandHealthPercentage": {
+    "templates": [
+      "Profile_2ndParty"
+    ],
+    "paths": {
+      "/Values/EcoSystemFeature/AnimalConfiguration": [
+        "Profile_2ndParty"
+      ]
     }
   },
   "IslandHealthAudioStateGroup": {
@@ -8233,9 +9453,13 @@
     }
   },
   "ThresholdUp": {
-    "templates": [],
+    "templates": [
+      "Profile_3rdParty_Queen"
+    ],
     "paths": {
-      "/Values/EcoSystemFeature/AudioConfiguration/IslandHealthAudioState/Healthy": []
+      "/Values/EcoSystemFeature/AudioConfiguration/IslandHealthAudioState/Healthy": [
+        "Profile_3rdParty_Queen"
+      ]
     }
   },
   "IslandHealthRTPC": {
@@ -8390,11 +9614,37 @@
   },
   "QuestGiver": {
     "templates": [
-      "FeedbackUnitClass"
+      "FeedbackUnitClass",
+      "Profile_Virtual_NeverOwnsObjects",
+      "Profile_2ndParty",
+      "Profile_3rdParty-PlayerCounter",
+      "Profile_3rdParty_NoDiplomacy_NoTrader",
+      "Profile_3rdParty",
+      "Profile_3rdParty_Pirate",
+      "Profile_3rdParty_Queen",
+      "Profile_3rdParty_ItemCrafter",
+      "Profile_3rdParty_NoTrader_NoProperty3rdParty",
+      "Profile_3rdParty-PlayerCounterPirate",
+      "Profile_3rdParty_NoTrader_NoInteraction",
+      "Profile_3rdParty_ItemCrafter-NoTrader"
     ],
     "paths": {
       "/Values/FirstPersonFeature/MiniQuests/Item/Quest": [
         "FeedbackUnitClass"
+      ],
+      "/Values/Quest": [
+        "Profile_Virtual_NeverOwnsObjects",
+        "Profile_2ndParty",
+        "Profile_3rdParty-PlayerCounter",
+        "Profile_3rdParty_NoDiplomacy_NoTrader",
+        "Profile_3rdParty",
+        "Profile_3rdParty_Pirate",
+        "Profile_3rdParty_Queen",
+        "Profile_3rdParty_ItemCrafter",
+        "Profile_3rdParty_NoTrader_NoProperty3rdParty",
+        "Profile_3rdParty-PlayerCounterPirate",
+        "Profile_3rdParty_NoTrader_NoInteraction",
+        "Profile_3rdParty_ItemCrafter-NoTrader"
       ]
     }
   },
@@ -8672,6 +9922,16 @@
       ]
     }
   },
+  "Threshold": {
+    "templates": [
+      "Profile_2ndParty"
+    ],
+    "paths": {
+      "/Values/HappinessFeature/Warfare": [
+        "Profile_2ndParty"
+      ]
+    }
+  },
   "Population": {
     "templates": [
       "PopulationLevel7"
@@ -8767,10 +10027,26 @@
       ]
     }
   },
-  "LocalInfluence": {
-    "templates": [],
+  "Chance": {
+    "templates": [
+      "Profile_3rdParty_Queen",
+      "Profile_2ndParty"
+    ],
     "paths": {
-      "/Values/HardFarmsFeature/HardFarmParams/Medium/Config/Item": []
+      "/Values/HardFarmsFeature/HardFarmParams/Low/Config/Item": [
+        "Profile_3rdParty_Queen",
+        "Profile_2ndParty"
+      ]
+    }
+  },
+  "LocalInfluence": {
+    "templates": [
+      "Profile_3rdParty_Queen"
+    ],
+    "paths": {
+      "/Values/HardFarmsFeature/HardFarmParams/Medium/Config/Item": [
+        "Profile_3rdParty_Queen"
+      ]
     }
   },
   "MainSize": {
@@ -9133,6 +10409,7 @@
       "Festival",
       "DocklandMain",
       "Monument",
+      "ExpeditionThreat",
       "CityInstitutionBuildingHeated"
     ],
     "paths": {
@@ -9243,14 +10520,30 @@
       "/Values/StatisticMenu/ItemSourceData/GGJPlants": [],
       "/Values/CustomizeModeScene/CustomizeOptionNames": [],
       "/Values/TextPopup/Pages/BeekeeperList/Names/Item": [],
-      "/Values/ExpeditionFeature/AttributeNames/Diplomacy": [],
-      "/Values/ExpeditionFeature/AttributeNames/Melee": [],
-      "/Values/ExpeditionFeature/AttributeNames/Might": [],
-      "/Values/ExpeditionFeature/AttributeNames/Navigation": [],
-      "/Values/ExpeditionFeature/AttributeNames/Medicine": [],
-      "/Values/ExpeditionFeature/AttributeNames/Faith": [],
-      "/Values/ExpeditionFeature/AttributeNames/Crafting": [],
-      "/Values/ExpeditionFeature/AttributeNames/Hunting": [],
+      "/Values/ExpeditionFeature/AttributeNames/Diplomacy": [
+        "ExpeditionThreat"
+      ],
+      "/Values/ExpeditionFeature/AttributeNames/Melee": [
+        "ExpeditionThreat"
+      ],
+      "/Values/ExpeditionFeature/AttributeNames/Might": [
+        "ExpeditionThreat"
+      ],
+      "/Values/ExpeditionFeature/AttributeNames/Navigation": [
+        "ExpeditionThreat"
+      ],
+      "/Values/ExpeditionFeature/AttributeNames/Medicine": [
+        "ExpeditionThreat"
+      ],
+      "/Values/ExpeditionFeature/AttributeNames/Faith": [
+        "ExpeditionThreat"
+      ],
+      "/Values/ExpeditionFeature/AttributeNames/Crafting": [
+        "ExpeditionThreat"
+      ],
+      "/Values/ExpeditionFeature/AttributeNames/Hunting": [
+        "ExpeditionThreat"
+      ],
       "/Values/ExpeditionFeature/AttributeNames/PerkAnthropologist": [],
       "/Values/ExpeditionFeature/AttributeNames/PerkHypnotist": [],
       "/Values/ExpeditionFeature/AttributeNames/PerkFormerPirate": [],
@@ -9548,10 +10841,14 @@
     }
   },
   "FreeAmount": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
       "/Values/InfluenceFeature/InfluenceConfig/TradeShip": [],
-      "/Values/InfluenceFeature/InfluenceConfig/AirshipTrade": []
+      "/Values/InfluenceFeature/InfluenceConfig/AirshipTrade": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "InfluenceCosts": {
@@ -9649,9 +10946,17 @@
     }
   },
   "SourceSpreadMax": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects",
+      "Profile_2ndParty"
+    ],
     "paths": {
-      "/Values/IrrigationConfig/IrrigationTiles/IrrigationTileDefinitions/Source_Lake_Small": []
+      "/Values/IrrigationConfig/IrrigationTiles/IrrigationTileDefinitions/Source_Lake_Small": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/IrrigationConfig/IrrigationTiles/IrrigationTileDefinitions/Source_Lake_Large": [
+        "Profile_2ndParty"
+      ]
     }
   },
   "WaterPlaneFadeOutDuration": {
@@ -9673,9 +10978,13 @@
     }
   },
   "KontorBuildDistance": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/KontorFeature": []
+      "/Values/KontorFeature": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "KontorSwitchCosts": {
@@ -9686,10 +10995,14 @@
   },
   "MaxMorale": {
     "templates": [
+      "PaMSy_Base",
       "TrafficFeedbackUnit",
       "A7_QuestDecision"
     ],
     "paths": {
+      "/Values/MilitaryFeature/TakeOverTierTable/Tier03": [
+        "PaMSy_Base"
+      ],
       "/Values/MilitaryFeature/TakeOverTierTable/Tier04": [],
       "/Values/ExpeditionFeature/EventLimits/Average": [
         "TrafficFeedbackUnit"
@@ -9857,6 +11170,16 @@
     "paths": {
       "/Values/ParticipantRepresentationFeature/CompanyLevel": [
         "TrafficFeedbackUnit"
+      ]
+    }
+  },
+  "SecondPopulationFactor": {
+    "templates": [
+      "Profile_3rdParty-PlayerCounter"
+    ],
+    "paths": {
+      "/Values/ParticipantRepresentationFeature/CompanyLevel": [
+        "Profile_3rdParty-PlayerCounter"
       ]
     }
   },
@@ -10042,10 +11365,16 @@
     }
   },
   "ResearchGain": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/ResearchFeature/ItemDonationConfig/Uncommon": [],
-      "/Values/ResearchFeature/ItemDonationConfig/Godlike": []
+      "/Values/ResearchFeature/ItemDonationConfig/Uncommon": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/ResearchFeature/ItemDonationConfig/Godlike": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "SideNotificationMajorDiscoveryDone": {
@@ -10161,6 +11490,16 @@
     "paths": {
       "/Values/SessionTransferFeature": [
         "Inhabitant"
+      ]
+    }
+  },
+  "MaxLeaveSessionDistance": {
+    "templates": [
+      "PaMSy_Base"
+    ],
+    "paths": {
+      "/Values/SessionTransferFeature": [
+        "PaMSy_Base"
       ]
     }
   },
@@ -10424,11 +11763,17 @@
   },
   "NeededAmount": {
     "templates": [
+      "PaMSy_Base",
       "Inhabitant",
       "VehicleBuff",
+      "Profile_3rdParty-PlayerCounter",
+      "ScenarioWorkshopItem",
       "Recipe"
     ],
     "paths": {
+      "/Values/TourismFeature/CitySize/PortTown": [
+        "PaMSy_Base"
+      ],
       "/Values/TourismFeature/CitySize/City": [
         "Inhabitant"
       ],
@@ -10438,9 +11783,14 @@
       "/Values/TourismFeature/CitySize/Metropolis": [
         "VehicleBuff"
       ],
+      "/Values/TourismFeature/CitySize/ColonyTown": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
       "/Values/TourismFeature/CitySize/Colony": [],
       "/Values/TradeContractFeature/TradeUpgrades/Uncommon": [],
-      "/Values/TradeContractFeature/TradeUpgrades/Rare": [],
+      "/Values/TradeContractFeature/TradeUpgrades/Rare": [
+        "ScenarioWorkshopItem"
+      ],
       "/Values/TradeContractFeature/TradeUpgrades/Epic": [],
       "/Values/TradeContractFeature/TradeUpgrades/Legendary": [
         "Recipe"
@@ -10600,10 +11950,24 @@
       ]
     }
   },
-  "AttractivenessWarThreshold": {
-    "templates": [],
+  "AttractivenessNatureBaseMax": {
+    "templates": [
+      "PaMSy_Base"
+    ],
     "paths": {
-      "/Values/TourismFeature": []
+      "/Values/TourismFeature": [
+        "PaMSy_Base"
+      ]
+    }
+  },
+  "AttractivenessWarThreshold": {
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
+    "paths": {
+      "/Values/TourismFeature": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "TrackingHighContrastOption": {
@@ -10659,10 +12023,14 @@
     }
   },
   "TraderName": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
       "/Values/TradeContractFeature/Traders/Item": [],
-      "/Values/ExpeditionTrade": []
+      "/Values/ExpeditionTrade": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "TraderDesc": {
@@ -10773,6 +12141,9 @@
       "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionAddGoodsToItemContainer/Goods/Item": [
         "Product"
       ],
+      "/Values/ConstructionAI/EconomyRules/ConsumptionConfiguration/Item/SupplyOverwrite/Item": [
+        "Product"
+      ],
       "/Values/Trader/Progression/EarlyGame/GoodsProduction/Item": [
         "Product",
         "Product_Ammunition"
@@ -10820,6 +12191,16 @@
       "/Values/Trader/Progression/EndGame/OfferingGoods/Item/GoodSets/Item": [
         "Product",
         "Product_Ammunition"
+      ]
+    }
+  },
+  "EnqueueDistance": {
+    "templates": [
+      "Profile_2ndParty"
+    ],
+    "paths": {
+      "/Values/TradeRouteFeature": [
+        "Profile_2ndParty"
       ]
     }
   },
@@ -10941,9 +12322,13 @@
     }
   },
   "CheckBestCoastDistance": {
-    "templates": [],
+    "templates": [
+      "PaMSy_Base"
+    ],
     "paths": {
-      "/Values/TradeRouteFeature": []
+      "/Values/TradeRouteFeature": [
+        "PaMSy_Base"
+      ]
     }
   },
   "EstimatedTimeForNpcTrades": {
@@ -10984,10 +12369,16 @@
     }
   },
   "MaxDirectionChange": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/WeatherFeature/WeatherPresets/Default/Wind": [],
-      "/Values/WeatherFeature/WeatherPresets/ChristmasModerate_ForceAllowSnow/Wind": []
+      "/Values/WeatherFeature/WeatherPresets/Default/Wind": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/WeatherFeature/WeatherPresets/ChristmasModerate_ForceAllowSnow/Wind": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "MinTimeUntilNextDensityUpdate": {
@@ -11084,9 +12475,15 @@
     }
   },
   "RoughFeedbackShipDistance": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects",
+      "Profile_3rdParty_NoTrader_NoProperty3rdParty"
+    ],
     "paths": {
-      "/Values/WorkforceTransferFeature": []
+      "/Values/WorkforceTransferFeature": [
+        "Profile_Virtual_NeverOwnsObjects",
+        "Profile_3rdParty_NoTrader_NoProperty3rdParty"
+      ]
     }
   },
   "TransferInterruptedNotification": {
@@ -11118,27 +12515,43 @@
     }
   },
   "EventDescriptionUpTextPool": {
-    "templates": [],
+    "templates": [
+      "TextPool"
+    ],
     "paths": {
-      "/Values/WorldMarketFeature/NewsTicker": []
+      "/Values/WorldMarketFeature/NewsTicker": [
+        "TextPool"
+      ]
     }
   },
   "EventDescriptionDownTextPool": {
-    "templates": [],
+    "templates": [
+      "TextPool"
+    ],
     "paths": {
-      "/Values/WorldMarketFeature/NewsTicker": []
+      "/Values/WorldMarketFeature/NewsTicker": [
+        "TextPool"
+      ]
     }
   },
   "EventPriceUpTextPool": {
-    "templates": [],
+    "templates": [
+      "TextPool"
+    ],
     "paths": {
-      "/Values/WorldMarketFeature/NewsTicker": []
+      "/Values/WorldMarketFeature/NewsTicker": [
+        "TextPool"
+      ]
     }
   },
   "EventPriceDownTextPool": {
-    "templates": [],
+    "templates": [
+      "TextPool"
+    ],
     "paths": {
-      "/Values/WorldMarketFeature/NewsTicker": []
+      "/Values/WorldMarketFeature/NewsTicker": [
+        "TextPool"
+      ]
     }
   },
   "IconAcceptItem": {
@@ -11638,16 +13051,161 @@
       "/Values/NewspaperBalancing": []
     }
   },
+  "None": {
+    "templates": [
+      "Profile_3rdParty-PlayerCounter"
+    ],
+    "paths": {
+      "/Values/NewspaperBalancing/CategoryDebuffs": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/Expedition/MoraleAmounts": []
+    }
+  },
+  "Satisfaction": {
+    "templates": [
+      "Profile_3rdParty-PlayerCounter"
+    ],
+    "paths": {
+      "/Values/NewspaperBalancing/CategoryDebuffs": [
+        "Profile_3rdParty-PlayerCounter"
+      ]
+    }
+  },
+  "Economy": {
+    "templates": [
+      "Profile_3rdParty-PlayerCounter"
+    ],
+    "paths": {
+      "/Values/NewspaperBalancing/CategoryDebuffs": [
+        "Profile_3rdParty-PlayerCounter"
+      ]
+    }
+  },
+  "Special": {
+    "templates": [
+      "Profile_3rdParty-PlayerCounter"
+    ],
+    "paths": {
+      "/Values/NewspaperBalancing/CategoryDebuffs": [
+        "Profile_3rdParty-PlayerCounter"
+      ]
+    }
+  },
   "Filler": {
     "templates": [],
     "paths": {
       "/Values/NewspaperBalancing/CategoryDebuffs": []
     }
   },
+  "Progress": {
+    "templates": [
+      "Profile_3rdParty-PlayerCounter"
+    ],
+    "paths": {
+      "/Values/NewspaperBalancing/CategoryDebuffs": [
+        "Profile_3rdParty-PlayerCounter"
+      ]
+    }
+  },
+  "Beautification": {
+    "templates": [
+      "Profile_3rdParty-PlayerCounter"
+    ],
+    "paths": {
+      "/Values/NewspaperBalancing/CategoryDebuffs": [
+        "Profile_3rdParty-PlayerCounter"
+      ]
+    }
+  },
+  "Monument": {
+    "templates": [
+      "Profile_3rdParty-PlayerCounter",
+      "Monument"
+    ],
+    "paths": {
+      "/Values/NewspaperBalancing/CategoryDebuffs": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/MonumentNewsTracker/MonumentConstructionNews/MonumentNews/Item": [
+        "Monument"
+      ]
+    }
+  },
   "VictoryAndLose": {
     "templates": [],
     "paths": {
       "/Values/NewspaperBalancing/CategoryDebuffs": []
+    }
+  },
+  "HostileTakeover": {
+    "templates": [
+      "Profile_3rdParty-PlayerCounter"
+    ],
+    "paths": {
+      "/Values/NewspaperBalancing/CategoryDebuffs": [
+        "Profile_3rdParty-PlayerCounter"
+      ]
+    }
+  },
+  "Diplomacy": {
+    "templates": [
+      "Profile_3rdParty-PlayerCounter"
+    ],
+    "paths": {
+      "/Values/NewspaperBalancing/CategoryDebuffs": [
+        "Profile_3rdParty-PlayerCounter"
+      ]
+    }
+  },
+  "Military": {
+    "templates": [
+      "Profile_3rdParty-PlayerCounter"
+    ],
+    "paths": {
+      "/Values/NewspaperBalancing/CategoryDebuffs": [
+        "Profile_3rdParty-PlayerCounter"
+      ]
+    }
+  },
+  "Expeditions": {
+    "templates": [
+      "Profile_3rdParty-PlayerCounter"
+    ],
+    "paths": {
+      "/Values/NewspaperBalancing/CategoryDebuffs": [
+        "Profile_3rdParty-PlayerCounter"
+      ]
+    }
+  },
+  "Visitors": {
+    "templates": [
+      "Profile_3rdParty-PlayerCounter"
+    ],
+    "paths": {
+      "/Values/NewspaperBalancing/CategoryDebuffs": [
+        "Profile_3rdParty-PlayerCounter"
+      ]
+    }
+  },
+  "CityAttractiveness": {
+    "templates": [
+      "Profile_3rdParty-PlayerCounter"
+    ],
+    "paths": {
+      "/Values/NewspaperBalancing/CategoryDebuffs": [
+        "Profile_3rdParty-PlayerCounter"
+      ]
+    }
+  },
+  "Quests": {
+    "templates": [
+      "Profile_3rdParty-PlayerCounter"
+    ],
+    "paths": {
+      "/Values/NewspaperBalancing/CategoryDebuffs": [
+        "Profile_3rdParty-PlayerCounter"
+      ]
     }
   },
   "NewspaperDefaultName": {
@@ -12071,6 +13629,16 @@
       ]
     }
   },
+  "IncomeBalanceHighMinimumAtRelease": {
+    "templates": [
+      "Profile_3rdParty-PlayerCounter"
+    ],
+    "paths": {
+      "/Values/IncomeBalanceNewsTracker": [
+        "Profile_3rdParty-PlayerCounter"
+      ]
+    }
+  },
   "NewIslandSettledPlayerArticle": {
     "templates": [
       "NewspaperArticle"
@@ -12307,16 +13875,6 @@
       ]
     }
   },
-  "Monument": {
-    "templates": [
-      "Monument"
-    ],
-    "paths": {
-      "/Values/MonumentNewsTracker/MonumentConstructionNews/MonumentNews/Item": [
-        "Monument"
-      ]
-    }
-  },
   "ConstructionStartedArticle": {
     "templates": [
       "NewspaperArticle"
@@ -12457,6 +14015,16 @@
       ]
     }
   },
+  "PopulationChangeAmount": {
+    "templates": [
+      "PaMSy_Base"
+    ],
+    "paths": {
+      "/Values/OverallSatisfactionNewsTracker": [
+        "PaMSy_Base"
+      ]
+    }
+  },
   "QuestArticle": {
     "templates": [
       "NewspaperArticle"
@@ -12503,12 +14071,19 @@
   "UnlockAsset": {
     "templates": [
       "FactoryBuilding7",
-      "Monument"
+      "Monument",
+      "UplayAction"
     ],
     "paths": {
       "/Values/UnlockNewsTracker/UnlockNews/Item": [
         "FactoryBuilding7",
         "Monument"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferGiftAccepted/Reactions/Item/UnlockAssets/Item": [
+        "UplayAction"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/BuildingBuilt/Reactions/Item/UnlockAssets/Item": [
+        "UplayAction"
       ]
     }
   },
@@ -12835,9 +14410,13 @@
     }
   },
   "LowWorkforceProductivity": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/InfolayerConfig": []
+      "/Values/InfolayerConfig": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "InfoLayerInfotip": {
@@ -13041,9 +14620,13 @@
     }
   },
   "CameraAngle": {
-    "templates": [],
+    "templates": [
+      "Profile_3rdParty"
+    ],
     "paths": {
-      "/Values/WorldMapConfig/Camera": []
+      "/Values/WorldMapConfig/Camera": [
+        "Profile_3rdParty"
+      ]
     }
   },
   "ScrollSpeed": {
@@ -13081,9 +14664,13 @@
     }
   },
   "WindDirection": {
-    "templates": [],
+    "templates": [
+      "Profile_3rdParty"
+    ],
     "paths": {
-      "/Values/WorldMapConfig": []
+      "/Values/WorldMapConfig": [
+        "Profile_3rdParty"
+      ]
     }
   },
   "NotificationAudioAsset": {
@@ -13423,7 +15010,18 @@
       "/Values/ParticipantMessages/MessageTriggers/AIDropPositiveGeneric/Reactions/Item/Notification/Values/CharacterNotification": [],
       "/Values/ParticipantMessages/MessageTriggers/AIDropPositiveOwn/Reactions/Item/Notification/Values/CharacterNotification": [],
       "/Values/ParticipantMessages/MessageTriggers/AIDropNegativeGeneric/Reactions/Item/Notification/Values/CharacterNotification": [],
-      "/Values/ParticipantMessages/MessageTriggers/AIDropNegativeOwn/Reactions/Item/Notification/Values/CharacterNotification": []
+      "/Values/ParticipantMessages/MessageTriggers/AIDropNegativeOwn/Reactions/Item/Notification/Values/CharacterNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/IncidentEnd/Reactions/Item/Notification/Values/CharacterNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpansionHigherThanNPC/Reactions/Item/Notification/Values/CharacterNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpansionLowerThanNPC/Reactions/Item/Notification/Values/CharacterNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ProgressLevelLowerThanNPC/Reactions/Item/Notification/Values/CharacterNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/NewspaperPublishedWithoutPropagandaGood/Reactions/Item/Notification/Values/CharacterNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/NewspaperPublishedWithoutPropagandaBad/Reactions/Item/Notification/Values/CharacterNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ProgressLevelHigherThanNPC/Reactions/Item/Notification/Values/CharacterNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/FlagshipReplacementOffered/Reactions/Item/Notification/Values/CharacterNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyPiratesResettled/Reactions/Item/Notification/Values/CharacterNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyPiratesDefeated/Reactions/Item/Notification/Values/CharacterNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/DivingBellShipReplacementOffered/Reactions/Item/Notification/Values/CharacterNotification": []
     }
   },
   "BuysEverythingIcon": {
@@ -13787,9 +15385,13 @@
     }
   },
   "TextBoxWidth": {
-    "templates": [],
+    "templates": [
+      "ScenarioInformation"
+    ],
     "paths": {
-      "/Values/CreditsScene": []
+      "/Values/CreditsScene": [
+        "ScenarioInformation"
+      ]
     }
   },
   "UseItem": {
@@ -15008,10 +16610,16 @@
     }
   },
   "TutorialRefGUID": {
-    "templates": [],
+    "templates": [
+      "TutorialUiElement"
+    ],
     "paths": {
-      "/Values/NavigationMenuScene/MenuButtons/Item": [],
-      "/Values/NavigationMenuScene/IslandInfoButtons/Item": []
+      "/Values/NavigationMenuScene/MenuButtons/Item": [
+        "TutorialUiElement"
+      ],
+      "/Values/NavigationMenuScene/IslandInfoButtons/Item": [
+        "TutorialUiElement"
+      ]
     }
   },
   "Tool": {
@@ -15318,6 +16926,16 @@
       "/Values/NewspaperScene": []
     }
   },
+  "ArchivePageSize": {
+    "templates": [
+      "Profile_2ndParty"
+    ],
+    "paths": {
+      "/Values/NewspaperScene": [
+        "Profile_2ndParty"
+      ]
+    }
+  },
   "Collect": {
     "templates": [],
     "paths": {
@@ -15421,9 +17039,13 @@
     }
   },
   "StartDistancePC": {
-    "templates": [],
+    "templates": [
+      "Profile_3rdParty_NoTrader_NoProperty3rdParty"
+    ],
     "paths": {
-      "/Values/OnScreenNotificationScene": []
+      "/Values/OnScreenNotificationScene": [
+        "Profile_3rdParty_NoTrader_NoProperty3rdParty"
+      ]
     }
   },
   "EndDistancePC": {
@@ -15437,9 +17059,13 @@
     }
   },
   "StartDistanceConsole": {
-    "templates": [],
+    "templates": [
+      "Profile_3rdParty_NoTrader_NoProperty3rdParty"
+    ],
     "paths": {
-      "/Values/OnScreenNotificationScene": []
+      "/Values/OnScreenNotificationScene": [
+        "Profile_3rdParty_NoTrader_NoProperty3rdParty"
+      ]
     }
   },
   "EndDistanceConsole": {
@@ -16543,6 +18169,16 @@
       ]
     }
   },
+  "IslandBorderSize": {
+    "templates": [
+      "PaMSy_Base"
+    ],
+    "paths": {
+      "/Values/SessionTradeRoutesScene": [
+        "PaMSy_Base"
+      ]
+    }
+  },
   "Category1Description": {
     "templates": [],
     "paths": {
@@ -16934,6 +18570,18 @@
     "templates": [],
     "paths": {
       "/Values/StatisticMenu": []
+    }
+  },
+  "IgnoreAsset": {
+    "templates": [
+      "Profile_3rdParty",
+      "Profile_3rdParty-PlayerCounter"
+    ],
+    "paths": {
+      "/Values/StatisticMenu/ItemSourceData/Trader/AssetIgnoreList/Item": [
+        "Profile_3rdParty",
+        "Profile_3rdParty-PlayerCounter"
+      ]
     }
   },
   "DropDescription": {
@@ -18152,10 +19800,52 @@
     }
   },
   "PosY": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects",
+      "PaMSy_Base"
+    ],
     "paths": {
-      "/Values/ObjectMenuResidenceHappinessSceneConfig/ResidentHappinessCategory/WorkingConditions/UIPosition": [],
-      "/Values/ObjectMenuResidenceHappinessSceneConfig/ResidentHappinessCategory/Pollution/UIPosition": []
+      "/Values/ObjectMenuResidenceHappinessSceneConfig/ResidentHappinessCategory/WorkingConditions/UIPosition": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/ObjectMenuResidenceHappinessSceneConfig/ResidentHappinessCategory/Pollution/UIPosition": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/ObjectMenuResidenceHappinessSceneConfig/ResidentHappinessCategory/Needs/UIPosition": [
+        "PaMSy_Base"
+      ],
+      "/Values/ObjectMenuResidenceHappinessSceneConfig/ResidentHappinessCategory/Hotspots/UIPosition": [
+        "PaMSy_Base"
+      ]
+    }
+  },
+  "PosX": {
+    "templates": [
+      "Profile_2ndParty",
+      "PaMSy_Base",
+      "Profile_3rdParty-PlayerCounter"
+    ],
+    "paths": {
+      "/Values/ObjectMenuResidenceHappinessSceneConfig/ResidentHappinessCategory/War/UIPosition": [
+        "Profile_2ndParty",
+        "PaMSy_Base"
+      ],
+      "/Values/ObjectMenuResidenceHappinessSceneConfig/ResidentHappinessCategory/Hotspots/UIPosition": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/ObjectMenuResidenceHappinessSceneConfig/ResidentHappinessCategory/Attractiveness/UIPosition": [
+        "PaMSy_Base"
+      ]
+    }
+  },
+  "CategoryRefGUID": {
+    "templates": [
+      "Profile_2ndParty"
+    ],
+    "paths": {
+      "/Values/ObjectMenuResidenceHappinessSceneConfig/ResidentHappinessCategory/War": [
+        "Profile_2ndParty"
+      ]
     }
   },
   "ResidenceEmpty": {
@@ -19362,9 +21052,13 @@
     }
   },
   "DefaultScenario": {
-    "templates": [],
+    "templates": [
+      "ScenarioInformation"
+    ],
     "paths": {
-      "/Values/ScenarioLoadingScene": []
+      "/Values/ScenarioLoadingScene": [
+        "ScenarioInformation"
+      ]
     }
   },
   "ScenarioLoadingTipInterval": {
@@ -19645,9 +21339,13 @@
     }
   },
   "CellSizeY": {
-    "templates": [],
+    "templates": [
+      "Profile_3rdParty_Queen"
+    ],
     "paths": {
-      "/Values/SettingsMenu/Container/Item/Container/Values/OptionGrid": []
+      "/Values/SettingsMenu/Container/Item/Container/Values/OptionGrid": [
+        "Profile_3rdParty_Queen"
+      ]
     }
   },
   "HeadlineHeadline": {
@@ -19855,11 +21553,19 @@
     }
   },
   "Scenario": {
-    "templates": [],
+    "templates": [
+      "ScenarioInformation"
+    ],
     "paths": {
-      "/Values/StaticHelpTopic/ScenariosRequired/Item": [],
-      "/Values/Session": [],
-      "/Values/ScenarioCurrencyFixer/ScenariosToRecalculate/Item": []
+      "/Values/StaticHelpTopic/ScenariosRequired/Item": [
+        "ScenarioInformation"
+      ],
+      "/Values/Session": [
+        "ScenarioInformation"
+      ],
+      "/Values/ScenarioCurrencyFixer/ScenariosToRecalculate/Item": [
+        "ScenarioInformation"
+      ]
     }
   },
   "SubtopicDLC": {
@@ -19873,14 +21579,28 @@
     }
   },
   "TutorialElement": {
-    "templates": [],
+    "templates": [
+      "TutorialUiElement"
+    ],
     "paths": {
-      "/Values/TutorialUiBalancing/GamepadActionTutorials/OpenMetaMenuNavigation": [],
-      "/Values/TutorialUiBalancing/GamepadActionTutorials/OpenBuildTools": [],
-      "/Values/TutorialUiBalancing/GamepadActionTutorials/QuickNavigationOpenState": [],
-      "/Values/TutorialUiBalancing/GamepadActionTutorials/QuickNavigationShowPreviousSession": [],
-      "/Values/TutorialUiBalancing/GamepadActionTutorials/QuickNavigationShowNextSession": [],
-      "/Values/TutorialUiBalancing/GamepadActionTutorials/QuickNavigationTeleport": []
+      "/Values/TutorialUiBalancing/GamepadActionTutorials/OpenMetaMenuNavigation": [
+        "TutorialUiElement"
+      ],
+      "/Values/TutorialUiBalancing/GamepadActionTutorials/OpenBuildTools": [
+        "TutorialUiElement"
+      ],
+      "/Values/TutorialUiBalancing/GamepadActionTutorials/QuickNavigationOpenState": [
+        "TutorialUiElement"
+      ],
+      "/Values/TutorialUiBalancing/GamepadActionTutorials/QuickNavigationShowPreviousSession": [
+        "TutorialUiElement"
+      ],
+      "/Values/TutorialUiBalancing/GamepadActionTutorials/QuickNavigationShowNextSession": [
+        "TutorialUiElement"
+      ],
+      "/Values/TutorialUiBalancing/GamepadActionTutorials/QuickNavigationTeleport": [
+        "TutorialUiElement"
+      ]
     }
   },
   "AlternativeText": {
@@ -19909,11 +21629,19 @@
     }
   },
   "ClusteringDistance": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/GlobalSoundEventConfig/ClusteringDetails/Default": [],
-      "/Values/GlobalSoundEventConfig/ClusteringDetails/SmallBuildingSound": [],
-      "/Values/GlobalSoundEventConfig/ClusteringDetails/MiddleBuildingSound": []
+      "/Values/GlobalSoundEventConfig/ClusteringDetails/Default": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/GlobalSoundEventConfig/ClusteringDetails/SmallBuildingSound": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/GlobalSoundEventConfig/ClusteringDetails/MiddleBuildingSound": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "MusicEvent": {
@@ -20197,9 +21925,13 @@
     }
   },
   "TriggerDistance": {
-    "templates": [],
+    "templates": [
+      "Profile_3rdParty"
+    ],
     "paths": {
-      "/Values/MusicSoundConfig/IncidentMusic": []
+      "/Values/MusicSoundConfig/IncidentMusic": [
+        "Profile_3rdParty"
+      ]
     }
   },
   "MusicEnding_StateGroup": {
@@ -20624,10 +22356,20 @@
     }
   },
   "Priority": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects",
+      "Profile_2ndParty"
+    ],
     "paths": {
-      "/Values/SessionSoundConfig/EnvironmentTypePriorities/Building_Industry": [],
-      "/Values/SessionSoundConfig/EnvironmentTypePriorities/ResidenceScholars": []
+      "/Values/SessionSoundConfig/EnvironmentTypePriorities/Building_Industry": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/SessionSoundConfig/EnvironmentTypePriorities/ResidenceScholars": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/ConstructionAI/MultiSession/RegionPriorities/Moderate": [
+        "Profile_2ndParty"
+      ]
     }
   },
   "MurmurEvent": {
@@ -21353,6 +23095,16 @@
       ]
     }
   },
+  "ListenerMaxCameraAngle": {
+    "templates": [
+      "Profile_2ndParty"
+    ],
+    "paths": {
+      "/Values/SessionSoundConfig": [
+        "Profile_2ndParty"
+      ]
+    }
+  },
   "MurmurCountGameParameter": {
     "templates": [
       "GameParameter"
@@ -21745,9 +23497,13 @@
     }
   },
   "ListenerMaxHeight": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/SessionSoundConfig": []
+      "/Values/SessionSoundConfig": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "DelayBetweenMurmur": {
@@ -21977,31 +23733,41 @@
     }
   },
   "EventOrEventPool": {
-    "templates": [],
+    "templates": [
+      "ExpeditionEvent",
+      "ExpeditionEventPool"
+    ],
     "paths": {
-      "/Values/Expedition/EventList/Item": [],
-      "/Values/ExpeditionEventPool/EventPool/Item": []
+      "/Values/Expedition/EventList/Item": [
+        "ExpeditionEvent"
+      ],
+      "/Values/ExpeditionEventPool/EventPool/Item": [
+        "ExpeditionEvent",
+        "ExpeditionEventPool"
+      ]
     }
   },
   "FillEventPool": {
-    "templates": [],
+    "templates": [
+      "ExpeditionEventPool"
+    ],
     "paths": {
-      "/Values/Expedition": []
+      "/Values/Expedition": [
+        "ExpeditionEventPool"
+      ]
     }
   },
   "Threat": {
-    "templates": [],
+    "templates": [
+      "ExpeditionThreat"
+    ],
     "paths": {
-      "/Values/Expedition/Threats/Item": []
+      "/Values/Expedition/Threats/Item": [
+        "ExpeditionThreat"
+      ]
     }
   },
   "AddHigh": {
-    "templates": [],
-    "paths": {
-      "/Values/Expedition/MoraleAmounts": []
-    }
-  },
-  "None": {
     "templates": [],
     "paths": {
       "/Values/Expedition/MoraleAmounts": []
@@ -22014,15 +23780,33 @@
     }
   },
   "LossMediumThreshold": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/Expedition/OptionThresholds": []
+      "/Values/Expedition/OptionThresholds": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
+    }
+  },
+  "RewardMediumThreshold": {
+    "templates": [
+      "Profile_2ndParty"
+    ],
+    "paths": {
+      "/Values/Expedition/OptionThresholds": [
+        "Profile_2ndParty"
+      ]
     }
   },
   "RewardHighThreshold": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/Expedition/OptionThresholds": []
+      "/Values/Expedition/OptionThresholds": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "ExpeditionTargetSession": {
@@ -22098,10 +23882,14 @@
     }
   },
   "Decision": {
-    "templates": [],
+    "templates": [
+      "ExpeditionBribe"
+    ],
     "paths": {
       "/Values/Expedition/DecisionsToVisitForSpecialBehaviour/Item": [],
-      "/Values/ExpeditionOption/FollowupDecisions/Item": [],
+      "/Values/ExpeditionOption/FollowupDecisions/Item": [
+        "ExpeditionBribe"
+      ],
       "/Values/ExpeditionOption/Requirements/Item/NotVisitedDecisions/Item": [],
       "/Values/ExpeditionOption/Requirements/Item/VisitedDecisions/Item": []
     }
@@ -22120,15 +23908,25 @@
     }
   },
   "CurrentEventToAdd": {
-    "templates": [],
+    "templates": [
+      "ExpeditionEvent"
+    ],
     "paths": {
-      "/Values/ExpeditionDecision": []
+      "/Values/ExpeditionDecision": [
+        "ExpeditionEvent"
+      ]
     }
   },
   "InsertEvent": {
-    "templates": [],
+    "templates": [
+      "ExpeditionEvent",
+      "ExpeditionEventPool"
+    ],
     "paths": {
-      "/Values/ExpeditionDecision": []
+      "/Values/ExpeditionDecision": [
+        "ExpeditionEvent",
+        "ExpeditionEventPool"
+      ]
     }
   },
   "Conclusion": {
@@ -22161,6 +23959,7 @@
   },
   "ShipSketchPosY": {
     "templates": [
+      "Profile_Virtual_NeverOwnsObjects",
       "StrategicMapConsoleScene",
       "Street",
       "TownhallBuff",
@@ -22168,6 +23967,7 @@
     ],
     "paths": {
       "/Values/ExpeditionDecision/MapPath/ShipSketch": [
+        "Profile_Virtual_NeverOwnsObjects",
         "StrategicMapConsoleScene",
         "Street",
         "TownhallBuff",
@@ -22176,9 +23976,13 @@
     }
   },
   "EventThreat": {
-    "templates": [],
+    "templates": [
+      "ExpeditionThreat"
+    ],
     "paths": {
-      "/Values/ExpeditionEvent": []
+      "/Values/ExpeditionEvent": [
+        "ExpeditionThreat"
+      ]
     }
   },
   "StartDecision": {
@@ -22198,9 +24002,17 @@
     }
   },
   "MinAverageMoraleLoss": {
-    "templates": [],
+    "templates": [
+      "Profile_3rdParty_Queen",
+      "PaMSy_Base"
+    ],
     "paths": {
-      "/Values/ExpeditionFeature/EventLimits/Easy": []
+      "/Values/ExpeditionFeature/EventLimits/Easy": [
+        "Profile_3rdParty_Queen"
+      ],
+      "/Values/ExpeditionFeature/EventLimits/Hard": [
+        "PaMSy_Base"
+      ]
     }
   },
   "ThreatInfotip": {
@@ -22326,6 +24138,7 @@
       "GuildhouseItem",
       "ShipSpecialist",
       "Product",
+      "VehicleItem",
       "TownhallItem",
       "ItemWithUICrafting",
       "ItemSpecialAction",
@@ -22340,6 +24153,11 @@
       "/Values/ExpeditionTrade/SuccessChance/TradeValues/Item": [
         "CultureItem",
         "Product"
+      ],
+      "/Values/ItemCrafter/CraftableItemsInRegion/Arctic/CraftableItems/Item": [
+        "GuildhouseItem",
+        "VehicleItem",
+        "TownhallItem"
       ],
       "/Values/ItemCrafter/CraftableItemsInRegion/Colony01/CraftableItems/Item": [
         "GuildhouseItem",
@@ -22514,6 +24332,16 @@
         "SessionModerate",
         "SessionArctic",
         "Region"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ActiveTradeConfirmation/Reactions/Item/Notification/Values/BaseNotification/RestrictedToSessionOrRegions/Item": [
+        "SessionSouthAmerica",
+        "SessionModerate",
+        "SessionArctic"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/FlagshipReplacementOffered/Reactions/Item/Notification/Values/BaseNotification/RestrictedToSessionOrRegions/Item": [
+        "SessionModerate",
+        "SessionSouthAmerica",
+        "SessionArctic"
       ]
     }
   },
@@ -22628,7 +24456,9 @@
     }
   },
   "DisplayTimeout": {
-    "templates": [],
+    "templates": [
+      "Video"
+    ],
     "paths": {
       "/Values/Quest/OnQuestEnd/Values/ActionList/Actions/Item/Action/Values/ActionNotification/Notification/Values/BaseNotification": [],
       "/Values/ParticipantMessages/MessageTriggers/ClickNPCBuilding/Reactions/Item/Notification/Values/BaseNotification": [],
@@ -22638,7 +24468,22 @@
       "/Values/ParticipantMessages/MessageTriggers/ClickOwnRecipeBuffFactory/Reactions/Item/Notification/Values/BaseNotification": [],
       "/Values/ParticipantMessages/MessageTriggers/RecipeApplied/Reactions/Item/Notification/Values/BaseNotification": [],
       "/Values/ParticipantMessages/MessageTriggers/ClickOwnSkyscraper/Reactions/Item/Notification/Values/BaseNotification": [],
-      "/Values/ParticipantMessages/MessageTriggers/MenuWelcomeMessage/Reactions/Item/Notification/Values/BaseNotification": []
+      "/Values/ParticipantMessages/MessageTriggers/ResearchCenterRecipeUnlock/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ResearchCenterStartCrafting/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ResearchCenterDonateItem/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ResearchCenterMissingElectricity/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ClickOwnHotel/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/MonumentMenuTrigger/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ClickOwnSkyscraperMonument/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionSpawn/Reactions/Item/Notification/Values/BaseNotification": [
+        "Video"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionAssignShip/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionContinue/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/MenuVisitorDecline/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/MenuVisitorIncrease/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/MenuStableTourism/Reactions/Item/Notification/Values/BaseNotification": [],
+      "/Values/ParticipantMessages/MessageTriggers/NewspaperUsePropagandaArticle/Reactions/Item/Notification/Values/BaseNotification": []
     }
   },
   "StoryText": {
@@ -22806,18 +24651,32 @@
     }
   },
   "Min": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/Session/SpawnAreaBorderDistanceRange/Far": []
+      "/Values/Session/SpawnAreaBorderDistanceRange/Far": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "Max": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/Session/SpawnAreaBorderDistanceRange/Near": [],
-      "/Values/MapGenerator/MineSlotCountPerResourceAmount/Medium/Region/Moderate/IslandSize/Large": [],
-      "/Values/MapGenerator/MineSlotCountPerResourceAmount/High/Region/Moderate/IslandSize/Small": [],
-      "/Values/MapGenerator/MineSlotCountPerResourceAmount/High/Region/Colony01/IslandSize/Large": []
+      "/Values/Session/SpawnAreaBorderDistanceRange/Near": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/MapGenerator/MineSlotCountPerResourceAmount/Medium/Region/Moderate/IslandSize/Large": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/MapGenerator/MineSlotCountPerResourceAmount/High/Region/Moderate/IslandSize/Small": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/MapGenerator/MineSlotCountPerResourceAmount/High/Region/Colony01/IslandSize/Large": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "WorldMapCardBackground": {
@@ -22918,10 +24777,32 @@
       "/Values/CorporationProfile": []
     }
   },
-  "Settle1stIslandDelay": {
-    "templates": [],
+  "PortraitName": {
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects",
+      "Profile_3rdParty-PlayerCounter",
+      "Profile_3rdParty_NoDiplomacy_NoTrader",
+      "Profile_3rdParty",
+      "Profile_3rdParty_Pirate",
+      "Profile_3rdParty_Queen",
+      "Profile_3rdParty_ItemCrafter",
+      "Profile_2ndParty",
+      "Profile_3rdParty_NoTrader_NoProperty3rdParty",
+      "Profile_3rdParty_ItemCrafter-NoTrader"
+    ],
     "paths": {
-      "/Values/ConstructionAI/IslandSettlement": []
+      "/Values/Portrait": [
+        "Profile_Virtual_NeverOwnsObjects",
+        "Profile_3rdParty-PlayerCounter",
+        "Profile_3rdParty_NoDiplomacy_NoTrader",
+        "Profile_3rdParty",
+        "Profile_3rdParty_Pirate",
+        "Profile_3rdParty_Queen",
+        "Profile_3rdParty_ItemCrafter",
+        "Profile_2ndParty",
+        "Profile_3rdParty_NoTrader_NoProperty3rdParty",
+        "Profile_3rdParty_ItemCrafter-NoTrader"
+      ]
     }
   },
   "CrafterBuilding": {
@@ -22960,13 +24841,32 @@
     "templates": [],
     "paths": {
       "/Values/ConstructionAI/EconomyRules/ConstructionMaterials/SupplementSessionAdditions/PerRegion/Colony01/AdditionalProductionInEverySupplementSession/Item/PerProgressLevelInfos/EarlyGame": [],
-      "/Values/ConstructionAI/EconomyRules/ConstructionMaterials/SupplementSessionAdditions/PerRegion/Colony01/AdditionalProductionInEverySupplementSession/Item/PerProgressLevelInfos/EarlyMidGame": [],
-      "/Values/ConstructionAI/EconomyRules/ConstructionMaterials/SupplementSessionAdditions/PerRegion/Colony01/AdditionalProductionInEverySupplementSession/Item/PerProgressLevelInfos/MidGame": []
+      "/Values/ConstructionAI/EconomyRules/ConstructionMaterials/SupplementSessionAdditions/PerRegion/Colony01/AdditionalProductionInEverySupplementSession/Item/PerProgressLevelInfos/EarlyMidGame": []
+    }
+  },
+  "Supply": {
+    "templates": [],
+    "paths": {
+      "/Values/ConstructionAI/EconomyRules/ConsumptionConfiguration/Item/SupplyOverwrite/Item": []
+    }
+  },
+  "CivLevel": {
+    "templates": [
+      "PopulationLevel7"
+    ],
+    "paths": {
+      "/Values/ConstructionAI/EconomyRules/PreferredCivLevel": [
+        "PopulationLevel7"
+      ],
+      "/Values/ConstructionAI/EconomyRules/ProhibitedCivLevels/Item": [
+        "PopulationLevel7"
+      ]
     }
   },
   "Ornamental": {
     "templates": [
-      "OrnamentalBuilding"
+      "OrnamentalBuilding",
+      "OrnamentalModule"
     ],
     "paths": {
       "/Values/ConstructionAI/LookAndFeel/Ornaments/PerRegion/Moderate/PerRegionEntry/PerUsage/Production/RegularOrnamentals/Item": [
@@ -22985,7 +24885,8 @@
         "OrnamentalBuilding"
       ],
       "/Values/ConstructionAI/LookAndFeel/Ornaments/PerRegion/Moderate/PerRegionEntry/PerUsage/Cultural/RegularOrnamentals/Item": [
-        "OrnamentalBuilding"
+        "OrnamentalBuilding",
+        "OrnamentalModule"
       ],
       "/Values/ConstructionAI/LookAndFeel/Ornaments/PerRegion/Moderate/PerRegionEntry/PerUsage/Cultural/AvenueOrnamental1x1End": [
         "OrnamentalBuilding"
@@ -23058,8 +24959,17 @@
   "FillBlockGapsWithOrnamentalBlocks": {
     "templates": [],
     "paths": {
-      "/Values/ConstructionAI/LookAndFeel/Ornaments/PerRegion/Moderate/PerRegionEntry/PerUsage/Production": [],
       "/Values/ConstructionAI/LookAndFeel/Ornaments/PerRegion/Colony01/PerRegionEntry/PerUsage/Production": []
+    }
+  },
+  "BuildingDecorations": {
+    "templates": [
+      "StandaloneIncidentEffectConfiguration"
+    ],
+    "paths": {
+      "/Values/ConstructionAI/LookAndFeel": [
+        "StandaloneIncidentEffectConfiguration"
+      ]
     }
   },
   "BuyBudget": {
@@ -23086,10 +24996,34 @@
       ]
     }
   },
-  "WeightsThreatened": {
-    "templates": [],
+  "Cultural": {
+    "templates": [
+      "CultureBuilding"
+    ],
     "paths": {
-      "/Values/ConstructionAI/Budgets/Military": []
+      "/Values/ConstructionAI/Cultural/CulturalsItemPoolMapping/Item": [
+        "CultureBuilding"
+      ]
+    }
+  },
+  "WeightsThreatened": {
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
+    "paths": {
+      "/Values/ConstructionAI/Budgets/Military": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
+    }
+  },
+  "RerollInterval": {
+    "templates": [
+      "Video"
+    ],
+    "paths": {
+      "/Values/ConstructionAI/ItemTradeConfig": [
+        "Video"
+      ]
     }
   },
   "SeamineAsset": {
@@ -23102,20 +25036,76 @@
       ]
     }
   },
-  "ReferenceAsset": {
+  "MainIslandRewardPool": {
     "templates": [
-      "FarmBuilding"
+      "RewardItemPool"
     ],
     "paths": {
-      "/Values/ConstructionAI/UnlockReferenceAssets/Item": [
-        "FarmBuilding"
+      "/Values/ConstructionAI/TakeoverReward/EarlyGame": [
+        "RewardItemPool"
+      ],
+      "/Values/ConstructionAI/TakeoverReward/EarlyMidGame": [
+        "RewardItemPool"
+      ],
+      "/Values/ConstructionAI/TakeoverReward/MidGame": [
+        "RewardItemPool"
+      ],
+      "/Values/ConstructionAI/TakeoverReward/LateMidGame": [
+        "RewardItemPool"
+      ],
+      "/Values/ConstructionAI/TakeoverReward/LateGame": [
+        "RewardItemPool"
+      ],
+      "/Values/ConstructionAI/TakeoverReward/EndGame": [
+        "RewardItemPool"
       ]
     }
   },
-  "MilitaryStrengthRatio": {
-    "templates": [],
+  "SecondaryIslandRewardPool": {
+    "templates": [
+      "RewardItemPool"
+    ],
     "paths": {
-      "/Values/MilitaryAI/Attack": []
+      "/Values/ConstructionAI/TakeoverReward/EarlyGame": [
+        "RewardItemPool"
+      ],
+      "/Values/ConstructionAI/TakeoverReward/EarlyMidGame": [
+        "RewardItemPool"
+      ],
+      "/Values/ConstructionAI/TakeoverReward/MidGame": [
+        "RewardItemPool"
+      ],
+      "/Values/ConstructionAI/TakeoverReward/LateMidGame": [
+        "RewardItemPool"
+      ],
+      "/Values/ConstructionAI/TakeoverReward/LateGame": [
+        "RewardItemPool"
+      ],
+      "/Values/ConstructionAI/TakeoverReward/EndGame": [
+        "RewardItemPool"
+      ]
+    }
+  },
+  "MainIslandItemCount": {
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
+    "paths": {
+      "/Values/ConstructionAI/TakeoverReward/MidGame": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
+    }
+  },
+  "ReferenceAsset": {
+    "templates": [
+      "FarmBuilding",
+      "PublicServiceBuilding"
+    ],
+    "paths": {
+      "/Values/ConstructionAI/UnlockReferenceAssets/Item": [
+        "FarmBuilding",
+        "PublicServiceBuilding"
+      ]
     }
   },
   "BombardProjectilesMax": {
@@ -23124,10 +25114,17 @@
       "/Values/MilitaryAI/Bombard/Progress/EndGame": []
     }
   },
-  "DesiredDamage": {
-    "templates": [],
+  "ShaftFillPercentage": {
+    "templates": [
+      "Profile_2ndParty"
+    ],
     "paths": {
-      "/Values/MilitaryAI/Bombard/BombDrops/LateMidGame": []
+      "/Values/MilitaryAI/Bombard/CarePackageDrops/MidGame": [
+        "Profile_2ndParty"
+      ],
+      "/Values/MilitaryAI/Bombard/CarePackageDrops/LateMidGame": [
+        "Profile_2ndParty"
+      ]
     }
   },
   "DefendInterval": {
@@ -23142,37 +25139,70 @@
       "/Values/MilitaryAI/Defend": []
     }
   },
-  "MinStrengthRatio": {
-    "templates": [],
-    "paths": {
-      "/Values/MilitaryAI/SquadLogic/TargetPriorities/Item": []
-    }
-  },
   "Value": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/MilitaryAI/Escort/Priorities/SettleMission": []
-    }
-  },
-  "MaxShipCount": {
-    "templates": [],
-    "paths": {
-      "/Values/MilitaryAI/WarFleet/ShipLimits/Peace/Progress/LateMidGame": []
-    }
-  },
-  "MinSlowdown": {
-    "templates": [],
-    "paths": {
-      "/Values/MilitaryAI/AirWarFleet/SlowdownFactor": []
+      "/Values/MilitaryAI/Escort/Priorities/SettleMission": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "Type": {
     "templates": [
+      "WarShip",
       "WarAirShip"
     ],
     "paths": {
+      "/Values/MilitaryAI/WarFleet/ShipList/Item": [
+        "WarShip"
+      ],
       "/Values/MilitaryAI/AirWarFleet/ShipList/Item": [
         "WarAirShip"
+      ]
+    }
+  },
+  "Enabled": {
+    "templates": [],
+    "paths": {
+      "/Values/MilitaryAI/WarFleet/CatchupFactor": [],
+      "/Values/MilitaryAI/WarFleet/SlowdownFactor": []
+    }
+  },
+  "CatchupToPercentage": {
+    "templates": [
+      "Profile_2ndParty"
+    ],
+    "paths": {
+      "/Values/MilitaryAI/WarFleet/CatchupFactor": [
+        "Profile_2ndParty"
+      ],
+      "/Values/MilitaryAI/AirWarFleet/CatchupFactor": [
+        "Profile_2ndParty"
+      ]
+    }
+  },
+  "SlowdownToPercentage": {
+    "templates": [
+      "PaMSy_Base"
+    ],
+    "paths": {
+      "/Values/MilitaryAI/WarFleet/SlowdownFactor": [
+        "PaMSy_Base"
+      ],
+      "/Values/MilitaryAI/AirWarFleet/SlowdownFactor": [
+        "PaMSy_Base"
+      ]
+    }
+  },
+  "MinSlowdown": {
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
+    "paths": {
+      "/Values/MilitaryAI/AirWarFleet/SlowdownFactor": [
+        "Profile_Virtual_NeverOwnsObjects"
       ]
     }
   },
@@ -23337,20 +25367,14 @@
       ]
     }
   },
-  "NextDecisionMinTime": {
+  "DiceRollProposalMax": {
     "templates": [
-      "Video"
+      "Profile_Virtual_NeverOwnsObjects"
     ],
     "paths": {
-      "/Values/BuyShares": [
-        "Video"
+      "/Values/Diplomacy": [
+        "Profile_Virtual_NeverOwnsObjects"
       ]
-    }
-  },
-  "DiceRollProposalMax": {
-    "templates": [],
-    "paths": {
-      "/Values/Diplomacy": []
     }
   },
   "DiceRollThreatMin": {
@@ -23360,43 +25384,49 @@
     }
   },
   "ActionWeight": {
-    "templates": [],
-    "paths": {
-      "/Values/Diplomacy/DiplomacyActionBalancing/RequestPeace": [],
-      "/Values/Diplomacy/DiplomacyActionBalancing/RequestTraderights": [],
-      "/Values/Diplomacy/DiplomacyActionBalancing/RequestCeaseFire": []
-    }
-  },
-  "AgreementThreshold": {
-    "templates": [],
-    "paths": {
-      "/Values/Diplomacy/DiplomacyActionBalancing/ThreatCancelAlliance": [],
-      "/Values/Diplomacy/DiplomacyActionBalancing/RequestNonAttack": []
-    }
-  },
-  "PosBorderMax": {
-    "templates": [],
-    "paths": {
-      "/Values/Diplomacy/ReputationChangeCalculation/EconomyPowerTempReputation": []
-    }
-  },
-  "BaseValue": {
     "templates": [
-      "TrafficFeedbackUnit",
-      "Inhabitant"
+      "Profile_3rdParty-PlayerCounter",
+      "Profile_Virtual_NeverOwnsObjects"
     ],
     "paths": {
-      "/Values/Diplomacy/GiftBalancing/givePayment": [
-        "TrafficFeedbackUnit",
-        "Inhabitant"
+      "/Values/Diplomacy/DiplomacyActionBalancing/DeclareWar": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/Diplomacy/DiplomacyActionBalancing/RequestPeace": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/Diplomacy/DiplomacyActionBalancing/RequestTraderights": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/Diplomacy/DiplomacyActionBalancing/ThreatWar": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/Diplomacy/DiplomacyActionBalancing/ThreatCancelAlliance": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/Diplomacy/DiplomacyActionBalancing/ThreatCancelTrade": [
+        "Profile_3rdParty-PlayerCounter"
+      ],
+      "/Values/Diplomacy/DiplomacyActionBalancing/RequestNonAttack": [
+        "Profile_3rdParty-PlayerCounter"
       ]
     }
   },
   "BelowChance": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects",
+      "Profile_2ndParty"
+    ],
     "paths": {
-      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl3": [],
-      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl9": []
+      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl3": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl8": [
+        "Profile_2ndParty"
+      ],
+      "/Values/Diplomacy/ChancePreview/RatingStates/SuccessLvl9": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "ReputationTriggerDelayMax": {
@@ -23407,18 +25437,6 @@
       "/Values/Diplomacy/DiplomacyAI": [
         "Video"
       ]
-    }
-  },
-  "CheckEconomyStrength": {
-    "templates": [],
-    "paths": {
-      "/Values/Diplomacy/DiplomacyAI/ReputationTrigger/Item": []
-    }
-  },
-  "TriggerChance": {
-    "templates": [],
-    "paths": {
-      "/Values/Diplomacy/DiplomacyAI/ReputationTrigger/Item": []
     }
   },
   "Cooldown": {
@@ -23476,26 +25494,6 @@
       ]
     }
   },
-  "PositiveThresholdBase": {
-    "templates": [
-      "Recipe"
-    ],
-    "paths": {
-      "/Values/Interaction": [
-        "Recipe"
-      ]
-    }
-  },
-  "NegativeThresholdBase": {
-    "templates": [
-      "Recipe"
-    ],
-    "paths": {
-      "/Values/Interaction": [
-        "Recipe"
-      ]
-    }
-  },
   "TimeUntilActionIsForgotten": {
     "templates": [
       "Video"
@@ -23530,23 +25528,188 @@
       ]
     }
   },
-  "RequiredContextAsset": {
+  "ParticipantMessages": {
     "templates": [
-      "SimpleAsset",
-      "CultureBuilding",
-      "IllnessIncident",
-      "ArcticIllnessIncident",
-      "NewspaperEffectIcon",
-      "FireIncident",
-      "RiotIncident",
-      "InfoLayerIcon"
+      "PaMSy_Base"
     ],
     "paths": {
+      "/Values/ParticipantMessageObject": [
+        "PaMSy_Base"
+      ]
+    }
+  },
+  "ReputationLogEntry": {
+    "templates": [],
+    "paths": {
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyDeclareWar/Reactions/Item": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferPeaceAccepted/Reactions/Item": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferTraderightsAccepted/Reactions/Item": [],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferAllianceAccepted/Reactions/Item": [],
+      "/Values/ParticipantMessages/MessageTriggers/NewspaperPublishedWithPropaganda/Reactions/Item": [],
+      "/Values/ParticipantMessages/MessageTriggers/MilitaryShipDestroyed/Reactions/Item": [],
+      "/Values/ParticipantMessages/MessageTriggers/CulturalBuildingAttractivenessHigherThan/Reactions/Item": [],
+      "/Values/ParticipantMessages/MessageTriggers/IncidentEscalate/Reactions/Item": [],
+      "/Values/ParticipantMessages/MessageTriggers/FirstTimeEventHappened/Reactions/Item": [],
+      "/Values/ParticipantMessages/MessageTriggers/BuildingBuilt/Reactions/Item": [],
+      "/Values/ParticipantMessages/MessageTriggers/IncidentStart/Reactions/Item": [],
+      "/Values/ParticipantMessages/MessageTriggers/ProgressLevelLevelUp/Reactions/Item": []
+    }
+  },
+  "NotificationGUID": {
+    "templates": [
+      "Notification"
+    ],
+    "paths": {
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyDeclareWar/Reactions/Item": [
+        "Notification"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferPeaceAccepted/Reactions/Item": [
+        "Notification"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferTraderightsAccepted/Reactions/Item": [
+        "Notification"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyCancelTraderights/Reactions/Item": [
+        "Notification"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferAllianceAccepted/Reactions/Item": [
+        "Notification"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyCancelAlliance/Reactions/Item": [
+        "Notification"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferCeasefireAccepted/Reactions/Item": [
+        "Notification"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyOfferNonAggressionPactAccepted/Reactions/Item": [
+        "Notification"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyCeaseFireEnded/Reactions/Item": [
+        "Notification"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DiplomacyNonAgressionPactEnded/Reactions/Item": [
+        "Notification"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DateNotificationHalloween/Reactions/Item": [
+        "Notification"
+      ]
+    }
+  },
+  "RequiredContextAsset": {
+    "templates": [
+      "Profile_2ndParty",
+      "Profile_3rdParty-PlayerCounter",
+      "Profile_3rdParty",
+      "Profile_3rdParty_Pirate",
+      "SimpleAsset",
+      "VisualBuilding_NoLogic",
+      "WarShip",
+      "ResidenceBuilding-Unique",
+      "FactoryBuilding7",
+      "Multifactory",
+      "PowerplantBuilding",
+      "CityInstitutionBuildingAdvanced",
+      "FarmBuilding",
+      "SlotFactoryBuilding7",
+      "FreeAreaBuilding",
+      "RecipeList",
+      "ResidenceBuilding",
+      "CultureBuilding",
+      "IllnessIncident",
+      "FireIncident",
+      "RiotIncident",
+      "BuffFactory",
+      "MonumentColony",
+      "VisitorPier",
+      "PublicServiceBuilding",
+      "CityInstitutionBuilding",
+      "Guildhouse",
+      "IrrigationPropagationSource",
+      "PublicServiceBuildingWithMusicInfluencer",
+      "PublicServiceBuildingWithBus",
+      "Monument",
+      "ResidenceBuilding7_Colony",
+      "ArcticIllnessIncident",
+      "NewspaperEffectIcon",
+      "InfoLayerIcon",
+      "TowerRestaurant",
+      "Restaurant",
+      "Mall",
+      "ExpeditionThreat",
+      "Product",
+      "DocklandMain"
+    ],
+    "paths": {
+      "/Values/ParticipantMessages/MessageTriggers/ParticipantDiscovered/Reactions/Item": [
+        "Profile_2ndParty",
+        "Profile_3rdParty-PlayerCounter",
+        "Profile_3rdParty",
+        "Profile_3rdParty_Pirate"
+      ],
       "/Values/ParticipantMessages/MessageTriggers/NewspaperPublishedWithPropaganda/Reactions/Item": [
         "SimpleAsset"
       ],
+      "/Values/ParticipantMessages/MessageTriggers/ClickNPCBuilding/Reactions/Item": [
+        "VisualBuilding_NoLogic"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ClickNPCShip/Reactions/Item": [
+        "WarShip"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/MenuIdleMessage/Reactions/Item": [
+        "ResidenceBuilding-Unique",
+        "FactoryBuilding7",
+        "Multifactory",
+        "PowerplantBuilding",
+        "CityInstitutionBuildingAdvanced",
+        "FarmBuilding",
+        "SlotFactoryBuilding7",
+        "FreeAreaBuilding",
+        "RecipeList",
+        "ResidenceBuilding"
+      ],
       "/Values/ParticipantMessages/MessageTriggers/CulturalBuildingAttractivenessHigherThan/Reactions/Item": [
         "CultureBuilding"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/IncidentEnd/Reactions/Item": [
+        "IllnessIncident",
+        "FireIncident"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/IncidentEscalate/Reactions/Item": [
+        "IllnessIncident",
+        "FireIncident",
+        "RiotIncident"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/FirstTimeEventHappened/Reactions/Item": [
+        "SimpleAsset"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/BuildingBuilt/Reactions/Item": [
+        "PowerplantBuilding",
+        "BuffFactory",
+        "MonumentColony",
+        "VisitorPier",
+        "FactoryBuilding7",
+        "PublicServiceBuilding",
+        "CityInstitutionBuilding",
+        "Guildhouse",
+        "SlotFactoryBuilding7",
+        "IrrigationPropagationSource",
+        "FarmBuilding",
+        "PublicServiceBuildingWithMusicInfluencer",
+        "PublicServiceBuildingWithBus",
+        "Monument"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/IncidentStart/Reactions/Item": [
+        "RiotIncident"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ProgressLevelLevelUp/Reactions/Item": [
+        "ResidenceBuilding7_Colony",
+        "ResidenceBuilding"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ResearchCenterFinishCrafting/Reactions/Item": [
+        "SimpleAsset"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/MenuWelcomeMessage/Reactions/Item": [
+        "SimpleAsset"
       ],
       "/Values/ParticipantMessages/MessageTriggers/ClickOwnResidence/Reactions/Item": [
         "SimpleAsset",
@@ -23565,11 +25728,25 @@
         "FireIncident",
         "RiotIncident"
       ],
+      "/Values/ParticipantMessages/MessageTriggers/PauseProductionBuilding/Reactions/Item": [
+        "RecipeList"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ResumeProductionBuilding/Reactions/Item": [
+        "RecipeList"
+      ],
       "/Values/ParticipantMessages/MessageTriggers/ClickOwnRecipeBuffFactory/Reactions/Item": [
-        "IllnessIncident",
+        "RecipeList",
+        "Multifactory",
+        "TowerRestaurant",
+        "Restaurant",
         "InfoLayerIcon",
+        "Mall",
+        "IllnessIncident",
         "FireIncident",
         "RiotIncident"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/RecipeApplied/Reactions/Item": [
+        "RecipeList"
       ],
       "/Values/ParticipantMessages/MessageTriggers/ClickOwnSkyscraper/Reactions/Item": [
         "IllnessIncident",
@@ -23577,24 +25754,66 @@
         "FireIncident",
         "RiotIncident",
         "InfoLayerIcon"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ResearchCenterRecipeUnlock/Reactions/Item": [
+        "SimpleAsset"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ResearchCenterStartCrafting/Reactions/Item": [
+        "SimpleAsset"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ClickOwnHotel/Reactions/Item": [
+        "InfoLayerIcon",
+        "IllnessIncident",
+        "SimpleAsset",
+        "FireIncident"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/MonumentMenuTrigger/Reactions/Item": [
+        "SimpleAsset"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ClickOwnSkyscraperMonument/Reactions/Item": [
+        "IllnessIncident",
+        "NewspaperEffectIcon",
+        "FireIncident",
+        "RiotIncident",
+        "InfoLayerIcon"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionSpawn/Reactions/Item": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionCallForEvent/Reactions/Item": [
+        "ExpeditionThreat"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionContinue/Reactions/Item": [
+        "SimpleAsset"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionReturns/Reactions/Item": [],
+      "/Values/ParticipantMessages/MessageTriggers/ExpeditionFailed/Reactions/Item": [],
+      "/Values/ParticipantMessages/MessageTriggers/DocklandsExportGoodUpgraded/Reactions/Item": [
+        "Product"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DocklandsModulesBuilt/Reactions/Item": [
+        "DocklandMain"
+      ],
+      "/Values/ParticipantMessages/MessageTriggers/DocklandsModulesConnected/Reactions/Item": [
+        "DocklandMain"
       ]
     }
   },
-  "ReputationLogEntry": {
-    "templates": [],
-    "paths": {
-      "/Values/ParticipantMessages/MessageTriggers/MilitaryShipDestroyed/Reactions/Item": [],
-      "/Values/ParticipantMessages/MessageTriggers/CulturalBuildingAttractivenessHigherThan/Reactions/Item": []
-    }
-  },
-  "CooldownTime": {
+  "NotificationLabel": {
     "templates": [
-      "Video"
+      "TextPool"
     ],
     "paths": {
-      "/Values/ParticipantMessages/MessageTriggers/MenuWelcomeMessage/Reactions/Item": [
-        "Video"
+      "/Values/ParticipantMessages/MessageTriggers/AIDropNegativeGeneric/Reactions/Item/Notification/Values/BaseNotification": [
+        "TextPool"
       ]
+    }
+  },
+  "Probability": {
+    "templates": [],
+    "paths": {
+      "/Values/ParticipantMessages/MessageTriggers/ClickOwnHotel/Reactions/Item": [],
+      "/Values/ParticipantMessages/MessageTriggers/MonumentExhibitionStarts/Reactions/Item": [],
+      "/Values/ParticipantMessages/MessageTriggers/DocklandsModulesBuilt/Reactions/Item": [],
+      "/Values/ParticipantMessages/MessageTriggers/DocklandsModulesConnected/Reactions/Item": []
     }
   },
   "CompanyIcon": {
@@ -23852,9 +26071,13 @@
     }
   },
   "ScenarioFilter": {
-    "templates": [],
+    "templates": [
+      "ScenarioInformation"
+    ],
     "paths": {
-      "/Values/Item": []
+      "/Values/Item": [
+        "ScenarioInformation"
+      ]
     }
   },
   "ActionTarget": {
@@ -24488,6 +26711,16 @@
       "/Values/UplayProductPromotion/ContentHintsConsole/Item": []
     }
   },
+  "InfoText": {
+    "templates": [
+      "Profile_2ndParty"
+    ],
+    "paths": {
+      "/Values/UplayProductPromotion/BreadcrumbInfoList/Item": [
+        "Profile_2ndParty"
+      ]
+    }
+  },
   "ProductAsset": {
     "templates": [
       "UplayProduct"
@@ -24528,10 +26761,13 @@
   },
   "MaxWidth": {
     "templates": [
+      "Profile_Virtual_NeverOwnsObjects",
       "ProductionChain"
     ],
     "paths": {
-      "/Values/MapGenerator/IslandSizes/Small": [],
+      "/Values/MapGenerator/IslandSizes/Small": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
       "/Values/MapGenerator/IslandSizes/Medium": [
         "ProductionChain"
       ]
@@ -24539,10 +26775,13 @@
   },
   "MaxHeight": {
     "templates": [
+      "Profile_Virtual_NeverOwnsObjects",
       "ProductionChain"
     ],
     "paths": {
-      "/Values/MapGenerator/IslandSizes/Small": [],
+      "/Values/MapGenerator/IslandSizes/Small": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
       "/Values/MapGenerator/IslandSizes/Medium": [
         "ProductionChain"
       ]
@@ -24559,9 +26798,13 @@
     }
   },
   "BarrageMaximumDistance": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/BombardmentAmmo": []
+      "/Values/BombardmentAmmo": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "FlyoutIcon": {
@@ -24621,9 +26864,13 @@
     }
   },
   "PointCount": {
-    "templates": [],
+    "templates": [
+      "PaMSy_Base"
+    ],
     "paths": {
-      "/Values/EconomyFeature7/AreaStorageTrend": []
+      "/Values/EconomyFeature7/AreaStorageTrend": [
+        "PaMSy_Base"
+      ]
     }
   },
   "StartOffset": {
@@ -24761,6 +27008,16 @@
     "paths": {
       "/Values/IrrigationSource": [
         "InfoLayerIcon"
+      ]
+    }
+  },
+  "MaxDynamicFillCapacity": {
+    "templates": [
+      "PaMSy_Base"
+    ],
+    "paths": {
+      "/Values/IrrigationSource": [
+        "PaMSy_Base"
       ]
     }
   },
@@ -25032,9 +27289,13 @@
     }
   },
   "MinBusDistance": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/Product": []
+      "/Values/Product": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "FunctionDescription": {
@@ -25054,9 +27315,13 @@
     }
   },
   "TimeBeforeRuin": {
-    "templates": [],
+    "templates": [
+      "Profile_3rdParty_NoTrader_NoProperty3rdParty"
+    ],
     "paths": {
-      "/Values/Residence7": []
+      "/Values/Residence7": [
+        "Profile_3rdParty_NoTrader_NoProperty3rdParty"
+      ]
     }
   },
   "GoodViewBuff": {
@@ -25200,11 +27465,29 @@
     }
   },
   "TargetInfectionFactor_DEPRECATED": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects",
+      "Profile_2ndParty"
+    ],
     "paths": {
-      "/Values/GeneralIncidentConfiguration/ProgressConfig/EarlyMidGame/PerIncidentConfig/Fire": [],
-      "/Values/GeneralIncidentConfiguration/ProgressConfig/EarlyMidGame/PerIncidentConfig/Riot": [],
-      "/Values/GeneralIncidentConfiguration/ProgressConfig/EarlyMidGame/PerIncidentConfig/Explosion": []
+      "/Values/GeneralIncidentConfiguration/ProgressConfig/EarlyMidGame/PerIncidentConfig/Fire": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/GeneralIncidentConfiguration/ProgressConfig/EarlyMidGame/PerIncidentConfig/Riot": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/GeneralIncidentConfiguration/ProgressConfig/EarlyMidGame/PerIncidentConfig/Explosion": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
+      "/Values/GeneralIncidentConfiguration/ProgressConfig/MidGame/PerIncidentConfig/Explosion": [
+        "Profile_2ndParty"
+      ],
+      "/Values/GeneralIncidentConfiguration/ProgressConfig/MidGame/PerIncidentConfig/Fire": [
+        "Profile_2ndParty"
+      ],
+      "/Values/GeneralIncidentConfiguration/ProgressConfig/MidGame/PerIncidentConfig/Riot": [
+        "Profile_2ndParty"
+      ]
     }
   },
   "RegionIncidentUnlock": {
@@ -25556,9 +27839,13 @@
     }
   },
   "ArcticMoveOutInterval": {
-    "templates": [],
+    "templates": [
+      "PaMSy_Base"
+    ],
     "paths": {
-      "/Values/IncidentArcticIllness": []
+      "/Values/IncidentArcticIllness": [
+        "PaMSy_Base"
+      ]
     }
   },
   "IncidentStartNotification": {
@@ -26152,10 +28439,14 @@
     }
   },
   "Weight": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
       "/Values/IncidentFestival/FestivalTypes/ArtsFestival": [],
-      "/Values/IncidentFestival/FestivalTypes/Carnival": [],
+      "/Values/IncidentFestival/FestivalTypes/Carnival": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ],
       "/Values/IncidentFestival/FestivalTypes/AnarchyFest": []
     }
   },
@@ -26175,9 +28466,13 @@
     }
   },
   "NoHeatFactor": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/IncidentInfectable/IncidentInfectionChanceFactors/ArcticIllness": []
+      "/Values/IncidentInfectable/IncidentInfectionChanceFactors/ArcticIllness": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "ResolverUnit": {
@@ -26242,6 +28537,28 @@
     "templates": [],
     "paths": {
       "/Values/IncidentResolverUpkeep": []
+    }
+  },
+  "MobSizeMax": {
+    "templates": [
+      "PaMSy_Base",
+      "Profile_3rdParty-PlayerCounter"
+    ],
+    "paths": {
+      "/Values/IncidentRiot": [
+        "PaMSy_Base",
+        "Profile_3rdParty-PlayerCounter"
+      ]
+    }
+  },
+  "MobFeedbackHideRadius": {
+    "templates": [
+      "Profile_2ndParty"
+    ],
+    "paths": {
+      "/Values/IncidentRiot": [
+        "Profile_2ndParty"
+      ]
     }
   },
   "MobInfolayerIcon": {
@@ -26709,9 +29026,13 @@
     }
   },
   "_OneFrom": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/PlacementScore/SubScores/Item/Rating/Values/RatingBuildableWithinRadius": []
+      "/Values/PlacementScore/SubScores/Item/Rating/Values/RatingBuildableWithinRadius": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "ValuesArePercentage": {
@@ -26828,6 +29149,18 @@
       ]
     }
   },
+  "MinAttractiveness": {
+    "templates": [
+      "Profile_3rdParty-PlayerCounter",
+      "TrafficFeedbackUnit"
+    ],
+    "paths": {
+      "/Values/MonumentEvent": [
+        "Profile_3rdParty-PlayerCounter",
+        "TrafficFeedbackUnit"
+      ]
+    }
+  },
   "PotentialCategoryReward": {
     "templates": [],
     "paths": {
@@ -26867,10 +29200,14 @@
     }
   },
   "End": {
-    "templates": [],
+    "templates": [
+      "Profile_3rdParty"
+    ],
     "paths": {
       "/Values/Test345/MatrixI/Self": [],
-      "/Values/Test345/MatrixI/SelfRadius": [],
+      "/Values/Test345/MatrixI/SelfRadius": [
+        "Profile_3rdParty"
+      ],
       "/Values/Test345/MatrixI/Target": [],
       "/Values/Test345/MatrixI/TargetRadius": [],
       "/Values/Test456/MatrixII/Self": [],
@@ -26911,6 +29248,19 @@
       ]
     }
   },
+  "Integer": {
+    "templates": [
+      "PaMSy_Base"
+    ],
+    "paths": {
+      "/Values/Test456/ArrayII/Self": [
+        "PaMSy_Base"
+      ],
+      "/Values/Test456/ArrayII/Target": [
+        "PaMSy_Base"
+      ]
+    }
+  },
   "TextII": {
     "templates": [],
     "paths": {
@@ -26938,9 +29288,13 @@
     }
   },
   "UnsignedInt64II": {
-    "templates": [],
+    "templates": [
+      "Profile_1stParty Human"
+    ],
     "paths": {
-      "/Values/Test456": []
+      "/Values/Test456": [
+        "Profile_1stParty Human"
+      ]
     }
   },
   "DefaultText": {
@@ -26967,6 +29321,16 @@
       "/Values/GamepadConfig/InputConfig": []
     }
   },
+  "MinimumHoldDuration": {
+    "templates": [
+      "Profile_3rdParty-PlayerCounter"
+    ],
+    "paths": {
+      "/Values/GamepadConfig/InputConfig/ConfigThresholds": [
+        "Profile_3rdParty-PlayerCounter"
+      ]
+    }
+  },
   "MaximumHoldDuration": {
     "templates": [],
     "paths": {
@@ -26984,9 +29348,23 @@
     }
   },
   "HighestContinuousNavigationDelay": {
-    "templates": [],
+    "templates": [
+      "Profile_3rdParty_NoTrader_NoProperty3rdParty"
+    ],
     "paths": {
-      "/Values/GamepadConfig/Navigation": []
+      "/Values/GamepadConfig/Navigation": [
+        "Profile_3rdParty_NoTrader_NoProperty3rdParty"
+      ]
+    }
+  },
+  "LowestContinuousNavigationDelay": {
+    "templates": [
+      "Profile_2ndParty"
+    ],
+    "paths": {
+      "/Values/GamepadConfig/Navigation": [
+        "Profile_2ndParty"
+      ]
     }
   },
   "FastScrollLinearAccelerationMaxSpeedPx": {
@@ -27005,6 +29383,16 @@
     "templates": [],
     "paths": {
       "/Values/GamepadConfig/Scrolling": []
+    }
+  },
+  "DpadStartStepIntervalMs": {
+    "templates": [
+      "Profile_3rdParty-PlayerCounter"
+    ],
+    "paths": {
+      "/Values/GamepadConfig/SliderConfig": [
+        "Profile_3rdParty-PlayerCounter"
+      ]
     }
   },
   "DpadStepAccelerationMs": {
@@ -28100,15 +30488,23 @@
     }
   },
   "TopBorderWidthAbs": {
-    "templates": [],
+    "templates": [
+      "PaMSy_Base"
+    ],
     "paths": {
-      "/Values/BuildModeBalancing/DragModuleConfig/AutoZoomOutBorder": []
+      "/Values/BuildModeBalancing/DragModuleConfig/AutoZoomOutBorder": [
+        "PaMSy_Base"
+      ]
     }
   },
   "BottomBorderWidthAbs": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/BuildModeBalancing/DragModuleConfig/AutoZoomOutBorder": []
+      "/Values/BuildModeBalancing/DragModuleConfig/AutoZoomOutBorder": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "LeftBorderWidthPerc": {
@@ -28280,9 +30676,13 @@
     }
   },
   "WorldMapCameraDistanceForMaxRadius": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/SelectionsBalancing/SelectionCircle": []
+      "/Values/SelectionsBalancing/SelectionCircle": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "GamepadCursor_EnqeueCommand": {
@@ -28330,9 +30730,13 @@
     }
   },
   "SessionTradeRouteGroupName": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/VirtualKeyboardBalancing/MaximumCharacterInput": []
+      "/Values/VirtualKeyboardBalancing/MaximumCharacterInput": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "ItemFilterSearchKeyword": {
@@ -28350,9 +30754,13 @@
     }
   },
   "ScenarioAsset": {
-    "templates": [],
+    "templates": [
+      "ScenarioInformation"
+    ],
     "paths": {
-      "/Values/ScenarioBalancing/Scenarios/Item": []
+      "/Values/ScenarioBalancing/Scenarios/Item": [
+        "ScenarioInformation"
+      ]
     }
   },
   "DefaultGameSetup": {
@@ -28367,10 +30775,12 @@
   },
   "DefaultPlayerProfile": {
     "templates": [
+      "Profile_1stParty_Scenario_Narrator",
       "Portrait"
     ],
     "paths": {
       "/Values/ScenarioMetaInfo": [
+        "Profile_1stParty_Scenario_Narrator",
         "Portrait"
       ]
     }
@@ -28626,15 +31036,39 @@
     }
   },
   "LinkedScenarioAsset": {
-    "templates": [],
+    "templates": [
+      "ScenarioInformation"
+    ],
     "paths": {
-      "/Values/ScenarioSelectionMarker": []
+      "/Values/ScenarioSelectionMarker": [
+        "ScenarioInformation"
+      ]
     }
   },
   "ScenarioMarkerInfoTip": {
     "templates": [],
     "paths": {
       "/Values/ScenarioSelectionMarker": []
+    }
+  },
+  "GrandGalleryPointsFirstWin": {
+    "templates": [
+      "Profile_3rdParty-PlayerCounter"
+    ],
+    "paths": {
+      "/Values/ScenarioCurrencyFixer/ScenariosToRecalculate/Item/VictoryConditions/ScenarioSilver": [
+        "Profile_3rdParty-PlayerCounter"
+      ]
+    }
+  },
+  "GrandGalleryPoints": {
+    "templates": [
+      "PaMSy_Base"
+    ],
+    "paths": {
+      "/Values/ScenarioCurrencyFixer/ScenariosToRecalculate/Item/VictoryConditions/ScenarioGold": [
+        "PaMSy_Base"
+      ]
     }
   },
   "AssetReference": {
@@ -28660,15 +31094,23 @@
     }
   },
   "ScenarioWorkshopItem": {
-    "templates": [],
+    "templates": [
+      "ScenarioWorkshopItem"
+    ],
     "paths": {
-      "/Values/ScenarioWorkshopPackage/ScenarioWorkshopItems/Item": []
+      "/Values/ScenarioWorkshopPackage/ScenarioWorkshopItems/Item": [
+        "ScenarioWorkshopItem"
+      ]
     }
   },
   "PackageHeadline": {
-    "templates": [],
+    "templates": [
+      "Profile_Virtual_NeverOwnsObjects"
+    ],
     "paths": {
-      "/Values/ScenarioWorkshopPackage": []
+      "/Values/ScenarioWorkshopPackage": [
+        "Profile_Virtual_NeverOwnsObjects"
+      ]
     }
   },
   "PackageDescription": {
@@ -28739,12 +31181,22 @@
     }
   },
   "ScenarioWorkshopPackage": {
-    "templates": [],
+    "templates": [
+      "ScenarioWorkshopPackage"
+    ],
     "paths": {
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopCategories/Ornament/ScenarioWorkshopCategory/Item": [],
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopCategories/Portrait/ScenarioWorkshopCategory/Item": [],
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopCategories/Skin/ScenarioWorkshopCategory/Item": [],
-      "/Values/ScenarioWorkshopScene/ScenarioWorkshopCategories/Items/ScenarioWorkshopCategory/Item": []
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopCategories/Ornament/ScenarioWorkshopCategory/Item": [
+        "ScenarioWorkshopPackage"
+      ],
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopCategories/Portrait/ScenarioWorkshopCategory/Item": [
+        "ScenarioWorkshopPackage"
+      ],
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopCategories/Skin/ScenarioWorkshopCategory/Item": [
+        "ScenarioWorkshopPackage"
+      ],
+      "/Values/ScenarioWorkshopScene/ScenarioWorkshopCategories/Items/ScenarioWorkshopCategory/Item": [
+        "ScenarioWorkshopPackage"
+      ]
     }
   },
   "IntroductionText": {
