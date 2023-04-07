@@ -22,7 +22,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   function decorationText(tag: string, guid: string, mod?: string) {
     const tagInfo = allowedTags[tag];
-    if (tag !== 'BaseAssetGUID' && tag !== 'BonusNeed' && (!tagInfo || tagInfo.templates.length === 0 || tag === 'Amount')) {
+    if (tag !== 'BaseAssetGUID' && tag !== 'BonusNeed' && (!tagInfo || tagInfo.templates.length === 0 || tag.endsWith('Amount'))) {
       return '';
     }
 
