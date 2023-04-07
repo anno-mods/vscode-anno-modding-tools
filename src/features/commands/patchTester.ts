@@ -122,7 +122,6 @@ export class PatchTester {
   static reload(context: vscode.ExtensionContext) {
     if (_reload) {
       _reload = false;
-      const start = Date.now();
 
       const searchModPath = utils.searchModPath(_patchPath);
 
@@ -135,10 +134,7 @@ export class PatchTester {
       _patchedContent = result.patched;
       _logContent = result.log;
 
-      const stop = Date.now();
-
       channel.log(_logContent);
-      channel.log(`annodiff: ${(stop - start)/1000}s`);
     }
   }
 
