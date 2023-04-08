@@ -118,7 +118,9 @@ export function activate(context: vscode.ExtensionContext) {
 
     traverse(activeEditor, 'editorCodeLens.foreground', /<Asset>/g, (match) => {
       const doc = activeEditor?.document;
-      if (!doc) return '';
+      if (!doc) {
+        return '';
+      }
 
       const startPos = doc.positionAt(match.index);
       let standard = doc.getText(new vscode.Range(startPos.line, startPos.character, startPos.line + 20, 0));

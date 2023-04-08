@@ -52,6 +52,7 @@ export class AssetsTocProvider {
     }
   }
 
+  // returns 'ModOp' or template name
   private _getName(element: xmldoc.XmlElement): string {
     if (element.name === 'ModOp') {
       return element.attr['Type'] || 'ModOp';
@@ -72,8 +73,7 @@ export class AssetsTocProvider {
         }
       }
     }
-    else if (element.name === 'Template')
-    {
+    else if (element.name === 'Template') {
       return element.valueWithPath('Name') ?? element.name;
     }
     return element.name;
@@ -89,12 +89,12 @@ export class AssetsTocProvider {
           namedGuid = `${resolvedGuid.name}`;
         }
       }
-      return namedGuid || [ guid, element.attr['Path']].filter((e) => e).join(', ');
+      return namedGuid || [guid, element.attr['Path']].filter((e) => e).join(', ');
     }
     else if (element.name === 'Asset') {
       const name = element.valueWithPath('Values.Standard.Name');
       const guid = element.valueWithPath('Values.Standard.GUID');
-      return [ name, guid ].filter((e) => e).join(', ');
+      return [name, guid].filter((e) => e).join(', ');
     }
     else if (element.name === 'Include') {
       return element.attr['File'];
@@ -115,19 +115,11 @@ export class AssetsTocProvider {
 
     const relevantSections: { [index: string]: any } = {
       /* eslint-disable @typescript-eslint/naming-convention */
-      'ModOp': { minChildren: 0 },
-      'Asset': { minChildren: 1 },
-      'Template': { minChildren: 1 },
-      'Include': { minChildren: 0 }
-      /* eslint-enable @typescript-eslint/naming-convention */
-    };
-
-    const symbolMap: { [index: string]: vscode.SymbolKind } = {
-      /* eslint-disable @typescript-eslint/naming-convention */
-      'ModOp': vscode.SymbolKind.Property,
-      'Asset': vscode.SymbolKind.Class,
-      'Template': vscode.SymbolKind.Class,
-      'Include': vscode.SymbolKind.Module
+      'ModOp': { minChildren: 0, symbol: vscode.SymbolKind.Property },
+      'Group': { minChildren: 0, symbol: vscode.SymbolKind.Module },
+      'Asset': { minChildren: 1, symbol: vscode.SymbolKind.Class },
+      'Template': { minChildren: 1, symbol: vscode.SymbolKind.Class },
+      'Include': { minChildren: 0, symbol: vscode.SymbolKind.Module }
       /* eslint-enable @typescript-eslint/naming-convention */
     };
 
@@ -155,7 +147,7 @@ export class AssetsTocProvider {
       }
       else if (top.element.type === 'element') {
         // open ModOp section
-        if (sectionComment && (top.element.name === 'ModOp' || top.element.name === 'Template' || top.element.name === 'Include')) {
+        if (sectionComment && relevantSections[top.element.name]) {
           const line = Math.max(0, top?.element.line - 1);
           toc.push({
             text: sectionComment,
@@ -181,7 +173,6 @@ export class AssetsTocProvider {
         // check if relevant, also ignore simple items
         const tocRelevant = relevantSections[top.element.name];
         if (tocRelevant && children.length >= tocRelevant.minChildren) {
-
           // TODO tagStartColumn is 0 for multiline tags, not correct but ...
           const tagStartColumn = Math.max(0, top.element.column - top.element.position + top.element.startTagPosition - 1);
           toc.push({
@@ -192,7 +183,7 @@ export class AssetsTocProvider {
             guid: this._getSymbol(top.element),
             location: new vscode.Location(document.uri,
               new vscode.Range(top.element.line, tagStartColumn, top.element.line, top.element.column)),
-            symbol: symbolMap[top.element.name] || vscode.SymbolKind.String
+            symbol: relevantSections[top.element.name]?.symbol ?? vscode.SymbolKind.String
           });
         }
         else if (!tocRelevant && top.depth === 2) {

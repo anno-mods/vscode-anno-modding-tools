@@ -1,7 +1,6 @@
 import * as vscode from 'vscode';
 import { SkinnyTextDocument, AssetsTocProvider, TocEntry } from './assetsTocProvider';
 import { ASSETS_FILENAME_PATTERN } from '../../other/assetsXml';
-import * as channel from '../channel';
 
 interface MarkdownSymbol {
 	readonly level: number;
@@ -61,14 +60,10 @@ export class AssetsSymbolProvider {
 
 	private toDocumentSymbol(entry: TocEntry) {
 		return new vscode.DocumentSymbol(
-			this.getSymbolName(entry),
+			entry.text,
 			entry.detail,
 			entry.symbol,
 			entry.location.range,
 			entry.location.range);
-	}
-
-	private getSymbolName(entry: TocEntry): string {
-		return entry.guid ?? entry.text;
 	}
 }

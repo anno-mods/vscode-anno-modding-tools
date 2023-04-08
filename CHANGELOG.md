@@ -7,6 +7,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [1.10]
 
+- 1.10.5: Fixed outline showing GUID instead of template name
 - 1.10.4: Show ModOp time only in compare
 - 1.10.4: Minor GUID tooltip, decoration improvements
 - 1.10.3: Fixed compare on files and with Include tags
