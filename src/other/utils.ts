@@ -83,7 +83,12 @@ export function ensureArray(object: any) {
 }
 
 export function searchModPath(patchFilePath: string) {
-  let searchPath = path.dirname(patchFilePath);
+  return findModRoot(patchFilePath);
+}
+
+// finds root path using modinfo.json, data/config/export folder and other indicators
+export function findModRoot(modFilePath: string) {
+  let searchPath = path.dirname(modFilePath);
 
   for (let i = 0; i < 100 && searchPath && searchPath !== '/'; i++) {
     if (fs.existsSync(path.join(searchPath, "modinfo.json"))
@@ -96,7 +101,17 @@ export function searchModPath(patchFilePath: string) {
     searchPath = path.dirname(searchPath);
   }
 
-  return path.dirname(patchFilePath);
+  return path.dirname(modFilePath);
+}
+
+export function getAssetsXmlPath(modPath: string) {
+  let filePath = path.join(modPath, 'data/config/export/main/asset/assets');
+  filePath += fs.existsSync(filePath + '_.xml') ? '_.xml' : '.xml';
+  if (!fs.existsSync(filePath)) {
+    return undefined;
+  }
+
+  return filePath;
 }
 
 export function readModinfo(modPath: string): any {

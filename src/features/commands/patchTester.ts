@@ -94,7 +94,7 @@ export class PatchTester {
     return disposable;
 	}
 
-  static async getVanilla(fileUri: vscode.Uri) {
+  public static async getVanilla(fileUri: vscode.Uri) {
     const config = vscode.workspace.getConfiguration('anno', fileUri);
     const annoRda: string = config.get('rdaFolder') || "";
     let vanillaPath = path.join(annoRda, 'data/config/export/main/asset/assets.xml');

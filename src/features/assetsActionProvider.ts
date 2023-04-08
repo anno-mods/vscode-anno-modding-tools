@@ -2,16 +2,18 @@ import * as vscode from 'vscode';
 import * as minimatch from 'minimatch';
 import { ASSETS_FILENAME_PATTERN } from '../other/assetsXml';
 import * as utils from '../other/utils';
+import * as xmltest from '../other/xmltest';
 
 const DEPRECATED_ALL = '190611';
 const DEPRECATED_ALL2 = '193879';
 const DEPRECATED_ALL_FIX = '368';
 const DEPRECATED_ALL_CODE = 'all_buildings_with_maintenance_DONTUSE';
 
+export const diagnostics = vscode.languages.createDiagnosticCollection("assets-xml");
+
 export class AssetsActionProvider {
   public static register(context: vscode.ExtensionContext): vscode.Disposable[] {
-    const diagnostics = vscode.languages.createDiagnosticCollection("assets-xml");
-    subscribeToDocumentChanges(context, diagnostics);
+    // subscribeToDocumentChanges(context, diagnostics);
 
     const selector: vscode.DocumentSelector = { language: 'xml', scheme: '*', pattern: ASSETS_FILENAME_PATTERN };
     return [
@@ -57,7 +59,7 @@ function checkFileName(modPaths: string[], line: vscode.TextLine, annoRda?: stri
   return undefined;
 };
 
-export function refreshDiagnostics(doc: vscode.TextDocument, collection: vscode.DiagnosticCollection): void {
+export function refreshDiagnostics(context: vscode.ExtensionContext, doc: vscode.TextDocument, collection: vscode.DiagnosticCollection): void {
   if (doc.lineCount > 10000 || !minimatch(doc.fileName, ASSETS_FILENAME_PATTERN)) {
     // ignore large files and non-assets.xmls
     return;
@@ -89,7 +91,31 @@ export function refreshDiagnostics(doc: vscode.TextDocument, collection: vscode.
     }
   }
 
+  runXmlTest(context, doc, diagnostics);
+
   collection.set(doc.uri, diagnostics);
+}
+
+function runXmlTest(context: vscode.ExtensionContext, doc: vscode.TextDocument, result: vscode.Diagnostic[]) {
+  const modPath = utils.findModRoot(doc.fileName);
+  const patchFilePath = doc.fileName;
+  if (!patchFilePath) {
+    return;
+  }
+
+  const issues = xmltest.fetchIssues(modPath, patchFilePath, x => context.asAbsolutePath(x));
+  if (issues) {
+    for (const issue of issues) {
+      const line = doc.lineAt(issue.line);
+      const range = new vscode.Range(
+        line.range.start.translate(0, line.text.length - line.text.trimLeft().length),
+        line.range.end.translate(0, -(line.text.length - line.text.trimRight().length))
+      );
+      const diagnostic = new vscode.Diagnostic(range, issue.message,
+        vscode.DiagnosticSeverity.Error);
+      result.push(diagnostic);
+    }
+  }
 }
 
 function createDiagnostic(doc: vscode.TextDocument, lineOfText: vscode.TextLine, lineIndex: number): vscode.Diagnostic {
@@ -117,18 +143,18 @@ function createDiagnostic2(doc: vscode.TextDocument, lineOfText: vscode.TextLine
 
 export function subscribeToDocumentChanges(context: vscode.ExtensionContext, diagnostics: vscode.DiagnosticCollection): void {
   if (vscode.window.activeTextEditor) {
-    refreshDiagnostics(vscode.window.activeTextEditor.document, diagnostics);
+    refreshDiagnostics(context, vscode.window.activeTextEditor.document, diagnostics);
   }
   context.subscriptions.push(
     vscode.window.onDidChangeActiveTextEditor(editor => {
       if (editor) {
-        refreshDiagnostics(editor.document, diagnostics);
+        refreshDiagnostics(context, editor.document, diagnostics);
       }
     })
   );
 
   context.subscriptions.push(
-    vscode.workspace.onDidChangeTextDocument(e => refreshDiagnostics(e.document, diagnostics))
+    vscode.workspace.onDidChangeTextDocument(e => refreshDiagnostics(context, e.document, diagnostics))
   );
 
   context.subscriptions.push(

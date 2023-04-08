@@ -2,7 +2,10 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as child from 'child_process';
 import * as glob from 'glob';
+import * as vscode from 'vscode';
 import * as logger from './logger';
+import * as channel from '../features/channel';
+import * as patchTester from '../features/commands/patchTester';
 
 export function test(testFolder: string, patchFile: string, asAbsolutePath: (relative: string) => string, tempFolder: string) {
   const tester = asAbsolutePath("./external/xmltest.exe");
@@ -41,6 +44,78 @@ export function test(testFolder: string, patchFile: string, asAbsolutePath: (rel
   }
 
   return result;
+}
+
+function getVanilla(filePath: string) {
+  const config = vscode.workspace.getConfiguration('anno', vscode.Uri.file(filePath));
+  const annoRda: string = config.get('rdaFolder') || "";
+  let vanillaPath = path.join(annoRda, 'data/config/export/main/asset/assets.xml');
+
+  if (!fs.existsSync(vanillaPath)) {
+    return undefined;
+  }
+
+  const basename = path.basename(filePath, path.extname(filePath));
+  if (basename.indexOf("templates") >= 0) {
+    vanillaPath = path.join(annoRda, 'data/config/export/main/asset/templates.xml');
+  }
+  else if (basename.indexOf("texts_") >= 0) {
+    vanillaPath = path.join(annoRda, 'data/config/gui/' + basename + '.xml');
+  }
+
+  return vanillaPath;
+}
+
+function parseIssue(line: string): IIssue | undefined {
+  const regex = /\[[\d\s\-\.:]+\]\s\[(\w+)\]\s(.+)\s\(([^:]+):(\d+)\)/;
+  const match = regex.exec(line);
+
+  if (match) {
+    return {
+      error: match[1] === 'error',
+      message: match[2],
+      file: match[3],
+      line: Math.max(0, parseInt(match[4]) - 1)
+    }
+  }
+
+  return undefined;
+}
+
+export interface IIssue {
+  error: boolean
+  message: string
+  file: string
+  line: number
+}
+
+export function fetchIssues(modPath: string, patchFile: string, asAbsolutePath: (relative: string) => string): IIssue[] {
+  const removeNulls = <S>(value: S | undefined): value is S => value != null;
+
+  const tester = asAbsolutePath("./external/xmltest.exe");
+  let result = true;
+
+  const vanilaXml = getVanilla(patchFile);
+  if (!vanilaXml) {
+    logger.error('vanila XML not found');
+    return [];
+  }
+
+  let testerOutput;
+  try {
+    testerOutput = child.execFileSync(tester, [vanilaXml, patchFile], { cwd: modPath });
+  }
+  catch (exception: any) {
+    logger.error(`Test ${path.basename(patchFile)} failed with exception`);
+    logger.error(exception.message);
+    return [];
+  }
+
+  const issues = testerOutput.toString().split('\n')
+    .filter(e => e.indexOf('[warning]') >= 0 || e.indexOf('[error]') >= 0)
+    .map(e => parseIssue(e))
+    .filter(removeNulls);
+  return issues;
 }
 
 function _sameWhenMinimized(expectation: string, patched: string) {

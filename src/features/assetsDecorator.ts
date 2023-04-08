@@ -6,6 +6,8 @@ import * as path from 'path';
 import { ASSETS_FILENAME_PATTERN } from '../other/assetsXml';
 import * as minimatch from 'minimatch';
 
+import { diagnostics, refreshDiagnostics } from './assetsActionProvider';
+
 // this method is called when vs code is activated
 export function activate(context: vscode.ExtensionContext) {
   const assetPath = context.asAbsolutePath('./generated/');
@@ -135,6 +137,8 @@ export function activate(context: vscode.ExtensionContext) {
       }
       return decorationText('GUID', guidMatch[1]);
     }, assetDecorationType);
+
+    refreshDiagnostics(context, activeEditor.document, diagnostics);
   }
 
   function triggerUpdateDecorations(throttle = false) {
