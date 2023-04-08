@@ -11,6 +11,7 @@ export class RunTests {
       vscode.commands.registerCommand('anno-modding-tools.runTests', async (fileUri) => {
         const sourcePath = utils.findModRoot(fileUri.fsPath);
         const cachePath = path.join(sourcePath, '.modcache');
+        utils.ensureDir(cachePath);
 
         const testInputPath = path.join(sourcePath, 'tests');
         channel.show();
@@ -23,7 +24,7 @@ export class RunTests {
             return;
           }
   
-          if (!xmltest.test(testInputPath, patchFilePath, x => context.asAbsolutePath(x), cachePath)) {
+          if (!xmltest.test(testInputPath, sourcePath, patchFilePath, x => context.asAbsolutePath(x), cachePath)) {
             return false;
           }
         }

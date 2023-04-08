@@ -107,7 +107,9 @@ export class ModBuilder {
 
         const testTarget = path.join(outFolder, 'data/config/export/main/asset/assets.xml');
 
-        if (!xmltest.test(testInputFolder, testTarget, this._asAbsolutePath, cache)) {
+        this._logger.log(`cache: ${cache}`);
+
+        if (!xmltest.test(testInputFolder, outFolder, testTarget, this._asAbsolutePath, cache)) {
           return false;
         }
       }

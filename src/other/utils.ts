@@ -104,6 +104,20 @@ export function findModRoot(modFilePath: string) {
   return path.dirname(modFilePath);
 }
 
+export function findModRoots(modFilePath: string): string[] {
+  const root = findModRoot(modFilePath);
+  if (!root) {
+    return [];
+  }
+
+  const modinfo = readModinfo(root);
+  if (!modinfo || !modinfo?.src || modinfo.src.length == 0) {
+    return [ root ];
+  }
+
+  return [ '.', ...modinfo.src.filter((e: string) => '.')].map((e: string) => path.normalize(path.join(root, e)));
+}
+
 export function getAssetsXmlPath(modPath: string) {
   let filePath = path.join(modPath, 'data/config/export/main/asset/assets');
   filePath += fs.existsSync(filePath + '_.xml') ? '_.xml' : '.xml';

@@ -4,10 +4,9 @@ import * as child from 'child_process';
 import * as glob from 'glob';
 import * as vscode from 'vscode';
 import * as logger from './logger';
-import * as channel from '../features/channel';
-import * as patchTester from '../features/commands/patchTester';
+import * as utils from '../other/utils';
 
-export function test(testFolder: string, patchFile: string, asAbsolutePath: (relative: string) => string, tempFolder: string) {
+export function test(testFolder: string, modFolder: string, patchFile: string, asAbsolutePath: (relative: string) => string, tempFolder: string) {
   const tester = asAbsolutePath("./external/xmltest.exe");
   let result = true;
 
@@ -17,7 +16,14 @@ export function test(testFolder: string, patchFile: string, asAbsolutePath: (rel
     const absoluteInputFile = path.join(testFolder, inputFile);
     let testerOutput;
     try {
-      testerOutput = child.execFileSync(tester, [absoluteInputFile, patchFile], { cwd: tempFolder });
+      const roots = utils.findModRoots(patchFile).map(e => ['-m', e]);
+
+      testerOutput = child.execFileSync(tester, [
+        '-o', path.join(tempFolder, 'patched.xml'),
+        '-v',
+        ...roots.flat(),
+        absoluteInputFile, 
+        patchFile], { cwd: tempFolder });
     }
     catch (exception: any) {
       logger.error(`Test ${path.basename(inputFile)} failed with exception`);
@@ -103,7 +109,12 @@ export function fetchIssues(modPath: string, patchFile: string, asAbsolutePath: 
 
   let testerOutput;
   try {
-    testerOutput = child.execFileSync(tester, [vanilaXml, patchFile], { cwd: modPath });
+    const roots = utils.findModRoots(patchFile).map(e => ['-m', e]);
+    testerOutput = child.execFileSync(tester, [
+      "-s", 
+      ...roots.flat(),
+      vanilaXml, 
+      patchFile], { cwd: modPath });
   }
   catch (exception: any) {
     logger.error(`Test ${path.basename(patchFile)} failed with exception`);
