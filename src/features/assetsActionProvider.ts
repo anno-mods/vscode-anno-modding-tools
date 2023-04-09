@@ -1,8 +1,10 @@
 import * as vscode from 'vscode';
 import * as minimatch from 'minimatch';
+import * as path from 'path';
 import { ASSETS_FILENAME_PATTERN } from '../other/assetsXml';
 import * as utils from '../other/utils';
 import * as xmltest from '../other/xmltest';
+import * as logger from '../other/logger';
 
 const DEPRECATED_ALL = '190611';
 const DEPRECATED_ALL2 = '193879';
@@ -59,6 +61,10 @@ function checkFileName(modPaths: string[], line: vscode.TextLine, annoRda?: stri
   return undefined;
 };
 
+export function clearDiagnostics(context: vscode.ExtensionContext, doc: vscode.TextDocument, collection: vscode.DiagnosticCollection) {
+  collection.set(doc.uri, undefined);
+}
+
 export function refreshDiagnostics(context: vscode.ExtensionContext, doc: vscode.TextDocument, collection: vscode.DiagnosticCollection): void {
   if (doc.lineCount > 10000 || !minimatch(doc.fileName, ASSETS_FILENAME_PATTERN)) {
     // ignore large files and non-assets.xmls
@@ -91,21 +97,30 @@ export function refreshDiagnostics(context: vscode.ExtensionContext, doc: vscode
     }
   }
 
-  runXmlTest(context, doc, diagnostics);
+  if (config.get('liveXmltest')) {
+    runXmlTest(context, doc, diagnostics);
+  }
 
   collection.set(doc.uri, diagnostics);
 }
 
 function runXmlTest(context: vscode.ExtensionContext, doc: vscode.TextDocument, result: vscode.Diagnostic[]) {
   const modPath = utils.findModRoot(doc.fileName);
-  const patchFilePath = doc.fileName;
-  if (!patchFilePath) {
+  const mainAssetsXml = utils.getAssetsXmlPath(modPath);
+  if (!mainAssetsXml) {
     return;
   }
 
-  const issues = xmltest.fetchIssues(modPath, patchFilePath, x => context.asAbsolutePath(x));
+  const config = vscode.workspace.getConfiguration('anno', doc.uri);
+  const modsFolder: string | undefined = config.get('modsFolder');
+  const editingFile = path.relative(modPath, doc.fileName);
+
+  const issues = xmltest.fetchIssues(modPath, mainAssetsXml, editingFile, doc.getText(), modsFolder, x => context.asAbsolutePath(x));
   if (issues) {
     for (const issue of issues) {
+      if (issue.file != editingFile) {
+        continue;
+      }
       const line = doc.lineAt(issue.line);
       const range = new vscode.Range(
         line.range.start.translate(0, line.text.length - line.text.trimLeft().length),

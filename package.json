@@ -2,7 +2,7 @@
 	"name": "anno-modding-tools",
 	"displayName": "Anno Modding Tools",
 	"description": "Modding tools for Anno 1800",
-	"version": "1.10.5",
+	"version": "1.11.0",
 	"publisher": "JakobHarder",
 	"repository": {
 		"type": "git",
@@ -327,6 +327,12 @@
 					"type": "boolean",
 					"default": true,
 					"markdownDescription": "Check file paths set in `Filename`, `FileName` and `IconFilename`.",
+					"scope": "resource"
+				},
+				"anno.liveXmltest": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Run xmltest on open documents.",
 					"scope": "resource"
 				}
 			}

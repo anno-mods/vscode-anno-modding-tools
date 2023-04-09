@@ -5,6 +5,7 @@ import * as glob from 'glob';
 import * as vscode from 'vscode';
 import * as logger from './logger';
 import * as utils from '../other/utils';
+import { ModFolder } from './modFolder';
 
 export function test(testFolder: string, modFolder: string, patchFile: string, asAbsolutePath: (relative: string) => string, tempFolder: string) {
   const tester = asAbsolutePath("./external/xmltest.exe");
@@ -95,26 +96,42 @@ export interface IIssue {
   line: number
 }
 
-export function fetchIssues(modPath: string, patchFile: string, asAbsolutePath: (relative: string) => string): IIssue[] {
+export function fetchIssues(modPath: string, mainPatchFile: string, 
+    patchFile: string, patchContent: string, modsFolder: string | undefined, asAbsolutePath: (relative: string) => string): IIssue[] {
   const removeNulls = <S>(value: S | undefined): value is S => value != null;
 
   const tester = asAbsolutePath("./external/xmltest.exe");
-  let result = true;
+  // const startTime = new Date().getTime();
 
-  const vanilaXml = getVanilla(patchFile);
+  const vanilaXml = getVanilla(mainPatchFile);
   if (!vanilaXml) {
     logger.error('vanila XML not found');
     return [];
   }
 
+  const annomod = utils.readModinfo(modPath);
+
   let testerOutput;
   try {
-    const roots = utils.findModRoots(patchFile).map(e => ['-m', e]);
+    const roots = utils.findModRoots(mainPatchFile).map(e => ['-m', e]);
+    let prepatch = annomod?.getRequiredLoadAfterIds(annomod?.modinfo)
+
+    if (prepatch && modsFolder) {
+      prepatch = prepatch.map((e: string) => ModFolder.getModFolder(modsFolder, e) ?? "").filter((e: string) => e !== "");
+      prepatch = prepatch.map((e: string) => ['-p', e]);
+    }
+
     testerOutput = child.execFileSync(tester, [
-      "-s", 
+      '-s', 
+      '-i', patchFile,
       ...roots.flat(),
+      ...prepatch.flat(),
       vanilaXml, 
-      patchFile], { cwd: modPath });
+      mainPatchFile], { 
+        input: patchContent,
+        encoding: 'utf-8',
+        cwd: modPath 
+      });
   }
   catch (exception: any) {
     logger.error(`Test ${path.basename(patchFile)} failed with exception`);
@@ -122,10 +139,16 @@ export function fetchIssues(modPath: string, patchFile: string, asAbsolutePath: 
     return [];
   }
 
+  // logger.error(testerOutput.toString());
+
   const issues = testerOutput.toString().split('\n')
     .filter(e => e.indexOf('[warning]') >= 0 || e.indexOf('[error]') >= 0)
     .map(e => parseIssue(e))
     .filter(removeNulls);
+
+  // const endTime = new Date().getTime();
+  // logger.log(`${endTime - startTime}ms`);
+
   return issues;
 }
 

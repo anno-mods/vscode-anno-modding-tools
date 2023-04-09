@@ -115,7 +115,8 @@ export function findModRoots(modFilePath: string): string[] {
     return [ root ];
   }
 
-  return [ '.', ...modinfo.src.filter((e: string) => '.')].map((e: string) => path.normalize(path.join(root, e)));
+  let srcs = Array.isArray(modinfo.src) ? [ '.', ...modinfo.src.filter((e: string) => '.')] : [ modinfo.src ];
+  return srcs.map((e: string) => path.normalize(path.join(root, e)));
 }
 
 export function getAssetsXmlPath(modPath: string) {
@@ -128,13 +129,34 @@ export function getAssetsXmlPath(modPath: string) {
   return filePath;
 }
 
+export interface IAnnomod {
+  modinfo?: any
+  getRequiredLoadAfterIds: (modinfo: any) => string[]
+}
+
+export function getRequiredLoadAfterIds(modinfo: any): string[] {
+  if (!modinfo) {
+    return [];
+  }
+  const dependencies: string[] = modinfo.ModDependencies ?? [];
+  const loadAfterIds: string[] = modinfo.LoadAfterIds ?? [];
+
+  return dependencies.filter(dep => loadAfterIds.includes(dep));
+}
+
 export function readModinfo(modPath: string): any {
   try {
     if (fs.existsSync(path.join(modPath, 'modinfo.json'))) {
-      return { 'modinfo': JSON.parse(fs.readFileSync(path.join(modPath, 'modinfo.json'), 'utf8')) };
+      return { 
+        'modinfo': JSON.parse(fs.readFileSync(path.join(modPath, 'modinfo.json'), 'utf8')),
+        getRequiredLoadAfterIds
+      };
     }
     else if (fs.existsSync(path.join(modPath, 'annomod.json'))) {
-      return JSON.parse(fs.readFileSync(path.join(modPath, 'annomod.json'), 'utf8'));
+      return {
+        ...JSON.parse(fs.readFileSync(path.join(modPath, 'annomod.json'), 'utf8')),
+        getRequiredLoadAfterIds
+      };
     }
   }
   catch {
