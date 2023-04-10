@@ -113,6 +113,24 @@ export class AssetsTocProvider {
     return undefined;
   }
 
+  /// Return line number where the comment has occured. Max: 10 lines up.
+  private _findCommentUp(document: SkinnyTextDocument, start: number, comment: string) {
+    let line = start;
+    let maxLineUp = Math.max(0, start - 9);
+    for (; line >= maxLineUp; line--) {
+      let text = document.lineAt(line);
+      if (text.text.includes(comment)) {
+        return line;
+      }
+    }
+
+    // not found
+    if (line == -1) {
+      line = start;
+    }
+    return line;
+  }
+
   private _buildToc(document: SkinnyTextDocument): TocEntry[] {
     const toc: TocEntry[] = [];
 
@@ -128,6 +146,7 @@ export class AssetsTocProvider {
 
     let sectionComment: string | undefined = 'ModOps';
     let groupComment: string | undefined;
+    let groupCommentLine: number | undefined;
 
     let xmlContent;
     try {
@@ -155,7 +174,7 @@ export class AssetsTocProvider {
       else if (top.element.type === 'element') {
         // open ModOp section
         if (sectionComment && relevantSections[top.element.name]) {
-          const line = Math.max(0, top?.element.line - 1);
+          const line = this._findCommentUp(document, top.element.line, sectionComment);
           toc.push({
             text: sectionComment,
             detail: '',
@@ -182,14 +201,15 @@ export class AssetsTocProvider {
         if (tocRelevant && children.length >= tocRelevant.minChildren) {
           // TODO tagStartColumn is 0 for multiline tags, not correct but ...
           const tagStartColumn = Math.max(0, top.element.column - top.element.position + top.element.startTagPosition - 1);
+          const line = (groupComment && top.element.name === 'Group') ? this._findCommentUp(document, top.element.line, groupComment) : top.element.line;
           toc.push({
             text: this._getName(top.element, groupComment),
             detail: this._getDetail(top.element),
             level: top.depth,
-            line: top.element.line,
+            line,
             guid: this._getSymbol(top.element),
             location: new vscode.Location(document.uri,
-              new vscode.Range(top.element.line, tagStartColumn, top.element.line, top.element.column)),
+              new vscode.Range(line, tagStartColumn, line, top.element.column)),
             symbol: relevantSections[top.element.name]?.symbol ?? vscode.SymbolKind.String
           });
         }
