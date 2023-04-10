@@ -4,14 +4,14 @@ All notable changes to the "anno-modding-tools" extension will be documented in 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## 1.11
+## 1.11 Live ModOp Analysis
 
 - 1.10.1: Changed live test to on save instead of on edit.
 - 1.10.1: Groups show in outline.
-- 1.10.1: Added ModOp performance decorations. 
-- Added live xmltest. Can be disabled in settings.
+- 1.10.1: Added ModOp performance decorations.
+- Added live ModOp analysis with xmltest. Can be disabled in the VSCode settings.
 
-## 1.10
+## 1.10 Symbols & Fast Navigation by GUID
 
 - 1.10.5: Fixed outline showing GUID instead of template name
 - 1.10.4: Show ModOp time only in compare
@@ -23,7 +23,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Added `Ctrl+T` workspace symbols for vanilla assets
 - Fixed `Ctrl+Space` GUID auto completion
 
-## 1.9
+## 1.9 Inline GUID Decorations, Translation Helpers
 
 - 1.9.4: Fixed GUID decorations not working due to invalid modinfo.json in some mods
 - 1.9.3: Fixed GUID decorations being applied on all files
@@ -42,7 +42,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Compare with Vanilla: support `templates.xml` and `texts_*.xml`
 - Buildmod: read `base64.jpg` as base64 image into `modinfo.json`
 
-## [1.8.0]
+## 1.8 Compare ModOp Result
 
 - Added support for multiple source folders in `annomod.json`.
 - Added `Anno: Compare with Vanilla` command to `annomod.json` context menu.

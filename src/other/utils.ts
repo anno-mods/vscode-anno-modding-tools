@@ -197,8 +197,8 @@ export function hasGraphicsFile(modPaths: string[], filePath: string, annoRda?: 
   const folderAfterData = filePath.startsWith('data/') ? filePath.substring(5, Math.max(5, filePath.indexOf('/', 5))) : filePath;
 
   if (folderAfterData == 'ui' || folderAfterData == 'graphics'
-    || folderAfterData.startsWith('dlc') || folderAfterData.startsWith('cdlc') 
-    || folderAfterData == 'eoy21/') {
+    || folderAfterData.startsWith('dlc') || folderAfterData.startsWith('cdlc')
+    || folderAfterData == 'eoy21') {
     if (annoRda && annoRda !== '') {
       // check annoRda only if certain folders are there to ensure people actually extracted their RDAs
       if (folderAfterData == 'graphics' && fs.existsSync(path.join(annoRda, 'data/graphics'))) {
@@ -234,10 +234,10 @@ export function hasGraphicsFile(modPaths: string[], filePath: string, annoRda?: 
     const files = glob.sync(pattern);
     return files.length > 0;
   }
-  
+
   for (const modPath of searchPaths) {
     checked = [];
-     
+
     if (fs.existsSync(path.join(modPath, filePath))) {
       return [];
     }
@@ -260,10 +260,10 @@ export function hasGraphicsFile(modPaths: string[], filePath: string, annoRda?: 
       if (fs.existsSync(path.join(modPath, folderPath, path.basename(fileName, '.psd') + '_0.dds'))) {
         return [];
       }
-      
+
       if (fs.existsSync(path.join(modPath, folderPath, path.basename(fileName, '.psd') + '.png'))) {
         return [];
-      }      
+      }
       checked.push(path.join(folderPath, path.basename(fileName, '.psd') + '_0.dds'));
       checked.push(path.join(folderPath, path.basename(fileName, '.psd') + '.png'));
     }
