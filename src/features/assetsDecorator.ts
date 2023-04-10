@@ -6,6 +6,8 @@ import * as path from 'path';
 import { ASSETS_FILENAME_PATTERN } from '../other/assetsXml';
 import * as minimatch from 'minimatch';
 
+import { clearDiagnostics, diagnostics, refreshDiagnostics } from './assetsActionProvider';
+
 // this method is called when vs code is activated
 export function activate(context: vscode.ExtensionContext) {
   const assetPath = context.asAbsolutePath('./generated/');
@@ -22,7 +24,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   function decorationText(tag: string, guid: string, mod?: string) {
     const tagInfo = allowedTags[tag];
-    if (tag !== 'BaseAssetGUID' && tag !== 'BonusNeed' && (!tagInfo || tagInfo.templates.length === 0 || tag === 'Amount')) {
+    if (tag !== 'BaseAssetGUID' && tag !== 'BonusNeed' && (!tagInfo || tagInfo.templates.length === 0 || tag.endsWith('Amount'))) {
       return '';
     }
 
@@ -118,7 +120,9 @@ export function activate(context: vscode.ExtensionContext) {
 
     traverse(activeEditor, 'editorCodeLens.foreground', /<Asset>/g, (match) => {
       const doc = activeEditor?.document;
-      if (!doc) return '';
+      if (!doc) {
+        return '';
+      }
 
       const startPos = doc.positionAt(match.index);
       let standard = doc.getText(new vscode.Range(startPos.line, startPos.character, startPos.line + 20, 0));
@@ -133,17 +137,35 @@ export function activate(context: vscode.ExtensionContext) {
       }
       return decorationText('GUID', guidMatch[1]);
     }, assetDecorationType);
+
+    
   }
 
-  function triggerUpdateDecorations(throttle = false) {
+  function updateAssetAndPerformanceDecorations() {
+    if (!activeEditor) {
+      return;
+    }
+
+    updateDecorations();
+    refreshDiagnostics(context, activeEditor.document, diagnostics);
+  }
+
+  function clearPerformanceDecorations() {
+    if (!activeEditor) {
+      return;
+    }
+    clearDiagnostics(context, activeEditor.document, diagnostics);
+  }
+
+  function triggerUpdateDecorations(throttle = false, performance = false) {
     if (timeout) {
       clearTimeout(timeout);
       timeout = undefined;
     }
     if (throttle) {
-      timeout = setTimeout(updateDecorations, 500);
+      timeout = setTimeout(performance ? updateAssetAndPerformanceDecorations : updateDecorations, 500);
     } else {
-      updateDecorations();
+      updateAssetAndPerformanceDecorations();
     }
   }
 
@@ -161,7 +183,14 @@ export function activate(context: vscode.ExtensionContext) {
   vscode.workspace.onDidChangeTextDocument(event => {
     if (activeEditor && event.document === activeEditor.document) {
       triggerUpdateDecorations(true);
+      clearPerformanceDecorations();
     }
   }, null, context.subscriptions);
 
+
+  vscode.workspace.onDidSaveTextDocument(event => {
+    if (activeEditor) {
+      triggerUpdateDecorations(true, true);
+    }
+  }, null, context.subscriptions);
 }

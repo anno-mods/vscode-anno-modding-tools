@@ -105,7 +105,7 @@ export class GuidCompletionItems {
       if (modName) {
         asset.modName = modName ?? this.assets[guid]?.modName;
       }
-      this.push(asset.template, guid, asset, this.assets[guid] != undefined);
+      this.push(asset.template, guid, asset, this.assets[guid] !== undefined);
       this.assets[guid] = asset;
     }
   }

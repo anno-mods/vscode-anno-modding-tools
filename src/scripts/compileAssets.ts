@@ -8,11 +8,15 @@ import { insidersDownloadDirToExecutablePath } from '@vscode/test-electron/out/u
 
 const OUTPUT_FILEPATH = './generated/assets.json';
 const SCHEME_FILEPATH = './generated/assets.xsd';
+
+// Templates excluded from scan
 const EXCLUDE_TEMPLATES = [ 
   // 'Quest', 
   'PaMSy', 
-  // 'Text', 
+  'Text', 
+  'NoLocaText',
   'Audio', 
+  'AudioText',
   // 'StarterObject', 
   // 'Collectable', 
   'Tutorial', 
@@ -22,14 +26,18 @@ const EXCLUDE_TEMPLATES = [
   'Scenario',
   // 'Session',
   'Expedition',
+  'ExpeditionOption',
+  'ExpeditionDecision',
   'InfoTip',
   'PlayerCounterConfig',
   'GenericPopup'
 ];
 
-const EXCLUDE_NAME = [ 
-  'Text', 
-  'NoLocaText'
+// Templates showing tooltips, but are excluded from auto-completion
+// TODO but why?
+const EXCLUDE_NAME: string[] = [ 
+  // 'Text', 
+  // 'NoLocaText'
   // 'Audio'
 ];
 
@@ -302,8 +310,8 @@ class Template {
 
   constructor(name: string, parseNode?: xmldoc.XmlElement) {
     this.name = name;
-    this.isFiltered = -1 !== EXCLUDE_TEMPLATES.findIndex(t => name.startsWith(t));
-    this.isNoCompletion = -1 !== EXCLUDE_NAME.findIndex(t => name.startsWith(t));
+    this.isFiltered = -1 !== EXCLUDE_TEMPLATES.findIndex(t => name === t);
+    this.isNoCompletion = -1 !== EXCLUDE_NAME.findIndex(t => name === t);
     if (parseNode) {
       this.parseNode(parseNode);
     }

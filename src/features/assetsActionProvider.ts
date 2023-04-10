@@ -1,17 +1,23 @@
 import * as vscode from 'vscode';
 import * as minimatch from 'minimatch';
+import * as path from 'path';
 import { ASSETS_FILENAME_PATTERN } from '../other/assetsXml';
+import * as editorUtils from '../other/editorUtils';
 import * as utils from '../other/utils';
+import * as xmltest from '../other/xmltest';
+import * as logger from '../other/logger';
 
 const DEPRECATED_ALL = '190611';
 const DEPRECATED_ALL2 = '193879';
 const DEPRECATED_ALL_FIX = '368';
 const DEPRECATED_ALL_CODE = 'all_buildings_with_maintenance_DONTUSE';
 
+export const diagnostics = vscode.languages.createDiagnosticCollection("assets-xml");
+const performanceDecorationType = vscode.window.createTextEditorDecorationType({});
+
 export class AssetsActionProvider {
   public static register(context: vscode.ExtensionContext): vscode.Disposable[] {
-    const diagnostics = vscode.languages.createDiagnosticCollection("assets-xml");
-    subscribeToDocumentChanges(context, diagnostics);
+    // subscribeToDocumentChanges(context, diagnostics);
 
     const selector: vscode.DocumentSelector = { language: 'xml', scheme: '*', pattern: ASSETS_FILENAME_PATTERN };
     return [
@@ -26,14 +32,16 @@ export class AssetsActionProvider {
 function includesAsWord(line: string, text: string)
 {
   const pos = line.indexOf(text);
-  if (pos <= 0) return false;
+  if (pos <= 0) {
+    return false;
+  }
 
   const charBefore = line.charAt(pos - 1);
   const charAfter = line.charAt(pos + text.length);
 
   return (charBefore === '\'' || charAfter === '\'' ||
     charBefore === '"' || charAfter === '"' ||
-    charBefore === ',' && charAfter === ',')
+    charBefore === ',' && charAfter === ',');
 }
 
 function checkFileName(modPaths: string[], line: vscode.TextLine, annoRda?: string) {
@@ -55,7 +63,11 @@ function checkFileName(modPaths: string[], line: vscode.TextLine, annoRda?: stri
   return undefined;
 };
 
-export function refreshDiagnostics(doc: vscode.TextDocument, collection: vscode.DiagnosticCollection): void {
+export function clearDiagnostics(context: vscode.ExtensionContext, doc: vscode.TextDocument, collection: vscode.DiagnosticCollection) {
+  vscode.window.activeTextEditor?.setDecorations(performanceDecorationType, []);
+}
+
+export function refreshDiagnostics(context: vscode.ExtensionContext, doc: vscode.TextDocument, collection: vscode.DiagnosticCollection): void {
   if (doc.lineCount > 10000 || !minimatch(doc.fileName, ASSETS_FILENAME_PATTERN)) {
     // ignore large files and non-assets.xmls
     return;
@@ -87,7 +99,70 @@ export function refreshDiagnostics(doc: vscode.TextDocument, collection: vscode.
     }
   }
 
+  if (config.get('liveModopAnalysis.validate')) {
+    const performance: vscode.DecorationOptions[] = [];
+    runXmlTest(context, doc, diagnostics, performance);
+    vscode.window.activeTextEditor?.setDecorations(performanceDecorationType, performance);
+  }
+
   collection.set(doc.uri, diagnostics);
+}
+
+function runXmlTest(context: vscode.ExtensionContext, doc: vscode.TextDocument, 
+  result: vscode.Diagnostic[], 
+  decorations: vscode.DecorationOptions[]) {
+  
+  let modPath = utils.findModRoot(doc.fileName);
+  let mainAssetsXml = utils.getAssetsXmlPath(modPath);
+  if (!mainAssetsXml || !modPath) {
+    modPath = path.dirname(doc.uri.fsPath);
+    mainAssetsXml = doc.uri.fsPath;
+  }
+
+  const config = vscode.workspace.getConfiguration('anno', doc.uri);
+  const modsFolder: string | undefined = config.get('modsFolder');
+  const warningThreshold: number = config.get('liveModopAnalysis.warningThreshold') ?? 0;
+  const editingFile = path.relative(modPath, doc.fileName);
+
+  const vanilaXml = editorUtils.getVanilla(mainAssetsXml);
+  if (!vanilaXml) {
+    logger.error('vanila XML not found');
+    return [];
+  }
+
+  const issues = xmltest.fetchIssues(vanilaXml, modPath, mainAssetsXml, editingFile, 
+    doc.getText(), modsFolder, x => context.asAbsolutePath(x));
+  if (issues && issues.length > 0) {
+    const color = new vscode.ThemeColor('editorCodeLens.foreground');
+    const colorWarning = new vscode.ThemeColor('editorWarning.foreground');
+    const colorError = new vscode.ThemeColor('editorError.foreground');
+    
+    for (const issue of issues) {
+      const line = doc.lineAt(issue.line);
+      const range = new vscode.Range(
+        line.range.start.translate(0, line.text.length - line.text.trimLeft().length),
+        line.range.end.translate(0, -(line.text.length - line.text.trimRight().length))
+      );
+
+      if (issue.time !== undefined) {
+        const decoration: vscode.DecorationOptions = {
+          range,
+          renderOptions: {
+            after: {
+              contentText: ` ${issue.time}ms`,
+              color: (warningThreshold && issue?.time >= warningThreshold && !issue.group) ? colorWarning : color
+            }
+          }
+        };
+        decorations.push(decoration);
+      }
+      if (issue.time === undefined) {
+        const diagnostic = new vscode.Diagnostic(range, issue.message,
+          issue.time ? vscode.DiagnosticSeverity.Warning : vscode.DiagnosticSeverity.Error);
+        result.push(diagnostic);
+      }
+    }
+  }
 }
 
 function createDiagnostic(doc: vscode.TextDocument, lineOfText: vscode.TextLine, lineIndex: number): vscode.Diagnostic {
@@ -115,18 +190,18 @@ function createDiagnostic2(doc: vscode.TextDocument, lineOfText: vscode.TextLine
 
 export function subscribeToDocumentChanges(context: vscode.ExtensionContext, diagnostics: vscode.DiagnosticCollection): void {
   if (vscode.window.activeTextEditor) {
-    refreshDiagnostics(vscode.window.activeTextEditor.document, diagnostics);
+    refreshDiagnostics(context, vscode.window.activeTextEditor.document, diagnostics);
   }
   context.subscriptions.push(
     vscode.window.onDidChangeActiveTextEditor(editor => {
       if (editor) {
-        refreshDiagnostics(editor.document, diagnostics);
+        refreshDiagnostics(context, editor.document, diagnostics);
       }
     })
   );
 
   context.subscriptions.push(
-    vscode.workspace.onDidChangeTextDocument(e => refreshDiagnostics(e.document, diagnostics))
+    vscode.workspace.onDidChangeTextDocument(e => refreshDiagnostics(context, e.document, diagnostics))
   );
 
   context.subscriptions.push(

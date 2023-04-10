@@ -4,9 +4,18 @@ All notable changes to the "anno-modding-tools" extension will be documented in 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## 1.11
 
-## [1.10]
+- 1.10.1: Changed live test to on save instead of on edit.
+- 1.10.1: Groups show in outline.
+- 1.10.1: Added ModOp performance decorations. 
+- Added live xmltest. Can be disabled in settings.
 
+## 1.10
+
+- 1.10.5: Fixed outline showing GUID instead of template name
+- 1.10.4: Show ModOp time only in compare
+- 1.10.4: Minor GUID tooltip, decoration improvements
 - 1.10.3: Fixed compare on files and with Include tags
 - 1.10.2: Increased annodiff buffer and added specific error for that case
 - 1.10.1: Fixed workspace symbols for custom assets
@@ -14,29 +23,17 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Added `Ctrl+T` workspace symbols for vanilla assets
 - Fixed `Ctrl+Space` GUID auto completion
 
-## [1.9.4]
+## 1.9
 
-- Fixed GUID decorations not working due to invalid modinfo.json in some mods
-
-## [1.9.3]
-
-- Fixed GUID decorations being applied on all files
-
-## [1.9.2]
-
-- Added file `FileName` checks to `.cfg` files
-- File checks now also searches `ModDependencies`, `OptionalDependencies` and `LoadAfterIds` if `modsFolders` is set in the vscode configuration.
-- Improved GUID decoration for `<Asset>` and within `<Standard>` section
-- GUIDs from other mods now also show the mod name
-
-## [1.9.1]
-
-- Fixed crash with large XML files
-- Fixed `<Asset>` within triggers wrongly decorated with asset name
-- Added setting `Check File Names` to allow disabling file checks
-
-## [1.9.0]
-
+- 1.9.4: Fixed GUID decorations not working due to invalid modinfo.json in some mods
+- 1.9.3: Fixed GUID decorations being applied on all files
+- 1.9.2: Added file `FileName` checks to `.cfg` files
+- 1.9.2: File checks now also searches `ModDependencies`, `OptionalDependencies` and `LoadAfterIds` if `modsFolders` is set in the vscode configuration.
+- 1.9.2: Improved GUID decoration for `<Asset>` and within `<Standard>` section
+- 1.9.2: GUIDs from other mods now also show the mod name
+- 1.9.1: Fixed crash with large XML files
+- 1.9.1: Fixed `<Asset>` within triggers wrongly decorated with asset name
+- 1.9.1: Added setting `Check File Names` to allow disabling file checks
 - Support loader 10 features (i.e. Group, Condition, ...)
 - Added inline GUID decoration with name and template
 - Added `Anno: Find Missing Text`

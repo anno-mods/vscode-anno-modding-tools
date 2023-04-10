@@ -2,9 +2,12 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as child from 'child_process';
 import * as glob from 'glob';
+import * as vscode from 'vscode';
 import * as logger from './logger';
+import * as utils from '../other/utils';
+import { ModFolder } from './modFolder';
 
-export function test(testFolder: string, patchFile: string, asAbsolutePath: (relative: string) => string, tempFolder: string) {
+export function test(testFolder: string, modFolder: string, patchFile: string, asAbsolutePath: (relative: string) => string, tempFolder: string) {
   const tester = asAbsolutePath("./external/xmltest.exe");
   let result = true;
 
@@ -14,7 +17,14 @@ export function test(testFolder: string, patchFile: string, asAbsolutePath: (rel
     const absoluteInputFile = path.join(testFolder, inputFile);
     let testerOutput;
     try {
-      testerOutput = child.execFileSync(tester, [absoluteInputFile, patchFile], { cwd: tempFolder });
+      const roots = utils.findModRoots(patchFile).map(e => ['-m', e]);
+
+      testerOutput = child.execFileSync(tester, [
+        '-o', path.join(tempFolder, 'patched.xml'),
+        '-v',
+        ...roots.flat(),
+        absoluteInputFile, 
+        patchFile], { cwd: tempFolder });
     }
     catch (exception: any) {
       logger.error(`Test ${path.basename(inputFile)} failed with exception`);
@@ -41,6 +51,107 @@ export function test(testFolder: string, patchFile: string, asAbsolutePath: (rel
   }
 
   return result;
+}
+
+function parseIssue(line: string): IIssue | undefined {
+  const regex = /\[(\w+)\]\s(.+)\s\(([^:]+):(\d+)\)/;
+  const match = regex.exec(line);
+
+  if (match) {
+    if (line.startsWith('[debug]')) {
+      const timeRegex = /Time: (\d+)ms (\w+)/;
+      const timeMatch = timeRegex.exec(match[2]);
+      if (timeMatch) {
+        return {
+          error: false,
+          time: parseInt(timeMatch[1]),
+          group: timeMatch[2] === 'Group',
+          message: match[2],
+          file: match[3],
+          line: Math.max(0, parseInt(match[4]) - 1)
+        };
+      }
+
+      return undefined;
+    }
+
+    return {
+      error: match[1] === 'error',
+      message: match[2],
+      file: match[3],
+      line: Math.max(0, parseInt(match[4]) - 1)
+    };
+  }
+
+  return undefined;
+}
+
+export interface IIssue {
+  error: boolean
+  message: string
+  file: string
+  line: number
+  time?: number
+  group?: boolean
+}
+
+export function fetchIssues(vanillaXml: string, modPath: string, mainPatchFile: string, 
+    patchFile: string, patchContent: string, modsFolder: string | undefined, 
+    asAbsolutePath: (relative: string) => string): IIssue[] {
+  
+  const removeNulls = <S>(value: S | undefined): value is S => value !== null;
+  const tester = asAbsolutePath("./external/xmltest.exe");
+  patchFile = patchFile.replace(/\\/g, '/');
+
+  let testerOutput;
+  try {
+    const roots = utils.findModRoots(mainPatchFile).map(e => ['-m', e]);
+    const annomod = utils.readModinfo(modPath);
+    let prepatch = annomod?.getRequiredLoadAfterIds(annomod?.modinfo) ?? [];
+
+    if (prepatch && modsFolder) {
+      prepatch = prepatch.map((e: string) => ModFolder.getModFolder(modsFolder, e) ?? "").filter((e: string) => e !== "");
+      prepatch = prepatch.map((e: string) => ['-p', e]);
+    }
+
+    testerOutput = child.execFileSync(tester, [
+      '-s', 
+      '-v',
+      '-i', patchFile,
+      ...roots.flat(),
+      ...prepatch.flat(),
+      vanillaXml, 
+      mainPatchFile], { 
+        input: patchContent,
+        encoding: 'utf-8',
+        cwd: modPath 
+      });
+  }
+  catch (exception: any) {
+    logger.error(`Test ${path.basename(patchFile)} failed with exception`);
+    logger.error(exception.message);
+    return [];
+  }
+
+  const testerLines = testerOutput.split('\n');
+  if (testerLines.length <= 1) {
+    return [];
+  }
+
+  const levelIndex = testerLines[1].indexOf('[', 2);
+  const filteredLines = testerLines
+    .filter(e => e.indexOf(patchFile) >= 0)
+    .filter(e => {
+      return e.startsWith('w', levelIndex + 1) 
+        || e.startsWith('e', levelIndex + 1) 
+        || e.startsWith('[debug] Time:', levelIndex);
+    });
+
+  const issues = filteredLines
+    .map(e => parseIssue(e.substring(levelIndex)))
+    .filter(removeNulls);
+
+  return issues;
 }
 
 function _sameWhenMinimized(expectation: string, patched: string) {

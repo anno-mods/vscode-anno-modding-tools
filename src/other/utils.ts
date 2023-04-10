@@ -83,7 +83,12 @@ export function ensureArray(object: any) {
 }
 
 export function searchModPath(patchFilePath: string) {
-  let searchPath = path.dirname(patchFilePath);
+  return findModRoot(patchFilePath);
+}
+
+// finds root path using modinfo.json, data/config/export folder and other indicators
+export function findModRoot(modFilePath: string) {
+  let searchPath = path.dirname(modFilePath);
 
   for (let i = 0; i < 100 && searchPath && searchPath !== '/'; i++) {
     if (fs.existsSync(path.join(searchPath, "modinfo.json"))
@@ -96,16 +101,62 @@ export function searchModPath(patchFilePath: string) {
     searchPath = path.dirname(searchPath);
   }
 
-  return path.dirname(patchFilePath);
+  return path.dirname(modFilePath);
+}
+
+export function findModRoots(modFilePath: string): string[] {
+  const root = findModRoot(modFilePath);
+  if (!root) {
+    return [];
+  }
+
+  const modinfo = readModinfo(root);
+  if (!modinfo || !modinfo?.src || modinfo.src.length == 0) {
+    return [ root ];
+  }
+
+  let srcs = Array.isArray(modinfo.src) ? [ '.', ...modinfo.src.filter((e: string) => '.')] : [ modinfo.src ];
+  return srcs.map((e: string) => path.normalize(path.join(root, e)));
+}
+
+export function getAssetsXmlPath(modPath: string) {
+  let filePath = path.join(modPath, 'data/config/export/main/asset/assets');
+  filePath += fs.existsSync(filePath + '_.xml') ? '_.xml' : '.xml';
+  if (!fs.existsSync(filePath)) {
+    return undefined;
+  }
+
+  return filePath;
+}
+
+export interface IAnnomod {
+  modinfo?: any
+  getRequiredLoadAfterIds: (modinfo: any) => string[]
+}
+
+export function getRequiredLoadAfterIds(modinfo: any): string[] {
+  if (!modinfo) {
+    return [];
+  }
+  const dependencies: string[] = modinfo.ModDependencies ?? [];
+  const loadAfterIds: string[] = modinfo.LoadAfterIds ?? [];
+
+  return dependencies.filter(dep => loadAfterIds.includes(dep));
 }
 
 export function readModinfo(modPath: string): any {
   try {
     if (fs.existsSync(path.join(modPath, 'modinfo.json'))) {
-      return { 'modinfo': JSON.parse(fs.readFileSync(path.join(modPath, 'modinfo.json'), 'utf8')) };
+      return { 
+        'modinfo': JSON.parse(fs.readFileSync(path.join(modPath, 'modinfo.json'), 'utf8')),
+        getRequiredLoadAfterIds
+      };
     }
     else if (fs.existsSync(path.join(modPath, 'annomod.json'))) {
-      return JSON.parse(fs.readFileSync(path.join(modPath, 'annomod.json'), 'utf8'));
+      return {
+        ...JSON.parse(fs.readFileSync(path.join(modPath, 'annomod.json'), 'utf8')),
+        getRequiredLoadAfterIds
+      };
     }
   }
   catch {

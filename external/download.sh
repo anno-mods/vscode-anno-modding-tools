@@ -10,8 +10,8 @@ mkdir dl
 curl -L https://github.com/microsoft/DirectXTex/releases/download/sept2021/texconv.exe > ./texconv.exe
 
 # xmltest.exe, MIT
-curl -L https://github.com/xforce/anno1800-mod-loader/releases/download/v0.9.0/xmltest.zip > ./dl/xmltest.zip
-unzip -o ./dl/xmltest.zip
+#curl -L https://github.com/xforce/anno1800-mod-loader/releases/download/v0.9.0/xmltest.zip > ./dl/xmltest.zip
+#unzip -o ./dl/xmltest.zip
 
 # FileDBReader.exe, 2.3+2, informal permission to bundle with the extension
 curl -L https://github.com/jakobharder/FileDBReader/releases/download/v2.3%2B2/FileDBReader.zip > ./dl/FileDBReader.zip
