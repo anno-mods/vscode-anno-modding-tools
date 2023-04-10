@@ -6,6 +6,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## 1.11
 
+- 1.10.1: Changed live test to on save instead of on edit.
+- 1.10.1: Groups show in outline.
+- 1.10.1: Added ModOp performance decorations. 
 - Added live xmltest. Can be disabled in settings.
 
 ## 1.10

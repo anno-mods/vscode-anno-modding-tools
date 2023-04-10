@@ -53,9 +53,12 @@ export class AssetsTocProvider {
   }
 
   // returns 'ModOp' or template name
-  private _getName(element: xmldoc.XmlElement): string {
+  private _getName(element: xmldoc.XmlElement, name?: string): string {
     if (element.name === 'ModOp') {
       return element.attr['Type'] || 'ModOp';
+    }
+    else if (element.name === 'Group' && name) {
+      return name;
     }
     else if (element.name === 'Asset') {
       const template = element.valueWithPath('Template');
@@ -124,6 +127,7 @@ export class AssetsTocProvider {
     };
 
     let sectionComment: string | undefined = 'ModOps';
+    let groupComment: string | undefined;
 
     let xmlContent;
     try {
@@ -143,6 +147,9 @@ export class AssetsTocProvider {
           if (comment) {
             sectionComment = comment;
           }
+        }
+        else if (comment) {
+          groupComment = comment;
         }
       }
       else if (top.element.type === 'element') {
@@ -176,7 +183,7 @@ export class AssetsTocProvider {
           // TODO tagStartColumn is 0 for multiline tags, not correct but ...
           const tagStartColumn = Math.max(0, top.element.column - top.element.position + top.element.startTagPosition - 1);
           toc.push({
-            text: this._getName(top.element),
+            text: this._getName(top.element, groupComment),
             detail: this._getDetail(top.element),
             level: top.depth,
             line: top.element.line,
@@ -203,6 +210,8 @@ export class AssetsTocProvider {
 
           toc[toc.length - 1].children?.push(name || 'Item');
         }
+
+        groupComment = undefined;
       }
       else {
         // ignore

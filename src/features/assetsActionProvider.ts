@@ -12,6 +12,7 @@ const DEPRECATED_ALL_FIX = '368';
 const DEPRECATED_ALL_CODE = 'all_buildings_with_maintenance_DONTUSE';
 
 export const diagnostics = vscode.languages.createDiagnosticCollection("assets-xml");
+const performanceDecorationType = vscode.window.createTextEditorDecorationType({});
 
 export class AssetsActionProvider {
   public static register(context: vscode.ExtensionContext): vscode.Disposable[] {
@@ -62,7 +63,7 @@ function checkFileName(modPaths: string[], line: vscode.TextLine, annoRda?: stri
 };
 
 export function clearDiagnostics(context: vscode.ExtensionContext, doc: vscode.TextDocument, collection: vscode.DiagnosticCollection) {
-  collection.set(doc.uri, undefined);
+  vscode.window.activeTextEditor?.setDecorations(performanceDecorationType, []);
 }
 
 export function refreshDiagnostics(context: vscode.ExtensionContext, doc: vscode.TextDocument, collection: vscode.DiagnosticCollection): void {
@@ -97,38 +98,61 @@ export function refreshDiagnostics(context: vscode.ExtensionContext, doc: vscode
     }
   }
 
-  if (config.get('liveXmltest')) {
-    runXmlTest(context, doc, diagnostics);
+  if (config.get('liveModopAnalysis.validate')) {
+    const performance: vscode.DecorationOptions[] = [];
+    runXmlTest(context, doc, diagnostics, performance);
+    vscode.window.activeTextEditor?.setDecorations(performanceDecorationType, performance);
   }
 
   collection.set(doc.uri, diagnostics);
 }
 
-function runXmlTest(context: vscode.ExtensionContext, doc: vscode.TextDocument, result: vscode.Diagnostic[]) {
-  const modPath = utils.findModRoot(doc.fileName);
-  const mainAssetsXml = utils.getAssetsXmlPath(modPath);
-  if (!mainAssetsXml) {
-    return;
+function runXmlTest(context: vscode.ExtensionContext, doc: vscode.TextDocument, 
+  result: vscode.Diagnostic[], 
+  decorations: vscode.DecorationOptions[]) {
+  
+  let modPath = utils.findModRoot(doc.fileName);
+  let mainAssetsXml = utils.getAssetsXmlPath(modPath);
+  if (!mainAssetsXml || !modPath) {
+    modPath = path.dirname(doc.uri.fsPath);
+    mainAssetsXml = doc.uri.fsPath;
   }
 
   const config = vscode.workspace.getConfiguration('anno', doc.uri);
   const modsFolder: string | undefined = config.get('modsFolder');
+  const warningThreshold: number = config.get('liveModopAnalysis.warningThreshold') ?? 0;
   const editingFile = path.relative(modPath, doc.fileName);
 
   const issues = xmltest.fetchIssues(modPath, mainAssetsXml, editingFile, doc.getText(), modsFolder, x => context.asAbsolutePath(x));
-  if (issues) {
+  if (issues && issues.length > 0) {
+    const color = new vscode.ThemeColor('editorCodeLens.foreground');
+    const colorWarning = new vscode.ThemeColor('editorWarning.foreground');
+    const colorError = new vscode.ThemeColor('editorError.foreground');
+    
     for (const issue of issues) {
-      if (issue.file != editingFile) {
-        continue;
-      }
       const line = doc.lineAt(issue.line);
       const range = new vscode.Range(
         line.range.start.translate(0, line.text.length - line.text.trimLeft().length),
         line.range.end.translate(0, -(line.text.length - line.text.trimRight().length))
       );
-      const diagnostic = new vscode.Diagnostic(range, issue.message,
-        vscode.DiagnosticSeverity.Error);
-      result.push(diagnostic);
+
+      if (issue.time !== undefined) {
+        const decoration: vscode.DecorationOptions = {
+          range,
+          renderOptions: {
+            after: {
+              contentText: ` ${issue.time}ms`,
+              color: (warningThreshold && issue?.time >= warningThreshold && !issue.group) ? colorWarning : color
+            }
+          }
+        };
+        decorations.push(decoration);
+      }
+      if (issue.time === undefined) {
+        const diagnostic = new vscode.Diagnostic(range, issue.message,
+          issue.time ? vscode.DiagnosticSeverity.Warning : vscode.DiagnosticSeverity.Error);
+        result.push(diagnostic);
+      }
     }
   }
 }

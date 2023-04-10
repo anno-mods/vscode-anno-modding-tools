@@ -6,7 +6,7 @@ import * as path from 'path';
 import { ASSETS_FILENAME_PATTERN } from '../other/assetsXml';
 import * as minimatch from 'minimatch';
 
-import { diagnostics, refreshDiagnostics } from './assetsActionProvider';
+import { clearDiagnostics, diagnostics, refreshDiagnostics } from './assetsActionProvider';
 
 // this method is called when vs code is activated
 export function activate(context: vscode.ExtensionContext) {
@@ -138,18 +138,34 @@ export function activate(context: vscode.ExtensionContext) {
       return decorationText('GUID', guidMatch[1]);
     }, assetDecorationType);
 
+    
+  }
+
+  function updateAssetAndPerformanceDecorations() {
+    if (!activeEditor) {
+      return;
+    }
+
+    updateDecorations();
     refreshDiagnostics(context, activeEditor.document, diagnostics);
   }
 
-  function triggerUpdateDecorations(throttle = false) {
+  function clearPerformanceDecorations() {
+    if (!activeEditor) {
+      return;
+    }
+    clearDiagnostics(context, activeEditor.document, diagnostics);
+  }
+
+  function triggerUpdateDecorations(throttle = false, performance = false) {
     if (timeout) {
       clearTimeout(timeout);
       timeout = undefined;
     }
     if (throttle) {
-      timeout = setTimeout(updateDecorations, 500);
+      timeout = setTimeout(performance ? updateAssetAndPerformanceDecorations : updateDecorations, 500);
     } else {
-      updateDecorations();
+      updateAssetAndPerformanceDecorations();
     }
   }
 
@@ -167,7 +183,14 @@ export function activate(context: vscode.ExtensionContext) {
   vscode.workspace.onDidChangeTextDocument(event => {
     if (activeEditor && event.document === activeEditor.document) {
       triggerUpdateDecorations(true);
+      clearPerformanceDecorations();
     }
   }, null, context.subscriptions);
 
+
+  vscode.workspace.onDidSaveTextDocument(event => {
+    if (activeEditor) {
+      triggerUpdateDecorations(true, true);
+    }
+  }, null, context.subscriptions);
 }

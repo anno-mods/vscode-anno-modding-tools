@@ -134,6 +134,9 @@ export class PatchTester {
       _patchedContent = result.patched;
       _logContent = result.log;
 
+      // TODO remove this fix
+      _logContent = _logContent.replace('ModOp time: 0.', 'ModOp time: ');
+
       channel.log(_logContent);
     }
   }

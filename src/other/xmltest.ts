@@ -74,16 +74,33 @@ function getVanilla(filePath: string) {
 }
 
 function parseIssue(line: string): IIssue | undefined {
-  const regex = /\[[\d\s\-\.:]+\]\s\[(\w+)\]\s(.+)\s\(([^:]+):(\d+)\)/;
+  const regex = /\[(\w+)\]\s(.+)\s\(([^:]+):(\d+)\)/;
   const match = regex.exec(line);
 
   if (match) {
+    if (line.startsWith('[debug]')) {
+      const timeRegex = /Time: (\d+)ms (\w+)/;
+      const timeMatch = timeRegex.exec(match[2]);
+      if (timeMatch) {
+        return {
+          error: false,
+          time: parseInt(timeMatch[1]),
+          group: timeMatch[2] === 'Group',
+          message: match[2],
+          file: match[3],
+          line: Math.max(0, parseInt(match[4]) - 1)
+        };
+      }
+
+      return undefined;
+    }
+
     return {
       error: match[1] === 'error',
       message: match[2],
       file: match[3],
       line: Math.max(0, parseInt(match[4]) - 1)
-    }
+    };
   }
 
   return undefined;
@@ -94,14 +111,17 @@ export interface IIssue {
   message: string
   file: string
   line: number
+  time?: number
+  group?: boolean
 }
 
 export function fetchIssues(modPath: string, mainPatchFile: string, 
-    patchFile: string, patchContent: string, modsFolder: string | undefined, asAbsolutePath: (relative: string) => string): IIssue[] {
-  const removeNulls = <S>(value: S | undefined): value is S => value != null;
-
+    patchFile: string, patchContent: string, modsFolder: string | undefined, 
+    asAbsolutePath: (relative: string) => string): IIssue[] {
+  
+  const removeNulls = <S>(value: S | undefined): value is S => value !== null;
   const tester = asAbsolutePath("./external/xmltest.exe");
-  // const startTime = new Date().getTime();
+  patchFile = patchFile.replace(/\\/g, '/');
 
   const vanilaXml = getVanilla(mainPatchFile);
   if (!vanilaXml) {
@@ -109,12 +129,11 @@ export function fetchIssues(modPath: string, mainPatchFile: string,
     return [];
   }
 
-  const annomod = utils.readModinfo(modPath);
-
   let testerOutput;
   try {
     const roots = utils.findModRoots(mainPatchFile).map(e => ['-m', e]);
-    let prepatch = annomod?.getRequiredLoadAfterIds(annomod?.modinfo)
+    const annomod = utils.readModinfo(modPath);
+    let prepatch = annomod?.getRequiredLoadAfterIds(annomod?.modinfo) ?? [];
 
     if (prepatch && modsFolder) {
       prepatch = prepatch.map((e: string) => ModFolder.getModFolder(modsFolder, e) ?? "").filter((e: string) => e !== "");
@@ -123,6 +142,7 @@ export function fetchIssues(modPath: string, mainPatchFile: string,
 
     testerOutput = child.execFileSync(tester, [
       '-s', 
+      '-v',
       '-i', patchFile,
       ...roots.flat(),
       ...prepatch.flat(),
@@ -139,15 +159,23 @@ export function fetchIssues(modPath: string, mainPatchFile: string,
     return [];
   }
 
-  // logger.error(testerOutput.toString());
+  const testerLines = testerOutput.split('\n');
+  if (testerLines.length <= 1) {
+    return [];
+  }
 
-  const issues = testerOutput.toString().split('\n')
-    .filter(e => e.indexOf('[warning]') >= 0 || e.indexOf('[error]') >= 0)
-    .map(e => parseIssue(e))
+  const levelIndex = testerLines[1].indexOf('[', 2);
+  const filteredLines = testerLines
+    .filter(e => e.indexOf(patchFile) >= 0)
+    .filter(e => {
+      return e.startsWith('w', levelIndex + 1) 
+        || e.startsWith('e', levelIndex + 1) 
+        || e.startsWith('[debug] Time:', levelIndex);
+    });
+
+  const issues = filteredLines
+    .map(e => parseIssue(e.substring(levelIndex)))
     .filter(removeNulls);
-
-  // const endTime = new Date().getTime();
-  // logger.log(`${endTime - startTime}ms`);
 
   return issues;
 }

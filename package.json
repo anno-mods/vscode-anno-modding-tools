@@ -2,7 +2,7 @@
 	"name": "anno-modding-tools",
 	"displayName": "Anno Modding Tools",
 	"description": "Modding tools for Anno 1800",
-	"version": "1.11.0",
+	"version": "1.11.1",
 	"publisher": "JakobHarder",
 	"repository": {
 		"type": "git",
@@ -329,10 +329,16 @@
 					"markdownDescription": "Check file paths set in `Filename`, `FileName` and `IconFilename`.",
 					"scope": "resource"
 				},
-				"anno.liveXmltest": {
+				"anno.liveModopAnalysis.validate": {
 					"type": "boolean",
 					"default": true,
-					"markdownDescription": "Run xmltest on open documents.",
+					"markdownDescription": "Validate ModOp's on save or open by running xmltest in the background.",
+					"scope": "resource"
+				},
+				"anno.liveModopAnalysis.warningThreshold": {
+					"type": "number",
+					"default": 80,
+					"markdownDescription": "Threshold to highlight ModOp times in warning color (milliseconds).",
 					"scope": "resource"
 				}
 			}
