@@ -32,7 +32,7 @@ export class PatchTester {
     
     const disposable = [
       vscode.commands.registerCommand('anno-modding-tools.patchCheckDiff', async (fileUri) => {
-        const vanillaAssetsFilePath = await this.getVanilla(fileUri);
+        const vanillaAssetsFilePath = await editorUtils.getVanillaAsync(fileUri);
         if (!vanillaAssetsFilePath) {
           return;
         }
@@ -62,7 +62,7 @@ export class PatchTester {
           'Anno Diff: Original ↔ Patched');
       }),
       vscode.commands.registerCommand('anno-modding-tools.selectionCheckDiff', async (fileUri) => {
-        const vanillaAssetsFilePath = await this.getVanilla(fileUri);
+        const vanillaAssetsFilePath = await editorUtils.getVanillaAsync(fileUri);
         if (!vanillaAssetsFilePath) {
           return;
         }
@@ -93,31 +93,6 @@ export class PatchTester {
 
     return disposable;
 	}
-
-  public static async getVanilla(fileUri: vscode.Uri) {
-    const config = vscode.workspace.getConfiguration('anno', fileUri);
-    const annoRda: string = config.get('rdaFolder') || "";
-    let vanillaPath = path.join(annoRda, 'data/config/export/main/asset/assets.xml');
-
-    if (!fs.existsSync(vanillaPath)) {
-      const goSettings = 'Change Settings';
-      const chosen = await vscode.window.showErrorMessage('Your `rdaFolder` is not set up correctly.', goSettings);
-      if (chosen === goSettings) {
-        vscode.commands.executeCommand('workbench.action.openSettings', 'anno.rdaFolder');
-      }
-      return undefined;
-    }
-
-    const basename = path.basename(fileUri.fsPath, path.extname(fileUri.fsPath));
-    if (basename.indexOf("templates") >= 0) {
-      vanillaPath = path.join(annoRda, 'data/config/export/main/asset/templates.xml');
-    }
-    else if (basename.indexOf("texts_") >= 0) {
-      vanillaPath = path.join(annoRda, 'data/config/gui/' + basename + '.xml');
-    }
-
-    return vanillaPath;
-  }
 
   static reload(context: vscode.ExtensionContext) {
     if (_reload) {

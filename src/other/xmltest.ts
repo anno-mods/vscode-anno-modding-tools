@@ -53,26 +53,6 @@ export function test(testFolder: string, modFolder: string, patchFile: string, a
   return result;
 }
 
-function getVanilla(filePath: string) {
-  const config = vscode.workspace.getConfiguration('anno', vscode.Uri.file(filePath));
-  const annoRda: string = config.get('rdaFolder') || "";
-  let vanillaPath = path.join(annoRda, 'data/config/export/main/asset/assets.xml');
-
-  if (!fs.existsSync(vanillaPath)) {
-    return undefined;
-  }
-
-  const basename = path.basename(filePath, path.extname(filePath));
-  if (basename.indexOf("templates") >= 0) {
-    vanillaPath = path.join(annoRda, 'data/config/export/main/asset/templates.xml');
-  }
-  else if (basename.indexOf("texts_") >= 0) {
-    vanillaPath = path.join(annoRda, 'data/config/gui/' + basename + '.xml');
-  }
-
-  return vanillaPath;
-}
-
 function parseIssue(line: string): IIssue | undefined {
   const regex = /\[(\w+)\]\s(.+)\s\(([^:]+):(\d+)\)/;
   const match = regex.exec(line);
@@ -115,19 +95,13 @@ export interface IIssue {
   group?: boolean
 }
 
-export function fetchIssues(modPath: string, mainPatchFile: string, 
+export function fetchIssues(vanillaXml: string, modPath: string, mainPatchFile: string, 
     patchFile: string, patchContent: string, modsFolder: string | undefined, 
     asAbsolutePath: (relative: string) => string): IIssue[] {
   
   const removeNulls = <S>(value: S | undefined): value is S => value !== null;
   const tester = asAbsolutePath("./external/xmltest.exe");
   patchFile = patchFile.replace(/\\/g, '/');
-
-  const vanilaXml = getVanilla(mainPatchFile);
-  if (!vanilaXml) {
-    logger.error('vanila XML not found');
-    return [];
-  }
 
   let testerOutput;
   try {
@@ -146,7 +120,7 @@ export function fetchIssues(modPath: string, mainPatchFile: string,
       '-i', patchFile,
       ...roots.flat(),
       ...prepatch.flat(),
-      vanilaXml, 
+      vanillaXml, 
       mainPatchFile], { 
         input: patchContent,
         encoding: 'utf-8',

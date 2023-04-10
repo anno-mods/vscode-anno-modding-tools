@@ -99,3 +99,48 @@ export function getSelectedModOps(doc: vscode.TextDocument, selection: vscode.Se
 
   return content;
 }
+
+export async function getVanillaAsync(fileUri: vscode.Uri) {
+  const config = vscode.workspace.getConfiguration('anno', fileUri);
+  const annoRda: string = config.get('rdaFolder') || "";
+  let vanillaPath = path.join(annoRda, 'data/config/export/main/asset/assets.xml');
+
+  if (!fs.existsSync(vanillaPath)) {
+    const goSettings = 'Change Settings';
+    const chosen = await vscode.window.showErrorMessage('Your `rdaFolder` is not set up correctly.', goSettings);
+    if (chosen === goSettings) {
+      vscode.commands.executeCommand('workbench.action.openSettings', 'anno.rdaFolder');
+    }
+    return undefined;
+  }
+
+  const basename = path.basename(fileUri.fsPath, path.extname(fileUri.fsPath));
+  if (basename.indexOf("templates") >= 0) {
+    vanillaPath = path.join(annoRda, 'data/config/export/main/asset/templates.xml');
+  }
+  else if (basename.indexOf("texts_") >= 0) {
+    vanillaPath = path.join(annoRda, 'data/config/gui/' + basename + '.xml');
+  }
+
+  return vanillaPath;
+}
+
+export function getVanilla(filePath: string) {
+  const config = vscode.workspace.getConfiguration('anno', vscode.Uri.file(filePath));
+  const annoRda: string = config.get('rdaFolder') || "";
+  let vanillaPath = path.join(annoRda, 'data/config/export/main/asset/assets.xml');
+
+  if (!fs.existsSync(vanillaPath)) {
+    return undefined;
+  }
+
+  const basename = path.basename(filePath, path.extname(filePath));
+  if (basename.indexOf("templates") >= 0) {
+    vanillaPath = path.join(annoRda, 'data/config/export/main/asset/templates.xml');
+  }
+  else if (basename.indexOf("texts_") >= 0) {
+    vanillaPath = path.join(annoRda, 'data/config/gui/' + basename + '.xml');
+  }
+
+  return vanillaPath;
+}

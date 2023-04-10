@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import * as minimatch from 'minimatch';
 import * as path from 'path';
 import { ASSETS_FILENAME_PATTERN } from '../other/assetsXml';
+import * as editorUtils from '../other/editorUtils';
 import * as utils from '../other/utils';
 import * as xmltest from '../other/xmltest';
 import * as logger from '../other/logger';
@@ -123,7 +124,14 @@ function runXmlTest(context: vscode.ExtensionContext, doc: vscode.TextDocument,
   const warningThreshold: number = config.get('liveModopAnalysis.warningThreshold') ?? 0;
   const editingFile = path.relative(modPath, doc.fileName);
 
-  const issues = xmltest.fetchIssues(modPath, mainAssetsXml, editingFile, doc.getText(), modsFolder, x => context.asAbsolutePath(x));
+  const vanilaXml = editorUtils.getVanilla(mainAssetsXml);
+  if (!vanilaXml) {
+    logger.error('vanila XML not found');
+    return [];
+  }
+
+  const issues = xmltest.fetchIssues(vanilaXml, modPath, mainAssetsXml, editingFile, 
+    doc.getText(), modsFolder, x => context.asAbsolutePath(x));
   if (issues && issues.length > 0) {
     const color = new vscode.ThemeColor('editorCodeLens.foreground');
     const colorWarning = new vscode.ThemeColor('editorWarning.foreground');
