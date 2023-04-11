@@ -101,16 +101,13 @@ export class PatchTester {
       const searchModPath = utils.searchModPath(_patchPath);
 
       const tester = new PatchTester(context);
-      const result = tester.diff(_originalPath, 
-        _patch ? ('<ModOps>' + _patch + '</ModOps>') : fs.readFileSync(_patchPath, 'utf-8'), 
-        _patchPath, 
+      const result = tester.diff(_originalPath,
+        _patch ? ('<ModOps>' + _patch + '</ModOps>') : fs.readFileSync(_patchPath, 'utf-8'),
+        _patchPath,
         searchModPath);
       _originalContent = result.original;
       _patchedContent = result.patched;
       _logContent = result.log;
-
-      // TODO remove this fix
-      _logContent = _logContent.replace('ModOp time: 0.', 'ModOp time: ');
 
       channel.log(_logContent);
     }
@@ -118,11 +115,11 @@ export class PatchTester {
 
   _context: vscode.ExtensionContext;
   _workingDir: string = "";
-  
+
   constructor(context: vscode.ExtensionContext) {
     this._context = context;
   }
-  
+
   diff(originalPath: string, patchContent: string, patchFilePath: string, modPath: string) {
     const differ = this._context.asAbsolutePath('./external/annodiff.exe');
 
