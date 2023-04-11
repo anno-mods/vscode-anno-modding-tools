@@ -21,6 +21,7 @@
 		"onLanguage:anno-cf7",
 		"onLanguage:anno-prp",
 		"onCommand:anno-modding-tools.buildMod",
+		"onCommand:anno-modding-tools.copyMod",
 		"onCommand:anno-modding-tools.convertFcCf7",
 		"onCommand:anno-modding-tools.convertCf7Fc",
 		"onCommand:anno-modding-tools.patchCheckDiff",
@@ -133,6 +134,10 @@
 				"title": "Anno: Build Mod"
 			},
 			{
+				"command": "anno-modding-tools.copyMod",
+				"title": "Anno: Copy Mod to mods/"
+			},
+			{
 				"command": "anno-modding-tools.importProps",
 				"title": "Anno: Import PROPs from glTF"
 			},
@@ -210,6 +215,10 @@
 				{
 					"command": "anno-modding-tools.addMissingLoca",
 					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.copyMod",
+					"when": "false"
 				}
 			],
 			"explorer/context": [
@@ -268,6 +277,11 @@
 				{
 					"when": "resourceFilename == annomod.json",
 					"command": "anno-modding-tools.buildMod",
+					"group": "anno@3"
+				},
+				{
+					"when": "resourceFilename == modinfo.json",
+					"command": "anno-modding-tools.copyMod",
 					"group": "anno@3"
 				},
 				{
