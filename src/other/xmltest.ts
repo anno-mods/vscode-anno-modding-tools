@@ -16,6 +16,7 @@ export function test(testFolder: string, modFolder: string, patchFile: string, a
 
     const absoluteInputFile = path.join(testFolder, inputFile);
     let testerOutput;
+    const maxBuffer = 20;
     try {
       const roots = utils.findModRoots(patchFile).map(e => ['-m', e]);
 
@@ -23,8 +24,11 @@ export function test(testFolder: string, modFolder: string, patchFile: string, a
         '-o', path.join(tempFolder, 'patched.xml'),
         '-v',
         ...roots.flat(),
-        absoluteInputFile, 
-        patchFile], { cwd: tempFolder });
+        absoluteInputFile,
+        patchFile], {
+          cwd: tempFolder,
+          maxBuffer: maxBuffer * 1024 * 1024
+        });
     }
     catch (exception: any) {
       logger.error(`Test ${path.basename(inputFile)} failed with exception`);
@@ -114,17 +118,19 @@ export function fetchIssues(vanillaXml: string, modPath: string, mainPatchFile: 
       prepatch = prepatch.map((e: string) => ['-p', e]);
     }
 
+    const maxBuffer = 20;
     testerOutput = child.execFileSync(tester, [
-      '-s', 
+      '-s',
       '-v',
       '-i', patchFile,
       ...roots.flat(),
       ...prepatch.flat(),
-      vanillaXml, 
-      mainPatchFile], { 
+      vanillaXml,
+      mainPatchFile], {
         input: patchContent,
         encoding: 'utf-8',
-        cwd: modPath 
+        cwd: modPath,
+        maxBuffer: maxBuffer * 1024 * 1024
       });
   }
   catch (exception: any) {
