@@ -15,7 +15,7 @@ const text = `<ModOps>
       </Values>
     </Asset>
   </ModOp>
-<ModOps>`.split('\n');
+</ModOps>`.split('\n');
 
 suite('outline tests', () => {
   test('template names', async () => {
@@ -48,7 +48,7 @@ suite('outline tests', () => {
       <Group />
       <!-- # Section 3 -->
       <Include />
-    <ModOps>`.split('\n');
+    </ModOps>`.split('\n');
 
     let textDocument: SkinnyTextDocument = {
       uri: vscode.Uri.file('abc.xml'),
@@ -66,7 +66,9 @@ suite('outline tests', () => {
     const toc = provider.getToc();
 
     assert.strictEqual(toc[0].text, "Section 1");
+    assert.strictEqual(toc[1].text, "add");
     assert.strictEqual(toc[2].text, "Section 2");
-    assert.strictEqual(toc[4].text, "Section 3");
+    assert.strictEqual(toc[3].text, "Section 3");
+    assert.strictEqual(toc[4].text, "Include");
   });
 });
