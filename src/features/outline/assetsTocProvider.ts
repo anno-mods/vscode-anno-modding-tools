@@ -7,7 +7,7 @@ export interface TocEntry {
   children?: string[];
   detail: string;
   guid?: string;
-  readonly level: number;
+  level: number;
   readonly line: number;
   readonly location: vscode.Location;
   readonly symbol: vscode.SymbolKind;
@@ -113,8 +113,26 @@ export class AssetsTocProvider {
     return undefined;
   }
 
+  /// Return line number where the comment has occured. Max: 10 lines up.
+  private _findCommentUp(document: SkinnyTextDocument, start: number, comment: string) {
+    let line = start;
+    let maxLineUp = Math.max(0, start - 9);
+    for (; line >= maxLineUp; line--) {
+      let text = document.lineAt(line);
+      if (text.text.includes(comment)) {
+        return line;
+      }
+    }
+
+    // not found
+    if (line == -1) {
+      line = start;
+    }
+    return line;
+  }
+
   private _buildToc(document: SkinnyTextDocument): TocEntry[] {
-    const toc: TocEntry[] = [];
+    let toc: TocEntry[] = [];
 
     const relevantSections: { [index: string]: any } = {
       /* eslint-disable @typescript-eslint/naming-convention */
@@ -128,6 +146,7 @@ export class AssetsTocProvider {
 
     let sectionComment: string | undefined = 'ModOps';
     let groupComment: string | undefined;
+    let groupCommentLine: number | undefined;
 
     let xmlContent;
     try {
@@ -155,11 +174,11 @@ export class AssetsTocProvider {
       else if (top.element.type === 'element') {
         // open ModOp section
         if (sectionComment && relevantSections[top.element.name]) {
-          const line = Math.max(0, top?.element.line - 1);
+          const line = this._findCommentUp(document, top.element.line, sectionComment);
           toc.push({
             text: sectionComment,
             detail: '',
-            level: 0,
+            level: top.depth - 1,
             line,
             location: new vscode.Location(document.uri,
               new vscode.Range(line, 0, line, 1)),
@@ -182,34 +201,35 @@ export class AssetsTocProvider {
         if (tocRelevant && children.length >= tocRelevant.minChildren) {
           // TODO tagStartColumn is 0 for multiline tags, not correct but ...
           const tagStartColumn = Math.max(0, top.element.column - top.element.position + top.element.startTagPosition - 1);
+          const line = (groupComment && top.element.name === 'Group') ? this._findCommentUp(document, top.element.line, groupComment) : top.element.line;
           toc.push({
             text: this._getName(top.element, groupComment),
             detail: this._getDetail(top.element),
             level: top.depth,
-            line: top.element.line,
+            line,
             guid: this._getSymbol(top.element),
             location: new vscode.Location(document.uri,
-              new vscode.Range(top.element.line, tagStartColumn, top.element.line, top.element.column)),
+              new vscode.Range(line, tagStartColumn, line, top.element.column)),
             symbol: relevantSections[top.element.name]?.symbol ?? vscode.SymbolKind.String
           });
         }
-        else if (!tocRelevant && top.depth === 2) {
-          // ModOps that are not Assets
-          if (!toc[toc.length - 1].children) {
-            toc[toc.length - 1].children = [];
-          }
+        // else if (!tocRelevant && top.depth === 2) {
+        //   // ModOps that are not Assets
+        //   if (!toc[toc.length - 1].children) {
+        //     toc[toc.length - 1].children = [];
+        //   }
 
-          let name: string | undefined = top.element.name;
-          if (name === 'Item') {
-            name = top.element.valueWithPath('Product') || top.element.valueWithPath('Building') || top.element.valueWithPath('GUID');
-            if (name) {
-              const resolved = guidUtils.resolveGUID(name);
-              name = resolved?.name;
-            }
-          }
+        //   let name: string | undefined = top.element.name;
+        //   if (name === 'Item') {
+        //     name = top.element.valueWithPath('Product') || top.element.valueWithPath('Building') || top.element.valueWithPath('GUID');
+        //     if (name) {
+        //       const resolved = guidUtils.resolveGUID(name);
+        //       name = resolved?.name;
+        //     }
+        //   }
 
-          toc[toc.length - 1].children?.push(name || 'Item');
-        }
+        //   toc[toc.length - 1].children?.push(name || 'Item');
+        // }
 
         groupComment = undefined;
       }
@@ -239,6 +259,8 @@ export class AssetsTocProvider {
       }
     }
 
+    toc = this._mergeUpOnlyChildGroups(toc);
+
     // Get full range of section
     return toc.map((entry, startIndex): TocEntry => {
       let end: number | undefined = undefined;
@@ -257,6 +279,35 @@ export class AssetsTocProvider {
             new vscode.Position(endLine, document.lineAt(endLine).text.length)))
       };
     });
+  }
+
+  // Merges 'Group' entries that are only childs with their parent
+  private _mergeUpOnlyChildGroups(toc: TocEntry[]): TocEntry[] {
+    let isOnlyChild = function(array: TocEntry[], start: number) {
+      const compare = array[start];
+      for (let i = start + 1; i < array.length; i++) {
+        if (array[i].level <= compare.level) {
+          return (array[i].level < compare.level) ? i : -1;
+        }
+      }
+      return toc.length - 1;
+    };
+    // let reduceLevel = function(array: TocEntry[], start: number, end: number) {
+    //   for (let i = start + 1; i < Math.min(end, array.length); i++) {
+    //     array[i].level ++;
+    //   }
+    // }
+    for (let i = 0; i < toc.length; i++) {
+      if (toc[i].text === 'Group') {
+        const onlyChildEnd = isOnlyChild(toc, i);
+        if (onlyChildEnd >= i) {
+          // reduceLevel(toc, i + 1, onlyChildEnd);
+          toc.splice(i, 1);
+        }
+      }
+    }
+
+    return toc;
   }
 
   private _getParentPath(document: SkinnyTextDocument, line: number, position: number): string {

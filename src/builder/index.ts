@@ -52,7 +52,7 @@ export class ModBuilder {
     this._logger.log('Build ' + filePath);
     const modJson = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
-    let sourceFolders: string[] = Array.isArray(modJson.src) ? modJson.src : [ modJson.src ];
+    let sourceFolders: string[] = modJson.src ? (Array.isArray(modJson.src) ? modJson.src : [ modJson.src ]) : [ '.' ];
     sourceFolders = sourceFolders.map(x => path.dirname(filePath) + '/' + x);
     for (let folder of sourceFolders) {
       if (!fs.existsSync(folder)) {
@@ -61,16 +61,28 @@ export class ModBuilder {
       }
     }
 
+    if (sourceFolders.length === 0) {
+      this._logger.error('No source folder specified');
+      return false;
+    }
+
+    const isSimpleCopy = path.basename(filePath).toLowerCase() === 'modinfo.json';
+
     const outFolder = this._getOutFolder(filePath, modJson);
     const cache = path.join(path.dirname(filePath), '.modcache');
     this._logger.log('Target folder: ' + outFolder);
     utils.ensureDir(outFolder);
 
     const modCache = new ModCache(path.dirname(filePath), this._variables['annoRda']);
-    modCache.load();
+    if (!isSimpleCopy) {
+      modCache.load();
+    }
 
-    modJson.converter = [...modJson.converter, {
+    modJson.converter = modJson.converter ? [...modJson.converter, {
       "action": "assets"
+    }] : [ {
+      "action": "static",
+      "pattern": "**/*"
     }];
 
     for (const sourceFolder of sourceFolders) {
@@ -100,36 +112,38 @@ export class ModBuilder {
       }
     }
 
-    for (const sourceFolder of sourceFolders) {
-      const testInputFolder = path.join(sourceFolder, 'tests');
-      if (fs.existsSync(sourceFolder)) {
-        this._logger.log(`Run tests from ${testInputFolder}`);
+    if (!isSimpleCopy) {
+      for (const sourceFolder of sourceFolders) {
+        const testInputFolder = path.join(sourceFolder, 'tests');
+        if (fs.existsSync(sourceFolder)) {
+          this._logger.log(`Run tests from ${testInputFolder}`);
 
-        const testTarget = path.join(outFolder, 'data/config/export/main/asset/assets.xml');
+          const testTarget = path.join(outFolder, 'data/config/export/main/asset/assets.xml');
 
-        this._logger.log(`cache: ${cache}`);
+          this._logger.log(`cache: ${cache}`);
 
-        if (!xmltest.test(testInputFolder, outFolder, testTarget, this._asAbsolutePath, cache)) {
-          return false;
+          if (!xmltest.test(testInputFolder, outFolder, testTarget, this._asAbsolutePath, cache)) {
+            return false;
+          }
         }
+        // else {
+        //   this._logger.log(`No test folder available: ${testFolder}`);
+        // }
       }
-      // else {
-      //   this._logger.log(`No test folder available: ${testFolder}`);
-      // }
-    }
 
-    if (!modCache.isCiRun()) {
-      modCache.saveVanilla();
+      if (!modCache.isCiRun()) {
+        modCache.saveVanilla();
+      }
+      modCache.save();
     }
-    modCache.save();
 
     this._logger.log(`${this._getModName(filePath, modJson)} done`);
     return true;
   }
 
   private _getOutFolder(filePath: string, modJson: any) {
-    let outFolder = modJson.out;
-    outFolder = outFolder.replace('${modName}', this._getModName(filePath, modJson));
+    let outFolder = modJson.out ?? '${annoMods}/${modName}';
+    outFolder = outFolder.replace('${modName}', this._getModName(filePath, modJson.modinfo));
     if (this._variables['annoMods']) {
       outFolder = path.normalize(outFolder.replace('${annoMods}', this._variables['annoMods']));
     }
@@ -139,10 +153,10 @@ export class ModBuilder {
     return outFolder;
   }
 
-  private _getModName(filePath: string, modJson: any) {
-    if (!modJson.modinfo?.ModName?.English) {
-      return path.dirname(path.dirname(filePath));
+  private _getModName(filePath: string, modinfo?: any) {
+    if (!modinfo?.ModName?.English) {
+      return path.basename(path.dirname(filePath));
     }
-    return `[${modJson.modinfo?.Category?.English}] ${modJson.modinfo?.ModName?.English}`;
+    return `[${modinfo?.Category?.English}] ${modinfo?.ModName?.English}`;
   }
 }

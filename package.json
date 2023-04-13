@@ -2,7 +2,7 @@
 	"name": "anno-modding-tools",
 	"displayName": "Anno Modding Tools",
 	"description": "Modding tools for Anno 1800",
-	"version": "1.11.1",
+	"version": "1.11.2",
 	"publisher": "JakobHarder",
 	"repository": {
 		"type": "git",
@@ -21,6 +21,7 @@
 		"onLanguage:anno-cf7",
 		"onLanguage:anno-prp",
 		"onCommand:anno-modding-tools.buildMod",
+		"onCommand:anno-modding-tools.copyMod",
 		"onCommand:anno-modding-tools.convertFcCf7",
 		"onCommand:anno-modding-tools.convertCf7Fc",
 		"onCommand:anno-modding-tools.patchCheckDiff",
@@ -133,6 +134,10 @@
 				"title": "Anno: Build Mod"
 			},
 			{
+				"command": "anno-modding-tools.copyMod",
+				"title": "Anno: Copy Mod to mods/"
+			},
+			{
 				"command": "anno-modding-tools.importProps",
 				"title": "Anno: Import PROPs from glTF"
 			},
@@ -210,6 +215,10 @@
 				{
 					"command": "anno-modding-tools.addMissingLoca",
 					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.copyMod",
+					"when": "false"
 				}
 			],
 			"explorer/context": [
@@ -271,6 +280,11 @@
 					"group": "anno@3"
 				},
 				{
+					"when": "resourceFilename == modinfo.json",
+					"command": "anno-modding-tools.copyMod",
+					"group": "anno@3"
+				},
+				{
 					"when": "resourceFilename =~ /assets.+xml$/",
 					"command": "anno-modding-tools.patchCheckDiff"
 				},
@@ -307,13 +321,13 @@
 				"anno.modsFolder": {
 					"type": "string",
 					"format": "uri",
-					"markdownDescription": "mods/ folder used for `${annoMods}` in `annomod.json` files.",
+					"markdownDescription": "mods/ folder used to find `LoadAfterIds` dependencies. Is also available as `${annoMods}` in `annomod.json` files.",
 					"scope": "resource"
 				},
 				"anno.rdaFolder": {
 					"type": "string",
 					"format": "uri",
-					"markdownDescription": "Folder containing extracted RDA data. Used for assets diff and `cfg.yaml` to `cfg` conversion. E.g. `c:\\anno\\all-rda`",
+					"markdownDescription": "Folder containing extracted RDA data. Used to compare unpatched vs patched `assets.xml` and `cfg.yaml` to `cfg` conversion. E.g. `c:\\anno\\all-rda`",
 					"scope": "resource"
 				},
 				"anno.outlineFolderDepth": {
