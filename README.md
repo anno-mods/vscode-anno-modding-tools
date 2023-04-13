@@ -8,7 +8,7 @@ Anno 1800 is a trademark of Ubisoft Entertainment in the US and/or other countri
 
 Commands
 
-- `Compare`: Apply mod and compare unpatched vs patched
+- [Compare](#command-compare): Apply mod and compare unpatched vs patched
 - [Build and Deploy](./doc/annomod.md): Copy your mod to the `mods/` folder and generate DDS (with LODs) and other files automatically.
 - [Import from Blender or glTF](#import-from-blender-or-gltf) to `.cfg`, `.ifo` and `.cf7`
 - Various right-click utilities to convert between Anno and editable formats (glTF, PNG, ...)
@@ -84,6 +84,14 @@ The plugin has difficulties understanding the mod structure if you simply open i
 The assets.xml outline shows `ModOp`s, `Assets` and where possible names instead of GUIDs.
 
 You have the ability to group by writing `<!-- # your text -->` comments in your code.
+
+### Command `Compare`
+
+You can check th results of one or more `ModOp`s by selecting them and then right click > `Anno: Compare Results with Vanilla`.
+
+Alternatively, you can compare full files and mods by right clicking on `assets.xml`, `templates.xml` and `*.include.xml`.
+
+![](./doc/images/xmltest-compare.gif)
 
 ### GUID Conversion
 
