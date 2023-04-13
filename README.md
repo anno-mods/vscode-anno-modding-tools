@@ -58,6 +58,12 @@ Best open the mod folder or even the complete `mods/` folder.
 
 The plugin has difficulties understanding the mod structure if you simply open individual files.
 
+### 5. Example resulting workspace
+
+After configuration you might have a workspace that looks something like this
+
+![](./doc/images/post-config-explorer.png)
+
 ### 5. Further Docs
 
 - [Modding Guide](https://github.com/anno-mods/modding-guide#readme) (separate page)
@@ -96,6 +102,22 @@ Now your code gets validated and you can press `Ctrl` + `Space` anywhere in the 
 
 The plugin will scan you asset files for common problems like the use of outdated pools (e.g. `190611`).
 The file must match the naming scheme `assets*.xml` to be considered.
+
+### Testing Snippets or Mods
+
+You can run single snippets or test your entire mods merge results by rightclicking on the asset.xml and selecting 'Anno: Compare Results with Vanilla'
+
+Example of a 'test' folder being added that contains  the full path structure of the assets.xml file you want to test snippets.
+![](./doc/images/modop-snippet-testing.png)
+
+Which would show the following result
+
+![](./doc/images/modop-snippet-test-result.png)
+
+You can also test-merge your entire mod straight from the mod folder
+
+![](./doc/images/mod-testing.png)
+
 
 ### Import from Blender or glTF
 
