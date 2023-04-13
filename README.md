@@ -6,21 +6,62 @@ Anno 1800 is a trademark of Ubisoft Entertainment in the US and/or other countri
 
 ## Overview
 
-- [Outline](#assets-outline), [GUID conversion](#guid-conversion), [auto completion](#auto-completion) and [syntax check](#syntax-check) for `assets.xml`, `.cfg`, `.ifo`, `.cf7`
+- `Compare`: Apply mod and compare unpatched vs patched
+- `GUID decorations`: See names of GUIDs directly where they are mentioned.
+- [GUID conversion](#guid-conversion), [auto completion](#auto-completion)
+- [Outline](#assets-outline): Anno-specific table of contents navigation for files
+- [Syntax check](#syntax-check) for `assets.xml`, `.cfg`, `.ifo`, `.cf7`
+- `Live Analysis`: See modloader errors embedded into your `assets.xml`.
 - [Import from Blender or glTF](#import-from-blender-or-gltf) to `.cfg`, `.ifo` and `.cf7`
 - [Reskin existing models](#quickly-reskin-existing-models) without touching `.cfg`, ...
 - [Batch create](#build-anno-mod) DDS (with LODs), RDM (with LODs and animation) using `F1` > `Build Anno Mod` and `annomod.json` description.
 - Various right-click utilities to convert between Anno and editable formats (glTF, PNG, ...)
 
-### Recommended Plug-ins
+## Setup
 
-- [XML Language Support by Red Hat](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-xml)
-- [glTF Tools](https://marketplace.visualstudio.com/items?itemName=cesium.gltf-vscode)
+### 1. Extract assets.xml
 
-### Other Documentation
+For some features like auto completion and compare you need to extract `assets.xml` from the game.
 
-* [Working with models](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/working-with-models.md) (separate page)
-* [Modding Guide](https://github.com/anno-mods/modding-guide#readme) (separate page)
+- Get [RDAExplorer](https://github.com/lysannschlegel/RDAExplorer)
+- Open the `.rda` file with the highest number from your Anno 1800 installation under `/Anno 1800/data/`.
+- Extract the `data/config/export/main/asset/assets.xml` into a folder with the same structure, e.g. `c:\anno\rda\data\config\export\main\asset\assets.xml`.
+
+### 2. Install XML plugin
+
+Additionally, auto completion and other XML features work only in combination with a plugin that supports XSD validation.
+
+- Install [XML Language Support by Red Hat](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-xml)
+
+### 3. Check configuration
+
+Go into `File` > `Preferences` > `Settings...` and search for `anno` and configure the following:
+
+- `Anno: Rda Folder`: Path with RDA data extracted (mostly `assets.xml` is used).
+- `Anno: Mods Folder`: Path to your `Anno 1800/mods/` folder to deploy and find dependencies.
+
+If you have the Red Hat XML plugin installed, search for `xml file associations` and add the following pattern:
+
+```json
+"xml.fileAssociations": [
+  {
+      "pattern": "assets*.xml",
+      "systemId": "https://raw.githubusercontent.com/anno-mods/vscode-anno-modding-tools/main/generated/assets.xsd"
+  }
+]
+```
+
+### 4. How to open files
+
+Most features only activate if you open folders, via `File` > `Open Folder...`.
+Best open the mod folder or even the complete `mods/` folder.
+
+The plugin has difficulties understanding the mod structure if you simply open individual files.
+
+### 5. Further Docs
+
+- [Modding Guide](https://github.com/anno-mods/modding-guide#readme) (separate page)
+- [glTF Tools](https://marketplace.visualstudio.com/items?itemName=cesium.gltf-vscode) VSCode Plugin
 
 ## Features
 
@@ -47,16 +88,8 @@ Not all GUIDs can be converted automatically due to performance. Most notable ex
 
 ![](./doc/images/autocompletion.gif)
 
-You need the Red Hat XML plugin installed. Then go to settings and search for `xml file associations` and add the following pattern:
+Check [Setup](#setup) to activate this feature.
 
-```
-"xml.fileAssociations": [
-  {
-      "pattern": "assets*.xml",
-      "systemId": "https://raw.githubusercontent.com/anno-mods/vscode-anno-modding-tools/main/generated/assets.xsd"
-  }
-]
-```
 Now your code gets validated and you can press `Ctrl` + `Space` anywhere in the document and get a list of possible tags, enums or GUIDs.
 
 ### Syntax Check
@@ -65,8 +98,6 @@ The plugin will scan you asset files for common problems like the use of outdate
 The file must match the naming scheme `assets*.xml` to be considered.
 
 ### Import from Blender or glTF
-
-![](./doc/quickintro.gif)
 
 Steps:
 
@@ -177,17 +208,6 @@ Manual: [How to use annomod.json](./doc/annomod.md)
 Examples: [Sources on GitHub](https://github.com/jakobharder/anno-1800-jakobs-mods/), [Compiled Mods](https://github.com/jakobharder/anno-1800-jakobs-mods/releases)
 
 ---
-
-## Extension Settings
-
-* `anno.modsFolder`: (optional) path to your `mods/` folder. Available as `${annoMods}` in `annomod.json`. Not required if you don't use the variable.
-* `anno.rdaFolder`: (optional) path with RDA data extracted. Available as `${annoRda}` in `*.cfg.yaml` files. You only need the data extracted your mods need. The extension itself does not use this.
-* `anno.outlineFolderDepth`: folder depth of props, materials and alike shown .cfg outline.
-
-## Requirements
-
-Some features like .fc conversion rely on external applications that run only on Windows.
-Native functions like outlines, highlighting work with Linux/WSL as well though.
 
 ## Credits
 
