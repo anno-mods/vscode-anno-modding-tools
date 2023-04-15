@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as minimatch from 'minimatch';
 import * as path from 'path';
-import { ASSETS_FILENAME_PATTERN } from '../other/assetsXml';
+import { ASSETS_FILENAME_PATTERN, ASSETS_FILENAME_PATTERN_STRICT } from '../other/assetsXml';
 import * as editorUtils from '../other/editorUtils';
 import * as utils from '../other/utils';
 import * as xmltest from '../other/xmltest';
@@ -99,7 +99,7 @@ export function refreshDiagnostics(context: vscode.ExtensionContext, doc: vscode
     }
   }
 
-  if (config.get('liveModopAnalysis.validate')) {
+  if (minimatch(doc.fileName, ASSETS_FILENAME_PATTERN_STRICT) && config.get('liveModopAnalysis.validate')) {
     const performance: vscode.DecorationOptions[] = [];
     runXmlTest(context, doc, diagnostics, performance);
     vscode.window.activeTextEditor?.setDecorations(performanceDecorationType, performance);
@@ -108,10 +108,10 @@ export function refreshDiagnostics(context: vscode.ExtensionContext, doc: vscode
   collection.set(doc.uri, diagnostics);
 }
 
-function runXmlTest(context: vscode.ExtensionContext, doc: vscode.TextDocument, 
-  result: vscode.Diagnostic[], 
+function runXmlTest(context: vscode.ExtensionContext, doc: vscode.TextDocument,
+  result: vscode.Diagnostic[],
   decorations: vscode.DecorationOptions[]) {
-  
+
   let modPath = utils.findModRoot(doc.fileName);
   let mainAssetsXml = utils.getAssetsXmlPath(modPath);
   if (!mainAssetsXml || !modPath) {
@@ -130,13 +130,12 @@ function runXmlTest(context: vscode.ExtensionContext, doc: vscode.TextDocument,
     return [];
   }
 
-  const issues = xmltest.fetchIssues(vanilaXml, modPath, mainAssetsXml, editingFile, 
+  const issues = xmltest.fetchIssues(vanilaXml, modPath, mainAssetsXml, editingFile,
     doc.getText(), modsFolder, x => context.asAbsolutePath(x));
   if (issues && issues.length > 0) {
     const color = new vscode.ThemeColor('editorCodeLens.foreground');
     const colorWarning = new vscode.ThemeColor('editorWarning.foreground');
-    const colorError = new vscode.ThemeColor('editorError.foreground');
-    
+
     for (const issue of issues) {
       const line = doc.lineAt(issue.line);
       const range = new vscode.Range(

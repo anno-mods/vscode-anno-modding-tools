@@ -71,8 +71,9 @@ class SchemeType {
   }
 
   parseNode(node?: xmldoc.XmlElement, template?: string, specialSchemes: SpecialSchemes | undefined = undefined, skipSpecial: boolean = false) {
-    if (!node) return;
-    if (node.name === 'Test234') return;
+    if (!node || node.name === 'Test234') {
+      return;
+    }
     if (!skipSpecial && specialSchemes?.match(node.name)) {
       specialSchemes.get(node.name).parseNode(node, template, specialSchemes, true);
       return;
@@ -87,7 +88,9 @@ class SchemeType {
 
     let noChildren = true;
     for (const val of node.children) {
-      if (val.type !== 'element') continue;
+      if (val.type !== 'element') {
+        continue;
+      }
       noChildren = false;
 
       const scheme = this.keys[val.name] ?? new SchemeType(val.name);
@@ -102,7 +105,7 @@ class SchemeType {
 
     for (const val of Object.keys(keyOccurrence)) {
       const count = keyOccurrence[val];
-      this.keys[val].optional ||= count == 0;
+      this.keys[val].optional ||= count === 0;
       this.keys[val].multiple ||= count > 1;// || (val === 'Item' && (Object.keys(this.keys[val].keys).length !== 0));
     }
   }
@@ -286,10 +289,10 @@ class SchemeType {
     // assets for example are linked by humans over 5 years
     // there are some loose ends, allow them
     const allowedErrors = list.length / 100;
-    
+
     let error = 0;
     for (var i of list) {
-      if (i != '0' && !assets[i] && !filteredAssets.has(i)) {
+      if (i !== '0' && !assets[i] && !filteredAssets.has(i)) {
         error++;
       }
       if (error > allowedErrors) {
@@ -422,7 +425,7 @@ function scanAssets(node: xmldoc.XmlElement, assets: { [index: string]: IAsset }
 
         if (!template.isFiltered) {
           if (template.isNoCompletion) {
-            assets[guid] = { name: `${asset.template}: ${asset.name || asset.english}` }
+            assets[guid] = { name: `${asset.template}: ${asset.name || asset.english}` };
           }
           else {
             assets[guid] = {

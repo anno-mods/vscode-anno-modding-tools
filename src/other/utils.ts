@@ -2,6 +2,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import glob = require('glob');
 import { ModFolder } from './modFolder';
+import * as child from 'child_process';
 
 export function ensureDir(path: string) {
   if (!fs.existsSync(path)) {
@@ -24,7 +25,7 @@ export function dontOverwrite(filePath: string, extension: string) {
         return tryPath;
       }
     }
-    
+
     return path.join(dirname, `${basename}-99${extension}`);
   }
 
@@ -111,7 +112,7 @@ export function findModRoots(modFilePath: string): string[] {
   }
 
   const modinfo = readModinfo(root);
-  if (!modinfo || !modinfo?.src || modinfo.src.length == 0) {
+  if (!modinfo || !modinfo?.src || modinfo.src.length === 0) {
     return [ root ];
   }
 
@@ -145,16 +146,18 @@ export function getRequiredLoadAfterIds(modinfo: any): string[] {
 }
 
 export function readModinfo(modPath: string): any {
+  let result;
   try {
     if (fs.existsSync(path.join(modPath, 'modinfo.json'))) {
-      return { 
+      result = {
         'modinfo': JSON.parse(fs.readFileSync(path.join(modPath, 'modinfo.json'), 'utf8')),
         getRequiredLoadAfterIds
       };
     }
     else if (fs.existsSync(path.join(modPath, 'annomod.json'))) {
-      return {
+      result = {
         ...JSON.parse(fs.readFileSync(path.join(modPath, 'annomod.json'), 'utf8')),
+        'modinfo': JSON.parse(fs.readFileSync(path.join(modPath, 'annomod.json'), 'utf8')),
         getRequiredLoadAfterIds
       };
     }
@@ -163,7 +166,9 @@ export function readModinfo(modPath: string): any {
     // mod jsons can be invalid pretty fast
     return undefined;
   }
-  return undefined;
+
+  result.src = result.src ?? ".";
+  return result;
 }
 
 export function searchModPaths(patchFilePath: string, modsFolder?: string) {
@@ -196,15 +201,15 @@ export function hasGraphicsFile(modPaths: string[], filePath: string, annoRda?: 
 
   const folderAfterData = filePath.startsWith('data/') ? filePath.substring(5, Math.max(5, filePath.indexOf('/', 5))) : filePath;
 
-  if (folderAfterData == 'ui' || folderAfterData == 'graphics'
+  if (folderAfterData === 'ui' || folderAfterData === 'graphics'
     || folderAfterData.startsWith('dlc') || folderAfterData.startsWith('cdlc')
-    || folderAfterData == 'eoy21') {
+    || folderAfterData === 'eoy21') {
     if (annoRda && annoRda !== '') {
       // check annoRda only if certain folders are there to ensure people actually extracted their RDAs
-      if (folderAfterData == 'graphics' && fs.existsSync(path.join(annoRda, 'data/graphics'))) {
+      if (folderAfterData === 'graphics' && fs.existsSync(path.join(annoRda, 'data/graphics'))) {
         searchPaths = [annoRda, ...modPaths];
       }
-      else if (folderAfterData == 'ui' && fs.existsSync(path.join(annoRda, 'data/ui'))) {
+      else if (folderAfterData === 'ui' && fs.existsSync(path.join(annoRda, 'data/ui'))) {
         searchPaths = [annoRda, ...modPaths];
       }
       else if (folderAfterData.startsWith('dlc')
@@ -215,7 +220,7 @@ export function hasGraphicsFile(modPaths: string[], filePath: string, annoRda?: 
         && fs.existsSync(path.join(annoRda, 'data', folderAfterData))) {
           searchPaths = [annoRda, ...modPaths];
       }
-      else if (folderAfterData == 'eoy21' && fs.existsSync(path.join(annoRda, 'data/eoy21'))) {
+      else if (folderAfterData === 'eoy21' && fs.existsSync(path.join(annoRda, 'data/eoy21'))) {
         searchPaths = [annoRda, ...modPaths];
       }
       else {
@@ -233,7 +238,7 @@ export function hasGraphicsFile(modPaths: string[], filePath: string, annoRda?: 
   const fileExistsGlob = (pattern: string) => {
     const files = glob.sync(pattern);
     return files.length > 0;
-  }
+  };
 
   for (const modPath of searchPaths) {
     checked = [];
@@ -303,4 +308,39 @@ export function hasGraphicsFile(modPaths: string[], filePath: string, annoRda?: 
   }
 
   return checked;
+}
+
+export interface ILogger {
+  log: (text: string) => void;
+  warn: (text: string) => void;
+  error: (text: string) => void;
+}
+
+export function downloadFile(sourceUrl: string, targetPath: string, logger?: ILogger) {
+  ensureDir(path.dirname(targetPath));
+  try {
+    child.execFileSync('curl', [
+      '-L',
+      '-o', targetPath,
+      sourceUrl
+    ]);
+  }
+  catch (e) {
+    logger?.error((<Error>e).message);
+    throw e;
+  }
+}
+
+export function extractZip(sourceZipPath: string, targetPath: string, logger?: ILogger) {
+  ensureDir(path.dirname(targetPath));
+  try {
+    child.execFileSync('tar', [
+      '-xf', sourceZipPath,
+      '-C', targetPath
+    ]);
+  }
+  catch (e) {
+    logger?.error((<Error>e).message);
+    throw e;
+  }
 }

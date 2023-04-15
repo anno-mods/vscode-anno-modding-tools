@@ -42,9 +42,11 @@ function xmlToPng() {
 
   console.log(width * height + 15);
 
-  const Jimp = require('jimp');
-  let image = new Jimp(width, height, function (err: any, image: any) {
-    if (err) throw err;
+  const jimp = require('jimp');
+  let image = new jimp(width, height, function (err: any, image: any) {
+    if (err) {
+      throw err;
+    }
 
     for (var _y = 0; _y < height; _y++) {
       for (var _x = 0; _x < width; _x++) {
@@ -66,11 +68,11 @@ function xmlToPng() {
       fs.mkdirSync('./out/', { recursive: true });
     }
     image.write('./out/test.png', (err: any) => {
-      if (err) throw err;
+      if (err) {
+        throw err;
+      }
     });
   });
-
-  
 }
 
 function pngToXml() {
@@ -85,8 +87,8 @@ function pngToXml() {
 
   console.log(width * height + 15);
 
-  const Jimp = require('jimp');
-  Jimp.read("./out/height.png", function (err: any, image: any) {
+  const jimp = require('jimp');
+  jimp.read("./out/height.png", function (err: any, image: any) {
     for (var y = 0; y < height; y++) {
       for (var x = 0; x < width; x++) {
         const item = items[y * width + x] as xmldoc.XmlElement;

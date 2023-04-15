@@ -1,4 +1,6 @@
-# Build Mods with annomod.json
+# Build and Deploy Mods
+
+Requirement: you need to configure your `modsFolder` as described in [Setup](#setup).
 
 Automatically convert and copy mod files using a json description.
 
@@ -13,7 +15,7 @@ Examples: [Sources on GitHub](https://github.com/jakobharder/anno-1800-jakobs-mo
 
 ### From Visual Studio Code
 
-Press `F1` or right-click on `annomod.json` files to run `Build Anno Mod`.
+Press `F1` or right-click on `modinfo.json` files to build and deploy your mod.
 
 ### From Terminal or GitHub actions
 
@@ -21,14 +23,42 @@ You can use the build command also in command line.
 
 Have a look at [Jakob's Collection's GitHub publish pipeline](https://github.com/jakobharder/anno-1800-jakobs-mods/blob/main/.github/workflows/publish.yml) to get some hints how to do it.
 
-## How to create annomod.json
+## Conversions
 
-### `annomod.json` Format
+The following are the default conversion if you use a normal `modinfo.json` file:
+
+Type | Pattern | Action
+---|---|---
+Texture | `_diff.png`, `_metal.png`, `_norm.png`, `_height.png`, `_rga.png` | Create DDS textures with 3 LODs.
+Icon | `icon*.png` | Create DDS textures with 1 LOD of  files.
+Feedback | `.cf7` | Convert to `.fc`.
+Models | `.gltf` | Extract and convert models with the name `_lod0` etc. to individual `.rdm` files.
+Skin | `.cfg.yaml` | Generate `.cfg`, `.ifo`, `.fc`.
+Other | `.cfg`, `.ifo`, `.prp`, `.fc`, `.rdm`, `.dds`, `.rdp` | Copy.
+Config | `data/config/*` | Copy.
+Readme | `README.md` | Insert text into `Description.English` in the modinfo.json.
+Banner | `banner.png`, `banner.jpg` | Copy.
+
+## Download Sub-Mods
+
+You can automatically bundle sub-mods and shared files using the `bundle` configuration. E.g.:
+
+```json
+"bundle": {
+  "jakob_shared_base": "https://github.com/anno-mods/shared-resources/releases/download/v1.1/Shared-Pools-and-Definitions-1.1.zip"
+},
+```
+
+This will download the file and extract it's content into your mod.
+
+## Custom conversions
+
+### `modinfo.json` Format
 
 ```json
 {
-  "src": "src",
-  "out": "${annoMods}/${modName}",  
+  "src": ".",
+  "out": "${annoMods}/${modName}",
   "converter": [
     {
       "action": "static",
@@ -52,8 +82,8 @@ Have a look at [Jakob's Collection's GitHub publish pipeline](https://github.com
       "content_en": true
     }
   ],
-  "modinfo": {}
-} 
+  /* ... and the usual modinfo content */
+}
 ```
 
 - `src`
@@ -66,14 +96,16 @@ Have a look at [Jakob's Collection's GitHub publish pipeline](https://github.com
   Folder to write the output mod to.
 
   Use `${modName}` to get `[Category] Name` created from `modinfo.Category.English` and `modinfo.ModName.English`. Works only with `out`.
-  
+
   Use `${annoMods}` to get your local Anno `mods/` directory set in the Extension configuration. Works only with `out`.
 
-- `modinfo`
+- `converter`
 
-  Basically Anno Mod Manager [modinfo.json](https://github.com/anno-mods/Modinfo) content.
+  Custom converter actions. See below.
 
-  `modinfo.Description` differs from what the Anno Mod Manager uses. Instead of text use a relative path to a Markdown file. Images will be excluded from the Markdown.
+- The remainder
+
+  Basically [modinfo.json](https://github.com/anno-mods/Modinfo) content as you know it.
 
 ### Converter Actions
 

@@ -3,6 +3,7 @@ import * as vscode from 'vscode';
 import * as channel from '../features/channel';
 
 export const ASSETS_FILENAME_PATTERN = '**/{assets*.xml,*.include.xml,templates.xml,tests/*-input.xml,tests/*-expectation.xml,gui/texts_*.xml,.modcache/*-patched.xml}';
+export const ASSETS_FILENAME_PATTERN_STRICT = '**/{assets*.xml,*.include.xml}';
 
 export interface IAsset {
   guid: string;
@@ -42,9 +43,9 @@ export class AssetsDocument {
       if (top?.element.type === 'element' /*&& relevantNodes.has(top.element.name)*/) {
         const column = top.element.column - (top.element.position - top.element.startTagPosition + 1);
 
-        this.getLine(top.element.line).push({ 
-          history: top.history.slice(), 
-          element: top.element, 
+        this.getLine(top.element.line).push({
+          history: top.history.slice(),
+          element: top.element,
           column
         });
 
@@ -53,7 +54,7 @@ export class AssetsDocument {
           const parent = top.history.length >= 2 ? top.history[top.history.length - 2] : undefined;
           const asset = top.history.length >= 4 ? top.history[top.history.length - 4] : undefined;
           const name = parent?.valueWithPath('Name');
-  
+
           if (parent?.name === 'Standard' && name) {
             const location = (filePath && asset) ? {
               filePath: vscode.Uri.file(filePath),
@@ -69,7 +70,7 @@ export class AssetsDocument {
             continue;
           }
         }
-  
+
         const children = (top.element.children ? top.element.children.filter((e) => e.type === 'element') : []).map((e) => (
           { history: [...top.history, e as xmldoc.XmlElement], element: e }
         ));
@@ -81,7 +82,7 @@ export class AssetsDocument {
       else {
         // ignore
       }
-    } 
+    }
   }
 
   hasLine(line: number) {
@@ -96,7 +97,9 @@ export class AssetsDocument {
   }
 
   getClosestElementLeft(line: number, position: number) {
-    if (line >= this.lines.length) return undefined;
+    if (line >= this.lines.length) {
+      return undefined;
+    }
 
     const thisLine = this.lines[line];
     if (thisLine.length === 0 || thisLine[0].column > position) {
@@ -110,7 +113,7 @@ export class AssetsDocument {
 
     let i = 0;
     while (i < thisLine.length - 1 && (thisLine[i + 1].column <= position)) {
-      i++
+      i++;
     }
 
     return thisLine[i];

@@ -12,7 +12,6 @@ import { CfgYamlCommands } from './cfgyaml';
 import { PatchTester } from './patchTester';
 import { RunTests } from './runTests';
 import { CheckLoca } from './checkLoca';
-import { DeployModCommand } from './deployMod';
 
 export function registerCommands(context: vscode.ExtensionContext) {
 	context.subscriptions.push(...FcConverter.register(context));
@@ -28,5 +27,4 @@ export function registerCommands(context: vscode.ExtensionContext) {
 	context.subscriptions.push(...PatchTester.register(context));
   context.subscriptions.push(...RunTests.register(context));
 	context.subscriptions.push(...CheckLoca.register(context));
-	context.subscriptions.push(...DeployModCommand.register(context));
 }

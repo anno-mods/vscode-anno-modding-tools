@@ -7,20 +7,30 @@ export class ModinfoConverter extends Converter {
     return 'modinfo';
   }
 
-  public async run(files: string[], sourceFolder: string, outFolder: string, options: { 
-    modJson: any, 
+  public async run(files: string[], sourceFolder: string, outFolder: string, options: {
+    modJson: any,
     converterOptions: any }) {
 
     const targetFile = path.join(outFolder, "modinfo.json");
-    
+
     try {
       if (!fs.existsSync(path.dirname(targetFile))) {
         fs.mkdirSync(path.dirname(targetFile), { recursive: true });
       }
 
       // deep copy since we modify it
-      const modinfo = JSON.parse(JSON.stringify(options.modJson.modinfo));
-      
+      const modinfo = JSON.parse(JSON.stringify(options.modJson.modinfo ?? options.modJson));
+
+      // remove some build specific things
+      modinfo.bundle = undefined;
+      modinfo.src = undefined;
+      modinfo.out = undefined;
+      modinfo.converter = undefined;
+
+      // defaults
+      modinfo.Description = modinfo.Description ?? { "English" : "README.md" };
+      modinfo.Description.English = modinfo.Description.English ?? "README.md";
+
       // Category/ModName, fill other languages based on English
       const languages = [ "Chinese", "French", "German", "Italian", "Japanese", "Korean", "Polish", "Russian", "Spanish", "Taiwanese" ];
       for (let lang of languages) {
@@ -70,14 +80,14 @@ export class ModinfoConverter extends Converter {
       return null;
     }
     const descFile = path.join(sourceFolder, filePath);
-    let content = null;
+    let content = filePath;
     if (fs.existsSync(descFile)) {
       content = fs.readFileSync(descFile).toString();
       content = content.replace(/!\[\]\([^)]+\)\r?\n?\r?\n?/g, '');
     }
     return content;
   }
-  
+
   private _createBase64Image(sourceFolder: string, sourceImage?: string): string | null {
     if (!sourceImage) {
       return null;

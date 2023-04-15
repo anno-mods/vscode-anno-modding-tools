@@ -6,16 +6,28 @@ Anno 1800 is a trademark of Ubisoft Entertainment in the US and/or other countri
 
 ## Overview
 
+Commands
+
 - `Compare`: Apply mod and compare unpatched vs patched
+- [Build and Deploy](./doc/annomod.md): Copy your mod to the `mods/` folder and generate DDS (with LODs) and other files automatically.
+- [Import from Blender or glTF](#import-from-blender-or-gltf) to `.cfg`, `.ifo` and `.cf7`
+- Various right-click utilities to convert between Anno and editable formats (glTF, PNG, ...)
+
+Navigation, Tooltips, Hints
+
 - `GUID decorations`: See names of GUIDs directly where they are mentioned.
-- [GUID conversion](#guid-conversion), [auto completion](#auto-completion)
 - [Outline](#assets-outline): Anno-specific table of contents navigation for files
 - [Syntax check](#syntax-check) for `assets.xml`, `.cfg`, `.ifo`, `.cf7`
 - `Live Analysis`: See modloader errors embedded into your `assets.xml`.
-- [Import from Blender or glTF](#import-from-blender-or-gltf) to `.cfg`, `.ifo` and `.cf7`
+
+Auto-completion
+
+- [GUID conversion](#guid-conversion)
+- [Assets XML auto completion](#auto-completion)
+
+Other
+
 - [Reskin existing models](#quickly-reskin-existing-models) without touching `.cfg`, ...
-- [Batch create](#build-anno-mod) DDS (with LODs), RDM (with LODs and animation) using `F1` > `Build Anno Mod` and `annomod.json` description.
-- Various right-click utilities to convert between Anno and editable formats (glTF, PNG, ...)
 
 ## Setup
 
@@ -196,16 +208,6 @@ variant:
       Position:
         yf: 4.34346
 ```
-
-### Build Anno Mod
-
-Automatically copy and convert mod files.
-
-Press `F1` or right-click on `annomod.json` files to run `Build Anno Mod`.
-
-Manual: [How to use annomod.json](./doc/annomod.md)
-
-Examples: [Sources on GitHub](https://github.com/jakobharder/anno-1800-jakobs-mods/), [Compiled Mods](https://github.com/jakobharder/anno-1800-jakobs-mods/releases)
 
 ---
 

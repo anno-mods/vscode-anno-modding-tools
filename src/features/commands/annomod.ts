@@ -4,6 +4,7 @@ import * as glob from 'glob';
 
 import * as channel from '../channel';
 import { ModBuilder } from '../../builder';
+import * as editorUtils from '../../other/editorUtils';
 
 export class AnnomodCommands {
   context: vscode.ExtensionContext;
@@ -11,6 +12,10 @@ export class AnnomodCommands {
 	public static register(context: vscode.ExtensionContext): vscode.Disposable[] {
     const disposable = [
       vscode.commands.registerCommand('anno-modding-tools.buildMod', async (fileUri) => {
+        if (!await editorUtils.ensurePathSettingAsync('modsFolder', fileUri)) {
+          return;
+        }
+
         await AnnomodCommands._commandCompileMod(fileUri?.fsPath, context);
       }),
     ];
@@ -30,7 +35,7 @@ export class AnnomodCommands {
     else {
       mods = AnnomodCommands._findMods();
       if (mods.length === 0) {
-        vscode.window.showWarningMessage('No annomod.json found in workspace to build.');
+        vscode.window.showWarningMessage('No modinfo.json found in workspace to build.');
         return;
       }
     }
@@ -74,7 +79,7 @@ export class AnnomodCommands {
     const mods: vscode.QuickPickItem[] = [];
     const workspaces = vscode.workspace.workspaceFolders?.map(folder => folder.uri.fsPath) || [];
     for (const folder of workspaces) {
-      mods.push(...(glob.sync('**/annomod.json', { cwd: folder, nodir: true }).map((e) => ({
+      mods.push(...(glob.sync('**/{annomod,modinfo}.json', { cwd: folder, nodir: true }).map((e) => ({
         detail: path.join(folder, e),
         label: path.dirname(e)
       }))));

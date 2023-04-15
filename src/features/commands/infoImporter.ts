@@ -44,13 +44,13 @@ export class InfoImporter {
     importer.importHitBoxes(model, xml);
     importer.importDummies(model, xml);
     importer.importBuildBlocker(model, xml); // legacy BuildBlocker 'ground'
-    let afterElements = [ BlockerType.Build, 'Sequence', 'Dummy', 'IntersectBox', 'DisableFeedbackArea', 'MeshBoundingBox', 'BoundingBox' ];
-    importer.importBlocker(model, xml, BlockerType.Build, afterElements); // new, aligned 'BuildBlocker'. note: rounded same as feedbackblocker now
-    afterElements = [ BlockerType.Feedback, ...afterElements];
-    importer.importBlocker(model, xml, BlockerType.Feedback, afterElements);
+    let afterElements = [ BlockerType.build, 'Sequence', 'Dummy', 'IntersectBox', 'DisableFeedbackArea', 'MeshBoundingBox', 'BoundingBox' ];
+    importer.importBlocker(model, xml, BlockerType.build, afterElements); // new, aligned 'BuildBlocker'. note: rounded same as feedbackblocker now
+    afterElements = [ BlockerType.feedback, ...afterElements];
+    importer.importBlocker(model, xml, BlockerType.feedback, afterElements);
     importer.importUnevenBlocker(model, xml);
-    afterElements = [ BlockerType.Priority, 'UnevenBlocker', ...afterElements];
-    importer.importBlocker(model, xml, BlockerType.Priority, afterElements);
+    afterElements = [ BlockerType.priority, 'UnevenBlocker', ...afterElements];
+    importer.importBlocker(model, xml, BlockerType.priority, afterElements);
     fs.writeFileSync(cfgFilePath, xml.toString());
   }
 
@@ -62,7 +62,7 @@ export class InfoImporter {
 
       xml.remove('//Info/IntersectBox', { all: true, silent: true });
       for (let hitbox of hitboxes) {
-        const parent = xml.findElement('//Info'); 
+        const parent = xml.findElement('//Info');
         if (parent) {
           /* eslint-disable @typescript-eslint/naming-convention */
           parent.createChild('IntersectBox', { after: [ 'IntersectBox', 'DisableFeedbackArea', 'MeshBoundingBox', 'BoundingBox' ] }).set({

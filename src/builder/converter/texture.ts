@@ -13,7 +13,7 @@ export class TextureConverter extends Converter {
 
   public async run(files: string[], sourceFolder: string, outFolder: string, options: {
     cache: string,
-    converterOptions: any, 
+    converterOptions: any,
     modCache: ModCache
   }) {
     const cache = options.modCache;
@@ -32,17 +32,18 @@ export class TextureConverter extends Converter {
         const dirname = path.dirname(file);
         const basename = path.basename(file, '.png');
 
-        utils.ensureDir(path.join(outFolder, dirname, changePath));
+        const mapsPath = (path.basename(dirname) === changePath) ? dirname : path.join(dirname, changePath);
+        utils.ensureDir(path.join(outFolder, mapsPath));
         utils.ensureDir(path.join(options.cache, dirname));
 
         const lodFilePaths = [];
         if (lodLevels === 0) {
           // lods disabled, don't change file name
-          lodFilePaths.push(path.join(outFolder, dirname, changePath, basename + '.dds'));
+          lodFilePaths.push(path.join(outFolder, mapsPath, basename + '.dds'));
         }
         else {
           for (let lodLevel = 0; lodLevel < lodLevels; lodLevel++) {
-            lodFilePaths.push(path.join(outFolder, dirname, changePath, basename + '_' + lodLevel + '.dds'));
+            lodFilePaths.push(path.join(outFolder, mapsPath, basename + '_' + lodLevel + '.dds'));
           }
         }
 

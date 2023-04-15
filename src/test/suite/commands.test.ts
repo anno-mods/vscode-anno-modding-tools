@@ -152,5 +152,5 @@ suite('file conversion tests', () => {
   
     //   assert.deepStrictEqual(resultContent, expectedContent);
     // });
-  })
+  });
 });
