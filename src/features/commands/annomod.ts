@@ -76,7 +76,7 @@ export class AnnomodCommands {
   }
 
   private static _findMods() {
-    const mods: vscode.QuickPickItem[] = [];
+    let mods: vscode.QuickPickItem[] = [];
     const workspaces = vscode.workspace.workspaceFolders?.map(folder => folder.uri.fsPath) || [];
     for (const folder of workspaces) {
       mods.push(...(glob.sync('**/{annomod,modinfo}.json', { cwd: folder, nodir: true }).map((e) => ({
@@ -84,6 +84,8 @@ export class AnnomodCommands {
         label: path.dirname(e)
       }))));
     }
+
+    mods = mods.filter(e => !e.label.startsWith('out/') && !e.label.startsWith('out\\'));
     return mods;
   }
 }
