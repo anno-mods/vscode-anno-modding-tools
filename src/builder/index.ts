@@ -82,7 +82,7 @@ export class ModBuilder {
     }] : [
       {
         "action": "static",
-        "pattern": "{data,products,shared}/**/*.{cfg,ifo,prp,fc,rdm,dds}"
+        "pattern": "{data,products,shared}/**/*.{cfg,ifo,prp,fc,rdm,dds,rdp}"
       },
       {
         "action": "static",
@@ -101,7 +101,8 @@ export class ModBuilder {
         "pattern": "{data,products,shared}/**/!(propsonly)*.gltf",
         "lods": 5,
         "changePath": "rdm/",
-        "animPath": "anim/"
+        "animPath": "anim/",
+        "plantPattern": ".*(_field|_tree|_field).gltf"
       },
       {
         "action": "cfgyaml",
@@ -109,7 +110,7 @@ export class ModBuilder {
       },
       {
         "action": "texture",
-        "pattern": "{data,products,shared}/**/*_{diff,norm,height,metal,mask,rga}.png",
+        "pattern": "{data,products,shared}/**/*_{diff,norm,height,metal,mask,rga,r_a,r_a+b}.png",
         "lods": 3,
         "changePath": "maps/"
       },
