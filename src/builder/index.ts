@@ -86,7 +86,7 @@ export class ModBuilder {
       },
       {
         "action": "static",
-        "pattern": "{banner.*,content*.txt,README.md,data/config/**/*,**/icon_*.png,**/*.include.xml}"
+        "pattern": "{banner.*,content*.txt,README.md,data/config/**/*,**/*.include.xml}"
       },
       {
         "action": "cf7",
@@ -112,6 +112,11 @@ export class ModBuilder {
         "pattern": "{data,products,shared}/**/*_{diff,norm,height,metal,mask,rga}.png",
         "lods": 3,
         "changePath": "maps/"
+      },
+      {
+        "action": "texture",
+        "pattern": "{data,products,shared}/**/icon*.png",
+        "lods": 1
       },
       {
         "action": "assets"
