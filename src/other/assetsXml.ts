@@ -3,6 +3,7 @@ import * as vscode from 'vscode';
 import * as channel from '../features/channel';
 
 export const ASSETS_FILENAME_PATTERN = '**/{assets*.xml,*.include.xml,templates.xml,tests/*-input.xml,tests/*-expectation.xml,gui/texts_*.xml,.modcache/*-patched.xml}';
+export const ASSETS_FILENAME_PATTERN_STRICT = '**/{assets*.xml,*.include.xml}';
 
 export interface IAsset {
   guid: string;
