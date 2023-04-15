@@ -32,7 +32,7 @@ export class TextureConverter extends Converter {
         const dirname = path.dirname(file);
         const basename = path.basename(file, '.png');
 
-        const mapsPath = path.basename(dirname) == changePath ? dirname : path.join(dirname, changePath);
+        const mapsPath = (path.basename(dirname) === changePath) ? dirname : path.join(dirname, changePath);
         utils.ensureDir(path.join(outFolder, mapsPath));
         utils.ensureDir(path.join(options.cache, dirname));
 

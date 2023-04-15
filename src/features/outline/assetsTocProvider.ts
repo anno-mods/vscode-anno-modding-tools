@@ -125,7 +125,7 @@ export class AssetsTocProvider {
     }
 
     // not found
-    if (line == -1) {
+    if (line === -1) {
       line = start;
     }
     return line;

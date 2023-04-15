@@ -14,7 +14,9 @@ interface IAsset {
 const assetCounter: { [index: string]: number } = {};
 
 function isTextAsset(node: xmldoc.XmlElement) {
-  if (node.childNamed('LocaText')) return true;
+  if (node.childNamed('LocaText')) {
+    return true;
+  }
   const templateElement = node.childNamed('Template');
   const template = templateElement?.firstChild?.toString();
   return template === 'Text' || template === 'Audio' || template === 'AudioText' || template === 'NoLocaText' || template === 'TextPool' || (template?.indexOf('Quest')??-1) >= 0;
@@ -22,7 +24,7 @@ function isTextAsset(node: xmldoc.XmlElement) {
 
 function removeTextAssets(node: xmldoc.XmlElement) {
   if (node.children) {
-    node.children = node.children.filter((e: xmldoc.XmlNode) => e.type !== 'element' || !isTextAsset(e))
+    node.children = node.children.filter((e: xmldoc.XmlNode) => e.type !== 'element' || !isTextAsset(e));
     for (let child of node.children) {
       if (child.type === 'element') {
         removeTextAssets(child);

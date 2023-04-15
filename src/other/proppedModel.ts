@@ -168,9 +168,9 @@ function buildArrayBuffer<T extends ArrayLike<number>>(typedArray: any, data: Ar
 }
 
 export const enum BlockerType {
-  Build = 'BuildBlocker',
-  Feedback = 'FeedbackBlocker',
-  Priority = 'PriorityFeedbackBlocker'
+  build = 'BuildBlocker',
+  feedback = 'FeedbackBlocker',
+  priority = 'PriorityFeedbackBlocker'
 };
 
 export default class ProppedModel {

@@ -25,7 +25,7 @@ export function dontOverwrite(filePath: string, extension: string) {
         return tryPath;
       }
     }
-    
+
     return path.join(dirname, `${basename}-99${extension}`);
   }
 
@@ -112,7 +112,7 @@ export function findModRoots(modFilePath: string): string[] {
   }
 
   const modinfo = readModinfo(root);
-  if (!modinfo || !modinfo?.src || modinfo.src.length == 0) {
+  if (!modinfo || !modinfo?.src || modinfo.src.length === 0) {
     return [ root ];
   }
 
@@ -201,15 +201,15 @@ export function hasGraphicsFile(modPaths: string[], filePath: string, annoRda?: 
 
   const folderAfterData = filePath.startsWith('data/') ? filePath.substring(5, Math.max(5, filePath.indexOf('/', 5))) : filePath;
 
-  if (folderAfterData == 'ui' || folderAfterData == 'graphics'
+  if (folderAfterData === 'ui' || folderAfterData === 'graphics'
     || folderAfterData.startsWith('dlc') || folderAfterData.startsWith('cdlc')
-    || folderAfterData == 'eoy21') {
+    || folderAfterData === 'eoy21') {
     if (annoRda && annoRda !== '') {
       // check annoRda only if certain folders are there to ensure people actually extracted their RDAs
-      if (folderAfterData == 'graphics' && fs.existsSync(path.join(annoRda, 'data/graphics'))) {
+      if (folderAfterData === 'graphics' && fs.existsSync(path.join(annoRda, 'data/graphics'))) {
         searchPaths = [annoRda, ...modPaths];
       }
-      else if (folderAfterData == 'ui' && fs.existsSync(path.join(annoRda, 'data/ui'))) {
+      else if (folderAfterData === 'ui' && fs.existsSync(path.join(annoRda, 'data/ui'))) {
         searchPaths = [annoRda, ...modPaths];
       }
       else if (folderAfterData.startsWith('dlc')
@@ -220,7 +220,7 @@ export function hasGraphicsFile(modPaths: string[], filePath: string, annoRda?: 
         && fs.existsSync(path.join(annoRda, 'data', folderAfterData))) {
           searchPaths = [annoRda, ...modPaths];
       }
-      else if (folderAfterData == 'eoy21' && fs.existsSync(path.join(annoRda, 'data/eoy21'))) {
+      else if (folderAfterData === 'eoy21' && fs.existsSync(path.join(annoRda, 'data/eoy21'))) {
         searchPaths = [annoRda, ...modPaths];
       }
       else {
@@ -238,7 +238,7 @@ export function hasGraphicsFile(modPaths: string[], filePath: string, annoRda?: 
   const fileExistsGlob = (pattern: string) => {
     const files = glob.sync(pattern);
     return files.length > 0;
-  }
+  };
 
   for (const modPath of searchPaths) {
     checked = [];

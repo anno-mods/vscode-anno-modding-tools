@@ -42,7 +42,7 @@ export class PatchTester {
         }
 
         let patchFilePath = fileUri.fsPath;
-        if (path.basename(patchFilePath) === 'annomod.json' || path.basename(patchFilePath) == 'modinfo.json') {
+        if (path.basename(patchFilePath) === 'annomod.json' || path.basename(patchFilePath) === 'modinfo.json') {
           patchFilePath = this.getAssetsFromModinfo(patchFilePath);
         }
 
