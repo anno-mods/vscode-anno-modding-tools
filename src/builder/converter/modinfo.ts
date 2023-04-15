@@ -27,6 +27,10 @@ export class ModinfoConverter extends Converter {
       modinfo.out = undefined;
       modinfo.converter = undefined;
 
+      // defaults
+      modinfo.Description = modinfo.Description ?? { "English" : "README.md" };
+      modinfo.Description.English = modinfo.Description.English ?? "README.md";
+
       // Category/ModName, fill other languages based on English
       const languages = [ "Chinese", "French", "German", "Italian", "Japanese", "Korean", "Polish", "Russian", "Spanish", "Taiwanese" ];
       for (let lang of languages) {
@@ -76,7 +80,7 @@ export class ModinfoConverter extends Converter {
       return null;
     }
     const descFile = path.join(sourceFolder, filePath);
-    let content = null;
+    let content = filePath;
     if (fs.existsSync(descFile)) {
       content = fs.readFileSync(descFile).toString();
       content = content.replace(/!\[\]\([^)]+\)\r?\n?\r?\n?/g, '');

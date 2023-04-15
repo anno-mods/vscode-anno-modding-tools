@@ -99,7 +99,7 @@ export class ModBuilder {
       {
         "action": "gltf",
         "pattern": "{data,products,shared}/**/!(propsonly)*.gltf",
-        "lods": 4,
+        "lods": 5,
         "changePath": "rdm/",
         "animPath": "anim/"
       },
