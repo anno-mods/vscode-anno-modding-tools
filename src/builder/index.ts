@@ -148,6 +148,24 @@ export class ModBuilder {
       }
     }
 
+    this._logger.log(`bundles`);
+
+    if (modJson.bundle) {
+      for (const bundle of Object.keys(modJson.bundle)) {
+        const fileName = path.basename(modJson.bundle[bundle]);
+        const targetPath = path.join(cache, 'downloads', fileName);
+        if (!fs.existsSync(targetPath)) {
+          this._logger.log(`   * download ${fileName}`);
+          utils.downloadFile(modJson.bundle[bundle], targetPath, this._logger);
+        }
+        else {
+          this._logger.log(`   * skip download of ${fileName}`);
+        }
+        this._logger.log(`  <= extract content`);
+        utils.extractZip(targetPath, outFolder, this._logger);
+      }
+    }
+
     for (const sourceFolder of sourceFolders) {
       const testInputFolder = path.join(sourceFolder, 'tests');
       if (fs.existsSync(sourceFolder)) {
@@ -170,16 +188,6 @@ export class ModBuilder {
       modCache.saveVanilla();
     }
     modCache.save();
-
-    if (modJson.bundle) {
-      for (const bundle of Object.keys(modJson.bundle)) {
-        const fileName = path.basename(modJson.bundle[bundle]);
-        this._logger.log(`  Download ${fileName}`);
-        utils.downloadFile(modJson.bundle[bundle], path.join(cache, 'downloads', fileName), this._logger);
-        this._logger.log(`  <= Extract ${fileName}`);
-        utils.extractZip(path.join(cache, 'downloads', fileName), outFolder, this._logger);
-      }
-    }
 
     this._logger.log(`${this._getModName(filePath, modJson.modinfo ?? modJson)} done`);
     return true;
