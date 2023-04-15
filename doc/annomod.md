@@ -45,8 +45,9 @@ You can automatically bundle sub-mods and shared files using the `bundle` config
 
 ```json
 "bundle": {
-  "jakob_shared_base": "https://github.com/anno-mods/shared-resources/releases/download/v1.1/Shared-Pools-and-Definitions-1.1.zip"
-},
+  "jakob_shared_base": "https://github.com/anno-mods/shared-resources/releases/download/v2/Shared-Pools-and-Definitions-1.1.zip",
+  "jakob_ground_industry": "https://github.com/anno-mods/shared-resources/releases/download/v2/Shared-Ground-Textures-Industry-1.0.zip"
+}
 ```
 
 This will download the file and extract it's content into your mod.
