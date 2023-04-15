@@ -4,6 +4,11 @@ All notable changes to the "anno-modding-tools" extension will be documented in 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## 1.12 Simplified Build and Deploy
+
+- Build and deploy is now possible with `modinfo.json` files
+- Added `bundle` setting in `modinfo.json` to download sub mods in build step
+
 ## 1.11 Live ModOp Analysis
 
 - 1.10.2: Improved xmltest, annodiff performance

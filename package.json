@@ -21,7 +21,6 @@
 		"onLanguage:anno-cf7",
 		"onLanguage:anno-prp",
 		"onCommand:anno-modding-tools.buildMod",
-		"onCommand:anno-modding-tools.copyMod",
 		"onCommand:anno-modding-tools.convertFcCf7",
 		"onCommand:anno-modding-tools.convertCf7Fc",
 		"onCommand:anno-modding-tools.patchCheckDiff",
@@ -131,11 +130,7 @@
 			},
 			{
 				"command": "anno-modding-tools.buildMod",
-				"title": "Anno: Build Mod"
-			},
-			{
-				"command": "anno-modding-tools.copyMod",
-				"title": "Anno: Copy Mod to mods/"
+				"title": "Anno: Build and Deploy Mod"
 			},
 			{
 				"command": "anno-modding-tools.importProps",
@@ -215,10 +210,6 @@
 				{
 					"command": "anno-modding-tools.addMissingLoca",
 					"when": "false"
-				},
-				{
-					"command": "anno-modding-tools.copyMod",
-					"when": "false"
 				}
 			],
 			"explorer/context": [
@@ -281,7 +272,7 @@
 				},
 				{
 					"when": "resourceFilename == modinfo.json",
-					"command": "anno-modding-tools.copyMod",
+					"command": "anno-modding-tools.buildMod",
 					"group": "anno@3"
 				},
 				{
@@ -290,6 +281,11 @@
 				},
 				{
 					"when": "resourceFilename == annomod.json",
+					"command": "anno-modding-tools.patchCheckDiff",
+					"group": "anno@1"
+				},
+				{
+					"when": "resourceFilename == modinfo.json",
 					"command": "anno-modding-tools.patchCheckDiff",
 					"group": "anno@1"
 				},
@@ -307,6 +303,11 @@
 					"when": "resourceFilename == annomod.json",
 					"command": "anno-modding-tools.runTests",
 					"group": "anno@2"
+				},
+				{
+					"when": "resourceFilename == modinfo.json",
+					"command": "anno-modding-tools.runTests",
+					"group": "anno@2"
 				}
 			],
 			"editor/context": [
@@ -321,7 +322,7 @@
 				"anno.modsFolder": {
 					"type": "string",
 					"format": "uri",
-					"markdownDescription": "mods/ folder used to find `LoadAfterIds` dependencies. Is also available as `${annoMods}` in `annomod.json` files.",
+					"markdownDescription": "Your `mods/` folder to deploy mods into. It is also used to resolve dependencies.",
 					"scope": "resource"
 				},
 				"anno.rdaFolder": {

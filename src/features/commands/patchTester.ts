@@ -29,19 +29,22 @@ export class PatchTester {
         }
       }
     })();
-    
+
     const disposable = [
       vscode.commands.registerCommand('anno-modding-tools.patchCheckDiff', async (fileUri) => {
-        const vanillaAssetsFilePath = await editorUtils.getVanillaAsync(fileUri);
+        if (!await editorUtils.ensurePathSettingAsync('rdaFolder', fileUri)) {
+          return;
+        }
+
+        const vanillaAssetsFilePath = editorUtils.getVanilla(fileUri.fsPath);
         if (!vanillaAssetsFilePath) {
           return;
         }
 
         let patchFilePath = fileUri.fsPath;
-        if (path.basename(patchFilePath) === 'annomod.json') {
+        if (path.basename(patchFilePath) === 'annomod.json' || path.basename(patchFilePath) == 'modinfo.json') {
           patchFilePath = this.getAssetsFromModinfo(patchFilePath);
         }
-        channel.error(patchFilePath);
 
         if (!fs.existsSync(patchFilePath)) {
           vscode.window.showErrorMessage(`Cannot find '${patchFilePath}'`);
@@ -56,13 +59,17 @@ export class PatchTester {
 
         const timestamp = Date.now();
         channel.show();
-        vscode.commands.executeCommand('vscode.diff', 
+        vscode.commands.executeCommand('vscode.diff',
           vscode.Uri.parse('annodiff:' + _originalPath + '?original#' + timestamp),
           vscode.Uri.parse('annodiff:' + _patchPath + '?patch#' + timestamp),
           'Anno Diff: Original ↔ Patched');
       }),
       vscode.commands.registerCommand('anno-modding-tools.selectionCheckDiff', async (fileUri) => {
-        const vanillaAssetsFilePath = await editorUtils.getVanillaAsync(fileUri);
+        if (!await editorUtils.ensurePathSettingAsync('rdaFolder', fileUri)) {
+          return;
+        }
+
+        const vanillaAssetsFilePath = editorUtils.getVanilla(fileUri.fsPath);
         if (!vanillaAssetsFilePath) {
           return;
         }
@@ -83,7 +90,7 @@ export class PatchTester {
 
         const timestamp = Date.now();
         channel.show();
-        vscode.commands.executeCommand('vscode.diff', 
+        vscode.commands.executeCommand('vscode.diff',
           vscode.Uri.parse('annodiff:' + _originalPath + '?original#' + timestamp),
           vscode.Uri.parse('annodiff:' + _patchPath + '?patch#' + timestamp),
           'Anno Diff: Original ↔ Patched');
@@ -134,18 +141,16 @@ export class PatchTester {
       const modRelativePath = path.relative(modPath, patchFilePath);
 
       const res = child.execFileSync(differ, ["patchdiff", originalPath, modRelativePath, modPath], {
-        cwd: this._workingDir, 
-        input: patchContent, 
+        cwd: this._workingDir,
+        input: patchContent,
         encoding: 'utf-8',
         maxBuffer: maxBuffer * 1024 * 1024
       });
       const split = res.split('##annodiff##');
-      
       return { original: split[2], patched: split[1], log: split[0] };
     }
     catch (e)
     {
-      
       if ((<Error>e).message.endsWith('ENOBUFS')) {
         throw new Error(`Diff exceeds ${maxBuffer} MB!`);
       }
