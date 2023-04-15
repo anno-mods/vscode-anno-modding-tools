@@ -82,34 +82,30 @@ export class ModBuilder {
     }] : [
       {
         "action": "static",
-        "pattern": "**/*.{cfg,ifo,prp,fc,rdm,dds,include.xml}"
+        "pattern": "{data,products,shared}/**/*.{cfg,ifo,prp,fc,rdm,dds}"
       },
       {
         "action": "static",
-        "pattern": "{data/config/**/*,**/icon_*.png}"
-      },
-      {
-        "action": "static",
-        "pattern": "{banner.*,content*.txt,README.md}"
+        "pattern": "{banner.*,content*.txt,README.md,data/config/**/*,**/icon_*.png,**/*.include.xml}"
       },
       {
         "action": "cf7",
-        "pattern": "**/*.cf7"
+        "pattern": "{data,products,shared}/**/*.cf7"
       },
       {
         "action": "gltf",
-        "pattern": "**/!(propsonly)*.gltf",
+        "pattern": "{data,products,shared}/**/!(propsonly)*.gltf",
         "lods": 4,
         "changePath": "rdm/",
         "animPath": "anim/"
       },
       {
         "action": "cfgyaml",
-        "pattern": "**/*.cfg.yaml"
+        "pattern": "{data,products,shared}/**/*.cfg.yaml"
       },
       {
         "action": "texture",
-        "pattern": "**/*_{diff,norm,height,metal,mask,rga}.png",
+        "pattern": "{data,products,shared}/**/*_{diff,norm,height,metal,mask,rga}.png",
         "lods": 3,
         "changePath": "maps/"
       },
