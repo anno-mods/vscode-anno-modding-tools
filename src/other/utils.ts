@@ -168,8 +168,7 @@ export function readModinfo(modPath: string): any {
   }
 
   result.src = result.src ?? ".";
-
-  return undefined;
+  return result;
 }
 
 export function searchModPaths(patchFilePath: string, modsFolder?: string) {
