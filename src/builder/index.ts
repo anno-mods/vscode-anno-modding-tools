@@ -93,6 +93,10 @@ export class ModBuilder {
         "pattern": "{data,products,shared}/**/*.cf7"
       },
       {
+        "action": "rdpxml",
+        "pattern": "{data,products,hared}/**/*.rdp.xml"
+      },
+      {
         "action": "gltf",
         "pattern": "{data,products,shared}/**/!(propsonly)*.gltf",
         "lods": 4,
