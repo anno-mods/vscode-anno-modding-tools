@@ -157,12 +157,14 @@ export class ModBuilder {
     this._logger.log(`bundles`);
 
     if (modJson.bundle) {
-      for (const bundle of Object.keys(modJson.bundle)) {
-        const fileName = path.basename(modJson.bundle[bundle]);
+      const bundles = Array.isArray(modJson.bundle) ? modJson.bundle : Object.values(modJson.bundle);
+
+      for (const bundle of bundles) {
+        const fileName = path.basename(bundle);
         const targetPath = path.join(cache, 'downloads', fileName);
         if (!fs.existsSync(targetPath)) {
           this._logger.log(`   * download ${fileName}`);
-          utils.downloadFile(modJson.bundle[bundle], targetPath, this._logger);
+          utils.downloadFile(bundle, targetPath, this._logger);
         }
         else {
           this._logger.log(`   * skip download of ${fileName}`);
