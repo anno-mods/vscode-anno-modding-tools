@@ -1,6 +1,6 @@
 # Build and Deploy Mods
 
-Requirement: you need to configure your `modsFolder` as described in [Setup](#setup).
+Requirement: you need to configure your `modsFolder` as described in [Setup](../README.md#setup).
 
 Automatically convert and copy mod files using a json description.
 
