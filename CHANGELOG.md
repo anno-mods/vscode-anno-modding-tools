@@ -6,6 +6,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## 1.12 Simplified Build and Deploy
 
+- 1.12.1: Support hierarchy of named `Group`s (with comments) in outline
 - Build and deploy is now possible with `modinfo.json` files
 - Added `bundle` setting in `modinfo.json` to download sub mods in build step
 

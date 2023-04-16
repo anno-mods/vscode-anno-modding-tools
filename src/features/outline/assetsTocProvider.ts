@@ -146,7 +146,6 @@ export class AssetsTocProvider {
 
     let sectionComment: string | undefined = 'ModOps';
     let groupComment: string | undefined;
-    let groupCommentLine: number | undefined;
 
     let xmlContent;
     try {
@@ -158,13 +157,13 @@ export class AssetsTocProvider {
 
     const nodeStack: { depth: number, element: xmldoc.XmlNode }[] = [{ depth: 0, element: xmlContent }];
     for (let top = nodeStack.pop(); top; top = nodeStack.pop()) {
-
-      if (top.element.type === 'comment' && top.depth === 1) {
+      if (top.element.type === 'comment') {
         let comment = top.element.comment.trim();
-        if (comment.startsWith('#')) {
+        if (comment.startsWith('#') && top.depth === 1) {
           comment = comment.replace(/#/g, '').trim();
           if (comment) {
             sectionComment = comment;
+            groupComment = undefined;
           }
         }
         else if (comment) {
@@ -213,6 +212,7 @@ export class AssetsTocProvider {
             symbol: relevantSections[top.element.name]?.symbol ?? vscode.SymbolKind.String
           });
         }
+        groupComment = undefined;
         // else if (!tocRelevant && top.depth === 2) {
         //   // ModOps that are not Assets
         //   if (!toc[toc.length - 1].children) {
@@ -230,8 +230,6 @@ export class AssetsTocProvider {
 
         //   toc[toc.length - 1].children?.push(name || 'Item');
         // }
-
-        groupComment = undefined;
       }
       else {
         // ignore

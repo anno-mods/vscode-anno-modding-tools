@@ -71,4 +71,35 @@ suite('outline tests', () => {
     assert.strictEqual(toc[3].text, "Section 3");
     assert.strictEqual(toc[4].text, "Include");
   });
+
+  test('sub-section comments', async () => {
+    const text = `<ModOps>
+      <!-- # Lists -->
+      <Group>
+        <!-- After Coats -->
+        <Group />
+        <!-- After Furs -->
+        <Group />
+      </Group>
+    </ModOps>`.split('\n');
+
+    let textDocument: SkinnyTextDocument = {
+      uri: vscode.Uri.file('abc.xml'),
+      version: 0,
+      lineCount: text.length,
+      getText: () => {
+        return text.join('\n');
+      },
+      lineAt: (line: number) => {
+        return { text: text[line] };
+      }
+    };
+
+    const provider = new AssetsTocProvider(textDocument);
+    const toc = provider.getToc();
+
+    assert.strictEqual(toc[0].text, "Lists");
+    assert.strictEqual(toc[1].text, "After Coats");
+    assert.strictEqual(toc[2].text, "After Furs");
+  });
 });
