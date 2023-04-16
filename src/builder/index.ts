@@ -86,7 +86,7 @@ export class ModBuilder {
       },
       {
         "action": "static",
-        "pattern": "{banner.*,content*.txt,README.md,data/config/**/*,**/*.include.xml}"
+        "pattern": "{banner.*,content*.txt,README.md,data/config/**/*,**/*.include.xml,**/icon*.png}"
       },
       {
         "action": "cf7",
@@ -117,7 +117,7 @@ export class ModBuilder {
       {
         "action": "texture",
         "pattern": "{data,products,shared}/**/icon*.png",
-        "lods": 1
+        "lods": 3
       },
       {
         "action": "assets"
