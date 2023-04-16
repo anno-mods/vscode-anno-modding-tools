@@ -9,31 +9,13 @@
 		"url": "https://github.com/anno-mods/vscode-anno-modding-tools"
 	},
 	"engines": {
-		"vscode": "^1.60.0"
+		"vscode": "^1.75.0"
 	},
 	"icon": "images/icon.png",
 	"categories": [
 		"Other"
 	],
 	"activationEvents": [
-		"onLanguage:anno-cfg",
-		"onLanguage:anno-ifo",
-		"onLanguage:anno-cf7",
-		"onLanguage:anno-prp",
-		"onCommand:anno-modding-tools.buildMod",
-		"onCommand:anno-modding-tools.convertFcCf7",
-		"onCommand:anno-modding-tools.convertCf7Fc",
-		"onCommand:anno-modding-tools.patchCheckDiff",
-		"onCommand:anno-modding-tools.runTests",
-		"onCommand:anno-modding-tools.pngToDds",
-		"onCommand:anno-modding-tools.ddsToPng",
-		"onCommand:anno-modding-tools.importProps",
-		"onCommand:anno-modding-tools.importInfo",
-		"onCommand:anno-modding-tools.convertRdmToGlb",
-		"onCommand:anno-modding-tools.convertGltfToRdm",
-		"onCommand:anno-modding-tools.convertToRdpYaml",
-		"onCommand:anno-modding-tools.checkLoca",
-		"onCommand:anno-modding-tools.addMissingLoca",
 		"workspaceContains:**/assets.xml",
 		"onLanguage:xml"
 	],
