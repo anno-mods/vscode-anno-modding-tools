@@ -6,6 +6,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## 1.12 Simplified Build and Deploy
 
+- 1.12.3: Allow array in `bundle`
 - 1.12.2: Export .png for icons as well
 - 1.12.1: Support hierarchy of named `Group`s (with comments) in outline
 - Build and deploy is now possible with `modinfo.json` files
