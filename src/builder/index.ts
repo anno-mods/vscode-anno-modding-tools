@@ -50,11 +50,10 @@ export class ModBuilder {
 
   public async build(filePath: string): Promise<boolean> {
     this._logger.log('Build ' + filePath);
-    const modJson = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-
-    // fill defaults
-    modJson.out = modJson.out ?? "${annoMods}/${modName}";
-    modJson.src = modJson.src ?? ".";
+    const modJson = utils.readModinfo(path.dirname(filePath));
+    if (!modJson) {
+      return false;
+    }
 
     let sourceFolders: string[] = Array.isArray(modJson.src) ? modJson.src : [ modJson.src ];
     sourceFolders = sourceFolders.map(x => path.dirname(filePath) + '/' + x);
@@ -157,17 +156,16 @@ export class ModBuilder {
     this._logger.log(`bundles`);
 
     if (modJson.bundle) {
-      const bundles = Array.isArray(modJson.bundle) ? modJson.bundle : Object.values(modJson.bundle);
-
-      for (const bundle of bundles) {
+      for (const bundle of modJson.bundle) {
         const fileName = path.basename(bundle);
-        const targetPath = path.join(cache, 'downloads', fileName);
+        const version = path.basename(path.dirname(bundle)).replace(/[^\w\-]/g, '');
+        const targetPath = path.join(cache, 'downloads', utils.insertEnding(fileName, '-' + version));
         if (!fs.existsSync(targetPath)) {
-          this._logger.log(`   * download ${fileName}`);
+          this._logger.log(`   * download ${version}/${fileName}`);
           utils.downloadFile(bundle, targetPath, this._logger);
         }
         else {
-          this._logger.log(`   * skip download of ${fileName}`);
+          this._logger.log(`   * skip download of ${version}/${fileName}`);
         }
         this._logger.log(`  <= extract content`);
         utils.extractZip(targetPath, outFolder, this._logger);
