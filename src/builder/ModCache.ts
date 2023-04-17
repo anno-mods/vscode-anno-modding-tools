@@ -30,13 +30,19 @@ export class ModCache {
     this._last = undefined;
   }
 
-  /** returns true if output is already available */
-  public use(sourceFile: string) {
+  /** Returns true if output is already available */
+  public use(sourceFile: string, targetPath?: string) {
     this._last = { sha: _getHash(sourceFile), output: {} };
+
+    const stillGood = (sha: string, targetFile: string) => {
+      return (sha === _getHash(targetFile)
+        && (!targetPath || targetFile.startsWith(targetPath)));
+    }
 
     // identical file in old cache means we can skip if old output is still correct
     if (this.old?.files && this.old.files[sourceFile]?.sha === this._last.sha) {
-      if (-1 === Object.entries(this.old.files[sourceFile].output).findIndex((e: any) => e[1].sha !== _getHash(e[0]))) {
+      const outputFiles = Object.entries(this.old.files[sourceFile].output);
+      if (-1 === outputFiles.findIndex((e: any) => !stillGood(e[1].sha, e[0]))) {
         // store old cache values
         this.data.files[sourceFile] = { ...this._last, ...this.old.files[sourceFile] };
         return true;
@@ -53,8 +59,10 @@ export class ModCache {
   }
 
   public output(targetFile: string) {
-    if (!this._last) { return; };
-    
+    if (!this._last) {
+      return;
+    };
+
     this._last.output[targetFile] = { sha: _getHash(targetFile) };
   }
 

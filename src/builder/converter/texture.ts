@@ -23,18 +23,11 @@ export class TextureConverter extends Converter {
       const lodLevels = Math.max(0, Math.min(9, options.converterOptions.lods === undefined ? 3 : options.converterOptions.lods));
       const changePath = options.converterOptions.changePath || '';
       const sourceFile = path.join(sourceFolder, file);
-      if (cache.use(sourceFile)) {
-        this._logger.log(`     no update required`);
-        continue;
-      }
 
       try {
         const dirname = path.dirname(file);
         const basename = path.basename(file, '.png');
-
         const mapsPath = (path.basename(dirname) === changePath) ? dirname : path.join(dirname, changePath);
-        utils.ensureDir(path.join(outFolder, mapsPath));
-        utils.ensureDir(path.join(options.cache, dirname));
 
         const lodFilePaths = [];
         if (lodLevels === 0) {
@@ -48,6 +41,14 @@ export class TextureConverter extends Converter {
         }
 
         const targetFolder = path.dirname(lodFilePaths[0]);
+        if (cache.use(sourceFile, targetFolder)) {
+          this._logger.log(`     no update required`);
+          continue;
+        }
+
+        utils.ensureDir(path.join(outFolder, mapsPath));
+        utils.ensureDir(path.join(options.cache, dirname));
+
         const textures = dds.convertToTexture(sourceFile, targetFolder, dds.TextureFormat.unknown, lodLevels);
         if (!textures) {
           return false;

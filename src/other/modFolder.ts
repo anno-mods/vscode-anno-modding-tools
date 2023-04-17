@@ -13,7 +13,7 @@ export namespace ModFolder {
     modsFolder_ = modsFolder;
 
     const modinfos = glob.sync('{,*/,*/*/}modinfo.json', { cwd: modsFolder, nodir: true });
-    
+
     for (const modinfoPath of modinfos) {
       try {
         const modinfo = JSON.parse(fs.readFileSync(path.join(modsFolder, modinfoPath), 'utf8'));
