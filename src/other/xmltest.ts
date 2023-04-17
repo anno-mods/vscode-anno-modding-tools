@@ -2,7 +2,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as child from 'child_process';
 import * as glob from 'glob';
-import * as vscode from 'vscode';
 import * as logger from './logger';
 import * as utils from '../other/utils';
 import { ModFolder } from './modFolder';
@@ -99,10 +98,10 @@ export interface IIssue {
   group?: boolean
 }
 
-export function fetchIssues(vanillaXml: string, modPath: string, mainPatchFile: string, 
-    patchFile: string, patchContent: string, modsFolder: string | undefined, 
+export function fetchIssues(vanillaXml: string, modPath: string, mainPatchFile: string,
+    patchFile: string, patchContent: string, modsFolder: string | undefined,
     asAbsolutePath: (relative: string) => string): IIssue[] {
-  
+
   const removeNulls = <S>(value: S | undefined): value is S => value !== null;
   const tester = asAbsolutePath("./external/xmltest.exe");
   patchFile = patchFile.replace(/\\/g, '/');
@@ -111,11 +110,10 @@ export function fetchIssues(vanillaXml: string, modPath: string, mainPatchFile: 
   try {
     const roots = utils.findModRoots(mainPatchFile).map(e => ['-m', e]);
     const annomod = utils.readModinfo(modPath);
-    let prepatch = annomod?.getRequiredLoadAfterIds(annomod?.modinfo) ?? [];
+    let prepatch = annomod?.getRequiredLoadAfterIds(annomod?.modinfo).map(e => ['-p', e]) ?? [];
 
     if (prepatch && modsFolder) {
-      prepatch = prepatch.map((e: string) => ModFolder.getModFolder(modsFolder, e) ?? "").filter((e: string) => e !== "");
-      prepatch = prepatch.map((e: string) => ['-p', e]);
+      prepatch = prepatch.map((e: string[]) => [ e[0], ModFolder.getModFolder(modsFolder, e[1]) ?? "" ]).filter((e: string[]) => e[1] && e[1] !== "");
     }
 
     const maxBuffer = 20;
@@ -148,8 +146,8 @@ export function fetchIssues(vanillaXml: string, modPath: string, mainPatchFile: 
   const filteredLines = testerLines
     .filter(e => e.indexOf(patchFile) >= 0)
     .filter(e => {
-      return e.startsWith('w', levelIndex + 1) 
-        || e.startsWith('e', levelIndex + 1) 
+      return e.startsWith('w', levelIndex + 1)
+        || e.startsWith('e', levelIndex + 1)
         || e.startsWith('[debug] Time:', levelIndex);
     });
 

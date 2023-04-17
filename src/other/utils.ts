@@ -130,8 +130,12 @@ export function getAssetsXmlPath(modPath: string) {
   return filePath;
 }
 
-export interface IAnnomod {
-  modinfo?: any
+interface IModinfo {
+  out?: string
+  src: string | string[]
+  bundle?: string[]
+  modinfo: any
+  converter?: any
   getRequiredLoadAfterIds: (modinfo: any) => string[]
 }
 
@@ -145,11 +149,12 @@ export function getRequiredLoadAfterIds(modinfo: any): string[] {
   return dependencies.filter(dep => loadAfterIds.includes(dep));
 }
 
-export function readModinfo(modPath: string): any {
-  let result;
+export function readModinfo(modPath: string): IModinfo | undefined {
+  let result: IModinfo;
   try {
     if (fs.existsSync(path.join(modPath, 'modinfo.json'))) {
       result = {
+        ...JSON.parse(fs.readFileSync(path.join(modPath, 'modinfo.json'), 'utf8')),
         'modinfo': JSON.parse(fs.readFileSync(path.join(modPath, 'modinfo.json'), 'utf8')),
         getRequiredLoadAfterIds
       };
@@ -161,13 +166,32 @@ export function readModinfo(modPath: string): any {
         getRequiredLoadAfterIds
       };
     }
+    else {
+      return undefined;
+    }
   }
   catch {
     // mod jsons can be invalid pretty fast
     return undefined;
   }
 
+  result.out = result.out ?? "${annoMods}/${modName}";
   result.src = result.src ?? ".";
+
+  // convert url ModDependencies to bundle
+  result.bundle = result.bundle ?? [];
+  if (!Array.isArray(result.bundle)) {
+    result.bundle = Object.values(result.bundle);
+  }
+  if (result.modinfo.ModDependencies && Array.isArray(result.modinfo.ModDependencies)) {
+    for (let i = 0; i < result.modinfo?.ModDependencies.length; i++) {
+      if (result.modinfo.ModDependencies[i].startsWith("http")) {
+        result.bundle.push(result.modinfo.ModDependencies[i]);
+        result.modinfo.ModDependencies[i] = path.basename(result.modinfo.ModDependencies[i], '.zip');
+      }
+    }
+  }
+
   return result;
 }
 
