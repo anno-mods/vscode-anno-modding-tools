@@ -99,8 +99,8 @@ export class ModBuilder {
         "action": "gltf",
         "pattern": "{data,products,shared}/**/!(propsonly)*.gltf",
         "lods": 5,
-        "changePath": "rdm/",
-        "animPath": "anim/",
+        "changePath": "rdm",
+        "animPath": "anim",
         "plantPattern": ".*(_field|_tree|_field).gltf"
       },
       {
@@ -111,7 +111,7 @@ export class ModBuilder {
         "action": "texture",
         "pattern": "{data,products,shared}/**/*_{diff,norm,height,metal,mask,rga,r_a,r_a+b}.png",
         "lods": 3,
-        "changePath": "maps/"
+        "changePath": "maps"
       },
       {
         "action": "texture",

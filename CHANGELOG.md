@@ -6,6 +6,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## 1.12 Simplified Build and Deploy
 
+- 1.12.5: Don't create `maps/` folder if texture is already in maps
 - 1.12.4: Fixed issue with texture cache
 - 1.12.4: Include tag in downloaded bundle mods
 - 1.12.3: Allow array in `bundle`
