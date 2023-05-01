@@ -18,6 +18,9 @@ export class TextureConverter extends Converter {
   }) {
     const cache = options.modCache;
 
+    // enable icon handling to avoid icon LODs
+    let iconHandling = options.converterOptions.icon ? true : false;
+
     for (const file of files) {
       this._logger.log(`  => ${file}`);
       const lodLevels = Math.max(0, Math.min(9, options.converterOptions.lods === undefined ? 3 : options.converterOptions.lods));
@@ -27,9 +30,13 @@ export class TextureConverter extends Converter {
       try {
         const dirname = path.dirname(file);
         const basename = path.basename(file, '.png');
-        const mapsPath = (path.basename(dirname) === changePath) ? dirname : path.join(dirname, changePath);
+        const mapsPath = ((path.basename(dirname) === changePath) ? dirname : path.join(dirname, changePath)).replace(/\\/g, '/');
+        if (mapsPath.startsWith('data/ui/2kimages/main')) {
+          // vanilla icon path does not need special handling
+          iconHandling = false;
+        }
 
-        const lodFilePaths = [];
+        const lodFilePaths: string[] = [];
         if (lodLevels === 0) {
           // lods disabled, don't change file name
           lodFilePaths.push(path.join(outFolder, mapsPath, basename + '.dds'));
@@ -49,9 +56,18 @@ export class TextureConverter extends Converter {
         utils.ensureDir(path.join(outFolder, mapsPath));
         utils.ensureDir(path.join(options.cache, dirname));
 
-        const textures = dds.convertToTexture(sourceFile, targetFolder, dds.TextureFormat.unknown, lodLevels);
+        let textures = dds.convertToTexture(sourceFile, targetFolder, dds.TextureFormat.unknown, iconHandling ? 1 : lodLevels);
         if (!textures) {
           return false;
+        }
+        if (iconHandling) {
+          // copy lod0 for icons to avoid blurry icons
+          textures = [...Array(lodLevels).keys()].map((index: number) => {
+            if (index !== 0) {
+              fs.copyFileSync(lodFilePaths[0], lodFilePaths[index]);
+            }
+            return path.basename(lodFilePaths[index]);
+          });
         }
         for (var [index, texture] of textures.entries()) {
           this._logger.log(`  <= ${lodLevels ? `LOD ${index}: ` : ''}${path.relative(path.dirname(file), path.relative(outFolder, path.join(targetFolder, texture)))}`);

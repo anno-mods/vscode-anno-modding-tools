@@ -116,7 +116,8 @@ export class ModBuilder {
       {
         "action": "texture",
         "pattern": "{data,products,shared}/**/icon*.png",
-        "lods": 3
+        "lods": 3,
+        "icon": true
       },
       {
         "action": "assets"
