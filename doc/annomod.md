@@ -30,7 +30,7 @@ The following are the default conversion if you use a normal `modinfo.json` file
 Type | Pattern | Action
 ---|---|---
 Texture | `_diff.png`, `_metal.png`, `_norm.png`, `_height.png`, `_rga.png` | Create DDS textures with 3 LODs.
-Icon | `icon*.png` | Create DDS textures with 1 LOD of  files.
+Icon | `icon*.png` | Copy PNG and create DDS textures LODs as needed.
 Feedback | `.cf7` | Convert to `.fc`.
 Models | `.gltf` | Extract and convert models with the name `_lod0` etc. to individual `.rdm` files.
 Skin | `.cfg.yaml` | Generate `.cfg`, `.ifo`, `.fc`.
