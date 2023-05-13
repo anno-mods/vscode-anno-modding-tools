@@ -1,33 +1,32 @@
-# Modding Tools for Anno
+# Modding Tools for Anno 1800
 
 This project is not affiliated in any way with Ubisoft.
 
 Anno 1800 is a trademark of Ubisoft Entertainment in the US and/or other countries. Anno is a trademark of Ubisoft GmbH in the US and/or other countries.
 
-## Overview
+## Feature Overview
 
-Commands
+- [Annotations, Live Analysis, Syntax](#annotations-live-analysis-syntax)
+  - Use Anno-specific table of contents to navigate asset XMLs
+  - See asset names directly next to GUIDs
+  - See errors and hints live in your `assets.xml`
+- [Navigation](#navigation)
+  - Navigate via Outline
+  - Jump to asset from any GUID by right click or `Ctrl+T`
+- Commands
+  - [Compare](#command-compare): Apply mod and compare unpatched vs patched
+  - [Build and Deploy](./doc/annomod.md): Copy your mod to the `mods/` folder and generate DDS (with LODs) and other files automatically.
+  - [Import from Blender or glTF](#import-from-blender-or-gltf) to `.cfg`, `.ifo` and `.cf7`
+  - Various right-click utilities to convert between Anno and editable formats (glTF, PNG, ...)
+- Auto-completion
+  - [GUID conversion](#guid-conversion)
+  - [Assets XML auto completion](#auto-completion)
+- Other
+  - [Reskin existing models](#quickly-reskin-existing-models) without touching `.cfg`, ...
 
-- `Compare`: Apply mod and compare unpatched vs patched
-- [Build and Deploy](./doc/annomod.md): Copy your mod to the `mods/` folder and generate DDS (with LODs) and other files automatically.
-- [Import from Blender or glTF](#import-from-blender-or-gltf) to `.cfg`, `.ifo` and `.cf7`
-- Various right-click utilities to convert between Anno and editable formats (glTF, PNG, ...)
+See [Feature Details](#feature-details) for more, or [CHANGELOG](./CHANGELOG.md) for recent changes.
 
-Navigation, Tooltips, Hints
-
-- `GUID decorations`: See names of GUIDs directly where they are mentioned.
-- [Outline](#assets-outline): Anno-specific table of contents navigation for files
-- [Syntax check](#syntax-check) for `assets.xml`, `.cfg`, `.ifo`, `.cf7`
-- `Live Analysis`: See modloader errors embedded into your `assets.xml`.
-
-Auto-completion
-
-- [GUID conversion](#guid-conversion)
-- [Assets XML auto completion](#auto-completion)
-
-Other
-
-- [Reskin existing models](#quickly-reskin-existing-models) without touching `.cfg`, ...
+---
 
 ## Setup
 
@@ -75,15 +74,60 @@ The plugin has difficulties understanding the mod structure if you simply open i
 - [Modding Guide](https://github.com/anno-mods/modding-guide#readme) (separate page)
 - [glTF Tools](https://marketplace.visualstudio.com/items?itemName=cesium.gltf-vscode) VSCode Plugin
 
-## Features
+---
 
-### Assets Outline
+## Feature Details
 
-![](./doc/images/assets-outline.png)
+### Annotations, Live Analysis, Syntax
 
-The assets.xml outline shows `ModOp`s, `Assets` and where possible names instead of GUIDs.
+![screenshot of vscode with basic overview](./doc/images/overview.png)
 
-You have the ability to group by writing `<!-- # your text -->` comments in your code.
+#### Outline
+
+The outline shows `ModOp`s, `Assets` and where possible names instead of GUIDs.
+
+Top-level sections can be created with `<!-- # your text -->` comments.
+The `Group` keyword can also be used for further grouping.
+Write normal XML comments above groups to name them.
+
+#### GUID Annotation
+
+Displays name and template name of GUIDs.
+
+This feature will also consider Mod GUIDs, if they are either:
+- part of your own mod
+- part of a dependency mentioned in `modinfo.json` and installed into the game's `mods/` folder
+
+#### Live Analysis
+
+The live analysis applies your mod on save to the game and provides error and performance information.
+
+#### Syntax Check
+
+The plugin will scan you asset files for common problems like the use of outdated pools (e.g. `190611`).
+The file must match the naming scheme `assets*.xml` to be considered.
+
+### Navigation
+
+![](./doc/images/navigation.gif)
+
+#### Navigate via Outline
+
+You can click on any outline entry to directly jump to that section in the code.
+
+#### Go to Asset
+
+Right click on any GUID and select `Go to Definition` or press `F12` to jump to the related Mod or vanilla asset.
+
+You can press `Ctrl+T` and type the asset name to jump to assets as well.
+
+### Command `Compare`
+
+![](./doc/images/xmltest-compare.gif)
+
+You can check th results of one or more `ModOp`s by selecting them and then right click > `Anno: Compare Results with Vanilla`.
+
+Alternatively, you can compare full files and mods by right clicking on `assets.xml`, `templates.xml` and `*.include.xml`.
 
 ### GUID Conversion
 
@@ -103,11 +147,6 @@ Not all GUIDs can be converted automatically due to performance. Most notable ex
 Check [Setup](#setup) to activate this feature.
 
 Now your code gets validated and you can press `Ctrl` + `Space` anywhere in the document and get a list of possible tags, enums or GUIDs.
-
-### Syntax Check
-
-The plugin will scan you asset files for common problems like the use of outdated pools (e.g. `190611`).
-The file must match the naming scheme `assets*.xml` to be considered.
 
 ### Import from Blender or glTF
 
@@ -221,7 +260,3 @@ A big thanks goes to the external projects I'm using for this extension:
 - texconv - https://github.com/microsoft/DirectXTex
 - gltf-import-export - https://github.com/najadojo/gltf-import-export
 - xmltest - https://github.com/xforce/anno1800-mod-loader
-
-## Release Notes / Known Issues
-
-See changes and known issues in [CHANGELOG](./CHANGELOG.md)
