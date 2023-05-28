@@ -31,7 +31,7 @@ export class TextureConverter extends Converter {
         const dirname = path.dirname(file);
         const basename = path.basename(file, '.png');
         const mapsPath = ((path.basename(dirname) === changePath) ? dirname : path.join(dirname, changePath)).replace(/\\/g, '/');
-        if (mapsPath.startsWith('data/ui/2kimages/main')) {
+        if (mapsPath.startsWith('data/ui')) {
           // vanilla icon path does not need special handling
           iconHandling = false;
         }
