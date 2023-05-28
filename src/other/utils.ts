@@ -185,9 +185,10 @@ export function readModinfo(modPath: string): IModinfo | undefined {
   }
   if (result.modinfo.ModDependencies && Array.isArray(result.modinfo.ModDependencies)) {
     for (let i = 0; i < result.modinfo?.ModDependencies.length; i++) {
-      if (result.modinfo.ModDependencies[i].startsWith("http")) {
-        result.bundle.push(result.modinfo.ModDependencies[i]);
-        result.modinfo.ModDependencies[i] = path.basename(result.modinfo.ModDependencies[i], '.zip');
+      const dep = result.modinfo.ModDependencies[i];
+      if (dep.startsWith("http") || dep.startsWith(".")) {
+        result.bundle.push(dep);
+        result.modinfo.ModDependencies[i] = path.basename(dep, '.zip');
       }
     }
   }
