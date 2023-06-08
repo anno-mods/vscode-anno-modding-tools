@@ -67,9 +67,25 @@ export function clearDiagnostics(context: vscode.ExtensionContext, doc: vscode.T
   vscode.window.activeTextEditor?.setDecorations(performanceDecorationType, []);
 }
 
+function checkRootTag(doc: vscode.TextDocument, tag: string): boolean {
+  for (var index = 0; index < doc.lineCount; index++) {
+    const line = doc.lineAt(index);
+    const match = /<(\w+)/.exec(line.text);
+    if (match) {
+      return match[1] == tag;
+    }
+  }
+  return false;
+}
+
 export function refreshDiagnostics(context: vscode.ExtensionContext, doc: vscode.TextDocument, collection: vscode.DiagnosticCollection): void {
   if (doc.lineCount > 10000 || !minimatch(doc.fileName, ASSETS_FILENAME_PATTERN)) {
     // ignore large files and non-assets.xmls
+    return;
+  }
+
+  if (!checkRootTag(doc, "ModOps")) {
+    // not a ModOps document
     return;
   }
 

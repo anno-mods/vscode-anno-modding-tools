@@ -294,6 +294,10 @@ export function hasGraphicsFile(modPaths: string[], filePath: string, annoRda?: 
       if (fs.existsSync(path.join(modPath, folderPath, path.basename(fileName, '.psd') + '.png'))) {
         return [];
       }
+
+      if (fs.existsSync(path.join(modPath, folderPath, path.basename(fileName, '_norm.psd') + '_rga.png'))) {
+        return [];
+      }
       checked.push(path.join(folderPath, path.basename(fileName, '.psd') + '_0.dds'));
       checked.push(path.join(folderPath, path.basename(fileName, '.psd') + '.png'));
     }
@@ -329,6 +333,14 @@ export function hasGraphicsFile(modPaths: string[], filePath: string, annoRda?: 
         return [];
       }
       checked.push(path.join(folderPath, path.basename(fileName, '.png') + '_0.dds'));
+    }
+
+    // try .rdp.xml
+    if (fileName.endsWith('.rdp')) {
+      if (fs.existsSync(path.join(modPath, folderPath, fileName + '.xml'))) {
+        return [];
+      }
+      checked.push(path.join(modPath, folderPath, fileName + '.xml'));
     }
   }
 
