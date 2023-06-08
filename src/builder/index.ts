@@ -164,6 +164,8 @@ export class ModBuilder {
           this._downloadBundle(bundle, cache, outFolder);
         }
       }
+
+      this._renameModFolders(outFolder);
     }
 
     for (const sourceFolder of sourceFolders) {
@@ -206,15 +208,15 @@ export class ModBuilder {
       return;
     }
 
-    const modName = this._getModName(modinfoPath, modinfo.modinfo);
-    const targetFolder = path.join(outFolder, modName);
+    // const modName = this._getModName(modinfoPath, modinfo.modinfo);
+    const targetFolder = path.join(outFolder, path.basename(bundle));
 
     await this.build(modinfoPath, targetFolder);
   }
 
   private _downloadBundle(bundle: string, cache: string, outFolder: string) {
     const fileName = path.basename(bundle);
-    const version = path.basename(path.dirname(bundle)).replace(/[^\w\-]/g, '');
+    const version = path.basename(path.dirname(bundle)).replace(/[^\w\-\.]/g, '');
     const targetPath = path.join(cache, 'downloads', utils.insertEnding(fileName, '-' + version));
     if (!fs.existsSync(targetPath)) {
       this._logger.log(`   * download ${version}/${fileName}`);
@@ -225,6 +227,26 @@ export class ModBuilder {
     }
     this._logger.log(`  <= extract content`);
     utils.extractZip(targetPath, outFolder, this._logger);
+  }
+
+  private _renameModFolders(modsPath: string) {
+    const modinfoPaths = glob.sync("*/modinfo.json", { cwd: modsPath, nodir: true });
+    for (var modinfoPath of modinfoPaths) {
+      const namedModPath = path.join(modsPath, path.dirname(modinfoPath));
+      const modinfo = utils.readModinfo(namedModPath);
+      if (!modinfo) {
+        continue;
+      }
+
+      if (!modinfo.modinfo.ModID) {
+        continue;
+      }
+
+      const idModPath = path.join(path.dirname(namedModPath), modinfo.modinfo.ModID);
+      if (namedModPath != idModPath) {
+        fs.renameSync(namedModPath, idModPath);
+      }
+    }
   }
 
   private _getOutFolder(filePath: string, modJson: any) {

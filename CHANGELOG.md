@@ -6,6 +6,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## 1.12 Simplified Build and Deploy
 
+- 1.12.11: Rename bundled mods to ModID to avoid confusion
 - 1.12.10: Disable xmltest for documents not starting with `<ModOps>`
 - 1.12.9: Support local bundles
 - 1.12.8: Treat icon LOD generation under `data/ui` differently
