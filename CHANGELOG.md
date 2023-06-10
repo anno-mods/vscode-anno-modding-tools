@@ -4,6 +4,10 @@ All notable changes to the "anno-modding-tools" extension will be documented in 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [Unreleased]
+
+- Life analysis: Added document ModOps time
+
 ## 1.12 Simplified Build and Deploy
 
 - 1.12.11: Rename bundled mods to ModID to avoid confusion
