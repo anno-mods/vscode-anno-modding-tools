@@ -295,8 +295,11 @@ export function hasGraphicsFile(modPaths: string[], filePath: string, annoRda?: 
         return [];
       }
 
-      if (fs.existsSync(path.join(modPath, folderPath, path.basename(fileName, '_norm.psd') + '_rga.png'))) {
-        return [];
+      if (fileName.endsWith('_norm.psd')) {
+        if (fs.existsSync(path.join(modPath, folderPath, path.basename(fileName, '_norm.psd') + '_rga.png'))) {
+          return [];
+        }
+        checked.push(path.join(folderPath, path.basename(fileName, '_norm.psd') + '_rga.png'));
       }
       checked.push(path.join(folderPath, path.basename(fileName, '.psd') + '_0.dds'));
       checked.push(path.join(folderPath, path.basename(fileName, '.psd') + '.png'));
@@ -323,6 +326,12 @@ export function hasGraphicsFile(modPaths: string[], filePath: string, annoRda?: 
     if (fileName.endsWith('.psd') && folderPath.endsWith('maps')) {
       if (fs.existsSync(path.join(modPath, folderPath, '..', path.basename(fileName, '.psd') + '.png'))) {
         return [];
+      }
+      if (fileName.endsWith('_norm.psd')) {
+        if (fs.existsSync(path.join(modPath, folderPath, '..', path.basename(fileName, '_norm.psd') + '_rga.png'))) {
+          return [];
+        }
+        checked.push(path.join(folderPath, '..', path.basename(fileName, '_norm.psd') + '_rga.png'));
       }
       checked.push(path.join(folderPath, '..', path.basename(fileName, '.psd') + '.png'));
     }
