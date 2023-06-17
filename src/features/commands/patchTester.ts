@@ -5,6 +5,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as editorUtils from '../../other/editorUtils';
 import * as utils from '../../other/utils';
+import { ModFolder } from '../../other/modFolder';
 
 let _originalPath: string;
 let _patchPath: string;
@@ -36,7 +37,8 @@ export class PatchTester {
           return;
         }
 
-        const vanillaAssetsFilePath = editorUtils.getVanilla(fileUri.fsPath);
+        const modPath = utils.findModRoot(fileUri.fsPath);
+        const vanillaAssetsFilePath = editorUtils.getVanilla(fileUri.fsPath, modPath);
         if (!vanillaAssetsFilePath) {
           return;
         }
@@ -106,8 +108,9 @@ export class PatchTester {
       _reload = false;
 
       const searchModPath = utils.searchModPath(_patchPath);
-
-      const tester = new PatchTester(context);
+      const config = vscode.workspace.getConfiguration('anno', vscode.Uri.file(_patchPath));
+      const modsFolder: string | undefined = config.get('modsFolder');
+      const tester = new PatchTester(context, modsFolder);
       const result = tester.diff(_originalPath,
         _patch ? ('<ModOps>' + _patch + '</ModOps>') : fs.readFileSync(_patchPath, 'utf-8'),
         _patchPath,
@@ -122,29 +125,46 @@ export class PatchTester {
 
   _context: vscode.ExtensionContext;
   _workingDir: string = "";
+  _modsFolder?: string;
 
-  constructor(context: vscode.ExtensionContext) {
+  constructor(context: vscode.ExtensionContext, modsFolder?: string) {
     this._context = context;
+    this._modsFolder = modsFolder;
   }
 
   diff(originalPath: string, patchContent: string, patchFilePath: string, modPath: string) {
-    const differ = this._context.asAbsolutePath('./external/annodiff.exe');
+    const differ = this._context.asAbsolutePath('./external/xmltest.exe');
 
     if (!originalPath || !patchContent) {
       return { original: '', patched: '', log: ''};
     }
     this._workingDir = path.resolve(path.dirname(patchFilePath));
 
-    const maxBuffer = 20;
+    const maxBuffer = 50;
+
+    patchFilePath = patchFilePath.replace(/\\/g, '/');
+    const annomod = utils.readModinfo(modPath);
+    let prepatch = annomod?.getRequiredLoadAfterIds(annomod?.modinfo).map(e => ['-p', e]) ?? [];
+    if (prepatch && this._modsFolder) {
+      prepatch = prepatch.map((e: string[]) => [ e[0], ModFolder.getModFolder(this._modsFolder!, e[1]) ?? "" ]).filter((e: string[]) => e[1] && e[1] !== "");
+    }
 
     try {
       const modRelativePath = path.relative(modPath, patchFilePath);
 
-      const res = child.execFileSync(differ, ["patchdiff", originalPath, modRelativePath, modPath], {
-        cwd: this._workingDir,
-        input: patchContent,
-        encoding: 'utf-8',
-        maxBuffer: maxBuffer * 1024 * 1024
+      const res = child.execFileSync(differ, [
+          '-c', 'diff',
+          '-i', modRelativePath,
+          ...prepatch.flat(),
+          originalPath,
+          patchFilePath,
+          '-m', modPath
+        ],
+        {
+          cwd: this._workingDir,
+          input: patchContent,
+          encoding: 'utf-8',
+          maxBuffer: maxBuffer * 1024 * 1024
       });
       const split = res.split('##annodiff##');
       return { original: split[2], patched: split[1], log: split[0] };

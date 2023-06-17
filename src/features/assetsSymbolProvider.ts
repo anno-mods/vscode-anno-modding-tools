@@ -10,7 +10,7 @@ let context_: vscode.ExtensionContext;
 
 const vanillaAssetContentProvider = new (class implements vscode.TextDocumentContentProvider {
   provideTextDocumentContent(uri: vscode.Uri): string {
-    const differ = context_.asAbsolutePath('./external/annodiff.exe');
+    const differ = context_.asAbsolutePath('./external/xmltest.exe');
     const config = vscode.workspace.getConfiguration('anno', uri);
     const annoRda: string = config.get('rdaFolder') || "";
     let vanillaPath = path.join(annoRda, 'data/config/export/main/asset/assets.xml');
@@ -22,7 +22,7 @@ const vanillaAssetContentProvider = new (class implements vscode.TextDocumentCon
     const guid = match[0];
 
     try {
-      const res = child.execFileSync(differ, ["show", vanillaPath, guid, 'bla']);
+      const res = child.execFileSync(differ, ['-c', 'show', vanillaPath, guid]);
       return res.toString();
     }
     catch (e)
