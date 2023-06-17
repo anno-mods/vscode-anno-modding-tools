@@ -244,6 +244,9 @@ export class ModBuilder {
 
       const idModPath = path.join(path.dirname(namedModPath), modinfo.modinfo.ModID);
       if (namedModPath != idModPath) {
+        if (fs.existsSync(idModPath)) {
+          fs.rmdirSync(idModPath, { recursive: true });
+        }
         fs.renameSync(namedModPath, idModPath);
       }
     }
