@@ -4,9 +4,12 @@ All notable changes to the "anno-modding-tools" extension will be documented in 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [Unreleased]
+## 1.13 Modloader 11 Feature Preview
 
+- Added [preview features](https://github.com/jakobharder/anno1800-mod-loader/blob/main/doc/modloader11.md): export.bin, .cfg, .fc patching, ModID condition
 - Life analysis: Added document ModOps time
+- Build and Deploy: Fixed folder name handling sub-mods
+- Validation: Added RecipeImage and RecipeListMoodImage to checked entries
 
 ## 1.12 Simplified Build and Deploy
 

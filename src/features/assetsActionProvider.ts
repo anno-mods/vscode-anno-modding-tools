@@ -45,7 +45,7 @@ function includesAsWord(line: string, text: string)
 }
 
 function checkFileName(modPaths: string[], line: vscode.TextLine, annoRda?: string) {
-  const regEx = /<(Filename|FileName|IconFilename)>([^<]+)<\/\1>/g;
+  const regEx = /<(Filename|FileName|IconFilename|RecipeImage|RecipeListMoodImage)>([^<]+)<\/\1>/g;
   let match = regEx.exec(line.text);
   let checked;
   if (match && (checked = utils.hasGraphicsFile(modPaths, match[2], annoRda)).length > 0) {
