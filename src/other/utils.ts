@@ -120,6 +120,14 @@ export function findModRoots(modFilePath: string): string[] {
   return srcs.map((e: string) => path.normalize(path.join(root, e)));
 }
 
+export function isAssetsXml(path: string) {
+  if (path.endsWith("export.bin.xml") || path.endsWith(".cfg.xml") || path.endsWith(".fc.xml") || path.endsWith("templates.xml")) {
+    return false;
+  }
+
+  return true;
+}
+
 export function getAssetsXmlPath(modPath: string) {
   let filePath = path.join(modPath, 'data/config/export/main/asset/assets');
   filePath += fs.existsSync(filePath + '_.xml') ? '_.xml' : '.xml';

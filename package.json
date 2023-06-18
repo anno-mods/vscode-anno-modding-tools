@@ -2,7 +2,7 @@
 	"name": "anno-modding-tools",
 	"displayName": "Anno Modding Tools",
 	"description": "Modding tools for Anno 1800",
-	"version": "1.12.12-alpha2",
+	"version": "1.12.12-alpha5",
 	"publisher": "JakobHarder",
 	"repository": {
 		"type": "git",
@@ -258,7 +258,15 @@
 					"group": "anno@3"
 				},
 				{
-					"when": "resourceFilename =~ /assets.+xml$/",
+					"when": "resourceFilename =~ /assets.*\\.xml$/",
+					"command": "anno-modding-tools.patchCheckDiff"
+				},
+				{
+					"when": "resourceFilename == export.bin.xml",
+					"command": "anno-modding-tools.patchCheckDiff"
+				},
+				{
+					"when": "resourceFilename =~ /.+\\.(cfg|fc)\\.xml$/",
 					"command": "anno-modding-tools.patchCheckDiff"
 				},
 				{

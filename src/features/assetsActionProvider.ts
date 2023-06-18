@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as minimatch from 'minimatch';
 import * as path from 'path';
-import { ASSETS_FILENAME_PATTERN, ASSETS_FILENAME_PATTERN_STRICT } from '../other/assetsXml';
+import { ASSETS_FILENAME_PATTERN, PATCH_FILENAME_PATTERN_STRICT } from '../other/assetsXml';
 import * as editorUtils from '../other/editorUtils';
 import * as utils from '../other/utils';
 import * as xmltest from '../other/xmltest';
@@ -115,7 +115,7 @@ export function refreshDiagnostics(context: vscode.ExtensionContext, doc: vscode
     }
   }
 
-  if (minimatch(doc.fileName, ASSETS_FILENAME_PATTERN_STRICT) && config.get('liveModopAnalysis.validate')) {
+  if (minimatch(doc.fileName, PATCH_FILENAME_PATTERN_STRICT) && config.get('liveModopAnalysis.validate')) {
     const performance: vscode.DecorationOptions[] = [];
     runXmlTest(context, doc, diagnostics, performance);
     vscode.window.activeTextEditor?.setDecorations(performanceDecorationType, performance);
@@ -129,10 +129,10 @@ function runXmlTest(context: vscode.ExtensionContext, doc: vscode.TextDocument,
   decorations: vscode.DecorationOptions[]) {
 
   let modPath = utils.findModRoot(doc.fileName);
-  let mainAssetsXml = utils.getAssetsXmlPath(modPath);
+  let mainAssetsXml = utils.isAssetsXml(doc.fileName) ? utils.getAssetsXmlPath(modPath) : doc.fileName;
   if (!mainAssetsXml || !modPath) {
-    modPath = path.dirname(doc.uri.fsPath);
-    mainAssetsXml = doc.uri.fsPath;
+    modPath = path.dirname(doc.fileName);
+    mainAssetsXml = doc.fileName;
   }
 
   const config = vscode.workspace.getConfiguration('anno', doc.uri);
@@ -140,7 +140,7 @@ function runXmlTest(context: vscode.ExtensionContext, doc: vscode.TextDocument,
   const warningThreshold: number = config.get('liveModopAnalysis.warningThreshold') ?? 0;
   const editingFile = path.relative(modPath, doc.fileName);
 
-  const vanilaXml = editorUtils.getVanilla(mainAssetsXml);
+  const vanilaXml = editorUtils.getVanilla(mainAssetsXml, modPath);
   if (!vanilaXml) {
     logger.error('vanila XML not found');
     return [];

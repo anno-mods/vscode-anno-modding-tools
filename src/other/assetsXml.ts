@@ -2,8 +2,10 @@ import * as xmldoc from 'xmldoc';
 import * as vscode from 'vscode';
 import * as channel from '../features/channel';
 
-export const ASSETS_FILENAME_PATTERN = '**/{assets*.xml,*.include.xml,templates.xml,tests/*-input.xml,tests/*-expectation.xml,gui/texts_*.xml,.modcache/*-patched.xml}';
+// export const ASSETS_FILENAME_PATTERN = '**/{assets*.xml,*.include.xml,templates.xml,tests/*-input.xml,tests/*-expectation.xml,gui/texts_*.xml,.modcache/*-patched.xml}';
 export const ASSETS_FILENAME_PATTERN_STRICT = '**/{assets*.xml,*.include.xml}';
+export const ASSETS_FILENAME_PATTERN = '**/{assets*.xml,*.include.xml,templates.xml,tests/*-input.xml,tests/*-expectation.xml,gui/texts_*.xml,.modcache/*-patched.xml,export.bin.xml,*.fc.xml,*.cfg.xml}';
+export const PATCH_FILENAME_PATTERN_STRICT = '**/{assets*.xml,*.include.xml,export.bin.xml,*.fc.xml,*.cfg.xml}';
 
 export interface IAsset {
   guid: string;
