@@ -211,7 +211,9 @@ export class ModBuilder {
     // const modName = this._getModName(modinfoPath, modinfo.modinfo);
     const targetFolder = path.join(outFolder, path.basename(bundle));
 
-    await this.build(modinfoPath, targetFolder);
+    const annoRda = path.join(path.dirname(modinfoPath), '.vanilla');
+    const builder = new ModBuilder(this._logger, this._asAbsolutePath, { annoMods: this._variables['annoMods'], annoRda });
+    await builder.build(modinfoPath, targetFolder);
   }
 
   private _downloadBundle(bundle: string, cache: string, outFolder: string) {
@@ -244,6 +246,9 @@ export class ModBuilder {
 
       const idModPath = path.join(path.dirname(namedModPath), modinfo.modinfo.ModID);
       if (namedModPath != idModPath) {
+        if (fs.existsSync(idModPath)) {
+          fs.rmdirSync(idModPath, { recursive: true });
+        }
         fs.renameSync(namedModPath, idModPath);
       }
     }

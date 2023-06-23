@@ -116,21 +116,31 @@ export async function ensurePathSettingAsync(pathSetting: string, fileUri?: vsco
   return true;
 }
 
-export function getVanilla(filePath: string) {
+export function getVanilla(filePath: string, modRoot?: string) {
   const config = vscode.workspace.getConfiguration('anno', vscode.Uri.file(filePath));
   const annoRda: string = config.get('rdaFolder') || "";
-  let vanillaPath = path.join(annoRda, 'data/config/export/main/asset/assets.xml');
-
-  if (!fs.existsSync(vanillaPath)) {
-    return undefined;
-  }
 
   const basename = path.basename(filePath, path.extname(filePath));
-  if (basename.indexOf("templates") >= 0) {
+  let vanillaPath = '';
+  if (filePath.endsWith('export.bin.xml')) {
+    vanillaPath = path.join(annoRda, 'data/infotips/export.bin');
+  }
+  else if (basename.indexOf("templates") >= 0) {
     vanillaPath = path.join(annoRda, 'data/config/export/main/asset/templates.xml');
   }
   else if (basename.indexOf("texts_") >= 0) {
     vanillaPath = path.join(annoRda, 'data/config/gui/' + basename + '.xml');
+  }
+  else if (modRoot && (filePath.endsWith('.cfg.xml') || filePath.endsWith('.fc.xml'))) {
+    const relative = path.relative(modRoot, filePath);
+    vanillaPath = path.join(annoRda, relative.substring(0, relative.length - 4));
+  }
+  else {
+    vanillaPath = path.join(annoRda, 'data/config/export/main/asset/assets.xml');
+  }
+
+  if (!fs.existsSync(vanillaPath)) {
+    return undefined;
   }
 
   return vanillaPath;
