@@ -28,24 +28,17 @@ export class ModinfoConverter extends Converter {
       modinfo.converter = undefined;
 
       // defaults
-      modinfo.Description = modinfo.Description ?? { "English" : "README.md" };
-      modinfo.Description.English = modinfo.Description.English ?? "README.md";
+      modinfo.Description = modinfo.Description ?? { "English" : "file::README.md" };
+      modinfo.Description.English = modinfo.Description.English ?? "file::README.md";
 
-      // Category/ModName, fill other languages based on English
+      // Category/ModName/Descriptions, fill other languages based on English
       const languages = [ "Chinese", "French", "German", "Italian", "Japanese", "Korean", "Polish", "Russian", "Spanish", "Taiwanese" ];
       for (let lang of languages) {
-        if (!modinfo.Category[lang]) {
-          modinfo.Category[lang] = modinfo.Category.English;
-        }
-        if (!modinfo.ModName[lang]) {
-          modinfo.ModName[lang] = modinfo.ModName.English;
-        }
+        modinfo.Category[lang] ??= modinfo.Category.English;
+        modinfo.ModName[lang] ??= modinfo.ModName.English;
+        modinfo.Description[lang] ??= modinfo.Description.English;
       }
 
-      // Description from MDs, no fallbacks here. AMM doesn't support languages properly anyway.
-      for (let lang of [...languages, 'English']) {
-        modinfo.Description[lang] = this._readMarkdownWithoutImages(sourceFolder, modinfo.Description[lang]);
-      }
       // content_en.txt
       if (options.converterOptions.content_en && modinfo.Description.English) {
         const contentEnPath = path.join(path.dirname(targetFile), 'content_en.txt');

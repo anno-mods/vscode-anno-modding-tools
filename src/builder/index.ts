@@ -52,6 +52,7 @@ export class ModBuilder {
     this._logger.log('Build ' + filePath);
     const modJson = utils.readModinfo(path.dirname(filePath));
     if (!modJson) {
+      this._logger.error('Errors in modinfo.json: ' + path.dirname(filePath));
       return false;
     }
 
@@ -79,10 +80,6 @@ export class ModBuilder {
     modJson.converter = modJson.converter ? [...modJson.converter, {
       "action": "assets"
     }] : [
-      {
-        "action": "static",
-        "pattern": "{data,products,shared}/**/*.{cfg,ifo,prp,fc,rdm,dds,rdp}"
-      },
       {
         "action": "static",
         "pattern": "{banner.*,content*.txt,!(imya)*.md,data/config/**/*,**/*.include.xml,**/icon*.png}"
@@ -118,6 +115,10 @@ export class ModBuilder {
         "pattern": "{data,products,shared}/**/icon*.png",
         "lods": 3,
         "icon": true
+      },
+      {
+        "action": "static",
+        "pattern": "{data,products,shared}/**/*.{cfg,ifo,prp,fc,rdm,dds,rdp}"
       },
       {
         "action": "assets"
