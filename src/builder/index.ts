@@ -82,7 +82,7 @@ export class ModBuilder {
     }] : [
       {
         "action": "static",
-        "pattern": "{banner.*,content*.txt,!(imya)*.md,data/config/**/*,**/*.include.xml,**/icon*.png}"
+        "pattern": "{banner.*,content*.txt,!(imya)*.md,data/config/**/*,**/*.include.xml,data/infotips/*,data/**/*.fc.xml,data/**/*.cfg.xml,**/icon*.png}"
       },
       {
         "action": "cf7",
