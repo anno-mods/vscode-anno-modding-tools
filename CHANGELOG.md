@@ -6,7 +6,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## 1.13 Modloader 11 Feature Preview
 
-- 1.13.2: Build an Deploy: Copy all *.md
+- 1.13.3: Build and Deploy: Copy *.fc.xml, *.cfg.xml, export.bin.xml
+- 1.13.2: Build and Deploy: Copy all *.md
 - 1.13.1: Fix .vanilla path for sub-mods
 - Added [preview features](https://github.com/jakobharder/anno1800-mod-loader/blob/main/doc/modloader11.md): export.bin, .cfg, .fc patching, ModID condition
 - Life analysis: Added document ModOps time
