@@ -62,6 +62,8 @@ If you have the Red Hat XML plugin installed, search for `xml file associations`
 ]
 ```
 
+Note: If you want to force updates for auto-completion delete `C:\Users\<user>\.lemminx` and re-open VSCode.
+
 ### 4. How to open files
 
 Most features only activate if you open folders, via `File` > `Open Folder...`.
@@ -147,6 +149,8 @@ Not all GUIDs can be converted automatically due to performance. Most notable ex
 Check [Setup](#setup) to activate this feature.
 
 Now your code gets validated and you can press `Ctrl` + `Space` anywhere in the document and get a list of possible tags, enums or GUIDs.
+
+Note: If you want to force updates for auto-completion delete `C:\Users\<user>\.lemminx` and re-open VSCode.
 
 ### Import from Blender or glTF
 
