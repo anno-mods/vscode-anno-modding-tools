@@ -187,41 +187,13 @@
   },
   "TextOverride": {
     "templates": [
-      "Profile_2ndParty",
-      "Slot",
-      "BuffFactory",
       "CityInstitutionBuildingAdvanced",
-      "TradeShip",
-      "FactoryModuleElectric",
-      "Product",
-      "EffectContainer",
-      "HarbourOfficeBuff",
-      "Profile_1stParty_Scenario_Narrator",
-      "IncidentResolverUnit",
-      "Farmfield",
-      "WarShip",
-      "Profile_3rdParty_ItemCrafter-NoTrader",
-      "FactoryBuilding7",
-      "SlotFactoryBuilding7"
+      "Farmfield"
     ],
     "paths": {
       "/Values/Text": [
-        "Profile_2ndParty",
-        "Slot",
-        "BuffFactory",
         "CityInstitutionBuildingAdvanced",
-        "TradeShip",
-        "FactoryModuleElectric",
-        "Product",
-        "EffectContainer",
-        "HarbourOfficeBuff",
-        "Profile_1stParty_Scenario_Narrator",
-        "IncidentResolverUnit",
-        "Farmfield",
-        "WarShip",
-        "Profile_3rdParty_ItemCrafter-NoTrader",
-        "FactoryBuilding7",
-        "SlotFactoryBuilding7"
+        "Farmfield"
       ]
     }
   },
@@ -382,6 +354,7 @@
       "/Values/GenericPopup/ErrorPopups/FailedToJoinLobby/Buttons/Item": [],
       "/Values/GenericPopup/ErrorPopups/UbisoftAccountMandatory/Buttons/Item": [],
       "/Values/GenericPopup/ErrorPopups/FirstPartySignInRequired/Buttons/Item": [],
+      "/Values/GenericPopup/ErrorPopups/ModioNotReachable/Buttons/Item": [],
       "/Values/GenericPopup/Popups/Quit/Buttons/Item": [],
       "/Values/GenericPopup/Popups/DestroyItem/Buttons/Item": [],
       "/Values/GenericPopup/Popups/NotImplemented/Buttons/Item": [],
@@ -10450,6 +10423,9 @@
       "/Values/TourismFeature/AttractivenessNameMapping/Ornament_OldTown": [],
       "/Values/TourismFeature/AttractivenessNameMapping/Ornament_Beach": [],
       "/Values/TourismFeature/AttractivenessNameMapping/Ornament_DragonGarden": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/Ornament_Fiesta": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/Ornament_NationalPark": [],
+      "/Values/TourismFeature/AttractivenessNameMapping/Ornament_Eldritch": [],
       "/Values/MultiplayerConfig/MultiplayerLobbyName/English": [],
       "/Values/MultiplayerConfig/MultiplayerLobbyName/French": [],
       "/Values/MultiplayerConfig/MultiplayerLobbyName/Polish": [],
@@ -16571,6 +16547,12 @@
       "/Values/MPLobbyScene/LobbyInfoTips": []
     }
   },
+  "ChecksumIsDifferentStartBtnInfoTip": {
+    "templates": [],
+    "paths": {
+      "/Values/MPLobbyScene/LobbyInfoTips": []
+    }
+  },
   "StateTextLine1": {
     "templates": [],
     "paths": {
@@ -19484,6 +19466,7 @@
       "/Values/GenericPopup/ErrorPopups/FailedToJoinLobby": [],
       "/Values/GenericPopup/ErrorPopups/UbisoftAccountMandatory": [],
       "/Values/GenericPopup/ErrorPopups/FirstPartySignInRequired": [],
+      "/Values/GenericPopup/ErrorPopups/ModioNotReachable": [],
       "/Values/GenericPopup/Popups/Quit": [],
       "/Values/GenericPopup/Popups/DestroyItem": [],
       "/Values/GenericPopup/Popups/NotImplemented": [],
@@ -21095,6 +21078,7 @@
       "/Values/GenericPopup/ErrorPopups/FailedToJoinLobby": [],
       "/Values/GenericPopup/ErrorPopups/UbisoftAccountMandatory": [],
       "/Values/GenericPopup/ErrorPopups/FirstPartySignInRequired": [],
+      "/Values/GenericPopup/ErrorPopups/ModioNotReachable": [],
       "/Values/GenericPopup/Popups/Quit": [],
       "/Values/GenericPopup/Popups/DestroyItem": [],
       "/Values/GenericPopup/Popups/NotImplemented": [],
@@ -22577,6 +22561,9 @@
       "/Values/SessionSoundConfig/AmbientMoodMapping/ResidenceTierScholars": [
         "GameParameter"
       ],
+      "/Values/SessionSoundConfig/AmbientMoodMapping/LakeCosmetic": [
+        "GameParameter"
+      ],
       "/Values/SessionSoundConfig/EnvironmentTypeMapping/Ocean": [
         "GameParameter"
       ],
@@ -22638,6 +22625,9 @@
         "GameParameter"
       ],
       "/Values/SessionSoundConfig/EnvironmentTypeMapping/ResidenceScholars": [
+        "GameParameter"
+      ],
+      "/Values/SessionSoundConfig/EnvironmentTypeMapping/LakeCosmetic": [
         "GameParameter"
       ]
     }
@@ -22728,6 +22718,9 @@
       "/Values/SessionSoundConfig/AmbientMoodMapping/ResidenceTierScholars": [
         "GameParameter"
       ],
+      "/Values/SessionSoundConfig/AmbientMoodMapping/LakeCosmetic": [
+        "GameParameter"
+      ],
       "/Values/SessionSoundConfig/EnvironmentTypeMapping/Ocean": [
         "GameParameter"
       ],
@@ -22789,6 +22782,9 @@
         "GameParameter"
       ],
       "/Values/SessionSoundConfig/EnvironmentTypeMapping/ResidenceScholars": [
+        "GameParameter"
+      ],
+      "/Values/SessionSoundConfig/EnvironmentTypeMapping/LakeCosmetic": [
         "GameParameter"
       ]
     }
@@ -22879,6 +22875,9 @@
       "/Values/SessionSoundConfig/AmbientMoodMapping/ResidenceTierScholars": [
         "GameParameter"
       ],
+      "/Values/SessionSoundConfig/AmbientMoodMapping/LakeCosmetic": [
+        "GameParameter"
+      ],
       "/Values/SessionSoundConfig/EnvironmentTypeMapping/Ocean": [
         "GameParameter"
       ],
@@ -22940,6 +22939,9 @@
         "GameParameter"
       ],
       "/Values/SessionSoundConfig/EnvironmentTypeMapping/ResidenceScholars": [
+        "GameParameter"
+      ],
+      "/Values/SessionSoundConfig/EnvironmentTypeMapping/LakeCosmetic": [
         "GameParameter"
       ]
     }
@@ -23030,6 +23032,9 @@
       "/Values/SessionSoundConfig/AmbientMoodMapping/ResidenceTierScholars": [
         "GameParameter"
       ],
+      "/Values/SessionSoundConfig/AmbientMoodMapping/LakeCosmetic": [
+        "GameParameter"
+      ],
       "/Values/SessionSoundConfig/EnvironmentTypeMapping/Ocean": [
         "GameParameter"
       ],
@@ -23091,6 +23096,9 @@
         "GameParameter"
       ],
       "/Values/SessionSoundConfig/EnvironmentTypeMapping/ResidenceScholars": [
+        "GameParameter"
+      ],
+      "/Values/SessionSoundConfig/EnvironmentTypeMapping/LakeCosmetic": [
         "GameParameter"
       ]
     }

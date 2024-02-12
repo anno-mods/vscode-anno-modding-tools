@@ -2,9 +2,8 @@ import * as path from 'path';
 import * as xmldoc from 'xmldoc';
 import * as fs from 'fs';
 import { exit } from 'process';
-import { type } from 'os';
-import { notDeepStrictEqual } from 'assert';
-import { insidersDownloadDirToExecutablePath } from '@vscode/test-electron/out/util';
+import { AllProperties, AllDefinitions, readProperties } from './assets/properties';
+import { readDataSets, dataSetToXsd } from './assets/datasets';
 
 const OUTPUT_FILEPATH = './generated/assets.json';
 const SCHEME_FILEPATH = './generated/assets.xsd';
@@ -212,6 +211,20 @@ class SchemeType {
       }
       else if (this._isDegreesOnly(possibleValues)) {
         this.typeName = 'RotationType';
+      }
+      else if (possibleValues.length > 0 && AllDefinitions[this.name]) {
+        const definition = AllDefinitions[this.name];
+        var bestMatch = 0;
+        var bestIndex = 0;
+        if (definition.length > 1) {
+          // TODO, only for Owner though
+        }
+
+        this.possibleValues = (definition[bestIndex].dataSet?.set || []).reduce((acc: {[index: string] : boolean }, value) => {
+            acc[value] = true;
+            return acc;
+        }, {});
+        this.typeName = definition[bestIndex].dataSet?.name + 'Type';
       }
       else if (possibleValues.length === MAX_POSSIBLE) {
         this.typeName = 'xs:string';
@@ -471,6 +484,9 @@ if (!fs.existsSync(assetPath)) {
   exit(-1);
 }
 
+readDataSets(assetPath.replace('assets.xml', 'datasets.xml'));
+readProperties(assetPath.replace('assets.xml', 'properties-toolone.xml'));
+
 console.log(`read ${assetPath}`);
 const assetXml = new xmldoc.XmlDocument(fs.readFileSync(assetPath, { encoding: 'utf8' }));
 
@@ -524,6 +540,7 @@ overallScheme.keys['ignore'] = ignore;
   for (var scheme of Object.values(specialSchemes.schemeTypes)) {
     fs.appendFileSync(SCHEME_FILEPATH, scheme.toXsd('include', false, ''));
   }
+  fs.appendFileSync(SCHEME_FILEPATH, dataSetToXsd());
   fs.appendFileSync(SCHEME_FILEPATH, fs.readFileSync(SCHEME_FILEPATH + ".custom.xml"));
   fs.appendFileSync(SCHEME_FILEPATH, `</xs:schema>\n`);
 
