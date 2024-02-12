@@ -6,6 +6,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## 1.13 Modloader 11 Feature Preview
 
+- 1.13.4: Update GUID ranges and dataset enums for XSD validation
 - 1.13.3: Build and Deploy: Copy *.fc.xml, *.cfg.xml, export.bin.xml
 - 1.13.2: Build and Deploy: Copy all *.md
 - 1.13.1: Fix .vanilla path for sub-mods

@@ -11742,9 +11742,146 @@
     "template": "Icon",
     "name": "icon_Hacienda_modules"
   },
+  "20860": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC11 Bench"
+  },
+  "20861": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC11 Cactus A"
+  },
+  "20862": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC11 Cactus B"
+  },
+  "20863": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC11 Cactus C"
+  },
+  "20864": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC11 Culture Path"
+  },
+  "20865": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC11 Culture Pavement"
+  },
+  "20866": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC11 Fountain"
+  },
+  "20867": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC11 FountainCacique"
+  },
+  "20868": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC11 Jacaranda Tree"
+  },
+  "20869": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC11 Palm Tree"
+  },
+  "20870": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC11 Pavilion"
+  },
+  "20871": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC11 Stall A"
+  },
+  "20872": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC11 Stall B"
+  },
+  "20873": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC11 Stall C"
+  },
+  "20874": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC11 Stall D"
+  },
+  "20875": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC11 Statue"
+  },
+  "20876": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC11 Flag System"
+  },
+  "20877": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC11 Hedge System"
+  },
+  "20878": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC11 Wall System"
+  },
+  "20918": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC11 Wall System Gate"
+  },
+  "20921": {
+    "template": "Skin",
+    "name": "CDLC11 Marketplace"
+  },
+  "20922": {
+    "template": "Skin",
+    "name": "CDLC11 Church"
+  },
+  "20928": {
+    "template": "ConstructionCategory",
+    "name": "CDLC 11 - Fiesta Time Menu"
+  },
+  "21049": {
+    "template": "UplayProduct",
+    "name": "Anno 1800 CDLC 11 - Fiesta Time",
+    "english": "Fiesta"
+  },
+  "21050": {
+    "template": "UplayProductPromotion",
+    "name": "DLC Promo - Fiesta Time"
+  },
+  "21096": {
+    "template": "Skin",
+    "name": "CDLC11 Marketplace Fancy"
+  },
+  "21097": {
+    "template": "Skin",
+    "name": "CDLC11 Church Fancy"
+  },
   "21504": {
     "template": "TrackingValue",
     "name": "CenterByPhotoMarker"
+  },
+  "22441": {
+    "template": "Street",
+    "name": "Quay System Base full corners Africa",
+    "english": "Quay"
+  },
+  "22472": {
+    "template": "Street",
+    "name": "Quay System Base Invisible full corners Africa",
+    "english": "Quay"
+  },
+  "23718": {
+    "template": "UplayProduct",
+    "name": "Anno 1800 CDLC 12 - National Park",
+    "english": "National Park"
+  },
+  "23719": {
+    "template": "UplayProduct",
+    "name": "Anno 1800 CDLC 13 - Eldritch",
+    "english": "Eldritch Pack"
+  },
+  "23720": {
+    "template": "UplayProductPromotion",
+    "name": "DLC Promo - CDLC 12"
+  },
+  "23721": {
+    "template": "UplayProductPromotion",
+    "name": "DLC Promo - CDLC 13"
   },
   "24012": {
     "template": "GuildhouseItem",
@@ -14359,6 +14496,14 @@
     "template": "PositionMarker",
     "name": "DeliveryShip_SpawnShip_PositionMarker"
   },
+  "25871": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC12 Picknick Big"
+  },
+  "25888": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC12 Picknick Small"
+  },
   "25890": {
     "template": "Farmfield",
     "name": "agriculture_colony01_12_field (Spice)",
@@ -14369,9 +14514,89 @@
     "name": "AllHaciendaFarms",
     "english": "All Hacienda Farms"
   },
+  "25895": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC12 Tents Big"
+  },
+  "25896": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC12 Tents Small"
+  },
   "25897": {
     "template": "NewspaperConsoleScene",
     "name": "NewspaperConsoleScene"
+  },
+  "25898": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC12 Rocks Big"
+  },
+  "25899": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC12 Rocks Small"
+  },
+  "25900": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC12 Cafe"
+  },
+  "25901": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC12 Ruin"
+  },
+  "25902": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC12 Feeder"
+  },
+  "25903": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC12 Hiking Hut"
+  },
+  "25904": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC12 Campfire"
+  },
+  "25905": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC12 Pavilon"
+  },
+  "25906": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC12 Picknick Tables"
+  },
+  "25907": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC12 Tree Big"
+  },
+  "25908": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC12 Tree Small"
+  },
+  "25909": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC12 Sign"
+  },
+  "25910": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC12 Willow"
+  },
+  "25911": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC12 Bridge Small"
+  },
+  "25912": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC12 Bridge Medium"
+  },
+  "25913": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC12 Bridge Long"
+  },
+  "25926": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC12 Elevated Path System"
+  },
+  "25927": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC12 Hiking Trail System"
   },
   "25929": {
     "template": "OrnamentalBuilding",
@@ -14427,6 +14652,10 @@
     "template": "UplayProduct",
     "name": "Anno 1800 - Refer-a-Friend"
   },
+  "25957": {
+    "template": "Street",
+    "name": "CDLC12 Lake System"
+  },
   "25958": {
     "template": "Icon",
     "name": "Newspaper_GeneralIcon"
@@ -14434,6 +14663,15 @@
   "25959": {
     "template": "TriggerQuest",
     "name": "s02_river02_lowerFIRST"
+  },
+  "25960": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC12 Grass System"
+  },
+  "25962": {
+    "template": "ConstructionCategory",
+    "name": "CDLC 12 - National Park Menu",
+    "english": "\"National Park\" Pack"
   },
   "25966": {
     "template": "Icon",
@@ -14516,6 +14754,102 @@
     "template": "ItemEffectTargetPool",
     "name": "AllObreroResidences",
     "english": "All Obrera residences"
+  },
+  "26059": {
+    "template": "Street",
+    "name": "CDLC12 Lake System Light"
+  },
+  "29559": {
+    "template": "Bird",
+    "name": "crow"
+  },
+  "30477": {
+    "template": "Skin",
+    "name": "CDLC13 Skin Hospital"
+  },
+  "30485": {
+    "template": "Skin",
+    "name": "CDLC13 Skin Pub"
+  },
+  "30488": {
+    "template": "Skin",
+    "name": "CDLC13 Residence T2 Skin"
+  },
+  "30493": {
+    "template": "Skin",
+    "name": "CDLC13 Residence T3 Skin"
+  },
+  "30671": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC13 Ruined Garden"
+  },
+  "30672": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC13 Gothic Pavilon"
+  },
+  "30675": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC13 Gothic Fountain"
+  },
+  "30678": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC13 Enchanted Well"
+  },
+  "30681": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC13 Knarly Tree Big"
+  },
+  "30684": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC13 Knarly Tree Smol"
+  },
+  "30687": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC13 Gargoyle"
+  },
+  "30690": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC13 Firebringer Statue"
+  },
+  "30693": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC13 Fiery Lantern"
+  },
+  "30696": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC13 Gothic Brazier"
+  },
+  "30699": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC13 Gothic Bench"
+  },
+  "30702": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC13 Gothic Tile A"
+  },
+  "30705": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC13 Gothic Fence"
+  },
+  "30708": {
+    "template": "ConstructionCategory",
+    "name": "CDLC 13 - Eldritch Menu"
+  },
+  "30709": {
+    "template": "OrnamentalBuilding",
+    "name": "Special Ornament Milestone"
+  },
+  "30717": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC13 Gothic Fence Gate"
+  },
+  "30721": {
+    "template": "OrnamentalBuilding",
+    "name": "CDLC13 Gothic Tile B"
+  },
+  "30728": {
+    "template": "UnlockableAsset",
+    "name": "FloorUpgradeInAllRegions"
   },
   "80001": {
     "template": "OrnamentalBuilding",
@@ -96098,6 +96432,134 @@
   "201783": {
     "template": "GameParameter",
     "name": "gp_rumble"
+  },
+  "201825": {
+    "template": "GameParameter",
+    "name": "MS2_bld_lake_cosmetic"
+  },
+  "201832": {
+    "template": "GameParameter",
+    "name": "MS1_bld_lake_cosmetic"
+  },
+  "201835": {
+    "template": "GameParameter",
+    "name": "MS4_bld_lake_cosmetic"
+  },
+  "201848": {
+    "template": "GameParameter",
+    "name": "MS3_bld_lake_cosmetic"
+  },
+  "201849": {
+    "template": "SwitchChoice",
+    "name": "Inactive_MS1_env_moo_cosmetic_lake"
+  },
+  "201850": {
+    "template": "SwitchChoice",
+    "name": "Active_MS1_env_moo_cosmetic_lake"
+  },
+  "201851": {
+    "template": "SwitchGroup",
+    "name": "MS1_env_moo_cosmetic_lake"
+  },
+  "201852": {
+    "template": "SwitchChoice",
+    "name": "Inactive_MS2_env_moo_cosmetic_lake"
+  },
+  "201853": {
+    "template": "SwitchChoice",
+    "name": "Active_MS2_env_moo_cosmetic_lake"
+  },
+  "201854": {
+    "template": "SwitchGroup",
+    "name": "MS2_env_moo_cosmetic_lake"
+  },
+  "201855": {
+    "template": "SwitchChoice",
+    "name": "Inactive_MS3_env_moo_cosmetic_lake"
+  },
+  "201856": {
+    "template": "SwitchChoice",
+    "name": "Active_MS3_env_moo_cosmetic_lake"
+  },
+  "201857": {
+    "template": "SwitchGroup",
+    "name": "MS3_env_moo_cosmetic_lake"
+  },
+  "201858": {
+    "template": "SwitchChoice",
+    "name": "Inactive_MS4_env_moo_cosmetic_lake"
+  },
+  "201859": {
+    "template": "SwitchChoice",
+    "name": "Active_MS4_env_moo_cosmetic_lake"
+  },
+  "201860": {
+    "template": "SwitchGroup",
+    "name": "MS4_env_moo_cosmetic_lake"
+  },
+  "201861": {
+    "template": "GameParameter",
+    "name": "ES4_cosmetic_lake"
+  },
+  "201862": {
+    "template": "GameParameter",
+    "name": "ES2_cosmetic_lake"
+  },
+  "201863": {
+    "template": "GameParameter",
+    "name": "ES1_cosmetic_lake"
+  },
+  "201864": {
+    "template": "GameParameter",
+    "name": "ES3_cosmetic_lake"
+  },
+  "201865": {
+    "template": "SwitchChoice",
+    "name": "ES3_cosmetic_lake_active"
+  },
+  "201866": {
+    "template": "SwitchChoice",
+    "name": "ES3_cosmetic_lake_inactive"
+  },
+  "201867": {
+    "template": "SwitchGroup",
+    "name": "ES3_cosmetic_lake"
+  },
+  "201868": {
+    "template": "SwitchChoice",
+    "name": "ES1_cosmetic_lake_active"
+  },
+  "201869": {
+    "template": "SwitchChoice",
+    "name": "ES1_cosmetic_lake_inactive"
+  },
+  "201870": {
+    "template": "SwitchGroup",
+    "name": "ES1_cosmetic_lake"
+  },
+  "201871": {
+    "template": "SwitchChoice",
+    "name": "ES2_cosmetic_lake_active"
+  },
+  "201872": {
+    "template": "SwitchChoice",
+    "name": "ES2_cosmetic_lake_inactive"
+  },
+  "201873": {
+    "template": "SwitchGroup",
+    "name": "ES2_cosmetic_lake"
+  },
+  "201874": {
+    "template": "SwitchChoice",
+    "name": "ES4_cosmetic_lake_active"
+  },
+  "201875": {
+    "template": "SwitchChoice",
+    "name": "ES4_cosmetic_lake_inactive"
+  },
+  "201876": {
+    "template": "SwitchGroup",
+    "name": "ES4_cosmetic_lake"
   },
   "202260": {
     "template": "GameParameter",
