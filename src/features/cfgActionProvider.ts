@@ -5,22 +5,35 @@ import * as utils from '../other/utils';
 export function activate(context: vscode.ExtensionContext) {
   const diagnostics = vscode.languages.createDiagnosticCollection("anno-cfg");
 
-  function checkFileName(fileName: string, modPaths: string[], line: vscode.TextLine, annoRda?: string) {
+  function checkFileName(fileNameOrExtension: string, modPaths: string[], line: vscode.TextLine, annoRda?: string) {
     let match;
-    if (fileName.endsWith('.cfg')) {
+    if (fileNameOrExtension.endsWith('.cfg')) {
       match = /<(Filename|FileName|\w+Map|\w+Tex)>([^<]+)<\/\1>/g.exec(line.text);
     }
-    else if (fileName.endsWith('.cfg.yaml')) {
-      match = /(FileName|\w+Map|\w+Tex): (.+)$/g.exec(line.text); 
+    else if (fileNameOrExtension.endsWith('.cfg.yaml')) {
+      match = /(FileName|\w+Map|\w+Tex): (.+)$/g.exec(line.text);
+    }
+    if (!match) {
+      return undefined;
+    }
+
+    const tagName = match[1];
+    const filePathValue = match[2];
+    if (tagName === 'DetailMap') {
+      console.log(tagName);
+      console.log(filePathValue);
     }
 
     let checked;
-    if (match && (checked = utils.hasGraphicsFile(modPaths, match[2], annoRda)).length > 0) {
-      const index = line.text.indexOf(match[2]);
-      const range = new vscode.Range(line.lineNumber, index, line.lineNumber, index + match[2].length);
+    const tagContentSame = (tagName == filePathValue);
+    const fileExists = (checked = utils.hasGraphicsFile(modPaths, filePathValue, annoRda)).length == 0;
+
+    if (!tagContentSame && !fileExists) {
+      const index = line.text.indexOf(filePathValue);
+      const range = new vscode.Range(line.lineNumber, index, line.lineNumber, index + filePathValue.length);
 
       const allPaths = annoRda ? [annoRda, ...modPaths] : modPaths;
-  
+
       const diagnostic = new vscode.Diagnostic(range,
         `File seems to be missing.\nChecked paths:\n${allPaths.join('\n')}\nChecked patterns:\n${checked.join('\n')}`,
         vscode.DiagnosticSeverity.Warning);

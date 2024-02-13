@@ -222,6 +222,10 @@ export function searchModPaths(patchFilePath: string, modsFolder?: string) {
   return [...sources, ...deps];
 }
 
+/**
+ * Check if graphics file exists or at least matches standard patterns.
+ * @returns Empty list when found. Otherwise checked file path patterns.
+ */
 export function hasGraphicsFile(modPaths: string[], filePath: string, annoRda?: string) {
   let searchPaths = modPaths;
 
