@@ -1,7 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import glob = require('glob');
-import { ModFolder } from './modFolder';
+import { ModRegistry } from './modRegistry';
 import * as child from 'child_process';
 
 export function ensureDir(path: string) {
@@ -204,10 +204,13 @@ export function readModinfo(modPath: string): IModinfo | undefined {
   return result;
 }
 
+/** Return path of the mod containing the asset file, and it's ModDependencies, OptionalDependencies and LoadAfterIds mod paths */
 export function searchModPaths(patchFilePath: string, modsFolder?: string) {
   if (!fs.existsSync(patchFilePath)) {
     return [];
   }
+
+  ModRegistry.use(modsFolder);
 
   const modPath = searchModPath(patchFilePath);
   const modinfo = readModinfo(modPath);
@@ -216,10 +219,12 @@ export function searchModPaths(patchFilePath: string, modsFolder?: string) {
   let deps: string[] = [];
   if (modsFolder && modinfo?.modinfo) {
     deps = [...ensureArray(modinfo.modinfo?.ModDependencies), ...ensureArray(modinfo.modinfo?.OptionalDependencies), ...ensureArray(modinfo.modinfo?.LoadAfterIds)]
-      .map((e: string) => ModFolder.getModFolder(modsFolder, e) ?? "")
+      .map((e: string) => ModRegistry.getPath(e) ?? "")
       .filter((e: string) => e !== "");
   }
-  return [...sources, ...deps];
+
+  // remove duplicates
+  return [...new Set([...sources, ...deps])];
 }
 
 /**

@@ -1,25 +1,23 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
-import * as path from 'path';
-import * as xmldoc from 'xmldoc';
 import * as minimatch from 'minimatch';
 import { AssetsTocProvider } from './outline/assetsTocProvider';
 import { AssetsDocument, ASSETS_FILENAME_PATTERN, IAsset } from '../other/assetsXml';
-import * as utils from '../other/utils';
+import { SymbolRegistry } from '../other/symbolRegistry';
+import { AllGuidCompletionItems, GuidCompletionItems } from './guidCompletionItems';
+import { ModRegistry } from '../other/modRegistry';
 
 let assetsDocument: AssetsDocument | undefined;
-
-import { AllGuidCompletionItems, GuidCompletionItems } from './guidCompletionItems';
-import { glob } from 'glob';
 
 export function resolveGUID(guid: string) {
   let entry = undefined;
   if (assetsDocument?.assets) {
     entry = assetsDocument.assets[guid];
   }
-  if (!entry && _customCompletionItems?.assets) {
-    entry = _customCompletionItems.assets[guid];
-  }
+  // if (!entry && _customCompletionItems?.assets) {
+  //   entry = _customCompletionItems.assets[guid];
+  // }
+  entry ??= SymbolRegistry.resolve(guid);
   if (!entry && AllGuidCompletionItems.assets) {
     entry = AllGuidCompletionItems.assets[guid];
   }
@@ -271,41 +269,26 @@ export function refreshCustomAssets(document: vscode.TextDocument | undefined): 
   // _customCompletionItems = new GuidCompletionItems();
   const config = vscode.workspace.getConfiguration('anno', document.uri);
   const modsFolder: string | undefined = config.get('modsFolder');
-  
-  const modPaths = utils.searchModPaths(document.fileName, modsFolder);
-  for (const modPath of modPaths) {
-    const files = glob.sync('**/assets*.xml', { cwd: modPath, nodir: true });
-    for (let file of files) {
-      _readGuidsFromText(fs.readFileSync(path.join(modPath, file), 'utf8'), path.join(modPath, file), path.basename(modPath));
-    }
-  }
 
-  const modName = path.basename(utils.searchModPath(document.uri.fsPath));
-  _readGuidsFromText(text, document.uri.fsPath, modName);
-}
+  ModRegistry.use(vscode.workspace.getWorkspaceFolder(document.uri)?.uri?.fsPath, true);
+  ModRegistry.use(modsFolder);
 
-function _readGuidsFromText(text: string, filePath: string, modName?: string)
-{
-  let xmlContent;
-  try {
-    xmlContent = new xmldoc.XmlDocument(text);
-  }
-  catch {
-    // be quiet, this happens a lot during typing
+  const mod = ModRegistry.findMod(document.fileName);
+  if (!mod) {
     return;
   }
-
-  _readGuidsFromXmlContent(xmlContent, filePath, modName);
-}
-
-function _readGuidsFromXmlContent(xmlContent: xmldoc.XmlDocument, filePath: string, modName?: string)
-{
-  assetsDocument = new AssetsDocument(xmlContent, filePath);
+  const dependencies = mod ? ModRegistry.getAllDependencies(mod.id) : [];
 
   if (!_customCompletionItems) {
     _customCompletionItems = new GuidCompletionItems();
   }
-  _customCompletionItems.addAssets(assetsDocument.assets, AllGuidCompletionItems.tags, filePath, modName);
+  SymbolRegistry.setCompletionItems(_customCompletionItems);
+
+  for (const dependency of dependencies) {
+    SymbolRegistry.scanFolder(dependency.id, dependency.path);
+  }
+  SymbolRegistry.scanFolder(mod.id, mod.path, document.uri.fsPath);
+  SymbolRegistry.scanText(mod.id, text, document.uri.fsPath);
 }
 
 function subscribeToDocumentChanges(context: vscode.ExtensionContext): void {

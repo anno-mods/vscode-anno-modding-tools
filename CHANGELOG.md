@@ -4,6 +4,10 @@ All notable changes to the "anno-modding-tools" extension will be documented in 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [Unreleased]
+
+- Improved GUID performance and completeness of annotations from other mods
+
 ## 1.13 Modloader 11 Feature Preview
 
 - 1.13.5: Fix FlowMap and DetailMap checks in CFGs

@@ -92,10 +92,12 @@ export class GuidCompletionItems {
     }
   }
 
-  addAssets(assets: { [guid: string]: IAsset}, tags: { [tag: string]: TagCompletionItem } | undefined, 
-    filePath: string, modName?: string)
-  {
+  setTags(tags: { [tag: string]: TagCompletionItem }) {
     this.tags = tags;
+  }
+
+  addAssets(assets: { [guid: string]: IAsset}, modName?: string)
+  {
     if (!this.assets) {
       this.assets = {};
     }
@@ -116,7 +118,7 @@ export class GuidCompletionItems {
       description: `${asset.template}: ${guid} (${asset.name})`
     }, vscode.CompletionItemKind.Snippet);
     item.insertText = guid;
-    
+
     if (templateName) {
       // Template
       const templateItems = this._items[templateName] ?? {};
