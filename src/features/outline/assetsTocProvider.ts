@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as xmldoc from 'xmldoc';
-import * as guidUtils from '../guidUtilsProvider';
+import { uniqueAssetName} from '../../other/assetsXml';
+import { SymbolRegistry } from '../../other/symbolRegistry';
 
 export interface TocEntry {
   text: string;
@@ -67,7 +68,7 @@ export class AssetsTocProvider {
       }
       const base = element.valueWithPath('BaseAssetGUID');
       if (base) {
-        const resolvedGuid = guidUtils.resolveGUID(base);
+        const resolvedGuid = SymbolRegistry.resolve(base);
         if (resolvedGuid) {
           return `${resolvedGuid.template}: ${resolvedGuid.name}`;
         }
@@ -82,17 +83,24 @@ export class AssetsTocProvider {
     return element.name;
   }
 
-  private _getDetail(element: xmldoc.XmlElement) {
+  private _getMultiModOpCount(element: xmldoc.XmlElement) : number {
+    return (element.name === 'ModOp' ? element.attr['GUID']?.split(',').length : 0);
+  }
+
+  private _getDetail(element: xmldoc.XmlElement, index: number = 0) {
     if (element.name === 'ModOp') {
-      const guid = element.attr['GUID'];
-      let namedGuid = undefined;
-      if (guid) {
-        const resolvedGuid = guidUtils.resolveGUID(guid);
-        if (resolvedGuid) {
-          namedGuid = `${resolvedGuid.name}`;
-        }
+      const guids = element.attr['GUID'];
+      if (guids) {
+        // return guids.split(',').map(guid => {
+        //     const asset = SymbolRegistry.resolve(guid.trim());
+        //     return asset?.english ?? asset?.name ?? guid.trim();
+        // }).join(', ');
+        const guid = guids.split(',')[index].trim();
+        const asset = SymbolRegistry.resolve(guid);
+        return uniqueAssetName(asset);
       }
-      return namedGuid || [guid, element.attr['Path']].filter((e) => e).join(', ');
+
+      return element.attr['Path'];
     }
     else if (element.name === 'Asset') {
       const name = element.valueWithPath('Values.Standard.Name');
@@ -105,7 +113,7 @@ export class AssetsTocProvider {
     return '';
   }
 
-  private _getSymbol(element: xmldoc.XmlElement) {
+  private _getSymbol(element: xmldoc.XmlElement, index: number = 0) {
     if (element.name === 'Asset') {
       const guid = element.valueWithPath('Values.Standard.GUID');
       return guid;
@@ -201,6 +209,8 @@ export class AssetsTocProvider {
           // TODO tagStartColumn is 0 for multiline tags, not correct but ...
           const tagStartColumn = Math.max(0, top.element.column - top.element.position + top.element.startTagPosition - 1);
           const line = (groupComment && top.element.name === 'Group') ? this._findCommentUp(document, top.element.line, groupComment) : top.element.line;
+
+          const multiModOpCount = this._getMultiModOpCount(top.element);
           toc.push({
             text: this._getName(top.element, groupComment),
             detail: this._getDetail(top.element),
@@ -211,6 +221,19 @@ export class AssetsTocProvider {
               new vscode.Range(line, tagStartColumn, line, top.element.column)),
             symbol: relevantSections[top.element.name]?.symbol ?? vscode.SymbolKind.String
           });
+
+          for (let index = 1; index < multiModOpCount; index++) {
+            toc.push({
+              text: this._getName(top.element, groupComment),
+              detail: this._getDetail(top.element, index),
+              level: top.depth,
+              line,
+              guid: this._getSymbol(top.element, index),
+              location: new vscode.Location(document.uri,
+                new vscode.Range(line, tagStartColumn, line, top.element.column)),
+              symbol: relevantSections[top.element.name]?.symbol ?? vscode.SymbolKind.String
+            });
+          }
         }
         groupComment = undefined;
         // else if (!tocRelevant && top.depth === 2) {

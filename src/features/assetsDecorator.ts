@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import { resolveGUID } from './guidUtilsProvider';
 import * as utils from '../other/utils';
 import * as path from 'path';
-import { ASSETS_FILENAME_PATTERN } from '../other/assetsXml';
+import { ASSETS_FILENAME_PATTERN, uniqueAssetName, assetNameWithOrigin } from '../other/assetsXml';
 import * as minimatch from 'minimatch';
 
 import { clearDiagnostics, diagnostics, refreshDiagnostics } from './assetsActionProvider';
@@ -18,13 +18,28 @@ export function activate(context: vscode.ExtensionContext) {
 
   // create a decorator type that we use to decorate small numbers
   const guidDecorationType = vscode.window.createTextEditorDecorationType({});
+  const modOpDecorationType = vscode.window.createTextEditorDecorationType({});
   const assetDecorationType = vscode.window.createTextEditorDecorationType({});
 
   let activeEditor = vscode.window.activeTextEditor;
 
+  function shortGuidDecorator(guid: string) {
+    const resolved = resolveGUID(guid);
+    if (!resolved) {
+      return '';
+    }
+
+    return uniqueAssetName(resolved);
+  }
+
   function decorationText(tag: string, guid: string, mod?: string) {
     const tagInfo = allowedTags[tag];
-    if (tag !== 'BaseAssetGUID' && tag !== 'BonusNeed' && (!tagInfo || tagInfo.templates.length === 0 || tag.endsWith('Amount'))) {
+    if (tag !== 'BaseAssetGUID'
+      && tag !== 'BonusNeed'
+      && (!tagInfo
+        || tagInfo.templates.length === 0
+        || tag.endsWith('Amount')
+        || tag === 'BuildModeRandomRotation')) {
       return '';
     }
 
@@ -35,19 +50,7 @@ export function activate(context: vscode.ExtensionContext) {
       return '(not set)';
     }
 
-    const resolved = resolveGUID(guid);
-    if (!resolved) {
-      return '??';
-    }
-
-    let text = (resolved.english ?? resolved.name) + (resolved.template ? ` (${resolved.template})` : '');
-
-    if (mod && resolved.modName && mod !== resolved.modName) {
-      // TODO and not this mod
-      text += ` from '${resolved.modName}'`;
-    }
-
-    return text;
+    return assetNameWithOrigin(resolveGUID(guid), mod);
   }
 
   function updateDecorations() {
@@ -86,7 +89,7 @@ export function activate(context: vscode.ExtensionContext) {
         if (!text) {
           continue;
         }
-  
+
         const decoration: vscode.DecorationOptions = {
           range: new vscode.Range(startPos, endPos),
           renderOptions: {
@@ -99,7 +102,59 @@ export function activate(context: vscode.ExtensionContext) {
         };
         guids.push(decoration);
       }
-      
+
+      activeEditor.setDecorations(type, guids);
+    };
+
+    const traverse2 = (activeEditor: vscode.TextEditor, color: string, 
+      regex: RegExp, onMatch: (match: RegExpExecArray) => string, 
+      type: vscode.TextEditorDecorationType) => {
+
+      if (activeEditor.document.lineCount > 30000) {
+        // ignore 30k+ lines
+        return;
+      }
+
+      const text = activeEditor.document.getText();
+      if (text.length > 1024 * 1024 * 10) {
+        // ignore 10MB+ files
+        return;
+      }
+
+      const guids: vscode.DecorationOptions[] = [];
+      let match;
+
+      let matches: Array<RegExpExecArray> = [];
+      while (match = regex.exec(text)) {
+        matches = [match, ...matches];
+      }
+
+      for (const match of matches) {
+        const startPos = activeEditor.document.positionAt(match.index);
+
+        const lineAbove = Math.max(0, startPos.line);
+        const lastIndex = activeEditor.document.lineAt(lineAbove).text.length;
+
+        const endPos = new vscode.Position(lineAbove, lastIndex);
+
+        const text = onMatch(match);
+        if (!text) {
+          continue;
+        }
+
+        const decoration: vscode.DecorationOptions = {
+          range: new vscode.Range(endPos, endPos),
+          renderOptions: {
+            after: {
+              contentText: text,
+              color: new vscode.ThemeColor(color),
+              margin: '3px'
+            }
+          }
+        };
+        guids.push(decoration);
+      }
+
       activeEditor.setDecorations(type, guids);
     };
 
@@ -117,6 +172,10 @@ export function activate(context: vscode.ExtensionContext) {
 
       return '';
     }, guidDecorationType);
+
+    // traverse2(activeEditor, 'editorCodeLens.foreground', /(?<=GUID='|"|,| )(\d+)(?= |,|"|')/g, (match) => {
+    //   return shortGuidDecorator(match[1]);
+    // }, modOpDecorationType);
 
     traverse(activeEditor, 'editorCodeLens.foreground', /<Asset>/g, (match) => {
       const doc = activeEditor?.document;
@@ -137,8 +196,6 @@ export function activate(context: vscode.ExtensionContext) {
       }
       return decorationText('GUID', guidMatch[1]);
     }, assetDecorationType);
-
-    
   }
 
   function updateAssetAndPerformanceDecorations() {

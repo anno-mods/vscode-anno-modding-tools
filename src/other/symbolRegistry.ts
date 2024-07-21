@@ -4,7 +4,7 @@ import * as path from 'path';
 import * as xmldoc from 'xmldoc';
 import { AssetsDocument, ASSETS_FILENAME_PATTERN_STRICT, IAsset } from '../other/assetsXml';
 import * as logger from '../other/logger';
-import { GuidCompletionItems } from '../features/guidCompletionItems';
+import { AllGuidCompletionItems, GuidCompletionItems } from '../features/guidCompletionItems';
 
 export namespace SymbolRegistry {
   let guidCache_: { [index: string]: IAsset } = {};
@@ -64,7 +64,13 @@ export namespace SymbolRegistry {
   }
 
   export function resolve(guid: string) : IAsset | undefined {
-    return guidCache_[guid];
+    let entry = guidCache_[guid];
+
+    if (!entry && AllGuidCompletionItems.assets) {
+      entry = AllGuidCompletionItems.assets[guid];
+    }
+
+    return entry;
   }
 
   function readGuidsFromFile_(filePath: string, modId: string) {

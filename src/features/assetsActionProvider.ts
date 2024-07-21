@@ -152,7 +152,7 @@ function runXmlTest(context: vscode.ExtensionContext, doc: vscode.TextDocument,
     const color = new vscode.ThemeColor('editorCodeLens.foreground');
     const colorWarning = new vscode.ThemeColor('editorWarning.foreground');
 
-    for (const issue of issues) {
+    for (const issue of issues.reverse()) {
       const line = doc.lineAt(issue.line);
       const range = new vscode.Range(
         line.range.start.translate(0, line.text.length - line.text.trimLeft().length),
