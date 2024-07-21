@@ -4,11 +4,12 @@ All notable changes to the "anno-modding-tools" extension will be documented in 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [Unreleased]
+## 1.14 Quality of Life Updates
 
 - Improved GUID performance and completeness of annotations from other mods
 - Separate entries for each `GUID` in outline
 - Auto incrementing GUID. Configure `autoGuid`, hit `Ctrl+Space` and type `newguid`.
+- `F1` command to `Import Translations into Workspace`
 
 ## 1.13 Modloader 11 Feature Preview
 

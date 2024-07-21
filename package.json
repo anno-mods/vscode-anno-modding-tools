@@ -2,7 +2,7 @@
 	"name": "anno-modding-tools",
 	"displayName": "Anno Modding Tools",
 	"description": "Modding tools for Anno 1800",
-	"version": "1.14.0-alpha1",
+	"version": "1.14.0",
 	"publisher": "JakobHarder",
 	"repository": {
 		"type": "git",
@@ -173,6 +173,10 @@
 			{
 				"command": "anno-modding-tools.incrementAutoGuid",
 				"title": "Anno: Increment Auto GUID"
+			},
+			{
+				"command": "anno-modding-tools.importLoca",
+				"title": "Anno: Import Translations into Workspace"
 			}
 		],
 		"menus": {
@@ -199,6 +203,58 @@
 				},
 				{
 					"command": "anno-modding-tools.incrementAutoGuid",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.importProps",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.importInfo",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.importFeedback",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.convertRdmToGlb",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.convertGltfToRdm",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.rdpToXml",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.rdpToSimplified",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.xmlToRdp",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.cfgyamlToCfg",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.convertFcCf7",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.convertCf7Fc",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.pngToDds",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.ddsToPng",
 					"when": "false"
 				}
 			],
