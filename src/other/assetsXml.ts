@@ -65,7 +65,7 @@ export function assetNameWithOrigin(asset: IAsset | undefined, excludeMod?: stri
 
   let text: string = asset.english ?? asset.name ?? "";
   if (excludeMod && asset.modName && excludeMod !== asset.modName) {
-    text += ` (${asset.template ?? "?"} ${asset.modName}')`;
+    text += ` (${asset.template ?? "?"}, ${asset.modName})`;
   }
   else {
     text += ` (${asset.template ?? "?"})`;

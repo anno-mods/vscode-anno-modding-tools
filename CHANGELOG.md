@@ -7,7 +7,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Unreleased]
 
 - Improved GUID performance and completeness of annotations from other mods
-- Added separate entries for each `GUID` in outline
+- Separate entries for each `GUID` in outline
+- Auto incrementing GUID. Configure `autoGuid`, hit `Ctrl+Space` and type `newguid`.
 
 ## 1.13 Modloader 11 Feature Preview
 

@@ -6,6 +6,7 @@ import { AssetsDocument, ASSETS_FILENAME_PATTERN, IAsset } from '../other/assets
 import { SymbolRegistry } from '../other/symbolRegistry';
 import { AllGuidCompletionItems, GuidCompletionItems } from './guidCompletionItems';
 import { ModRegistry } from '../other/modRegistry';
+import { GuidCounter } from './guidCounter';
 
 let assetsDocument: AssetsDocument | undefined;
 
@@ -336,15 +337,24 @@ function provideCompletionItems(document: vscode.TextDocument, position: vscode.
   // ignore path in case of xpath checks and allow all templates instead
   const path = keyword.type !== 'xpath' ? keyword.path : undefined;
 
+  GuidCounter.use(document.uri);
+
+  const newGuidItem = new vscode.CompletionItem({
+    label: `<new guid>`,
+    description: GuidCounter.nextName()
+  }, vscode.CompletionItemKind.Snippet);
+  newGuidItem.insertText = `${GuidCounter.next()}`;
+  newGuidItem.command = { command: 'anno-modding-tools.incrementAutoGuid', title: 'increment GUID...' };
+
   const vanillaItems = (useAnyTemplate ? AllGuidCompletionItems.getAllItems() : AllGuidCompletionItems.get(keyword.name, path)) ?? [];
   if (_customCompletionItems) {
     const customItems = useAnyTemplate ? _customCompletionItems.getAllItems() : _customCompletionItems.get(keyword.name, path);
     if (customItems) {
-      return [ ... vanillaItems, ...customItems ];
+      return [ newGuidItem, ... vanillaItems, ...customItems ];
     }
   }
 
-  return vanillaItems;
+  return [ newGuidItem, ... vanillaItems ];
 }
 
 function provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken) {

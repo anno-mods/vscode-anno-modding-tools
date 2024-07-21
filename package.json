@@ -169,6 +169,10 @@
 			{
 				"command": "anno-modding-tools.addMissingLoca",
 				"title": "Anno: Update Missing Text from English"
+			},
+			{
+				"command": "anno-modding-tools.incrementAutoGuid",
+				"title": "Anno: Increment Auto GUID"
 			}
 		],
 		"menus": {
@@ -191,6 +195,10 @@
 				},
 				{
 					"command": "anno-modding-tools.addMissingLoca",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.incrementAutoGuid",
 					"when": "false"
 				}
 			],
@@ -344,6 +352,12 @@
 					"type": "number",
 					"default": 80,
 					"markdownDescription": "Threshold to highlight ModOp times in warning color (milliseconds).",
+					"scope": "resource"
+				},
+				"anno.autoGuid": {
+					"type": "number",
+					"markdownDescription": "Use automatically increasing GUIDs. Enter next free number.",
+					"minimum": 0,
 					"scope": "resource"
 				}
 			}

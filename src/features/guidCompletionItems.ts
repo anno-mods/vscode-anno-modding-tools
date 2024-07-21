@@ -55,7 +55,7 @@ export class GuidCompletionItems {
       const assetPath = context.asAbsolutePath('./generated/');
       this.assets = JSON.parse(fs.readFileSync(assetPath + 'assets.json', { encoding: 'utf8' }));
       const tagsData = JSON.parse(fs.readFileSync(assetPath + 'guids.json', { encoding: 'utf8' })) as { [index: string]: ITagJson };
-    
+
       if (!this.assets) {
         return this.assets;
       }
@@ -74,7 +74,7 @@ export class GuidCompletionItems {
 
       this.fromAssets(this.assets, this.tags, true);
     }
-  
+
     return this.assets;
   }
 
