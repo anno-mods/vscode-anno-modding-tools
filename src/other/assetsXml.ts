@@ -1,9 +1,10 @@
 import * as xmldoc from 'xmldoc';
 import * as vscode from 'vscode';
 import * as channel from '../features/channel';
+import { SymbolRegistry } from './symbolRegistry';
 
 // export const ASSETS_FILENAME_PATTERN = '**/{assets*.xml,*.include.xml,templates.xml,tests/*-input.xml,tests/*-expectation.xml,gui/texts_*.xml,.modcache/*-patched.xml}';
-export const ASSETS_FILENAME_PATTERN_STRICT = '**/{assets*.xml,*.include.xml}';
+export const ASSETS_FILENAME_PATTERN_STRICT = '**/{assets*,*.include}.xml';
 export const ASSETS_FILENAME_PATTERN = '**/{assets*.xml,*.include.xml,templates.xml,tests/*-input.xml,tests/*-expectation.xml,gui/texts_*.xml,.modcache/*-patched.xml,export.bin.xml,*.fc.xml,*.cfg.xml}';
 export const PATCH_FILENAME_PATTERN_STRICT = '**/{assets*.xml,*.include.xml,export.bin.xml,*.fc.xml,*.cfg.xml}';
 
@@ -18,6 +19,59 @@ export interface IAsset {
     line: number;
   }
   baseAsset?: string;
+}
+
+export function uniqueAssetName(asset?: IAsset) {
+  if (!asset) {
+    return ''
+  }
+
+  if (!asset.english) {
+    if (!asset.name) {
+      return asset.guid;
+    }
+    return asset.name;
+  }
+
+  if (!asset.name) {
+    return asset.english;
+  }
+
+  if (asset.template === "ItemEffectTargetPool") {
+    // some templates are usually more descriptive in their name field
+    return asset.name;
+  }
+
+  const english = asset.english.toLowerCase();
+  const name = asset.name.toLowerCase();
+
+  if (english === name) {
+    return asset.english;
+  }
+
+  if (name.startsWith(english)) {
+    return asset.name;
+  }
+
+  return asset.english;
+
+  // return `${asset.english} (${asset.name})`;
+}
+
+export function assetNameWithOrigin(asset: IAsset | undefined, excludeMod?: string) {
+  if (!asset) {
+    return '??';
+  }
+
+  let text: string = asset.english ?? asset.name ?? "";
+  if (excludeMod && asset.modName && excludeMod !== asset.modName) {
+    text += ` (${asset.template ?? "?"}, ${asset.modName})`;
+  }
+  else {
+    text += ` (${asset.template ?? "?"})`;
+  }
+
+  return text;
 }
 
 export interface IPositionedElement {

@@ -5,7 +5,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as editorUtils from '../../other/editorUtils';
 import * as utils from '../../other/utils';
-import { ModFolder } from '../../other/modFolder';
+import { ModRegistry } from '../../other/modRegistry';
 
 let _originalPath: string;
 let _patchPath: string;
@@ -142,11 +142,12 @@ export class PatchTester {
 
     const maxBuffer = 50;
 
+    ModRegistry.use(this._modsFolder);
     patchFilePath = patchFilePath.replace(/\\/g, '/');
     const annomod = utils.readModinfo(modPath);
     let prepatch = annomod?.getRequiredLoadAfterIds(annomod?.modinfo).map(e => ['-p', e]) ?? [];
     if (prepatch && this._modsFolder) {
-      prepatch = prepatch.map((e: string[]) => [ e[0], ModFolder.getModFolder(this._modsFolder!, e[1]) ?? "" ]).filter((e: string[]) => e[1] && e[1] !== "");
+      prepatch = prepatch.map((e: string[]) => [ e[0], ModRegistry.getPath(e[1]) ?? "" ]).filter((e: string[]) => e[1] && e[1] !== "");
     }
 
     try {

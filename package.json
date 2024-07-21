@@ -2,7 +2,7 @@
 	"name": "anno-modding-tools",
 	"displayName": "Anno Modding Tools",
 	"description": "Modding tools for Anno 1800",
-	"version": "1.13.5",
+	"version": "1.14.0",
 	"publisher": "JakobHarder",
 	"repository": {
 		"type": "git",
@@ -169,6 +169,14 @@
 			{
 				"command": "anno-modding-tools.addMissingLoca",
 				"title": "Anno: Update Missing Text from English"
+			},
+			{
+				"command": "anno-modding-tools.incrementAutoGuid",
+				"title": "Anno: Increment Auto GUID"
+			},
+			{
+				"command": "anno-modding-tools.importLoca",
+				"title": "Anno: Import Translations into Workspace"
 			}
 		],
 		"menus": {
@@ -191,6 +199,62 @@
 				},
 				{
 					"command": "anno-modding-tools.addMissingLoca",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.incrementAutoGuid",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.importProps",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.importInfo",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.importFeedback",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.convertRdmToGlb",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.convertGltfToRdm",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.rdpToXml",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.rdpToSimplified",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.xmlToRdp",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.cfgyamlToCfg",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.convertFcCf7",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.convertCf7Fc",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.pngToDds",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.ddsToPng",
 					"when": "false"
 				}
 			],
@@ -345,6 +409,12 @@
 					"default": 80,
 					"markdownDescription": "Threshold to highlight ModOp times in warning color (milliseconds).",
 					"scope": "resource"
+				},
+				"anno.autoGuid": {
+					"type": "number",
+					"markdownDescription": "Use automatically increasing GUIDs. Enter next free number.",
+					"minimum": 0,
+					"scope": "resource"
 				}
 			}
 		}
@@ -365,6 +435,8 @@
 	"scripts": {
 		"download": "bash -c '(cd external; ./download.sh)'",
 		"vscode:prepublish": "webpack --mode production",
+		"t-compile": "tsc -p ./",
+		"t-watch": "tsc -watch -p ./",
 		"compile": "webpack --mode none",
 		"watch": "webpack --mode none --watch",
 		"pretest": "tsc -p ./ && npm run lint",
@@ -379,18 +451,18 @@
 		"@types/glob": "^7.1.4",
 		"@types/mocha": "^9.0.0",
 		"@types/node": "14.x",
-		"@types/vscode": "^1.60.0",
+		"@types/vscode": "^1.70.0",
 		"@types/xml2js": "^0.4.9",
 		"@types/xmldoc": "^1.1.6",
-		"@typescript-eslint/eslint-plugin": "^4.31.1",
-		"@typescript-eslint/parser": "^4.31.1",
+		"@typescript-eslint/eslint-plugin": "^7.14.0",
+		"@typescript-eslint/parser": "^7.14.0",
 		"@vscode/test-electron": "^2.3.8",
-		"eslint": "^7.32.0",
+		"eslint": "^8.26.0",
 		"mocha": "^9.1.1",
 		"ts-loader": "^9.2.6",
-		"typescript": "^4.4.3",
+		"typescript": "^5.5.2",
 		"webpack": "^5.58.1",
-		"webpack-cli": "^4.9.0"
+		"webpack-cli": "^5.1.4"
 	},
 	"dependencies": {
 		"@types/js-yaml": "^4.0.3",

@@ -4,7 +4,7 @@ import * as child from 'child_process';
 import * as glob from 'glob';
 import * as logger from './logger';
 import * as utils from '../other/utils';
-import { ModFolder } from './modFolder';
+import { ModRegistry } from './modRegistry';
 
 export function test(testFolder: string, modFolder: string, patchFile: string, asAbsolutePath: (relative: string) => string, tempFolder: string) {
   const tester = asAbsolutePath("./external/xmltest.exe");
@@ -113,7 +113,7 @@ export function fetchIssues(vanillaXml: string, modPath: string, mainPatchFile: 
     let prepatch = annomod?.getRequiredLoadAfterIds(annomod?.modinfo).map(e => ['-p', e]) ?? [];
 
     if (prepatch && modsFolder) {
-      prepatch = prepatch.map((e: string[]) => [ e[0], ModFolder.getModFolder(modsFolder, e[1]) ?? "" ]).filter((e: string[]) => e[1] && e[1] !== "");
+      prepatch = prepatch.map((e: string[]) => [ e[0], ModRegistry.getModFolder(modsFolder, e[1]) ?? "" ]).filter((e: string[]) => e[1] && e[1] !== "");
     }
 
     const maxBuffer = 20;
