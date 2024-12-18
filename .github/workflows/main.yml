@@ -20,8 +20,7 @@ jobs:
           node-version: '16'
       - name: install dependencies
         run: |
-          npm install vsce -g
-          npm install .
+          npm install . --include=dev
           npm run download
       - name: get package version
         id: package-version
