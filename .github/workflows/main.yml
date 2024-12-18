@@ -33,13 +33,13 @@ jobs:
       - name: test 
         run: npm run test
       - name: upload extension
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: anno-modding-tools-${{ steps.package-version.outputs.version }}
           path: anno-modding-tools-${{ steps.package-version.outputs.version }}.vsix
           if-no-files-found: error
       - name: upload command line tool
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: anno-modding-tools-${{ steps.package-version.outputs.version }}
           path: anno-modding-tools-${{ steps.package-version.outputs.version }}.tgz
