@@ -6,6 +6,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## 1.14 Quality of Life Updates
 
+- 1.14.1: Include *.lua in deployment
 - Improved GUID performance and completeness of annotations from other mods
 - Separate entries for each `GUID` in outline
 - Auto incrementing GUID. Configure `autoGuid`, hit `Ctrl+Space` and type `newguid`.
