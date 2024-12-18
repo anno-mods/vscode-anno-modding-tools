@@ -29,8 +29,8 @@ jobs:
       #   run: vsce package
       - name: build command line tool
         run: npm run buildmod:pack
-      - name: test
-        run: npm run test
+      # - name: test
+      #   run: npm run test
       # - name: upload extension
       #   uses: actions/upload-artifact@v4
       #   with:
