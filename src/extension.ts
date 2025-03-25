@@ -3,7 +3,7 @@ import CfgDocumentSymbolProvider from './features/outline/cfgSymbolProvider';
 import { registerGuidUtilsProvider } from './features/guidUtilsProvider';
 import * as dds from './other/dds';
 import * as rdp from './other/rdp';
-import { AssetsSymbolProvider } from './features/outline/assetsSymbolProvider';
+import { AssetsSymbolProvider } from './features/outline/assetsOutlineProvider';
 import { AssetsActionProvider } from './features/assetsActionProvider';
 import * as AssetsDecorator from './features/assetsDecorator';
 import * as AssetsWorkspaceSymbolProvider from './features/assetsSymbolProvider';

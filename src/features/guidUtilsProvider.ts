@@ -1,12 +1,13 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
-import * as minimatch from 'minimatch';
 import { AssetsTocProvider } from './outline/assetsTocProvider';
 import { AssetsDocument, ASSETS_FILENAME_PATTERN, IAsset } from '../other/assetsXml';
 import { SymbolRegistry } from '../other/symbolRegistry';
 import { AllGuidCompletionItems, GuidCompletionItems } from './guidCompletionItems';
 import { ModRegistry } from '../other/modRegistry';
 import { GuidCounter } from './guidCounter';
+import * as editorFormats from '../editor/formats';
+import * as editorDocument from '../editor/assetsDocument';
 
 let assetsDocument: AssetsDocument | undefined;
 
@@ -168,7 +169,8 @@ function findKeywordAtPosition(document: vscode.TextDocument, position: vscode.P
 
   let parent = undefined;
   if (position.line > 0) {
-    parent = new AssetsTocProvider(document).getParentPath(position.line, position.character);
+    // TODO: parsing the whole document is unnecessary expensive
+    parent = new AssetsTocProvider(new editorDocument.AssetsDocument(document)).getParentPath(position.line, position.character);
   }
 
   return {
@@ -243,7 +245,7 @@ async function loadKeywordHelp(context: vscode.ExtensionContext) {
 
 let _customCompletionItems: GuidCompletionItems | undefined = undefined;
 export function refreshCustomAssets(document: vscode.TextDocument | undefined): void {
-  if (!document || !minimatch(document.fileName, ASSETS_FILENAME_PATTERN, { dot: true })
+  if (!document || !editorFormats.isAnnoXml(document)
     || document.uri.scheme === 'annoasset'
     || document.uri.scheme === 'annodiff') {
     // _customAssets = undefined;
@@ -251,20 +253,7 @@ export function refreshCustomAssets(document: vscode.TextDocument | undefined): 
     return;
   }
 
-  if (fs.existsSync(document.fileName) && fs.statSync(document.fileName).size > 1024 * 1024 * 20) {
-    // ignore files above 20MB
-    return;
-  }
-
-  if (document.lineCount > 100000) {
-    // ignore 100k+ lines
-    return;
-  }
   const text = document.getText();
-  if (text.length > 1024 * 1024 * 20) {
-    // ignore 20MB+ files
-    return;
-  }
 
   // Don't clear completion items anymore
   // _customCompletionItems = new GuidCompletionItems();

@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import * as xmldoc from 'xmldoc';
 import { uniqueAssetName} from '../../other/assetsXml';
 import { SymbolRegistry } from '../../other/symbolRegistry';
+import { AssetsDocument } from '../../editor/assetsDocument';
 
 export interface TocEntry {
   text: string;
@@ -29,15 +30,16 @@ export interface SkinnyTextDocument {
 
 export class AssetsTocProvider {
   private toc?: TocEntry[];
+  private _doc: AssetsDocument;
 
-  public constructor(
-    private document: SkinnyTextDocument
-  ) { }
+  public constructor(doc: AssetsDocument) {
+    this._doc = doc;
+  }
 
   public getToc(): TocEntry[] {
     if (!this.toc) {
       try {
-        this.toc = this._buildToc(this.document);
+        this.toc = this._buildToc();
       } catch (e) {
         this.toc = [];
       }
@@ -47,7 +49,7 @@ export class AssetsTocProvider {
 
   public getParentPath(line: number, position: number): string {
     try {
-      return this._getParentPath(this.document, line, position);
+      return this._getParentPath(this._doc.xml, line, position);
     } catch (e) {
       return '';
     }
@@ -139,7 +141,7 @@ export class AssetsTocProvider {
     return line;
   }
 
-  private _buildToc(document: SkinnyTextDocument): TocEntry[] {
+  private _buildToc(): TocEntry[] {
     let toc: TocEntry[] = [];
 
     const relevantSections: { [index: string]: any } = {
@@ -155,15 +157,7 @@ export class AssetsTocProvider {
     let sectionComment: string | undefined = 'ModOps';
     let groupComment: string | undefined;
 
-    let xmlContent;
-    try {
-      xmlContent = new xmldoc.XmlDocument(document.getText());
-    }
-    catch (exception) {
-      return [];
-    }
-
-    const nodeStack: { depth: number, element: xmldoc.XmlNode }[] = [{ depth: 0, element: xmlContent }];
+    const nodeStack: { depth: number, element: xmldoc.XmlNode }[] = [{ depth: 0, element: this._doc.xml }];
     for (let top = nodeStack.pop(); top; top = nodeStack.pop()) {
       if (top.element.type === 'comment') {
         let comment = top.element.comment.trim();
@@ -181,13 +175,13 @@ export class AssetsTocProvider {
       else if (top.element.type === 'element') {
         // open ModOp section
         if (sectionComment && relevantSections[top.element.name]) {
-          const line = this._findCommentUp(document, top.element.line, sectionComment);
+          const line = this._findCommentUp(this._doc.document, top.element.line, sectionComment);
           toc.push({
             text: sectionComment,
             detail: '',
             level: top.depth - 1,
             line,
-            location: new vscode.Location(document.uri,
+            location: new vscode.Location(this._doc.uri,
               new vscode.Range(line, 0, line, 1)),
             symbol: vscode.SymbolKind.Package
           });
@@ -208,7 +202,7 @@ export class AssetsTocProvider {
         if (tocRelevant && children.length >= tocRelevant.minChildren) {
           // TODO tagStartColumn is 0 for multiline tags, not correct but ...
           const tagStartColumn = Math.max(0, top.element.column - top.element.position + top.element.startTagPosition - 1);
-          const line = (groupComment && top.element.name === 'Group') ? this._findCommentUp(document, top.element.line, groupComment) : top.element.line;
+          const line = (groupComment && top.element.name === 'Group') ? this._findCommentUp(this._doc.document, top.element.line, groupComment) : top.element.line;
 
           const multiModOpCount = this._getMultiModOpCount(top.element);
           toc.push({
@@ -217,7 +211,7 @@ export class AssetsTocProvider {
             level: top.depth,
             line,
             guid: this._getSymbol(top.element),
-            location: new vscode.Location(document.uri,
+            location: new vscode.Location(this._doc.uri,
               new vscode.Range(line, tagStartColumn, line, top.element.column)),
             symbol: relevantSections[top.element.name]?.symbol ?? vscode.SymbolKind.String
           });
@@ -229,30 +223,13 @@ export class AssetsTocProvider {
               level: top.depth,
               line,
               guid: this._getSymbol(top.element, index),
-              location: new vscode.Location(document.uri,
+              location: new vscode.Location(this._doc.uri,
                 new vscode.Range(line, tagStartColumn, line, top.element.column)),
               symbol: relevantSections[top.element.name]?.symbol ?? vscode.SymbolKind.String
             });
           }
         }
         groupComment = undefined;
-        // else if (!tocRelevant && top.depth === 2) {
-        //   // ModOps that are not Assets
-        //   if (!toc[toc.length - 1].children) {
-        //     toc[toc.length - 1].children = [];
-        //   }
-
-        //   let name: string | undefined = top.element.name;
-        //   if (name === 'Item') {
-        //     name = top.element.valueWithPath('Product') || top.element.valueWithPath('Building') || top.element.valueWithPath('GUID');
-        //     if (name) {
-        //       const resolved = guidUtils.resolveGUID(name);
-        //       name = resolved?.name;
-        //     }
-        //   }
-
-        //   toc[toc.length - 1].children?.push(name || 'Item');
-        // }
       }
       else {
         // ignore
@@ -291,13 +268,13 @@ export class AssetsTocProvider {
           break;
         }
       }
-      const endLine = end ?? document.lineCount - 1;
+      const endLine = end ?? this._doc.document.lineCount - 1;
       return {
         ...entry,
-        location: new vscode.Location(document.uri,
+        location: new vscode.Location(this._doc.uri,
           new vscode.Range(
             entry.location.range.start,
-            new vscode.Position(endLine, document.lineAt(endLine).text.length)))
+            new vscode.Position(endLine, this._doc.document.lineAt(endLine).text.length)))
       };
     });
   }
@@ -331,8 +308,7 @@ export class AssetsTocProvider {
     return toc;
   }
 
-  private _getParentPath(document: SkinnyTextDocument, line: number, position: number): string {
-    const xmlContent = new xmldoc.XmlDocument(document.getText());
+  private _getParentPath(xmlContent: xmldoc.XmlDocument, line: number, position: number): string {
     const nodeStack: { history: string[], element: xmldoc.XmlNode }[] = [{ history: [], element: xmlContent }];
     while (nodeStack.length > 0) {
       const top = nodeStack.pop();

@@ -2,6 +2,7 @@ import * as assert from 'assert';
 import * as vscode from 'vscode';
 
 import { AssetsTocProvider, SkinnyTextDocument } from '../../features/outline/assetsTocProvider';
+import { AssetsDocument } from '../../editor/assetsDocument';
 
 const text = `<ModOps>
   <ModOp Type="add">
@@ -32,7 +33,7 @@ suite('outline tests', () => {
       }
     };
 
-    const provider = new AssetsTocProvider(textDocument);
+    const provider = new AssetsTocProvider(new AssetsDocument(textDocument));
     const toc = provider.getToc();
 
     assert.strictEqual(toc[1].text, "add");
@@ -62,7 +63,7 @@ suite('outline tests', () => {
       }
     };
 
-    const provider = new AssetsTocProvider(textDocument);
+    const provider = new AssetsTocProvider(new AssetsDocument(textDocument));
     const toc = provider.getToc();
 
     assert.strictEqual(toc[0].text, "Section 1");
@@ -95,7 +96,7 @@ suite('outline tests', () => {
       }
     };
 
-    const provider = new AssetsTocProvider(textDocument);
+    const provider = new AssetsTocProvider(new AssetsDocument(textDocument));
     const toc = provider.getToc();
 
     assert.strictEqual(toc[0].text, "Lists");

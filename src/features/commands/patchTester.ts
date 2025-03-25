@@ -3,7 +3,7 @@ import * as child from 'child_process';
 import * as channel from '../channel';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as editorUtils from '../../other/editorUtils';
+import * as editorUtils from '../../editor/utils';
 import * as utils from '../../other/utils';
 import * as modMetaInfo from '../../other/modMetaInfo';
 import { ModRegistry } from '../../other/modRegistry';

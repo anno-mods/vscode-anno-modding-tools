@@ -1,10 +1,10 @@
 import * as vscode from 'vscode';
-import * as minimatch from 'minimatch';
 import { resolveGUID, getAllCustomSymbols } from './guidUtilsProvider';
 import { ASSETS_FILENAME_PATTERN } from '../other/assetsXml';
 import * as channel from './channel';
 import * as path from 'path';
 import * as child from 'child_process';
+import * as editorFormats from '../editor/formats';
 
 let context_: vscode.ExtensionContext;
 
@@ -37,7 +37,7 @@ export class WorkspaceSymbolProvider implements vscode.WorkspaceSymbolProvider {
   public async provideWorkspaceSymbols(search: string, token: vscode.CancellationToken): Promise<vscode.SymbolInformation[]> {
     const matchingSymbols = getAllCustomSymbols();
     let result: vscode.SymbolInformation[] = [];
-    
+
     for (const symbol of matchingSymbols) {
       if (symbol.location) {
         result.push(
@@ -56,11 +56,10 @@ export class WorkspaceSymbolProvider implements vscode.WorkspaceSymbolProvider {
 
 export class DefinitionProvider implements vscode.DefinitionProvider {
   public provideDefinition(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): vscode.ProviderResult<vscode.Definition | vscode.LocationLink[]> {
-    if (document.lineCount > 10000 || !minimatch(document.fileName, ASSETS_FILENAME_PATTERN, { dot: true })) {
-      // ignore large files and non-assets.xmls
+    if (!editorFormats.isAnnoXml(document)) {
       return;
     }
-    
+
     const word = document.getWordRangeAtPosition(position);
     const text = document.getText(word);
 
