@@ -103,8 +103,7 @@ export function refreshDiagnostics(context: vscode.ExtensionContext, doc: vscode
   }
 
   if (editorFormats.allowLiveValidation(doc)) {
-    const performance: vscode.DecorationOptions[] = [];
-    runXmlTest(context, doc, diagnostics, performance);
+    const performance = runXmlTest(context, doc, diagnostics);
     vscode.window.activeTextEditor?.setDecorations(performanceDecorationType, performance);
   }
 
@@ -112,8 +111,9 @@ export function refreshDiagnostics(context: vscode.ExtensionContext, doc: vscode
 }
 
 function runXmlTest(context: vscode.ExtensionContext, doc: vscode.TextDocument,
-  result: vscode.Diagnostic[],
-  decorations: vscode.DecorationOptions[]) {
+  result: vscode.Diagnostic[]): vscode.DecorationOptions[] {
+
+  const decorations: vscode.DecorationOptions[] = [];
 
   let modPath = utils.findModRoot(doc.fileName);
   let mainAssetsXml = editorFormats.isAssetsXml(doc) ? utils.getAssetsXmlPath(modPath) : doc.fileName;
@@ -165,6 +165,8 @@ function runXmlTest(context: vscode.ExtensionContext, doc: vscode.TextDocument,
       }
     }
   }
+
+  return decorations;
 }
 
 function createDiagnostic(doc: vscode.TextDocument, lineOfText: vscode.TextLine, lineIndex: number): vscode.Diagnostic {

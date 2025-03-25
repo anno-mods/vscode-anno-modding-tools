@@ -145,33 +145,39 @@ export function activate(context: vscode.ExtensionContext) {
       timeout = undefined;
     }
     if (throttle) {
-      timeout = setTimeout(performance ? updateAssetAndPerformanceDecorations : updateDecorations, 500);
-    } else {
-      updateAssetAndPerformanceDecorations();
+      timeout = setTimeout(performance ? updateAssetAndPerformanceDecorations : updateDecorations,
+        2000 /* ms */);
+    } else if (performance) {
+      timeout = setTimeout(updateAssetAndPerformanceDecorations,
+        100 /* ms */);
+    }
+    else {
+      updateDecorations();
     }
   }
 
   if (activeEditor) {
-    triggerUpdateDecorations();
+    triggerUpdateDecorations(true, true);
   }
 
   vscode.window.onDidChangeActiveTextEditor(editor => {
     activeEditor = editor;
     if (editor) {
-      triggerUpdateDecorations();
-    }
-  }, null, context.subscriptions);
-
-  vscode.workspace.onDidChangeTextDocument(event => {
-    if (activeEditor && event.document === activeEditor.document) {
-      triggerUpdateDecorations(true);
       clearPerformanceDecorations();
+      triggerUpdateDecorations(false, true);
     }
   }, null, context.subscriptions);
 
-  vscode.workspace.onDidSaveTextDocument(event => {
+  vscode.workspace.onDidChangeTextDocument(async (event) => {
+    if (activeEditor && event.document === activeEditor.document) {
+      clearPerformanceDecorations();
+      triggerUpdateDecorations(true, false);
+    }
+  }, null, context.subscriptions);
+
+  vscode.workspace.onDidSaveTextDocument(async (event) => {
     if (activeEditor) {
-      triggerUpdateDecorations(true, true);
+      triggerUpdateDecorations(false, true);
     }
   }, null, context.subscriptions);
 }
