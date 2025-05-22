@@ -48,7 +48,8 @@ Additionally, auto completion and other XML features work only in combination wi
 
 Go into `File` > `Preferences` > `Settings...` and search for `anno` and configure the following:
 
-- `Anno: Rda Folder`: Path with RDA data extracted (mostly `assets.xml` is used).
+- `Anno: Rda Folder`: Path with RDA data extracted (mostly `assets.xml` is used).  
+  (Note: If you have the files in `C:\moddingstuff\\data\config\export\main\asset\assets.xml` , then your path you enter here is `C:\moddingstuff`)
 - `Anno: Mods Folder`: Path to your `Anno 1800/mods/` folder to deploy and find dependencies.
 
 If you have the Red Hat XML plugin installed, search for `xml file associations` and add the following pattern:
