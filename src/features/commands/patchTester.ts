@@ -33,84 +33,88 @@ export class PatchTester {
     })();
 
     const disposable = [
-      vscode.commands.registerCommand('anno-modding-tools.patchCheckDiff', async (fileUri) => {
-        if (!await editorUtils.ensureRdaFolderSettingAsync('rdaFolder', fileUri)) {
-          return;
-        }
-
-        const modPath = utils.findModRoot(fileUri.fsPath);
-        const vanillaAssetsFilePath = editorUtils.getVanilla(fileUri.fsPath, modPath);
-        if (!vanillaAssetsFilePath) {
-          return;
-        }
-
-        let modInfo: modMetaInfo.ModMetaInfo | undefined;
-        
-        let patchFilePath = fileUri.fsPath;
-        if (path.basename(patchFilePath) === 'modinfo.json') {
-          modInfo = modMetaInfo.ModMetaInfo.read(patchFilePath);
-          if (!modInfo || modInfo.game === utils.GameVersion.Auto) {
-            vscode.window.showWarningMessage(`modinfo.json contains errors. Please fix and check the version field, e.g. '"Anno": 8'.`);
-            return;
-          }
-
-          patchFilePath = utils.getAssetsXmlPath(path.dirname(patchFilePath), modInfo?.game);
-        }
-
-        if (!fs.existsSync(patchFilePath)) {
-          vscode.window.showWarningMessage(`No assets.xml to compare.\n\nThere is no file at: '${patchFilePath}'`);
-          return;
-        }
-
-        // TODO cache with checksum?
-        _originalPath = vanillaAssetsFilePath;
-        _patchPath = patchFilePath;
-        _patch = "";
-        _reload = true;
-
-        const timestamp = Date.now();
-        channel.show();
-        vscode.commands.executeCommand('vscode.diff',
-          vscode.Uri.parse('annodiff:' + _originalPath + '?original#' + timestamp),
-          vscode.Uri.parse('annodiff:' + _patchPath + '?patch#' + timestamp),
-          'Anno Diff: Original ↔ Patched');
-      }),
-      vscode.commands.registerCommand('anno-modding-tools.selectionCheckDiff', async (fileUri) => {
-        if (!await editorUtils.ensureRdaFolderSettingAsync('rdaFolder', fileUri)) {
-          return;
-        }
-
-        const vanillaAssetsFilePath = editorUtils.getVanilla(fileUri.fsPath);
-        if (!vanillaAssetsFilePath) {
-          return;
-        }
-
-        const editor = vscode.window.activeTextEditor;
-        if (!editor) {
-          return;
-        }
-
-        // TODO cache with checksum?
-        _originalPath = vanillaAssetsFilePath;
-        _patchPath = fileUri.fsPath;
-
-        _patch = editorUtils.getSelectedModOps(editor.document, editor.selection);
-        _reload = true;
-
-        _patch = _patch.replace(/<\/?ModOps>/g, '');
-
-        const timestamp = Date.now();
-        channel.show();
-        vscode.commands.executeCommand('vscode.diff',
-          vscode.Uri.parse('annodiff:' + _originalPath + '?original#' + timestamp),
-          vscode.Uri.parse('annodiff:' + _patchPath + '?patch#' + timestamp),
-          'Anno Diff: Original ↔ Patched');
-      }),
+      vscode.commands.registerCommand('anno-modding-tools.showFileDiff', PatchTester.showFileDiff),
+      vscode.commands.registerCommand('anno-modding-tools.showSelectionDiff', PatchTester.showSelectionDiff),
       vscode.workspace.registerTextDocumentContentProvider("annodiff", annodiffContentProvider)
     ];
 
     return disposable;
 	}
+
+  static async showFileDiff(fileUri: any) {
+    if (!await editorUtils.ensureRdaFolderSettingAsync('rdaFolder', fileUri)) {
+      return;
+    }
+
+    const modPath = utils.findModRoot(fileUri.fsPath);
+    const vanillaAssetsFilePath = editorUtils.getVanilla(fileUri.fsPath, modPath);
+    if (!vanillaAssetsFilePath) {
+      return;
+    }
+
+    let modInfo: modMetaInfo.ModMetaInfo | undefined;
+    
+    let patchFilePath = fileUri.fsPath;
+    if (path.basename(patchFilePath) === 'modinfo.json') {
+      modInfo = modMetaInfo.ModMetaInfo.read(patchFilePath);
+      if (!modInfo || modInfo.game === utils.GameVersion.Auto) {
+        vscode.window.showWarningMessage(`modinfo.json contains errors. Please fix and check the version field, e.g. '"Anno": 8'.`);
+        return;
+      }
+
+      patchFilePath = utils.getAssetsXmlPath(path.dirname(patchFilePath), modInfo?.game);
+    }
+
+    if (!fs.existsSync(patchFilePath)) {
+      vscode.window.showWarningMessage(`No assets.xml to compare.\n\nThere is no file at: '${patchFilePath}'`);
+      return;
+    }
+
+    // TODO cache with checksum?
+    _originalPath = vanillaAssetsFilePath;
+    _patchPath = patchFilePath;
+    _patch = "";
+    _reload = true;
+
+    const timestamp = Date.now();
+    channel.show();
+    vscode.commands.executeCommand('vscode.diff',
+      vscode.Uri.parse('annodiff:' + _originalPath + '?original#' + timestamp),
+      vscode.Uri.parse('annodiff:' + _patchPath + '?patch#' + timestamp),
+      'Anno Diff: Original ↔ Patched');
+  }
+
+  static async showSelectionDiff(fileUri: any) {
+    if (!await editorUtils.ensureRdaFolderSettingAsync('rdaFolder', fileUri)) {
+      return;
+    }
+
+    const vanillaAssetsFilePath = editorUtils.getVanilla(fileUri.fsPath);
+    if (!vanillaAssetsFilePath) {
+      return;
+    }
+
+    const editor = vscode.window.activeTextEditor;
+    if (!editor) {
+      return;
+    }
+
+    // TODO cache with checksum?
+    _originalPath = vanillaAssetsFilePath;
+    _patchPath = fileUri.fsPath;
+
+    _patch = editorUtils.getSelectedModOps(editor.document, editor.selection);
+    _reload = true;
+
+    _patch = _patch.replace(/<\/?ModOps>/g, '');
+
+    const timestamp = Date.now();
+    channel.show();
+    vscode.commands.executeCommand('vscode.diff',
+      vscode.Uri.parse('annodiff:' + _originalPath + '?original#' + timestamp),
+      vscode.Uri.parse('annodiff:' + _patchPath + '?patch#' + timestamp),
+      'Anno Diff: Original ↔ Patched');
+  }
 
   static reload(context: vscode.ExtensionContext) {
     if (_reload) {
