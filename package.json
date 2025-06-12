@@ -382,7 +382,7 @@
 				"anno.rdaFolder": {
 					"type": "string",
 					"format": "uri",
-					"markdownDescription": "Folder containing extracted RDA data. Used to compare unpatched vs patched `assets.xml` and `cfg.yaml` to `cfg` conversion. E.g. `c:\\anno\\all-rda`",
+					"markdownDescription": "Path to extracted RDA data.\nIt is used for compare and live error features.\n\nUse `c:\\anno\\all-rda` if you have `c:\\anno\\all-rda\\data\\config\\export\\main\\asset\\assets.xml` (Anno 1800) or `c:\\anno\\all-rda\\data\\base\\config\\export\\assets.xml` (Anno 117).",
 					"scope": "resource"
 				},
 				"anno.outlineFolderDepth": {

@@ -33,7 +33,7 @@ export class PatchTester {
 
     const disposable = [
       vscode.commands.registerCommand('anno-modding-tools.patchCheckDiff', async (fileUri) => {
-        if (!await editorUtils.ensurePathSettingAsync('rdaFolder', fileUri)) {
+        if (!await editorUtils.ensureRdaFolderSettingAsync('rdaFolder', fileUri)) {
           return;
         }
 
@@ -67,7 +67,7 @@ export class PatchTester {
           'Anno Diff: Original ↔ Patched');
       }),
       vscode.commands.registerCommand('anno-modding-tools.selectionCheckDiff', async (fileUri) => {
-        if (!await editorUtils.ensurePathSettingAsync('rdaFolder', fileUri)) {
+        if (!await editorUtils.ensureRdaFolderSettingAsync('rdaFolder', fileUri)) {
           return;
         }
 

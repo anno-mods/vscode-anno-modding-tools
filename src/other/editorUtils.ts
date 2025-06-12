@@ -116,6 +116,26 @@ export async function ensurePathSettingAsync(pathSetting: string, fileUri?: vsco
   return true;
 }
 
+export async function ensureRdaFolderSettingAsync(pathSetting: string, fileUri?: vscode.Uri) {
+  const config = vscode.workspace.getConfiguration('anno', fileUri);
+  const annoMods: string | undefined = config.get(pathSetting);
+
+  const validPath = annoMods && fs.existsSync(annoMods);
+  const anno8 = validPath && fs.existsSync(path.join(annoMods, utils.ANNO8_ASSETS_PATH));
+  const anno7 = validPath && fs.existsSync(path.join(annoMods, utils.ANNO7_ASSETS_PATH));
+
+  if (!validPath || (!anno7 && !anno8)) {
+    const goSettings = 'Change Settings';
+    const chosen = await vscode.window.showErrorMessage("Your `" + pathSetting + "` is not set up correctly.\n\nIt does not contain `" + utils.ANNO8_ASSETS_PATH + "` or `" + utils.ANNO7_ASSETS_PATH + "`.", goSettings);
+    if (chosen === goSettings) {
+      vscode.commands.executeCommand('workbench.action.openSettings', 'anno.' + pathSetting);
+    }
+    return false;
+  }
+
+  return true;
+}
+
 export function getVanilla(filePath: string, modRoot?: string) {
   const config = vscode.workspace.getConfiguration('anno', vscode.Uri.file(filePath));
   const annoRda: string = config.get('rdaFolder') || "";
