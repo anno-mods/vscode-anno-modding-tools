@@ -1,8 +1,6 @@
-# Modding Tools for Anno 1800
+# Modding Tools for Anno
 
-This project is not affiliated in any way with Ubisoft.
-
-Anno 1800 is a trademark of Ubisoft Entertainment in the US and/or other countries. Anno is a trademark of Ubisoft GmbH in the US and/or other countries.
+Tools to create mods for Anno 1800 and Anno 117: Pax Romana.
 
 ## Feature Overview
 
@@ -256,6 +254,8 @@ variant:
 ---
 
 ## Credits
+
+Anno is a trademark of Ubisoft Entertainment in the US and/or other countries.
 
 A big thanks goes to the external projects I'm using for this extension:
 

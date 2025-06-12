@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as channel from '../features/channel';
+import * as utils from './utils';
 import glob = require('glob');
 
 export function getTagCloseAt(doc: vscode.TextDocument, position: vscode.Position) {
@@ -120,13 +120,16 @@ export function getVanilla(filePath: string, modRoot?: string) {
   const config = vscode.workspace.getConfiguration('anno', vscode.Uri.file(filePath));
   const annoRda: string = config.get('rdaFolder') || "";
 
+  const anno8 = fs.existsSync(path.join(annoRda, 'data/base/config'));
+  const basePath = anno8 ? utils.ANNO8_ASSETS_PATH : utils.ANNO7_ASSETS_PATH;
+
   const basename = path.basename(filePath, path.extname(filePath));
   let vanillaPath = '';
   if (filePath.endsWith('export.bin.xml')) {
     vanillaPath = path.join(annoRda, 'data/infotips/export.bin');
   }
   else if (basename.indexOf("templates") >= 0) {
-    vanillaPath = path.join(annoRda, 'data/config/export/main/asset/templates.xml');
+    vanillaPath = path.join(annoRda, basePath, 'templates.xml');
   }
   else if (basename.indexOf("texts_") >= 0) {
     vanillaPath = path.join(annoRda, 'data/config/gui/' + basename + '.xml');
@@ -136,7 +139,7 @@ export function getVanilla(filePath: string, modRoot?: string) {
     vanillaPath = path.join(annoRda, relative.substring(0, relative.length - 4));
   }
   else {
-    vanillaPath = path.join(annoRda, 'data/config/export/main/asset/assets.xml');
+    vanillaPath = path.join(annoRda, basePath, 'assets.xml');
   }
 
   if (!fs.existsSync(vanillaPath)) {

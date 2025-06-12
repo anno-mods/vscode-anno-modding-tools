@@ -56,7 +56,7 @@ export class WorkspaceSymbolProvider implements vscode.WorkspaceSymbolProvider {
 
 export class DefinitionProvider implements vscode.DefinitionProvider {
   public provideDefinition(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): vscode.ProviderResult<vscode.Definition | vscode.LocationLink[]> {
-    if (document.lineCount > 10000 || !minimatch(document.fileName, ASSETS_FILENAME_PATTERN)) {
+    if (document.lineCount > 10000 || !minimatch(document.fileName, ASSETS_FILENAME_PATTERN, { dot: true })) {
       // ignore large files and non-assets.xmls
       return;
     }

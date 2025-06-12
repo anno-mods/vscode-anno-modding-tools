@@ -4,6 +4,9 @@ import glob = require('glob');
 import { ModRegistry } from './modRegistry';
 import * as child from 'child_process';
 
+export const ANNO7_ASSETS_PATH = "data/config/export/main/asset";
+export const ANNO8_ASSETS_PATH = "data/base/config/export";
+
 export function ensureDir(path: string) {
   if (!fs.existsSync(path)) {
     fs.mkdirSync(path, { recursive: true });
@@ -93,8 +96,8 @@ export function findModRoot(modFilePath: string) {
 
   for (let i = 0; i < 100 && searchPath && searchPath !== '/'; i++) {
     if (fs.existsSync(path.join(searchPath, "modinfo.json"))
-      || fs.existsSync(path.join(searchPath, "buildmod.json"))
-      || fs.existsSync(path.join(searchPath, "data/config/export/main/asset"))
+      || fs.existsSync(path.join(searchPath, ANNO7_ASSETS_PATH))
+      || fs.existsSync(path.join(searchPath, ANNO8_ASSETS_PATH))
       || fs.existsSync(path.join(searchPath, "data/config/gui"))) {
       return searchPath;
     }
@@ -129,13 +132,25 @@ export function isAssetsXml(path: string) {
 }
 
 export function getAssetsXmlPath(modPath: string) {
-  let filePath = path.join(modPath, 'data/config/export/main/asset/assets');
-  filePath += fs.existsSync(filePath + '_.xml') ? '_.xml' : '.xml';
-  if (!fs.existsSync(filePath)) {
-    return undefined;
+  let filePath = path.join(modPath, ANNO8_ASSETS_PATH, 'assets');
+  if (fs.existsSync(filePath + '_.xml')) {
+    return filePath + '_.xml';
+  }
+  else if (fs.existsSync(filePath + '.xml'))
+  {
+    return filePath + '.xml';
   }
 
-  return filePath;
+  filePath = path.join(modPath, ANNO7_ASSETS_PATH, 'assets');
+  if (fs.existsSync(filePath + '_.xml')) {
+    return filePath + '_.xml';
+  }
+  else if (fs.existsSync(filePath + '.xml'))
+  {
+    return filePath + '.xml';
+  }
+
+  return undefined;
 }
 
 interface IModinfo {

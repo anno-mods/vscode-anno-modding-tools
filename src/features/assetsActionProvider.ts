@@ -79,7 +79,7 @@ function checkRootTag(doc: vscode.TextDocument, tag: string): boolean {
 }
 
 export function refreshDiagnostics(context: vscode.ExtensionContext, doc: vscode.TextDocument, collection: vscode.DiagnosticCollection): void {
-  if (doc.lineCount > 10000 || !minimatch(doc.fileName, ASSETS_FILENAME_PATTERN)) {
+  if (doc.lineCount > 10000 || !minimatch(doc.fileName, ASSETS_FILENAME_PATTERN, { dot: true })) {
     // ignore large files and non-assets.xmls
     return;
   }
@@ -115,7 +115,7 @@ export function refreshDiagnostics(context: vscode.ExtensionContext, doc: vscode
     }
   }
 
-  if (minimatch(doc.fileName, PATCH_FILENAME_PATTERN_STRICT) && config.get('liveModopAnalysis.validate')) {
+  if (minimatch(doc.fileName, PATCH_FILENAME_PATTERN_STRICT, { dot: true }) && config.get('liveModopAnalysis.validate')) {
     const performance: vscode.DecorationOptions[] = [];
     runXmlTest(context, doc, diagnostics, performance);
     vscode.window.activeTextEditor?.setDecorations(performanceDecorationType, performance);
@@ -134,6 +134,9 @@ function runXmlTest(context: vscode.ExtensionContext, doc: vscode.TextDocument,
     modPath = path.dirname(doc.fileName);
     mainAssetsXml = doc.fileName;
   }
+
+  logger.log(mainAssetsXml);
+  logger.log(modPath);
 
   const config = vscode.workspace.getConfiguration('anno', doc.uri);
   const modsFolder: string | undefined = config.get('modsFolder');

@@ -44,7 +44,7 @@ export function activate(context: vscode.ExtensionContext) {
   };
 
   function refreshDiagnostics(doc: vscode.TextDocument, collection: vscode.DiagnosticCollection): void {
-    if (doc.lineCount > 10000 || !minimatch(doc.fileName, "**/*.cfg{,.yaml}")) {
+    if (doc.lineCount > 10000 || !minimatch(doc.fileName, "**/*.cfg{,.yaml}", { dot: true })) {
       // ignore large files and non-assets.xmls
       return;
     }
