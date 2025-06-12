@@ -11,12 +11,14 @@ export class ModMetaInfo {
   readonly id: string;
   readonly version: Version;
   readonly path: string;
+  readonly game: utils.GameVersion;
 
   /** filePath: modinfo.json or folder containing one */
   static read(filePath: string) : ModMetaInfo | undefined {
     let modPath: string | undefined;
     let id: string | undefined;
     let modInfo: any;
+    let game: utils.GameVersion = utils.GameVersion.Anno7;
 
     const fileName = path.basename(filePath);
     if (fileName.toLowerCase().endsWith(MODINFO_JSON)) {
@@ -37,6 +39,13 @@ export class ModMetaInfo {
       try {
         modInfo = JSON.parse(fs.readFileSync(modinfoPath, 'utf8'));
         id = modInfo?.ModID;
+        if (modInfo && modInfo.Anno === undefined && fs.existsSync(path.join(modPath, "data/base/config"))) {
+          // try to detect Anno8 if the file is valid but doesn't contain a version yet
+          game = utils.GameVersion.Anno8;
+        }
+        else {
+          game = (modInfo?.Anno === "8" || modInfo?.Anno === 8) ? utils.GameVersion.Anno8 : utils.GameVersion.Anno7;
+        }
       }
       catch {
         // silently ignore
@@ -47,13 +56,14 @@ export class ModMetaInfo {
       id = path.basename(modPath);
     }
 
-    return new ModMetaInfo(id, modPath, modInfo);
+    return new ModMetaInfo(id, modPath, modInfo, game);
   }
 
-  private constructor(id: string, path: string, modInfo: any) {
+  private constructor(id: string, path: string, modInfo: any, game: utils.GameVersion) {
     this.id = id;
     this.path = path;
     this.modInfo_ = modInfo;
+    this.game = game;
 
     this.version = new Version(this.modInfo_?.Version);
   }

@@ -135,9 +135,6 @@ function runXmlTest(context: vscode.ExtensionContext, doc: vscode.TextDocument,
     mainAssetsXml = doc.fileName;
   }
 
-  logger.log(mainAssetsXml);
-  logger.log(modPath);
-
   const config = vscode.workspace.getConfiguration('anno', doc.uri);
   const modsFolder: string | undefined = config.get('modsFolder');
   const warningThreshold: number = config.get('liveModopAnalysis.warningThreshold') ?? 0;

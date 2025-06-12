@@ -5,6 +5,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as editorUtils from '../../other/editorUtils';
 import * as utils from '../../other/utils';
+import * as modMetaInfo from '../../other/modMetaInfo';
 import { ModRegistry } from '../../other/modRegistry';
 
 let _originalPath: string;
@@ -43,13 +44,21 @@ export class PatchTester {
           return;
         }
 
+        let modInfo: modMetaInfo.ModMetaInfo | undefined;
+        
         let patchFilePath = fileUri.fsPath;
-        if (path.basename(patchFilePath) === 'annomod.json' || path.basename(patchFilePath) === 'modinfo.json') {
-          patchFilePath = this.getAssetsFromModinfo(patchFilePath);
+        if (path.basename(patchFilePath) === 'modinfo.json') {
+          modInfo = modMetaInfo.ModMetaInfo.read(patchFilePath);
+          if (!modInfo || modInfo.game === utils.GameVersion.Auto) {
+            vscode.window.showWarningMessage(`modinfo.json contains errors. Please fix and check the version field, e.g. '"Anno": 8'.`);
+            return;
+          }
+
+          patchFilePath = utils.getAssetsXmlPath(path.dirname(patchFilePath), modInfo?.game);
         }
 
         if (!fs.existsSync(patchFilePath)) {
-          vscode.window.showErrorMessage(`Cannot find '${patchFilePath}'`);
+          vscode.window.showWarningMessage(`No assets.xml to compare.\n\nThere is no file at: '${patchFilePath}'`);
           return;
         }
 
@@ -177,16 +186,6 @@ export class PatchTester {
       }
       channel.error((<Error>e).message);
       throw e;
-    }
-  }
-
-  static getAssetsFromModinfo(modinfoPath: string) {
-    const assetsFilePath = path.join(path.dirname(modinfoPath), 'data/config/export/main/asset/assets');
-    if (fs.existsSync(assetsFilePath + '_.xml')) {
-      return assetsFilePath + '_.xml';
-    }
-    else {
-      return assetsFilePath + '.xml';
     }
   }
 }
