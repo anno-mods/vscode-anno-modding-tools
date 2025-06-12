@@ -159,10 +159,6 @@
 				"title": "Anno: Compare Result with Vanilla"
 			},
 			{
-				"command": "anno-modding-tools.runTests",
-				"title": "Anno: Run Patch Tests"
-			},
-			{
 				"command": "anno-modding-tools.checkLoca",
 				"title": "Anno: Find Missing Text"
 			},
@@ -312,11 +308,6 @@
 					"command": "anno-modding-tools.cfgyamlToCfg"
 				},
 				{
-					"when": "resourceFilename == annomod.json",
-					"command": "anno-modding-tools.buildMod",
-					"group": "anno@3"
-				},
-				{
 					"when": "resourceFilename == modinfo.json",
 					"command": "anno-modding-tools.buildMod",
 					"group": "anno@3"
@@ -334,11 +325,6 @@
 					"command": "anno-modding-tools.patchCheckDiff"
 				},
 				{
-					"when": "resourceFilename == annomod.json",
-					"command": "anno-modding-tools.patchCheckDiff",
-					"group": "anno@1"
-				},
-				{
 					"when": "resourceFilename == modinfo.json",
 					"command": "anno-modding-tools.patchCheckDiff",
 					"group": "anno@1"
@@ -352,16 +338,6 @@
 					"when": "resourceFilename =~ /texts_.+xml$/",
 					"command": "anno-modding-tools.addMissingLoca",
 					"group": "anno@1"
-				},
-				{
-					"when": "resourceFilename == annomod.json",
-					"command": "anno-modding-tools.runTests",
-					"group": "anno@2"
-				},
-				{
-					"when": "resourceFilename == modinfo.json",
-					"command": "anno-modding-tools.runTests",
-					"group": "anno@2"
 				}
 			],
 			"editor/context": [
