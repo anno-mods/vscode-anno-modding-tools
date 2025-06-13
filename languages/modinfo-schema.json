@@ -6,7 +6,6 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "out": { "$ref": "#/definitions/out" },
         "Anno": {
           "description": "`8`: for Anno 117.\n`7`: for Anno 1800.",
           "type": "number",
@@ -20,14 +19,19 @@
           "description": "Mod.io #ID\nOptional",
           "type": "number"
         },
+        "Version": { "$ref": "#/definitions/Version" },
+        "Category": { "$ref": "#/definitions/ModName" },
+        "ModName": { "$ref": "#/definitions/ModName" },
+        
         "LoadAfterIds": { "$ref": "#/definitions/LoadAfterIds" },
         "ModDependencies": { "$ref": "#/definitions/ModDependencies" },
         "IncompatibleIds": { "$ref": "#/definitions/IncompatibleIds" },
         "DeprecateIds": { "$ref": "#/definitions/DeprecateIds" },
-        "OptionalDependencies": { "$ref": "#/definitions/OptionalDependencies" },
-        "Version": { "$ref": "#/definitions/Version" },
-        "Category": { "$ref": "#/definitions/ModName" },
-        "ModName": { "$ref": "#/definitions/ModName" },
+
+        "OptionalDependencies": { "$ref": "#/definitions/DevDependencies" },
+        "out": { "$ref": "#/definitions/DevTargetPath" },
+        "bundle": { "$ref": "#/definitions/DevBundle" },
+
         "Description": { "$ref": "#/definitions/Description" },
         "KnownIssues": { "$ref": "#/definitions/KnownIssues" },
         "DLCDependencies": {
@@ -60,19 +64,25 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "out": { "$ref": "#/definitions/out" },
         "Anno": {
           "description": "`8`: for Anno 117.\n`7`: for Anno 1800.",
           "type": "number",
           "const": 8
         },
         "ModID": { "$ref": "#/definitions/StrictOwnModID" },
+        "Version": { "$ref": "#/definitions/Version" },
+        "Category": { "$ref": "#/definitions/ModName" },
+        "ModName": { "$ref": "#/definitions/ModName" },
+
         "LoadAfterIds": { "$ref": "#/definitions/LoadAfterIds" },
         "ModDependencies": { "$ref": "#/definitions/ModDependencies" },
         "IncompatibleIds": { "$ref": "#/definitions/IncompatibleIds" },
         "DeprecateIds": { "$ref": "#/definitions/DeprecateIds" },
-        "OptionalDependencies": { "$ref": "#/definitions/OptionalDependencies" },
-        "Version": { "$ref": "#/definitions/Version" },
+
+        "OptionalDependencies": { "$ref": "#/definitions/DevDependencies" },
+        "out": { "$ref": "#/definitions/DevTargetPath" },
+        "bundle": { "$ref": "#/definitions/DevBundle" },
+
         "Difficulty": {
           "description": "Difficulty balancing change\n\"cheat\": e.g. no construction costs\n\"easier\": makes the game easier, e.g. reduced needs consumption\n\"unchanged\": is balanced similar as the vanilla game\n\"harder\": makes the game harder",
           "type": "string",
@@ -86,11 +96,7 @@
           "description": "Set to `true` if the mod can be removed from a savegame without leaving trails. For example construction menu reordering.\nOptional. Default is `false`.",
           "type": "boolean"
         },
-        "Category": { "$ref": "#/definitions/ModName" },
-        "ModName": { "$ref": "#/definitions/ModName" },
-        "Description": { "$ref": "#/definitions/Description" },
-        "CreatorName": { "$ref": "#/definitions/CreatorName" },
-        "CreatorContact": { "$ref": "#/definitions/CreatorContact" },
+
         "Scripts": {
           "description": "Lua Scripts\nOptional",
           "type": "object",
@@ -123,6 +129,7 @@
             }
           }
         },
+
         "Options": {
           "description": "Options accessible in Patch ModOps.\nOptional",
           "type": "object",
@@ -144,6 +151,10 @@
             }
           }
         },
+
+        "Description": { "$ref": "#/definitions/Description" },
+        "CreatorName": { "$ref": "#/definitions/CreatorName" },
+        "CreatorContact": { "$ref": "#/definitions/CreatorContact" },
         "Custom": {
           "description": "Area to add freeform information that is not validated.\nOptional",
           "type": "object"
@@ -209,7 +220,15 @@
       "pattern": "^[a-z][a-z0-9]+(\\-[a-z][a-z0-9]+)*$"
     },
     "ModID": {
-      "description": "Unique Mod ID",
+      "description": "Mod ID",
+      "type": "string"
+    },
+    "ModIDOrUrl": {
+      "description": "Mod ID or URL to Zip file.\nZip file: `bundle` the content as sub-mod, and use Zip file name as Mod ID.",
+      "type": "string"
+    },
+    "FolderOrUrl": {
+      "description": "Mod folder or URL to Zip file",
       "type": "string"
     },
     "LoadAfterIds": { 
@@ -223,7 +242,7 @@
       "description": "List of mods that are required - independent of loading order.\nOptional",
       "type": [ "array", "null" ],
       "items": {
-        "$ref": "#/definitions/ModID"
+        "$ref": "#/definitions/ModIDOrUrl"
       }
     },
     "IncompatibleIds": { 
@@ -235,13 +254,6 @@
     },
     "DeprecateIds": { 
       "description": "List of mods to disable.\nOptional",
-      "type": [ "array", "null" ],
-      "items": {
-        "$ref": "#/definitions/ModID"
-      }
-    },
-    "OptionalDependencies": { 
-      "description": "For debugging purposes: list of mods that should be loaded for patch error analysis and GUID references.\nOptional",
       "type": [ "array", "null" ],
       "items": {
         "$ref": "#/definitions/ModID"
@@ -271,9 +283,23 @@
         "Taiwanese": { "type": [ "string", "null" ] }
       }
     },
-    "out": {
-      "description": "Target path for mod deployment.\nOptional. Default is `${annoMods}/${modName}`.",
+    "DevTargetPath": {
+      "description": "Development:\nTarget path for mod deployment.\nOptional. Default is `${annoMods}/${modName}`.",
       "type": "string"
+    },
+    "DevDependencies": { 
+      "description": "Development:\nList of mods that should be loaded for patch error analysis and GUID references.\nOptional",
+      "type": [ "array", "null" ],
+      "items": {
+        "$ref": "#/definitions/ModID"
+      }
+    },
+    "DevBundle": {
+      "description": "Development:\nList of mods that should be included as a sub mod.\nOptional",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/FolderOrUrl"
+      }
     }
   }
 }
