@@ -52,12 +52,37 @@ Go into `File` > `Preferences` > `Settings...` and search for `anno` and configu
   Use `c:\anno\all-rda` if you have `c:\anno\all-rda\data\config\export\main\asset\assets.xml` (Anno 1800) or `c:\anno\all-rda\data\base\config\export\assets.xml` (Anno 117).
 - `Anno: Mods Folder`: Path to your `Anno 1800/mods/` folder to deploy and find dependencies.
 
-If you have the Red Hat XML plugin installed, search for `xml file associations` and add the following pattern:
+### 4. Auto Complete
+
+#### Modinfo.json Schema
+
+Go to `Preferences > Settings` and search for `schemas`.
+
+You will see `JSON: Schemas`. Choose `Edit in settings.json` and insert the following entry:
+
+```json
+"json.fileAssociations": [
+  {
+    "fileMatch": [
+        "/modinfo.json"
+    ],
+    "url": "https://raw.githubusercontent.com/anno-mods/vscode-anno-modding-tools/main/languages/modinfo-schema.json"
+  }
+]
+```
+
+#### XML Patch Schema
+
+This only applies if you have the Red Hat XML plugin installed.
+
+Go to `Preferences > Settings` and search for `xml file associations`.
+
+You will see `Xml: File Associations`. Choose `Edit in settings.json` and insert the following entry:
 
 ```json
 "xml.fileAssociations": [
   {
-      "pattern": "assets*.xml",
+      "pattern": "{assets,*.include}.xml",
       "systemId": "https://raw.githubusercontent.com/anno-mods/vscode-anno-modding-tools/main/generated/assets.xsd"
   }
 ]
