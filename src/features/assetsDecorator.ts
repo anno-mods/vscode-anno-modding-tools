@@ -58,7 +58,7 @@ export function activate(context: vscode.ExtensionContext) {
       return;
     }
 
-    if (!minimatch(activeEditor.document.fileName, ASSETS_FILENAME_PATTERN)) {
+    if (!minimatch(activeEditor.document.fileName, ASSETS_FILENAME_PATTERN, { dot: true })) {
       return;
     }
 

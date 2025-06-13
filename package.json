@@ -112,7 +112,7 @@
 			},
 			{
 				"command": "anno-modding-tools.buildMod",
-				"title": "Anno: Build and Deploy Mod"
+				"title": "Anno: Deploy Mod"
 			},
 			{
 				"command": "anno-modding-tools.importProps",
@@ -151,16 +151,16 @@
 				"title": "Anno: Generate CFG, IFO, FC files"
 			},
 			{
-				"command": "anno-modding-tools.patchCheckDiff",
-				"title": "Anno: Compare Result with Vanilla"
+				"command": "anno-modding-tools.showFileDiff",
+				"title": "Anno: Show Diff (File)"
 			},
 			{
-				"command": "anno-modding-tools.selectionCheckDiff",
-				"title": "Anno: Compare Result with Vanilla"
+				"command": "anno-modding-tools.showAssetsDiff",
+				"title": "Anno: Show Diff (assets.xml)"
 			},
 			{
-				"command": "anno-modding-tools.runTests",
-				"title": "Anno: Run Patch Tests"
+				"command": "anno-modding-tools.showSelectionDiff",
+				"title": "Anno: Show Diff (Selection)"
 			},
 			{
 				"command": "anno-modding-tools.checkLoca",
@@ -182,11 +182,11 @@
 		"menus": {
 			"commandPalette": [
 				{
-					"command": "anno-modding-tools.patchCheckDiff",
+					"command": "anno-modding-tools.showFileDiff",
 					"when": "false"
 				},
 				{
-					"command": "anno-modding-tools.selectionCheckDiff",
+					"command": "anno-modding-tools.showSelectionDiff",
 					"when": "false"
 				},
 				{
@@ -312,36 +312,19 @@
 					"command": "anno-modding-tools.cfgyamlToCfg"
 				},
 				{
-					"when": "resourceFilename == annomod.json",
-					"command": "anno-modding-tools.buildMod",
-					"group": "anno@3"
-				},
-				{
-					"when": "resourceFilename == modinfo.json",
-					"command": "anno-modding-tools.buildMod",
-					"group": "anno@3"
-				},
-				{
-					"when": "resourceFilename =~ /assets.*\\.xml$/",
-					"command": "anno-modding-tools.patchCheckDiff"
-				},
-				{
-					"when": "resourceFilename == export.bin.xml",
-					"command": "anno-modding-tools.patchCheckDiff"
-				},
-				{
-					"when": "resourceFilename =~ /.+\\.(cfg|fc)\\.xml$/",
-					"command": "anno-modding-tools.patchCheckDiff"
-				},
-				{
-					"when": "resourceFilename == annomod.json",
-					"command": "anno-modding-tools.patchCheckDiff",
+					"when": "resourceExtname == .xml && (resourceFilename =~ /.+\\.(cfg|fc|include)\\.xml$/ || resourceFilename == export.bin.xml || resourceFilename =~ /assets.*\\.xml$/ || resourcePath =~ /data\\\\.+\\.xml$/)",
+					"command": "anno-modding-tools.showFileDiff",
 					"group": "anno@1"
 				},
 				{
 					"when": "resourceFilename == modinfo.json",
-					"command": "anno-modding-tools.patchCheckDiff",
+					"command": "anno-modding-tools.showAssetsDiff",
 					"group": "anno@1"
+				},
+				{
+					"when": "resourceFilename == modinfo.json",
+					"command": "anno-modding-tools.buildMod",
+					"group": "anno@3"
 				},
 				{
 					"when": "resourceFilename =~ /texts_.+xml$/",
@@ -352,21 +335,12 @@
 					"when": "resourceFilename =~ /texts_.+xml$/",
 					"command": "anno-modding-tools.addMissingLoca",
 					"group": "anno@1"
-				},
-				{
-					"when": "resourceFilename == annomod.json",
-					"command": "anno-modding-tools.runTests",
-					"group": "anno@2"
-				},
-				{
-					"when": "resourceFilename == modinfo.json",
-					"command": "anno-modding-tools.runTests",
-					"group": "anno@2"
 				}
 			],
 			"editor/context": [
 				{
-					"command": "anno-modding-tools.selectionCheckDiff"
+					"when": "resourceFilename =~ /.+\\.xml$/ && anno-modding-tools.openPatchFile",
+					"command": "anno-modding-tools.showSelectionDiff"
 				}
 			]
 		},
@@ -382,7 +356,7 @@
 				"anno.rdaFolder": {
 					"type": "string",
 					"format": "uri",
-					"markdownDescription": "Folder containing extracted RDA data. Used to compare unpatched vs patched `assets.xml` and `cfg.yaml` to `cfg` conversion. E.g. `c:\\anno\\all-rda`",
+					"markdownDescription": "Path to extracted RDA data.\nIt is used for compare and live error features.\n\nUse `c:\\anno\\all-rda` if you have `c:\\anno\\all-rda\\data\\config\\export\\main\\asset\\assets.xml` (Anno 1800) or `c:\\anno\\all-rda\\data\\base\\config\\export\\assets.xml` (Anno 117).",
 					"scope": "resource"
 				},
 				"anno.outlineFolderDepth": {

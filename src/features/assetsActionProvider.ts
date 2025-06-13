@@ -79,15 +79,19 @@ function checkRootTag(doc: vscode.TextDocument, tag: string): boolean {
 }
 
 export function refreshDiagnostics(context: vscode.ExtensionContext, doc: vscode.TextDocument, collection: vscode.DiagnosticCollection): void {
-  if (doc.lineCount > 10000 || !minimatch(doc.fileName, ASSETS_FILENAME_PATTERN)) {
+  if (doc.lineCount > 10000 || !minimatch(doc.fileName, ASSETS_FILENAME_PATTERN, { dot: true })) {
     // ignore large files and non-assets.xmls
+    vscode.commands.executeCommand('setContext', 'anno-modding-tools.openPatchFile', false);
     return;
   }
 
   if (!checkRootTag(doc, "ModOps")) {
     // not a ModOps document
+    vscode.commands.executeCommand('setContext', 'anno-modding-tools.openPatchFile', false);
     return;
   }
+
+  vscode.commands.executeCommand('setContext', 'anno-modding-tools.openPatchFile', true);
 
   const config = vscode.workspace.getConfiguration('anno', doc.uri);
   const checkFileNames = config.get('checkFileNames');
@@ -115,7 +119,7 @@ export function refreshDiagnostics(context: vscode.ExtensionContext, doc: vscode
     }
   }
 
-  if (minimatch(doc.fileName, PATCH_FILENAME_PATTERN_STRICT) && config.get('liveModopAnalysis.validate')) {
+  if (minimatch(doc.fileName, PATCH_FILENAME_PATTERN_STRICT, { dot: true }) && config.get('liveModopAnalysis.validate')) {
     const performance: vscode.DecorationOptions[] = [];
     runXmlTest(context, doc, diagnostics, performance);
     vscode.window.activeTextEditor?.setDecorations(performanceDecorationType, performance);

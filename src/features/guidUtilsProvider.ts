@@ -243,7 +243,7 @@ async function loadKeywordHelp(context: vscode.ExtensionContext) {
 
 let _customCompletionItems: GuidCompletionItems | undefined = undefined;
 export function refreshCustomAssets(document: vscode.TextDocument | undefined): void {
-  if (!document || !minimatch(document.fileName, ASSETS_FILENAME_PATTERN)
+  if (!document || !minimatch(document.fileName, ASSETS_FILENAME_PATTERN, { dot: true })
     || document.uri.scheme === 'annoasset'
     || document.uri.scheme === 'annodiff') {
     // _customAssets = undefined;

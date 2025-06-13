@@ -1,8 +1,6 @@
-# Modding Tools for Anno 1800
+# Modding Tools for Anno
 
-This project is not affiliated in any way with Ubisoft.
-
-Anno 1800 is a trademark of Ubisoft Entertainment in the US and/or other countries. Anno is a trademark of Ubisoft GmbH in the US and/or other countries.
+Tools to create mods for Anno 1800 and Anno 117: Pax Romana.
 
 ## Feature Overview
 
@@ -48,16 +46,43 @@ Additionally, auto completion and other XML features work only in combination wi
 
 Go into `File` > `Preferences` > `Settings...` and search for `anno` and configure the following:
 
-- `Anno: Rda Folder`: Path with RDA data extracted (mostly `assets.xml` is used).  
-  (Note: If you have the files in `C:\moddingstuff\data\config\export\main\asset\assets.xml` , then your path you enter here is `C:\moddingstuff`)
+- `Anno: Rda Folder`: Path to extracted RDA data (mostly `assets.xml` is used).  
+  It is used for compare and live error features.
+  
+  Use `c:\anno\all-rda` if you have `c:\anno\all-rda\data\config\export\main\asset\assets.xml` (Anno 1800) or `c:\anno\all-rda\data\base\config\export\assets.xml` (Anno 117).
 - `Anno: Mods Folder`: Path to your `Anno 1800/mods/` folder to deploy and find dependencies.
 
-If you have the Red Hat XML plugin installed, search for `xml file associations` and add the following pattern:
+### 4. Auto Complete
+
+#### Modinfo.json Schema
+
+Go to `Preferences > Settings` and search for `schemas`.
+
+You will see `JSON: Schemas`. Choose `Edit in settings.json` and insert the following entry:
+
+```json
+"json.fileAssociations": [
+  {
+    "fileMatch": [
+        "/modinfo.json"
+    ],
+    "url": "https://raw.githubusercontent.com/anno-mods/vscode-anno-modding-tools/main/languages/modinfo-schema.json"
+  }
+]
+```
+
+#### XML Patch Schema
+
+This only applies if you have the Red Hat XML plugin installed.
+
+Go to `Preferences > Settings` and search for `xml file associations`.
+
+You will see `Xml: File Associations`. Choose `Edit in settings.json` and insert the following entry:
 
 ```json
 "xml.fileAssociations": [
   {
-      "pattern": "assets*.xml",
+      "pattern": "{assets,*.include}.xml",
       "systemId": "https://raw.githubusercontent.com/anno-mods/vscode-anno-modding-tools/main/generated/assets.xsd"
   }
 ]
@@ -256,6 +281,8 @@ variant:
 ---
 
 ## Credits
+
+Anno is a trademark of Ubisoft Entertainment in the US and/or other countries.
 
 A big thanks goes to the external projects I'm using for this extension:
 

@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as channel from '../features/channel';
+import * as utils from './utils';
 import glob = require('glob');
 
 export function getTagCloseAt(doc: vscode.TextDocument, position: vscode.Position) {
@@ -116,9 +116,32 @@ export async function ensurePathSettingAsync(pathSetting: string, fileUri?: vsco
   return true;
 }
 
+export async function ensureRdaFolderSettingAsync(pathSetting: string, fileUri?: vscode.Uri) {
+  const config = vscode.workspace.getConfiguration('anno', fileUri);
+  const annoMods: string | undefined = config.get(pathSetting);
+
+  const validPath = annoMods && fs.existsSync(annoMods);
+  const anno8 = validPath && fs.existsSync(path.join(annoMods, utils.ANNO8_ASSETS_PATH));
+  const anno7 = validPath && fs.existsSync(path.join(annoMods, utils.ANNO7_ASSETS_PATH));
+
+  if (!validPath || (!anno7 && !anno8)) {
+    const goSettings = 'Change Settings';
+    const chosen = await vscode.window.showErrorMessage("Your `" + pathSetting + "` is not set up correctly.\n\nIt does not contain `" + utils.ANNO8_ASSETS_PATH + "` or `" + utils.ANNO7_ASSETS_PATH + "`.", goSettings);
+    if (chosen === goSettings) {
+      vscode.commands.executeCommand('workbench.action.openSettings', 'anno.' + pathSetting);
+    }
+    return false;
+  }
+
+  return true;
+}
+
 export function getVanilla(filePath: string, modRoot?: string) {
   const config = vscode.workspace.getConfiguration('anno', vscode.Uri.file(filePath));
   const annoRda: string = config.get('rdaFolder') || "";
+
+  const anno8 = fs.existsSync(path.join(annoRda, 'data/base/config'));
+  const basePath = anno8 ? utils.ANNO8_ASSETS_PATH : utils.ANNO7_ASSETS_PATH;
 
   const basename = path.basename(filePath, path.extname(filePath));
   let vanillaPath = '';
@@ -126,7 +149,7 @@ export function getVanilla(filePath: string, modRoot?: string) {
     vanillaPath = path.join(annoRda, 'data/infotips/export.bin');
   }
   else if (basename.indexOf("templates") >= 0) {
-    vanillaPath = path.join(annoRda, 'data/config/export/main/asset/templates.xml');
+    vanillaPath = path.join(annoRda, basePath, 'templates.xml');
   }
   else if (basename.indexOf("texts_") >= 0) {
     vanillaPath = path.join(annoRda, 'data/config/gui/' + basename + '.xml');
@@ -136,7 +159,7 @@ export function getVanilla(filePath: string, modRoot?: string) {
     vanillaPath = path.join(annoRda, relative.substring(0, relative.length - 4));
   }
   else {
-    vanillaPath = path.join(annoRda, 'data/config/export/main/asset/assets.xml');
+    vanillaPath = path.join(annoRda, basePath, 'assets.xml');
   }
 
   if (!fs.existsSync(vanillaPath)) {

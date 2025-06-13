@@ -1,0 +1,297 @@
+{
+  "$id": "https://example.com/product.schema.json",
+  "description": "Mod Meta Information for the modloader and mod managers.",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Anno": {
+          "description": "`8`: for Anno 117.\n`7`: for Anno 1800.",
+          "type": "number",
+          "const": 7
+        },
+        "ModID": {
+          "description": "Unique identifier of the mod.\n\nUse dashes and append the creator, e.g. \"mod-name-creator\".",
+          "type": "string"
+        },
+        "ModioResourceId": {
+          "description": "Mod.io #ID\n(optional)",
+          "type": "number"
+        },
+        "LoadAfterIds": { "$ref": "#/definitions/LoadAfterIds" },
+        "ModDependencies": { "$ref": "#/definitions/ModDependencies" },
+        "IncompatibleIds": { "$ref": "#/definitions/IncompatibleIds" },
+        "DeprecateIds": { "$ref": "#/definitions/DeprecateIds" },
+        "Version": { "$ref": "#/definitions/Version" },
+        "Category": { "$ref": "#/definitions/ModName" },
+        "ModName": { "$ref": "#/definitions/ModName" },
+        "Description": { "$ref": "#/definitions/Description" },
+        "KnownIssues": { "$ref": "#/definitions/KnownIssues" },
+        "DLCDependencies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "description": "List of DLC dependencies of this mod\n(optional)",
+            "properties": {
+              "DLC": {
+                "type": "string",
+                "enum": [ "SunkenTreasures", "Botanica", "ThePassage", "Anarchist", "Christmas", "SeatOfPower", "BrightHarvest", "LandOfLions", "AmusementPark", "CityLife", "Docklands", "Tourism", "Highlife", "VehicleSkins", "PedestrianZone", "VibrantCity", "SeedsOfChange", "EmpireOfTheSkies", "NewWorldRising", "SeasonalDecorations", "IndustryOrnaments", "OldTown", "DragonGarden", "Fiesta" ]
+              },
+              "Dependant": {
+                "type": "string",
+                "enum": [ "required", "partly", "atLeastOneRequired" ]
+              }
+            }
+          }
+        },
+        "Creator": { "$ref": "#/definitions/Creator" },
+        "CreatorContact": { "$ref": "#/definitions/Creator" },
+        "Image": {
+          "description": "(Deprecated)\nBase64 encoded image string",
+          "type": "string"
+        }
+      },
+      "required": [ "ModID", "Version", "Category", "ModName" ]
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Anno": {
+          "description": "`8`: for Anno 117.\n`7`: for Anno 1800.",
+          "type": "number",
+          "const": 8
+        },
+        "ModID": { "$ref": "#/definitions/StrictOwnModID" },
+        "LoadAfterIds": { "$ref": "#/definitions/StrictLoadAfterIds" },
+        "ModDependencies": { "$ref": "#/definitions/StrictModDependencies" },
+        "IncompatibleIds": { "$ref": "#/definitions/StrictIncompatibleIds" },
+        "DeprecateIds": { "$ref": "#/definitions/StrictDeprecateIds" },
+        "Version": { "$ref": "#/definitions/Version" },
+        "Difficulty": {
+          "description": "Difficulty balancing change\n\"cheat\": e.g. no construction costs\n\"easier\": makes the game easier, e.g. reduced needs consumption\n\"unchanged\": is balanced similar as the vanilla game\n\"harder\": makes the game harder",
+          "type": "string",
+          "enum": [ "cheat", "easier", "unchanged", "harder"]
+        },
+        "RequiresNewGame": {
+          "description": "Set to `true` if the mod only works with a new savegame. For example like river slots.\n(optional, default is `false`)",
+          "type": "boolean"
+        },
+        "SafeToRemove": {
+          "description": "Set to `true` if the mod can be removed from a savegame without leaving trails. For example construction menu reordering.\n(optional, default is `false`)",
+          "type": "boolean"
+        },
+        "Category": { "$ref": "#/definitions/ModName" },
+        "ModName": { "$ref": "#/definitions/ModName" },
+        "Description": { "$ref": "#/definitions/Description" },
+        "Creator": { "$ref": "#/definitions/Creator" },
+        "CreatorContact": { "$ref": "#/definitions/CreatorContact" },
+        "Scripts": {
+          "description": "Lua Scripts\n(optional)",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "Modules": {
+              "description": "Lua script files to be loaded.",
+              "type": "array",
+              "items": {
+                "description": "Path to Lua file. Use lower case, numbers, `-`, `_`, and `/` as separator.",
+                "type": "string",
+                "pattern": "^([a-z0-9\\-_]+\\/)?[a-z0-9\\-_]+\\.lua$"
+              }
+            },
+            "Init": {
+              "description": "Executed after mod loading.",
+              "type": "string"
+            },
+            "Load": {
+              "description": "Executed after load of a save or new game.",
+              "type": "string"
+            },
+            "Unload": {
+              "description": "Executed on unload of the current game.",
+              "type": "string"
+            },
+            "Tick": {
+              "description": "Executed on meta game tick.",
+              "type": "string"
+            }
+          }
+        },
+        "Options": {
+          "description": "Options accessible in Patch ModOps.\n(optional)",
+          "type": "object",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^.*$": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "default": {
+                      "description": "Default to be used when there's no user choice yet.",
+                      "type": [ "string", "number", "boolean" ]
+                    }
+                  },
+                  "required": [ "default" ]
+                }
+              ]
+            }
+          }
+        },
+        "Custom": {
+          "description": "Area to add freeform information that is not validated.\n(optional)",
+          "type": "object"
+        }
+      },
+      "required": [ "Anno", "ModID", "Version", "Difficulty", "Category", "ModName" ]
+    }
+  ],
+  "definitions": {
+    "ModName": {
+      "description": "Localized name for display `[Category] ModName`.",
+      "type": "object",
+      "properties": {
+        "English": { "type": [ "string", "null" ] },
+        "German": { "type": [ "string", "null" ] },
+        "Chinese": { "type": [ "string", "null" ] },
+        "French": { "type": [ "string", "null" ] },
+        "Italian": { "type": [ "string", "null" ] },
+        "Japanese": { "type": [ "string", "null" ]},
+        "Korean": { "type": [ "string", "null" ] },
+        "Polish": { "type": [ "string", "null" ] },
+        "Russian": { "type": [ "string", "null" ] },
+        "Spanish": { "type": [ "string", "null" ] },
+        "Taiwanese": { "type": [ "string", "null" ] }
+      },
+      "required": [ "English" ],
+      "additionalProperties": false
+    },
+    "Description": {
+      "description": "Localized description for display.",
+      "properties": {
+        "English": { "type": [ "string", "null" ] },
+        "German": { "type": [ "string", "null" ] },
+        "Chinese": { "type": [ "string", "null" ] },
+        "French": { "type": [ "string", "null" ] },
+        "Italian": { "type": [ "string", "null" ] },
+        "Japanese": { "type": [ "string", "null" ]},
+        "Korean": { "type": [ "string", "null" ] },
+        "Polish": { "type": [ "string", "null" ] },
+        "Russian": { "type": [ "string", "null" ] },
+        "Spanish": { "type": [ "string", "null" ] },
+        "Taiwanese": { "type": [ "string", "null" ] }
+      },
+      "required": [ "English" ],
+      "additionalProperties": false
+    },
+    "Creator": {
+      "description": "Your name\n(optional)",
+      "type": "string"
+    },
+    "CreatorContact": {
+      "description": "A link to contact you, e.g. in case of bugs. Best use your GitHub repository.\n(optional)",
+      "type": "string"
+    },
+    "Version": {
+      "description": "Version `MAJOR.Minor.patch`\nMAJOR: increase when a new game is recommended. Use 0 if you don't guarantee not breaking save games.\nMinor: increase for feature additions.\npatch: bugfixes only.",
+      "type": "string",
+      "pattern": "^([0-9]+\\.)?[0-9]+\\.[0-9]+$"
+    },
+    "StrictOwnModID": {
+      "description": "Append your creator name to ensure a unique mod name, e.g. \"mod-name-creator\".",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]+(\\-[a-z][a-z0-9]+)*$"
+    },
+    "StrictForeignModID": {
+      "description": "Unique Mod ID",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]+(\\-[a-z][a-z0-9]+)*$"
+    },
+    "ModID": {
+      "description": "Unique Mod ID",
+      "type": "string"
+    },
+    "LoadAfterIds": { 
+      "description": "List of mods that need to be loaded before - independent of being required.\nUse `*` to load after all mods - except those which also use `*`.\n(optional)",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ModID"
+      }
+    },
+    "ModDependencies": { 
+      "description": "List of mods that are required - independent of loading order.\n(optional)",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ModID"
+      }
+    },
+    "IncompatibleIds": { 
+      "description": "List of mods incompatible with this mod.\n(optional)",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ModID"
+      }
+    },
+    "DeprecateIds": { 
+      "description": "List of mods to disable.\n(optional)",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ModID"
+      }
+    },
+    "StrictLoadAfterIds": { 
+      "description": "List of mods that need to be loaded before - independent of being required.\nUse `*` to load after all mods - except those which also use `*`.\n(optional)",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/StrictForeignModID"
+      }
+    },
+    "StrictModDependencies": { 
+      "description": "List of mods that are required - independent of loading order.\n(optional)",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/StrictForeignModID"
+      }
+    },
+    "StrictIncompatibleIds": { 
+      "description": "List of mods incompatible with this mod.\n(optional)",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/StrictForeignModID"
+      }
+    },
+    "StrictDeprecateIds": { 
+      "description": "List of mods to disable.\n(optional)",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/StrictForeignModID"
+      }
+    },
+    "KnownIssues": { 
+      "description": "List of localized known issues.\n(optional)",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/LocalizedText"
+      }
+    },
+    "LocalizedText": {
+      "type": [ "object", "null" ],
+      "additionalProperties": false,
+      "properties": {
+        "English": { "type": [ "string", "null" ] },
+        "German": { "type": [ "string", "null" ] },
+        "Chinese": { "type": [ "string", "null" ] },
+        "French": { "type": [ "string", "null" ] },
+        "Italian": { "type": [ "string", "null" ] },
+        "Japanese": { "type": [ "string", "null" ]},
+        "Korean": { "type": [ "string", "null" ] },
+        "Polish": { "type": [ "string", "null" ] },
+        "Russian": { "type": [ "string", "null" ] },
+        "Spanish": { "type": [ "string", "null" ] },
+        "Taiwanese": { "type": [ "string", "null" ] }
+      }
+    }
+  }
+}
