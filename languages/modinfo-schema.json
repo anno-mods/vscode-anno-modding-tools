@@ -6,6 +6,7 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "out": { "$ref": "#/definitions/out" },
         "Anno": {
           "description": "`8`: for Anno 117.\n`7`: for Anno 1800.",
           "type": "number",
@@ -16,23 +17,24 @@
           "type": "string"
         },
         "ModioResourceId": {
-          "description": "Mod.io #ID\n(optional)",
+          "description": "Mod.io #ID\nOptional",
           "type": "number"
         },
         "LoadAfterIds": { "$ref": "#/definitions/LoadAfterIds" },
         "ModDependencies": { "$ref": "#/definitions/ModDependencies" },
         "IncompatibleIds": { "$ref": "#/definitions/IncompatibleIds" },
         "DeprecateIds": { "$ref": "#/definitions/DeprecateIds" },
+        "OptionalDependencies": { "$ref": "#/definitions/OptionalDependencies" },
         "Version": { "$ref": "#/definitions/Version" },
         "Category": { "$ref": "#/definitions/ModName" },
         "ModName": { "$ref": "#/definitions/ModName" },
         "Description": { "$ref": "#/definitions/Description" },
         "KnownIssues": { "$ref": "#/definitions/KnownIssues" },
         "DLCDependencies": {
-          "type": "array",
+          "type": [ "array", "null" ],
           "items": {
             "type": "object",
-            "description": "List of DLC dependencies of this mod\n(optional)",
+            "description": "List of DLC dependencies of this mod\nOptional",
             "properties": {
               "DLC": {
                 "type": "string",
@@ -45,11 +47,11 @@
             }
           }
         },
-        "Creator": { "$ref": "#/definitions/Creator" },
-        "CreatorContact": { "$ref": "#/definitions/Creator" },
+        "CreatorName": { "$ref": "#/definitions/CreatorName" },
+        "CreatorContact": { "$ref": "#/definitions/CreatorContact" },
         "Image": {
           "description": "(Deprecated)\nBase64 encoded image string",
-          "type": "string"
+          "type": [ "string", "null" ]
         }
       },
       "required": [ "ModID", "Version", "Category", "ModName" ]
@@ -58,16 +60,18 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "out": { "$ref": "#/definitions/out" },
         "Anno": {
           "description": "`8`: for Anno 117.\n`7`: for Anno 1800.",
           "type": "number",
           "const": 8
         },
         "ModID": { "$ref": "#/definitions/StrictOwnModID" },
-        "LoadAfterIds": { "$ref": "#/definitions/StrictLoadAfterIds" },
-        "ModDependencies": { "$ref": "#/definitions/StrictModDependencies" },
-        "IncompatibleIds": { "$ref": "#/definitions/StrictIncompatibleIds" },
-        "DeprecateIds": { "$ref": "#/definitions/StrictDeprecateIds" },
+        "LoadAfterIds": { "$ref": "#/definitions/LoadAfterIds" },
+        "ModDependencies": { "$ref": "#/definitions/ModDependencies" },
+        "IncompatibleIds": { "$ref": "#/definitions/IncompatibleIds" },
+        "DeprecateIds": { "$ref": "#/definitions/DeprecateIds" },
+        "OptionalDependencies": { "$ref": "#/definitions/OptionalDependencies" },
         "Version": { "$ref": "#/definitions/Version" },
         "Difficulty": {
           "description": "Difficulty balancing change\n\"cheat\": e.g. no construction costs\n\"easier\": makes the game easier, e.g. reduced needs consumption\n\"unchanged\": is balanced similar as the vanilla game\n\"harder\": makes the game harder",
@@ -75,20 +79,20 @@
           "enum": [ "cheat", "easier", "unchanged", "harder"]
         },
         "RequiresNewGame": {
-          "description": "Set to `true` if the mod only works with a new savegame. For example like river slots.\n(optional, default is `false`)",
+          "description": "Set to `true` if the mod only works with a new savegame. For example like river slots.\nOptional. Default is `false`.",
           "type": "boolean"
         },
         "SafeToRemove": {
-          "description": "Set to `true` if the mod can be removed from a savegame without leaving trails. For example construction menu reordering.\n(optional, default is `false`)",
+          "description": "Set to `true` if the mod can be removed from a savegame without leaving trails. For example construction menu reordering.\nOptional. Default is `false`.",
           "type": "boolean"
         },
         "Category": { "$ref": "#/definitions/ModName" },
         "ModName": { "$ref": "#/definitions/ModName" },
         "Description": { "$ref": "#/definitions/Description" },
-        "Creator": { "$ref": "#/definitions/Creator" },
+        "CreatorName": { "$ref": "#/definitions/CreatorName" },
         "CreatorContact": { "$ref": "#/definitions/CreatorContact" },
         "Scripts": {
-          "description": "Lua Scripts\n(optional)",
+          "description": "Lua Scripts\nOptional",
           "type": "object",
           "additionalProperties": false,
           "properties": {
@@ -120,7 +124,7 @@
           }
         },
         "Options": {
-          "description": "Options accessible in Patch ModOps.\n(optional)",
+          "description": "Options accessible in Patch ModOps.\nOptional",
           "type": "object",
           "additionalProperties": false,
           "patternProperties": {
@@ -141,7 +145,7 @@
           }
         },
         "Custom": {
-          "description": "Area to add freeform information that is not validated.\n(optional)",
+          "description": "Area to add freeform information that is not validated.\nOptional",
           "type": "object"
         }
       },
@@ -186,13 +190,13 @@
       "required": [ "English" ],
       "additionalProperties": false
     },
-    "Creator": {
-      "description": "Your name\n(optional)",
-      "type": "string"
+    "CreatorName": {
+      "description": "Your name\nOptional",
+      "type": [ "string", "null" ]
     },
     "CreatorContact": {
-      "description": "A link to contact you, e.g. in case of bugs. Best use your GitHub repository.\n(optional)",
-      "type": "string"
+      "description": "A link to contact you, e.g. in case of bugs. Best use your GitHub repository.\nOptional",
+      "type": [ "string", "null" ]
     },
     "Version": {
       "description": "Version `MAJOR.Minor.patch`\nMAJOR: increase when a new game is recommended. Use 0 if you don't guarantee not breaking save games.\nMinor: increase for feature additions.\npatch: bugfixes only.",
@@ -204,74 +208,48 @@
       "type": "string",
       "pattern": "^[a-z][a-z0-9]+(\\-[a-z][a-z0-9]+)*$"
     },
-    "StrictForeignModID": {
-      "description": "Unique Mod ID",
-      "type": "string",
-      "pattern": "^[a-z][a-z0-9]+(\\-[a-z][a-z0-9]+)*$"
-    },
     "ModID": {
       "description": "Unique Mod ID",
       "type": "string"
     },
     "LoadAfterIds": { 
-      "description": "List of mods that need to be loaded before - independent of being required.\nUse `*` to load after all mods - except those which also use `*`.\n(optional)",
-      "type": "array",
+      "description": "List of mods that need to be loaded before - independent of being required.\nUse `*` to load after all mods - except those which also use `*`.\nOptional",
+      "type": [ "array", "null" ],
       "items": {
         "$ref": "#/definitions/ModID"
       }
     },
     "ModDependencies": { 
-      "description": "List of mods that are required - independent of loading order.\n(optional)",
-      "type": "array",
+      "description": "List of mods that are required - independent of loading order.\nOptional",
+      "type": [ "array", "null" ],
       "items": {
         "$ref": "#/definitions/ModID"
       }
     },
     "IncompatibleIds": { 
-      "description": "List of mods incompatible with this mod.\n(optional)",
-      "type": "array",
+      "description": "List of mods incompatible with this mod.\nOptional",
+      "type": [ "array", "null" ],
       "items": {
         "$ref": "#/definitions/ModID"
       }
     },
     "DeprecateIds": { 
-      "description": "List of mods to disable.\n(optional)",
-      "type": "array",
+      "description": "List of mods to disable.\nOptional",
+      "type": [ "array", "null" ],
       "items": {
         "$ref": "#/definitions/ModID"
       }
     },
-    "StrictLoadAfterIds": { 
-      "description": "List of mods that need to be loaded before - independent of being required.\nUse `*` to load after all mods - except those which also use `*`.\n(optional)",
-      "type": "array",
+    "OptionalDependencies": { 
+      "description": "For debugging purposes: list of mods that should be loaded for patch error analysis and GUID references.\nOptional",
+      "type": [ "array", "null" ],
       "items": {
-        "$ref": "#/definitions/StrictForeignModID"
-      }
-    },
-    "StrictModDependencies": { 
-      "description": "List of mods that are required - independent of loading order.\n(optional)",
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/StrictForeignModID"
-      }
-    },
-    "StrictIncompatibleIds": { 
-      "description": "List of mods incompatible with this mod.\n(optional)",
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/StrictForeignModID"
-      }
-    },
-    "StrictDeprecateIds": { 
-      "description": "List of mods to disable.\n(optional)",
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/StrictForeignModID"
+        "$ref": "#/definitions/ModID"
       }
     },
     "KnownIssues": { 
-      "description": "List of localized known issues.\n(optional)",
-      "type": "array",
+      "description": "List of localized known issues.\nOptional",
+      "type": [ "array", "null" ],
       "items": {
         "$ref": "#/definitions/LocalizedText"
       }
@@ -292,6 +270,10 @@
         "Spanish": { "type": [ "string", "null" ] },
         "Taiwanese": { "type": [ "string", "null" ] }
       }
+    },
+    "out": {
+      "description": "Target path for mod deployment.\nOptional. Default is `${annoMods}/${modName}`.",
+      "type": "string"
     }
   }
 }
