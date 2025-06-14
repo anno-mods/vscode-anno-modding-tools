@@ -4,8 +4,13 @@ All notable changes to the "anno-modding-tools" extension will be documented in 
 
 ## [Unreleased]
 
-- Improved outline responsiveness
+- Support Anno 117
+- Added modinfo.json schema
 - All XMLs in the `infotips/` folder are now considered for InfoTip diff and validation.
+- Improved outline responsiveness
+- Improved rdaFolder error handling
+- Renamed "Build and Deploy" to "Deploy Mod"
+- Renamed "Compare Result with Vanilla" to "Show Diff (File)", "Show Diff (assets.xml)", "Show Diff (Selection)"
 
 ## 1.14 Quality of Life Updates
 
