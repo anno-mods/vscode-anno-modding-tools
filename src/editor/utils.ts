@@ -144,7 +144,7 @@ export function getVanilla(filePath: string, modRoot?: string) {
 
   const basename = path.basename(filePath, path.extname(filePath));
   let vanillaPath = '';
-  if (filePath.endsWith('export.bin.xml')) {
+  if (filePath.endsWith('export.bin.xml') || path.dirname(filePath).endsWith("infotips")) {
     vanillaPath = path.join(annoRda, 'data/infotips/export.bin');
   }
   else if (basename.indexOf("templates") >= 0) {

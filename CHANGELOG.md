@@ -5,6 +5,7 @@ All notable changes to the "anno-modding-tools" extension will be documented in 
 ## [Unreleased]
 
 - Improved outline responsiveness
+- All XMLs in the `infotips/` folder are now considered for InfoTip diff and validation.
 
 ## 1.14 Quality of Life Updates
 
