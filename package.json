@@ -1,7 +1,7 @@
 {
 	"name": "anno-modding-tools",
 	"displayName": "Anno Modding Tools",
-	"description": "Modding tools for Anno 1800",
+	"description": "Modding tools for Anno 117 and 1800",
 	"version": "1.14.1",
 	"publisher": "JakobHarder",
 	"repository": {
@@ -17,6 +17,7 @@
 	],
 	"activationEvents": [
 		"workspaceContains:**/assets.xml",
+		"workspaceContains:**/modinfo.json",
 		"onLanguage:xml"
 	],
 	"main": "./dist/extension.js",
@@ -187,10 +188,6 @@
 				},
 				{
 					"command": "anno-modding-tools.showSelectionDiff",
-					"when": "false"
-				},
-				{
-					"command": "anno-modding-tools.runTests",
 					"when": "false"
 				},
 				{
