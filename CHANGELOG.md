@@ -2,7 +2,17 @@
 
 All notable changes to the "anno-modding-tools" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## 2.0 First Anno 117 Support
+
+- Support Anno 117
+  - Use "Anno: 8" in modinfo.json to activate
+  - First support of the new [modloader changes](https://github.com/jakobharder/anno1800-mod-loader/blob/devel/117-changes/doc/modloader-changes.md)
+- Added modinfo.json schema (Anno 1800 + 117)
+- All XMLs in the `infotips/` folder are now considered for InfoTip diff and validation.
+- Improved outline responsiveness
+- Improved rdaFolder error handling
+- Renamed "Build and Deploy" to "Deploy Mod"
+- Renamed "Compare Result with Vanilla" to "Show Diff (File)", "Show Diff (assets.xml)", "Show Diff (Selection)"
 
 ## 1.14 Quality of Life Updates
 

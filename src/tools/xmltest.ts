@@ -2,12 +2,16 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as child from 'child_process';
 import * as glob from 'glob';
-import * as logger from './logger';
+import * as logger from '../other/logger';
 import * as utils from '../other/utils';
-import { ModRegistry } from './modRegistry';
+import { ModRegistry } from '../other/modRegistry';
+import { ModMetaInfo } from '../other/modMetaInfo';
+
+const XMLTEST_PATH = "./external/xmltest.exe";
+const XMLTEST2_PATH = "./external/xmltest2.exe";
 
 export function test(testFolder: string, modFolder: string, patchFile: string, asAbsolutePath: (relative: string) => string, tempFolder: string) {
-  const tester = asAbsolutePath("./external/xmltest.exe");
+  const tester = asAbsolutePath(XMLTEST2_PATH);
   let result = true;
 
   const inputFiles = glob.sync('**/*-input.xml', { cwd: testFolder, nodir: true });
@@ -99,17 +103,20 @@ export interface IIssue {
 }
 
 export function fetchIssues(vanillaXml: string, modPath: string, mainPatchFile: string,
-    patchFile: string, patchContent: string, modsFolder: string | undefined,
-    asAbsolutePath: (relative: string) => string): IIssue[] {
+  patchFile: string, patchContent: string, modsFolder: string | undefined,
+  asAbsolutePath: (relative: string) => string): IIssue[] {
 
   const removeNulls = <S>(value: S | undefined): value is S => value !== null;
-  const tester = asAbsolutePath("./external/xmltest.exe");
   patchFile = patchFile.replace(/\\/g, '/');
 
   let testerOutput;
   try {
     const roots = utils.findModRoots(mainPatchFile).map(e => ['-m', e]);
     const annomod = utils.readModinfo(modPath);
+    const modInfo = ModMetaInfo.read(modPath);
+    const version = modInfo?.game || utils.GameVersion.Auto;
+    const tester = asAbsolutePath(version === utils.GameVersion.Anno8 ? XMLTEST2_PATH : XMLTEST_PATH);
+
     let prepatch = annomod?.getRequiredLoadAfterIds(annomod?.modinfo).map(e => ['-p', e]) ?? [];
 
     if (prepatch && modsFolder) {
@@ -156,6 +163,58 @@ export function fetchIssues(vanillaXml: string, modPath: string, mainPatchFile: 
     .filter(removeNulls);
 
   return issues;
+}
+
+export function diff(originalPath: string, patchContent: string, patchFilePath: string, modPath: string,
+  modsFolder: string | undefined,
+  asAbsolutePath: (relative: string) => string) {
+
+  if (!originalPath || !patchContent) {
+    return { original: '', patched: '', log: ''};
+  }
+
+  const workingDir = path.resolve(path.dirname(patchFilePath));
+  const maxBuffer = 50;
+
+  ModRegistry.use(modsFolder);
+  patchFilePath = patchFilePath.replace(/\\/g, '/');
+  const annomod = utils.readModinfo(modPath);
+  const modInfo = ModMetaInfo.read(modPath);
+  const version = modInfo?.game || utils.GameVersion.Auto;
+  const differ = asAbsolutePath(version === utils.GameVersion.Anno8 ? XMLTEST2_PATH : XMLTEST_PATH);
+
+  let prepatch = annomod?.getRequiredLoadAfterIds(annomod?.modinfo).map(e => ['-p', e]) ?? [];
+  if (prepatch && modsFolder) {
+    prepatch = prepatch.map((e: string[]) => [ e[0], ModRegistry.getPath(e[1]) ?? "" ]).filter((e: string[]) => e[1] && e[1] !== "");
+  }
+
+  try {
+    const modRelativePath = path.relative(modPath, patchFilePath);
+
+    const res = child.execFileSync(differ, [
+        '-c', 'diff',
+        '-i', modRelativePath,
+        ...prepatch.flat(),
+        originalPath,
+        patchFilePath,
+        '-m', modPath
+      ],
+      {
+        cwd: workingDir,
+        input: patchContent,
+        encoding: 'utf-8',
+        maxBuffer: maxBuffer * 1024 * 1024
+    });
+    const split = res.split('##annodiff##');
+    return { original: split[2], patched: split[1], log: split[0] };
+  }
+  catch (e) {
+    if ((<Error>e).message.endsWith('ENOBUFS')) {
+      throw new Error(`Diff exceeds ${maxBuffer} MB!`);
+    }
+    logger.error((<Error>e).message);
+    throw e;
+  }
 }
 
 function _sameWhenMinimized(expectation: string, patched: string) {

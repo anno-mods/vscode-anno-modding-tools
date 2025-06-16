@@ -1,11 +1,11 @@
 import * as vscode from 'vscode';
-import * as minimatch from 'minimatch';
 import * as path from 'path';
-import { ASSETS_FILENAME_PATTERN, PATCH_FILENAME_PATTERN_STRICT } from '../other/assetsXml';
-import * as editorUtils from '../other/editorUtils';
+import { ASSETS_FILENAME_PATTERN } from '../other/assetsXml';
+import * as editorUtils from '../editor/utils';
 import * as utils from '../other/utils';
-import * as xmltest from '../other/xmltest';
+import * as xmltest from '../tools/xmltest';
 import * as logger from '../other/logger';
+import * as editorFormats from '../editor/formats';
 
 const DEPRECATED_ALL = '190611';
 const DEPRECATED_ALL2 = '193879';
@@ -65,28 +65,11 @@ function checkFileName(modPaths: string[], line: vscode.TextLine, annoRda?: stri
 
 export function clearDiagnostics(context: vscode.ExtensionContext, doc: vscode.TextDocument, collection: vscode.DiagnosticCollection) {
   vscode.window.activeTextEditor?.setDecorations(performanceDecorationType, []);
-}
-
-function checkRootTag(doc: vscode.TextDocument, tag: string): boolean {
-  for (var index = 0; index < doc.lineCount; index++) {
-    const line = doc.lineAt(index);
-    const match = /<(\w+)/.exec(line.text);
-    if (match) {
-      return match[1] == tag;
-    }
-  }
-  return false;
+  diagnostics.delete(doc.uri)
 }
 
 export function refreshDiagnostics(context: vscode.ExtensionContext, doc: vscode.TextDocument, collection: vscode.DiagnosticCollection): void {
-  if (doc.lineCount > 10000 || !minimatch(doc.fileName, ASSETS_FILENAME_PATTERN, { dot: true })) {
-    // ignore large files and non-assets.xmls
-    vscode.commands.executeCommand('setContext', 'anno-modding-tools.openPatchFile', false);
-    return;
-  }
-
-  if (!checkRootTag(doc, "ModOps")) {
-    // not a ModOps document
+  if (!editorFormats.isPatchXml(doc)) {
     vscode.commands.executeCommand('setContext', 'anno-modding-tools.openPatchFile', false);
     return;
   }
@@ -119,9 +102,8 @@ export function refreshDiagnostics(context: vscode.ExtensionContext, doc: vscode
     }
   }
 
-  if (minimatch(doc.fileName, PATCH_FILENAME_PATTERN_STRICT, { dot: true }) && config.get('liveModopAnalysis.validate')) {
-    const performance: vscode.DecorationOptions[] = [];
-    runXmlTest(context, doc, diagnostics, performance);
+  if (editorFormats.allowLiveValidation(doc)) {
+    const performance = runXmlTest(context, doc, diagnostics);
     vscode.window.activeTextEditor?.setDecorations(performanceDecorationType, performance);
   }
 
@@ -129,11 +111,12 @@ export function refreshDiagnostics(context: vscode.ExtensionContext, doc: vscode
 }
 
 function runXmlTest(context: vscode.ExtensionContext, doc: vscode.TextDocument,
-  result: vscode.Diagnostic[],
-  decorations: vscode.DecorationOptions[]) {
+  result: vscode.Diagnostic[]): vscode.DecorationOptions[] {
+
+  const decorations: vscode.DecorationOptions[] = [];
 
   let modPath = utils.findModRoot(doc.fileName);
-  let mainAssetsXml = utils.isAssetsXml(doc.fileName) ? utils.getAssetsXmlPath(modPath) : doc.fileName;
+  let mainAssetsXml = editorFormats.isAssetsXml(doc) ? utils.getAssetsXmlPath(modPath) : doc.fileName;
   if (!mainAssetsXml || !modPath) {
     modPath = path.dirname(doc.fileName);
     mainAssetsXml = doc.fileName;
@@ -182,6 +165,8 @@ function runXmlTest(context: vscode.ExtensionContext, doc: vscode.TextDocument,
       }
     }
   }
+
+  return decorations;
 }
 
 function createDiagnostic(doc: vscode.TextDocument, lineOfText: vscode.TextLine, lineIndex: number): vscode.Diagnostic {
@@ -205,28 +190,6 @@ function createDiagnostic2(doc: vscode.TextDocument, lineOfText: vscode.TextLine
     vscode.DiagnosticSeverity.Error);
   diagnostic.code = DEPRECATED_ALL_CODE;
   return diagnostic;
-}
-
-export function subscribeToDocumentChanges(context: vscode.ExtensionContext, diagnostics: vscode.DiagnosticCollection): void {
-  if (vscode.window.activeTextEditor) {
-    refreshDiagnostics(context, vscode.window.activeTextEditor.document, diagnostics);
-  }
-  context.subscriptions.push(
-    vscode.window.onDidChangeActiveTextEditor(editor => {
-      if (editor) {
-        refreshDiagnostics(context, editor.document, diagnostics);
-      }
-    })
-  );
-
-  context.subscriptions.push(
-    vscode.workspace.onDidChangeTextDocument(e => refreshDiagnostics(context, e.document, diagnostics))
-  );
-
-  context.subscriptions.push(
-    vscode.workspace.onDidCloseTextDocument(doc => diagnostics.delete(doc.uri))
-  );
-
 }
 
 export class AssetsCodeActionProvider implements vscode.CodeActionProvider {

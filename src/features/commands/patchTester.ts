@@ -3,10 +3,10 @@ import * as child from 'child_process';
 import * as channel from '../channel';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as editorUtils from '../../other/editorUtils';
+import * as editorUtils from '../../editor/utils';
 import * as utils from '../../other/utils';
 import * as modMetaInfo from '../../other/modMetaInfo';
-import { ModRegistry } from '../../other/modRegistry';
+import * as xmltest from '../../tools/xmltest';
 
 let _originalPath: string;
 let _patchPath: string;
@@ -16,6 +16,8 @@ let _reload: boolean = false;
 let _originalContent: string;
 let _patchedContent: string;
 let _logContent: string;
+
+let _version = utils.GameVersion.Auto;
 
 export class PatchTester {
 	public static register(context: vscode.ExtensionContext): vscode.Disposable[] {
@@ -53,7 +55,7 @@ export class PatchTester {
     }
 
     let modInfo: modMetaInfo.ModMetaInfo | undefined;
-    
+
     let patchFilePath = fileUri.fsPath;
     if (path.basename(patchFilePath) === 'modinfo.json') {
       modInfo = modMetaInfo.ModMetaInfo.read(patchFilePath);
@@ -62,7 +64,12 @@ export class PatchTester {
         return;
       }
 
+      _version = modInfo?.game;
       patchFilePath = utils.getAssetsXmlPath(path.dirname(patchFilePath), modInfo?.game);
+    }
+    else {
+      modInfo = modMetaInfo.ModMetaInfo.read(modPath);
+      _version = modInfo?.game || utils.GameVersion.Auto;
     }
 
     if (!fs.existsSync(patchFilePath)) {
@@ -76,12 +83,7 @@ export class PatchTester {
     _patch = "";
     _reload = true;
 
-    const timestamp = Date.now();
-    channel.show();
-    vscode.commands.executeCommand('vscode.diff',
-      vscode.Uri.parse('annodiff:' + _originalPath + '?original#' + timestamp),
-      vscode.Uri.parse('annodiff:' + _patchPath + '?patch#' + timestamp),
-      'Anno Diff: Original ↔ Patched');
+    PatchTester.executeDiff();
   }
 
   static async showSelectionDiff(fileUri: any) {
@@ -108,12 +110,16 @@ export class PatchTester {
 
     _patch = _patch.replace(/<\/?ModOps>/g, '');
 
+    PatchTester.executeDiff();
+  }
+
+  static executeDiff() {
     const timestamp = Date.now();
     channel.show();
     vscode.commands.executeCommand('vscode.diff',
       vscode.Uri.parse('annodiff:' + _originalPath + '?original#' + timestamp),
       vscode.Uri.parse('annodiff:' + _patchPath + '?patch#' + timestamp),
-      'Anno Diff: Original ↔ Patched');
+      _version === utils.GameVersion.Anno8 ? 'Anno 117: Original ↔ Patched' : 'Anno 1800: Original ↔ Patched');
   }
 
   static reload(context: vscode.ExtensionContext) {
@@ -146,50 +152,6 @@ export class PatchTester {
   }
 
   diff(originalPath: string, patchContent: string, patchFilePath: string, modPath: string) {
-    const differ = this._context.asAbsolutePath('./external/xmltest.exe');
-
-    if (!originalPath || !patchContent) {
-      return { original: '', patched: '', log: ''};
-    }
-    this._workingDir = path.resolve(path.dirname(patchFilePath));
-
-    const maxBuffer = 50;
-
-    ModRegistry.use(this._modsFolder);
-    patchFilePath = patchFilePath.replace(/\\/g, '/');
-    const annomod = utils.readModinfo(modPath);
-    let prepatch = annomod?.getRequiredLoadAfterIds(annomod?.modinfo).map(e => ['-p', e]) ?? [];
-    if (prepatch && this._modsFolder) {
-      prepatch = prepatch.map((e: string[]) => [ e[0], ModRegistry.getPath(e[1]) ?? "" ]).filter((e: string[]) => e[1] && e[1] !== "");
-    }
-
-    try {
-      const modRelativePath = path.relative(modPath, patchFilePath);
-
-      const res = child.execFileSync(differ, [
-          '-c', 'diff',
-          '-i', modRelativePath,
-          ...prepatch.flat(),
-          originalPath,
-          patchFilePath,
-          '-m', modPath
-        ],
-        {
-          cwd: this._workingDir,
-          input: patchContent,
-          encoding: 'utf-8',
-          maxBuffer: maxBuffer * 1024 * 1024
-      });
-      const split = res.split('##annodiff##');
-      return { original: split[2], patched: split[1], log: split[0] };
-    }
-    catch (e)
-    {
-      if ((<Error>e).message.endsWith('ENOBUFS')) {
-        throw new Error(`Diff exceeds ${maxBuffer} MB!`);
-      }
-      channel.error((<Error>e).message);
-      throw e;
-    }
+    return xmltest.diff(originalPath, patchContent, patchFilePath, modPath, this._modsFolder, this._context.asAbsolutePath);
   }
 }

@@ -1,8 +1,7 @@
-import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as utils from './utils';
-import glob = require('glob');
+import * as utils from '../other/utils';
+import * as vscode from 'vscode';
 
 export function getTagCloseAt(doc: vscode.TextDocument, position: vscode.Position) {
   let lineNumber = position.line;
@@ -145,7 +144,7 @@ export function getVanilla(filePath: string, modRoot?: string) {
 
   const basename = path.basename(filePath, path.extname(filePath));
   let vanillaPath = '';
-  if (filePath.endsWith('export.bin.xml')) {
+  if (filePath.endsWith('export.bin.xml') || path.dirname(filePath).endsWith("infotips")) {
     vanillaPath = path.join(annoRda, 'data/infotips/export.bin');
   }
   else if (basename.indexOf("templates") >= 0) {

@@ -27,7 +27,7 @@ export function registerCommands(context: vscode.ExtensionContext) {
 	context.subscriptions.push(...FcImporter.register(context));
 	context.subscriptions.push(...CfgYamlCommands.register(context));
 	context.subscriptions.push(...PatchTester.register(context));
-  context.subscriptions.push(...RunTests.register(context));
+  // context.subscriptions.push(...RunTests.register(context));
 	context.subscriptions.push(...CheckLoca.register(context));
 	context.subscriptions.push(...ImportLoca.register(context));
 

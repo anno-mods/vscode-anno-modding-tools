@@ -4,7 +4,7 @@ import * as glob from 'glob';
 
 import * as channel from '../channel';
 import { ModBuilder } from '../../builder';
-import * as editorUtils from '../../other/editorUtils';
+import * as editorUtils from '../../editor/utils';
 
 export class AnnomodCommands {
   context: vscode.ExtensionContext;

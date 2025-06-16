@@ -59,10 +59,6 @@ export namespace SymbolRegistry {
     }
   }
 
-  function register(asset: IAsset) {
-    guidCache_[asset.guid] = asset;
-  }
-
   export function resolve(guid: string) : IAsset | undefined {
     let entry = guidCache_[guid];
 

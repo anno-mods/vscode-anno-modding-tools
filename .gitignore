@@ -13,3 +13,4 @@ external/*
 !external/AnnoFCConverter.exe
 !external/annodiff.exe
 !external/xmltest.exe
+!external/xmltest2.exe

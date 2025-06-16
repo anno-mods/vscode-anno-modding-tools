@@ -3,7 +3,7 @@ import * as channel from '../channel';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as utils from '../../other/utils';
-import * as xmltest from '../../other/xmltest';
+import * as xmltest from '../../tools/xmltest';
 
 export class RunTests {
 	public static register(context: vscode.ExtensionContext): vscode.Disposable[] {

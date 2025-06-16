@@ -1,8 +1,8 @@
 {
 	"name": "anno-modding-tools",
 	"displayName": "Anno Modding Tools",
-	"description": "Modding tools for Anno 1800",
-	"version": "1.14.1",
+	"description": "Tools to create mods for Anno 1800 and Anno 117: Pax Romana.",
+	"version": "2.0.0",
 	"publisher": "JakobHarder",
 	"repository": {
 		"type": "git",
@@ -17,6 +17,7 @@
 	],
 	"activationEvents": [
 		"workspaceContains:**/assets.xml",
+		"workspaceContains:**/modinfo.json",
 		"onLanguage:xml"
 	],
 	"main": "./dist/extension.js",
@@ -187,10 +188,6 @@
 				},
 				{
 					"command": "anno-modding-tools.showSelectionDiff",
-					"when": "false"
-				},
-				{
-					"command": "anno-modding-tools.runTests",
 					"when": "false"
 				},
 				{
