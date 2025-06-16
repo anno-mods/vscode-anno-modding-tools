@@ -10,7 +10,7 @@ let context_: vscode.ExtensionContext;
 
 const vanillaAssetContentProvider = new (class implements vscode.TextDocumentContentProvider {
   provideTextDocumentContent(uri: vscode.Uri): string {
-    const differ = context_.asAbsolutePath('./external/xmltest.exe');
+    const differ = context_.asAbsolutePath('./external/xmltest2.exe');
     const config = vscode.workspace.getConfiguration('anno', uri);
     const annoRda: string = config.get('rdaFolder') || "";
     let vanillaPath = path.join(annoRda, 'data/config/export/main/asset/assets.xml');

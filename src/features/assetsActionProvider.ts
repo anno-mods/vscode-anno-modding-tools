@@ -3,7 +3,7 @@ import * as path from 'path';
 import { ASSETS_FILENAME_PATTERN } from '../other/assetsXml';
 import * as editorUtils from '../editor/utils';
 import * as utils from '../other/utils';
-import * as xmltest from '../other/xmltest';
+import * as xmltest from '../tools/xmltest';
 import * as logger from '../other/logger';
 import * as editorFormats from '../editor/formats';
 

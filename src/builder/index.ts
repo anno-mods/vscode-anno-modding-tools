@@ -14,7 +14,7 @@ import { CfgYamlConverter } from './converter/cfgyaml';
 import * as rdp from '../other/rdp';
 import * as dds from '../other/dds';
 
-import * as xmltest from '../other/xmltest';
+import * as xmltest from '../tools/xmltest';
 import { ModCache } from './ModCache';
 import * as utils from '../other/utils';
 import { AssetsConverter } from './converter/assets';
