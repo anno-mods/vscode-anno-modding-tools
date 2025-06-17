@@ -3,7 +3,7 @@ import * as minimatch from 'minimatch';
 import * as vscode from 'vscode';
 import { ASSETS_FILENAME_PATTERN, ASSETS_FILENAME_PATTERN_STRICT } from '../other/assetsXml';
 
-const PATCH_FILENAME_PATTERN_STRICT = '**/{assets*.xml,*.include.xml,export.bin.xml,*.fc.xml,*.cfg.xml}';
+const PATCH_FILENAME_PATTERN_STRICT = '**/{assets*,*.include,game/asset/**/*,export.bin,*.fc,*.cfg}.xml';
 
 export function isAnnoXml(document: vscode.TextDocument): boolean {
   if (!minimatch(document.fileName, ASSETS_FILENAME_PATTERN, { dot: true })) {

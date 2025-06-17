@@ -1,8 +1,8 @@
 import * as xmldoc from 'xmldoc';
 import * as vscode from 'vscode';
 
-export const ASSETS_FILENAME_PATTERN_STRICT = '**/{assets*,*.include}.xml';
-export const ASSETS_FILENAME_PATTERN = '**/{assets*.xml,*.include.xml,templates.xml,tests/*-input.xml,tests/*-expectation.xml,gui/texts_*.xml,.modcache/*-patched.xml,export.bin.xml,*.fc.xml,*.cfg.xml}';
+export const ASSETS_FILENAME_PATTERN_STRICT = '**/{assets*,*.include,game/asset/**/*}.xml';
+export const ASSETS_FILENAME_PATTERN = '**/{assets*,*.include,game/asset/**/*,templates,tests/*-input,tests/*-expectation,gui/texts_*,.modcache/*-patched,export.bin,*.fc,*.cfg}.xml';
 
 export interface IAsset {
   guid: string;
