@@ -51,6 +51,7 @@ export class ShowDiffCommand {
     const modPath = utils.findModRoot(fileUri.fsPath);
     const vanillaAssetsFilePath = editorUtils.getVanilla(fileUri.fsPath, modPath);
     if (!vanillaAssetsFilePath) {
+      vscode.window.showWarningMessage(`Can't find corresponding vanilla file.`);
       return;
     }
 

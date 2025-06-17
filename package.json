@@ -156,7 +156,7 @@
 				"title": "Anno: Show Diff (File)"
 			},
 			{
-				"command": "anno-modding-tools.showAssetsDiff",
+				"command": "anno-modding-tools.showFileDiff",
 				"title": "Anno: Show Diff (assets.xml)"
 			},
 			{
@@ -315,7 +315,7 @@
 				},
 				{
 					"when": "resourceFilename == modinfo.json",
-					"command": "anno-modding-tools.showAssetsDiff",
+					"command": "anno-modding-tools.showFileDiff",
 					"group": "anno@1"
 				},
 				{
