@@ -19,11 +19,11 @@ let _logContent: string;
 
 let _version = utils.GameVersion.Auto;
 
-export class PatchTester {
+export class ShowDiffCommand {
 	public static register(context: vscode.ExtensionContext): vscode.Disposable[] {
     const annodiffContentProvider = new (class implements vscode.TextDocumentContentProvider {
       provideTextDocumentContent(uri: vscode.Uri): string {
-        PatchTester.reload(context);
+        ShowDiffCommand.reload(context);
 
         if (uri.query === 'original') {
           return _originalContent;
@@ -35,8 +35,8 @@ export class PatchTester {
     })();
 
     const disposable = [
-      vscode.commands.registerCommand('anno-modding-tools.showFileDiff', PatchTester.showFileDiff),
-      vscode.commands.registerCommand('anno-modding-tools.showSelectionDiff', PatchTester.showSelectionDiff),
+      vscode.commands.registerCommand('anno-modding-tools.showFileDiff', ShowDiffCommand.showFileDiff),
+      vscode.commands.registerCommand('anno-modding-tools.showSelectionDiff', ShowDiffCommand.showSelectionDiff),
       vscode.workspace.registerTextDocumentContentProvider("annodiff", annodiffContentProvider)
     ];
 
@@ -83,7 +83,7 @@ export class PatchTester {
     _patch = "";
     _reload = true;
 
-    PatchTester.executeDiff();
+    ShowDiffCommand.executeDiff();
   }
 
   static async showSelectionDiff(fileUri: any) {
@@ -110,7 +110,7 @@ export class PatchTester {
 
     _patch = _patch.replace(/<\/?ModOps>/g, '');
 
-    PatchTester.executeDiff();
+    ShowDiffCommand.executeDiff();
   }
 
   static executeDiff() {
@@ -129,7 +129,7 @@ export class PatchTester {
       const searchModPath = utils.searchModPath(_patchPath);
       const config = vscode.workspace.getConfiguration('anno', vscode.Uri.file(_patchPath));
       const modsFolder: string | undefined = config.get('modsFolder');
-      const tester = new PatchTester(context, modsFolder);
+      const tester = new ShowDiffCommand(context, modsFolder);
       const result = tester.diff(_originalPath,
         _patch ? ('<ModOps>' + _patch + '</ModOps>') : fs.readFileSync(_patchPath, 'utf-8'),
         _patchPath,

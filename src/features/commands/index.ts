@@ -9,8 +9,7 @@ import { GltfRdmConverter } from './gltfRdmConverter';
 import { RdpConverter } from './rdpConverter';
 import { FcImporter } from './fcImporter';
 import { CfgYamlCommands } from './cfgyaml';
-import { PatchTester } from './patchTester';
-import { RunTests } from './runTests';
+import { ShowDiffCommand } from './showDiff';
 import { CheckLoca } from './checkLoca';
 import { ImportLoca } from './importLoca';
 import { GuidCounter } from '../guidCounter';
@@ -26,7 +25,7 @@ export function registerCommands(context: vscode.ExtensionContext) {
 	context.subscriptions.push(...RdpConverter.register(context));
 	context.subscriptions.push(...FcImporter.register(context));
 	context.subscriptions.push(...CfgYamlCommands.register(context));
-	context.subscriptions.push(...PatchTester.register(context));
+	context.subscriptions.push(...ShowDiffCommand.register(context));
   // context.subscriptions.push(...RunTests.register(context));
 	context.subscriptions.push(...CheckLoca.register(context));
 	context.subscriptions.push(...ImportLoca.register(context));
