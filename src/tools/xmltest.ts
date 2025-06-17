@@ -5,7 +5,7 @@ import * as glob from 'glob';
 import * as logger from '../other/logger';
 import * as utils from '../other/utils';
 import { ModRegistry } from '../other/modRegistry';
-import { ModMetaInfo } from '../other/modMetaInfo';
+import { ModInfo } from '../anno';
 
 const XMLTEST_PATH = "./external/xmltest.exe";
 const XMLTEST2_PATH = "./external/xmltest2.exe";
@@ -113,7 +113,7 @@ export function fetchIssues(vanillaXml: string, modPath: string, mainPatchFile: 
   try {
     const roots = utils.findModRoots(mainPatchFile).map(e => ['-m', e]);
     const annomod = utils.readModinfo(modPath);
-    const modInfo = ModMetaInfo.read(modPath);
+    const modInfo = ModInfo.read(modPath);
     const version = modInfo?.game || utils.GameVersion.Auto;
     const tester = asAbsolutePath(version === utils.GameVersion.Anno8 ? XMLTEST2_PATH : XMLTEST_PATH);
 
@@ -179,7 +179,7 @@ export function diff(originalPath: string, patchContent: string, patchFilePath: 
   ModRegistry.use(modsFolder);
   patchFilePath = patchFilePath.replace(/\\/g, '/');
   const annomod = utils.readModinfo(modPath);
-  const modInfo = ModMetaInfo.read(modPath);
+  const modInfo = ModInfo.read(modPath);
   const version = modInfo?.game || utils.GameVersion.Auto;
   const differ = asAbsolutePath(version === utils.GameVersion.Anno8 ? XMLTEST2_PATH : XMLTEST_PATH);
 

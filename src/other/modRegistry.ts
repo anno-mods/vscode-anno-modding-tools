@@ -1,12 +1,11 @@
 import { glob } from 'glob';
 import * as path from 'path';
-import * as fs from 'fs';
 import * as logger from './logger';
-import { ModMetaInfo } from './modMetaInfo';
+import { ModInfo } from '../anno';
 import * as utils from './utils';
 
 export namespace ModRegistry {
-  let mods_: { [index: string]: ModMetaInfo } = {};
+  let mods_: { [index: string]: ModInfo } = {};
   let folders_: Set<string> = new Set<string>();
 
   /** add mod folder to scan */
@@ -29,7 +28,7 @@ export namespace ModRegistry {
     const modinfos = glob.sync('{,*/,*/*/,*/*/*/}modinfo.json', { cwd: folder, nodir: true });
 
     for (const modinfoPath of modinfos) {
-      const metaInfo = ModMetaInfo.read(path.join(folder, modinfoPath));
+      const metaInfo = ModInfo.read(path.join(folder, modinfoPath));
       if (metaInfo) {
         const existingEntry = mods_[metaInfo.id];
         if (!existingEntry
@@ -43,14 +42,14 @@ export namespace ModRegistry {
   }
 
   /** (re-)scan for GUIDs */
-  export function getAllDependencies(modId: string) : ModMetaInfo[] {
+  export function getAllDependencies(modId: string) : ModInfo[] {
     const mod = get(modId);
     if (!mod) {
       return [];
     }
 
     const dependencies = mod.getAllDependencies();
-    return dependencies.map((e: string) => get(e)).filter((e: ModMetaInfo | undefined) => e !== undefined);
+    return dependencies.map((e: string) => get(e)).filter((e: ModInfo | undefined) => e !== undefined);
   }
 
   /** Deprecated. Use `use` and `get` instead. */
@@ -65,13 +64,13 @@ export namespace ModRegistry {
   }
 
   /** get mod meta info */
-  function get(modId: string) : ModMetaInfo | undefined {
+  function get(modId: string) : ModInfo | undefined {
     return mods_[modId];
   }
 
-  export function findMod(filePath: string) : ModMetaInfo | undefined {
+  export function findMod(filePath: string) : ModInfo | undefined {
     const modFolder = utils.searchModPath(filePath);
-    const modMetaInfo = ModMetaInfo.read(modFolder);
+    const modMetaInfo = ModInfo.read(modFolder);
 
     if (modMetaInfo === undefined) {
       return undefined;

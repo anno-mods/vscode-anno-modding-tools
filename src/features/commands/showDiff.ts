@@ -1,11 +1,10 @@
 import * as vscode from 'vscode';
-import * as child from 'child_process';
 import * as channel from '../channel';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as editorUtils from '../../editor/utils';
 import * as utils from '../../other/utils';
-import * as modMetaInfo from '../../other/modMetaInfo';
+import { ModInfo } from '../../anno';
 import * as xmltest from '../../tools/xmltest';
 
 let _originalPath: string;
@@ -55,11 +54,11 @@ export class ShowDiffCommand {
       return;
     }
 
-    let modInfo: modMetaInfo.ModMetaInfo | undefined;
+    let modInfo: ModInfo | undefined;
 
     let patchFilePath = fileUri.fsPath;
     if (path.basename(patchFilePath) === 'modinfo.json') {
-      modInfo = modMetaInfo.ModMetaInfo.read(patchFilePath);
+      modInfo = ModInfo.read(patchFilePath);
       if (!modInfo || modInfo.game === utils.GameVersion.Auto) {
         vscode.window.showWarningMessage(`modinfo.json contains errors. Please fix and check the version field, e.g. '"Anno": 8'.`);
         return;
@@ -69,7 +68,7 @@ export class ShowDiffCommand {
       patchFilePath = utils.getAssetsXmlPath(path.dirname(patchFilePath), modInfo?.game);
     }
     else {
-      modInfo = modMetaInfo.ModMetaInfo.read(modPath);
+      modInfo = ModInfo.read(modPath);
       _version = modInfo?.game || utils.GameVersion.Auto;
     }
 

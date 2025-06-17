@@ -1,11 +1,11 @@
 import * as path from 'path';
 import * as fs from 'fs';
-import { Version } from './version';
-import * as utils from './utils';
+import { Version } from '../other/version';
+import * as utils from '../other/utils';
 
 const MODINFO_JSON = 'modinfo.json'
 
-export class ModMetaInfo {
+export class ModInfo {
   private modInfo_: any;
 
   readonly id: string;
@@ -14,7 +14,7 @@ export class ModMetaInfo {
   readonly game: utils.GameVersion;
 
   /** filePath: modinfo.json or folder containing one */
-  static read(filePath: string) : ModMetaInfo | undefined {
+  static read(filePath: string) : ModInfo | undefined {
     let modPath: string | undefined;
     let id: string | undefined;
     let modInfo: any;
@@ -56,7 +56,7 @@ export class ModMetaInfo {
       id = path.basename(modPath);
     }
 
-    return new ModMetaInfo(id, modPath, modInfo, game);
+    return new ModInfo(id, modPath, modInfo, game);
   }
 
   private constructor(id: string, path: string, modInfo: any, game: utils.GameVersion) {
