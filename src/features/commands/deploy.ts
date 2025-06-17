@@ -6,7 +6,7 @@ import * as channel from '../channel';
 import { ModBuilder } from '../../builder';
 import * as editorUtils from '../../editor/utils';
 
-export class AnnomodCommands {
+export class DeployCommand {
   context: vscode.ExtensionContext;
 
 	public static register(context: vscode.ExtensionContext): vscode.Disposable[] {
@@ -16,7 +16,7 @@ export class AnnomodCommands {
           return;
         }
 
-        await AnnomodCommands._commandCompileMod(fileUri?.fsPath, context);
+        await DeployCommand._commandCompileMod(fileUri?.fsPath, context);
       }),
     ];
 
@@ -33,7 +33,7 @@ export class AnnomodCommands {
       mods = [ { label: path.basename(filePath), detail: filePath } ];
     }
     else {
-      mods = AnnomodCommands._findMods();
+      mods = DeployCommand._findMods();
       if (mods.length === 0) {
         vscode.window.showWarningMessage('No modinfo.json found in workspace to build.');
         return;

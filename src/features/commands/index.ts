@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { FcConverter } from './fcConverter';
 import { DdsConverter } from './ddsConverter';
-import { AnnomodCommands } from './annomod';
+import { DeployCommand } from './deploy';
 import { PropImporter } from './/propImporter';
 import { InfoImporter } from './infoImporter';
 import { RdmGlbConverter } from './rdmGlbConverter';
@@ -17,7 +17,7 @@ import { GuidCounter } from '../guidCounter';
 export function registerCommands(context: vscode.ExtensionContext) {
 	context.subscriptions.push(...FcConverter.register(context));
 	context.subscriptions.push(...DdsConverter.register(context));
-	context.subscriptions.push(...AnnomodCommands.register(context));
+	context.subscriptions.push(...DeployCommand.register(context));
 	context.subscriptions.push(...PropImporter.register(context));
 	context.subscriptions.push(...InfoImporter.register(context));
 	context.subscriptions.push(...RdmGlbConverter.register(context));
