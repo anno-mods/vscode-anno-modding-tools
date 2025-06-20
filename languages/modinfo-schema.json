@@ -74,27 +74,110 @@
         "Category": { "$ref": "#/definitions/ModName" },
         "ModName": { "$ref": "#/definitions/ModName" },
 
-        "LoadAfterIds": { "$ref": "#/definitions/LoadAfterIds" },
-        "ModDependencies": { "$ref": "#/definitions/ModDependencies" },
-        "IncompatibleIds": { "$ref": "#/definitions/IncompatibleIds" },
-        "DeprecateIds": { "$ref": "#/definitions/DeprecateIds" },
+        "Dependencies": {
+          "type": "object",
+          "description": "Mod + DLC dependencies, loading order and incompatibities.",
+          "additionalProperties": false,
+          "properties": {
+            "Require": {
+              "description": "Mod and DLC dependencies required to use this mod",
+              "type": [ "array" ],
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/DlcID"
+                  },
+                  {
+                    "$ref": "#/definitions/ModID"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "additionalProperties": false,
+                      "oneOf": { "$ref": "#/definitions/ModOrDlcIDs" }  
+                    }
+                  }
+                ]
+              }
+            },
+            "Optional": {
+              "description": "Mod and DLC that enable further content, but are not required.",
+              "type": [ "array" ],
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/DlcID"
+                  },
+                  {
+                    "$ref": "#/definitions/ModID"
+                  }
+                ]
+              }
+            },
+            "LoadAfter": {
+              "description": "Mods to load after.\n`*` for loading last is allowed.",
+              "type": [ "array" ],
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/ModID"
+                  },
+                  {
+                    "const": "*",
+                    "description": "Load after all other mods."
+                  }
+                ]
+              }
+            },
+            "Deprecate": {
+              "description": "Mod IDs to disable because this mod replaces its function.",
+              "type": [ "array" ],
+              "items": {
+                "$ref": "#/definitions/ModID"
+              }
+            }
+          }
+        },
 
-        "OptionalDependencies": { "$ref": "#/definitions/DevDependencies" },
-        "out": { "$ref": "#/definitions/DevTargetPath" },
-        "bundle": { "$ref": "#/definitions/DevBundle" },
+        "Development": {
+          "type": "object",
+          "description": "Properties for development purposes.",
+          "additionalProperties": false,
+          "properties": {
+            "Dependencies": { "$ref": "#/definitions/DevDependencies" },
+            "DeployPath": { "$ref": "#/definitions/DevTargetPath" },
+            "Bundle": { "$ref": "#/definitions/DevBundle" }
+          }
+        },
 
         "Difficulty": {
           "description": "Difficulty balancing change\n\"cheat\": e.g. no construction costs\n\"easier\": makes the game easier, e.g. reduced needs consumption\n\"unchanged\": is balanced similar as the vanilla game\n\"harder\": makes the game harder",
           "type": "string",
           "enum": [ "cheat", "easier", "unchanged", "harder"]
         },
-        "RequiresNewGame": {
-          "description": "Set to `true` if the mod only works with a new savegame. For example like river slots.\nOptional. Default is `false`.",
-          "type": "boolean"
-        },
-        "SafeToRemove": {
-          "description": "Set to `true` if the mod can be removed from a savegame without leaving trails. For example construction menu reordering.\nOptional. Default is `false`.",
-          "type": "boolean"
+
+        "GameSetup": {
+          "type": "object",
+          "description": "Properties describing difficulty, supported game modes and savegame compatibility.",
+          "additionalProperties": false,
+          "properties": {
+            "RequiresNewGame": {
+              "description": "Set to `true` if the mod only works with a new savegame. For example like river slots.\nOptional. Default is `false`.",
+              "type": "boolean"
+            },
+            "SafeToRemove": {
+              "description": "Set to `true` if the mod can be removed from a savegame without leaving trails. For example construction menu reordering.\nOptional. Default is `false`.",
+              "type": "boolean"
+            },
+            "Campaign": {
+              "description": "Set to `true` if the mod can be used in the campaign without major issues.\nOptional. Default is `true`.",
+              "type": "boolean"
+            },
+            "Multiplayer": {
+              "description": "Set to `true` if the mod can be used in multiplayer games.\nOptional. Default is `true`.",
+              "type": "boolean"
+            }
+          }
         },
 
         "Scripts": {
@@ -217,11 +300,16 @@
     "StrictOwnModID": {
       "description": "Append your creator name to ensure a unique mod name, e.g. \"mod-name-creator\".",
       "type": "string",
-      "pattern": "^[a-z][a-z0-9]+(\\-[a-z][a-z0-9]+)*$"
+      "pattern": "^[a-z][a-z0-9]+(\\-[a-z0-9]+)*$"
     },
     "ModID": {
       "description": "Mod ID",
       "type": "string"
+    },
+    "DlcID": {
+      "description": "Select DLC or type Mod ID",
+      "type": "string",
+      "enum": [ "DLC 1", "DLC 2", "DLC 3" ]
     },
     "ModIDOrUrl": {
       "description": "Mod ID or URL to Zip file.\nZip file: `bundle` the content as sub-mod, and use Zip file name as Mod ID.",
@@ -230,6 +318,19 @@
     "FolderOrUrl": {
       "description": "Mod folder or URL to Zip file",
       "type": "string"
+    },
+    "ModOrDlcIDs": { 
+      "type": "array",
+      "items": {
+        "anyOf": [
+          { 
+            "$ref": "#/definitions/DlcID"
+          },
+          { 
+            "$ref": "#/definitions/ModID"
+          }
+        ]
+      }
     },
     "LoadAfterIds": { 
       "description": "List of mods that need to be loaded before - independent of being required.\nUse `*` to load after all mods - except those which also use `*`.\nOptional",
