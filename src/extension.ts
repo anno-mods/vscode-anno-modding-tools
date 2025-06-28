@@ -11,6 +11,7 @@ import * as commands from './features/commands';
 import * as cfg from './languages/cfg';
 import * as cf7 from './languages/cf7';
 import * as ifo from './languages/ifo';
+import * as xml from './languages/xml';
 
 import * as logger from './other/logger';
 import * as channel from './features/channel';
@@ -30,6 +31,7 @@ export function activate(context: vscode.ExtensionContext) {
 	cfg.activate(context);
 	cf7.activate(context);
 	ifo.activate(context);
+	xml.activate(context);
 	AssetsWorkspaceSymbolProvider.activate(context);
 
 	commands.registerCommands(context);
