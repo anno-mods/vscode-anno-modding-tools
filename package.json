@@ -33,7 +33,11 @@
 					"Anno Model Config",
 					"anno-cfg"
 				],
-				"configuration": "./languages/cfg.language-configuration.json"
+				"configuration": "./languages/cfg.language-configuration.json",
+				"icon": {
+					"dark": "./images/anno-cfg.svg",
+					"light": "./images/anno-cfg.svg"
+				}
 			},
 			{
 				"id": "anno-ifo",
@@ -45,7 +49,11 @@
 					"Anno Model Info",
 					"anno-ifo"
 				],
-				"configuration": "./languages/cfg.language-configuration.json"
+				"configuration": "./languages/cfg.language-configuration.json",
+				"icon": {
+					"dark": "./images/anno-ifo.svg",
+					"light": "./images/anno-ifo.svg"
+				}
 			},
 			{
 				"id": "anno-cf7",
@@ -57,7 +65,11 @@
 					"Anno Feedbacks (decoded)",
 					"anno-cf7"
 				],
-				"configuration": "./languages/cfg.language-configuration.json"
+				"configuration": "./languages/cfg.language-configuration.json",
+				"icon": {
+					"dark": "./images/anno-cf7.svg",
+					"light": "./images/anno-cf7.svg"
+				}
 			},
 			{
 				"id": "anno-prp",
@@ -69,7 +81,11 @@
 					"Anno Prop Config",
 					"anno-prp"
 				],
-				"configuration": "./languages/cfg.language-configuration.json"
+				"configuration": "./languages/cfg.language-configuration.json",
+				"icon": {
+					"dark": "./images/anno-cfg.svg",
+					"light": "./images/anno-cfg.svg"
+				}
 			},
 			{
 				"id": "anno-xml",
@@ -81,10 +97,14 @@
 				],
 				"firstLine": "//<ModOps",
 				"aliases": [
-					"Anno ModOps",
+					"Anno ModOps XML",
 					"anno-xml"
 				],
-				"configuration": "./languages/modops.language-configuration.json"
+				"configuration": "./languages/modops.language-configuration.json",
+				"icon": {
+					"dark": "./images/anno-xml.svg",
+					"light": "./images/anno-xml.svg"
+				}
 			}
 		],
 		"grammars": [

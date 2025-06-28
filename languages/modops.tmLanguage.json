@@ -1,6 +1,6 @@
 {
 	"version": "https://github.com/atom/language-xml/commit/7bc75dfe779ad5b35d9bf4013d9181864358cb49",
-	"name": "Anno ModOps",
+	"name": "Anno ModOps XML",
 	"scopeName": "anno.modops",
 	"patterns": [
 		{
