@@ -151,7 +151,7 @@ export function getVanilla(filePath: string, modRoot?: string) {
     vanillaPath = path.join(annoRda, basePath, 'templates.xml');
   }
   else if (basename.indexOf("texts_") >= 0) {
-    vanillaPath = path.join(annoRda, 'data/config/gui/' + basename + '.xml');
+    vanillaPath = path.join(annoRda, (anno8 ? 'data/base/config/gui/' : 'data/config/gui/') + basename + '.xml');
   }
   else if (modRoot && (filePath.endsWith('.cfg.xml') || filePath.endsWith('.fc.xml'))) {
     const relative = path.relative(modRoot, filePath);
