@@ -12,10 +12,11 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(registerFolding('anno-xml'));
 
   const config = vscode.workspace.getConfiguration('anno');
-  const customXmlLanguageMode: boolean = config.get('enableCustomXmlLanguageMode') || true;
+  const customXmlLanguageMode: boolean = config.get('workspace.setCustomXmlLanguageMode') || true;
+  const modopSchema: boolean = config.get('workspace.setXmlSchema') || true;
 
-  if (customXmlLanguageMode) {
-    addLanguageToSettings(context);
+  if (customXmlLanguageMode || modopSchema) {
+    writeWorkspaceSettings(context, customXmlLanguageMode, modopSchema);
   }
 }
 
@@ -89,7 +90,12 @@ function provideFoldingRanges(document: vscode.TextDocument, context: vscode.Fol
   return ranges;
 }
 
-async function addLanguageToSettings(context: vscode.ExtensionContext) {
+interface ISchema {
+  pattern: string,
+  systemId: string
+}
+
+async function writeWorkspaceSettings(context: vscode.ExtensionContext, languageMode: boolean, schema: boolean) {
   const workspaceFolders = vscode.workspace.workspaceFolders;
   if (!workspaceFolders) return;
 
@@ -113,10 +119,32 @@ async function addLanguageToSettings(context: vscode.ExtensionContext) {
         settings = JSON.parse(content);
       }
 
-      settings['files.associations'] ??= {};
-      settings['files.associations']['assets*.xml'] = 'anno-xml';
-      settings['files.associations']['texts_*.xml'] = 'anno-xml';
-      settings['files.associations']['*.include.xml'] = 'anno-xml';
+      if (languageMode) {
+        settings['files.associations'] ??= {};
+        settings['files.associations']['assets*.xml'] = 'anno-xml';
+        settings['files.associations']['texts_*.xml'] = 'anno-xml';
+        settings['files.associations']['*.include.xml'] = 'anno-xml';
+      }
+      if (schema) {
+        const schemaUrl = "https://raw.githubusercontent.com/anno-mods/vscode-anno-modding-tools/main/generated/assets.xsd";
+
+        settings['xml.fileAssociations'] ??= [];
+
+        let alreadySet = false;
+        for (const entry of settings['xml.fileAssociations']) {
+          if ((entry as ISchema).systemId === schemaUrl) {
+            alreadySet = true;
+            break;
+          }
+        }
+
+        if (!alreadySet) {
+          settings['xml.fileAssociations'].push({
+            "pattern": "{assets*,*.include}.xml",
+            "systemId": schemaUrl
+          });
+        }
+      }
 
       fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 2), 'utf8');
     }

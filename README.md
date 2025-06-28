@@ -52,50 +52,12 @@ Go into `File` > `Preferences` > `Settings...` and search for `anno` and configu
   Use `c:\anno\all-rda` if you have `c:\anno\all-rda\data\config\export\main\asset\assets.xml` (Anno 1800) or `c:\anno\all-rda\data\base\config\export\assets.xml` (Anno 117).
 - `Anno: Mods Folder`: Path to your `Anno 1800/mods/` folder to deploy and find dependencies.
 
-### 4. Auto Complete
-
-#### Modinfo.json Schema
-
-Go to `Preferences > Settings` and search for `schemas`.
-
-You will see `JSON: Schemas`. Choose `Edit in settings.json` and insert the following entry:
-
-```json
-"json.fileAssociations": [
-  {
-    "fileMatch": [
-        "/modinfo.json"
-    ],
-    "url": "https://raw.githubusercontent.com/anno-mods/vscode-anno-modding-tools/main/languages/modinfo-schema.json"
-  }
-]
-```
-
-#### XML Patch Schema
-
-This only applies if you have the Red Hat XML plugin installed.
-
-Go to `Preferences > Settings` and search for `xml file associations`.
-
-You will see `Xml: File Associations`. Choose `Edit in settings.json` and insert the following entry:
-
-```json
-"xml.fileAssociations": [
-  {
-      "pattern": "{assets,*.include}.xml",
-      "systemId": "https://raw.githubusercontent.com/anno-mods/vscode-anno-modding-tools/main/generated/assets.xsd"
-  }
-]
-```
-
-Note: If you want to force updates for auto-completion delete `C:\Users\<user>\.lemminx` and re-open VSCode.
-
 ### 4. How to open files
 
 Most features only activate if you open folders, via `File` > `Open Folder...`.
 Best open the mod folder or even the complete `mods/` folder.
 
-The plugin has difficulties understanding the mod structure if you simply open individual files.
+The plugin has difficulties understanding the mod structure if you only open individual files.
 
 ### 5. Further Docs
 
@@ -277,6 +239,50 @@ variant:
       Position:
         yf: 4.34346
 ```
+
+---
+
+## Optional Setup
+
+### Auto Complete
+
+Auto complete settings get added to your workspace `settings.json` automatically.
+
+#### Modinfo.json Schema
+
+Go to `Preferences > Settings` and search for `schemas`.
+
+You will see `JSON: Schemas`. Choose `Edit in settings.json` and insert the following entry:
+
+```json
+"json.schemas": [
+  {
+    "fileMatch": [
+        "/modinfo.json"
+    ],
+    "url": "https://raw.githubusercontent.com/anno-mods/vscode-anno-modding-tools/main/languages/modinfo-schema.json"
+  }
+]
+```
+
+#### XML Patch Schema
+
+This only applies if you have the Red Hat XML plugin installed.
+
+Go to `Preferences > Settings` and search for `xml file associations`.
+
+You will see `Xml: File Associations`. Choose `Edit in settings.json` and insert the following entry:
+
+```json
+"xml.fileAssociations": [
+  {
+      "pattern": "{assets*,*.include}.xml",
+      "systemId": "https://raw.githubusercontent.com/anno-mods/vscode-anno-modding-tools/main/generated/assets.xsd"
+  }
+]
+```
+
+Note: If you want to force updates for auto-completion delete `C:\Users\<user>\.lemminx` and re-open VSCode.
 
 ---
 
