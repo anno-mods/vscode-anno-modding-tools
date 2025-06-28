@@ -11,7 +11,12 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(registerFolding('anno-xml'));
 
-  addLanguageToSettings(context);
+  const config = vscode.workspace.getConfiguration('anno');
+  const customXmlLanguageMode: boolean = config.get('enableCustomXmlLanguageMode') || true;
+
+  if (customXmlLanguageMode) {
+    addLanguageToSettings(context);
+  }
 }
 
 export function registerFolding(language: string): vscode.Disposable {

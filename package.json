@@ -384,6 +384,12 @@
 		"configuration": {
 			"title": "Modding Tools for Anno",
 			"properties": {
+				"anno.enableCustomXmlLanguageMode": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Use `Anno ModOps XML` as the default language mode for XML files.\n\nThe plugin adds `files.associations` entries for the patterns `assets*.xml`, `texts_*.xml` and `*.include.xml` to your workspace `settings.json` file to achieve that.",
+					"scope": "resource"
+				},
 				"anno.modsFolder": {
 					"type": "string",
 					"format": "uri",
