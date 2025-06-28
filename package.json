@@ -70,6 +70,21 @@
 					"anno-prp"
 				],
 				"configuration": "./languages/cfg.language-configuration.json"
+			},
+			{
+				"id": "anno-xml",
+				"extensions": [
+					"assets.xml",
+					".include.xml",
+					".cfg.xml",
+					".fc.xml"
+				],
+				"firstLine": "//<ModOps",
+				"aliases": [
+					"Anno ModOps",
+					"anno-xml"
+				],
+				"configuration": "./languages/modops.language-configuration.json"
 			}
 		],
 		"grammars": [
@@ -92,6 +107,11 @@
 				"language": "anno-prp",
 				"scopeName": "text.prp",
 				"path": "./languages/prp.tmLanguage.json"
+			},
+			{
+				"language": "anno-xml",
+				"scopeName": "anno.modops",
+				"path": "./languages/modops.tmLanguage.json"
 			}
 		],
 		"commands": [
