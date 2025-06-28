@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as minimatch from 'minimatch';
-import * as utils from '../other/utils';
+import * as utils from '../../other/utils';
 
 export function activate(context: vscode.ExtensionContext) {
   const diagnostics = vscode.languages.createDiagnosticCollection("anno-cfg");
