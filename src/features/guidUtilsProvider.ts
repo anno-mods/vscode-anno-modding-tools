@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
-import { AssetsTocProvider } from './outline/assetsTocProvider';
+import { AssetsTocProvider } from '../languages/xml/assetsTocProvider';
 import { AssetsDocument, ASSETS_FILENAME_PATTERN, IAsset } from '../other/assetsXml';
 import { SymbolRegistry } from '../other/symbolRegistry';
 import { AllGuidCompletionItems, GuidCompletionItems } from './guidCompletionItems';

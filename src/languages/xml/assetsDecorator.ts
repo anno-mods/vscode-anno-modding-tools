@@ -1,10 +1,10 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
-import { resolveGUID } from './guidUtilsProvider';
-import * as utils from '../other/utils';
+import { resolveGUID } from '../../features/guidUtilsProvider';
+import * as utils from '../../other/utils';
 import * as path from 'path';
-import { assetNameWithOrigin } from '../other/assetsXml';
-import * as editorFormats from '../editor/formats';
+import { assetNameWithOrigin } from '../../other/assetsXml';
+import * as editorFormats from '../../editor/formats';
 
 import { clearDiagnostics, diagnostics, refreshDiagnostics } from './assetsActionProvider';
 

@@ -1,10 +1,10 @@
 import * as vscode from 'vscode';
-import { resolveGUID, getAllCustomSymbols } from './guidUtilsProvider';
-import { ASSETS_FILENAME_PATTERN } from '../other/assetsXml';
-import * as channel from './channel';
+import { resolveGUID, getAllCustomSymbols } from '../../features/guidUtilsProvider';
+import { ASSETS_FILENAME_PATTERN } from '../../other/assetsXml';
+import * as channel from '../../features/channel';
 import * as path from 'path';
 import * as child from 'child_process';
-import * as editorFormats from '../editor/formats';
+import * as editorFormats from '../../editor/formats';
 
 let context_: vscode.ExtensionContext;
 
@@ -72,8 +72,10 @@ export class DefinitionProvider implements vscode.DefinitionProvider {
 }
 
 export function activate(context: vscode.ExtensionContext) {
-  const selector: vscode.DocumentSelector = { language: 'xml', scheme: '*', pattern: ASSETS_FILENAME_PATTERN };
-
+    const selector: vscode.DocumentSelector = [
+      { language: 'anno-xml', scheme: '*' },
+      { language: 'xml', scheme: '*', pattern: ASSETS_FILENAME_PATTERN }
+    ];
 
   context_ = context;
 

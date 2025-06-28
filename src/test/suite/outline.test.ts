@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 
-import { AssetsTocProvider, SkinnyTextDocument } from '../../features/outline/assetsTocProvider';
+import { AssetsTocProvider, SkinnyTextDocument } from '../../languages/xml/assetsTocProvider';
 import { AssetsDocument } from '../../editor/assetsDocument';
 
 const text = `<ModOps>

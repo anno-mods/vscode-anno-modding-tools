@@ -1,7 +1,17 @@
+import * as fs from 'fs';
+import * as path from 'path';
 import * as vscode from 'vscode';
 
+import { AssetsSymbolProvider } from './assetsOutlineProvider';
+import { AssetsActionProvider } from './assetsActionProvider';
+
 export function activate(context: vscode.ExtensionContext) {
+  context.subscriptions.push(...AssetsSymbolProvider.register(context));
+  context.subscriptions.push(...AssetsActionProvider.register(context));
+
   context.subscriptions.push(registerFolding('anno-xml'));
+
+  addLanguageToSettings(context);
 }
 
 export function registerFolding(language: string): vscode.Disposable {
@@ -72,4 +82,43 @@ function provideFoldingRanges(document: vscode.TextDocument, context: vscode.Fol
   }
 
   return ranges;
+}
+
+async function addLanguageToSettings(context: vscode.ExtensionContext) {
+  const workspaceFolders = vscode.workspace.workspaceFolders;
+  if (!workspaceFolders) return;
+
+  const modinfoFiles = await vscode.workspace.findFiles('**/modinfo.json', '**/node_modules/**', 1);
+  if (modinfoFiles.length === 0) return;
+
+  for (const folder of workspaceFolders) {
+    const folderPath = folder.uri.fsPath;
+
+    const vscodeDir = path.join(folderPath, '.vscode');
+    const settingsPath = path.join(vscodeDir, 'settings.json');
+
+    try {
+      if (!fs.existsSync(vscodeDir)) {
+        fs.mkdirSync(vscodeDir);
+      }
+
+      let settings: any = {};
+      if (fs.existsSync(settingsPath)) {
+        const content = fs.readFileSync(settingsPath, 'utf8');
+        settings = JSON.parse(content);
+      }
+
+      settings['files.associations'] ??= {};
+      settings['files.associations']['assets*.xml'] = 'anno-xml';
+      settings['files.associations']['texts_*.xml'] = 'anno-xml';
+      settings['files.associations']['*.include.xml'] = 'anno-xml';
+
+      fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 2), 'utf8');
+    }
+    catch (err) {
+      vscode.window.showWarningMessage(
+        `Failed to update .vscode/settings.json: ${err instanceof Error ? err.message : String(err)}`
+      );
+    }
+  }
 }

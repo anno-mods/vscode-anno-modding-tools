@@ -1,11 +1,11 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
-import { ASSETS_FILENAME_PATTERN } from '../other/assetsXml';
-import * as editorUtils from '../editor/utils';
-import * as utils from '../other/utils';
-import * as xmltest from '../tools/xmltest';
-import * as logger from '../other/logger';
-import * as editorFormats from '../editor/formats';
+import { ASSETS_FILENAME_PATTERN } from '../../other/assetsXml';
+import * as editorUtils from '../../editor/utils';
+import * as utils from '../../other/utils';
+import * as xmltest from '../../tools/xmltest';
+import * as logger from '../../other/logger';
+import * as editorFormats from '../../editor/formats';
 
 const DEPRECATED_ALL = '190611';
 const DEPRECATED_ALL2 = '193879';
@@ -19,7 +19,10 @@ export class AssetsActionProvider {
   public static register(context: vscode.ExtensionContext): vscode.Disposable[] {
     // subscribeToDocumentChanges(context, diagnostics);
 
-    const selector: vscode.DocumentSelector = { language: 'xml', scheme: '*', pattern: ASSETS_FILENAME_PATTERN };
+    const selector: vscode.DocumentSelector = [
+      { language: 'anno-xml', scheme: '*' },
+      { language: 'xml', scheme: '*', pattern: ASSETS_FILENAME_PATTERN }
+    ];
     return [
       diagnostics,
       vscode.languages.registerCodeActionsProvider(selector, new AssetsCodeActionProvider(), {
