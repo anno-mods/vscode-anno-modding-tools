@@ -12,7 +12,7 @@
           "const": 7
         },
         "ModID": {
-          "description": "Unique identifier of the mod.\n\nUse dashes and append the creator, e.g. \"mod-name-creator\".",
+          "description": "Unique identifier of the mod.\n\nUse dashes and append the creator, e.g. \"modname-creatorname\".",
           "type": "string"
         },
         "ModioResourceId": {
@@ -22,7 +22,7 @@
         "Version": { "$ref": "#/definitions/Version" },
         "Category": { "$ref": "#/definitions/ModName" },
         "ModName": { "$ref": "#/definitions/ModName" },
-        
+
         "LoadAfterIds": { "$ref": "#/definitions/LoadAfterIds" },
         "ModDependencies": { "$ref": "#/definitions/ModDependencies" },
         "IncompatibleIds": { "$ref": "#/definitions/IncompatibleIds" },

@@ -14,6 +14,11 @@ export class ModInfo {
   readonly game: utils.GameVersion;
 
   /** filePath: modinfo.json or folder containing one */
+  static readVersion(filePath: string) : utils.GameVersion {
+    return this.read(filePath)?.game || utils.GameVersion.Auto;
+  }
+
+  /** filePath: modinfo.json or folder containing one */
   static read(filePath: string) : ModInfo | undefined {
     let modPath: string | undefined;
     let id: string | undefined;

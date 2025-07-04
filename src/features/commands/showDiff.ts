@@ -43,14 +43,8 @@ export class ShowDiffCommand {
 	}
 
   static async showFileDiff(fileUri: any) {
-    if (!await editorUtils.ensureRdaFolderSettingAsync('rdaFolder', fileUri)) {
-      return;
-    }
-
     const modPath = utils.findModRoot(fileUri.fsPath);
-    const vanillaAssetsFilePath = editorUtils.getVanilla(fileUri.fsPath, modPath);
-    if (!vanillaAssetsFilePath) {
-      vscode.window.showWarningMessage(`Can't find corresponding vanilla file.`);
+    if (!await ShowDiffCommand.gatherPaths(fileUri)) {
       return;
     }
 
@@ -58,18 +52,7 @@ export class ShowDiffCommand {
 
     let patchFilePath = fileUri.fsPath;
     if (path.basename(patchFilePath) === 'modinfo.json') {
-      modInfo = ModInfo.read(patchFilePath);
-      if (!modInfo || modInfo.game === utils.GameVersion.Auto) {
-        vscode.window.showWarningMessage(`modinfo.json contains errors. Please fix and check the version field, e.g. '"Anno": 8'.`);
-        return;
-      }
-
-      _version = modInfo?.game;
       patchFilePath = utils.getAssetsXmlPath(path.dirname(patchFilePath), modInfo?.game);
-    }
-    else {
-      modInfo = ModInfo.read(modPath);
-      _version = modInfo?.game || utils.GameVersion.Auto;
     }
 
     if (!fs.existsSync(patchFilePath)) {
@@ -78,7 +61,6 @@ export class ShowDiffCommand {
     }
 
     // TODO cache with checksum?
-    _originalPath = vanillaAssetsFilePath;
     _patchPath = patchFilePath;
     _patch = "";
     _reload = true;
@@ -87,38 +69,36 @@ export class ShowDiffCommand {
   }
 
   static async showSelectionDiff(fileUri: any) {
-    if (!await editorUtils.ensureRdaFolderSettingAsync('rdaFolder', fileUri)) {
-      return;
-    }
-
-    const modPath = utils.findModRoot(fileUri.fsPath);
-    const vanillaAssetsFilePath = editorUtils.getVanilla(fileUri.fsPath);
-    if (!vanillaAssetsFilePath) {
-      return;
-    }
-
     const editor = vscode.window.activeTextEditor;
-    if (!editor) {
+    if (!editor || !await ShowDiffCommand.gatherPaths(fileUri)) {
       return;
     }
 
     // TODO cache with checksum?
-    _originalPath = vanillaAssetsFilePath;
     _patchPath = fileUri.fsPath;
-
     _patch = editorUtils.getSelectedModOps(editor.document, editor.selection);
     _reload = true;
-
-
-    let modInfo: ModInfo | undefined;
-
-    let patchFilePath = fileUri.fsPath;
-    modInfo = ModInfo.read(modPath);
-    _version = modInfo?.game || utils.GameVersion.Auto;
-
     _patch = _patch.replace(/<\/?ModOps>/g, '');
 
     ShowDiffCommand.executeDiff();
+  }
+
+  static async gatherPaths(fileUri: vscode.Uri): Promise<boolean> {
+    if (!await editorUtils.ensureRdaFolderSettingAsync('rdaFolder', fileUri)) {
+      return false;
+    }
+
+    const modPath = utils.findModRoot(fileUri.fsPath);
+    const vanillaAssetsFilePath = editorUtils.getVanilla(fileUri.fsPath, modPath);
+    if (!vanillaAssetsFilePath) {
+      vscode.window.showWarningMessage(`Can't find corresponding vanilla file.`);
+      return false;
+    }
+
+    _originalPath = vanillaAssetsFilePath;
+    _version = ModInfo.readVersion(modPath);
+
+    return true;
   }
 
   static executeDiff() {
@@ -127,7 +107,7 @@ export class ShowDiffCommand {
     vscode.commands.executeCommand('vscode.diff',
       vscode.Uri.parse('annodiff:' + _originalPath + '?original#' + timestamp),
       vscode.Uri.parse('annodiff:' + _patchPath + '?patch#' + timestamp),
-      _version === utils.GameVersion.Anno8 ? 'Anno 117: Original ↔ Patched' : 'Anno 1800: Original ↔ Patched');
+      utils.gameVersionName(_version) + ': Original ↔ Patched');
   }
 
   static reload(context: vscode.ExtensionContext) {

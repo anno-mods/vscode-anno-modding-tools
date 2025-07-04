@@ -43,8 +43,8 @@ export class DeployCommand {
     const selectedMods = [];
     if (mods.length > 1) {
       const result = await vscode.window.showQuickPick([{ label: 'All' }, ...mods], {
-          title: 'Which project?',
-          placeHolder: 'Pick a project'
+          title: 'Which mod do you want to deploy?',
+          placeHolder: 'Pick a mod'
         });
       if (!result) {
         return;

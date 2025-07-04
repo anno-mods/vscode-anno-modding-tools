@@ -8,7 +8,9 @@ export function activate(context: vscode.ExtensionContext) {
   const modopSchema: boolean = config.get('workspace.setXmlSchema') || true;
   const modinfoSchema: boolean = config.get('workspace.setModinfoSchema') || true;
 
-  writeWorkspaceSettings(context, customXmlLanguageMode, modopSchema, modinfoSchema);
+  if (customXmlLanguageMode || modopSchema || modinfoSchema) {
+    writeWorkspaceSettings(context, customXmlLanguageMode, modopSchema, modinfoSchema);
+  }
 }
 
 interface IJsonSchema {

@@ -10,6 +10,7 @@ import * as cf7 from './languages/cf7';
 import * as ifo from './languages/ifo';
 import * as schemas from './languages/schemas';
 import * as xml from './languages/xml';
+import * as statusBar from './features/statusBar';
 
 import * as logger from './other/logger';
 import * as channel from './features/channel';
@@ -31,6 +32,7 @@ export function activate(context: vscode.ExtensionContext) {
 	schemas.activate(context);
 	AssetsWorkspaceSymbolProvider.activate(context);
 
+	statusBar.activate(context);
 	commands.registerCommands(context);
 }
 
