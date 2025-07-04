@@ -91,6 +91,7 @@ export class ShowDiffCommand {
       return;
     }
 
+    const modPath = utils.findModRoot(fileUri.fsPath);
     const vanillaAssetsFilePath = editorUtils.getVanilla(fileUri.fsPath);
     if (!vanillaAssetsFilePath) {
       return;
@@ -107,6 +108,13 @@ export class ShowDiffCommand {
 
     _patch = editorUtils.getSelectedModOps(editor.document, editor.selection);
     _reload = true;
+
+
+    let modInfo: ModInfo | undefined;
+
+    let patchFilePath = fileUri.fsPath;
+    modInfo = ModInfo.read(modPath);
+    _version = modInfo?.game || utils.GameVersion.Auto;
 
     _patch = _patch.replace(/<\/?ModOps>/g, '');
 
