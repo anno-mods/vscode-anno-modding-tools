@@ -48,6 +48,10 @@ export class AssetsTocProvider {
   }
 
   public getParentPath(line: number, position: number): string {
+    if (!this._doc.xml) {
+      return '';
+    }
+
     try {
       return this._getParentPath(this._doc.xml, line, position);
     } catch (e) {
@@ -142,6 +146,10 @@ export class AssetsTocProvider {
   }
 
   private _buildToc(): TocEntry[] {
+    if (!this._doc.xml) {
+      return [];
+    }
+
     let toc: TocEntry[] = [];
 
     const relevantSections: { [index: string]: any } = {

@@ -61,7 +61,7 @@ export function test(testFolder: string, modFolder: string, patchFile: string, a
 }
 
 function parseIssue(line: string): IIssue | undefined {
-  const regex = /\[(\w+)\]\s(.+)\s\(([^:]+):(\d+)\)/;
+  const regex = /\[(\w+)\]\s[^:]+:\s(.+)\s\(([^:]+):(\d+)\)/;
   const match = regex.exec(line);
 
   if (match) {
@@ -106,7 +106,7 @@ export function fetchIssues(vanillaXml: string, modPath: string, mainPatchFile: 
   patchFile: string, patchContent: string, modsFolder: string | undefined,
   asAbsolutePath: (relative: string) => string): IIssue[] {
 
-  const removeNulls = <S>(value: S | undefined): value is S => value !== null;
+  const removeNulls = <S>(value: S | undefined): value is S => value !== null && value !== undefined;
   patchFile = patchFile.replace(/\\/g, '/');
 
   let testerOutput;
