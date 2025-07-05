@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import * as jsonc from 'jsonc-parser';
 import * as path from 'path';
 import * as vscode from 'vscode';
 
@@ -46,7 +47,7 @@ async function writeWorkspaceSettings(context: vscode.ExtensionContext, language
       let settings: any = {};
       if (fs.existsSync(settingsPath)) {
         const content = fs.readFileSync(settingsPath, 'utf8');
-        settings = JSON.parse(content);
+        settings = jsonc.parse(content);
       }
 
       let updateLanguage = true;
@@ -56,7 +57,7 @@ async function writeWorkspaceSettings(context: vscode.ExtensionContext, language
       if (languageMode) {
         settings['files.associations'] ??= {};
 
-        if (settings['files.associations']['**/data/base/config/{engine,export,game,gui}/**/*.xml'] == 'anno-xml') {
+        if (settings['files.associations']['**/data/base/config/{engine,export,game,gui}/**/*.xml'] === 'anno-xml') {
           updateLanguage = false;
         }
 
