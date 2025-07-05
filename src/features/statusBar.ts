@@ -14,7 +14,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 0);
   statusBarItem.text = utils.gameVersionName(gameVersion);
-  statusBarItem.tooltip = 'Click to deploy mod';
+  statusBarItem.tooltip = 'Deploy to your `mods/` folder';
   statusBarItem.command = 'anno-modding-tools.buildMod';
   statusBarItem.show();
 

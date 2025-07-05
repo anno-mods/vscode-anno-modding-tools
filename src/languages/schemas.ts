@@ -25,6 +25,7 @@ interface IXmlSchema {
 
 async function writeWorkspaceSettings(context: vscode.ExtensionContext, languageMode: boolean, modopSchema: boolean,
   modinfoSchema: boolean) {
+
   const workspaceFolders = vscode.workspace.workspaceFolders;
   if (!workspaceFolders) return;
 
@@ -48,28 +49,37 @@ async function writeWorkspaceSettings(context: vscode.ExtensionContext, language
         settings = JSON.parse(content);
       }
 
+      let updateLanguage = true;
+      let updateModopSchema = true;
+      let updateModinfoSchema = true;
+
       if (languageMode) {
         settings['files.associations'] ??= {};
-        settings['files.associations']['assets*.xml'] = 'anno-xml';
-        settings['files.associations']['texts_*.xml'] = 'anno-xml';
-        settings['files.associations']['*.include.xml'] = 'anno-xml';
+
+        if (settings['files.associations']['**/data/base/config/{engine,export,game,gui}/**/*.xml'] == 'anno-xml') {
+          updateLanguage = false;
+        }
+
+        if (updateLanguage) {
+          settings['files.associations']['**/data/base/config/{engine,export,game,gui}/**/*.xml'] = 'anno-xml';
+        }
       }
+
       if (modopSchema) {
         const schemaUrl = "https://raw.githubusercontent.com/anno-mods/vscode-anno-modding-tools/main/generated/assets.xsd";
 
         settings['xml.fileAssociations'] ??= [];
 
-        let alreadySet = false;
         for (const entry of settings['xml.fileAssociations']) {
           if ((entry as IXmlSchema).systemId === schemaUrl) {
-            alreadySet = true;
+            updateModopSchema = false;
             break;
           }
         }
 
-        if (!alreadySet) {
+        if (updateModopSchema) {
           settings['xml.fileAssociations'].push({
-            "pattern": "{assets*,*.include}.xml",
+            "pattern": "data/config/{engine,export,game,gui}/**/*.xml",
             "systemId": schemaUrl
           });
         }
@@ -79,17 +89,22 @@ async function writeWorkspaceSettings(context: vscode.ExtensionContext, language
 
         for (const entry of settings['json.schemas']) {
           if ((entry as IJsonSchema).fileMatch.includes('/modinfo.json')) {
-            return;
+            updateModinfoSchema = false;
+            break;
           }
         }
 
-        (settings['json.schemas'] as any[]).push({
-          "fileMatch": [ '/modinfo.json' ],
-          "url": "https://raw.githubusercontent.com/anno-mods/vscode-anno-modding-tools/main/languages/modinfo-schema.json"
-        });
+        if (updateModinfoSchema) {
+          (settings['json.schemas'] as any[]).push({
+            "fileMatch": [ '/modinfo.json' ],
+            "url": "https://raw.githubusercontent.com/anno-mods/vscode-anno-modding-tools/main/languages/modinfo-schema.json"
+          });
+        }
       }
 
-      fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 2), 'utf8');
+      if (updateLanguage || updateModinfoSchema || updateModopSchema) {
+        fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 2), 'utf8');
+      }
     }
     catch (err) {
       vscode.window.showWarningMessage(
