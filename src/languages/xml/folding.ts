@@ -10,7 +10,7 @@ function provideFoldingRanges(document: vscode.TextDocument, context: vscode.Fol
   const tagStack: { tag: string; line: number }[] = [];
 
   // XML tag folds, except ModOps
-  const tagRegex = /<([a-zA-Z0-9:_-]+)([^/>]*)?>|<\/([a-zA-Z0-9:_-]+)>|<([a-zA-Z0-9:_-]+)([^>]*)\/>/g;
+  const tagRegex = /<([a-zA-Z0-9:_-]+)([^\/>]*)?(?:[> ])|<\/([a-zA-Z0-9:_-]+)>|<([a-zA-Z0-9:_-]+)([^>]*)\/>/g;
 
   let match: RegExpExecArray | null;
   while ((match = tagRegex.exec(text)) !== null) {
