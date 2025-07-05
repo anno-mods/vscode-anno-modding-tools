@@ -13,22 +13,24 @@ import { ShowDiffCommand } from './showDiff';
 import { CheckLoca } from './checkLoca';
 import { ImportLoca } from './importLoca';
 import { GuidCounter } from '../guidCounter';
+import { SelectPathCommands } from './selectPathCommands';
 
 export function registerCommands(context: vscode.ExtensionContext) {
-	context.subscriptions.push(...FcConverter.register(context));
-	context.subscriptions.push(...DdsConverter.register(context));
-	context.subscriptions.push(...DeployCommand.register(context));
-	context.subscriptions.push(...PropImporter.register(context));
-	context.subscriptions.push(...InfoImporter.register(context));
-	context.subscriptions.push(...RdmGlbConverter.register(context));
-	context.subscriptions.push(...GltfRdmConverter.register(context));
-	context.subscriptions.push(...RdpConverter.register(context));
-	context.subscriptions.push(...FcImporter.register(context));
-	context.subscriptions.push(...CfgYamlCommands.register(context));
-	context.subscriptions.push(...ShowDiffCommand.register(context));
-  // context.subscriptions.push(...RunTests.register(context));
-	context.subscriptions.push(...CheckLoca.register(context));
-	context.subscriptions.push(...ImportLoca.register(context));
-
-	context.subscriptions.push(...GuidCounter.register(context));
+	context.subscriptions.push(vscode.Disposable.from(
+		...FcConverter.register(context),
+		...DdsConverter.register(context),
+		...DeployCommand.register(context),
+		...PropImporter.register(context),
+		...InfoImporter.register(context),
+		...RdmGlbConverter.register(context),
+		...GltfRdmConverter.register(context),
+		...RdpConverter.register(context),
+		...FcImporter.register(context),
+		...CfgYamlCommands.register(context),
+		...ShowDiffCommand.register(context),
+		...CheckLoca.register(context),
+		...ImportLoca.register(context),
+		...GuidCounter.register(context),
+		...SelectPathCommands.register(context)
+	));
 }

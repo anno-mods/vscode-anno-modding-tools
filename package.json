@@ -2,7 +2,7 @@
 	"name": "anno-modding-tools",
 	"displayName": "Anno Modding Tools",
 	"description": "Tools to create mods for Anno 1800 and Anno 117: Pax Romana.",
-	"version": "2.0.1-alpha1",
+	"version": "2.0.1-alpha2",
 	"publisher": "JakobHarder",
 	"repository": {
 		"type": "git",
@@ -218,6 +218,14 @@
 			{
 				"command": "anno-modding-tools.importLoca",
 				"title": "Anno: Import Translations into Workspace"
+			},
+			{
+				"command": "anno-modding-tools.selectAnno117GamePath",
+				"title": "Select Anno 117 Game Path"
+			},
+			{
+				"command": "anno-modding-tools.selectAnno117ModsFolder",
+				"title": "Select Anno 117 Mods Folder"
 			}
 		],
 		"menus": {
@@ -399,20 +407,32 @@
 				"anno.workspace.setXmlSchema": {
 					"type": "boolean",
 					"default": true,
-					"markdownDescription": "Add an `xml.fileAssociations` entry for ModOp XML schema validation in `settings.json` when you open a workspace containing `modinfo.json` files.",
+					"markdownDescription": "Add an `xml.fileAssociations` entry for ModOp XML schema validation in `settings.json` when you open a workspace containing `modinfo.json` files.\n\nYou need to install the Red Hat XML Language Support extension to use XML validations.",
 					"scope": "application"
+				},
+				"anno.117.gamePath": {
+					"type": "string",
+					"format": [ "uri", null ],
+					"markdownDescription": "Path to your Anno 117 installation. E.g. *'C:\\Program Files (x86)\\Ubisoft\\Ubisoft Game Launcher\\games\\Anno 117'*.\n\n[Select Folder](command:anno-modding-tools.selectAnno117GamePath)",
+					"scope": "resource"
+				},
+				"anno.117.modsFolder": {
+					"type": "string",
+					"format": [ "uri", null ],
+					"markdownDescription": "Path to your `mods/` folder. Used to deploy and resolve dependencies. Defaults is *'&lt;Game Path&gt;/mods/'*.\n\n[Select Folder](command:anno-modding-tools.selectAnno117ModsFolder)",
+					"scope": "resource"
 				},
 				"anno.modsFolder": {
 					"type": "string",
-					"format": "uri",
+					"format": [ "uri", null ],
 					"markdownDescription": "Your `mods/` folder to deploy mods into. It is also used to resolve dependencies.",
-					"scope": "application"
+					"scope": "resource"
 				},
 				"anno.rdaFolder": {
 					"type": "string",
-					"format": "uri",
+					"format": [ "uri", null ],
 					"markdownDescription": "Path to extracted RDA data.\nIt is used for compare and live error features.\n\nUse `c:\\anno\\all-rda` if you have `c:\\anno\\all-rda\\data\\config\\export\\main\\asset\\assets.xml` (Anno 1800) or `c:\\anno\\all-rda\\data\\base\\config\\export\\assets.xml` (Anno 117).",
-					"scope": "application"
+					"scope": "resource"
 				},
 				"anno.outlineFolderDepth": {
 					"type": "number",
