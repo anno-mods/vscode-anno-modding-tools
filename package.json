@@ -130,7 +130,7 @@
 			},
 			{
 				"language": "anno-xml",
-				"scopeName": "anno.modops",
+				"scopeName": "text.xml.modops",
 				"path": "./languages/modops.tmLanguage.json"
 			}
 		],
