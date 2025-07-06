@@ -15,7 +15,7 @@ curl -L https://github.com/microsoft/DirectXTex/releases/download/sept2021/texco
 
 # FileDBReader.exe, 2.3+2, informal permission to bundle with the extension
 curl -L https://github.com/jakobharder/FileDBReader/releases/download/v2.3%2B2/FileDBReader.zip > ./dl/FileDBReader.zip
-unzip -o ./dl/FileDBReader.zip 
+unzip -o ./dl/FileDBReader.zip
 
 # rdm4-bin.exe, 0.6.0-alpha-1+3 (fetched from test action... I hope there will be an official build soon)
 curl -L https://github.com/jakobharder/rdm4/releases/download/jakob%2F0.6.0-alpha.1%2B3/rdm4-bin-windows-amd64.zip > ./dl/rdm4.zip
@@ -26,6 +26,10 @@ curl -L https://github.com/jakobharder/rdm4/releases/download/jakob%2F0.8.0-alph
 
 # annotex / bc7enc, MIT
 curl -L https://github.com/jakobharder/annotex/releases/download/jakob%2Fv1.2.0/annotex.exe > ./annotex.exe
+
+# RdaConsole, 1.2
+curl -L https://github.com/anno-mods/RdaConsole/releases/download/v1.2/RdaConsole.zip > ./dl/RdaConsole.zip
+unzip -o ./dl/RdaConsole.zip
 
 rm -r ./dl
 

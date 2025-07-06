@@ -11,6 +11,7 @@ import * as ifo from './languages/ifo';
 import * as schemas from './languages/schemas';
 import * as xml from './languages/xml';
 import * as statusBar from './features/statusBar';
+import * as rda from './data/rda';
 
 import * as logger from './other/logger';
 import * as channel from './features/channel';
@@ -34,6 +35,8 @@ export function activate(context: vscode.ExtensionContext) {
 
 	statusBar.activate(context);
 	commands.registerCommands(context);
+
+	rda.init(context);
 }
 
 // this method is called when your extension is deactivated

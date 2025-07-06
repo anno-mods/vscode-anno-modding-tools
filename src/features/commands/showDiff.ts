@@ -6,8 +6,10 @@ import * as editorUtils from '../../editor/utils';
 import * as utils from '../../other/utils';
 import { ModInfo } from '../../anno';
 import * as xmltest from '../../tools/xmltest';
+import * as rda from '../../data/rda';
 
 let _originalPath: string;
+let _originalRelativePath: string;
 let _patchPath: string;
 let _patch: string;
 let _reload: boolean = false;
@@ -43,16 +45,13 @@ export class ShowDiffCommand {
 	}
 
   static async showFileDiff(fileUri: any) {
-    const modPath = utils.findModRoot(fileUri.fsPath);
     if (!await ShowDiffCommand.gatherPaths(fileUri)) {
       return;
     }
 
-    let modInfo: ModInfo | undefined;
-
     let patchFilePath = fileUri.fsPath;
     if (path.basename(patchFilePath) === 'modinfo.json') {
-      patchFilePath = utils.getAssetsXmlPath(path.dirname(patchFilePath), modInfo?.game);
+      patchFilePath = utils.getAssetsXmlPath(path.dirname(patchFilePath), _version);
     }
 
     if (!fs.existsSync(patchFilePath)) {
@@ -89,14 +88,19 @@ export class ShowDiffCommand {
     }
 
     const modPath = utils.findModRoot(fileUri.fsPath);
-    const vanillaAssetsFilePath = editorUtils.getVanilla(fileUri.fsPath, modPath);
+    _version = ModInfo.readVersion(modPath);
+
+    const vanillaAssetsFilePath = rda.getPatchTarget(fileUri.fsPath, _version);
     if (!vanillaAssetsFilePath) {
-      vscode.window.showWarningMessage(`Can't find corresponding vanilla file.`);
+      vscode.window.showWarningMessage(`Unknown target: '${fileUri.fsPath}' (${utils.gameVersionName(_version)})`);
+      return false;
+    }
+    if (!fs.existsSync(vanillaAssetsFilePath)) {
+      vscode.window.showWarningMessage(`Can't find target: '${vanillaAssetsFilePath}' (${utils.gameVersionName(_version)})`);
       return false;
     }
 
     _originalPath = vanillaAssetsFilePath;
-    _version = ModInfo.readVersion(modPath);
 
     return true;
   }
@@ -105,7 +109,7 @@ export class ShowDiffCommand {
     const timestamp = Date.now();
     channel.show();
     vscode.commands.executeCommand('vscode.diff',
-      vscode.Uri.parse('annodiff:' + _originalPath + '?original#' + timestamp),
+      vscode.Uri.parse('annodiff:' + '' + '?original#' + timestamp),
       vscode.Uri.parse('annodiff:' + _patchPath + '?patch#' + timestamp),
       utils.gameVersionName(_version) + ': Original ↔ Patched');
   }
