@@ -1,5 +1,4 @@
 {
-	"version": "https://github.com/atom/language-xml/commit/7bc75dfe779ad5b35d9bf4013d9181864358cb49",
 	"name": "Anno ModOps XML",
 	"scopeName": "text.xml.modops",
 	"patterns": [
@@ -155,47 +154,6 @@
 		},
 		{
 			"include": "#bare-ampersand"
-		},
-		{
-			"begin": "<%@",
-			"beginCaptures": {
-				"0": {
-					"name": "punctuation.section.embedded.begin.xml"
-				}
-			},
-			"end": "%>",
-			"endCaptures": {
-				"0": {
-					"name": "punctuation.section.embedded.end.xml"
-				}
-			},
-			"name": "source.java-props.embedded.xml",
-			"patterns": [
-				{
-					"match": "page|include|taglib",
-					"name": "keyword.other.page-props.xml"
-				}
-			]
-		},
-		{
-			"begin": "<%[!=]?(?!--)",
-			"beginCaptures": {
-				"0": {
-					"name": "punctuation.section.embedded.begin.xml"
-				}
-			},
-			"end": "(?!--)%>",
-			"endCaptures": {
-				"0": {
-					"name": "punctuation.section.embedded.end.xml"
-				}
-			},
-			"name": "source.java.embedded.xml",
-			"patterns": [
-				{
-					"include": "source.java"
-				}
-			]
 		},
 		{
 			"begin": "<!\\[CDATA\\[",
