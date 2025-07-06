@@ -193,11 +193,11 @@
 			},
 			{
 				"command": "anno-modding-tools.showFileDiff",
-				"title": "Anno: Show Diff (File)"
+				"title": "Anno: Show Diff"
 			},
 			{
-				"command": "anno-modding-tools.showFileDiff",
-				"title": "Anno: Show Diff (assets.xml)"
+				"command": "anno-modding-tools.showModDiff",
+				"title": "Anno: Show Diff (Assets)"
 			},
 			{
 				"command": "anno-modding-tools.showSelectionDiff",
@@ -363,7 +363,7 @@
 				},
 				{
 					"when": "resourceFilename == modinfo.json",
-					"command": "anno-modding-tools.showFileDiff",
+					"command": "anno-modding-tools.showModDiff",
 					"group": "anno@1"
 				},
 				{

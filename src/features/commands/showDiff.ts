@@ -37,6 +37,7 @@ export class ShowDiffCommand {
 
     const disposable = [
       vscode.commands.registerCommand('anno-modding-tools.showFileDiff', ShowDiffCommand.showFileDiff),
+      vscode.commands.registerCommand('anno-modding-tools.showModDiff', ShowDiffCommand.showFileDiff),
       vscode.commands.registerCommand('anno-modding-tools.showSelectionDiff', ShowDiffCommand.showSelectionDiff),
       vscode.workspace.registerTextDocumentContentProvider("annodiff", annodiffContentProvider)
     ];
@@ -109,7 +110,7 @@ export class ShowDiffCommand {
     const timestamp = Date.now();
     channel.show();
     vscode.commands.executeCommand('vscode.diff',
-      vscode.Uri.parse('annodiff:' + '' + '?original#' + timestamp),
+      vscode.Uri.parse('annodiff:' + _originalPath + '?original#' + timestamp),
       vscode.Uri.parse('annodiff:' + _patchPath + '?patch#' + timestamp),
       utils.gameVersionName(_version) + ': Original ↔ Patched');
   }
