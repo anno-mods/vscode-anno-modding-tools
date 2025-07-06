@@ -24,7 +24,7 @@ export class RunTests {
             return;
           }
   
-          if (!xmltest.test(testInputPath, sourcePath, patchFilePath, x => context.asAbsolutePath(x), cachePath)) {
+          if (!xmltest.test(testInputPath, sourcePath, patchFilePath, cachePath)) {
             return false;
           }
         }

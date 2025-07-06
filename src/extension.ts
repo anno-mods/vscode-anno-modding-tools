@@ -4,7 +4,7 @@ import { registerGuidUtilsProvider } from './features/guidUtilsProvider';
 import * as dds from './other/dds';
 import * as rdp from './other/rdp';
 import * as AssetsDecorator from './languages/xml/assetsDecorator';
-import * as AssetsWorkspaceSymbolProvider from './languages/xml/assetsSymbolProvider';
+import * as AssetsSymbolProvider from './languages/xml/assetsSymbolProvider';
 import * as commands from './features/commands';
 import * as cfg from './languages/cfg';
 import * as cf7 from './languages/cf7';
@@ -13,6 +13,7 @@ import * as schemas from './languages/schemas';
 import * as xml from './languages/xml';
 import * as statusBar from './features/statusBar';
 import * as rda from './data/rda';
+import * as xmltest from './tools/xmltest';
 
 import * as logger from './other/logger';
 import * as channel from './features/channel';
@@ -20,6 +21,9 @@ import * as channel from './features/channel';
 
 export function activate(context: vscode.ExtensionContext) {
 	logger.set(channel);
+
+	rda.init(context);
+	xmltest.init(context.asAbsolutePath);
 
 	annoContext.activate(context);
 
@@ -34,12 +38,10 @@ export function activate(context: vscode.ExtensionContext) {
 	ifo.activate(context);
 	xml.activate(context);
 	schemas.activate(context);
-	AssetsWorkspaceSymbolProvider.activate(context);
+	AssetsSymbolProvider.activate(context);
 
 	statusBar.activate(context);
 	commands.registerCommands(context);
-
-	rda.init(context);
 }
 
 // this method is called when your extension is deactivated

@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as xmldoc from 'xmldoc';
 import { uniqueAssetName} from '../../other/assetsXml';
-import { SymbolRegistry } from '../../other/symbolRegistry';
+import { SymbolRegistry } from '../../data/symbols';
 import { AssetsDocument } from '../../editor/assetsDocument';
 
 export interface TocEntry {

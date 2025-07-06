@@ -9,7 +9,6 @@ import * as xmltest from '../../tools/xmltest';
 import * as rda from '../../data/rda';
 
 let _originalPath: string;
-let _originalRelativePath: string;
 let _patchPath: string;
 let _patch: string;
 let _reload: boolean = false;
@@ -145,6 +144,6 @@ export class ShowDiffCommand {
   }
 
   diff(originalPath: string, patchContent: string, patchFilePath: string, modPath: string) {
-    return xmltest.diff(originalPath, patchContent, patchFilePath, modPath, this._modsFolder, this._context.asAbsolutePath);
+    return xmltest.diff(originalPath, patchContent, patchFilePath, modPath, this._modsFolder);
   }
 }

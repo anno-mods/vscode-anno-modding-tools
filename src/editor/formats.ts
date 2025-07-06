@@ -6,7 +6,7 @@ import { ASSETS_FILENAME_PATTERN, ASSETS_FILENAME_PATTERN_STRICT } from '../othe
 const PATCH_FILENAME_PATTERN_STRICT = '**/{assets*,*.include,game/asset/**/*,export.bin,*.fc,*.cfg}.xml';
 
 export function isAnnoXml(document: vscode.TextDocument): boolean {
-  if (!minimatch(document.fileName, ASSETS_FILENAME_PATTERN, { dot: true })) {
+  if (document.languageId !== 'anno-xml' && !minimatch(document.fileName, ASSETS_FILENAME_PATTERN, { dot: true })) {
     return false;
   }
 

@@ -137,7 +137,7 @@ function runXmlTest(context: vscode.ExtensionContext, doc: vscode.TextDocument,
   }
 
   const issues = xmltest.fetchIssues(vanilaXml, modPath, mainAssetsXml, editingFile,
-    doc.getText(), modsFolder, x => context.asAbsolutePath(x));
+    doc.getText(), modsFolder);
   if (issues && issues.length > 0) {
     const color = new vscode.ThemeColor('editorCodeLens.foreground');
     const colorWarning = new vscode.ThemeColor('editorWarning.foreground');

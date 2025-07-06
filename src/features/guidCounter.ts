@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { SymbolRegistry } from '../other/symbolRegistry';
+import { SymbolRegistry } from '../data/symbols';
 
 export namespace GuidCounter {
   let next_: number | undefined;

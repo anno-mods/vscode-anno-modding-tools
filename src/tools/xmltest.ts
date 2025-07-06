@@ -1,7 +1,9 @@
-import * as fs from 'fs';
-import * as path from 'path';
 import * as child from 'child_process';
+import * as fs from 'fs';
 import * as glob from 'glob';
+import * as path from 'path';
+import * as vscode from 'vscode';
+
 import * as logger from '../other/logger';
 import * as utils from '../other/utils';
 import { ModRegistry } from '../other/modRegistry';
@@ -10,8 +12,14 @@ import { ModInfo } from '../anno';
 const XMLTEST_PATH = "./external/xmltest.exe";
 const XMLTEST2_PATH = "./external/xmltest2.exe";
 
-export function test(testFolder: string, modFolder: string, patchFile: string, asAbsolutePath: (relative: string) => string, tempFolder: string) {
-  const tester = asAbsolutePath(XMLTEST2_PATH);
+let _asAbsolutePath: (relative: string) => string
+
+export function init(asAbsolutePath: (relative: string) => string) {
+  _asAbsolutePath = asAbsolutePath;
+}
+
+export function test(testFolder: string, modFolder: string, patchFile: string, tempFolder: string) {
+  const tester = _asAbsolutePath(XMLTEST2_PATH);
   let result = true;
 
   const inputFiles = glob.sync('**/*-input.xml', { cwd: testFolder, nodir: true });
@@ -103,8 +111,7 @@ export interface IIssue {
 }
 
 export function fetchIssues(vanillaXml: string, modPath: string, mainPatchFile: string,
-  patchFile: string, patchContent: string, modsFolder: string | undefined,
-  asAbsolutePath: (relative: string) => string): IIssue[] {
+  patchFile: string, patchContent: string, modsFolder: string | undefined): IIssue[] {
 
   const removeNulls = <S>(value: S | undefined): value is S => value !== null && value !== undefined;
   patchFile = patchFile.replace(/\\/g, '/');
@@ -115,7 +122,7 @@ export function fetchIssues(vanillaXml: string, modPath: string, mainPatchFile: 
     const annomod = utils.readModinfo(modPath);
     const modInfo = ModInfo.read(modPath);
     const version = modInfo?.game || utils.GameVersion.Auto;
-    const tester = asAbsolutePath(version === utils.GameVersion.Anno8 ? XMLTEST2_PATH : XMLTEST_PATH);
+    const tester = _asAbsolutePath(version === utils.GameVersion.Anno8 ? XMLTEST2_PATH : XMLTEST_PATH);
 
     let prepatch = annomod?.getRequiredLoadAfterIds(annomod?.modinfo).map(e => ['-p', e]) ?? [];
 
@@ -166,8 +173,7 @@ export function fetchIssues(vanillaXml: string, modPath: string, mainPatchFile: 
 }
 
 export function diff(originalPath: string, patchContent: string, patchFilePath: string, modPath: string,
-  modsFolder: string | undefined,
-  asAbsolutePath: (relative: string) => string) {
+  modsFolder: string | undefined) {
 
   if (!originalPath || !patchContent) {
     return { original: '', patched: '', log: ''};
@@ -181,7 +187,7 @@ export function diff(originalPath: string, patchContent: string, patchFilePath: 
   const annomod = utils.readModinfo(modPath);
   const modInfo = ModInfo.read(modPath);
   const version = modInfo?.game || utils.GameVersion.Auto;
-  const differ = asAbsolutePath(version === utils.GameVersion.Anno8 ? XMLTEST2_PATH : XMLTEST_PATH);
+  const differ = _asAbsolutePath(version === utils.GameVersion.Anno8 ? XMLTEST2_PATH : XMLTEST_PATH);
 
   let prepatch = annomod?.getRequiredLoadAfterIds(annomod?.modinfo).map(e => ['-p', e]) ?? [];
   if (prepatch && modsFolder) {
@@ -267,4 +273,18 @@ function _sameWhenMinimized(expectation: string, patched: string) {
   }
 
   return true;
+}
+
+export function show(guid: string|number, filePath: string) {
+  const differ = _asAbsolutePath(XMLTEST2_PATH);
+
+  try {
+    const res = child.execFileSync(differ, ['-c', 'show', filePath, guid.toString()]);
+    return res.toString();
+  }
+  catch (e)
+  {
+    vscode.window.showErrorMessage((<Error>e).message);
+    throw e;
+  }
 }

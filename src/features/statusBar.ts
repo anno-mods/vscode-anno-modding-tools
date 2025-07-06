@@ -8,12 +8,12 @@ import * as utils from '../other/utils';
 export function activate(context: vscode.ExtensionContext) {
   const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 0);
 
-  updateStatusBarItem(context, statusBarItem, annoContext.getCurrent().modinfo);
+  updateStatusBarItem(context, statusBarItem, annoContext.get().modinfo);
 
   context.subscriptions.push(statusBarItem);
 
-  annoContext.onDidChangeActiveTextEditor(editor => {
-    updateStatusBarItem(context, statusBarItem, editor?.modinfo);
+  annoContext.onDidChangeActiveTextEditor(modContext => {
+    updateStatusBarItem(context, statusBarItem, modContext?.modinfo);
   });
 }
 

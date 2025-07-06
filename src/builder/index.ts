@@ -178,7 +178,7 @@ export class ModBuilder {
 
         this._logger.log(`cache: ${cache}`);
 
-        if (!xmltest.test(testInputFolder, outFolder, testTarget, this._asAbsolutePath, cache)) {
+        if (!xmltest.test(testInputFolder, outFolder, testTarget, cache)) {
           return false;
         }
       }

@@ -50,6 +50,12 @@ export function getPatchTarget(filePath: string, version: utils.GameVersion, mod
   return get(path.join(basePath, 'assets.xml'), version);
 }
 
+export function getAssetsXml(version: utils.GameVersion) {
+  const anno8 = version === utils.GameVersion.Anno8;
+  const basePath = anno8 ? utils.ANNO8_ASSETS_PATH : utils.ANNO7_ASSETS_PATH;
+  return get(path.join(basePath, 'assets.xml'), version);
+}
+
 function extractFromRda(relativePath: string, version: utils.GameVersion) {
 
   const gamePath = ensureGamePath();
