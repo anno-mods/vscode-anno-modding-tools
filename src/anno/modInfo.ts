@@ -19,7 +19,7 @@ export class ModInfo {
   }
 
   /** filePath: modinfo.json or folder containing one */
-  static read(filePath: string) : ModInfo | undefined {
+  static read(filePath: string, strict: boolean = false) : ModInfo | undefined {
     let modPath: string | undefined;
     let id: string | undefined;
     let modInfo: any;
@@ -34,7 +34,7 @@ export class ModInfo {
     }
 
     if (!fs.existsSync(modPath)) {
-      return;
+      return undefined;
     }
 
     const modinfoPath = path.join(modPath, MODINFO_JSON);
@@ -53,8 +53,10 @@ export class ModInfo {
         }
       }
       catch {
-        // silently ignore
+        // silently ignore, even in strict mode
       }
+    } else if (strict) {
+      return undefined;
     }
 
     if (!id || id === "") {

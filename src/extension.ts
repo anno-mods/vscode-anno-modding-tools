@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import * as annoContext from './editor/modContext';
 import { registerGuidUtilsProvider } from './features/guidUtilsProvider';
 import * as dds from './other/dds';
 import * as rdp from './other/rdp';
@@ -19,6 +20,8 @@ import * as channel from './features/channel';
 
 export function activate(context: vscode.ExtensionContext) {
 	logger.set(channel);
+
+	annoContext.activate(context);
 
 	rdp.init(context.asAbsolutePath('./external/'));
 	dds.init(context.asAbsolutePath('./external/'));
