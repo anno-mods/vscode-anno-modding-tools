@@ -2,7 +2,7 @@
 export enum GameVersion {
   Auto = 0,
   Anno7 = 7,
-  Anno8
+  Anno8 = 8
 }
 
 export function gameVersionName(version: GameVersion) {

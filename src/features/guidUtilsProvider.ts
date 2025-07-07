@@ -276,10 +276,10 @@ export function refreshCustomAssets(document: vscode.TextDocument | undefined): 
   SymbolRegistry.setCompletionItems(_customCompletionItems);
 
   for (const dependency of dependencies) {
-    SymbolRegistry.scanFolder(dependency.id, dependency.path);
+    SymbolRegistry.scanFolder(dependency);
   }
-  SymbolRegistry.scanFolder(mod.id, mod.path, document.uri.fsPath);
-  SymbolRegistry.scanText(mod.id, text, document.uri.fsPath);
+  SymbolRegistry.scanFolder(mod, document.uri.fsPath);
+  SymbolRegistry.scanText(mod, text, document.uri.fsPath);
 }
 
 function subscribeToDocumentChanges(context: vscode.ExtensionContext): void {
