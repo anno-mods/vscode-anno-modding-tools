@@ -151,7 +151,8 @@
         },
 
         "Difficulty": {
-          "description": "Difficulty balancing change\n\"cheat\": e.g. no construction costs\n\"easier\": makes the game easier, e.g. reduced needs consumption\n\"unchanged\": is balanced similar as the vanilla game\n\"harder\": makes the game harder",
+          "description": "Define how the mod changes difficulty\n\"cheat\": e.g. no construction costs\n\"easier\": makes the game easier, e.g. reduced needs consumption\n\"unchanged\": is balanced similar as the vanilla game\n\"harder\": makes the game harder",
+          "markdownDescription": "Define how the mod changes difficulty\n\n- `cheat`: e.g. no construction costs\n- `easier`: makes the game easier, e.g. reduced needs consumption\n- `unchanged`: is balanced similar as the vanilla game\n- `harder`: makes the game harder",
           "type": "string",
           "enum": [ "cheat", "easier", "unchanged", "harder"]
         },
@@ -385,18 +386,21 @@
       }
     },
     "DevTargetPath": {
-      "description": "Development:\nTarget path for mod deployment.\nOptional. Default is `${annoMods}/${modName}`.",
+      "description": "Development: Target path for mod deployment.\nDefault is `${annoMods}/${modName}`.",
+      "markdownDescription": "*Development*: Target path for mod deployment.\n\nDefault is `${annoMods}/${modName}`.\n\n[More about Deploy](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/annomod.md#build-and-deploy-mods)",
       "type": "string"
     },
-    "DevDependencies": { 
-      "description": "Development:\nList of mods that should be loaded for patch error analysis and GUID references.\nOptional",
+    "DevDependencies": {
+      "description": "Development: List of mods that should be loaded for patch error analysis and GUID references.",
+      "markdownDescription": "*Development*: List of mods that should be loaded for patch error analysis and GUID references.",
       "type": [ "array", "null" ],
       "items": {
         "$ref": "#/definitions/ModID"
       }
     },
     "DevBundle": {
-      "description": "Development:\nList of mods that should be included as a sub mod.\nOptional",
+      "description": "Development: List of mods that should be included as a sub mod.",
+      "markdownDescription": "*Development:* List of mods that should be included as a sub mod.\n\n[More about Deploy](https://github.com/anno-mods/vscode-anno-modding-tools/blob/main/doc/annomod.md#build-and-deploy-mods)",
       "type": "array",
       "items": {
         "$ref": "#/definitions/FolderOrUrl"

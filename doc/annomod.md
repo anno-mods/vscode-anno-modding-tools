@@ -56,7 +56,7 @@ This will download the file and extract it's content into your mod.
 
 ### `modinfo.json` Format
 
-```json
+```jsonc
 {
   "src": ".",
   "out": "${annoMods}/${modName}",
