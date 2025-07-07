@@ -1,10 +1,11 @@
-import * as vscode from 'vscode';
 import * as fs from 'fs';
-import { resolveGUID } from '../../features/guidUtilsProvider';
-import * as utils from '../../other/utils';
 import * as path from 'path';
-import { assetNameWithOrigin } from '../../other/assetsXml';
+import * as vscode from 'vscode';
+
+import { SymbolRegistry } from '../../data/symbols';
 import * as editorFormats from '../../editor/formats';
+import * as utils from '../../other/utils';
+import { assetNameWithOrigin } from '../../other/assetsXml';
 
 import { clearDiagnostics, diagnostics, refreshDiagnostics } from './assetsActionProvider';
 
@@ -39,7 +40,7 @@ export function activate(context: vscode.ExtensionContext) {
       return '(not set)';
     }
 
-    return assetNameWithOrigin(resolveGUID(guid), mod);
+    return assetNameWithOrigin(SymbolRegistry.resolve(guid), mod);
   }
 
   function updateDecorations() {

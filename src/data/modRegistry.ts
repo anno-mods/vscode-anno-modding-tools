@@ -65,7 +65,7 @@ export namespace ModRegistry {
   }
 
   /** get mod meta info */
-  function get(modId: string) : ModInfo | undefined {
+  export function get(modId: string) : ModInfo | undefined {
     return mods_[modId];
   }
 
@@ -77,6 +77,7 @@ export namespace ModRegistry {
       return undefined;
     }
 
+    // TODO why would I read it first, then only assign it if it wasn't already there?
     if (mods_[modMetaInfo.id] === undefined) {
       mods_[modMetaInfo.id] = modMetaInfo;
       return modMetaInfo;

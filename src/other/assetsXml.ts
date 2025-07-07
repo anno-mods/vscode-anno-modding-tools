@@ -17,6 +17,10 @@ export interface IAsset {
   baseAsset?: string;
 }
 
+export function guidWithName(asset: IAsset): string {
+  return (asset.name ?? asset.english) ? `${asset.guid}: ${asset.name ?? asset.english}` : asset.guid;
+}
+
 export function uniqueAssetName(asset?: IAsset) {
   if (!asset) {
     return ''

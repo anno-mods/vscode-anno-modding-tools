@@ -6,7 +6,7 @@ import * as xmldoc from 'xmldoc';
 import * as rda from './rda';
 import * as anno from '../anno';
 import * as modContext from '../editor/modContext';
-import { AllGuidCompletionItems, GuidCompletionItems } from '../features/guidCompletionItems';
+// import { AllGuidCompletionItems, GuidCompletionItems } from '../features/guidCompletionItems';
 import { AssetsDocument, ASSETS_FILENAME_PATTERN_STRICT, IAsset } from '../other/assetsXml';
 import * as logger from '../other/logger';
 
@@ -16,22 +16,32 @@ export namespace SymbolRegistry {
   const _guidCache7: GuidCache = new Map<string, IAsset>();
   const _guidCache8: GuidCache = new Map<string, IAsset>();
 
-  let _completionItems: GuidCompletionItems | undefined;
+  // let _completionItems: GuidCompletionItems | undefined;
 
   const _parsedMods: Set<string> = new Set<string>();
   const _parsedFiles: Set<string> = new Set<string>();
 
-  function getCache(version?: anno.GameVersion) {
+  let _generatedPath: string;
+
+  export function all(version?: anno.GameVersion) {
+    version ??= modContext.getVersion();
+
     if (!version) {
       version = anno.GameVersion.Anno7;
     }
 
+    _useVanillaSymbols(version);
+
     return version === anno.GameVersion.Anno7 ? _guidCache7 : _guidCache8;
   }
 
-  export function setCompletionItems(completion: GuidCompletionItems) {
-    _completionItems = completion;
+  export function init(generatedPath: string) {
+    _generatedPath = generatedPath;
   }
+
+  // export function setCompletionItems(completion: GuidCompletionItems) {
+  //   _completionItems = completion;
+  // }
 
   /** Scan GUIDs from folder excluding specified file.
    * Already scanned files will be skipped.
@@ -69,9 +79,11 @@ export namespace SymbolRegistry {
     _readGuidsFromText(text, filePath, modinfo);
   }
 
-  function registerAll(assets: IAsset[], version: anno.GameVersion) {
+  function registerAll(assets: IAsset[], version: anno.GameVersion, modid?: string) {
+    const cache = all(version);
     for (var asset of assets) {
-      getCache(version).set(asset.guid, asset);
+      asset.modName = modid;
+      cache.set(asset.guid, asset);
     }
   }
 
@@ -80,11 +92,12 @@ export namespace SymbolRegistry {
 
     _useVanillaSymbols(version);
 
-    let entry = getCache(version).get(guid);
+    let entry = all(version).get(guid);
 
-    if (!entry && AllGuidCompletionItems.assets) {
-      entry = AllGuidCompletionItems.assets[guid];
-    }
+    // TODO check
+    // if (!entry && AllGuidCompletionItems.assets) {
+    //   entry = AllGuidCompletionItems.assets[guid];
+    // }
 
     return entry;
   }
@@ -112,43 +125,61 @@ export namespace SymbolRegistry {
   {
     let assetsDocument = new AssetsDocument(xmlContent, filePath);
 
-    if (_completionItems) {
-      _completionItems.addAssets(assetsDocument.assets, modinfo.id);
-    }
+    // if (_completionItems) {
+    //   _completionItems.addAssets(assetsDocument.assets, modinfo.id);
+    // }
 
-    registerAll(Object.values(assetsDocument.assets), modinfo.game);
+    registerAll(Object.values(assetsDocument.assets), modinfo.game, modinfo.id);
   }
 
-  let vanillaSymbols_ = false;
+  let _vanillaSymbols7 = false;
+  let _vanillaSymbols8 = false;
   function _useVanillaSymbols(version?: anno.GameVersion) {
     version ??= modContext.getVersion();
 
-    if (vanillaSymbols_ || version === anno.GameVersion.Anno7) {
-      return;
+    if (version === anno.GameVersion.Anno8) {
+      if (_vanillaSymbols8) {
+        return;
+      }
+      _vanillaSymbols8 = true;
+
+      const vanillaPath = rda.getAssetsXml(version);
+      if (!vanillaPath) {
+        // TODO error
+        return;
+      }
+
+      let xmlContent: xmldoc.XmlDocument;
+      try {
+        xmlContent = new xmldoc.XmlDocument(fs.readFileSync(vanillaPath, 'utf8'));
+      }
+      catch {
+        // TODO error
+        return;
+      }
+
+      let assetsDocument = new AssetsDocument(xmlContent, vanillaPath);
+
+      for (var guid of Object.keys(assetsDocument.assets)) {
+        assetsDocument.assets[guid].location = undefined;
+      }
+
+      registerAll(Object.values(assetsDocument.assets), version, undefined);
     }
+    else if (version === anno.GameVersion.Anno7) {
+      if (_vanillaSymbols7) {
+        return;
+      }
+      _vanillaSymbols7 = true;
 
-    const vanillaPath = rda.getAssetsXml(version);
-    if (!vanillaPath) {
-      return;
+      const assetsByGuid: { [index: string]: IAsset } = JSON.parse(fs.readFileSync(path.join(_generatedPath, 'assets.json'), { encoding: 'utf8' }));
+
+      const cache = all(version);
+      for (var guid in assetsByGuid) {
+        const asset = assetsByGuid[guid];
+        asset.guid = guid;
+        cache.set(guid, asset);
+      }
     }
-
-    let xmlContent: xmldoc.XmlDocument;
-    try {
-      xmlContent = new xmldoc.XmlDocument(fs.readFileSync(vanillaPath, 'utf8'));
-    }
-    catch {
-      // be quiet, this happens a lot during typing
-      return;
-    }
-
-    let assetsDocument = new AssetsDocument(xmlContent, vanillaPath);
-
-    for (var guid of Object.keys(assetsDocument.assets)) {
-      assetsDocument.assets[guid].location = undefined;
-    }
-
-    registerAll(Object.values(assetsDocument.assets), version);
-
-    vanillaSymbols_ = true;
   }
 }

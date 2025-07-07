@@ -4,12 +4,9 @@ import * as anno from '../../anno';
 import * as rda from '../../data/rda';
 import * as editorFormats from '../../editor/formats';
 import * as modContext from '../../editor/modContext';
-import { getAllCustomSymbols } from '../../features/guidUtilsProvider'; // only for workspace symbols
 import * as xmltest from '../../tools/xmltest';
-import { ASSETS_FILENAME_PATTERN } from '../../other/assetsXml';
+import { ASSETS_FILENAME_PATTERN, guidWithName } from '../../other/assetsXml';
 import { SymbolRegistry } from '../../data/symbols';
-
-let context_: vscode.ExtensionContext;
 
 const vanillaAssetContentProvider = new (class implements vscode.TextDocumentContentProvider {
   provideTextDocumentContent(uri: vscode.Uri): string {
@@ -36,19 +33,27 @@ const vanillaAssetContentProvider = new (class implements vscode.TextDocumentCon
 
 export class WorkspaceSymbolProvider implements vscode.WorkspaceSymbolProvider {
   public async provideWorkspaceSymbols(search: string, token: vscode.CancellationToken): Promise<vscode.SymbolInformation[]> {
-    const matchingSymbols = getAllCustomSymbols();
+    if (!modContext.get().modinfo) {
+      return [];
+    }
+
+    const matchingSymbols = SymbolRegistry.all();
     let result: vscode.SymbolInformation[] = [];
 
-    for (const symbol of matchingSymbols) {
-      if (symbol.location) {
-        result.push(
-          new vscode.SymbolInformation(
-            (symbol.english ?? symbol.name ?? symbol.guid) + (symbol.template ? ` (${symbol.template})` : ''), 
-            vscode.SymbolKind.Class, 
-            new vscode.Range(symbol.location.line, 0, symbol.location.line, 0), 
-            symbol.location.filePath)
-        );
-      }
+    const versionNumber = modContext.getVersion().toString();
+
+    for (const [_, symbol] of matchingSymbols) {
+      const location = !symbol.location ?
+        new vscode.Location(vscode.Uri.from({ scheme: "annoasset" + versionNumber, path: guidWithName(symbol) }), new vscode.Position(0, 0))
+        : new vscode.Location(symbol.location.filePath, new vscode.Position(symbol.location.line, 0));
+
+      result.push(
+        new vscode.SymbolInformation(
+          (symbol.english ?? symbol.name ?? symbol.guid) + (symbol.template ? ` (${symbol.template})` : ''),
+          vscode.SymbolKind.Class,
+          symbol.modName ?? 'vanilla',
+          location)
+      );
     }
 
     return result;
@@ -75,11 +80,10 @@ export class DefinitionProvider implements vscode.DefinitionProvider {
       return new vscode.Location(asset.location.filePath, new vscode.Position(asset.location.line, 0));
     }
     else if (asset) {
-      const guidWithName = asset.name ? `${text}: ${asset.name}` : `${text}`;
       const versionNumber = modContext.getVersion().toString();
 
       return new vscode.Location(
-        vscode.Uri.from({ scheme: "annoasset" + versionNumber, path: guidWithName }), new vscode.Position(0, 0));
+        vscode.Uri.from({ scheme: "annoasset" + versionNumber, path: guidWithName(asset) }), new vscode.Position(0, 0));
     }
 
     return undefined;
@@ -91,8 +95,6 @@ export function activate(context: vscode.ExtensionContext) {
       { language: 'anno-xml', scheme: '*' },
       { language: 'xml', scheme: '*', pattern: ASSETS_FILENAME_PATTERN }
     ];
-
-  context_ = context;
 
   context.subscriptions.push(
     vscode.Disposable.from(

@@ -77,7 +77,7 @@ export class ModInfo {
     this.version = new Version(this.modInfo_?.Version);
   }
 
-  public getAllDependencies() {
+  public getAllDependencies(): string[] {
     let deps = new Set([
       ...utils.ensureArray(this.modInfo_?.ModDependencies),
       ...utils.ensureArray(this.modInfo_?.OptionalDependencies),

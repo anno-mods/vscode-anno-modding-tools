@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import { GuidCounter } from './guidCounter';
 import { ModRegistry } from '../data/modRegistry';
 import { SymbolRegistry } from '../data/symbols';
+import * as editor from '../editor';
 import * as editorFormats from '../editor/formats';
 import * as editorDocument from '../editor/assetsDocument';
 import { AssetsTocProvider } from '../languages/xml/assetsTocProvider';
@@ -11,22 +12,6 @@ import { AssetsDocument, ASSETS_FILENAME_PATTERN, IAsset } from '../other/assets
 import { AllGuidCompletionItems, GuidCompletionItems } from './guidCompletionItems';
 
 let assetsDocument: AssetsDocument | undefined;
-
-export function resolveGUID(guid: string) {
-  let entry = undefined;
-  if (assetsDocument?.assets) {
-    entry = assetsDocument.assets[guid];
-  }
-  // if (!entry && _customCompletionItems?.assets) {
-  //   entry = _customCompletionItems.assets[guid];
-  // }
-  entry ??= SymbolRegistry.resolve(guid);
-  if (!entry && AllGuidCompletionItems.assets) {
-    entry = AllGuidCompletionItems.assets[guid];
-  }
-
-  return entry;
-}
 
 export function getAllCustomSymbols(): IAsset[] {
   if (AllGuidCompletionItems?.assets) {
@@ -40,22 +25,6 @@ export function getAllCustomSymbols(): IAsset[] {
   }
 
   return [];
-}
-
-export function findAssetSymbols(search: string): IAsset[] {
-  // const vanillaItems = AllGuidCompletionItems.getAllItems();
-  if (_customCompletionItems) {
-    const customItems = _customCompletionItems.getAllItems();
-    if (customItems) {
-      return customItems
-        // .filter(item => (<vscode.CompletionItemLabel>item.label).label.toLowerCase().startsWith(search.toLowerCase()))
-        .map(item => resolveGUID(<string>item.insertText ?? ''))
-        .filter((item): item is IAsset => !!item);
-    }
-  }
-
-  return [];
-  // return vanillaItems;
 }
 
 function resolveGuidRange(guid: string) {
@@ -254,31 +223,32 @@ export function refreshCustomAssets(document: vscode.TextDocument | undefined): 
     return;
   }
 
-  const text = document.getText();
-
   // Don't clear completion items anymore
   // _customCompletionItems = new GuidCompletionItems();
-  const config = vscode.workspace.getConfiguration('anno', document.uri);
-  const modsFolder: string | undefined = config.get('modsFolder');
-
-  ModRegistry.use(vscode.workspace.getWorkspaceFolder(document.uri)?.uri?.fsPath, true);
-  ModRegistry.use(modsFolder);
 
   const mod = ModRegistry.findMod(document.fileName);
   if (!mod) {
     return;
   }
-  const dependencies = mod ? ModRegistry.getAllDependencies(mod.id) : [];
+
+  ModRegistry.use(vscode.workspace.getWorkspaceFolder(document.uri)?.uri?.fsPath, true);
+  ModRegistry.use(editor.getModsFolder({ filePath: document.uri.fsPath, version: mod.game }));
 
   if (!_customCompletionItems) {
     _customCompletionItems = new GuidCompletionItems();
   }
-  SymbolRegistry.setCompletionItems(_customCompletionItems);
+  // SymbolRegistry.setCompletionItems(_customCompletionItems);
 
+  const dependencies = mod.getAllDependencies();
   for (const dependency of dependencies) {
-    SymbolRegistry.scanFolder(dependency);
+    const dependencyModinfo = ModRegistry.get(dependency);
+    if (dependencyModinfo) {
+      SymbolRegistry.scanFolder(dependencyModinfo);
+    }
   }
   SymbolRegistry.scanFolder(mod, document.uri.fsPath);
+
+  const text = document.getText();
   SymbolRegistry.scanText(mod, text, document.uri.fsPath);
 }
 
@@ -311,7 +281,8 @@ export function registerGuidUtilsProvider(context: vscode.ExtensionContext): vsc
   subscribeToDocumentChanges(context);
 
 	return [
-    vscode.Disposable.from(vscode.languages.registerHoverProvider({ language: 'xml', pattern: ASSETS_FILENAME_PATTERN }, { provideHover })), 
+    vscode.Disposable.from(vscode.languages.registerHoverProvider({ language: 'xml', pattern: ASSETS_FILENAME_PATTERN }, { provideHover })),
+    vscode.Disposable.from(vscode.languages.registerHoverProvider({ language: 'anno-xml' }, { provideHover })),
     vscode.Disposable.from(vscode.languages.registerCompletionItemProvider({ language: 'xml', pattern: ASSETS_FILENAME_PATTERN }, { provideCompletionItems }, '\'', '"'))
   ];
 }
@@ -369,7 +340,7 @@ function provideHover(document: vscode.TextDocument, position: vscode.Position, 
   if (AllGuidCompletionItems.get(value.name, path)) {
     const guid = value.text;
     if (guid) {
-      const namedGuid = resolveGUID(guid);
+      const namedGuid = SymbolRegistry.resolve(guid);
       const templateText = namedGuid?.template ? `${namedGuid.template}: ` : '';
       let name = [ ];
       if (namedGuid) {
@@ -386,7 +357,7 @@ function provideHover(document: vscode.TextDocument, position: vscode.Position, 
       const range = resolveGuidRange(guid);
       const safe = (namedGuid || range.length > 0) ? [] : resolveSafeRange(guid);
 
-      return { 
+      return {
         contents: [ ...name, ...range, ...safe ]
       };
     }

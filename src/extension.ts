@@ -17,6 +17,7 @@ import * as xmltest from './tools/xmltest';
 
 import * as logger from './other/logger';
 import * as channel from './features/channel';
+import { SymbolRegistry } from './data/symbols';
 
 
 export function activate(context: vscode.ExtensionContext) {
@@ -24,6 +25,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	rda.init(context);
 	xmltest.init(context.asAbsolutePath);
+	SymbolRegistry.init(context.asAbsolutePath('./generated/'));
 
 	annoContext.activate(context);
 

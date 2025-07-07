@@ -1,9 +1,9 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import { IAsset } from '../other/assetsXml';
-import { resolveGUID } from './guidUtilsProvider';
+import { SymbolRegistry } from '../data/symbols';
 
-interface ITagJson 
+interface ITagJson
 {
   templates: string[],
   paths: { [index: string]: string[] }
@@ -171,7 +171,7 @@ export class GuidCompletionItems {
       return asset.template;
     }
     else if (asset.baseAsset) {
-      const base = resolveGUID(asset.baseAsset);
+      const base = SymbolRegistry.resolve(asset.baseAsset);
       if (base) {
         return this.getTemplate(base);
       }
