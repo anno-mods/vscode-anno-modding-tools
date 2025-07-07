@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import glob = require('glob');
 import * as child from 'child_process';
 
-import { ModRegistry } from './modRegistry';
+import { ModRegistry } from '../data/modRegistry';
 import * as anno from '../anno';
 
 export function ensureDir(path: string) {

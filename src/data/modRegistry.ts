@@ -1,8 +1,9 @@
 import { glob } from 'glob';
 import * as path from 'path';
-import * as logger from './logger';
+
 import { ModInfo } from '../anno';
-import * as utils from './utils';
+import * as logger from '../other/logger';
+import * as utils from '../other/utils';
 
 export namespace ModRegistry {
   let mods_: { [index: string]: ModInfo } = {};

@@ -1,13 +1,14 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
-import { AssetsTocProvider } from '../languages/xml/assetsTocProvider';
-import { AssetsDocument, ASSETS_FILENAME_PATTERN, IAsset } from '../other/assetsXml';
-import { SymbolRegistry } from '../data/symbols';
-import { AllGuidCompletionItems, GuidCompletionItems } from './guidCompletionItems';
-import { ModRegistry } from '../other/modRegistry';
+
 import { GuidCounter } from './guidCounter';
+import { ModRegistry } from '../data/modRegistry';
+import { SymbolRegistry } from '../data/symbols';
 import * as editorFormats from '../editor/formats';
 import * as editorDocument from '../editor/assetsDocument';
+import { AssetsTocProvider } from '../languages/xml/assetsTocProvider';
+import { AssetsDocument, ASSETS_FILENAME_PATTERN, IAsset } from '../other/assetsXml';
+import { AllGuidCompletionItems, GuidCompletionItems } from './guidCompletionItems';
 
 let assetsDocument: AssetsDocument | undefined;
 
