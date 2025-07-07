@@ -21,6 +21,12 @@ export function error(line: string) {
   _getOutputChannel().appendLine(line);
 }
 
+export function errorAndThrow(line: string): never {
+  console.error(line);
+  _getOutputChannel().appendLine(line);
+  throw line;
+}
+
 function _getOutputChannel(show?: boolean) {
   if (!_outputChannel) {
     _outputChannel = vscode.window.createOutputChannel('Anno Modding Tools');

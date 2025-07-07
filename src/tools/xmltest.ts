@@ -174,7 +174,6 @@ export function fetchIssues(vanillaXml: string, modPath: string, mainPatchFile: 
 
 export function diff(originalPath: string, patchContent: string, patchFilePath: string, modPath: string,
   modsFolder: string | undefined) {
-
   if (!originalPath || !patchContent) {
     return { original: '', patched: '', log: ''};
   }
@@ -184,6 +183,7 @@ export function diff(originalPath: string, patchContent: string, patchFilePath: 
 
   ModRegistry.use(modsFolder);
   patchFilePath = patchFilePath.replace(/\\/g, '/');
+  // TODO modInfo is usually already available, pass as argument
   const annomod = utils.readModinfo(modPath);
   const modInfo = ModInfo.read(modPath);
   const version = modInfo?.game || utils.GameVersion.Auto;

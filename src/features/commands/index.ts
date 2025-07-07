@@ -13,7 +13,7 @@ import { ShowDiffCommand } from './showDiff';
 import { CheckLoca } from './checkLoca';
 import { ImportLoca } from './importLoca';
 import { GuidCounter } from '../guidCounter';
-import { SelectPathCommands } from './selectPathCommands';
+import { GamePaths } from '../../editor/gamePaths';
 
 export function registerCommands(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.Disposable.from(
@@ -31,6 +31,6 @@ export function registerCommands(context: vscode.ExtensionContext) {
 		...CheckLoca.register(context),
 		...ImportLoca.register(context),
 		...GuidCounter.register(context),
-		...SelectPathCommands.register(context)
+		...GamePaths.register(context)
 	));
 }

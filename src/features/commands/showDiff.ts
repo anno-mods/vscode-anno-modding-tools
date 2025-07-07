@@ -2,34 +2,97 @@ import * as vscode from 'vscode';
 import * as channel from '../channel';
 import * as fs from 'fs';
 import * as path from 'path';
+import { ModInfo } from '../../anno';
+import * as rda from '../../data/rda';
+import * as editor from '../../editor';
+import * as modContext from '../../editor/modContext';
 import * as editorUtils from '../../editor/utils';
 import * as utils from '../../other/utils';
-import { ModInfo } from '../../anno';
 import * as xmltest from '../../tools/xmltest';
-import * as rda from '../../data/rda';
 
-let _originalPath: string;
-let _patchPath: string;
-let _patch: string;
-let _reload: boolean = false;
 
-let _originalContent: string;
-let _patchedContent: string;
-let _logContent: string;
+class DiffRequest {
+  originalPath: string;
+  patchPath?: string;
+  patch?: string;
 
-let _version = utils.GameVersion.Auto;
+  modInfo?: ModInfo;
+
+  originalContent?: string;
+  patchedContent?: string;
+
+  public constructor(originalPath: string, modInfo?: ModInfo) {
+    this.originalPath = originalPath;
+    this.modInfo = modInfo;
+  }
+
+  public load() {
+    if (!this.patchPath) {
+      // unexpected
+      return;
+    }
+
+    if (!this.originalContent) {
+      const modPath = utils.searchModPath(this.patchPath);
+      const modsFolder = editor.getModsFolder({ filePath: this.patchPath, version: this.modInfo?.game })
+
+      const result = this.diff(this.originalPath,
+        this.patch ? ('<ModOps>' + this.patch + '</ModOps>') : fs.readFileSync(this.patchPath, 'utf-8'),
+        this.patchPath,
+        modPath,
+        modsFolder);
+      this.originalContent = result.original;
+      this.patchedContent = result.patched;
+
+      channel.log(result.log);
+    }
+  }
+
+  diff(originalPath: string, patchContent: string, patchFilePath: string, modPath: string, modsFolder?: string) {
+    return xmltest.diff(originalPath, patchContent, patchFilePath, modPath, modsFolder);
+  }
+
+
+  static readonly _requests = new Map<string, DiffRequest>();
+
+  public static add(timestamp: string, request: DiffRequest) {
+    DiffRequest._requests.set(timestamp, request);
+  }
+
+  public static get(timestamp: string) {
+    if (!timestamp) {
+      return undefined;
+    }
+
+    return DiffRequest._requests.get(timestamp);
+  }
+
+  public static remove(timestamp: string) {
+    DiffRequest._requests.delete(timestamp);
+  }
+}
 
 export class ShowDiffCommand {
 	public static register(context: vscode.ExtensionContext): vscode.Disposable[] {
     const annodiffContentProvider = new (class implements vscode.TextDocumentContentProvider {
       provideTextDocumentContent(uri: vscode.Uri): string {
-        ShowDiffCommand.reload(context);
+
+        const request = DiffRequest.get(uri.fragment);
+        if (!request) {
+          channel.errorAndThrow(`Failed to diff '${uri.fsPath}'`);
+        }
+
+        request.load();
+
+        if (!request.originalContent || !request.patchedContent) {
+          channel.errorAndThrow(`Failed to diff '${request.patchPath}'`);
+        }
 
         if (uri.query === 'original') {
-          return _originalContent;
+          return request.originalContent;
         }
         else {
-          return _patchedContent;
+          return request.patchedContent;
         }
       }
     })();
@@ -41,17 +104,33 @@ export class ShowDiffCommand {
       vscode.workspace.registerTextDocumentContentProvider("annodiff", annodiffContentProvider)
     ];
 
+    modContext.onCheckTextEditorContext(editor => {
+      const uri = editor.document.uri;
+      if (uri.scheme.startsWith('annodiff')) {
+        const modInfo = DiffRequest.get(uri.fragment)?.modInfo;
+
+        // TODO after 1800 supports anno-xml
+        // vscode.languages.setTextDocumentLanguage(editor.document, 'anno-xml');
+        return new modContext.ModContext(editor?.document, modInfo?.game, modInfo);
+      }
+    });
+
+    vscode.workspace.onDidCloseTextDocument(editor => {
+      DiffRequest.remove(editor.uri.fragment);
+    });
+
     return disposable;
 	}
 
   static async showFileDiff(fileUri: any) {
-    if (!await ShowDiffCommand.gatherPaths(fileUri)) {
+    const request = await ShowDiffCommand.gatherPaths(fileUri);
+    if (!request) {
       return;
     }
 
     let patchFilePath = fileUri.fsPath;
     if (path.basename(patchFilePath) === 'modinfo.json') {
-      patchFilePath = utils.getAssetsXmlPath(path.dirname(patchFilePath), _version);
+      patchFilePath = utils.getAssetsXmlPath(path.dirname(patchFilePath), request.modInfo?.game ?? utils.GameVersion.Anno7);
     }
 
     if (!fs.existsSync(patchFilePath)) {
@@ -59,91 +138,67 @@ export class ShowDiffCommand {
       return;
     }
 
-    // TODO cache with checksum?
-    _patchPath = patchFilePath;
-    _patch = "";
-    _reload = true;
+    request.patchPath = patchFilePath;
+    request.patch = "";
 
-    ShowDiffCommand.executeDiff();
+    ShowDiffCommand.executeDiff(request);
   }
 
   static async showSelectionDiff(fileUri: any) {
-    const editor = vscode.window.activeTextEditor;
-    if (!editor || !await ShowDiffCommand.gatherPaths(fileUri)) {
+    const textEditor = vscode.window.activeTextEditor;
+    if (!textEditor) {
       return;
     }
 
-    // TODO cache with checksum?
-    _patchPath = fileUri.fsPath;
-    _patch = editorUtils.getSelectedModOps(editor.document, editor.selection);
-    _reload = true;
-    _patch = _patch.replace(/<\/?ModOps>/g, '');
+    const request = await ShowDiffCommand.gatherPaths(fileUri);
+    if (!request) {
+      return;
+    }
 
-    ShowDiffCommand.executeDiff();
+    request.patchPath = fileUri.fsPath;
+    request.patch = editorUtils.getSelectedModOps(textEditor.document, textEditor.selection);
+    request.patch = request.patch.replace(/<\/?ModOps>/g, '');
+
+    ShowDiffCommand.executeDiff(request);
   }
 
-  static async gatherPaths(fileUri: vscode.Uri): Promise<boolean> {
-    if (!await editorUtils.ensureRdaFolderSettingAsync('rdaFolder', fileUri)) {
-      return false;
+  static async gatherPaths(fileUri: vscode.Uri): Promise<DiffRequest | undefined> {
+    const textEditor = vscode.window.activeTextEditor;
+    if (!textEditor) {
+      return undefined;
     }
 
     const modPath = utils.findModRoot(fileUri.fsPath);
-    _version = ModInfo.readVersion(modPath);
+    const modInfo = ModInfo.read(modPath);
 
-    const vanillaAssetsFilePath = rda.getPatchTarget(fileUri.fsPath, _version);
+    if (!await editor.ensureGamePathAsync({ version: modInfo?.game, filePath: fileUri.fsPath } )) {
+      return undefined;
+    }
+
+    const version = modInfo?.game ?? utils.GameVersion.Anno7;
+
+    const vanillaAssetsFilePath = rda.getPatchTarget(fileUri.fsPath, version);
     if (!vanillaAssetsFilePath) {
-      vscode.window.showWarningMessage(`Unknown target: '${fileUri.fsPath}' (${utils.gameVersionName(_version)})`);
-      return false;
+      vscode.window.showWarningMessage(`Unknown target: '${fileUri.fsPath}' (${utils.gameVersionName(version)})`);
+      return undefined;
     }
     if (!fs.existsSync(vanillaAssetsFilePath)) {
-      vscode.window.showWarningMessage(`Can't find target: '${vanillaAssetsFilePath}' (${utils.gameVersionName(_version)})`);
-      return false;
+      vscode.window.showWarningMessage(`Can't find target: '${vanillaAssetsFilePath}' (${utils.gameVersionName(version)})`);
+      return undefined;
     }
 
-    _originalPath = vanillaAssetsFilePath;
-
-    return true;
+    return new DiffRequest(vanillaAssetsFilePath, modInfo);
   }
 
-  static executeDiff() {
+  static executeDiff(request: DiffRequest) {
     const timestamp = Date.now();
+    DiffRequest.add(timestamp.toString(), request);
+
     channel.show();
+
     vscode.commands.executeCommand('vscode.diff',
-      vscode.Uri.parse('annodiff:' + _originalPath + '?original#' + timestamp),
-      vscode.Uri.parse('annodiff:' + _patchPath + '?patch#' + timestamp),
-      utils.gameVersionName(_version) + ': Original ↔ Patched');
-  }
-
-  static reload(context: vscode.ExtensionContext) {
-    if (_reload) {
-      _reload = false;
-
-      const searchModPath = utils.searchModPath(_patchPath);
-      const config = vscode.workspace.getConfiguration('anno', vscode.Uri.file(_patchPath));
-      const modsFolder: string | undefined = config.get('modsFolder');
-      const tester = new ShowDiffCommand(context, modsFolder);
-      const result = tester.diff(_originalPath,
-        _patch ? ('<ModOps>' + _patch + '</ModOps>') : fs.readFileSync(_patchPath, 'utf-8'),
-        _patchPath,
-        searchModPath);
-      _originalContent = result.original;
-      _patchedContent = result.patched;
-      _logContent = result.log;
-
-      channel.log(_logContent);
-    }
-  }
-
-  _context: vscode.ExtensionContext;
-  _workingDir: string = "";
-  _modsFolder?: string;
-
-  constructor(context: vscode.ExtensionContext, modsFolder?: string) {
-    this._context = context;
-    this._modsFolder = modsFolder;
-  }
-
-  diff(originalPath: string, patchContent: string, patchFilePath: string, modPath: string) {
-    return xmltest.diff(originalPath, patchContent, patchFilePath, modPath, this._modsFolder);
+      vscode.Uri.parse('annodiff:' + request.originalPath + '?original#' + timestamp),
+      vscode.Uri.parse('annodiff:' + request.patchPath + '?patch#' + timestamp),
+      'Original ↔ Patched');
   }
 }

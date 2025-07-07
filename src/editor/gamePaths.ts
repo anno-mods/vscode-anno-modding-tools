@@ -2,6 +2,9 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as vscode from 'vscode';
 
+import * as modContext from './modContext';
+import * as utils from '../other/utils';
+
 const ANNO8_SEARCH_PATHS = [
   `C:\\Program Files (x86)\\Ubisoft\\Ubisoft Game Launcher\\games\\Anno 117`,
   `C:\\Program Files (x86)\\Ubisoft\\Ubisoft Game Launcher\\games\\Anno 117 Closed Beta`,
@@ -9,12 +12,83 @@ const ANNO8_SEARCH_PATHS = [
   `D:\\Program Files (x86)\\Ubisoft\\Ubisoft Game Launcher\\games\\Anno 117 Closed Beta`
 ]
 
-export class SelectPathCommands {
+export class GamePaths {
   public static register(context: vscode.ExtensionContext): vscode.Disposable[] {
     return [
-      vscode.commands.registerCommand('anno-modding-tools.selectAnno117GamePath', SelectPathCommands.selectGamePath),
-      vscode.commands.registerCommand('anno-modding-tools.selectAnno117ModsFolder', SelectPathCommands.selectModsFolder)
+      vscode.commands.registerCommand('anno-modding-tools.selectAnno117GamePath', GamePaths.selectGamePath),
+      vscode.commands.registerCommand('anno-modding-tools.selectAnno117ModsFolder', GamePaths.selectModsFolder)
     ];
+  }
+
+  public static getModsFolder(options?: { filePath?: string, version?: utils.GameVersion }): string | undefined {
+    const uri = options?.filePath ? vscode.Uri.file(options.filePath) : undefined;
+    const config = vscode.workspace.getConfiguration('anno', uri);
+
+    const version = options?.version ?? modContext.getVersion();
+
+    // TODO ensure dialog
+
+    if (version === utils.GameVersion.Anno8) {
+      const gamePath = config.get<string>('117.gamePath');
+      let modsFolder = config.get<string>('117.modsFolder');
+      if (!modsFolder && gamePath) {
+        return path.join(gamePath, 'mods');
+      }
+      return modsFolder;
+    }
+    else {
+      return config.get<string>('modsFolder');
+    }
+  }
+
+  public static async ensureGamePathAsync(options?: { filePath?: string, version?: utils.GameVersion }): Promise<boolean> {
+    const uri = options?.filePath ? vscode.Uri.file(options.filePath) : undefined;
+    const config = vscode.workspace.getConfiguration('anno', uri);
+    const version = options?.version ?? modContext.getVersion();
+
+    let valid = false;
+
+    if (version === utils.GameVersion.Anno7) {
+      const annoMods: string | undefined = config.get<string>('rdaFolder');
+
+      const validPath = annoMods !== undefined && annoMods !== "" && fs.existsSync(annoMods);
+      valid = validPath && fs.existsSync(path.join(annoMods, utils.ANNO7_ASSETS_PATH));
+
+      if (!valid) {
+        const goSettings = 'Change Settings';
+        const chosen = await vscode.window.showErrorMessage("`anno.rdaFolder` is not set up correctly.\n\nIt does not contain `" + utils.ANNO7_ASSETS_PATH + "`.", goSettings);
+        if (chosen === goSettings) {
+          vscode.commands.executeCommand('workbench.action.openSettings', 'anno.rdaFolder');
+        }
+        return false;
+      }
+    }
+    else if (version === utils.GameVersion.Anno8) {
+      const annoMods: string | undefined = config.get<string>('117.gamePath');
+
+      // TODO rda files are not supported yet
+      // const validPath = annoMods !== undefined && annoMods !== "" && fs.existsSync(annoMods);
+      // const validExtractedPath = validPath && fs.existsSync(path.join(annoMods, utils.ANNO8_ASSETS_PATH));
+
+      const validGamePath = annoMods !== undefined && annoMods !== "" && GamePaths.isValidGamePath(annoMods);
+
+      valid = validGamePath;
+
+      if (!valid) {
+        const goSettings = 'Change Settings';
+        const chosen = await vscode.window.showErrorMessage("`117.gamePath` is not set up correctly.\n\nIt does not contain `maindata/config.rda` and `Bin/Win64/Anno117.exe`.", goSettings);
+        if (chosen === goSettings) {
+          vscode.commands.executeCommand('workbench.action.openSettings', '117.gamePath');
+        }
+        return false;
+      }
+    }
+    else {
+      vscode.window.showErrorMessage("Something went wrong. The game version isn't set.");
+      return false;
+    }
+
+    return true;
   }
 
   static async selectGamePath(fileUri: vscode.Uri) {
@@ -23,7 +97,7 @@ export class SelectPathCommands {
     const initialGamePath = config.get<string>('117.gamePath');
     let gamePath = initialGamePath;
     if (!gamePath) {
-      gamePath = SelectPathCommands.detectGamePath() ?? '';
+      gamePath = GamePaths.detectGamePath() ?? '';
     }
 
     const skipDialog = false; // (initialGamePath !== gamePath && SelectPathCommands.isValidGamePath(gamePath));
@@ -43,14 +117,14 @@ export class SelectPathCommands {
       gamePath = result[0].fsPath;
     }
 
-    if (!SelectPathCommands.isValidGamePath(gamePath)) {
+    if (!GamePaths.isValidGamePath(gamePath)) {
       // auto correct selecting the executable path
-      gamePath = SelectPathCommands.correctGamePath(gamePath);
+      gamePath = GamePaths.correctGamePath(gamePath);
     }
 
     await config.update('117.gamePath', gamePath, vscode.ConfigurationTarget.Global);
 
-    if (!SelectPathCommands.isValidGamePath(gamePath)) {
+    if (!GamePaths.isValidGamePath(gamePath)) {
       vscode.window.showErrorMessage(
         "Didn't find `Bin\\Win64\\Anno117.exe` or `maindata\\config.rda` in the specified location.");
     }

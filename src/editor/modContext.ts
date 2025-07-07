@@ -7,17 +7,24 @@ export class ModContext {
   public modinfo?: anno.ModInfo;
   public version: utils.GameVersion = utils.GameVersion.Auto;
 
-  public constructor(document: vscode.TextDocument | undefined, version?: utils.GameVersion) {
+  public constructor(document: vscode.TextDocument | undefined, version?: utils.GameVersion, modInfo?: anno.ModInfo) {
     this.document = document;
-    if (version) {
+    if (version && modInfo) {
+      this.version = version;
+      this.modinfo = modInfo;
+    }
+    else if (modInfo) {
+      this.version = modInfo.game;
+      this.modinfo = modInfo;
+    }
+    else if (version) {
       this.version = version;
     }
     else if (document?.uri.fsPath) {
       this.modinfo = anno.ModInfo.read(utils.findModRoot(document?.uri.fsPath), true);
-    }
-
-    if (this.modinfo?.game) {
-      this.version = this.modinfo.game;
+      if (this.modinfo?.game) {
+        this.version = this.modinfo.game;
+      }
     }
   }
 }
