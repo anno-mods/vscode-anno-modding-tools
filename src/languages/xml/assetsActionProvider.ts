@@ -2,8 +2,9 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 
 import * as anno from '../../anno';
+import * as rda from '../../data/rda';
+import * as editor from '../../editor';
 import { ASSETS_FILENAME_PATTERN } from '../../other/assetsXml';
-import * as editorUtils from '../../editor/utils';
 import * as utils from '../../other/utils';
 import * as xmltest from '../../tools/xmltest';
 import * as logger from '../../other/logger';
@@ -127,18 +128,19 @@ function runXmlTest(context: vscode.ExtensionContext, doc: vscode.TextDocument,
     mainAssetsXml = doc.fileName;
   }
 
+  const version = anno.ModInfo.readVersion(modPath);
+  const modsFolder: string | undefined = editor.getModsFolder({ filePath: doc.uri.fsPath, version });
   const config = vscode.workspace.getConfiguration('anno', doc.uri);
-  const modsFolder: string | undefined = config.get('modsFolder');
   const warningThreshold: number = config.get('liveModopAnalysis.warningThreshold') ?? 0;
   const editingFile = path.relative(modPath, doc.fileName);
 
-  const vanilaXml = editorUtils.getVanilla(mainAssetsXml, modPath);
-  if (!vanilaXml) {
+  const vanillaXml = rda.getPatchTarget(mainAssetsXml, version, modPath);
+  if (!vanillaXml) {
     logger.error('vanila XML not found');
     return [];
   }
 
-  const issues = xmltest.fetchIssues(vanilaXml, modPath, mainAssetsXml, editingFile,
+  const issues = xmltest.fetchIssues(vanillaXml, modPath, mainAssetsXml, editingFile,
     doc.getText(), modsFolder);
   if (issues && issues.length > 0) {
     const color = new vscode.ThemeColor('editorCodeLens.foreground');

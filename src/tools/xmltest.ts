@@ -73,8 +73,8 @@ function parseIssue(line: string): IIssue | undefined {
   const match = regex.exec(line);
 
   if (match) {
-    if (line.startsWith('[debug]')) {
-      const timeRegex = /Time: (\d+)ms (\w+)/;
+    if (match[1] === 'debug') {
+      const timeRegex = /(\d+)ms (\w+)/;
       const timeMatch = timeRegex.exec(match[2]);
       if (timeMatch) {
         return {
@@ -113,7 +113,7 @@ export interface IIssue {
 export function fetchIssues(vanillaXml: string, modPath: string, mainPatchFile: string,
   patchFile: string, patchContent: string, modsFolder: string | undefined): IIssue[] {
 
-  const removeNulls = <S>(value: S | undefined): value is S => value !== null && value !== undefined;
+  const removeNulls = <S>(value: S | null | undefined): value is S => value !== null && value !== undefined;
   patchFile = patchFile.replace(/\\/g, '/');
 
   let testerOutput;
