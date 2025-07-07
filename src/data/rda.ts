@@ -4,6 +4,7 @@ import * as vscode from 'vscode';
 
 import * as anno from '../anno';
 import * as rdaConsole from '../tools/rdaConsole';
+import * as logger from '../other/logger';
 
 let _storageFolder: string;
 let _asAbsolutePath: (relative: string) => string
@@ -21,7 +22,7 @@ export function get(relativePath: string, version: anno.GameVersion): string | u
     return selectFromFolder(relativePath, version);
   }
 
-  // TODO error handling
+  logger.error(`Couldn't find '${relativePath}'`);
   return undefined;
 }
 
@@ -72,9 +73,12 @@ function extractFromRda(relativePath: string, version: anno.GameVersion) {
     return absolutePath;
   }
 
-  const configRdaPath = path.join(gamePath, 'maindata\\config.rda');
+  const rdaPath = path.join(gamePath, 'maindata\\config.rda');
 
-  const _ = rdaConsole.extract(configRdaPath, rdaCachePath, relativePath, _asAbsolutePath)
+  const success = rdaConsole.extract(rdaPath, rdaCachePath, relativePath, _asAbsolutePath)
+  if (!success) {
+    logger.error(`Couldn't extract '${relativePath}' from 'maindata/config.rda'`);
+  }
   return absolutePath;
 }
 
