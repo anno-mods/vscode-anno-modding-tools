@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
-import * as dds from '../../other/dds';
+import * as dds from '../../tools/dds';
 import * as utils from '../../other/utils';
 
 export class DdsConverter {

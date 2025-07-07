@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as annoContext from './editor/modContext';
 import { registerGuidUtilsProvider } from './features/guidUtilsProvider';
-import * as dds from './other/dds';
+import * as dds from './tools/dds';
 import * as rdp from './other/rdp';
 import * as AssetsDecorator from './languages/xml/assetsDecorator';
 import * as AssetsSymbolProvider from './languages/xml/assetsSymbolProvider';

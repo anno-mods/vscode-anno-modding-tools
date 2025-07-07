@@ -12,7 +12,7 @@ import { RdpxmlConverter } from './converter/rdpxml';
 import { CfgYamlConverter } from './converter/cfgyaml';
 
 import * as rdp from '../other/rdp';
-import * as dds from '../other/dds';
+import * as dds from '../tools/dds';
 
 import * as xmltest from '../tools/xmltest';
 import { ModCache } from './ModCache';
