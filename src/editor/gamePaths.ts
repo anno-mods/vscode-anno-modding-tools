@@ -4,7 +4,6 @@ import * as vscode from 'vscode';
 
 import * as modContext from './modContext';
 import * as anno from '../anno';
-import * as utils from '../other/utils';
 
 const ANNO8_SEARCH_PATHS = [
   `C:\\Program Files (x86)\\Ubisoft\\Ubisoft Game Launcher\\games\\Anno 117`,
@@ -53,11 +52,11 @@ export class GamePaths {
       const annoMods: string | undefined = config.get<string>('rdaFolder');
 
       const validPath = annoMods !== undefined && annoMods !== "" && fs.existsSync(annoMods);
-      valid = validPath && fs.existsSync(path.join(annoMods, utils.ANNO7_ASSETS_PATH));
+      valid = validPath && fs.existsSync(path.join(annoMods, anno.ANNO7_ASSETS_PATH));
 
       if (!valid) {
         const goSettings = 'Change Settings';
-        const chosen = await vscode.window.showErrorMessage("`anno.rdaFolder` is not set up correctly.\n\nIt does not contain `" + utils.ANNO7_ASSETS_PATH + "`.", goSettings);
+        const chosen = await vscode.window.showErrorMessage("`anno.rdaFolder` is not set up correctly.\n\nIt does not contain `" + anno.ANNO7_ASSETS_PATH + "`.", goSettings);
         if (chosen === goSettings) {
           vscode.commands.executeCommand('workbench.action.openSettings', 'anno.rdaFolder');
         }

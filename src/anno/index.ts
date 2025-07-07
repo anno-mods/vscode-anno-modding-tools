@@ -5,10 +5,11 @@ import { GameVersion, gameVersionName } from './gameVersion';
 
 export { ModInfo, GameVersion, gameVersionName };
 
-
 import * as fs from 'fs';
 import * as path from 'path';
-import * as utils from '../other/utils';
+
+export const ANNO7_ASSETS_PATH = "data/config/export/main/asset";
+export const ANNO8_ASSETS_PATH = "data/base/config/export";
 
 export function getAssetsXmlPath(modPath: string, version: GameVersion = GameVersion.Auto) {
   let filePath;
@@ -19,7 +20,7 @@ export function getAssetsXmlPath(modPath: string, version: GameVersion = GameVer
   }
 
   if (version === GameVersion.Anno8 || version === GameVersion.Auto) {
-    filePath = path.join(modPath, utils.ANNO8_ASSETS_PATH, 'assets');
+    filePath = path.join(modPath, ANNO8_ASSETS_PATH, 'assets');
     if (fs.existsSync(filePath + '_.xml')) {
       return filePath + '_.xml';
     }
@@ -30,7 +31,7 @@ export function getAssetsXmlPath(modPath: string, version: GameVersion = GameVer
   }
 
   if (version === GameVersion.Anno7 || version === GameVersion.Auto) {
-    filePath = path.join(modPath, utils.ANNO7_ASSETS_PATH, 'assets');
+    filePath = path.join(modPath, ANNO7_ASSETS_PATH, 'assets');
     if (fs.existsSync(filePath + '_.xml')) {
       return filePath + '_.xml';
     }

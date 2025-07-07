@@ -1,11 +1,10 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import glob = require('glob');
-import { ModRegistry } from './modRegistry';
 import * as child from 'child_process';
 
-export const ANNO7_ASSETS_PATH = "data/config/export/main/asset";
-export const ANNO8_ASSETS_PATH = "data/base/config/export";
+import { ModRegistry } from './modRegistry';
+import * as anno from '../anno';
 
 export function ensureDir(path: string) {
   if (!fs.existsSync(path)) {
@@ -96,8 +95,8 @@ export function findModRoot(modFilePath: string) {
 
   for (let i = 0; i < 100 && searchPath && searchPath !== '/'; i++) {
     if (fs.existsSync(path.join(searchPath, "modinfo.json"))
-      || fs.existsSync(path.join(searchPath, ANNO7_ASSETS_PATH))
-      || fs.existsSync(path.join(searchPath, ANNO8_ASSETS_PATH))
+      || fs.existsSync(path.join(searchPath, anno.ANNO7_ASSETS_PATH))
+      || fs.existsSync(path.join(searchPath, anno.ANNO8_ASSETS_PATH))
       || fs.existsSync(path.join(searchPath, "data/config/gui"))) {
       return searchPath;
     }

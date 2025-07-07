@@ -4,7 +4,6 @@ import * as vscode from 'vscode';
 
 import * as anno from '../anno';
 import * as rdaConsole from '../tools/rdaConsole';
-import * as utils from '../other/utils';
 
 let _storageFolder: string;
 let _asAbsolutePath: (relative: string) => string
@@ -28,7 +27,7 @@ export function get(relativePath: string, version: anno.GameVersion): string | u
 
 export function getPatchTarget(filePath: string, version: anno.GameVersion, modRoot?: string) {
   const anno8 = version === anno.GameVersion.Anno8;
-  const basePath = anno8 ? utils.ANNO8_ASSETS_PATH : utils.ANNO7_ASSETS_PATH;
+  const basePath = anno8 ? anno.ANNO8_ASSETS_PATH : anno.ANNO7_ASSETS_PATH;
   const basename = path.basename(filePath, path.extname(filePath));
 
   if (filePath.endsWith('export.bin.xml') || path.dirname(filePath).endsWith("infotips")) {
@@ -53,7 +52,7 @@ export function getPatchTarget(filePath: string, version: anno.GameVersion, modR
 
 export function getAssetsXml(version: anno.GameVersion) {
   const anno8 = version === anno.GameVersion.Anno8;
-  const basePath = anno8 ? utils.ANNO8_ASSETS_PATH : utils.ANNO7_ASSETS_PATH;
+  const basePath = anno8 ? anno.ANNO8_ASSETS_PATH : anno.ANNO7_ASSETS_PATH;
   return get(path.join(basePath, 'assets.xml'), version);
 }
 

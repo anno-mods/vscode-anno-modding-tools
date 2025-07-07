@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as utils from '../other/utils';
+import * as anno from '../anno';
 import * as vscode from 'vscode';
 
 export function getTagCloseAt(doc: vscode.TextDocument, position: vscode.Position) {
@@ -120,7 +120,7 @@ export function getVanilla(filePath: string, modRoot?: string) {
   const annoRda: string = config.get('rdaFolder') || "";
 
   const anno8 = fs.existsSync(path.join(annoRda, 'data/base/config'));
-  const basePath = anno8 ? utils.ANNO8_ASSETS_PATH : utils.ANNO7_ASSETS_PATH;
+  const basePath = anno8 ? anno.ANNO8_ASSETS_PATH : anno.ANNO7_ASSETS_PATH;
 
   const basename = path.basename(filePath, path.extname(filePath));
   let vanillaPath = '';
