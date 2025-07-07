@@ -5,9 +5,9 @@ import * as utils from '../other/utils';
 export class ModContext {
   public document?: vscode.TextDocument;
   public modinfo?: anno.ModInfo;
-  public version: utils.GameVersion = utils.GameVersion.Auto;
+  public version: anno.GameVersion = anno.GameVersion.Auto;
 
-  public constructor(document: vscode.TextDocument | undefined, version?: utils.GameVersion, modInfo?: anno.ModInfo) {
+  public constructor(document: vscode.TextDocument | undefined, version?: anno.GameVersion, modInfo?: anno.ModInfo) {
     this.document = document;
     if (version && modInfo) {
       this.version = version;

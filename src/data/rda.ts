@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as vscode from 'vscode';
 
+import * as anno from '../anno';
 import * as rdaConsole from '../tools/rdaConsole';
 import * as utils from '../other/utils';
 
@@ -13,11 +14,11 @@ export function init(context: vscode.ExtensionContext) {
   _asAbsolutePath = context.asAbsolutePath;
 }
 
-export function get(relativePath: string, version: utils.GameVersion): string | undefined {
-  if (version === utils.GameVersion.Anno8) {
+export function get(relativePath: string, version: anno.GameVersion): string | undefined {
+  if (version === anno.GameVersion.Anno8) {
     return extractFromRda(relativePath, version);
   }
-  else if (version === utils.GameVersion.Anno7) {
+  else if (version === anno.GameVersion.Anno7) {
     return selectFromFolder(relativePath, version);
   }
 
@@ -25,8 +26,8 @@ export function get(relativePath: string, version: utils.GameVersion): string | 
   return undefined;
 }
 
-export function getPatchTarget(filePath: string, version: utils.GameVersion, modRoot?: string) {
-  const anno8 = version === utils.GameVersion.Anno8;
+export function getPatchTarget(filePath: string, version: anno.GameVersion, modRoot?: string) {
+  const anno8 = version === anno.GameVersion.Anno8;
   const basePath = anno8 ? utils.ANNO8_ASSETS_PATH : utils.ANNO7_ASSETS_PATH;
   const basename = path.basename(filePath, path.extname(filePath));
 
@@ -50,13 +51,13 @@ export function getPatchTarget(filePath: string, version: utils.GameVersion, mod
   return get(path.join(basePath, 'assets.xml'), version);
 }
 
-export function getAssetsXml(version: utils.GameVersion) {
-  const anno8 = version === utils.GameVersion.Anno8;
+export function getAssetsXml(version: anno.GameVersion) {
+  const anno8 = version === anno.GameVersion.Anno8;
   const basePath = anno8 ? utils.ANNO8_ASSETS_PATH : utils.ANNO7_ASSETS_PATH;
   return get(path.join(basePath, 'assets.xml'), version);
 }
 
-function extractFromRda(relativePath: string, version: utils.GameVersion) {
+function extractFromRda(relativePath: string, version: anno.GameVersion) {
 
   const gamePath = ensureGamePath();
   if (!gamePath) {
@@ -78,7 +79,7 @@ function extractFromRda(relativePath: string, version: utils.GameVersion) {
   return absolutePath;
 }
 
-function selectFromFolder(relativePath: string, version: utils.GameVersion) {
+function selectFromFolder(relativePath: string, version: anno.GameVersion) {
   // TODO ensure
 
   const config = vscode.workspace.getConfiguration('anno'); // file context, vscode.Uri.file(filePath));

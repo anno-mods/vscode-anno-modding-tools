@@ -7,22 +7,6 @@ import * as child from 'child_process';
 export const ANNO7_ASSETS_PATH = "data/config/export/main/asset";
 export const ANNO8_ASSETS_PATH = "data/base/config/export";
 
-export enum GameVersion {
-  Auto = 0,
-  Anno7 = 7,
-  Anno8
-}
-
-export function gameVersionName(version: GameVersion) {
-  if (version === GameVersion.Anno7) {
-    return "Anno 1800";
-  } else if (version === GameVersion.Anno8) {
-    return "Anno 117";
-  } else {
-    return "Anno";
-  }
-}
-
 export function ensureDir(path: string) {
   if (!fs.existsSync(path)) {
     fs.mkdirSync(path, { recursive: true });
@@ -145,39 +129,6 @@ export function isAssetsXml(path: string) {
   }
 
   return true;
-}
-
-export function getAssetsXmlPath(modPath: string, version: GameVersion = GameVersion.Auto) {
-  let filePath;
-  
-  if (version === undefined) {
-    // fallback to Anno7 since those modinfos did not have a version yet
-    version = GameVersion.Anno7;
-  }
-
-  if (version === GameVersion.Anno8 || version === GameVersion.Auto) {
-    filePath = path.join(modPath, ANNO8_ASSETS_PATH, 'assets');
-    if (fs.existsSync(filePath + '_.xml')) {
-      return filePath + '_.xml';
-    }
-    else if (version !== GameVersion.Auto || fs.existsSync(filePath + '.xml'))
-    {
-      return filePath + '.xml';
-    }
-  }
-
-  if (version === GameVersion.Anno7 || version === GameVersion.Auto) {
-    filePath = path.join(modPath, ANNO7_ASSETS_PATH, 'assets');
-    if (fs.existsSync(filePath + '_.xml')) {
-      return filePath + '_.xml';
-    }
-    else if (version !== GameVersion.Auto || fs.existsSync(filePath + '.xml'))
-    {
-      return filePath + '.xml';
-    }
-  }
-
-  return undefined;
 }
 
 interface IModinfo {

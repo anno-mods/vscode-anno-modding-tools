@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import * as channel from '../channel';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as anno from '../../anno';
 import * as utils from '../../other/utils';
 import * as xmltest from '../../tools/xmltest';
 
@@ -17,13 +18,13 @@ export class RunTests {
         channel.show();
         if (fs.existsSync(testInputPath)) {
           channel.log(`Run tests from ${testInputPath}`);
-  
-          const patchFilePath = utils.getAssetsXmlPath(sourcePath);
+
+          const patchFilePath = anno.getAssetsXmlPath(sourcePath);
           if (!patchFilePath) {
             channel.error(`Cannot find '${patchFilePath}'`);
             return;
           }
-  
+
           if (!xmltest.test(testInputPath, sourcePath, patchFilePath, cachePath)) {
             return false;
           }

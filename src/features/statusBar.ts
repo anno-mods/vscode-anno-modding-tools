@@ -1,8 +1,8 @@
 import * as path from 'path';
 import * as vscode from 'vscode';
 
+import * as anno from '../anno';
 import * as modContext from '../editor/modContext';
-import * as utils from '../other/utils';
 
 export function activate(context: vscode.ExtensionContext) {
   const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 0);
@@ -26,7 +26,7 @@ function updateStatusBarItem(context: vscode.ExtensionContext,
   vscode.commands.executeCommand('setContext', 'anno-modding-tools.gameVersion', gameVersion);
   context.workspaceState.update("anno-modding-tools.gameVersion", gameVersion);
 
-  const versionName = utils.gameVersionName(gameVersion);
+  const versionName = anno.gameVersionName(gameVersion);
 
   if (modinfo?.path) {
     statusBarItem.tooltip = `Deploy to mod folder`;
@@ -43,7 +43,7 @@ function updateStatusBarItem(context: vscode.ExtensionContext,
     statusBarItem.text = versionName;
   }
 
-  if (gameVersion === utils.GameVersion.Auto) {
+  if (gameVersion === anno.GameVersion.Auto) {
     statusBarItem.hide();
   }
   else {

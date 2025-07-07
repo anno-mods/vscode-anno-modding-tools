@@ -1,5 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs';
+
+import * as anno from '../anno';
 import { Version } from '../other/version';
 import * as utils from '../other/utils';
 
@@ -11,11 +13,11 @@ export class ModInfo {
   readonly id: string;
   readonly version: Version;
   readonly path: string;
-  readonly game: utils.GameVersion;
+  readonly game: anno.GameVersion;
 
   /** filePath: modinfo.json or folder containing one */
-  static readVersion(filePath: string) : utils.GameVersion {
-    return this.read(filePath)?.game || utils.GameVersion.Auto;
+  static readVersion(filePath: string) : anno.GameVersion {
+    return this.read(filePath)?.game || anno.GameVersion.Auto;
   }
 
   /** filePath: modinfo.json or folder containing one */
@@ -23,7 +25,7 @@ export class ModInfo {
     let modPath: string | undefined;
     let id: string | undefined;
     let modInfo: any;
-    let game: utils.GameVersion = utils.GameVersion.Anno7;
+    let game: anno.GameVersion = anno.GameVersion.Anno7;
 
     const fileName = path.basename(filePath);
     if (fileName.toLowerCase().endsWith(MODINFO_JSON)) {
@@ -46,10 +48,10 @@ export class ModInfo {
         id = modInfo?.ModID;
         if (modInfo && modInfo.Anno === undefined && fs.existsSync(path.join(modPath, "data/base/config"))) {
           // try to detect Anno8 if the file is valid but doesn't contain a version yet
-          game = utils.GameVersion.Anno8;
+          game = anno.GameVersion.Anno8;
         }
         else {
-          game = (modInfo?.Anno === "8" || modInfo?.Anno === 8) ? utils.GameVersion.Anno8 : utils.GameVersion.Anno7;
+          game = (modInfo?.Anno === "8" || modInfo?.Anno === 8) ? anno.GameVersion.Anno8 : anno.GameVersion.Anno7;
         }
       }
       catch {
@@ -66,7 +68,7 @@ export class ModInfo {
     return new ModInfo(id, modPath, modInfo, game);
   }
 
-  private constructor(id: string, path: string, modInfo: any, game: utils.GameVersion) {
+  private constructor(id: string, path: string, modInfo: any, game: anno.GameVersion) {
     this.id = id;
     this.path = path;
     this.modInfo_ = modInfo;
@@ -84,19 +86,4 @@ export class ModInfo {
     // remove duplicates
     return [...deps];
   }
-
-  public readGuids() {
-    
-  }
-
-  // public writeGuids() {
-  //   if (this.modPath_ === undefined) {
-  //     return;
-  //   }
-
-  //   const guidsFilePath = path.join(this.modPath_, "guids.json");
-  //   const guidsContent = "{}";
-
-  //   fs.writeFileSync(guidsFilePath, guidsContent);
-  // }
 }

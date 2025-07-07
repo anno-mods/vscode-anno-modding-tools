@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as vscode from 'vscode';
 
 import * as modContext from './modContext';
+import * as anno from '../anno';
 import * as utils from '../other/utils';
 
 const ANNO8_SEARCH_PATHS = [
@@ -20,7 +21,7 @@ export class GamePaths {
     ];
   }
 
-  public static getModsFolder(options?: { filePath?: string, version?: utils.GameVersion }): string | undefined {
+  public static getModsFolder(options?: { filePath?: string, version?: anno.GameVersion }): string | undefined {
     const uri = options?.filePath ? vscode.Uri.file(options.filePath) : undefined;
     const config = vscode.workspace.getConfiguration('anno', uri);
 
@@ -28,7 +29,7 @@ export class GamePaths {
 
     // TODO ensure dialog
 
-    if (version === utils.GameVersion.Anno8) {
+    if (version === anno.GameVersion.Anno8) {
       const gamePath = config.get<string>('117.gamePath');
       let modsFolder = config.get<string>('117.modsFolder');
       if (!modsFolder && gamePath) {
@@ -41,14 +42,14 @@ export class GamePaths {
     }
   }
 
-  public static async ensureGamePathAsync(options?: { filePath?: string, version?: utils.GameVersion }): Promise<boolean> {
+  public static async ensureGamePathAsync(options?: { filePath?: string, version?: anno.GameVersion }): Promise<boolean> {
     const uri = options?.filePath ? vscode.Uri.file(options.filePath) : undefined;
     const config = vscode.workspace.getConfiguration('anno', uri);
     const version = options?.version ?? modContext.getVersion();
 
     let valid = false;
 
-    if (version === utils.GameVersion.Anno7) {
+    if (version === anno.GameVersion.Anno7) {
       const annoMods: string | undefined = config.get<string>('rdaFolder');
 
       const validPath = annoMods !== undefined && annoMods !== "" && fs.existsSync(annoMods);
@@ -63,7 +64,7 @@ export class GamePaths {
         return false;
       }
     }
-    else if (version === utils.GameVersion.Anno8) {
+    else if (version === anno.GameVersion.Anno8) {
       const annoMods: string | undefined = config.get<string>('117.gamePath');
 
       // TODO rda files are not supported yet

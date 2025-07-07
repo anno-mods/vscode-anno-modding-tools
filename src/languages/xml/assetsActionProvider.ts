@@ -1,5 +1,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
+
+import * as anno from '../../anno';
 import { ASSETS_FILENAME_PATTERN } from '../../other/assetsXml';
 import * as editorUtils from '../../editor/utils';
 import * as utils from '../../other/utils';
@@ -119,7 +121,7 @@ function runXmlTest(context: vscode.ExtensionContext, doc: vscode.TextDocument,
   const decorations: vscode.DecorationOptions[] = [];
 
   let modPath = utils.findModRoot(doc.fileName);
-  let mainAssetsXml = editorFormats.isAssetsXml(doc) ? utils.getAssetsXmlPath(modPath) : doc.fileName;
+  let mainAssetsXml = editorFormats.isAssetsXml(doc) ? anno.getAssetsXmlPath(modPath) : doc.fileName;
   if (!mainAssetsXml || !modPath) {
     modPath = path.dirname(doc.fileName);
     mainAssetsXml = doc.fileName;

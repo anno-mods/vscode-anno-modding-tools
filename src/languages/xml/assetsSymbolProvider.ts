@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 
+import * as anno from '../../anno';
 import * as rda from '../../data/rda';
 import * as editorFormats from '../../editor/formats';
 import * as modContext from '../../editor/modContext';
@@ -7,14 +8,13 @@ import { getAllCustomSymbols } from '../../features/guidUtilsProvider'; // only 
 import * as xmltest from '../../tools/xmltest';
 import { ASSETS_FILENAME_PATTERN } from '../../other/assetsXml';
 import { SymbolRegistry } from '../../data/symbols';
-import * as utils from '../../other/utils';
 
 let context_: vscode.ExtensionContext;
 
 const vanillaAssetContentProvider = new (class implements vscode.TextDocumentContentProvider {
   provideTextDocumentContent(uri: vscode.Uri): string {
 
-    const version = uri.scheme === 'annoasset8' ? utils.GameVersion.Anno8 : utils.GameVersion.Anno7;
+    const version = uri.scheme === 'annoasset8' ? anno.GameVersion.Anno8 : anno.GameVersion.Anno7;
     const vanillaPath = rda.getAssetsXml(version);
     if (!vanillaPath) {
       const msg = `assets.xml not found`;
@@ -110,7 +110,7 @@ export function activate(context: vscode.ExtensionContext) {
   modContext.onCheckTextEditorContext(editor => {
     if (editor.document.uri.scheme.startsWith('annoasset')) {
       vscode.languages.setTextDocumentLanguage(editor.document, 'anno-xml');
-      const version = editor.document.uri.scheme === 'annoasset8' ? utils.GameVersion.Anno8 : utils.GameVersion.Anno7;
+      const version = editor.document.uri.scheme === 'annoasset8' ? anno.GameVersion.Anno8 : anno.GameVersion.Anno7;
       return new modContext.ModContext(editor?.document, version);
     }
   });

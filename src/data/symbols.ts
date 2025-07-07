@@ -4,6 +4,7 @@ import * as path from 'path';
 import * as xmldoc from 'xmldoc';
 
 import * as rda from './rda';
+import * as anno from '../anno';
 import * as modContext from '../editor/modContext';
 import { AllGuidCompletionItems, GuidCompletionItems } from '../features/guidCompletionItems';
 import { AssetsDocument, ASSETS_FILENAME_PATTERN_STRICT, IAsset } from '../other/assetsXml';
@@ -107,7 +108,7 @@ export namespace SymbolRegistry {
 
   let vanillaSymbols_ = false;
   function _requestVanillaSymbols() {
-    if (vanillaSymbols_ || modContext.getVersion() === utils.GameVersion.Anno7) {
+    if (vanillaSymbols_ || modContext.getVersion() === anno.GameVersion.Anno7) {
       return;
     }
 

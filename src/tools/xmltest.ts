@@ -4,10 +4,10 @@ import * as glob from 'glob';
 import * as path from 'path';
 import * as vscode from 'vscode';
 
+import * as anno from '../anno';
 import * as logger from '../other/logger';
 import * as utils from '../other/utils';
 import { ModRegistry } from '../other/modRegistry';
-import { ModInfo } from '../anno';
 
 const XMLTEST_PATH = "./external/xmltest.exe";
 const XMLTEST2_PATH = "./external/xmltest2.exe";
@@ -120,9 +120,9 @@ export function fetchIssues(vanillaXml: string, modPath: string, mainPatchFile: 
   try {
     const roots = utils.findModRoots(mainPatchFile).map(e => ['-m', e]);
     const annomod = utils.readModinfo(modPath);
-    const modInfo = ModInfo.read(modPath);
-    const version = modInfo?.game || utils.GameVersion.Auto;
-    const tester = _asAbsolutePath(version === utils.GameVersion.Anno8 ? XMLTEST2_PATH : XMLTEST_PATH);
+    const modInfo = anno.ModInfo.read(modPath);
+    const version = modInfo?.game || anno.GameVersion.Auto;
+    const tester = _asAbsolutePath(version === anno.GameVersion.Anno8 ? XMLTEST2_PATH : XMLTEST_PATH);
 
     let prepatch = annomod?.getRequiredLoadAfterIds(annomod?.modinfo).map(e => ['-p', e]) ?? [];
 
@@ -185,9 +185,9 @@ export function diff(originalPath: string, patchContent: string, patchFilePath: 
   patchFilePath = patchFilePath.replace(/\\/g, '/');
   // TODO modInfo is usually already available, pass as argument
   const annomod = utils.readModinfo(modPath);
-  const modInfo = ModInfo.read(modPath);
-  const version = modInfo?.game || utils.GameVersion.Auto;
-  const differ = _asAbsolutePath(version === utils.GameVersion.Anno8 ? XMLTEST2_PATH : XMLTEST_PATH);
+  const modInfo = anno.ModInfo.read(modPath);
+  const version = modInfo?.game || anno.GameVersion.Auto;
+  const differ = _asAbsolutePath(version === anno.GameVersion.Anno8 ? XMLTEST2_PATH : XMLTEST_PATH);
 
   let prepatch = annomod?.getRequiredLoadAfterIds(annomod?.modinfo).map(e => ['-p', e]) ?? [];
   if (prepatch && modsFolder) {

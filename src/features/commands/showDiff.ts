@@ -1,8 +1,9 @@
-import * as vscode from 'vscode';
-import * as channel from '../channel';
 import * as fs from 'fs';
 import * as path from 'path';
-import { ModInfo } from '../../anno';
+import * as vscode from 'vscode';
+
+import * as channel from '../channel';
+import * as anno from '../../anno';
 import * as rda from '../../data/rda';
 import * as editor from '../../editor';
 import * as modContext from '../../editor/modContext';
@@ -10,18 +11,17 @@ import * as editorUtils from '../../editor/utils';
 import * as utils from '../../other/utils';
 import * as xmltest from '../../tools/xmltest';
 
-
 class DiffRequest {
   originalPath: string;
   patchPath?: string;
   patch?: string;
 
-  modInfo?: ModInfo;
+  modInfo?: anno.ModInfo;
 
   originalContent?: string;
   patchedContent?: string;
 
-  public constructor(originalPath: string, modInfo?: ModInfo) {
+  public constructor(originalPath: string, modInfo?: anno.ModInfo) {
     this.originalPath = originalPath;
     this.modInfo = modInfo;
   }
@@ -130,7 +130,7 @@ export class ShowDiffCommand {
 
     let patchFilePath = fileUri.fsPath;
     if (path.basename(patchFilePath) === 'modinfo.json') {
-      patchFilePath = utils.getAssetsXmlPath(path.dirname(patchFilePath), request.modInfo?.game ?? utils.GameVersion.Anno7);
+      patchFilePath = anno.getAssetsXmlPath(path.dirname(patchFilePath), request.modInfo?.game ?? anno.GameVersion.Anno7);
     }
 
     if (!fs.existsSync(patchFilePath)) {
@@ -169,21 +169,21 @@ export class ShowDiffCommand {
     }
 
     const modPath = utils.findModRoot(fileUri.fsPath);
-    const modInfo = ModInfo.read(modPath);
+    const modInfo = anno.ModInfo.read(modPath);
 
     if (!await editor.ensureGamePathAsync({ version: modInfo?.game, filePath: fileUri.fsPath } )) {
       return undefined;
     }
 
-    const version = modInfo?.game ?? utils.GameVersion.Anno7;
+    const version = modInfo?.game ?? anno.GameVersion.Anno7;
 
     const vanillaAssetsFilePath = rda.getPatchTarget(fileUri.fsPath, version);
     if (!vanillaAssetsFilePath) {
-      vscode.window.showWarningMessage(`Unknown target: '${fileUri.fsPath}' (${utils.gameVersionName(version)})`);
+      vscode.window.showWarningMessage(`Unknown target: '${fileUri.fsPath}' (${anno.gameVersionName(version)})`);
       return undefined;
     }
     if (!fs.existsSync(vanillaAssetsFilePath)) {
-      vscode.window.showWarningMessage(`Can't find target: '${vanillaAssetsFilePath}' (${utils.gameVersionName(version)})`);
+      vscode.window.showWarningMessage(`Can't find target: '${vanillaAssetsFilePath}' (${anno.gameVersionName(version)})`);
       return undefined;
     }
 
