@@ -11,7 +11,7 @@ import { ModinfoConverter } from './converter/modinfo';
 import { RdpxmlConverter } from './converter/rdpxml';
 import { CfgYamlConverter } from './converter/cfgyaml';
 
-import * as rdp from '../other/rdp';
+import * as rdp from '../tools/rdp';
 import * as dds from '../tools/dds';
 
 import * as xmltest from '../tools/xmltest';

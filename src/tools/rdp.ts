@@ -7,9 +7,9 @@ uses https://github.com/anno-mods/FileDBReader
 import * as fs from 'fs';
 import * as path from 'path';
 import * as child from 'child_process';
-import * as logger from './logger';
+import * as logger from '../other/logger';
 import * as xml2js from 'xml2js';
-import * as utils from './utils';
+import * as utils from '../other/utils';
 
 let _converterPath: string | undefined;
 let _interpreterPath: string | undefined;
