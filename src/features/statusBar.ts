@@ -1,43 +1,46 @@
 import * as path from 'path';
 import * as vscode from 'vscode';
 
-import * as anno from '../anno';
-import * as annoContext from '../editor/modContext';
+import * as modContext from '../editor/modContext';
 import * as utils from '../other/utils';
 
 export function activate(context: vscode.ExtensionContext) {
   const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 0);
 
-  updateStatusBarItem(context, statusBarItem, annoContext.get().modinfo);
+  updateStatusBarItem(context, statusBarItem, modContext.get());
 
   context.subscriptions.push(statusBarItem);
 
-  annoContext.onDidChangeActiveTextEditor(modContext => {
-    updateStatusBarItem(context, statusBarItem, modContext?.modinfo);
+  modContext.onDidChangeActiveTextEditor(e => {
+    updateStatusBarItem(context, statusBarItem, e);
   });
 }
 
 function updateStatusBarItem(context: vscode.ExtensionContext,
   statusBarItem: vscode.StatusBarItem,
-  modinfo?: anno.ModInfo) {
+  modContext: modContext.ModContext) {
 
-  let gameVersion = modinfo?.game ?? utils.GameVersion.Auto;
+  const gameVersion = modContext.version;
+  const modinfo = modContext.modinfo;
 
   vscode.commands.executeCommand('setContext', 'anno-modding-tools.gameVersion', gameVersion);
   context.workspaceState.update("anno-modding-tools.gameVersion", gameVersion);
-  statusBarItem.text = utils.gameVersionName(gameVersion);
+
+  const versionName = utils.gameVersionName(gameVersion);
 
   if (modinfo?.path) {
-    statusBarItem.tooltip = `Deploy \`${modinfo?.id}\` to mod folder`;
+    statusBarItem.tooltip = `Deploy to mod folder`;
     statusBarItem.command = {
       command: 'anno-modding-tools.buildMod',
       title: statusBarItem.tooltip,
-      arguments: [vscode.Uri.file(path.join(modinfo?.path, 'Modinfo.Json'))]
+      arguments: [vscode.Uri.file(path.join(modinfo?.path, 'modinfo.json'))]
     };
+    statusBarItem.text = `${versionName}: ${modinfo.id}`;
   }
   else {
-    statusBarItem.tooltip = `\`${modinfo?.id}\``;
+    statusBarItem.tooltip = undefined;
     statusBarItem.command = undefined;
+    statusBarItem.text = versionName;
   }
 
   if (gameVersion === utils.GameVersion.Auto) {

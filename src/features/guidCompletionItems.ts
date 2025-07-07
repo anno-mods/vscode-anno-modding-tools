@@ -66,10 +66,7 @@ export class GuidCompletionItems {
       }
 
       for (var asset of Object.keys(this.assets)) {
-        this.assets[asset].location = {
-          filePath: vscode.Uri.parse('annoasset:assets-' + asset + '.xml'),
-          line: 0
-        };
+        this.assets[asset].location = undefined;
       }
 
       this.fromAssets(this.assets, this.tags, true);

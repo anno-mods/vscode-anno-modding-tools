@@ -75,7 +75,7 @@ export class DefinitionProvider implements vscode.DefinitionProvider {
       return new vscode.Location(asset.location.filePath, new vscode.Position(asset.location.line, 0));
     }
     else if (asset) {
-      const guidWithName = asset.name ? `${text} ${asset.name}` : text;
+      const guidWithName = asset.name ? `${text}: ${asset.name}` : `${text}`;
       const versionNumber = modContext.getVersion().toString();
 
       return new vscode.Location(
@@ -106,4 +106,12 @@ export function activate(context: vscode.ExtensionContext) {
 
   vscode.workspace.registerTextDocumentContentProvider("annoasset7", vanillaAssetContentProvider);
   vscode.workspace.registerTextDocumentContentProvider("annoasset8", vanillaAssetContentProvider);
+
+  modContext.onCheckTextEditorContext(editor => {
+    if (editor.document.uri.scheme.startsWith('annoasset')) {
+      vscode.languages.setTextDocumentLanguage(editor.document, 'anno-xml');
+      const version = editor.document.uri.scheme === 'annoasset8' ? utils.GameVersion.Anno8 : utils.GameVersion.Anno7;
+      return new modContext.ModContext(editor?.document, version);
+    }
+  });
 }

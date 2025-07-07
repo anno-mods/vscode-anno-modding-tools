@@ -5,29 +5,40 @@ import * as utils from '../other/utils';
 export class ModContext {
   public document?: vscode.TextDocument;
   public modinfo?: anno.ModInfo;
+  public version: utils.GameVersion = utils.GameVersion.Auto;
 
-  public constructor(document: vscode.TextDocument | undefined) {
+  public constructor(document: vscode.TextDocument | undefined, version?: utils.GameVersion) {
     this.document = document;
-    if (document?.uri.fsPath) {
+    if (version) {
+      this.version = version;
+    }
+    else if (document?.uri.fsPath) {
       this.modinfo = anno.ModInfo.read(utils.findModRoot(document?.uri.fsPath), true);
+    }
+
+    if (this.modinfo?.game) {
+      this.version = this.modinfo.game;
     }
   }
 }
 
-type ModEditorEvent = (e: ModContext) => any;
-
 export function activate(context: vscode.ExtensionContext) {
   vscode.window.onDidChangeActiveTextEditor(editor => {
-    if (editor?.document.uri.scheme.startsWith('annoasset')) {
-      _current = new ModContext(undefined);
-      _version = editor.document.uri.scheme === 'annoasset8' ? utils.GameVersion.Anno8 : utils.GameVersion.Anno7;
-      vscode.languages.setTextDocumentLanguage(editor.document, 'anno-xml');
+    if (!editor) {
+      // keep version stable until a document is opened
+      // this avoids flickering when switching between documents
+      _current = new ModContext(undefined, _current.version);
     }
     else {
-      _current = new ModContext(editor?.document);
-      if (_current.modinfo?.game) {
-        _version = _current.modinfo.game;
+      let newContext: ModContext | undefined;
+      for (let listener of _onCheckTextEditorContext) {
+        newContext = listener(editor);
+        if (newContext) {
+          break;
+        }
       }
+
+      _current = newContext ?? new ModContext(editor.document);
     }
 
     for (let listener of _onDidChangeActiveTextEditor) {
@@ -40,21 +51,26 @@ let _current: ModContext;
 export function get() {
   if (!_current) {
     _current = new ModContext(vscode.window.activeTextEditor?.document);
-    _version = _current.modinfo ? _current.modinfo.game : utils.GameVersion.Anno7;
   }
 
   return _current;
 }
 
-let _version: utils.GameVersion = utils.GameVersion.Anno7;
 export function getVersion() {
   if (!_current) {
     get();
   }
-  return _version;
+  return _current.version;
 }
 
+type ModEditorEvent = (e: ModContext) => any;
 let _onDidChangeActiveTextEditor: ModEditorEvent[] = []
 export function onDidChangeActiveTextEditor(listener: ModEditorEvent) {
   _onDidChangeActiveTextEditor.push(listener);
+}
+
+type CheckContextEvent = (e: vscode.TextEditor) => ModContext | undefined;
+let _onCheckTextEditorContext: CheckContextEvent[] = []
+export function onCheckTextEditorContext(listener: CheckContextEvent) {
+  _onCheckTextEditorContext.push(listener);
 }
