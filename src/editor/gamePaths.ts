@@ -26,8 +26,6 @@ export class GamePaths {
 
     const version = options?.version ?? modContext.getVersion();
 
-    // TODO ensure dialog
-
     if (version === anno.GameVersion.Anno8) {
       const gamePath = config.get<string>('117.gamePath');
       let modsFolder = config.get<string>('117.modsFolder');
@@ -39,6 +37,33 @@ export class GamePaths {
     else {
       return config.get<string>('modsFolder');
     }
+  }
+
+  public static async ensureModsFolderAsync(options?: { filePath?: string, version?: anno.GameVersion }): Promise<boolean> {
+    const modsFolder = GamePaths.getModsFolder();
+
+    const version = options?.version ?? modContext.getVersion();
+    const pathSetting = (version === anno.GameVersion.Anno8) ? 'anno.117.modsFolder' : 'anno.modsFolder';
+    const settingsFocus = (version === anno.GameVersion.Anno8) ? 'anno.117.gamePath mods' : 'anno.ModsFolder';
+
+    const exists = modsFolder && fs.existsSync(modsFolder);
+
+    if (!exists && modsFolder && fs.existsSync(path.dirname(modsFolder))) {
+      try {
+        fs.mkdirSync(modsFolder);
+      } catch {}
+    }
+
+    if (!modsFolder || !fs.existsSync(modsFolder)) {
+      const goSettings = 'Change Settings';
+      const chosen = await vscode.window.showErrorMessage("Your `" + pathSetting + "` is not set up correctly.", goSettings);
+      if (chosen === goSettings) {
+        vscode.commands.executeCommand('workbench.action.openSettings', settingsFocus);
+      }
+      return false;
+    }
+
+    return true;
   }
 
   public static async ensureGamePathAsync(options?: { filePath?: string, version?: anno.GameVersion }): Promise<boolean> {
@@ -76,9 +101,9 @@ export class GamePaths {
 
       if (!valid) {
         const goSettings = 'Change Settings';
-        const chosen = await vscode.window.showErrorMessage("`117.gamePath` is not set up correctly.\n\nIt does not contain `maindata/config.rda` and `Bin/Win64/Anno117.exe`.", goSettings);
+        const chosen = await vscode.window.showErrorMessage("`anno.117.gamePath` is not set up correctly.\n\nIt does not contain `maindata/config.rda` and `Bin/Win64/Anno117.exe`.", goSettings);
         if (chosen === goSettings) {
-          vscode.commands.executeCommand('workbench.action.openSettings', '117.gamePath');
+          vscode.commands.executeCommand('workbench.action.openSettings', 'anno.117.gamePath');
         }
         return false;
       }

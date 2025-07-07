@@ -85,12 +85,16 @@ export class ModBuilder {
         "pattern": "{banner.*,content*.txt,!(imya)*.md,data/config/**/*,**/*.include.xml,data/infotips/*,data/**/*.fc.xml,data/**/*.cfg.xml,**/icon*.png,**/*.lua}"
       },
       {
+        "action": "static",
+        "pattern": "data/base/config/**/*"
+      },
+      {
         "action": "cf7",
         "pattern": "{data,products,shared}/**/*.cf7"
       },
       {
         "action": "rdpxml",
-        "pattern": "{data,products,hared}/**/*.rdp.xml"
+        "pattern": "{data,products,shared}/**/*.rdp.xml"
       },
       {
         "action": "gltf",
