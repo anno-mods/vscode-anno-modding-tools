@@ -36,7 +36,6 @@ export namespace ModRegistry {
           || metaInfo.version.isGreaterThan(existingEntry.version)
           || (prioritize && metaInfo.version.isEqualTo(existingEntry.version))) {
           mods_[metaInfo.id] = metaInfo;
-          logger.log('register ' + metaInfo.id + '@' + metaInfo.version.toString() + ' at ./' + path.dirname(modinfoPath));
         }
       }
     }
