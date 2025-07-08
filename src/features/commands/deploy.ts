@@ -13,7 +13,7 @@ export class DeployCommand {
 	public static register(context: vscode.ExtensionContext): vscode.Disposable[] {
     const disposable = [
       vscode.commands.registerCommand('anno-modding-tools.buildMod', async (fileUri) => {
-        if (!await editor.ensureModsFolderAsync(fileUri)) {
+        if (!editor.ensureModsFolder(fileUri)) {
           return;
         }
 

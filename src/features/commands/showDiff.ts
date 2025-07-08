@@ -171,7 +171,7 @@ export class ShowDiffCommand {
     const modPath = utils.findModRoot(fileUri.fsPath);
     const modInfo = anno.ModInfo.read(modPath);
 
-    if (!await editor.ensureGamePathAsync({ version: modInfo?.game, filePath: fileUri.fsPath } )) {
+    if (!editor.ensureGamePath({ version: modInfo?.game, filePath: fileUri.fsPath } )) {
       return undefined;
     }
 

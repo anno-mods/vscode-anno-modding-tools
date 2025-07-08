@@ -3,8 +3,8 @@ import * as vscode from 'vscode';
 import { GamePaths } from './gamePaths';
 
 export const getModsFolder = GamePaths.getModsFolder;
-export const ensureModsFolderAsync = GamePaths.ensureModsFolderAsync;
-export const ensureGamePathAsync = GamePaths.ensureGamePathAsync;
+export const ensureModsFolder = GamePaths.ensureModsFolder;
+export const ensureGamePath = GamePaths.ensureGamePath;
 export const isGamePathExtracted = GamePaths.isGamePathExtracted;
 
 export const hasGamePath = GamePaths.hasGamePath;

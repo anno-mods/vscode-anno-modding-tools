@@ -5,6 +5,7 @@ import * as xmldoc from 'xmldoc';
 
 import * as rda from './rda';
 import * as anno from '../anno';
+import * as editor from '../editor';
 import * as modContext from '../editor/modContext';
 // import { AllGuidCompletionItems, GuidCompletionItems } from '../features/guidCompletionItems';
 import { AssetsDocument, ASSETS_FILENAME_PATTERN_STRICT, IAsset } from '../other/assetsXml';
@@ -151,9 +152,13 @@ export namespace SymbolRegistry {
       }
       _vanillaSymbols8 = true;
 
+      if (!editor.ensureGamePath({ filePath: modContext.get().document?.fileName, version })) {
+        return;
+      }
+
       const vanillaPath = rda.getAssetsXml(version);
       if (!vanillaPath || !fs.existsSync(vanillaPath)) {
-        logger.errorMessage(`Can't find ${vanillaPath}. GUID lookup will not work properly.`);
+        logger.errorMessage(`Can't find \`${vanillaPath}\`. GUID lookup will not work properly.`);
         return;
       }
 
@@ -162,7 +167,7 @@ export namespace SymbolRegistry {
         xmlContent = new xmldoc.XmlDocument(fs.readFileSync(vanillaPath, 'utf8'));
       }
       catch {
-        logger.errorMessage(`Can't parse ${vanillaPath}. GUID lookup will not work properly.`);
+        logger.errorMessage(`Can't parse \`${vanillaPath}\`. GUID lookup will not work properly.`);
         // don't retry. you need to change gamePath to reset
         return;
       }

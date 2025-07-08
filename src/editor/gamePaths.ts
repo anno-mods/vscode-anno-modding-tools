@@ -56,7 +56,7 @@ export class GamePaths {
     }
   }
 
-  public static async ensureModsFolderAsync(options?: { filePath?: string, version?: anno.GameVersion }): Promise<boolean> {
+  public static ensureModsFolder(options?: { filePath?: string, version?: anno.GameVersion }): boolean {
     const modsFolder = GamePaths.getModsFolder();
 
     const version = options?.version ?? modContext.getVersion();
@@ -73,10 +73,12 @@ export class GamePaths {
 
     if (!modsFolder || !fs.existsSync(modsFolder)) {
       const goSettings = 'Change Settings';
-      const chosen = await vscode.window.showErrorMessage("Your `" + pathSetting + "` is not set up correctly.", goSettings);
-      if (chosen === goSettings) {
-        vscode.commands.executeCommand('workbench.action.openSettings', settingsFocus);
-      }
+      (async() => {
+        const chosen = await vscode.window.showErrorMessage("Your `" + pathSetting + "` is not set up correctly.", goSettings);
+        if (chosen === goSettings) {
+          vscode.commands.executeCommand('workbench.action.openSettings', settingsFocus);
+        }
+      })();
       return false;
     }
 
@@ -136,7 +138,7 @@ export class GamePaths {
     }
   }
 
-  public static async ensureGamePathAsync(options?: { filePath?: string, version?: anno.GameVersion }): Promise<boolean> {
+  public static ensureGamePath(options?: { filePath?: string, version?: anno.GameVersion }): boolean {
     const uri = options?.filePath ? vscode.Uri.file(options.filePath) : undefined;
     const config = vscode.workspace.getConfiguration('anno', uri);
     const version = options?.version ?? modContext.getVersion();
@@ -151,10 +153,12 @@ export class GamePaths {
 
       if (!valid) {
         const goSettings = 'Change Settings';
-        const chosen = await vscode.window.showErrorMessage("`anno.rdaFolder` is not set up correctly.\n\nIt does not contain `" + anno.ANNO7_ASSETS_PATH + "`.", goSettings);
-        if (chosen === goSettings) {
-          vscode.commands.executeCommand('workbench.action.openSettings', 'anno.rdaFolder');
-        }
+        (async() => {
+          const chosen = await vscode.window.showErrorMessage("`anno.rdaFolder` is not set up correctly.\n\nIt does not contain `" + anno.ANNO7_ASSETS_PATH + "`.", goSettings);
+          if (chosen === goSettings) {
+            vscode.commands.executeCommand('workbench.action.openSettings', 'anno.rdaFolder');
+          }
+        })();
         return false;
       }
     }
@@ -171,11 +175,13 @@ export class GamePaths {
 
       if (!valid) {
         const goSettings = 'Change Settings';
-        const chosen = await vscode.window.showErrorMessage("`anno.117.gamePath` is not set up correctly.\n\nIt does not contain `maindata/config.rda`, `Bin/Win64/Anno117.exe` or `"
-          + anno.ANNO8_ASSETS_PATH + "/assets.xml`.", goSettings);
-        if (chosen === goSettings) {
-          vscode.commands.executeCommand('workbench.action.openSettings', 'anno.117.gamePath');
-        }
+        (async() => {
+          const chosen = await vscode.window.showErrorMessage("`anno.117.gamePath` is not set up correctly.\n\nIt does not contain `maindata/config.rda`, `Bin/Win64/Anno117.exe` or `"
+            + anno.ANNO8_ASSETS_PATH + "/assets.xml`.", goSettings);
+          if (chosen === goSettings) {
+            vscode.commands.executeCommand('workbench.action.openSettings', 'anno.117.gamePath');
+          }
+        })();
         return false;
       }
     }
