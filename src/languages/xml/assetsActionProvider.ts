@@ -1,5 +1,6 @@
-import * as vscode from 'vscode';
+import * as fs from 'fs';
 import * as path from 'path';
+import * as vscode from 'vscode';
 
 import * as anno from '../../anno';
 import * as rda from '../../data/rda';
@@ -7,7 +8,6 @@ import * as editor from '../../editor';
 import { ASSETS_FILENAME_PATTERN } from '../../other/assetsXml';
 import * as utils from '../../other/utils';
 import * as xmltest from '../../tools/xmltest';
-import * as logger from '../../other/logger';
 import * as editorFormats from '../../editor/formats';
 
 const DEPRECATED_ALL = '190611';
@@ -135,8 +135,11 @@ function runXmlTest(context: vscode.ExtensionContext, doc: vscode.TextDocument,
   const editingFile = path.relative(modPath, doc.fileName);
 
   const vanillaXml = rda.getPatchTarget(mainAssetsXml, version, modPath);
-  if (!vanillaXml) {
-    logger.error('vanila XML not found');
+  if (!vanillaXml || !fs.existsSync(vanillaXml)) {
+    const diagnostic = new vscode.Diagnostic(doc.lineAt(0).range, 
+      `Patch target not found. Please check your gamePath / rdaFolder setting and content.\n${vanillaXml}`, 
+      vscode.DiagnosticSeverity.Warning);
+    result.push(diagnostic);
     return [];
   }
 

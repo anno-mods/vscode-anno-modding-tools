@@ -14,7 +14,7 @@ export function init(context: vscode.ExtensionContext) {
   _asAbsolutePath = context.asAbsolutePath;
 }
 
-export function get(relativePath: string, version: anno.GameVersion): string | undefined {
+export function get(relativePath: string, version: anno.GameVersion): string {
   if (version === anno.GameVersion.Anno8) {
     return extractFromRda(relativePath, version);
   }
@@ -23,10 +23,10 @@ export function get(relativePath: string, version: anno.GameVersion): string | u
   }
 
   logger.error(`Couldn't find '${relativePath}'`);
-  return undefined;
+  return relativePath;
 }
 
-export function getPatchTarget(filePath: string, version: anno.GameVersion, modRoot?: string) {
+export function getPatchTarget(filePath: string, version: anno.GameVersion, modRoot?: string): string {
   const anno8 = version === anno.GameVersion.Anno8;
   const basePath = anno8 ? anno.ANNO8_ASSETS_PATH : anno.ANNO7_ASSETS_PATH;
   const basename = path.basename(filePath, path.extname(filePath));
@@ -58,12 +58,6 @@ export function getAssetsXml(version: anno.GameVersion) {
 }
 
 function extractFromRda(relativePath: string, version: anno.GameVersion) {
-
-  const gamePath = ensureGamePath();
-  if (!gamePath) {
-    return undefined; // TODO error handling
-  }
-
   const rdaCachePath = path.join(_storageFolder, 'rda' + version.toString());
   const absolutePath = path.join(rdaCachePath, relativePath);
 
@@ -73,12 +67,20 @@ function extractFromRda(relativePath: string, version: anno.GameVersion) {
     return absolutePath;
   }
 
-  const rdaPath = path.join(gamePath, 'maindata\\config.rda');
+  const gamePath = ensureGamePath();
+  if (!gamePath) {
+    // error case
+    return `<anno.${getGamePathSetting()}>/maindata/config.rda:${relativePath}`; 
+  }
+
+  const rdaPath = path.join(gamePath, 'maindata/config.rda');
 
   const success = rdaConsole.extract(rdaPath, rdaCachePath, relativePath, _asAbsolutePath)
   if (!success) {
     logger.error(`Couldn't extract '${relativePath}' from 'maindata/config.rda'`);
+    return `<anno.${getGamePathSetting()}>/maindata/config.rda:${relativePath}`; 
   }
+
   return absolutePath;
 }
 
@@ -94,4 +96,8 @@ function selectFromFolder(relativePath: string, version: anno.GameVersion) {
 function ensureGamePath(): string | undefined {
   // TODO checks
   return vscode.workspace.getConfiguration('anno').get<string>('117.gamePath');
+}
+
+function getGamePathSetting(): string {
+  return `117.gamePath`;
 }
