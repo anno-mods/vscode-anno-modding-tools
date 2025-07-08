@@ -19,7 +19,9 @@ export class GamePaths {
       vscode.commands.registerCommand('anno-modding-tools.selectAnno117ModsFolder', GamePaths.selectModsFolder)
     ];
   }
-  
+
+  // modsFolder
+
   public static getModsFolder(options?: { filePath?: string, version?: anno.GameVersion }): string | undefined {
     const uri = options?.filePath ? vscode.Uri.file(options.filePath) : undefined;
     const config = vscode.workspace.getConfiguration('anno', uri);
@@ -65,6 +67,43 @@ export class GamePaths {
 
     return true;
   }
+
+  static async selectModsFolder(fileUri: vscode.Uri) {
+    const config = vscode.workspace.getConfiguration('anno');
+
+    const gamePath = config.get<string>('117.gamePath');
+    const isArchiveGamePath = gamePath && GamePaths.isValidGamePath(gamePath, true);
+    const initialModsFolder = config.get<string>('117.modsFolder');
+    let modsFolder = initialModsFolder;
+    if (!modsFolder && isArchiveGamePath) {
+      modsFolder = path.join(gamePath, 'mods');
+      if (fs.existsSync(gamePath) && !fs.existsSync(modsFolder)) {
+        fs.mkdirSync(modsFolder);
+      }
+    }
+
+    const result = await vscode.window.showOpenDialog({
+      defaultUri: vscode.Uri.file(modsFolder ?? ''),
+      canSelectFiles: false,
+      canSelectFolders: true,
+      canSelectMany: false,
+      openLabel: 'Select Anno 117 Mods Folder'
+    });
+
+    if (!result) {
+      return;
+    }
+
+    modsFolder = result[0].fsPath;
+
+    if (isArchiveGamePath && normalizeWithDrive(modsFolder) === normalizeWithDrive(path.join(gamePath, 'mods'))) {
+      modsFolder = '';
+    }
+
+    await config.update('117.modsFolder', modsFolder, vscode.ConfigurationTarget.Global);
+  }
+
+  // gamePath
 
   public static getGamePath(options?: { filePath?: string, version?: anno.GameVersion }): string | undefined {
     const uri = options?.filePath ? vscode.Uri.file(options.filePath) : undefined;
@@ -133,6 +172,25 @@ export class GamePaths {
     return true;
   }
 
+  public static hasGamePath(options?: { filePath?: string, uri?: vscode.Uri, version?: anno.GameVersion }): boolean {
+    const uri = options?.uri ?? (options?.filePath ? vscode.Uri.file(options.filePath) : undefined);
+    const config = vscode.workspace.getConfiguration('anno', uri);
+
+    const version = options?.version ?? modContext.getVersion();
+
+    if (version === anno.GameVersion.Anno8) {
+      const gamePath = config.get<string>('117.gamePath');
+      return gamePath !== undefined && gamePath !== "";
+    }
+    else {
+      return true; // TODO ignore errors for now
+    }
+  }
+
+  public static getGamePathSetting(options?: { filePath?: string, uri?: vscode.Uri, version?: anno.GameVersion }): string {
+    return `117.gamePath`;
+  }
+
   static async selectGamePath(fileUri: vscode.Uri) {
     const config = vscode.workspace.getConfiguration('anno', fileUri);
 
@@ -176,41 +234,6 @@ export class GamePaths {
     }
   }
 
-  static async selectModsFolder(fileUri: vscode.Uri) {
-    const config = vscode.workspace.getConfiguration('anno');
-
-    const gamePath = config.get<string>('117.gamePath');
-    const isArchiveGamePath = gamePath && GamePaths.isValidGamePath(gamePath, true);
-    const initialModsFolder = config.get<string>('117.modsFolder');
-    let modsFolder = initialModsFolder;
-    if (!modsFolder && isArchiveGamePath) {
-      modsFolder = path.join(gamePath, 'mods');
-      if (fs.existsSync(gamePath) && !fs.existsSync(modsFolder)) {
-        fs.mkdirSync(modsFolder);
-      }
-    }
-
-    const result = await vscode.window.showOpenDialog({
-      defaultUri: vscode.Uri.file(modsFolder ?? ''),
-      canSelectFiles: false,
-      canSelectFolders: true,
-      canSelectMany: false,
-      openLabel: 'Select Anno 117 Mods Folder'
-    });
-
-    if (!result) {
-      return;
-    }
-
-    modsFolder = result[0].fsPath;
-
-    if (isArchiveGamePath && normalizeWithDrive(modsFolder) === normalizeWithDrive(path.join(gamePath, 'mods'))) {
-      modsFolder = '';
-    }
-
-    await config.update('117.modsFolder', modsFolder, vscode.ConfigurationTarget.Global);
-  }
-
   static detectGamePath(): string | undefined {
     for (const gamePath of ANNO8_SEARCH_PATHS) {
       if (fs.existsSync(gamePath)) {
@@ -252,7 +275,7 @@ export class GamePaths {
     else if (version === anno.GameVersion.Anno8) {
       if (GamePaths._isGamePathExtracted8 === undefined) {
         const gamePath = GamePaths.getGamePath({ filePath: options?.filePath, version });
-        GamePaths._isGamePathExtracted8 = gamePath !== undefined && GamePaths.isValidGamePath(gamePath);
+        GamePaths._isGamePathExtracted8 = gamePath !== undefined && !GamePaths.isValidGamePath(gamePath, true);
       }
       return GamePaths._isGamePathExtracted8;
     }

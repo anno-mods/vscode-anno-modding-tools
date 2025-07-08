@@ -1,7 +1,9 @@
-import * as gamePaths from './gamePaths';
+import { GamePaths } from './gamePaths';
 
-export const getModsFolder = gamePaths.GamePaths.getModsFolder;
-export const ensureModsFolderAsync = gamePaths.GamePaths.ensureModsFolderAsync;
-export const ensureGamePathAsync = gamePaths.GamePaths.ensureGamePathAsync;
-export const isGamePathExtracted = gamePaths.GamePaths.isGamePathExtracted;
+export const getModsFolder = GamePaths.getModsFolder;
+export const ensureModsFolderAsync = GamePaths.ensureModsFolderAsync;
+export const ensureGamePathAsync = GamePaths.ensureGamePathAsync;
+export const isGamePathExtracted = GamePaths.isGamePathExtracted;
 
+export const hasGamePath = GamePaths.hasGamePath;
+export const getGamePathSetting = GamePaths.getGamePathSetting;

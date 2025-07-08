@@ -15,6 +15,8 @@ const DEPRECATED_ALL2 = '193879';
 const DEPRECATED_ALL_FIX = '368';
 const DEPRECATED_ALL_CODE = 'all_buildings_with_maintenance_DONTUSE';
 
+const GAME_PATH_117 = 'anno.117.gamePath';
+
 export const diagnostics = vscode.languages.createDiagnosticCollection("assets-xml");
 const performanceDecorationType = vscode.window.createTextEditorDecorationType({});
 
@@ -134,11 +136,21 @@ function runXmlTest(context: vscode.ExtensionContext, doc: vscode.TextDocument,
   const warningThreshold: number = config.get('liveModopAnalysis.warningThreshold') ?? 0;
   const editingFile = path.relative(modPath, doc.fileName);
 
+  if (!editor.hasGamePath({ uri: doc.uri, version })) {
+    const diagnostic = new vscode.Diagnostic(doc.lineAt(0).range,
+      `Path \`anno.${editor.getGamePathSetting({ uri: doc.uri, version })}\` is not configured. Please check your settings.`,
+      vscode.DiagnosticSeverity.Warning);
+    diagnostic.code = GAME_PATH_117;
+    result.push(diagnostic);
+    return [];
+  }
+
   const vanillaXml = rda.getPatchTarget(mainAssetsXml, version, modPath);
   if (!vanillaXml || !fs.existsSync(vanillaXml)) {
-    const diagnostic = new vscode.Diagnostic(doc.lineAt(0).range, 
-      `Patch target not found. Please check your gamePath / rdaFolder setting and content.\n${vanillaXml}`, 
+    const diagnostic = new vscode.Diagnostic(doc.lineAt(0).range,
+      `Patch target not found. Please check your gamePath / rdaFolder settings and content.\n${vanillaXml}`,
       vscode.DiagnosticSeverity.Warning);
+    diagnostic.code = GAME_PATH_117;
     result.push(diagnostic);
     return [];
   }
@@ -202,6 +214,8 @@ function createDiagnostic2(doc: vscode.TextDocument, lineOfText: vscode.TextLine
   return diagnostic;
 }
 
+const removeNulls = <S>(value: S | null | undefined): value is S => value !== null && value !== undefined;
+
 export class AssetsCodeActionProvider implements vscode.CodeActionProvider {
   public static readonly providedCodeActionKinds = [
     vscode.CodeActionKind.QuickFix
@@ -209,16 +223,30 @@ export class AssetsCodeActionProvider implements vscode.CodeActionProvider {
 
   provideCodeActions(document: vscode.TextDocument, range: vscode.Range | vscode.Selection, context: vscode.CodeActionContext, token: vscode.CancellationToken): vscode.CodeAction[] {
     return context.diagnostics
-      .filter(diagnostic => diagnostic.code === DEPRECATED_ALL_CODE)
-      .map(diagnostic => this.createCommandCodeAction(diagnostic, document.uri));
+      .filter(diagnostic => diagnostic.code === DEPRECATED_ALL_CODE || diagnostic.code === GAME_PATH_117)
+      .map(diagnostic => this.createCommandCodeAction(diagnostic, document.uri))
+      .filter(removeNulls);
   }
 
-  private createCommandCodeAction(diagnostic: vscode.Diagnostic, uri: vscode.Uri): vscode.CodeAction {
-    const action = new vscode.CodeAction('Fix it', vscode.CodeActionKind.QuickFix);
-    action.edit = new vscode.WorkspaceEdit();
-    action.edit.replace(uri, diagnostic.range, DEPRECATED_ALL_FIX);
-    action.diagnostics = [diagnostic];
-    action.isPreferred = true;
-    return action;
+  private createCommandCodeAction(diagnostic: vscode.Diagnostic, uri: vscode.Uri): vscode.CodeAction | undefined {
+    if (diagnostic.code === DEPRECATED_ALL_CODE) {
+      const action = new vscode.CodeAction('Fix it', vscode.CodeActionKind.QuickFix);
+      action.edit = new vscode.WorkspaceEdit();
+      action.edit.replace(uri, diagnostic.range, DEPRECATED_ALL_FIX);
+      action.diagnostics = [diagnostic];
+      action.isPreferred = true;
+      return action;
+    }
+    else if (diagnostic.code === GAME_PATH_117) {
+      const action = new vscode.CodeAction(`Open settings for \`${GAME_PATH_117}\``, vscode.CodeActionKind.QuickFix);
+      action.command = {
+        title: action.title,
+        command: 'workbench.action.openSettings',
+        arguments: [ GAME_PATH_117 ]
+      };
+      action.diagnostics = [diagnostic];
+      action.isPreferred = true;
+      return action;
+    }
   }
 }
