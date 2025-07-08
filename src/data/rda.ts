@@ -5,6 +5,7 @@ import * as vscode from 'vscode';
 import * as anno from '../anno';
 import * as rdaConsole from '../tools/rdaConsole';
 import * as logger from '../other/logger';
+import * as editor from '../editor';
 
 let _storageFolder: string;
 let _asAbsolutePath: (relative: string) => string
@@ -15,10 +16,10 @@ export function init(context: vscode.ExtensionContext) {
 }
 
 export function get(relativePath: string, version: anno.GameVersion): string {
-  if (version === anno.GameVersion.Anno8) {
+  if (version === anno.GameVersion.Anno8 && !editor.isGamePathExtracted({ version })) {
     return extractFromRda(relativePath, version);
   }
-  else if (version === anno.GameVersion.Anno7) {
+  else {
     return selectFromFolder(relativePath, version);
   }
 
@@ -85,12 +86,16 @@ function extractFromRda(relativePath: string, version: anno.GameVersion) {
 }
 
 function selectFromFolder(relativePath: string, version: anno.GameVersion) {
-  // TODO ensure
-
-  const config = vscode.workspace.getConfiguration('anno'); // file context, vscode.Uri.file(filePath));
-  const annoRda: string = config.get('rdaFolder') || "";
-
-  return path.join(annoRda, relativePath);
+  const config = vscode.workspace.getConfiguration('anno'); // TODO file context, vscode.Uri.file(filePath));
+ 
+  if (version === anno.GameVersion.Anno7) {
+    const annoRda: string = config.get('rdaFolder') ?? "";
+    return path.join(annoRda, relativePath);
+  }
+  else {
+    const annoRda: string = config.get('117.gamePath') ?? "";
+    return path.join(annoRda, relativePath);
+  }
 }
 
 function ensureGamePath(): string | undefined {
