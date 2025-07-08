@@ -23,6 +23,14 @@ export namespace SymbolRegistry {
 
   let _generatedPath: string;
 
+  /** unloads vanilla symbols, e.g. after changing gamePath */
+  export function resetVanilla() {
+    _vanillaSymbols7 = false;
+    _vanillaSymbols8 = false;
+
+    // TODO clear cache, but for that we need separated caches
+  }
+
   export function all(version?: anno.GameVersion) {
     version ??= modContext.getVersion();
 
@@ -144,8 +152,8 @@ export namespace SymbolRegistry {
       _vanillaSymbols8 = true;
 
       const vanillaPath = rda.getAssetsXml(version);
-      if (!vanillaPath) {
-        // TODO error
+      if (!vanillaPath || !fs.existsSync(vanillaPath)) {
+        logger.errorMessage(`Can't find ${vanillaPath}. GUID lookup will not work properly.`);
         return;
       }
 
@@ -154,7 +162,8 @@ export namespace SymbolRegistry {
         xmlContent = new xmldoc.XmlDocument(fs.readFileSync(vanillaPath, 'utf8'));
       }
       catch {
-        // TODO error
+        logger.errorMessage(`Can't parse ${vanillaPath}. GUID lookup will not work properly.`);
+        // don't retry. you need to change gamePath to reset
         return;
       }
 

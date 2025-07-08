@@ -30,7 +30,6 @@ export function registerCommands(context: vscode.ExtensionContext) {
 		...ShowDiffCommand.register(context),
 		...CheckLoca.register(context),
 		...ImportLoca.register(context),
-		...GuidCounter.register(context),
-		...GamePaths.register(context)
+		...GuidCounter.register(context)
 	));
 }

@@ -21,7 +21,13 @@ export function error(line: string) {
   _getOutputChannel().appendLine(line);
 }
 
-export function errorAndThrow(line: string): never {
+export function errorMessage(line: string) {
+  console.error(line);
+  _getOutputChannel().appendLine(line);
+  vscode.window.showErrorMessage(line);
+}
+
+export function errorThrow(line: string): never {
   console.error(line);
   _getOutputChannel().appendLine(line);
   throw line;

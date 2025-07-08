@@ -13,11 +13,26 @@ const ANNO8_SEARCH_PATHS = [
 ]
 
 export class GamePaths {
-  public static register(context: vscode.ExtensionContext): vscode.Disposable[] {
+  public static activate(context: vscode.ExtensionContext): vscode.Disposable[] {
+    vscode.workspace.onDidChangeConfiguration((event) => {
+      if (event.affectsConfiguration('anno.117.gamePath')) {
+        for (let listener of GamePaths._onDidChangeGamePath) {
+          listener();
+        }
+      }
+    });
+
     return [
       vscode.commands.registerCommand('anno-modding-tools.selectAnno117GamePath', GamePaths.selectGamePath),
       vscode.commands.registerCommand('anno-modding-tools.selectAnno117ModsFolder', GamePaths.selectModsFolder)
     ];
+  }
+
+  // events
+
+  static _onDidChangeGamePath: (() => void)[] = []
+  public static onDidChangeGamePath(listener: (() => void)) {
+    GamePaths._onDidChangeGamePath.push(listener);
   }
 
   // modsFolder

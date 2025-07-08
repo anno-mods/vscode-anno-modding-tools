@@ -13,6 +13,7 @@ import * as schemas from './languages/schemas';
 import * as xml from './languages/xml';
 import * as statusBar from './features/statusBar';
 import * as rda from './data/rda';
+import * as editor from './editor';
 import * as xmltest from './tools/xmltest';
 
 import * as logger from './other/logger';
@@ -41,6 +42,9 @@ export function activate(context: vscode.ExtensionContext) {
 	xml.activate(context);
 	schemas.activate(context);
 	AssetsSymbolProvider.activate(context);
+
+	editor.activate(context);
+	editor.onDidChangeGamePath(() => SymbolRegistry.resetVanilla());
 
 	statusBar.activate(context);
 	commands.registerCommands(context);

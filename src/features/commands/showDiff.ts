@@ -79,13 +79,13 @@ export class ShowDiffCommand {
 
         const request = DiffRequest.get(uri.fragment);
         if (!request) {
-          channel.errorAndThrow(`Failed to diff '${uri.fsPath}'`);
+          channel.errorThrow(`Failed to diff '${uri.fsPath}'`);
         }
 
         request.load();
 
         if (!request.originalContent || !request.patchedContent) {
-          channel.errorAndThrow(`Failed to diff '${request.patchPath}'`);
+          channel.errorThrow(`Failed to diff '${request.patchPath}'`);
         }
 
         if (uri.query === 'original') {
