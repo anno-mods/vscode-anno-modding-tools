@@ -4,27 +4,27 @@ Tools to create mods for Anno 1800 and Anno 117: Pax Romana.
 
 ## Feature Overview
 
-- [Annotations, Live Analysis, Syntax](#annotations-live-analysis-syntax)
-  - Use Anno-specific table of contents to navigate asset XMLs
-  - See asset names directly next to GUIDs
-  - See errors and hints live in your `assets.xml`
-- [Navigation](#navigation)
-  - Navigate via Outline
-  - Jump to asset from any GUID by right click or `Ctrl+T`
-- Commands
-  - [Compare](#command-compare): Apply mod and compare unpatched vs patched
-  - [Build and Deploy](./doc/annomod.md): Copy your mod to the `mods/` folder and generate DDS (with LODs) and other files automatically.
-  - [Import from Blender or glTF](#import-from-blender-or-gltf) to `.cfg`, `.ifo` and `.cf7`
-  - Various right-click utilities to convert between Anno and editable formats (glTF, PNG, ...)
-- Auto-completion
-  - [GUID conversion](#guid-conversion)
-  - [Assets XML auto completion](#auto-completion)
-- Other
-  - [Reskin existing models](#quickly-reskin-existing-models) without touching `.cfg`, ...
+See also [Feature Details](#feature-details) page, and the [CHANGELOG](./CHANGELOG.md) for recent changes.
 
-See [Feature Details](#feature-details) for more, or [CHANGELOG](./CHANGELOG.md) for recent changes.
+- [Navigation and IntelliSense](#navigation)
+  - Navigate with Anno-specific outlines: _Secondary Side Bar or `Ctrl+Shift+O`_
+  - Inline asset name display next to GUIDs
+  - Jump to asset (vanilla or modded): _right click on GUID > `Go to Definition`_
+  - Asset Lookup (vanilla or modded): _`Ctrl+T`_
+  - [GUID conversion](#guid-conversion) (only Anno 1800)
+  - [XML auto completion](#auto-completion) (only Anno 1800)
+- [Syntax and Error Checking](#annotations-live-analysis-syntax)
+  - Modinfo.json syntax analysis
+  - XML syntax analysis using Red Hat XML (only Anno 1800)
+  - Live patch error and performance analysis
+  - Missing filename check
+- Utilities
+  - [Show Diff](#command-compare): Compare original and patched result.<br/>_Right click in text editor or explorer > `Show Diff`_
+  - [Deploy Mod](./doc/annomod.md): Copy to `mods/` folder and generate DDS (with LODs) and other files automatically.<br/>_Status Bar > click on `Anno 1800/117: ModID` button_
+  - [Import from Blender glTF](#import-from-blender-or-gltf) to `.cfg`, `.ifo` and `.cf7`.<br/>_Right click in explorer > `Anno: Import from ...`_
+  - Convert to and from Anno specific file formats (RDM <> glTF, DDS <> PNG, ...).<br/>_Right click in explorer > `Anno: Convert to ...`_
+  - [Reskin existing models](#quickly-reskin-existing-models) without touching `.cfg`, ... (only Anno 1800)
 
----
 
 ## Setup
 
@@ -288,6 +288,7 @@ Note: If you want to force updates for auto-completion delete `C:\Users\<user>\.
 
 ## Credits
 
+This is a personal project and not an official product of Ubisoft.
 Anno is a trademark of Ubisoft Entertainment in the US and/or other countries.
 
 A big thanks goes to the external projects I'm using for this extension:

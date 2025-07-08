@@ -1,6 +1,30 @@
 # Change Log
 
-All notable changes to the "anno-modding-tools" extension will be documented in this file.
+## [Unreleased]
+
+### New
+
+- Status bar button with ModID and game version.
+  Deploys the mod on click to the mod folder.
+- File formatter for CFG, PRP, IFO and CF7 (hit `Alt+Shift+F7`)
+- Custom language icons for XML (Anno 117), CFG, PRP, IFO and CF7
+- Automatically add assets.xml and modinfo.json schemas to workspace settings.
+  Configurable in the settings.
+- Anno 117 only: Custom XML language mode for ModOp XML files
+- Anno 117 only: Read assets.xml directly from game RDAs
+
+### Changed / Anno 117 Support Added
+
+- Improved workspace asset search (`Ctrl+T`) + Anno 117 support
+- Improved asset lookup (right click on GUID > `Go to Definition`) + Anno 117 support
+- Improved GUID annotations (better dependency checks and caching) + Anno 117 support
+- Anno 117: Added game path and mod folder settings
+- Improved various error messages, dialogs, etc.
+
+### Fixed
+
+- Anno 117: Fixed 'Show Diff' for language files (using LineId instead of GUID)
+- Anno 1800: Fixed error message when `Content` path was not found
 
 ## 2.0 First Anno 117 Support
 
@@ -12,7 +36,7 @@ All notable changes to the "anno-modding-tools" extension will be documented in 
 - Improved outline responsiveness
 - Improved rdaFolder error handling
 - Renamed "Build and Deploy" to "Deploy Mod"
-- Renamed "Compare Result with Vanilla" to "Show Diff (File)", "Show Diff (assets.xml)", "Show Diff (Selection)"
+- Renamed "Compare Result with Vanilla" to "Show Diff", "Show Diff (Assets)", "Show Diff (Selection)"
 
 ## 1.14 Quality of Life Updates
 
