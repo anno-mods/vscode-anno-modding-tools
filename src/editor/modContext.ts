@@ -1,4 +1,6 @@
+import * as path from 'path';
 import * as vscode from 'vscode';
+
 import * as anno from '../anno';
 import * as utils from '../other/utils';
 
@@ -50,6 +52,15 @@ export function activate(context: vscode.ExtensionContext) {
 
     for (let listener of _onDidChangeActiveTextEditor) {
       listener(_current);
+    }
+  });
+
+  vscode.workspace.onDidSaveTextDocument(document => {
+    if (document.languageId === 'json' && path.basename(document.fileName) === 'modinfo.json') {
+      _current = new ModContext(document);
+      for (let listener of _onDidChangeActiveTextEditor) {
+        listener(_current);
+      }
     }
   });
 }
