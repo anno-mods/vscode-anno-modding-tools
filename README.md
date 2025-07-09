@@ -6,65 +6,51 @@ Tools to create mods for Anno 1800 and Anno 117: Pax Romana.
 
 See also [Feature Details](#feature-details) page, and the [CHANGELOG](./CHANGELOG.md) for recent changes.
 
-- [Navigation and IntelliSense](#navigation)
+### [Navigation and IntelliSense](#navigation)
+
   - Navigate with Anno-specific outlines: _Secondary Side Bar or `Ctrl+Shift+O`_
   - Inline asset name display next to GUIDs
   - Jump to asset (vanilla or modded): _right click on GUID > `Go to Definition`_
   - Asset Lookup (vanilla or modded): _`Ctrl+T`_
   - [GUID conversion](#guid-conversion) (only Anno 1800)
   - [XML auto completion](#auto-completion) (only Anno 1800)
-- [Syntax and Error Checking](#annotations-live-analysis-syntax)
+
+### [Syntax and Error Checking](#annotations-live-analysis-syntax)
+
   - Modinfo.json syntax analysis
   - XML syntax analysis using Red Hat XML (only Anno 1800)
   - Live patch error and performance analysis
   - Missing filename check
-- Utilities
+
+### Utilities
+
   - [Show Diff](#command-compare): Compare original and patched result.<br/>_Right click in text editor or explorer > `Show Diff`_
   - [Deploy Mod](./doc/annomod.md): Copy to `mods/` folder and generate DDS (with LODs) and other files automatically.<br/>_Status Bar > click on `Anno 1800/117: ModID` button_
+
+### Model and Texture Utilities
+
   - [Import from Blender glTF](#import-from-blender-or-gltf) to `.cfg`, `.ifo` and `.cf7`.<br/>_Right click in explorer > `Anno: Import from ...`_
   - Convert to and from Anno specific file formats (RDM <> glTF, DDS <> PNG, ...).<br/>_Right click in explorer > `Anno: Convert to ...`_
   - [Reskin existing models](#quickly-reskin-existing-models) without touching `.cfg`, ... (only Anno 1800)
 
 
-## Setup
+## Quick Setup
 
-### 1. Extract assets.xml
+See also the [Setup](./doc/setup.md) page for detailed documentation.
 
-For some features like auto completion and compare you need to extract `assets.xml` from the game.
+### How to open files
 
-- Get [RDAExplorer](https://github.com/lysannschlegel/RDAExplorer)
-- Open the `.rda` file with the highest number from your Anno 1800 installation under `/Anno 1800/data/`.
-- Extract the `data/config/export/main/asset/assets.xml` into a folder with the same structure, e.g. `c:\anno\rda\data\config\export\main\asset\assets.xml`.
+Most features only activate if you a open folder (e.g. `File` > `Open Folder...`) that includes one or more full mods (detected by `modinfo.json`).
 
-### 2. Install XML plugin
+You can also work with parent folders, or your complete `mods/` folder.
 
-Additionally, auto completion and other XML features work only in combination with a plugin that supports XSD validation.
+### Check configuration
 
-- Install [XML Language Support by Red Hat](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-xml)
+Go into `File` > `Preferences` > `Settings` and search for `anno` to configure the following:
 
-### 3. Check configuration
+- `Anno.*: Game Path`: Path to your Anno installation.
 
-Go into `File` > `Preferences` > `Settings...` and search for `anno` and configure the following:
-
-- `Anno: Rda Folder`: Path to extracted RDA data (mostly `assets.xml` is used).  
-  It is used for compare and live error features.
-  
-  Use `c:\anno\all-rda` if you have `c:\anno\all-rda\data\config\export\main\asset\assets.xml` (Anno 1800) or `c:\anno\all-rda\data\base\config\export\assets.xml` (Anno 117).
-- `Anno: Mods Folder`: Path to your `Anno 1800/mods/` folder to deploy and find dependencies.
-
-### 4. How to open files
-
-Most features only activate if you open folders, via `File` > `Open Folder...`.
-Best open the mod folder or even the complete `mods/` folder.
-
-The plugin has difficulties understanding the mod structure if you only open individual files.
-
-### 5. Further Docs
-
-- [Modding Guide](https://github.com/anno-mods/modding-guide#readme) (separate page)
-- [glTF Tools](https://marketplace.visualstudio.com/items?itemName=cesium.gltf-vscode) VSCode Plugin
-
----
+  E.g. *'C:\\Program Files (x86)\\Ubisoft\\Ubisoft Game Launcher\\games\\Anno 117'*.
 
 ## Feature Details
 
@@ -239,50 +225,6 @@ variant:
       Position:
         yf: 4.34346
 ```
-
----
-
-## Optional Setup
-
-### Auto Complete
-
-Auto complete settings get added to your workspace `settings.json` automatically.
-
-#### Modinfo.json Schema
-
-Go to `Preferences > Settings` and search for `schemas`.
-
-You will see `JSON: Schemas`. Choose `Edit in settings.json` and insert the following entry:
-
-```json
-"json.schemas": [
-  {
-    "fileMatch": [
-        "/modinfo.json"
-    ],
-    "url": "https://raw.githubusercontent.com/anno-mods/vscode-anno-modding-tools/main/languages/modinfo-schema.json"
-  }
-]
-```
-
-#### XML Patch Schema
-
-This only applies if you have the Red Hat XML plugin installed.
-
-Go to `Preferences > Settings` and search for `xml file associations`.
-
-You will see `Xml: File Associations`. Choose `Edit in settings.json` and insert the following entry:
-
-```json
-"xml.fileAssociations": [
-  {
-      "pattern": "{assets*,*.include}.xml",
-      "systemId": "https://raw.githubusercontent.com/anno-mods/vscode-anno-modding-tools/main/generated/assets.xsd"
-  }
-]
-```
-
-Note: If you want to force updates for auto-completion delete `C:\Users\<user>\.lemminx` and re-open VSCode.
 
 ---
 

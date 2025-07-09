@@ -2,7 +2,7 @@
 	"name": "anno-modding-tools",
 	"displayName": "Anno Modding Tools",
 	"description": "Tools to create mods for Anno 1800 and Anno 117: Pax Romana.",
-	"version": "2.0.1-alpha2",
+	"version": "2.1.0-alpha3",
 	"publisher": "JakobHarder",
 	"repository": {
 		"type": "git",
@@ -396,19 +396,19 @@
 					"type": "boolean",
 					"default": true,
 					"markdownDescription": "Add `files.associations` entries to set `Anno ModOps XML` as the default language mode in `settings.json` when you open a workspace containing `modinfo.json` files..\n\nThe file patterns are `assets*.xml`, `texts_*.xml` and `*.include.xml`.",
-					"scope": "application"
+					"scope": "window"
 				},
 				"anno.workspace.setModinfoSchema": {
 					"type": "boolean",
 					"default": true,
 					"markdownDescription": "Add an `json.schemas` entry for `modinfo.json` schema validation in `settings.json` when you open a workspace containing `modinfo.json` files.",
-					"scope": "application"
+					"scope": "window"
 				},
 				"anno.workspace.setXmlSchema": {
 					"type": "boolean",
 					"default": true,
 					"markdownDescription": "Add an `xml.fileAssociations` entry for ModOp XML schema validation in `settings.json` when you open a workspace containing `modinfo.json` files.\n\nYou need to install the Red Hat XML Language Support extension to use XML validations.",
-					"scope": "application"
+					"scope": "window"
 				},
 				"anno.117.gamePath": {
 					"type": "string",
@@ -417,7 +417,7 @@
 						null
 					],
 					"markdownDescription": "Path to your Anno 117 installation. E.g. *'C:\\Program Files (x86)\\Ubisoft\\Ubisoft Game Launcher\\games\\Anno 117'*.\n\n[Select Folder](command:anno-modding-tools.selectAnno117GamePath)",
-					"scope": "resource"
+					"scope": "window"
 				},
 				"anno.117.modsFolder": {
 					"type": "string",
@@ -425,8 +425,8 @@
 						"uri",
 						null
 					],
-					"markdownDescription": "Path to your `mods/` folder. Used to deploy and resolve dependencies. Defaults is *'&lt;Game Path&gt;/mods/'*.\n\n[Select Folder](command:anno-modding-tools.selectAnno117ModsFolder)",
-					"scope": "resource"
+					"markdownDescription": "Path to your `mods/` folder to deploy and resolve dependencies. Defaults to *'&lt;Game Path&gt;/mods/'*.\n\n[Select Folder](command:anno-modding-tools.selectAnno117ModsFolder)",
+					"scope": "window"
 				},
 				"anno.modsFolder": {
 					"type": "string",
@@ -435,7 +435,7 @@
 						null
 					],
 					"markdownDescription": "Your `mods/` folder to deploy mods into. It is also used to resolve dependencies.",
-					"scope": "resource"
+					"scope": "window"
 				},
 				"anno.rdaFolder": {
 					"type": "string",
@@ -444,38 +444,38 @@
 						null
 					],
 					"markdownDescription": "Path to extracted RDA data.\nIt is used for compare and live error features.\n\nUse `c:\\anno\\all-rda` if you have `c:\\anno\\all-rda\\data\\config\\export\\main\\asset\\assets.xml` (Anno 1800) or `c:\\anno\\all-rda\\data\\base\\config\\export\\assets.xml` (Anno 117).",
-					"scope": "resource"
+					"scope": "window"
 				},
 				"anno.outlineFolderDepth": {
 					"type": "number",
 					"default": 0,
 					"minimum": 0,
 					"markdownDescription": "Folder depth of props, materials and alike shown .cfg outline.",
-					"scope": "resource"
+					"scope": "window"
 				},
 				"anno.checkFileNames": {
 					"type": "boolean",
 					"default": true,
 					"markdownDescription": "Check file paths set in `Filename`, `FileName` and `IconFilename`.",
-					"scope": "resource"
+					"scope": "window"
 				},
 				"anno.liveModopAnalysis.validate": {
 					"type": "boolean",
 					"default": true,
 					"markdownDescription": "Validate ModOp's on save or open by running xmltest in the background.",
-					"scope": "resource"
+					"scope": "window"
 				},
 				"anno.liveModopAnalysis.warningThreshold": {
 					"type": "number",
 					"default": 80,
 					"markdownDescription": "Threshold to highlight ModOp times in warning color (milliseconds).",
-					"scope": "resource"
+					"scope": "window"
 				},
 				"anno.autoGuid": {
 					"type": "number",
 					"markdownDescription": "Use automatically increasing GUIDs. Enter next free number.",
 					"minimum": 0,
-					"scope": "resource"
+					"scope": "window"
 				}
 			}
 		}
