@@ -14,6 +14,7 @@ import { CheckLoca } from './checkLoca';
 import { ImportLoca } from './importLoca';
 import { GuidCounter } from '../guidCounter';
 import { GamePaths } from '../../editor/gamePaths';
+import { AddTemplateCommands } from './addTemplates';
 
 export function registerCommands(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.Disposable.from(
@@ -30,6 +31,7 @@ export function registerCommands(context: vscode.ExtensionContext) {
 		...ShowDiffCommand.register(context),
 		...CheckLoca.register(context),
 		...ImportLoca.register(context),
-		...GuidCounter.register(context)
+		...GuidCounter.register(context),
+		...AddTemplateCommands.register(context)
 	));
 }

@@ -1,7 +1,7 @@
-import * as path from 'path';
+import * as child from 'child_process';
 import * as fs from 'fs';
 import glob = require('glob');
-import * as child from 'child_process';
+import * as path from 'path';
 
 import { ModRegistry } from '../data/modRegistry';
 import * as anno from '../anno';
@@ -91,7 +91,7 @@ export function searchModPath(patchFilePath: string) {
 
 // finds root path using modinfo.json, data/config/export folder and other indicators
 export function findModRoot(modFilePath: string) {
-  let searchPath = path.dirname(modFilePath);
+  let searchPath = fs.statSync(modFilePath).isFile() ? path.dirname(modFilePath) : modFilePath;
 
   for (let i = 0; i < 100 && searchPath && searchPath !== '/'; i++) {
     if (fs.existsSync(path.join(searchPath, "modinfo.json"))

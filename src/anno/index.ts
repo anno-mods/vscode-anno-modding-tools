@@ -43,3 +43,15 @@ export function getAssetsXmlPath(modPath: string, version: GameVersion = GameVer
 
   return undefined;
 }
+
+export function getLanguagePath(modPath: string, version: GameVersion = GameVersion.Auto) {
+  if (version === undefined) {
+    version = GameVersion.Anno7;
+  }
+
+  if (version === GameVersion.Anno8) {
+    return path.join(modPath, 'data/base/config/gui');
+  }
+
+  return path.join(modPath, 'data/config/gui');
+}
