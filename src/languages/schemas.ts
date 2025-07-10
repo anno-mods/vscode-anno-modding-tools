@@ -4,13 +4,35 @@ import * as path from 'path';
 import * as vscode from 'vscode';
 
 export function activate(context: vscode.ExtensionContext) {
+  vscode.workspace.onDidCreateFiles((e) => {
+    for (const file of e.files) {
+      if (path.basename(file.fsPath) === 'modinfo.json') {
+        refreshSchemas();
+        break;
+      }
+    }
+  });
+
+  vscode.workspace.onDidRenameFiles((e) => {
+    for (const file of e.files) {
+      if (path.basename(file.newUri.fsPath) === 'modinfo.json') {
+        refreshSchemas();
+        break;
+      }
+    }
+  });
+
+  refreshSchemas();
+}
+
+export function refreshSchemas() {
   const config = vscode.workspace.getConfiguration('anno');
   const customXmlLanguageMode: boolean = config.get('workspace.setCustomXmlLanguageMode') || true;
   const modopSchema: boolean = config.get('workspace.setXmlSchema') || true;
   const modinfoSchema: boolean = config.get('workspace.setModinfoSchema') || true;
 
   if (customXmlLanguageMode || modopSchema || modinfoSchema) {
-    writeWorkspaceSettings(context, customXmlLanguageMode, modopSchema, modinfoSchema);
+    writeWorkspaceSettings(customXmlLanguageMode, modopSchema, modinfoSchema);
   }
 }
 
@@ -24,7 +46,7 @@ interface IXmlSchema {
   systemId: string
 }
 
-async function writeWorkspaceSettings(context: vscode.ExtensionContext, languageMode: boolean, modopSchema: boolean,
+async function writeWorkspaceSettings(languageMode: boolean, modopSchema: boolean,
   modinfoSchema: boolean) {
 
   const workspaceFolders = vscode.workspace.workspaceFolders;

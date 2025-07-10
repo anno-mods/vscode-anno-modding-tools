@@ -18,6 +18,7 @@
 	"activationEvents": [
 		"workspaceContains:**/assets.xml",
 		"workspaceContains:**/modinfo.json",
+		"onLanguage:json",
 		"onLanguage:xml"
 	],
 	"main": "./dist/extension.js",
