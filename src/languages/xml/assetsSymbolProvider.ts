@@ -33,7 +33,7 @@ const vanillaAssetContentProvider = new (class implements vscode.TextDocumentCon
 
 export class WorkspaceSymbolProvider implements vscode.WorkspaceSymbolProvider {
   public async provideWorkspaceSymbols(search: string, token: vscode.CancellationToken): Promise<vscode.SymbolInformation[]> {
-    if (!modContext.get().modinfo) {
+    if (!modContext.getVersion()) {
       return [];
     }
 
