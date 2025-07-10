@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as vscode from 'vscode';
 
+import * as versionChecks from './versionChecks';
 import * as anno from '../../anno';
 import * as rda from '../../data/rda';
 import * as editor from '../../editor';
@@ -92,6 +93,10 @@ export function refreshDiagnostics(context: vscode.ExtensionContext, doc: vscode
   const diagnostics: vscode.Diagnostic[] = [];
 
   const modPaths = utils.searchModPaths(doc.uri.fsPath, modsFolder);
+
+  const modPath = utils.findModRoot(doc.fileName);
+  const version = anno.ModInfo.readVersion(modPath);
+  diagnostics.push(...versionChecks.checkCorrectVersion(doc, version));
 
   for (let lineIndex = 0; lineIndex < doc.lineCount; lineIndex++) {
     const lineOfText = doc.lineAt(lineIndex);
