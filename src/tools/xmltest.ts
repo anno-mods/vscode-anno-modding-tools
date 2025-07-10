@@ -146,9 +146,16 @@ export function fetchIssues(vanillaXml: string, modPath: string, mainPatchFile: 
       });
   }
   catch (exception: any) {
-    logger.error(`Test ${path.basename(patchFile)} failed with exception`);
+    logger.error(`Fetching issues for '${path.basename(patchFile)}' failed with exception`);
     logger.error(exception.message);
-    return [];
+
+    return [ {
+      error: true,
+      group: true,
+      message: `Fetching issues for '${path.basename(patchFile)}' failed with exception`,
+      file: patchFile,
+      line: 0
+    } ];
   }
 
   const testerLines = testerOutput.split('\n');
