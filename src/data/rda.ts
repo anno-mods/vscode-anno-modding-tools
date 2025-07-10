@@ -62,6 +62,8 @@ function extractFromRda(relativePath: string, version: anno.GameVersion) {
   const rdaCachePath = path.join(_storageFolder, 'rda' + version.toString());
   const absolutePath = path.join(rdaCachePath, relativePath);
 
+  vscode.window.showErrorMessage(`extractFromRda ` + relativePath);
+
   if (fs.existsSync(absolutePath)) {
     // TODO timestamp, need to refresh?
     // TODO delete if it needs refresh
@@ -86,8 +88,8 @@ function extractFromRda(relativePath: string, version: anno.GameVersion) {
 }
 
 function selectFromFolder(relativePath: string, version: anno.GameVersion) {
-  const config = vscode.workspace.getConfiguration('anno'); // TODO file context, vscode.Uri.file(filePath));
- 
+  const config = vscode.workspace.getConfiguration('anno');
+
   if (version === anno.GameVersion.Anno7) {
     const annoRda: string = config.get('rdaFolder') ?? "";
     return path.join(annoRda, relativePath);

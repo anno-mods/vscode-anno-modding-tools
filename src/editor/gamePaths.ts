@@ -284,6 +284,10 @@ export class GamePaths {
     return assets || (executable && config);
   }
 
+  static isExtractedGamePath(folderPath: string): boolean {
+    return fs.existsSync(path.join(folderPath, anno.ANNO8_ASSETS_PATH, 'assets.xml'));
+  }
+
   static _isGamePathExtracted7: boolean | undefined = undefined;
   static _isGamePathExtracted8: boolean | undefined = undefined;
   public static isGamePathExtracted(options?: { filePath?: string, version?: anno.GameVersion }) {
@@ -296,7 +300,7 @@ export class GamePaths {
     else if (version === anno.GameVersion.Anno8) {
       if (GamePaths._isGamePathExtracted8 === undefined) {
         const gamePath = GamePaths.getGamePath({ filePath: options?.filePath, version });
-        GamePaths._isGamePathExtracted8 = gamePath !== undefined && !GamePaths.isValidGamePath(gamePath, true);
+        GamePaths._isGamePathExtracted8 = gamePath !== undefined && GamePaths.isExtractedGamePath(gamePath);
       }
       return GamePaths._isGamePathExtracted8;
     }
