@@ -21,9 +21,8 @@ export class AddTemplateCommands {
     let modid: string | undefined;
 
     if (uri) {
-      root = utils.findModRoot(uri.fsPath);
-      version = anno.ModInfo.readVersion(root);
-      modid = undefined;
+      const isFile = fs.statSync(uri.fsPath).isFile();
+      root = isFile ? path.dirname(uri.fsPath) : uri.fsPath;
     }
     else {
       const folders = vscode.workspace.workspaceFolders;
@@ -32,39 +31,39 @@ export class AddTemplateCommands {
         vscode.window.showErrorMessage(`Please open a folder or workspace before creating a project.`);
         return;
       }
-      const result = await vscode.window.showQuickPick([
-        { label: 'Anno 117' },
-        { label: 'Anno 1800' }
-      ], {
-        title: 'For which Anno game?',
-        placeHolder: ''
-      });
-      if (!result) {
-        return;
-      }
-
-      version = result.label === 'Anno 117' ? anno.GameVersion.Anno8 : anno.GameVersion.Anno7;
-
       // TODO multi folder support?
       root = folders[0].uri.fsPath;
+    }
 
-      modid = await vscode.window.showInputBox({
-        prompt: 'Enter ModID',
-        placeHolder: 'mod-name-creator',
-        validateInput: (text) => {
-          return /^[a-z][a-z0-9]+(\-[a-z0-9]+)*\-?$/.test(text)
-            ? null
-            : 'Only lower case letters, numbers and dashes are allowed, e.g. `mod-name-creator`';
-        }
-      });
+    const result = await vscode.window.showQuickPick([
+      { label: 'Anno 117' },
+      { label: 'Anno 1800' }
+    ], {
+      title: 'For which Anno game?',
+      placeHolder: ''
+    });
+    if (!result) {
+      return;
+    }
 
-      if (modid === undefined) {
-        return;
+    version = result.label === 'Anno 117' ? anno.GameVersion.Anno8 : anno.GameVersion.Anno7;
+
+    modid = await vscode.window.showInputBox({
+      prompt: 'Enter ModID',
+      placeHolder: 'mod-name-creator',
+      validateInput: (text) => {
+        return /^[a-z][a-z0-9]+(\-[a-z0-9]+)*\-?$/.test(text)
+          ? null
+          : 'Only lower case letters, numbers and dashes are allowed, e.g. `mod-name-creator`';
       }
+    });
 
-      if (modid.endsWith('-')) {
-        modid = modid.slice(0, -1);
-      }
+    if (modid === undefined) {
+      return;
+    }
+
+    if (modid.endsWith('-')) {
+      modid = modid.slice(0, -1);
     }
 
     if (modid) {

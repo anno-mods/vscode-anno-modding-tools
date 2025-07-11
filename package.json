@@ -400,7 +400,9 @@
 					"group": "anno@1"
 				},
 				{
-					"command": "anno-modding-tools.createAnnoMod"
+					"when": "explorerResourceIsFolder",
+					"command": "anno-modding-tools.createAnnoMod",
+					"group": "anno@1"
 				}
 			],
 			"editor/context": [

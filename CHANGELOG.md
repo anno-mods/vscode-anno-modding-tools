@@ -4,7 +4,7 @@
 
 ### New
 
-- Added command to create empty mod template (`F1` > `Create Anno Mod`)
+- Added command to create empty mod template (`F1` or right click in explorer > `Anno: Create Mod from Template`)
 - Added status bar button with ModID and game version.
   Deploys the mod on click to the mod folder.
 - Added file formatter for CFG, PRP, IFO and CF7 (hit `Alt+Shift+F7`)
