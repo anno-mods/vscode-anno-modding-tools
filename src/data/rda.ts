@@ -62,8 +62,6 @@ function extractFromRda(relativePath: string, version: anno.GameVersion) {
   const rdaCachePath = path.join(_storageFolder, 'rda' + version.toString());
   const absolutePath = path.join(rdaCachePath, relativePath);
 
-  vscode.window.showErrorMessage(`extractFromRda ` + relativePath);
-
   if (fs.existsSync(absolutePath)) {
     // TODO timestamp, need to refresh?
     // TODO delete if it needs refresh
@@ -73,7 +71,7 @@ function extractFromRda(relativePath: string, version: anno.GameVersion) {
   const gamePath = ensureGamePath();
   if (!gamePath) {
     // error case
-    return `<anno.${getGamePathSetting()}>/maindata/config.rda:${relativePath}`; 
+    return `<anno.${getGamePathSetting()}>/maindata/config.rda:${relativePath}`;
   }
 
   const rdaPath = path.join(gamePath, 'maindata/config.rda');
@@ -81,7 +79,7 @@ function extractFromRda(relativePath: string, version: anno.GameVersion) {
   const success = rdaConsole.extract(rdaPath, rdaCachePath, relativePath, _asAbsolutePath)
   if (!success) {
     logger.error(`Couldn't extract '${relativePath}' from 'maindata/config.rda'`);
-    return `<anno.${getGamePathSetting()}>/maindata/config.rda:${relativePath}`; 
+    return `<anno.${getGamePathSetting()}>/maindata/config.rda:${relativePath}`;
   }
 
   return absolutePath;

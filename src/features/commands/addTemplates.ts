@@ -18,9 +18,12 @@ export class AddTemplateCommands {
   public static async createMod(uri: vscode.Uri | undefined) {
     let root: string;
     let version: anno.GameVersion;
+    let modid: string | undefined;
+
     if (uri) {
       root = utils.findModRoot(uri.fsPath);
       version = anno.ModInfo.readVersion(root);
+      modid = undefined;
     }
     else {
       const folders = vscode.workspace.workspaceFolders;
@@ -44,7 +47,34 @@ export class AddTemplateCommands {
 
       // TODO multi folder support?
       root = folders[0].uri.fsPath;
+
+      modid = await vscode.window.showInputBox({
+        prompt: 'Enter ModID',
+        placeHolder: 'mod-name-creator',
+        validateInput: (text) => {
+          return /^[a-z][a-z0-9]+(\-[a-z0-9]+)*\-?$/.test(text)
+            ? null
+            : 'Only lower case letters, numbers and dashes are allowed, e.g. `mod-name-creator`';
+        }
+      });
+
+      if (modid === undefined) {
+        return;
+      }
+
+      if (modid.endsWith('-')) {
+        modid = modid.slice(0, -1);
+      }
     }
+
+    if (modid) {
+      root = path.join(root, modid);
+    }
+    else {
+      modid = 'mod-name-creator';
+    }
+
+    const modinfoPath = path.join(root, 'modinfo.json');
 
     if (version === anno.GameVersion.Anno8) {
       AddTemplateCommands.addFile(anno.getAssetsXmlPath(root, version), `<ModOps>
@@ -68,16 +98,16 @@ export class AddTemplateCommands {
   </ModOp>
 </ModOps>`);
 
-      AddTemplateCommands.addFile(path.join(root, 'modinfo.json'), `{
-  "ModID": "mod-name-creator",
+      AddTemplateCommands.addFile(modinfoPath, `{
+  "ModID": "${modid}",
   "Version": "1.0.0",
   "Anno": 8,
-  "Difficulty": "unchanged",
+  "Difficulty": "cheat",
   "ModName": {
-    "English": "Mod Name"
+    "English": "Name"
   },
   "Category": {
-    "English": "Gameplay"
+    "English": "Mod"
   }
 }`);
     }
@@ -96,22 +126,22 @@ export class AddTemplateCommands {
   </ModOp>
 </ModOps>`);
 
-      AddTemplateCommands.addFile(path.join(root, 'modinfo.json'), `{
-  "ModID": "mod-name-creator",
+      AddTemplateCommands.addFile(path.join(root, modinfoPath), `{
+  "ModID": "${modid}",
   "Version": "1.0.0",
   "Anno": 7,
   "ModName": {
-    "English": "Mod Name"
+    "English": "Name"
   },
   "Category": {
-    "English": "Gameplay"
+    "English": "Mod"
   }
 }`);
     }
 
     schemas.refreshSchemas();
 
-    const doc = await vscode.workspace.openTextDocument(path.join(root, 'modinfo.json'));
+    const doc = await vscode.workspace.openTextDocument(modinfoPath);
     await vscode.window.showTextDocument(doc);
   }
 
