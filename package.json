@@ -231,7 +231,7 @@
 			},
 			{
 				"command": "anno-modding-tools.createAnnoMod",
-				"title": "Create Anno Mod"
+				"title": "Anno: Create Mod from Template"
 			}
 		],
 		"menus": {
@@ -242,6 +242,10 @@
 				},
 				{
 					"command": "anno-modding-tools.showSelectionDiff",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.showModDiff",
 					"when": "false"
 				},
 				{

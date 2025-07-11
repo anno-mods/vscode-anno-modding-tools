@@ -1,4 +1,14 @@
-# Build and Deploy Mods
+# Utilities
+
+## Command `Compare`
+
+![](./images/xmltest-compare.gif)
+
+You can check th results of one or more `ModOp`s by selecting them and then right click > `Anno: Compare Results with Vanilla`.
+
+Alternatively, you can compare full files and mods by right clicking on `assets.xml`, `templates.xml` and `*.include.xml`.
+
+## Build and Deploy Mods
 
 Requirement: you need to configure your `modsFolder` as described in [Setup](../README.md#setup).
 
