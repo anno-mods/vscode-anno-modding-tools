@@ -508,7 +508,8 @@
 	"pkg": {
 		"scripts": "out/buildMod.js",
 		"assets": [
-			"external/**/*"
+			"external/**/*",
+			"templates/**/*"
 		],
 		"targets": [
 			"node16-win-x64"

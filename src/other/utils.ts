@@ -400,3 +400,34 @@ export function extractZip(sourceZipPath: string, targetPath: string, logger?: I
     throw e;
   }
 }
+
+export function copyFolderNoOverwrite(src: string, dest: string): string[] {
+  const copiedFiles: string[] = [];
+
+  if (!fs.existsSync(src)) {
+    return copiedFiles;
+  }
+
+  if (!fs.existsSync(dest)) {
+    fs.mkdirSync(dest, { recursive: true });
+  }
+
+  const entries = fs.readdirSync(src, { withFileTypes: true });
+
+  for (const entry of entries) {
+    const srcPath = path.join(src, entry.name);
+    const destPath = path.join(dest, entry.name);
+
+    if (entry.isDirectory()) {
+      const subCopiedFiles = copyFolderNoOverwrite(srcPath, destPath);
+      copiedFiles.push(...subCopiedFiles);
+    } else if (entry.isFile()) {
+      if (!fs.existsSync(destPath)) {
+        fs.copyFileSync(srcPath, destPath);
+        copiedFiles.push(destPath);
+      }
+    }
+  }
+
+  return copiedFiles;
+}

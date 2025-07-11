@@ -7,7 +7,11 @@ import * as schemas from '../../languages/schemas';
 import * as utils from '../../other/utils';
 
 export class AddTemplateCommands {
+  static _templatesPath: string;
+
   public static register(context: vscode.ExtensionContext): vscode.Disposable[] {
+    this._templatesPath = context.asAbsolutePath('templates');
+
     const disposable = [
       vscode.commands.registerCommand('anno-modding-tools.createAnnoMod', AddTemplateCommands.createMod)
     ];
@@ -75,27 +79,10 @@ export class AddTemplateCommands {
 
     const modinfoPath = path.join(root, 'modinfo.json');
 
-    if (version === anno.GameVersion.Anno8) {
-      AddTemplateCommands.addFile(anno.getAssetsXmlPath(root, version), `<ModOps>
-  <!-- Anno 117: Happy modding! -->
-  <!--
-    Documentation on what has changed
-    https://github.com/jakobharder/anno-mod-loader/blob/devel/117-changes/doc/modloader-changes.md#modloader-changes-for-anno-117
-  -->
-</ModOps>`);
+    let files: string[] = [];
 
-      AddTemplateCommands.addFile(path.join(anno.getLanguagePath(root, version), 'texts_english.xml'), `<ModOps>
-  <!-- Anno 117 Language Template -->
-  <!--
-    Note: Texts are now based on LineId and not GUID.
-  -->
-  <ModOp Add="/TextExport/Texts[1]">
-    <Text>
-      <Text>Happy Modding</Text>
-      <LineId>2001000000</LineId>
-    </Text>
-  </ModOp>
-</ModOps>`);
+    if (version === anno.GameVersion.Anno8) {
+      files = utils.copyFolderNoOverwrite(path.join(AddTemplateCommands._templatesPath, 'anno117'), root);
 
       AddTemplateCommands.addFile(modinfoPath, `{
   "ModID": "${modid}",
@@ -111,21 +98,9 @@ export class AddTemplateCommands {
 }`);
     }
     else if (version === anno.GameVersion.Anno7) {
-      AddTemplateCommands.addFile(anno.getAssetsXmlPath(root, version), `<ModOps>
-  <!-- Anno 1800: Happy modding! -->
-</ModOps>`);
+      files = utils.copyFolderNoOverwrite(path.join(AddTemplateCommands._templatesPath, 'anno1800'), root);
 
-      AddTemplateCommands.addFile(path.join(anno.getLanguagePath(root, version), 'texts_english.xml'), `<ModOps>
-  <!-- Anno 1800 Language Template -->
-  <ModOp Type="add" Path="/TextExport/Texts[1]">
-    <Text>
-      <Text>Happy Modding</Text>
-      <GUID>2001000000</GUID>
-    </Text>
-  </ModOp>
-</ModOps>`);
-
-      AddTemplateCommands.addFile(path.join(root, modinfoPath), `{
+      AddTemplateCommands.addFile(modinfoPath, `{
   "ModID": "${modid}",
   "Version": "1.0.0",
   "Anno": 7,
@@ -140,8 +115,12 @@ export class AddTemplateCommands {
 
     schemas.refreshSchemas();
 
-    const doc = await vscode.workspace.openTextDocument(modinfoPath);
-    await vscode.window.showTextDocument(doc);
+    // trigger open of all documents to expand the explorer
+    for (const file of files) {
+      vscode.window.showTextDocument(vscode.Uri.file(file));
+    }
+
+    vscode.window.showTextDocument(vscode.Uri.file(modinfoPath));
   }
 
   static addFile(filePath: string | undefined, content: string) {

@@ -1,0 +1,12 @@
+<ModOps>
+  <!-- Anno 117 Language Template -->
+  <!--
+    Note: Texts are now based on LineId and not GUID.
+  -->
+  <ModOp Add="/TextExport/Texts[1]">
+    <Text>
+      <Text>Happy Modding</Text>
+      <LineId>2001000000</LineId>
+    </Text>
+  </ModOp>
+</ModOps>
