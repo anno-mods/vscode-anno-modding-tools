@@ -91,9 +91,10 @@ export function searchModPath(patchFilePath: string) {
 
 // finds root path using modinfo.json, data/config/export folder and other indicators
 export function findModRoot(modFilePath: string) {
-  let searchPath = fs.statSync(modFilePath).isFile() ? path.dirname(modFilePath) : modFilePath;
+  const isFile = fs.statSync(modFilePath).isFile();
+  let searchPath = isFile ? path.dirname(modFilePath) : modFilePath;
 
-  for (let i = 0; i < 100 && searchPath && searchPath !== '/'; i++) {
+  for (let i = 0; i < 30 && searchPath && searchPath !== '/'; i++) {
     if (fs.existsSync(path.join(searchPath, "modinfo.json"))
       || fs.existsSync(path.join(searchPath, anno.ANNO7_ASSETS_PATH))
       || fs.existsSync(path.join(searchPath, anno.ANNO8_ASSETS_PATH))
@@ -104,7 +105,7 @@ export function findModRoot(modFilePath: string) {
     searchPath = path.dirname(searchPath);
   }
 
-  return path.dirname(modFilePath);
+  return isFile ? path.dirname(modFilePath) : modFilePath;
 }
 
 export function findModRoots(modFilePath: string): string[] {

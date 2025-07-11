@@ -4,10 +4,11 @@
 
 ### New
 
-- Status bar button with ModID and game version.
+- Added command to create empty mod template (`F1` > `Create Anno Mod`)
+- Added status bar button with ModID and game version.
   Deploys the mod on click to the mod folder.
-- File formatter for CFG, PRP, IFO and CF7 (hit `Alt+Shift+F7`)
-- Custom language icons for XML (Anno 117), CFG, PRP, IFO and CF7
+- Added file formatter for CFG, PRP, IFO and CF7 (hit `Alt+Shift+F7`)
+- Added file icons for XML (Anno 117), CFG, PRP, IFO and CF7
 - Automatically add assets.xml and modinfo.json schemas to workspace settings.
   Configurable in the settings.
 - Anno 117 only: Custom XML language mode for ModOp XML files

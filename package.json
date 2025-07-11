@@ -18,8 +18,9 @@
 	"activationEvents": [
 		"workspaceContains:**/assets.xml",
 		"workspaceContains:**/modinfo.json",
-		"onLanguage:json",
-		"onLanguage:xml"
+		"onLanguage:xml",
+		"command:anno-modding-tools.createAnno117Mod",
+		"command:anno-modding-tools.createAnno1800Mod"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -229,8 +230,8 @@
 				"title": "Select Anno 117 Mods Folder"
 			},
 			{
-				"command": "anno-modding-tools.addTemplateAssets",
-				"title": "Anno: Add Assets.xml Template"
+				"command": "anno-modding-tools.createAnnoMod",
+				"title": "Create Anno Mod"
 			}
 		],
 		"menus": {
@@ -305,6 +306,14 @@
 				},
 				{
 					"command": "anno-modding-tools.ddsToPng",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.selectAnno117GamePath",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.selectAnno117ModsFolder",
 					"when": "false"
 				}
 			],
@@ -387,7 +396,7 @@
 					"group": "anno@1"
 				},
 				{
-					"command": "anno-modding-tools.addTemplateAssets"
+					"command": "anno-modding-tools.createAnnoMod"
 				}
 			],
 			"editor/context": [
