@@ -87,12 +87,16 @@ export function refreshDiagnostics(context: vscode.ExtensionContext, doc: vscode
 
   const config = vscode.workspace.getConfiguration('anno', doc.uri);
   const checkFileNames = config.get('checkFileNames');
-  const annoRda: string | undefined = config.get('rdaFolder');
-  const modsFolder: string | undefined = config.get('modsFolder');
+  const annoRda: string | undefined = config.get('rdaFolder'); // TODO
+  const modsFolder: string | undefined = config.get('modsFolder'); // TODO
 
   const diagnostics: vscode.Diagnostic[] = [];
 
   const modPaths = utils.searchModPaths(doc.uri.fsPath, modsFolder);
+
+  if (!editor.isActive()) {
+    return;
+  }
 
   const modPath = utils.findModRoot(doc.fileName);
   const version = anno.ModInfo.readVersion(modPath);
