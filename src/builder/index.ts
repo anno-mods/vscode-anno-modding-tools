@@ -86,7 +86,7 @@ export class ModBuilder {
       },
       {
         "action": "static",
-        "pattern": "data/base/config/**/*"
+        "pattern": "data/{base/config/**/*,**/*.fx}"
       },
       {
         "action": "cf7",
