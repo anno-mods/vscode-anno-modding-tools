@@ -1,0 +1,1 @@
+Use your creator name as a sub folder to avoid collisions with other mods.

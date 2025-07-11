@@ -1,0 +1,3 @@
+Icons have special handling that requires them to be placed under ui
+
+Use your creator name as a sub folder to avoid collisions with other mods.
