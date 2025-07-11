@@ -2,7 +2,7 @@
 	"name": "anno-modding-tools",
 	"displayName": "Anno Modding Tools",
 	"description": "Tools to create mods for Anno 1800 and Anno 117: Pax Romana.",
-	"version": "2.1.0-alpha5",
+	"version": "2.1.0-alpha6",
 	"publisher": "JakobHarder",
 	"repository": {
 		"type": "git",
@@ -19,8 +19,7 @@
 		"workspaceContains:**/assets.xml",
 		"workspaceContains:**/modinfo.json",
 		"onLanguage:xml",
-		"command:anno-modding-tools.createAnno117Mod",
-		"command:anno-modding-tools.createAnno1800Mod"
+		"command:anno-modding-tools.createAnnoMod"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -400,7 +399,7 @@
 					"group": "anno@1"
 				},
 				{
-					"when": "explorerResourceIsFolder",
+					"when": "explorerResourceIsFolder && anno-modding-tools.gameVersion",
 					"command": "anno-modding-tools.createAnnoMod",
 					"group": "anno@1"
 				}
