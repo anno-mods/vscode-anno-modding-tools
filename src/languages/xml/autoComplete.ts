@@ -26,16 +26,7 @@ export function activate() {
         const items = [];
 
         if (!nodePath.startsWith('XPath')) {
-          const newGuidItem = new vscode.CompletionItem({
-            label: `<new guid>`,
-            description: GuidCounter.nextName(),
-          }, vscode.CompletionItemKind.Snippet);
-          newGuidItem.kind = vscode.CompletionItemKind.Event;
-          newGuidItem.insertText = `${GuidCounter.next()}`;
-          newGuidItem.command = { command: 'anno-modding-tools.incrementAutoGuid', title: 'increment GUID...' };
-          newGuidItem.sortText = '   __000'; // keep it the very first item
-
-          items.push(newGuidItem);
+          items.push(...GuidCounter.getCompletionItems());
         }
 
         const symbols = SymbolRegistry.all();

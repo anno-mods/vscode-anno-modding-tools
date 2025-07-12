@@ -300,22 +300,15 @@ function provideCompletionItems(document: vscode.TextDocument, position: vscode.
 
   GuidCounter.use(document.uri);
 
-  const newGuidItem = new vscode.CompletionItem({
-    label: `<new guid>`,
-    description: GuidCounter.nextName()
-  }, vscode.CompletionItemKind.Snippet);
-  newGuidItem.insertText = `${GuidCounter.next()}`;
-  newGuidItem.command = { command: 'anno-modding-tools.incrementAutoGuid', title: 'increment GUID...' };
-
   const vanillaItems = (useAnyTemplate ? AllGuidCompletionItems.getAllItems() : AllGuidCompletionItems.get(keyword.name, path)) ?? [];
   if (_customCompletionItems) {
     const customItems = useAnyTemplate ? _customCompletionItems.getAllItems() : _customCompletionItems.get(keyword.name, path);
     if (customItems) {
-      return [ newGuidItem, ... vanillaItems, ...customItems ];
+      return [ ...GuidCounter.getCompletionItems(), ... vanillaItems, ...customItems ];
     }
   }
 
-  return [ newGuidItem, ... vanillaItems ];
+  return [ ...GuidCounter.getCompletionItems(), ... vanillaItems ];
 }
 
 function provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken) {
