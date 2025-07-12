@@ -31,9 +31,9 @@ export function refreshSchemas() {
 
 export function refreshFolderSchemas(scopeUri: vscode.Uri) {
   const config = vscode.workspace.getConfiguration('anno', scopeUri);
-  const customXmlLanguageMode: boolean = config.get('workspace.setCustomXmlLanguageMode') || true;
-  const modopSchema: boolean = config.get('workspace.setXmlSchema') || true;
-  const modinfoSchema: boolean = config.get('workspace.setModinfoSchema') || true;
+  const customXmlLanguageMode: boolean = config.get('workspaceCustomXmlLanguage') || true;
+  const modopSchema: boolean = config.get('workspace.workspaceSchemas') || true;
+  const modinfoSchema: boolean = config.get('workspace.workspaceSchemas') || true;
 
   if (customXmlLanguageMode || modopSchema || modinfoSchema) {
     writeWorkspaceSettings(customXmlLanguageMode, modopSchema, modinfoSchema, scopeUri);

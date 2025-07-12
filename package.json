@@ -2,7 +2,7 @@
 	"name": "anno-modding-tools",
 	"displayName": "Anno Modding Tools",
 	"description": "Tools to create mods for Anno 1800 and Anno 117: Pax Romana.",
-	"version": "2.1.0-alpha7",
+	"version": "2.1.0-rc1",
 	"publisher": "JakobHarder",
 	"repository": {
 		"type": "git",
@@ -414,22 +414,16 @@
 		"configuration": [ {
 			"title": "Anno Modding Tools",
 			"properties": {
-				"anno.workspace.setCustomXmlLanguageMode": {
+				"anno.workspaceCustomXmlLanguage": {
 					"type": "boolean",
 					"default": true,
-					"markdownDescription": "Add `files.associations` entries to set `Anno ModOps XML` as the default language mode in `settings.json` when you open a workspace containing `modinfo.json` files..\n\nThe file patterns are `assets*.xml`, `texts_*.xml` and `*.include.xml`.",
+					"markdownDescription": "Enable custom `Anno ModOps XML` language for Anno specific highlighting, validation and behavior without relying on other XML extensions.\n\nThis writes to your workspace folder settings (`.vscode/settings.json`) when you open a workspace containing `modinfo.json` files.\n\n- `files.associations` entry for `assets*.xml`, `texts_*.xml` and `*.include.xml`.",
 					"scope": "resource"
 				},
-				"anno.workspace.setModinfoSchema": {
+				"anno.workspaceSchemas": {
 					"type": "boolean",
 					"default": true,
-					"markdownDescription": "Add an `json.schemas` entry for `modinfo.json` schema validation in `settings.json` when you open a workspace containing `modinfo.json` files.",
-					"scope": "resource"
-				},
-				"anno.workspace.setXmlSchema": {
-					"type": "boolean",
-					"default": true,
-					"markdownDescription": "Add an `xml.fileAssociations` entry for ModOp XML schema validation in `settings.json` when you open a workspace containing `modinfo.json` files.\n\nYou need to install the Red Hat XML Language Support extension to use XML validations.",
+					"markdownDescription": "Enable schemas for validation and auto complete.\n\nThis writes to your workspace folder settings (`.vscode/settings.json`) when you open a workspace containing `modinfo.json` files.\n\n- `json.schemas` entry for `modinfo.json`.\n- `xml.fileAssociations` entry for `assets*.xml`, `texts_*.xml` and `*.include.xml`.\n\n  You need to install the [XML Language Support by Red Hat](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-xml) extension to use XML validations.",
 					"scope": "resource"
 				},
 				"anno.checkFileNames": {
@@ -447,7 +441,7 @@
 				"anno.liveModopAnalysis.warningThreshold": {
 					"type": "number",
 					"default": 80,
-					"markdownDescription": "Threshold to highlight ModOp times in warning color (milliseconds).",
+					"markdownDescription": "Threshold to highlight ModOp times in warning color (milliseconds) if `#anno.liveModopAnalysis.validate#` is active.",
 					"scope": "resource"
 				}
 			}
