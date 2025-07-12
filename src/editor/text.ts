@@ -95,3 +95,103 @@ export function getSelectedModOps(doc: vscode.TextDocument, selection: vscode.Se
 
   return content;
 }
+
+export function getNodePath(document: vscode.TextDocument, position: vscode.Position) {
+  let line = document.lineAt(position.line).text.substring(0, position.character);
+
+  if (!line.endsWith('>')) {
+    return undefined;
+  }
+
+  let tags: string[] = [];
+  let pos: vscode.Position | undefined = findPreviousTag(document, position, tags);
+
+  while (pos && !matchTagHistory(tags, [ "ModOp", [ "Asset", "Values" ]])) {
+    pos = findPreviousTag(document, pos, tags);
+  }
+
+  return tags.reverse().join('.');
+}
+
+function matchTagHistory(tagHistory: string[], stopPaths: (string|string[])[]): boolean {
+  if (tagHistory.length === 0) {
+    return false;
+  }
+
+  for (const stopPath of stopPaths) {
+    if (typeof stopPath === 'string') {
+      if (tagHistory[tagHistory.length - 1] === stopPath) {
+        return true;
+      }
+    }
+    else {
+      for (let i = 0; i < stopPath.length; i++) {
+        if (tagHistory[tagHistory.length - i - 1] !== stopPath[i]) {
+          return false;
+        }
+      }
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function findPreviousTag(document: vscode.TextDocument, position: vscode.Position, tagHistory: string[]): vscode.Position | undefined {
+  // Note: search for <> ignores quotes
+
+  const closingTagStack: string[] = [];
+  let inTag = false;
+  let tagLines: string[] = [];
+
+  for (let lineNum = position.line; lineNum >= 0; lineNum--) {
+    const line = document.lineAt(lineNum).text;
+    let startCharacter = 0;
+    const endCharacter = lineNum === position.line ? position.character : line.length;
+    const lineFragment = line.slice(startCharacter, endCharacter);
+
+    for (let i = lineFragment.length - 1; i >= 0; i--) {
+      const char = lineFragment[i];
+
+      if (char === '>' && i > 0 && lineFragment[i - 1] !== '/') {
+        inTag = true;
+        tagLines = [lineFragment.slice(0, i + 1)];
+      }
+
+      if (inTag) {
+        // tags can be in multiple lines, track them all and match afterwards again
+        // TODO improve by matching already upwards
+        tagLines[0] = lineFragment[i] + tagLines[0];
+
+        if (char === '<') {
+          const fullTag = tagLines.join('\n');
+          const tagMatch = fullTag.match(/^<\s*(\/?)([\w:-]+)/);
+
+          if (tagMatch) {
+            const isClosing = tagMatch[1] === '/';
+            const tagName = tagMatch[2];
+
+            if (isClosing) {
+              closingTagStack.push(tagName);
+            }
+            else {
+              if (closingTagStack.length > 0 && closingTagStack[closingTagStack.length - 1] === tagName) {
+                closingTagStack.pop();
+              }
+              else {
+                tagHistory.push(tagName);
+                return new vscode.Position(lineNum, i);
+              }
+            }
+          }
+
+          inTag = false;
+          tagLines = [];
+        }
+      }
+    }
+  }
+
+  // no more tags to be found
+  return undefined;
+}

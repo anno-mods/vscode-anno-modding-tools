@@ -22,7 +22,7 @@ export namespace GuidCounter {
       return `Workspace: ${next_}`;
     }
     else {
-      return `Global: ${next_}`;
+      return `User: ${next_}`;
     }
   }
 

@@ -4,6 +4,8 @@ import { AssetsSymbolProvider } from './assetsOutlineProvider';
 import { AssetsActionProvider } from './assetsActionProvider';
 import { registerFolding } from './folding';
 import { registerFormatter } from './formatter';
+import { registerAutoClosing } from './autoClosing';
+import * as autoComplete from './autoComplete';
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
@@ -11,6 +13,8 @@ export function activate(context: vscode.ExtensionContext) {
       ...AssetsSymbolProvider.register(context),
       ...AssetsActionProvider.register(context),
       registerFolding('anno-xml'),
-      registerFormatter('anno-xml'))
+      registerFormatter('anno-xml'),
+      registerAutoClosing(context),
+      autoComplete.activate())
   );
 }

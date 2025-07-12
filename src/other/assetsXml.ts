@@ -109,7 +109,7 @@ export class AssetsDocument {
           const guid = top.element.val;
           const parent = top.history.length >= 2 ? top.history[top.history.length - 2] : undefined;
           const asset = top.history.length >= 4 ? top.history[top.history.length - 4] : undefined;
-          const name = parent?.valueWithPath('Name');
+          const name = parent?.valueWithPath('Name')?.trim();
 
           if (parent?.name === 'Standard' && name) {
             const location = (filePath && asset) ? {
