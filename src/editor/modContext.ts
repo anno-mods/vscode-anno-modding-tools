@@ -47,7 +47,14 @@ export function activate(context: vscode.ExtensionContext) {
         }
       }
 
-      _current = newContext ?? new ModContext(editor.document);
+      newContext ??= new ModContext(editor.document);
+
+      // keep version stable
+      if (newContext.version === anno.GameVersion.Auto) {
+        newContext.version === _current.version;
+      }
+
+      _current = newContext;
     }
 
     for (let listener of _onDidChangeActiveTextEditor) {
@@ -63,6 +70,14 @@ export function activate(context: vscode.ExtensionContext) {
       }
     }
   });
+
+  // TODO search all modinfos (stop at first multiple)
+
+  // TODO listen to workspace changes, again search all modinfos (stop at first multiple)
+
+  // TODO save context
+
+  // TODO update workspace version on modinfo.json save
 }
 
 let _current: ModContext;
@@ -79,6 +94,11 @@ export function getVersion() {
     get();
   }
   return _current.version;
+}
+
+let _workspaceVersion: anno.GameVersion | undefined;
+export function getWorkspaceVersion() {
+  return _workspaceVersion;
 }
 
 type ModEditorEvent = (e: ModContext) => any;
