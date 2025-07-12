@@ -2,6 +2,7 @@ import * as path from 'path';
 import * as vscode from 'vscode';
 
 import * as anno from '../anno';
+import * as logger from '../other/logger';
 import * as utils from '../other/utils';
 
 export class ModContext {
@@ -22,7 +23,7 @@ export class ModContext {
     else if (version) {
       this.version = version;
     }
-    else if (document?.uri.fsPath) {
+    else if (document?.uri.scheme === 'file' &&  document?.uri.fsPath) {
       this.modinfo = anno.ModInfo.read(utils.findModRoot(document?.uri.fsPath), true);
       if (this.modinfo?.game) {
         this.version = this.modinfo.game;
@@ -33,32 +34,41 @@ export class ModContext {
 
 export function activate(context: vscode.ExtensionContext) {
   vscode.window.onDidChangeActiveTextEditor(editor => {
-    if (!editor) {
-      // keep version stable until a document is opened
-      // this avoids flickering when switching between documents
-      _current = new ModContext(undefined, _current.version);
-    }
-    else {
-      let newContext: ModContext | undefined;
-      for (let listener of _onCheckTextEditorContext) {
-        newContext = listener(editor);
-        if (newContext) {
-          break;
+    try {
+      if (!editor) {
+        // keep version stable until a document is opened
+        // this avoids flickering when switching between documents
+        _current = new ModContext(undefined, _current.version);
+      }
+      else {
+        let newContext: ModContext | undefined;
+        for (let listener of _onCheckTextEditorContext) {
+          newContext = listener(editor);
+          if (newContext) {
+            break;
+          }
         }
+
+        newContext ??= new ModContext(editor.document);
+
+        // keep version stable
+        if (newContext.version === anno.GameVersion.Auto) {
+          newContext.version === _current.version;
+        }
+
+        _current = newContext;
       }
 
-      newContext ??= new ModContext(editor.document);
-
-      // keep version stable
-      if (newContext.version === anno.GameVersion.Auto) {
-        newContext.version === _current.version;
+      for (let listener of _onDidChangeActiveTextEditor) {
+        listener(_current);
       }
-
-      _current = newContext;
     }
-
-    for (let listener of _onDidChangeActiveTextEditor) {
-      listener(_current);
+    catch (error) {
+      logger.error(`Exception during modContext.onDidChangeActiveTextEditor: ` + error);
+      const callstack = (error as Error)?.stack;
+      if (callstack) {
+        logger.error(callstack);
+      }
     }
   });
 

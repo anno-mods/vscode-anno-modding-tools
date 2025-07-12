@@ -3,8 +3,9 @@ import * as fs from 'fs';
 import glob = require('glob');
 import * as path from 'path';
 
-import { ModRegistry } from '../data/modRegistry';
 import * as anno from '../anno';
+import { ModRegistry } from '../data/modRegistry';
+import * as logger from '../other/logger';
 
 export function ensureDir(path: string) {
   if (!fs.existsSync(path)) {
@@ -91,6 +92,9 @@ export function searchModPath(patchFilePath: string) {
 
 // finds root path using modinfo.json, data/config/export folder and other indicators
 export function findModRoot(modFilePath: string) {
+  if (!fs.existsSync(modFilePath)) {
+    return modFilePath;
+  }
   const isFile = fs.statSync(modFilePath).isFile();
   let searchPath = isFile ? path.dirname(modFilePath) : modFilePath;
 
