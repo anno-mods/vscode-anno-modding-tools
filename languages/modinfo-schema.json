@@ -7,7 +7,8 @@
       "additionalProperties": false,
       "properties": {
         "Anno": {
-          "description": "`8`: for Anno 117.\n`7`: for Anno 1800.",
+          "description": "8: for Anno 117.\n7: for Anno 1800.",
+          "markdownDescription": "`8`: for Anno 117.\n\n`7`: for Anno 1800.",
           "type": "number",
           "const": 7
         },
@@ -65,7 +66,8 @@
       "additionalProperties": false,
       "properties": {
         "Anno": {
-          "description": "`8`: for Anno 117.\n`7`: for Anno 1800.",
+          "description": "8: for Anno 117.\n7: for Anno 1800.",
+          "markdownDescription": "`8`: for Anno 117.\n\n`7`: for Anno 1800.",
           "type": "number",
           "const": 8
         },

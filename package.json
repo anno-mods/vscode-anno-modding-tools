@@ -412,7 +412,7 @@
 			]
 		},
 		"configuration": {
-			"title": "Modding Tools for Anno",
+			"title": "Anno Modding Tools",
 			"properties": {
 				"anno.workspace.setCustomXmlLanguageMode": {
 					"type": "boolean",
