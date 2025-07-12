@@ -96,6 +96,7 @@ export function getSelectedModOps(doc: vscode.TextDocument, selection: vscode.Se
   return content;
 }
 
+// duplicate: guidUtilsProvider:findKeywordAtPosition
 export function getNodePath(document: vscode.TextDocument, position: vscode.Position) {
   let line = document.lineAt(position.line).text.substring(0, position.character);
 
@@ -161,6 +162,7 @@ function findPreviousTag(document: vscode.TextDocument, position: vscode.Positio
       if (inTag) {
         // tags can be in multiple lines, track them all and match afterwards again
         // TODO improve by matching already upwards
+        // TODO '<\nsomething' is not valid, so we can skip the multiline thing
         tagLines[0] = lineFragment[i] + tagLines[0];
 
         if (char === '<') {

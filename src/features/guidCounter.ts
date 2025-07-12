@@ -12,17 +12,17 @@ export namespace GuidCounter {
 
   export function nextName() : string {
     if (next_ === undefined || config_ === undefined || scope_ === undefined) {
-      return 'please configure `autoGuid`';
+      return 'please configure `anno.autoGuid`';
     }
 
     if (scope_ === vscode.ConfigurationTarget.WorkspaceFolder) {
-      return `WorkspaceFolder: ${next_}`;
+      return `Next folder GUID: ${next_}`;
     }
     if (scope_ === vscode.ConfigurationTarget.Workspace) {
-      return `Workspace: ${next_}`;
+      return `Next workspace GUID: ${next_}`;
     }
     else {
-      return `User: ${next_}`;
+      return `Next user GUID: ${next_}`;
     }
   }
 
