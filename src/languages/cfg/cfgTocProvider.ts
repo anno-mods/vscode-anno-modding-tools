@@ -70,8 +70,8 @@ export class CfgTocProvider {
 	private reducePath(filePath: string) {
 		const uri = vscode.window.activeTextEditor?.document?.uri;
 		const config = vscode.workspace.getConfiguration('anno', uri);
-		const configLevels = config.get('outlineFolderDepth') as string;
-		const levels = Math.max(0, configLevels !== undefined ? parseInt(configLevels) : 0);
+		// const configLevels = config.get('outlineFolderDepth') as string;
+		const levels = 0; // Math.max(0, configLevels !== undefined ? parseInt(configLevels) : 0);
 
 		let position = filePath.length - 1;
 		let level = 0;

@@ -411,7 +411,7 @@
 				}
 			]
 		},
-		"configuration": {
+		"configuration": [ {
 			"title": "Anno Modding Tools",
 			"properties": {
 				"anno.workspace.setCustomXmlLanguageMode": {
@@ -430,49 +430,6 @@
 					"type": "boolean",
 					"default": true,
 					"markdownDescription": "Add an `xml.fileAssociations` entry for ModOp XML schema validation in `settings.json` when you open a workspace containing `modinfo.json` files.\n\nYou need to install the Red Hat XML Language Support extension to use XML validations.",
-					"scope": "resource"
-				},
-				"anno.117.gamePath": {
-					"type": "string",
-					"format": [
-						"uri",
-						null
-					],
-					"markdownDescription": "Path to your Anno 117 installation. E.g. *'C:\\Program Files (x86)\\Ubisoft\\Ubisoft Game Launcher\\games\\Anno 117'*.\n\n[Select Folder](command:anno-modding-tools.selectAnno117GamePath)",
-					"scope": "window"
-				},
-				"anno.117.modsFolder": {
-					"type": "string",
-					"format": [
-						"uri",
-						null
-					],
-					"markdownDescription": "Path to your `mods/` folder to deploy and resolve dependencies. Defaults to *'&lt;Game Path&gt;/mods/'*.\n\n[Select Folder](command:anno-modding-tools.selectAnno117ModsFolder)",
-					"scope": "window"
-				},
-				"anno.modsFolder": {
-					"type": "string",
-					"format": [
-						"uri",
-						null
-					],
-					"markdownDescription": "Your `mods/` folder to deploy mods into. It is also used to resolve dependencies.",
-					"scope": "window"
-				},
-				"anno.rdaFolder": {
-					"type": "string",
-					"format": [
-						"uri",
-						null
-					],
-					"markdownDescription": "Path to extracted RDA data.\nIt is used for compare and live error features.\n\nUse `c:\\anno\\all-rda` if you have `c:\\anno\\all-rda\\data\\config\\export\\main\\asset\\assets.xml`.",
-					"scope": "window"
-				},
-				"anno.outlineFolderDepth": {
-					"type": "number",
-					"default": 0,
-					"minimum": 0,
-					"markdownDescription": "Folder depth of props, materials and alike shown .cfg outline.",
 					"scope": "resource"
 				},
 				"anno.checkFileNames": {
@@ -500,7 +457,51 @@
 					"scope": "resource"
 				}
 			}
-		}
+		}, {
+			"title": "Anno 117",
+			"properties": {
+				"anno.117.gamePath": {
+					"type": "string",
+					"format": [
+						"uri",
+						null
+					],
+					"markdownDescription": "Path to your Anno 117 installation. E.g. *'C:\\Program Files (x86)\\Ubisoft\\Ubisoft Game Launcher\\games\\Anno 117'*.\n\n[Select Folder](command:anno-modding-tools.selectAnno117GamePath)",
+					"scope": "window"
+				},
+				"anno.117.modsFolder": {
+					"type": "string",
+					"format": [
+						"uri",
+						null
+					],
+					"markdownDescription": "Path to your `mods/` folder to deploy and resolve dependencies. Defaults to *'&lt;Game Path&gt;/mods/'*.\n\n[Select Folder](command:anno-modding-tools.selectAnno117ModsFolder)",
+					"scope": "window"
+				}
+			}
+		}, {
+			"title": "Anno 1800",
+			"properties": {
+				"anno.modsFolder": {
+					"type": "string",
+					"format": [
+						"uri",
+						null
+					],
+					"markdownDescription": "Your `mods/` folder to deploy mods into. It is also used to resolve dependencies.",
+					"scope": "window"
+				},
+				"anno.rdaFolder": {
+					"type": "string",
+					"format": [
+						"uri",
+						null
+					],
+					"markdownDescription": "Path to extracted RDA data.\nIt is used for compare and live error features.\n\nUse `c:\\anno\\all-rda` if you have `c:\\anno\\all-rda\\data\\config\\export\\main\\asset\\assets.xml`.",
+					"scope": "window"
+				}
+			}
+		} ]
 	},
 	"bin": {
 		"buildMod": "./out/buildMod.js"
