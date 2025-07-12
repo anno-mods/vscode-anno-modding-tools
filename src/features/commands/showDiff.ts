@@ -7,7 +7,7 @@ import * as anno from '../../anno';
 import * as rda from '../../data/rda';
 import * as editor from '../../editor';
 import * as modContext from '../../editor/modContext';
-import * as editorUtils from '../../editor/utils';
+import * as text from '../../editor/text';
 import * as utils from '../../other/utils';
 import * as xmltest from '../../tools/xmltest';
 
@@ -156,7 +156,7 @@ export class ShowDiffCommand {
     }
 
     request.patchPath = fileUri.fsPath;
-    request.patch = editorUtils.getSelectedModOps(textEditor.document, textEditor.selection);
+    request.patch = text.getSelectedModOps(textEditor.document, textEditor.selection);
     request.patch = request.patch.replace(/<\/?ModOps>/g, '');
 
     ShowDiffCommand.executeDiff(request);
