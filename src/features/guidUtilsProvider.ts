@@ -293,22 +293,37 @@ function provideCompletionItems(document: vscode.TextDocument, position: vscode.
     return undefined;
   }
 
-  const useAnyTemplate = (keyword.type === 'xpath');
+  const isXpath = keyword.type === 'xpath';
+
+  if (isXpath && keyword.name !== 'Path' && keyword.name !== 'GUID' && keyword.name !== 'Content') {
+    // only show for Path, GUID and Content attributes
+    return undefined;
+  }
+  else if (!isXpath && (keyword.name === 'ModOp' || keyword.name === 'ModOps' || keyword.name === 'Include' || keyword.name === 'Group')) {
+    return undefined;
+  }
+
+  // <New GUID>
+  GuidCounter.use(document.uri);
+  let completionItems: vscode.CompletionItem[] = [];
+  if (!isXpath) {
+    // show <New GUID> only in tag scenarios
+    completionItems = GuidCounter.getCompletionItems();
+  }
 
   // ignore path in case of xpath checks and allow all templates instead
-  const path = keyword.type !== 'xpath' ? keyword.path : undefined;
-
-  GuidCounter.use(document.uri);
+  const path = isXpath ? undefined : keyword.path;
+  const useAnyTemplate = isXpath;
 
   const vanillaItems = (useAnyTemplate ? AllGuidCompletionItems.getAllItems() : AllGuidCompletionItems.get(keyword.name, path)) ?? [];
   if (_customCompletionItems) {
     const customItems = useAnyTemplate ? _customCompletionItems.getAllItems() : _customCompletionItems.get(keyword.name, path);
     if (customItems) {
-      return [ ...GuidCounter.getCompletionItems(), ... vanillaItems, ...customItems ];
+      return [ ...completionItems, ...vanillaItems, ...customItems ];
     }
   }
 
-  return [ ...GuidCounter.getCompletionItems(), ... vanillaItems ];
+  return [ ...completionItems, ...vanillaItems ];
 }
 
 function provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken) {

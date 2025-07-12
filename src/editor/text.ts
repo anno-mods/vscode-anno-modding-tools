@@ -1,5 +1,7 @@
 import * as vscode from 'vscode';
 
+import * as guidUtilsProvider from '../features/guidUtilsProvider';
+
 export function getTagCloseAt(doc: vscode.TextDocument, position: vscode.Position) {
   let lineNumber = position.line;
   let line = doc.lineAt(lineNumber);
@@ -96,6 +98,36 @@ export function getSelectedModOps(doc: vscode.TextDocument, selection: vscode.Se
   return content;
 }
 
+function _findLastKeywordInLine(line: string, position?: number): any {
+  if (!position) {
+    position = line.length - 1;
+  }
+  const linePrefix = line.substr(0, position);
+
+  const equalSign = linePrefix.lastIndexOf('=');
+  if (equalSign === -1) {
+    return undefined;
+  }
+  const openingTag = linePrefix.lastIndexOf('<');
+
+  const validQuote = equalSign !== -1;
+  if (!validQuote) {
+    return undefined;
+  }
+
+  const propertyMatch = linePrefix.substring(0, equalSign).match(/\s*(\w+)\s*$/);
+  vscode.window.showErrorMessage(linePrefix.substring(0, equalSign));
+  if (propertyMatch) {
+    return {
+      name: propertyMatch[1],
+      position: linePrefix.length - propertyMatch[1].length,
+      type: 'xpath'
+    };
+  }
+
+  return undefined;
+}
+
 export function getAutoCompletePath(document: vscode.TextDocument, position: vscode.Position) {
   let line = document.lineAt(position.line).text.substring(0, position.character);
 
@@ -103,30 +135,41 @@ export function getAutoCompletePath(document: vscode.TextDocument, position: vsc
     return getNodePath(document, position); // xml tag
   }
   else if (line.endsWith('@') || line.endsWith('=') || line.endsWith('\'') || line.endsWith('\"') || line.endsWith(' ') || line.endsWith(',')) {
-    if (endsWithUnclosedString(line)) {
-      return 'XPath'; // any GUID
+    const stringStart = endsWithUnclosedString(line);
+    if (stringStart >= 0) {
+      // TODO, rework this
+
+      const keyword = _findLastKeywordInLine(line, stringStart);
+      if (keyword?.type === 'xpath' && keyword.name) {
+        return 'XPath.' + keyword.name;
+      }
+
+      return 'XPath.None';
     }
   }
 
   return undefined;
 }
 
-function endsWithUnclosedString(line: string): boolean {
-    let inSingle = false;
-    let inDouble = false;
+function endsWithUnclosedString(line: string): number {
+  const end = line.length + 1;
 
-    for (let i = 0; i < line.length; i++) {
-        const char = line[i];
+  let inSingle = end;
+  let inDouble = end;
 
-        if (char === '"' && !inSingle) {
-            inDouble = !inDouble;
-        }
-        else if (char === "'" && !inDouble) {
-            inSingle = !inSingle;
-        }
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i];
+
+    if (char === '"' && inSingle === end) {
+      inDouble = i;
     }
+    else if (char === "'" && inDouble === end) {
+      inSingle = i;
+    }
+  }
 
-    return inSingle || inDouble;
+  const stringStart = Math.min(inSingle, inDouble);
+  return stringStart === end ? -1 : stringStart;
 }
 
 // duplicate: guidUtilsProvider:findKeywordAtPosition

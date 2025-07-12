@@ -9,10 +9,19 @@ export function activate() {
     { language: 'anno-xml', scheme: 'file' },
     {
       provideCompletionItems(document, position, token, context) {
-        const completionItems: vscode.CompletionItem[] = [];
-
         const nodePath = text.getAutoCompletePath(document, position);
         if (!nodePath) {
+          return [];
+        }
+
+        vscode.window.showErrorMessage(nodePath);
+
+        const xpath = nodePath.startsWith('XPath');
+        if (xpath && !(
+          nodePath.endsWith('GUID')
+          || nodePath.endsWith('Path') || nodePath.endsWith('Content')
+          || nodePath.endsWith('Add') || nodePath.endsWith('Remove')
+          || nodePath.endsWith('Append') || nodePath.endsWith('Prepand'))) {
           return [];
         }
 
@@ -23,9 +32,9 @@ export function activate() {
 
         GuidCounter.use(document.uri);
 
-        const items = [];
+        const items: vscode.CompletionItem[] = [];
 
-        if (!nodePath.startsWith('XPath')) {
+        if (!xpath) {
           items.push(...GuidCounter.getCompletionItems());
         }
 

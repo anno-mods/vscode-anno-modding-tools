@@ -113,7 +113,7 @@ export class GuidCompletionItems {
     const item = new vscode.CompletionItem({
       label: `${asset.english||asset.name}`,
       description: `${asset.template}: ${guid} (${asset.name})`
-    }, vscode.CompletionItemKind.Snippet);
+    }, vscode.CompletionItemKind.Value);
     item.insertText = guid;
 
     if (templateName) {

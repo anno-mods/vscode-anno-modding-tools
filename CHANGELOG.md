@@ -25,8 +25,9 @@
 
 ### Fixed
 
+- Fixed error message when `Content` path was not found
+- Fixed `Ctrl+Space` showing GUID conversions for ModOp attributes like `Type`
 - Anno 117: Fixed 'Show Diff' for language files (using LineId instead of GUID)
-- Anno 1800: Fixed error message when `Content` path was not found
 
 ## 2.0 First Anno 117 Support
 
