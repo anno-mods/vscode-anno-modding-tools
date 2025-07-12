@@ -96,14 +96,41 @@ export function getSelectedModOps(doc: vscode.TextDocument, selection: vscode.Se
   return content;
 }
 
-// duplicate: guidUtilsProvider:findKeywordAtPosition
-export function getNodePath(document: vscode.TextDocument, position: vscode.Position) {
+export function getAutoCompletePath(document: vscode.TextDocument, position: vscode.Position) {
   let line = document.lineAt(position.line).text.substring(0, position.character);
 
-  if (!line.endsWith('>')) {
-    return undefined;
+  if (line.endsWith('>')) {
+    return getNodePath(document, position); // xml tag
+  }
+  else if (line.endsWith('@') || line.endsWith('=') || line.endsWith('\'') || line.endsWith('\"') || line.endsWith(' ') || line.endsWith(',')) {
+    if (endsWithUnclosedString(line)) {
+      return 'XPath'; // any GUID
+    }
   }
 
+  return undefined;
+}
+
+function endsWithUnclosedString(line: string): boolean {
+    let inSingle = false;
+    let inDouble = false;
+
+    for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+
+        if (char === '"' && !inSingle) {
+            inDouble = !inDouble;
+        }
+        else if (char === "'" && !inDouble) {
+            inSingle = !inSingle;
+        }
+    }
+
+    return inSingle || inDouble;
+}
+
+// duplicate: guidUtilsProvider:findKeywordAtPosition
+export function getNodePath(document: vscode.TextDocument, position: vscode.Position) {
   let tags: string[] = [];
   let pos: vscode.Position | undefined = findPreviousTag(document, position, tags);
 

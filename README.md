@@ -13,7 +13,7 @@ See also the [CHANGELOG](./CHANGELOG.md) for recent changes.
   - Annotations: Inline asset name display next to GUIDs
   - Definitions: Jump to asset (vanilla or modded).<br/>
     _`Ctrl+T` > type name; or right click on GUID > `Go to Definition`_
-  - GUID conversion + auto GUID counter (only Anno 1800)
+  - Name to GUID conversion and auto GUID counter. _`Ctrl+Space`_
   - XML auto completion (only Anno 1800)
 
 ### [Syntax and Error Checking](./doc/error-checking.md)

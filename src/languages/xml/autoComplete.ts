@@ -11,7 +11,7 @@ export function activate() {
       provideCompletionItems(document, position, token, context) {
         const completionItems: vscode.CompletionItem[] = [];
 
-        const nodePath = text.getNodePath(document, position);
+        const nodePath = text.getAutoCompletePath(document, position);
         if (!nodePath) {
           return [];
         }
@@ -23,16 +23,21 @@ export function activate() {
 
         GuidCounter.use(document.uri);
 
-        const newGuidItem = new vscode.CompletionItem({
-          label: `<new guid>`,
-          description: GuidCounter.nextName(),
-        }, vscode.CompletionItemKind.Snippet);
-        newGuidItem.kind = vscode.CompletionItemKind.Event;
-        newGuidItem.insertText = `${GuidCounter.next()}`;
-        newGuidItem.command = { command: 'anno-modding-tools.incrementAutoGuid', title: 'increment GUID...' };
-        newGuidItem.sortText = '   __000'; // keep it the very first item
+        const items = [];
 
-        const items = [ newGuidItem ];
+        if (!nodePath.startsWith('XPath')) {
+          const newGuidItem = new vscode.CompletionItem({
+            label: `<new guid>`,
+            description: GuidCounter.nextName(),
+          }, vscode.CompletionItemKind.Snippet);
+          newGuidItem.kind = vscode.CompletionItemKind.Event;
+          newGuidItem.insertText = `${GuidCounter.next()}`;
+          newGuidItem.command = { command: 'anno-modding-tools.incrementAutoGuid', title: 'increment GUID...' };
+          newGuidItem.sortText = '   __000'; // keep it the very first item
+
+          items.push(newGuidItem);
+        }
+
         const symbols = SymbolRegistry.all();
         for (const symbol of symbols.values()) {
           SymbolRegistry.resolveTemplate(symbol);

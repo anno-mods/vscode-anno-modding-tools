@@ -18,9 +18,10 @@
 
 - Improved workspace asset search (`Ctrl+T`) + Anno 117 support
 - Improved asset lookup (right click on GUID > `Go to Definition`) + Anno 117 support
-- Improved GUID annotations (better dependency checks and caching) + Anno 117 support
-- Anno 117: Added game path and mod folder settings
+- Improved GUID annotations + Anno 117 support
 - Improved various error messages, dialogs, etc.
+- Anno 117: Added GUID auto conversion support
+- Anno 117: Added game path and mod folder settings
 
 ### Fixed
 
