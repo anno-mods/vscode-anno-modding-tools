@@ -38,8 +38,7 @@ export class GamePaths {
   // modsFolder
 
   public static getModsFolder(options?: { filePath?: string, version?: anno.GameVersion }): string | undefined {
-    const uri = options?.filePath ? vscode.Uri.file(options.filePath) : undefined;
-    const config = vscode.workspace.getConfiguration('anno', uri);
+    const config = vscode.workspace.getConfiguration('anno');
 
     const version = options?.version ?? modContext.getVersion();
 
@@ -123,8 +122,7 @@ export class GamePaths {
   // gamePath
 
   public static getGamePath(options?: { filePath?: string, version?: anno.GameVersion }): string | undefined {
-    const uri = options?.filePath ? vscode.Uri.file(options.filePath) : undefined;
-    const config = vscode.workspace.getConfiguration('anno', uri);
+    const config = vscode.workspace.getConfiguration('anno');
 
     const version = options?.version ?? modContext.getVersion();
 
@@ -213,7 +211,7 @@ export class GamePaths {
   }
 
   static async selectGamePath(fileUri: vscode.Uri) {
-    const config = vscode.workspace.getConfiguration('anno', fileUri);
+    const config = vscode.workspace.getConfiguration('anno');
 
     const initialGamePath = config.get<string>('117.gamePath');
     let gamePath = initialGamePath;

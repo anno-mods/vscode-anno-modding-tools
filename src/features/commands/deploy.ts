@@ -75,7 +75,7 @@ export class DeployCommand {
         continue;
       }
       // TODO gamePath doesn't support this (yet), we need errors later on
-      const config = vscode.workspace.getConfiguration('anno', vscode.Uri.file(mod.detail));
+      const config = vscode.workspace.getConfiguration('anno');
       const annoRda: string = config.get('rdaFolder') || "";
 
       const builder = new ModBuilder(channel, context.asAbsolutePath, { annoMods, annoRda });

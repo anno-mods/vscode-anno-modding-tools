@@ -12,13 +12,9 @@ uses rdm4-bin from https://github.com/lukts30/rdm4
 
 export class GltfRdmConverter {
 	public static register(context: vscode.ExtensionContext): vscode.Disposable[] {
-    const rdmPath = context.asAbsolutePath("./external/rdm4-bin.exe");
     const disposable = [
       vscode.commands.registerCommand('anno-modding-tools.convertGltfToRdm', async (fileUri) => {
         if (fileUri) {
-          const uri = vscode.window.activeTextEditor?.document?.uri;
-          const config = vscode.workspace.getConfiguration('anno', uri);
-
           const cache = path.join(path.dirname(fileUri.fsPath), '.gtlfconvert');
 
           const converter = new GltfConverter();

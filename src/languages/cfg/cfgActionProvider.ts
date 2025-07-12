@@ -49,8 +49,8 @@ export function activate(context: vscode.ExtensionContext) {
       return;
     }
 
-    const config = vscode.workspace.getConfiguration('anno', doc.uri);
-    const checkFileNames = config.get('checkFileNames');
+    const config = vscode.workspace.getConfiguration('anno');
+    const checkFileNames = vscode.workspace.getConfiguration('anno', doc.uri).get('checkFileNames');
     const annoRda: string | undefined = config.get('rdaFolder');
     const modsFolder: string | undefined = config.get('modsFolder');
 

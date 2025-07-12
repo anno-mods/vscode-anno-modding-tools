@@ -418,19 +418,19 @@
 					"type": "boolean",
 					"default": true,
 					"markdownDescription": "Add `files.associations` entries to set `Anno ModOps XML` as the default language mode in `settings.json` when you open a workspace containing `modinfo.json` files..\n\nThe file patterns are `assets*.xml`, `texts_*.xml` and `*.include.xml`.",
-					"scope": "window"
+					"scope": "resource"
 				},
 				"anno.workspace.setModinfoSchema": {
 					"type": "boolean",
 					"default": true,
 					"markdownDescription": "Add an `json.schemas` entry for `modinfo.json` schema validation in `settings.json` when you open a workspace containing `modinfo.json` files.",
-					"scope": "window"
+					"scope": "resource"
 				},
 				"anno.workspace.setXmlSchema": {
 					"type": "boolean",
 					"default": true,
 					"markdownDescription": "Add an `xml.fileAssociations` entry for ModOp XML schema validation in `settings.json` when you open a workspace containing `modinfo.json` files.\n\nYou need to install the Red Hat XML Language Support extension to use XML validations.",
-					"scope": "window"
+					"scope": "resource"
 				},
 				"anno.117.gamePath": {
 					"type": "string",
@@ -473,31 +473,31 @@
 					"default": 0,
 					"minimum": 0,
 					"markdownDescription": "Folder depth of props, materials and alike shown .cfg outline.",
-					"scope": "window"
+					"scope": "resource"
 				},
 				"anno.checkFileNames": {
 					"type": "boolean",
 					"default": true,
 					"markdownDescription": "Check file paths set in `Filename`, `FileName` and `IconFilename`.",
-					"scope": "window"
+					"scope": "resource"
 				},
 				"anno.liveModopAnalysis.validate": {
 					"type": "boolean",
 					"default": true,
 					"markdownDescription": "Validate ModOp's on save or open by running xmltest in the background.",
-					"scope": "window"
+					"scope": "resource"
 				},
 				"anno.liveModopAnalysis.warningThreshold": {
 					"type": "number",
 					"default": 80,
 					"markdownDescription": "Threshold to highlight ModOp times in warning color (milliseconds).",
-					"scope": "window"
+					"scope": "resource"
 				},
 				"anno.autoGuid": {
 					"type": "number",
 					"markdownDescription": "Use automatically increasing GUIDs. Enter next free number.",
 					"minimum": 0,
-					"scope": "window"
+					"scope": "resource"
 				}
 			}
 		}

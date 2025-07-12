@@ -85,8 +85,8 @@ export function refreshDiagnostics(context: vscode.ExtensionContext, doc: vscode
 
   vscode.commands.executeCommand('setContext', 'anno-modding-tools.openPatchFile', true);
 
-  const config = vscode.workspace.getConfiguration('anno', doc.uri);
-  const checkFileNames = config.get('checkFileNames');
+  const config = vscode.workspace.getConfiguration('anno');
+  const checkFileNames = vscode.workspace.getConfiguration('anno', doc.uri).get('checkFileNames');
   const annoRda: string | undefined = config.get('rdaFolder'); // TODO
   const modsFolder: string | undefined = config.get('modsFolder'); // TODO
 
