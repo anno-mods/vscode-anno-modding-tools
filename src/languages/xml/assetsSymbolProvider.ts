@@ -47,6 +47,8 @@ export class WorkspaceSymbolProvider implements vscode.WorkspaceSymbolProvider {
         new vscode.Location(vscode.Uri.from({ scheme: "annoasset" + versionNumber, path: guidWithName(symbol) }), new vscode.Position(0, 0))
         : new vscode.Location(symbol.location.filePath, new vscode.Position(symbol.location.line, 0));
 
+      SymbolRegistry.resolveTemplate(symbol);
+
       result.push(
         new vscode.SymbolInformation(
           (symbol.english ?? symbol.name ?? symbol.guid) + (symbol.template ? ` (${symbol.template})` : ''),

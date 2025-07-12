@@ -121,6 +121,7 @@ export class AssetsDocument {
               guid,
               name: name,
               template: asset?.valueWithPath('Template'),
+              baseAsset: asset?.valueWithPath('BaseAssetGUID'),
               location
             };
             continue;

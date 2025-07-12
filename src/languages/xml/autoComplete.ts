@@ -34,6 +34,8 @@ export function activate() {
         const items = [ newGuidItem ];
         const symbols = SymbolRegistry.all();
         for (const symbol of symbols.values()) {
+          SymbolRegistry.resolveTemplate(symbol);
+
           const item = new vscode.CompletionItem({
             label: `${symbol.english||symbol.name}`,
             description: `${symbol.template}: ${symbol.guid} (${symbol.name})`

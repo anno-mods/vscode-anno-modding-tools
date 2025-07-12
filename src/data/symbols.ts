@@ -7,7 +7,6 @@ import * as rda from './rda';
 import * as anno from '../anno';
 import * as editor from '../editor';
 import * as modContext from '../editor/modContext';
-// import { AllGuidCompletionItems, GuidCompletionItems } from '../features/guidCompletionItems';
 import { AssetsDocument, ASSETS_FILENAME_PATTERN_STRICT, IAsset } from '../other/assetsXml';
 import * as logger from '../other/logger';
 
@@ -16,8 +15,6 @@ type GuidCache = Map<string, IAsset>;
 export namespace SymbolRegistry {
   const _guidCache7: GuidCache = new Map<string, IAsset>();
   const _guidCache8: GuidCache = new Map<string, IAsset>();
-
-  // let _completionItems: GuidCompletionItems | undefined;
 
   const _parsedMods: Set<string> = new Set<string>();
   const _parsedFiles: Set<string> = new Set<string>();
@@ -32,6 +29,7 @@ export namespace SymbolRegistry {
     // TODO clear cache, but for that we need separated caches
   }
 
+  /** Does not resolve baseAsset to templates. Call resolveTemplate on individual symbols. */
   export function all(version?: anno.GameVersion) {
     version ??= modContext.getVersion();
 
@@ -44,13 +42,16 @@ export namespace SymbolRegistry {
     return version === anno.GameVersion.Anno7 ? _guidCache7 : _guidCache8;
   }
 
+  export function resolveTemplate(symbol: IAsset) {
+    // reresolve base assets
+    if (symbol.baseAsset && !symbol.template) {
+      symbol.template = SymbolRegistry.resolve(symbol.baseAsset)?.template;
+    }
+  }
+
   export function init(generatedPath: string) {
     _generatedPath = generatedPath;
   }
-
-  // export function setCompletionItems(completion: GuidCompletionItems) {
-  //   _completionItems = completion;
-  // }
 
   /** Scan GUIDs from folder excluding specified file.
    * Already scanned files will be skipped.
@@ -98,15 +99,20 @@ export namespace SymbolRegistry {
 
   export function resolve(guid: string, version?: anno.GameVersion) : IAsset | undefined {
     version ??= modContext.getVersion();
-
     _useVanillaSymbols(version);
 
-    let entry = all(version).get(guid);
+    return _resolve(guid, version, new Set<string>());
+  }
 
-    // TODO check
-    // if (!entry && AllGuidCompletionItems.assets) {
-    //   entry = AllGuidCompletionItems.assets[guid];
-    // }
+  function _resolve(guid: string, version: anno.GameVersion, loopGuard: Set<string>) : IAsset | undefined {
+    const entry = all(version).get(guid);
+    if (entry?.baseAsset && !entry.template && !loopGuard.has(entry.baseAsset)) {
+      loopGuard.add(guid);
+      const base = _resolve(entry.baseAsset, version, loopGuard);
+      if (base) {
+        entry.template = base.template;
+      }
+    }
 
     return entry;
   }
@@ -134,9 +140,12 @@ export namespace SymbolRegistry {
   {
     let assetsDocument = new AssetsDocument(xmlContent, filePath);
 
-    // if (_completionItems) {
-    //   _completionItems.addAssets(assetsDocument.assets, modinfo.id);
-    // }
+    for (var guid of Object.keys(assetsDocument.assets)) {
+      const asset = assetsDocument.assets[guid];
+      if (asset.baseAsset && !asset.template) {
+        logger.log(`scan: ${asset.guid} based on ${asset.baseAsset}`);
+      }
+    }
 
     registerAll(Object.values(assetsDocument.assets), modinfo.game, modinfo.id);
   }

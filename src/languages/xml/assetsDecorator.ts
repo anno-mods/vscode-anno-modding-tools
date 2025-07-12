@@ -29,7 +29,8 @@ export function activate(context: vscode.ExtensionContext) {
       && (!tagInfo
         || tagInfo.templates.length === 0
         || tag.endsWith('Amount')
-        || tag === 'BuildModeRandomRotation')) {
+        || tag === 'BuildModeRandomRotation')
+        || tag === 'MissingConnectionInfolayer') {
       return '';
     }
 
