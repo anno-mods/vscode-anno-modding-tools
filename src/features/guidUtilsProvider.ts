@@ -281,9 +281,9 @@ export function registerGuidUtilsProvider(context: vscode.ExtensionContext): vsc
   subscribeToDocumentChanges(context);
 
 	return [
-    vscode.Disposable.from(vscode.languages.registerHoverProvider({ language: 'xml', pattern: ASSETS_FILENAME_PATTERN }, { provideHover })),
-    vscode.Disposable.from(vscode.languages.registerHoverProvider({ language: 'anno-xml' }, { provideHover })),
-    vscode.Disposable.from(vscode.languages.registerCompletionItemProvider({ language: 'xml', pattern: ASSETS_FILENAME_PATTERN }, { provideCompletionItems }, '\'', '"'))
+    vscode.Disposable.from(vscode.languages.registerHoverProvider({ language: 'xml', scheme: 'file', pattern: ASSETS_FILENAME_PATTERN }, { provideHover })),
+    vscode.Disposable.from(vscode.languages.registerHoverProvider({ language: 'anno-xml', scheme: 'file' }, { provideHover })),
+    vscode.Disposable.from(vscode.languages.registerCompletionItemProvider({ language: 'xml', scheme: 'file', pattern: ASSETS_FILENAME_PATTERN }, { provideCompletionItems }, '\'', '"'))
   ];
 }
 

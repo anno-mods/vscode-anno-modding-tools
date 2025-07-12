@@ -3,7 +3,7 @@ import * as vscode from 'vscode';
 const xmlFormatter = require('xml-formatter') as (input: string, options?: any) => string;
 
 export function registerFormatter(language: string): vscode.Disposable {
-  return vscode.languages.registerDocumentFormattingEditProvider(language, { provideDocumentFormattingEdits });
+  return vscode.languages.registerDocumentFormattingEditProvider({ language, scheme: 'file' }, { provideDocumentFormattingEdits });
 }
 
 function provideDocumentFormattingEdits(document: vscode.TextDocument) {

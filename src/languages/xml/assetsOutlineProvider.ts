@@ -12,8 +12,8 @@ interface MarkdownSymbol {
 export class AssetsSymbolProvider {
 	public static register(context: vscode.ExtensionContext): vscode.Disposable[] {
 		const selector: vscode.DocumentSelector = [
-			{ language: 'anno-xml', scheme: '*' },
-			{ language: 'xml', scheme: '*', pattern: ASSETS_FILENAME_PATTERN }
+			{ language: 'anno-xml', scheme: 'file' },
+			{ language: 'xml', scheme: 'file', pattern: ASSETS_FILENAME_PATTERN }
 		];
 
     const symbolProvider = new AssetsSymbolProvider();

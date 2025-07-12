@@ -17,7 +17,7 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 export function registerCfgLanguageFeatures(language: string): vscode.Disposable[] {
-  const selector: vscode.DocumentSelector = { language, scheme: '*' };
+  const selector: vscode.DocumentSelector = { language, scheme: 'file' };
   const symbolProvider = new CfgDocumentSymbolProvider();
   return [
     vscode.languages.registerDocumentSymbolProvider(selector, symbolProvider),

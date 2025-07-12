@@ -44,7 +44,7 @@ export function registerHoverProvider(context: vscode.ExtensionContext): vscode.
   loadKeywordHelp(context);
 
 	return [
-    vscode.Disposable.from(vscode.languages.registerHoverProvider({ language: 'anno-ifo' }, { provideHover })), 
+    vscode.Disposable.from(vscode.languages.registerHoverProvider({ language: 'anno-ifo', scheme: 'file' }, { provideHover })), 
   ];
 }
 

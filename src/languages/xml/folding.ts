@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 
 export function registerFolding(language: string): vscode.Disposable {
-  return vscode.languages.registerFoldingRangeProvider(language, { provideFoldingRanges });
+  return vscode.languages.registerFoldingRangeProvider({ language, scheme: 'file' }, { provideFoldingRanges });
 }
 
 function provideFoldingRanges(document: vscode.TextDocument, context: vscode.FoldingContext, token: vscode.CancellationToken) {

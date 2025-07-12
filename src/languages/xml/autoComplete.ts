@@ -6,7 +6,7 @@ import { SymbolRegistry } from '../../data/symbols';
 
 export function activate() {
   const provider = vscode.languages.registerCompletionItemProvider(
-    'anno-xml',
+    { language: 'anno-xml', scheme: 'file' },
     {
       provideCompletionItems(document, position, token, context) {
         const completionItems: vscode.CompletionItem[] = [];

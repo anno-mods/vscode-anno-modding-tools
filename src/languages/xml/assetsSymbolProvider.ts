@@ -94,8 +94,8 @@ export class DefinitionProvider implements vscode.DefinitionProvider {
 
 export function activate(context: vscode.ExtensionContext) {
     const selector: vscode.DocumentSelector = [
-      { language: 'anno-xml', scheme: '*' },
-      { language: 'xml', scheme: '*', pattern: ASSETS_FILENAME_PATTERN }
+      { language: 'anno-xml', scheme: 'file' },
+      { language: 'xml', scheme: 'file', pattern: ASSETS_FILENAME_PATTERN }
     ];
 
   context.subscriptions.push(
