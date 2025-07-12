@@ -139,14 +139,6 @@ export namespace SymbolRegistry {
   function _readGuidsFromXmlContent(xmlContent: xmldoc.XmlDocument, filePath: string, modinfo: anno.ModInfo)
   {
     let assetsDocument = new AssetsDocument(xmlContent, filePath);
-
-    for (var guid of Object.keys(assetsDocument.assets)) {
-      const asset = assetsDocument.assets[guid];
-      if (asset.baseAsset && !asset.template) {
-        logger.log(`scan: ${asset.guid} based on ${asset.baseAsset}`);
-      }
-    }
-
     registerAll(Object.values(assetsDocument.assets), modinfo.game, modinfo.id);
   }
 
