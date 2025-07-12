@@ -81,6 +81,8 @@ export class AddTemplateCommands {
 
     let files: string[] = [];
 
+    const modname = beautifyModName(modid);
+
     if (version === anno.GameVersion.Anno8) {
       files = utils.copyFolderNoOverwrite(path.join(AddTemplateCommands._templatesPath, 'anno117'), root);
 
@@ -90,7 +92,7 @@ export class AddTemplateCommands {
   "Anno": 8,
   "Difficulty": "cheat",
   "ModName": {
-    "English": "Name"
+    "English": "${modname}"
   },
   "Category": {
     "English": "Mod"
@@ -105,13 +107,15 @@ export class AddTemplateCommands {
   "Version": "1.0.0",
   "Anno": 7,
   "ModName": {
-    "English": "Name"
+    "English": "${beautifyModName(modid)}"
   },
   "Category": {
     "English": "Mod"
   }
 }`);
     }
+
+    AddTemplateCommands.addFile(path.join(root, 'README.md'), `# ${modname}\n\nAdd your description.`);
 
     schemas.refreshSchemas();
 
@@ -139,4 +143,22 @@ export class AddTemplateCommands {
       }
     }
   }
+}
+
+function beautifyModName(name: string): string {
+  // remove the last dash and everything after it
+  const trimmed = name.replace(/-([^-]*)$/, '');
+
+  // replace dashes and letter-number transitions with space
+  const spaced = trimmed
+      .replace(/-/g, ' ')
+      .replace(/([a-zA-Z])(?=\d)/g, '$1 ')
+      .replace(/(\d)(?=[a-zA-Z])/g, '$1 ');
+
+  // capitalize
+  const capitalized = spaced.replace(/\b\w+/g, (word) =>
+      word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+  );
+
+  return capitalized;
 }
