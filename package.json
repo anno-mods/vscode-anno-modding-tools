@@ -449,17 +449,17 @@
 					"default": 80,
 					"markdownDescription": "Threshold to highlight ModOp times in warning color (milliseconds).",
 					"scope": "resource"
-				},
-				"anno.autoGuid": {
-					"type": "number",
-					"markdownDescription": "Use automatically increasing GUIDs. Enter next free number.",
-					"minimum": 0,
-					"scope": "resource"
 				}
 			}
 		}, {
 			"title": "Anno 117",
 			"properties": {
+				"anno.117.autoGuid": {
+					"type": "number",
+					"markdownDescription": "Use automatically increasing GUIDs. Enter next free number.",
+					"minimum": 0,
+					"scope": "resource"
+				},
 				"anno.117.gamePath": {
 					"type": "string",
 					"format": [
@@ -482,6 +482,12 @@
 		}, {
 			"title": "Anno 1800",
 			"properties": {
+				"anno.autoGuid": {
+					"type": "number",
+					"markdownDescription": "Use automatically increasing GUIDs. Enter next free number.",
+					"minimum": 0,
+					"scope": "resource"
+				},
 				"anno.modsFolder": {
 					"type": "string",
 					"format": [

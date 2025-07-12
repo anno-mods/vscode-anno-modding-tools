@@ -1,6 +1,8 @@
 import * as path from 'path';
 import * as vscode from 'vscode';
 
+import * as anno from '../anno';
+import * as modContext from '../editor/modContext';
 import { SymbolRegistry } from '../data/symbols';
 
 export namespace GuidCounter {
@@ -24,11 +26,15 @@ export namespace GuidCounter {
     }
     else {
       newGuidItem.command = { command: 'workbench.action.openSettings', title: 'open settings' };
-      newGuidItem.command.arguments = [ 'anno.autoGuid' ];
+      newGuidItem.command.arguments = [ 'anno.' + getSettingsKey() ];
       newGuidItem.insertText = "";
     }
 
     return [ newGuidItem ];
+  }
+
+  function getSettingsKey() {
+    return modContext.getVersion() === anno.GameVersion.Anno8 ? '117.autoGuid' : 'autoGuid';
   }
 
   function isConfigured(): boolean {
@@ -41,17 +47,19 @@ export namespace GuidCounter {
 
   function nextName() : string {
     if (!isConfigured()) {
-      return 'Open settings to configure `anno.autoGuid`';
+      return `Open settings to configure \`anno.${getSettingsKey()}\``;
     }
 
+    const versionName = anno.gameVersionName(modContext.getVersion());
+
     if (scope_ === vscode.ConfigurationTarget.WorkspaceFolder) {
-      return `Next in '${name_}' range: ${next_}`;
+      return `(${versionName}) Next in '${name_}' range: ${next_}`;
     }
     if (scope_ === vscode.ConfigurationTarget.Workspace) {
-      return `Next in '${name_}' range: ${next_}`;
+      return `(${versionName}) Next in '${name_}' range: ${next_}`;
     }
     else {
-      return `Next in user range: ${next_}`;
+      return `(${versionName}) Next in user range: ${next_}`;
     }
   }
 
@@ -63,7 +71,7 @@ export namespace GuidCounter {
     next_++;
     skipUsedEntries();
 
-    config_.update('autoGuid', next_, scope_);
+    config_.update(getSettingsKey(), next_, scope_);
   }
 
   function skipUsedEntries() {
@@ -82,7 +90,7 @@ export namespace GuidCounter {
     // }
 
 		config_ = vscode.workspace.getConfiguration('anno', uri);
-    const next = config_.inspect('autoGuid');
+    const next = config_.inspect(getSettingsKey());
 
     if (next?.workspaceFolderValue as number > 0) {
       next_ = next?.workspaceFolderValue as number;
