@@ -82,6 +82,7 @@ export class AddTemplateCommands {
     let files: string[] = [];
 
     const modname = beautifyModName(modid);
+    const creatorName = getCreatorName(modid);
 
     if (version === anno.GameVersion.Anno8) {
       files = utils.copyFolderNoOverwrite(path.join(AddTemplateCommands._templatesPath, 'anno117'), root);
@@ -96,7 +97,9 @@ export class AddTemplateCommands {
   },
   "Category": {
     "English": "Mod"
-  }
+  },
+  "CreatorName": "${creatorName}",
+  "CreatorContact": ""
 }`);
     }
     else if (version === anno.GameVersion.Anno7) {
@@ -111,7 +114,9 @@ export class AddTemplateCommands {
   },
   "Category": {
     "English": "Mod"
-  }
+  },
+  "CreatorName": "${creatorName}",
+  "CreatorContact": ""
 }`);
     }
 
@@ -161,4 +166,13 @@ function beautifyModName(name: string): string {
   );
 
   return capitalized;
+}
+
+function getCreatorName(modid: string): string|undefined {
+  const split = modid.split('-');
+  if (split.length <= 1) {
+    return "";
+  }
+
+  return split[split.length - 1];
 }
