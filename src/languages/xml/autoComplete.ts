@@ -9,19 +9,17 @@ export function activate() {
     { language: 'anno-xml', scheme: 'file' },
     {
       provideCompletionItems(document, position, token, context) {
-        const nodePath = text.getAutoCompletePath(document, position);
-        if (!nodePath) {
+        const [ nodeName, nodePath ] = text.getAutoCompletePath(document, position);
+        if (!nodePath && !nodeName) {
           return [];
         }
 
-        vscode.window.showErrorMessage(nodePath);
-
-        const xpath = nodePath.startsWith('XPath');
+        const xpath = nodePath?.startsWith('XPath');
         if (xpath && !(
-          nodePath.endsWith('GUID')
-          || nodePath.endsWith('Path') || nodePath.endsWith('Content')
-          || nodePath.endsWith('Add') || nodePath.endsWith('Remove')
-          || nodePath.endsWith('Append') || nodePath.endsWith('Prepand'))) {
+          nodeName === 'GUID'
+          || nodeName === 'Path' || nodeName === 'Content'
+          || nodeName === 'Add' || nodeName === 'Remove'
+          || nodeName === 'Append' || nodeName === 'Prepand')) {
           return [];
         }
 

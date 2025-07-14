@@ -182,6 +182,34 @@ export class GuidCompletionItems {
   getAllItems() {
     return Object.values(this._allItems);
   }
+
+  getAllowedTemplates(tagName: string, path?: string): Set<string> | undefined
+  {
+    if (!this.tags) {
+      return undefined;
+    }
+    const tag = this.tags[tagName];
+    if (!tag) {
+      return undefined;
+    }
+
+    if (path && path.endsWith(tagName)) {
+      path = path.substring(0, path.length - tagName.length - 1);
+      if (path.endsWith('/')) {
+        path = path.substring(0, path.length - 2);
+      }
+    }
+    const paths = path ? tag.paths.filter(e => e.hasMatchingPath(path!)) : tag.paths;
+
+    let templates = new Set<string>();
+    for (var p of paths) {
+      for (var t of p.templates) {
+        templates.add(t);
+      }
+    }
+
+    return templates;
+  }
 }
 
 export const AllGuidCompletionItems = new GuidCompletionItems();

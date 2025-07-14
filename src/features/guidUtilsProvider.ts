@@ -5,27 +5,14 @@ import { GuidCounter } from './guidCounter';
 import { ModRegistry } from '../data/modRegistry';
 import { SymbolRegistry } from '../data/symbols';
 import * as editor from '../editor';
-import * as editorFormats from '../editor/formats';
 import * as editorDocument from '../editor/assetsDocument';
+import * as editorFormats from '../editor/formats';
+import * as text from '../editor/text';
 import { AssetsTocProvider } from '../languages/xml/assetsTocProvider';
 import { AssetsDocument, ASSETS_FILENAME_PATTERN, IAsset } from '../other/assetsXml';
 import { AllGuidCompletionItems, GuidCompletionItems } from './guidCompletionItems';
 
 let assetsDocument: AssetsDocument | undefined;
-
-export function getAllCustomSymbols(): IAsset[] {
-  if (AllGuidCompletionItems?.assets) {
-    if (_customCompletionItems?.assets) {
-      return [ 
-        ...Object.values(AllGuidCompletionItems.assets), 
-        ...Object.values(_customCompletionItems.assets) ];
-    }
-
-    return Object.values(AllGuidCompletionItems.assets);
-  }
-
-  return [];
-}
 
 function resolveGuidRange(guid: string) {
   const vanilla = _guidRanges || {};
@@ -57,19 +44,6 @@ function resolveSafeRange(guid: string) {
   else {
     return [ `⚠ Is not safe for your own assets.\n\nPlease use from 1.337.471.142 to 2.147.483.647 and ${addYourRange}.` ];
   }
-}
-
-function getValueAfterTag(line: string, position: number) {
-  const closing = line.indexOf('>', position);
-  if (closing === -1) {
-    return undefined;
-  }
-  const opening = line.indexOf('<', closing);
-  if (opening === -1) {
-    return undefined;
-  } 
-
-  return line.substr(closing + 1, opening - closing - 1);
 }
 
 interface IKeyword {
@@ -120,15 +94,17 @@ function _findLastKeywordInLine(line: string, position?: number): IKeyword | und
 }
 
 function findKeywordBeforePosition(document: vscode.TextDocument, position: vscode.Position) {
-  const thisLine = document.lineAt(position)?.text;
-  
-  const keyword = _findLastKeywordInLine(thisLine, position.character);
-  if (!keyword) {
+  const [ name, path ] = text.getAutoCompletePath(document, position);
+
+  if (!name) {
     return undefined;
   }
-  
-  let path = assetsDocument?.getPath(position.line, keyword.position);
-  return { ...keyword, path };
+
+  return {
+    name,
+    path,
+    type: path?.startsWith('XPath') ? 'xpath' : 'tag'
+  };
 }
 
 function findKeywordAtPosition(document: vscode.TextDocument, position: vscode.Position) {
@@ -305,25 +281,36 @@ function provideCompletionItems(document: vscode.TextDocument, position: vscode.
 
   // <New GUID>
   GuidCounter.use(document.uri);
-  let completionItems: vscode.CompletionItem[] = [];
+  const items: vscode.CompletionItem[] = [];
   if (!isXpath) {
     // show <New GUID> only in tag scenarios
-    completionItems = GuidCounter.getCompletionItems();
+    items.push(...GuidCounter.getCompletionItems());
   }
 
   // ignore path in case of xpath checks and allow all templates instead
   const path = isXpath ? undefined : keyword.path;
   const useAnyTemplate = isXpath;
+  const templates = useAnyTemplate ? undefined : AllGuidCompletionItems.getAllowedTemplates(keyword.name, path?.replace(/\./g, '/'));
 
-  const vanillaItems = (useAnyTemplate ? AllGuidCompletionItems.getAllItems() : AllGuidCompletionItems.get(keyword.name, path)) ?? [];
-  if (_customCompletionItems) {
-    const customItems = useAnyTemplate ? _customCompletionItems.getAllItems() : _customCompletionItems.get(keyword.name, path);
-    if (customItems) {
-      return [ ...completionItems, ...vanillaItems, ...customItems ];
+  const symbols = SymbolRegistry.all();
+  for (const symbol of symbols.values()) {
+    SymbolRegistry.resolveTemplate(symbol);
+
+    if (templates && symbol.template && !templates?.has(symbol.template) &&
+      !(symbol.template.indexOf('Building') >= 0 && templates.has('OrnamentalBuilding'))) {
+      continue;
     }
+
+    const item = new vscode.CompletionItem({
+      label: `${symbol.english ?? symbol.name}`,
+      description: `${symbol.template}: ${symbol.guid} (${symbol.name})`
+    }, vscode.CompletionItemKind.Snippet);
+    item.insertText = symbol.guid;
+    item.kind = vscode.CompletionItemKind.Value;
+    items.push(item);
   }
 
-  return [ ...completionItems, ...vanillaItems ];
+  return items;
 }
 
 function provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken) {

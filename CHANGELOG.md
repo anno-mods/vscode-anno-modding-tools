@@ -20,11 +20,11 @@
 - Improved asset lookup (right click on GUID > `Go to Definition`) + Anno 117 support
 - Improved GUID annotations + Anno 117 support
 - Improved various error messages, dialogs, etc.
+- Anno 117: Added GUID auto conversion support
+- Anno 117: Added game path and mod folder settings
 - Changed modinfo development attributes:
   `out` to `Development.DeployPath`, `bundle` to `Development.Bundle` and `OptionalDependencies` to `Development.Dependencies`.
   Old keys are deprecated but will continue to work.
-- Anno 117: Added GUID auto conversion support
-- Anno 117: Added game path and mod folder settings
 
 ### Fixed
 

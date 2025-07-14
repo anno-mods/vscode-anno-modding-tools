@@ -128,7 +128,7 @@ function _findLastKeywordInLine(line: string, position?: number): any {
   return undefined;
 }
 
-export function getAutoCompletePath(document: vscode.TextDocument, position: vscode.Position) {
+export function getAutoCompletePath(document: vscode.TextDocument, position: vscode.Position): [string?, string?] {
   let line = document.lineAt(position.line).text.substring(0, position.character);
 
   if (line.endsWith('>')) {
@@ -141,14 +141,14 @@ export function getAutoCompletePath(document: vscode.TextDocument, position: vsc
 
       const keyword = _findLastKeywordInLine(line, stringStart);
       if (keyword?.type === 'xpath' && keyword.name) {
-        return 'XPath.' + keyword.name;
+        return [ keyword.name, 'XPath'];
       }
 
-      return 'XPath.None';
+      return [ undefined, 'XPath' ];
     }
   }
 
-  return undefined;
+  return [ undefined, undefined ];
 }
 
 function endsWithUnclosedString(line: string): number {
@@ -173,7 +173,7 @@ function endsWithUnclosedString(line: string): number {
 }
 
 // duplicate: guidUtilsProvider:findKeywordAtPosition
-export function getNodePath(document: vscode.TextDocument, position: vscode.Position) {
+export function getNodePath(document: vscode.TextDocument, position: vscode.Position): [string?, string?] {
   let tags: string[] = [];
   let pos: vscode.Position | undefined = findPreviousTag(document, position, tags);
 
@@ -181,7 +181,15 @@ export function getNodePath(document: vscode.TextDocument, position: vscode.Posi
     pos = findPreviousTag(document, pos, tags);
   }
 
-  return tags.reverse().join('.');
+  if (tags.length === 0) {
+    return [ undefined, undefined ];
+  }
+
+  const keyword = tags[0];
+  // const root = tags.length > 1 ? tags[tags.length - 1] : undefined;
+  const path = tags.slice(1, -1).reverse().join('.');
+
+  return [ keyword, path ];
 }
 
 function matchTagHistory(tagHistory: string[], stopPaths: (string|string[])[]): boolean {
