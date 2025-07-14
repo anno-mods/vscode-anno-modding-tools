@@ -31,5 +31,9 @@
 	"wordPattern": {
 		"pattern": "[:A-Z_a-z][-.:A-Z_a-z0-9]*",
   	"flags": "i"
+	},
+	"indentationRules": {
+		"increaseIndentPattern": "<(?!/)([^\\s/>]+)([^/>]*)>(?!.*</\\1>)",
+		"decreaseIndentPattern": "^\\s*</[^>]+>"
 	}
 }
