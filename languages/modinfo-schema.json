@@ -76,6 +76,11 @@
         "Category": { "$ref": "#/definitions/ModName" },
         "ModName": { "$ref": "#/definitions/ModName" },
 
+        "LoadAfterIds": { "$ref": "#/definitions/LoadAfterIds" },
+        "ModDependencies": { "$ref": "#/definitions/ModDependencies" },
+        "IncompatibleIds": { "$ref": "#/definitions/IncompatibleIds" },
+        "DeprecateIds": { "$ref": "#/definitions/DeprecateIds" },
+
         "Dependencies": {
           "type": "object",
           "description": "Mod + DLC dependencies, loading order and incompatibities.",
@@ -96,7 +101,7 @@
                     "type": "object",
                     "properties": {
                       "additionalProperties": false,
-                      "oneOf": { "$ref": "#/definitions/ModOrDlcIDs" }  
+                      "oneOf": { "$ref": "#/definitions/ModOrDlcIDs" }
                     }
                   }
                 ]
