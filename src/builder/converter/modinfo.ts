@@ -26,6 +26,7 @@ export class ModinfoConverter extends Converter {
       modinfo.src = undefined;
       modinfo.out = undefined;
       modinfo.converter = undefined;
+      modinfo.Development = undefined;
 
       // defaults
       modinfo.Description = modinfo.Description ?? { "English" : "file::README.md" };

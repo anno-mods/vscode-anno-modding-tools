@@ -161,8 +161,8 @@ export class ModBuilder {
 
     this._logger.log(`bundles`);
 
-    if (modJson.bundle) {
-      for (const bundle of modJson.bundle) {
+    if (modJson.Development?.Bundle) {
+      for (const bundle of modJson.Development?.Bundle) {
         if (bundle.startsWith('.')) {
           await this._buildBundle(filePath, bundle, cache, outFolder);
         } else {
@@ -260,7 +260,7 @@ export class ModBuilder {
   }
 
   private _getOutFolder(filePath: string, modJson: any) {
-    let outFolder = modJson.out ?? '${annoMods}/${modName}';
+    let outFolder = modJson?.Development?.DeployPath ?? modJson.out ?? '${annoMods}/${modName}';
     outFolder = outFolder.replace('${modName}', this._getModName(filePath, modJson.modinfo ?? modJson));
     if (this._variables['annoMods']) {
       outFolder = path.normalize(outFolder.replace('${annoMods}', this._variables['annoMods']));

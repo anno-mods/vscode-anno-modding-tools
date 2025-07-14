@@ -80,7 +80,8 @@ export class ModInfo {
   public getAllDependencies(): string[] {
     let deps = new Set([
       ...utils.ensureArray(this.modInfo_?.ModDependencies),
-      ...utils.ensureArray(this.modInfo_?.OptionalDependencies),
+      // TODO deprecated, use Development.Dependencies instead
+      ...utils.ensureArray(this.modInfo_?.Development?.Dependencies ?? this.modInfo_?.OptionalDependencies),
       ...utils.ensureArray(this.modInfo_?.LoadAfterIds)]);
 
     // remove duplicates

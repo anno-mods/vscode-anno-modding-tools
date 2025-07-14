@@ -136,11 +136,18 @@ export function isAssetsXml(path: string) {
 }
 
 interface IModinfo {
+  /** @deprecated use Development.DeployPath instead */
   out?: string
+  /** @deprecated don't use at all */
   src: string | string[]
+  /** @deprecated use Development.Bundle instead */
   bundle?: string[]
   modinfo: any
   converter?: any
+  Development?: {
+    DeployPath?: string
+    Bundle?: string[]
+  }
   getRequiredLoadAfterIds: (modinfo: any) => string[]
 }
 
@@ -180,19 +187,20 @@ export function readModinfo(modPath: string): IModinfo | undefined {
     return undefined;
   }
 
-  result.out = result.out ?? "${annoMods}/${modName}";
-  result.src = result.src ?? ".";
+  result.Development ??= {};
+  result.Development.DeployPath ??= result.out ?? "${annoMods}/${modName}";
+  result.Development.Bundle ??= result.bundle ?? [];
+  result.src ??= ".";
 
   // convert url ModDependencies to bundle
-  result.bundle = result.bundle ?? [];
-  if (!Array.isArray(result.bundle)) {
-    result.bundle = Object.values(result.bundle);
+  if (!Array.isArray(result.Development.Bundle)) {
+    result.Development.Bundle = Object.values(result.Development.Bundle);
   }
   if (result.modinfo.ModDependencies && Array.isArray(result.modinfo.ModDependencies)) {
     for (let i = 0; i < result.modinfo?.ModDependencies.length; i++) {
       const dep = result.modinfo.ModDependencies[i];
       if (dep.startsWith("http") || dep.startsWith(".")) {
-        result.bundle.push(dep);
+        result.Development.Bundle.push(dep);
         result.modinfo.ModDependencies[i] = path.basename(dep, '.zip');
       }
     }
@@ -215,7 +223,12 @@ export function searchModPaths(patchFilePath: string, modsFolder?: string) {
   const sources = modinfo?.src ? ensureArray(modinfo.src).map((e: string) => path.join(modPath, e)) : [ modPath ];
   let deps: string[] = [];
   if (modsFolder && modinfo?.modinfo) {
-    deps = [...ensureArray(modinfo.modinfo?.ModDependencies), ...ensureArray(modinfo.modinfo?.OptionalDependencies), ...ensureArray(modinfo.modinfo?.LoadAfterIds)]
+    deps = [
+        ...ensureArray(modinfo.modinfo?.ModDependencies),
+        ...ensureArray(modinfo.modinfo?.OptionalDependencies),
+        ...ensureArray(modinfo.modinfo?.Development?.OptionalDependencies),
+        ...ensureArray(modinfo.modinfo?.LoadAfterIds)
+      ]
       .map((e: string) => ModRegistry.getPath(e) ?? "")
       .filter((e: string) => e !== "");
   }
