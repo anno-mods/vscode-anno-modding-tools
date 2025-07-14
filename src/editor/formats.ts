@@ -3,10 +3,10 @@ import * as minimatch from 'minimatch';
 import * as vscode from 'vscode';
 import { ASSETS_FILENAME_PATTERN, ASSETS_FILENAME_PATTERN_STRICT } from '../other/assetsXml';
 
-const PATCH_FILENAME_PATTERN_STRICT = '**/{assets*.xml,*.include.xml,export.bin.xml,*.fc.xml,*.cfg.xml}';
+const PATCH_FILENAME_PATTERN_STRICT = '**/{assets*,*.include,game/asset/**/*,export.bin,*.fc,*.cfg}.xml';
 
 export function isAnnoXml(document: vscode.TextDocument): boolean {
-  if (!minimatch(document.fileName, ASSETS_FILENAME_PATTERN, { dot: true })) {
+  if (document.languageId !== 'anno-xml' && !minimatch(document.fileName, ASSETS_FILENAME_PATTERN, { dot: true })) {
     return false;
   }
 
@@ -19,7 +19,7 @@ export function isAnnoXml(document: vscode.TextDocument): boolean {
 }
 
 export function isAssetsXml(document: vscode.TextDocument): boolean {
-  if (!minimatch(document.fileName, ASSETS_FILENAME_PATTERN_STRICT, { dot: true })) {
+  if (document.languageId !== 'anno-xml' && !minimatch(document.fileName, ASSETS_FILENAME_PATTERN_STRICT, { dot: true })) {
     return false;
   }
 
@@ -39,11 +39,12 @@ export function isAssetsXml(document: vscode.TextDocument): boolean {
 export function allowLiveValidation(document: vscode.TextDocument): boolean {
   const config = vscode.workspace.getConfiguration('anno', document.uri);
 
-  return minimatch(document.fileName, PATCH_FILENAME_PATTERN_STRICT, { dot: true }) && (config.get('liveModopAnalysis.validate') ?? true);
+  return (document.languageId ==='anno-xml' || minimatch(document.fileName, PATCH_FILENAME_PATTERN_STRICT, { dot: true }))
+    && (config.get('liveModopAnalysis.validate') ?? true);
 }
 
 export function isPatchXml(document: vscode.TextDocument): boolean {
-  if (!minimatch(document.fileName, ASSETS_FILENAME_PATTERN, { dot: true })) {
+  if (document.languageId !== 'anno-xml' && !minimatch(document.fileName, ASSETS_FILENAME_PATTERN, { dot: true })) {
     return false;
   }
 

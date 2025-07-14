@@ -1,9 +1,9 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import { IAsset } from '../other/assetsXml';
-import { resolveGUID } from './guidUtilsProvider';
+import { SymbolRegistry } from '../data/symbols';
 
-interface ITagJson 
+interface ITagJson
 {
   templates: string[],
   paths: { [index: string]: string[] }
@@ -66,10 +66,7 @@ export class GuidCompletionItems {
       }
 
       for (var asset of Object.keys(this.assets)) {
-        this.assets[asset].location = {
-          filePath: vscode.Uri.parse('annoasset:assets-' + asset + '.xml'),
-          line: 0
-        };
+        this.assets[asset].location = undefined;
       }
 
       this.fromAssets(this.assets, this.tags, true);
@@ -116,7 +113,7 @@ export class GuidCompletionItems {
     const item = new vscode.CompletionItem({
       label: `${asset.english||asset.name}`,
       description: `${asset.template}: ${guid} (${asset.name})`
-    }, vscode.CompletionItemKind.Snippet);
+    }, vscode.CompletionItemKind.Value);
     item.insertText = guid;
 
     if (templateName) {
@@ -174,7 +171,7 @@ export class GuidCompletionItems {
       return asset.template;
     }
     else if (asset.baseAsset) {
-      const base = resolveGUID(asset.baseAsset);
+      const base = SymbolRegistry.resolve(asset.baseAsset);
       if (base) {
         return this.getTemplate(base);
       }
@@ -184,6 +181,34 @@ export class GuidCompletionItems {
 
   getAllItems() {
     return Object.values(this._allItems);
+  }
+
+  getAllowedTemplates(tagName: string, path?: string): Set<string> | undefined
+  {
+    if (!this.tags) {
+      return undefined;
+    }
+    const tag = this.tags[tagName];
+    if (!tag) {
+      return undefined;
+    }
+
+    if (path && path.endsWith(tagName)) {
+      path = path.substring(0, path.length - tagName.length - 1);
+      if (path.endsWith('/')) {
+        path = path.substring(0, path.length - 2);
+      }
+    }
+    const paths = path ? tag.paths.filter(e => e.hasMatchingPath(path!)) : tag.paths;
+
+    let templates = new Set<string>();
+    for (var p of paths) {
+      for (var t of p.templates) {
+        templates.add(t);
+      }
+    }
+
+    return templates;
   }
 }
 

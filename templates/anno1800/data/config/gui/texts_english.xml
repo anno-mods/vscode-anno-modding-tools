@@ -1,0 +1,9 @@
+<ModOps>
+  <!-- Anno 1800 Language Template -->
+  <ModOp Type="add" Path="/TextExport/Texts[1]">
+    <Text>
+      <Text>Happy Modding</Text>
+      <GUID>2001000000</GUID>
+    </Text>
+  </ModOp>
+</ModOps>

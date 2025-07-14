@@ -1,0 +1,30 @@
+<ModOps>
+  <!-- Happy Anno 117 modding! -->
+
+  <!--
+    Documentation on what has changed
+    https://github.com/jakobharder/anno-mod-loader/blob/devel/117-changes/doc/modloader-changes.md#modloader-changes-for-anno-117
+  -->
+
+  <!-- # Outline Section 1 -->
+  <!-- Named Group 1 -->
+  <Group>
+    <!--
+      Hit Ctrl+Alt+B > Outline to show the outline.
+      Or alternatively, Ctrl+Shift+O to just jump to a section.
+    -->
+
+    <!-- Nested Named Group -->
+    <Group>
+    </Group>
+  </Group>
+
+  <!-- Named Group 2 -->
+  <Group>
+  </Group>
+
+  <!-- # Outline Section 2 -->
+  <Group>
+
+  </Group>
+</ModOps>

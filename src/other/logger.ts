@@ -3,9 +3,10 @@ export interface ILogger {
   log: (text: string) => void;
   warn: (text: string) => void;
   error: (text: string) => void;
+  errorMessage: (text: string) => void;
 }
 
-export const DEFAULT_LOGGER: ILogger = { show: ()=>{}, log: console.log, warn: console.warn, error: console.error };
+export const DEFAULT_LOGGER: ILogger = { show: ()=>{}, log: console.log, warn: console.warn, error: console.error, errorMessage: console.error };
 let _logger = DEFAULT_LOGGER;
 
 export function set(logger: ILogger) {
@@ -26,4 +27,8 @@ export function warn(line: string) {
 
 export function error(line: string) {
   _logger.error(line);
+}
+
+export function errorMessage(line: string) {
+  _logger.errorMessage(line);
 }

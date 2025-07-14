@@ -1,46 +1,53 @@
 import * as vscode from 'vscode';
-import CfgDocumentSymbolProvider from './features/outline/cfgSymbolProvider';
+import * as annoContext from './editor/modContext';
 import { registerGuidUtilsProvider } from './features/guidUtilsProvider';
-import * as dds from './other/dds';
-import * as rdp from './other/rdp';
-import { AssetsSymbolProvider } from './features/outline/assetsOutlineProvider';
-import { AssetsActionProvider } from './features/assetsActionProvider';
-import * as AssetsDecorator from './features/assetsDecorator';
-import * as AssetsWorkspaceSymbolProvider from './features/assetsSymbolProvider';
-import * as CfgActionProvider from './features/cfgActionProvider';
+import * as dds from './tools/dds';
+import * as rdp from './tools/rdp';
+import * as AssetsDecorator from './languages/xml/assetsDecorator';
+import * as AssetsSymbolProvider from './languages/xml/assetsSymbolProvider';
 import * as commands from './features/commands';
+import * as cfg from './languages/cfg';
+import * as cf7 from './languages/cf7';
+import * as ifo from './languages/ifo';
+import * as schemas from './languages/schemas';
+import * as xml from './languages/xml';
+import * as statusBar from './features/statusBar';
+import * as rda from './data/rda';
+import * as editor from './editor';
+import * as xmltest from './tools/xmltest';
 
 import * as logger from './other/logger';
 import * as channel from './features/channel';
-import * as cfgHoverProvider from './features/cfgHoverProvider';
+import { SymbolRegistry } from './data/symbols';
+
 
 export function activate(context: vscode.ExtensionContext) {
 	logger.set(channel);
 
+	rda.init(context);
+	xmltest.init(context.asAbsolutePath);
+	SymbolRegistry.init(context.asAbsolutePath('./generated/'));
+
+	annoContext.activate(context);
+
 	rdp.init(context.asAbsolutePath('./external/'));
 	dds.init(context.asAbsolutePath('./external/'));
-	
-	context.subscriptions.push(registerCfgLanguageFeatures('anno-cfg'));
-	context.subscriptions.push(registerCfgLanguageFeatures('anno-cf7'));
-	context.subscriptions.push(registerCfgLanguageFeatures('anno-ifo'));
-	context.subscriptions.push(registerCfgLanguageFeatures('anno-prp'));
-	context.subscriptions.push(...AssetsSymbolProvider.register(context));
-	context.subscriptions.push(...AssetsActionProvider.register(context));
+
 	context.subscriptions.push(...registerGuidUtilsProvider(context));
-	context.subscriptions.push(...cfgHoverProvider.registerHoverProvider(context));
+
 	AssetsDecorator.activate(context);
-	CfgActionProvider.activate(context);
-	AssetsWorkspaceSymbolProvider.activate(context);
+	cfg.activate(context);
+	cf7.activate(context);
+	ifo.activate(context);
+	xml.activate(context);
+	schemas.activate(context);
+	AssetsSymbolProvider.activate(context);
 
+	editor.activate(context);
+	editor.onDidChangeGamePath(() => SymbolRegistry.resetVanilla());
+
+	statusBar.activate(context);
 	commands.registerCommands(context);
-}
-
-function registerCfgLanguageFeatures(language: string): vscode.Disposable {
-	const selector: vscode.DocumentSelector = { language, scheme: '*' };
-	const symbolProvider = new CfgDocumentSymbolProvider();
-	return vscode.Disposable.from(
-		vscode.languages.registerDocumentSymbolProvider(selector, symbolProvider)
-	);
 }
 
 // this method is called when your extension is deactivated

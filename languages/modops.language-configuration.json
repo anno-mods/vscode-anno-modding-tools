@@ -1,0 +1,39 @@
+{
+	"comments": {
+		"blockComment": ["<!--", "-->"]
+	},
+	"brackets": [
+		["<", ">"],
+		["{", "}"],
+		["(", ")"]
+	],
+	"autoClosingPairs": [
+		{ "open": "{", "close": "}"},
+		{ "open": "[", "close": "]"},
+		{ "open": "(", "close": ")" },
+		{ "open": "\"", "close": "\"", "notIn": ["string"] },
+		{ "open": "'", "close": "'", "notIn": ["string"] }
+	],
+	"surroundingPairs": [
+		{ "open": "'", "close": "'" },
+		{ "open": "\"", "close": "\"" },
+		{ "open": "{", "close": "}"},
+		{ "open": "[", "close": "]"},
+		{ "open": "(", "close": ")" },
+		{ "open": "<", "close": ">" }
+	],
+	"folding": {
+    "markers": {
+			"start": "^\\s*<!--\\s*#.*-->",
+			"end": "^\\s*<!--\\s*#endregion\\b.*-->"
+		}
+	},
+	"wordPattern": {
+		"pattern": "[:A-Z_a-z][-.:A-Z_a-z0-9]*",
+  	"flags": "i"
+	},
+	"indentationRules": {
+		"increaseIndentPattern": "<(?!/)([^\\s/>]+)([^/>]*)>(?!.*</\\1>)",
+		"decreaseIndentPattern": "^\\s*</[^>]+>"
+	}
+}

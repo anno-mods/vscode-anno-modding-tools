@@ -10,8 +10,7 @@ export class CfgYamlCommands {
     const disposable = [
       vscode.commands.registerCommand('anno-modding-tools.cfgyamlToCfg', async (fileUri) => {
         if (fileUri) {
-          const uri = vscode.window.activeTextEditor?.document?.uri;
-          const config = vscode.workspace.getConfiguration('anno', uri);
+          const config = vscode.workspace.getConfiguration('anno');
           const annoRda: string = config.get('rdaFolder') || "";
 
           const converter = new CfgYamlConverter();

@@ -1,61 +1,18 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
-import { AssetsTocProvider } from './outline/assetsTocProvider';
-import { AssetsDocument, ASSETS_FILENAME_PATTERN, IAsset } from '../other/assetsXml';
-import { SymbolRegistry } from '../other/symbolRegistry';
-import { AllGuidCompletionItems, GuidCompletionItems } from './guidCompletionItems';
-import { ModRegistry } from '../other/modRegistry';
+
 import { GuidCounter } from './guidCounter';
-import * as editorFormats from '../editor/formats';
+import { ModRegistry } from '../data/modRegistry';
+import { SymbolRegistry } from '../data/symbols';
+import * as editor from '../editor';
 import * as editorDocument from '../editor/assetsDocument';
+import * as editorFormats from '../editor/formats';
+import * as text from '../editor/text';
+import { AssetsTocProvider } from '../languages/xml/assetsTocProvider';
+import { AssetsDocument, ASSETS_FILENAME_PATTERN, IAsset } from '../other/assetsXml';
+import { AllGuidCompletionItems, GuidCompletionItems } from './guidCompletionItems';
 
 let assetsDocument: AssetsDocument | undefined;
-
-export function resolveGUID(guid: string) {
-  let entry = undefined;
-  if (assetsDocument?.assets) {
-    entry = assetsDocument.assets[guid];
-  }
-  // if (!entry && _customCompletionItems?.assets) {
-  //   entry = _customCompletionItems.assets[guid];
-  // }
-  entry ??= SymbolRegistry.resolve(guid);
-  if (!entry && AllGuidCompletionItems.assets) {
-    entry = AllGuidCompletionItems.assets[guid];
-  }
-
-  return entry;
-}
-
-export function getAllCustomSymbols(): IAsset[] {
-  if (AllGuidCompletionItems?.assets) {
-    if (_customCompletionItems?.assets) {
-      return [ 
-        ...Object.values(AllGuidCompletionItems.assets), 
-        ...Object.values(_customCompletionItems.assets) ];
-    }
-
-    return Object.values(AllGuidCompletionItems.assets);
-  }
-
-  return [];
-}
-
-export function findAssetSymbols(search: string): IAsset[] {
-  // const vanillaItems = AllGuidCompletionItems.getAllItems();
-  if (_customCompletionItems) {
-    const customItems = _customCompletionItems.getAllItems();
-    if (customItems) {
-      return customItems
-        // .filter(item => (<vscode.CompletionItemLabel>item.label).label.toLowerCase().startsWith(search.toLowerCase()))
-        .map(item => resolveGUID(<string>item.insertText ?? ''))
-        .filter((item): item is IAsset => !!item);
-    }
-  }
-
-  return [];
-  // return vanillaItems;
-}
 
 function resolveGuidRange(guid: string) {
   const vanilla = _guidRanges || {};
@@ -87,19 +44,6 @@ function resolveSafeRange(guid: string) {
   else {
     return [ `⚠ Is not safe for your own assets.\n\nPlease use from 1.337.471.142 to 2.147.483.647 and ${addYourRange}.` ];
   }
-}
-
-function getValueAfterTag(line: string, position: number) {
-  const closing = line.indexOf('>', position);
-  if (closing === -1) {
-    return undefined;
-  }
-  const opening = line.indexOf('<', closing);
-  if (opening === -1) {
-    return undefined;
-  } 
-
-  return line.substr(closing + 1, opening - closing - 1);
 }
 
 interface IKeyword {
@@ -150,15 +94,17 @@ function _findLastKeywordInLine(line: string, position?: number): IKeyword | und
 }
 
 function findKeywordBeforePosition(document: vscode.TextDocument, position: vscode.Position) {
-  const thisLine = document.lineAt(position)?.text;
-  
-  const keyword = _findLastKeywordInLine(thisLine, position.character);
-  if (!keyword) {
+  const [ name, path ] = text.getAutoCompletePath(document, position);
+
+  if (!name) {
     return undefined;
   }
-  
-  let path = assetsDocument?.getPath(position.line, keyword.position);
-  return { ...keyword, path };
+
+  return {
+    name,
+    path,
+    type: path?.startsWith('XPath') ? 'xpath' : 'tag'
+  };
 }
 
 function findKeywordAtPosition(document: vscode.TextDocument, position: vscode.Position) {
@@ -253,32 +199,33 @@ export function refreshCustomAssets(document: vscode.TextDocument | undefined): 
     return;
   }
 
-  const text = document.getText();
-
   // Don't clear completion items anymore
   // _customCompletionItems = new GuidCompletionItems();
-  const config = vscode.workspace.getConfiguration('anno', document.uri);
-  const modsFolder: string | undefined = config.get('modsFolder');
-
-  ModRegistry.use(vscode.workspace.getWorkspaceFolder(document.uri)?.uri?.fsPath, true);
-  ModRegistry.use(modsFolder);
 
   const mod = ModRegistry.findMod(document.fileName);
   if (!mod) {
     return;
   }
-  const dependencies = mod ? ModRegistry.getAllDependencies(mod.id) : [];
+
+  ModRegistry.use(vscode.workspace.getWorkspaceFolder(document.uri)?.uri?.fsPath, true);
+  ModRegistry.use(editor.getModsFolder({ filePath: document.uri.fsPath, version: mod.game }));
 
   if (!_customCompletionItems) {
     _customCompletionItems = new GuidCompletionItems();
   }
-  SymbolRegistry.setCompletionItems(_customCompletionItems);
+  // SymbolRegistry.setCompletionItems(_customCompletionItems);
 
+  const dependencies = mod.getAllDependencies();
   for (const dependency of dependencies) {
-    SymbolRegistry.scanFolder(dependency.id, dependency.path);
+    const dependencyModinfo = ModRegistry.get(dependency);
+    if (dependencyModinfo) {
+      SymbolRegistry.scanFolder(dependencyModinfo);
+    }
   }
-  SymbolRegistry.scanFolder(mod.id, mod.path, document.uri.fsPath);
-  SymbolRegistry.scanText(mod.id, text, document.uri.fsPath);
+  SymbolRegistry.scanFolder(mod, document.uri.fsPath);
+
+  const text = document.getText();
+  SymbolRegistry.scanText(mod, text, document.uri.fsPath);
 }
 
 function subscribeToDocumentChanges(context: vscode.ExtensionContext): void {
@@ -310,8 +257,9 @@ export function registerGuidUtilsProvider(context: vscode.ExtensionContext): vsc
   subscribeToDocumentChanges(context);
 
 	return [
-    vscode.Disposable.from(vscode.languages.registerHoverProvider({ language: 'xml', pattern: ASSETS_FILENAME_PATTERN }, { provideHover })), 
-    vscode.Disposable.from(vscode.languages.registerCompletionItemProvider({ language: 'xml', pattern: ASSETS_FILENAME_PATTERN }, { provideCompletionItems }, '\'', '"'))
+    vscode.Disposable.from(vscode.languages.registerHoverProvider({ language: 'xml', scheme: 'file', pattern: ASSETS_FILENAME_PATTERN }, { provideHover })),
+    vscode.Disposable.from(vscode.languages.registerHoverProvider({ language: 'anno-xml', scheme: 'file' }, { provideHover })),
+    vscode.Disposable.from(vscode.languages.registerCompletionItemProvider({ language: 'xml', scheme: 'file', pattern: ASSETS_FILENAME_PATTERN }, { provideCompletionItems }, '\'', '"'))
   ];
 }
 
@@ -321,29 +269,48 @@ function provideCompletionItems(document: vscode.TextDocument, position: vscode.
     return undefined;
   }
 
-  const useAnyTemplate = (keyword.type === 'xpath');
+  const isXpath = keyword.type === 'xpath';
 
-  // ignore path in case of xpath checks and allow all templates instead
-  const path = keyword.type !== 'xpath' ? keyword.path : undefined;
-
-  GuidCounter.use(document.uri);
-
-  const newGuidItem = new vscode.CompletionItem({
-    label: `<new guid>`,
-    description: GuidCounter.nextName()
-  }, vscode.CompletionItemKind.Snippet);
-  newGuidItem.insertText = `${GuidCounter.next()}`;
-  newGuidItem.command = { command: 'anno-modding-tools.incrementAutoGuid', title: 'increment GUID...' };
-
-  const vanillaItems = (useAnyTemplate ? AllGuidCompletionItems.getAllItems() : AllGuidCompletionItems.get(keyword.name, path)) ?? [];
-  if (_customCompletionItems) {
-    const customItems = useAnyTemplate ? _customCompletionItems.getAllItems() : _customCompletionItems.get(keyword.name, path);
-    if (customItems) {
-      return [ newGuidItem, ... vanillaItems, ...customItems ];
-    }
+  if (isXpath && keyword.name !== 'Path' && keyword.name !== 'GUID' && keyword.name !== 'Content') {
+    // only show for Path, GUID and Content attributes
+    return undefined;
+  }
+  else if (!isXpath && (keyword.name === 'ModOp' || keyword.name === 'ModOps' || keyword.name === 'Include' || keyword.name === 'Group')) {
+    return undefined;
   }
 
-  return [ newGuidItem, ... vanillaItems ];
+  // <New GUID>
+  GuidCounter.use(document.uri);
+  const items: vscode.CompletionItem[] = [];
+  if (!isXpath) {
+    // show <New GUID> only in tag scenarios
+    items.push(...GuidCounter.getCompletionItems());
+  }
+
+  // ignore path in case of xpath checks and allow all templates instead
+  const path = isXpath ? undefined : keyword.path;
+  const useAnyTemplate = isXpath;
+  const templates = useAnyTemplate ? undefined : AllGuidCompletionItems.getAllowedTemplates(keyword.name, path?.replace(/\./g, '/'));
+
+  const symbols = SymbolRegistry.all();
+  for (const symbol of symbols.values()) {
+    SymbolRegistry.resolveTemplate(symbol);
+
+    if (templates && symbol.template && !templates?.has(symbol.template) &&
+      !(symbol.template.indexOf('Building') >= 0 && templates.has('OrnamentalBuilding'))) {
+      continue;
+    }
+
+    const item = new vscode.CompletionItem({
+      label: `${symbol.english ?? symbol.name}`,
+      description: `${symbol.template}: ${symbol.guid} (${symbol.name})`
+    }, vscode.CompletionItemKind.Snippet);
+    item.insertText = symbol.guid;
+    item.kind = vscode.CompletionItemKind.Value;
+    items.push(item);
+  }
+
+  return items;
 }
 
 function provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken) {
@@ -368,7 +335,7 @@ function provideHover(document: vscode.TextDocument, position: vscode.Position, 
   if (AllGuidCompletionItems.get(value.name, path)) {
     const guid = value.text;
     if (guid) {
-      const namedGuid = resolveGUID(guid);
+      const namedGuid = SymbolRegistry.resolve(guid);
       const templateText = namedGuid?.template ? `${namedGuid.template}: ` : '';
       let name = [ ];
       if (namedGuid) {
@@ -385,7 +352,7 @@ function provideHover(document: vscode.TextDocument, position: vscode.Position, 
       const range = resolveGuidRange(guid);
       const safe = (namedGuid || range.length > 0) ? [] : resolveSafeRange(guid);
 
-      return { 
+      return {
         contents: [ ...name, ...range, ...safe ]
       };
     }

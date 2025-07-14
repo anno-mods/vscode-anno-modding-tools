@@ -1,8 +1,8 @@
 import * as xmldoc from 'xmldoc';
 import * as vscode from 'vscode';
 
-export const ASSETS_FILENAME_PATTERN_STRICT = '**/{assets*,*.include}.xml';
-export const ASSETS_FILENAME_PATTERN = '**/{assets*.xml,*.include.xml,templates.xml,tests/*-input.xml,tests/*-expectation.xml,gui/texts_*.xml,.modcache/*-patched.xml,export.bin.xml,*.fc.xml,*.cfg.xml}';
+export const ASSETS_FILENAME_PATTERN_STRICT = '**/{assets*,*.include,game/asset/**/*}.xml';
+export const ASSETS_FILENAME_PATTERN = '**/{assets*,*.include,game/asset/**/*,templates,tests/*-input,tests/*-expectation,gui/texts_*,.modcache/*-patched,export.bin,*.fc,*.cfg}.xml';
 
 export interface IAsset {
   guid: string;
@@ -15,6 +15,10 @@ export interface IAsset {
     line: number;
   }
   baseAsset?: string;
+}
+
+export function guidWithName(asset: IAsset): string {
+  return (asset.name ?? asset.english) ? `${asset.guid}: ${asset.name ?? asset.english}` : asset.guid;
 }
 
 export function uniqueAssetName(asset?: IAsset) {
@@ -105,7 +109,7 @@ export class AssetsDocument {
           const guid = top.element.val;
           const parent = top.history.length >= 2 ? top.history[top.history.length - 2] : undefined;
           const asset = top.history.length >= 4 ? top.history[top.history.length - 4] : undefined;
-          const name = parent?.valueWithPath('Name');
+          const name = parent?.valueWithPath('Name')?.trim();
 
           if (parent?.name === 'Standard' && name) {
             const location = (filePath && asset) ? {
@@ -117,6 +121,7 @@ export class AssetsDocument {
               guid,
               name: name,
               template: asset?.valueWithPath('Template'),
+              baseAsset: asset?.valueWithPath('BaseAssetGUID'),
               location
             };
             continue;

@@ -1,17 +1,11 @@
-import * as path from 'path';
+import * as child from 'child_process';
 import * as fs from 'fs';
 import glob = require('glob');
-import { ModRegistry } from './modRegistry';
-import * as child from 'child_process';
+import * as path from 'path';
 
-export const ANNO7_ASSETS_PATH = "data/config/export/main/asset";
-export const ANNO8_ASSETS_PATH = "data/base/config/export";
-
-export enum GameVersion {
-  Auto = 0,
-  Anno7 = 7,
-  Anno8
-}
+import * as anno from '../anno';
+import { ModRegistry } from '../data/modRegistry';
+import * as logger from '../other/logger';
 
 export function ensureDir(path: string) {
   if (!fs.existsSync(path)) {
@@ -98,12 +92,16 @@ export function searchModPath(patchFilePath: string) {
 
 // finds root path using modinfo.json, data/config/export folder and other indicators
 export function findModRoot(modFilePath: string) {
-  let searchPath = path.dirname(modFilePath);
+  if (!fs.existsSync(modFilePath)) {
+    return modFilePath;
+  }
+  const isFile = fs.statSync(modFilePath).isFile();
+  let searchPath = isFile ? path.dirname(modFilePath) : modFilePath;
 
-  for (let i = 0; i < 100 && searchPath && searchPath !== '/'; i++) {
+  for (let i = 0; i < 30 && searchPath && searchPath !== '/'; i++) {
     if (fs.existsSync(path.join(searchPath, "modinfo.json"))
-      || fs.existsSync(path.join(searchPath, ANNO7_ASSETS_PATH))
-      || fs.existsSync(path.join(searchPath, ANNO8_ASSETS_PATH))
+      || fs.existsSync(path.join(searchPath, anno.ANNO7_ASSETS_PATH))
+      || fs.existsSync(path.join(searchPath, anno.ANNO8_ASSETS_PATH))
       || fs.existsSync(path.join(searchPath, "data/config/gui"))) {
       return searchPath;
     }
@@ -111,7 +109,7 @@ export function findModRoot(modFilePath: string) {
     searchPath = path.dirname(searchPath);
   }
 
-  return path.dirname(modFilePath);
+  return isFile ? path.dirname(modFilePath) : modFilePath;
 }
 
 export function findModRoots(modFilePath: string): string[] {
@@ -137,45 +135,19 @@ export function isAssetsXml(path: string) {
   return true;
 }
 
-export function getAssetsXmlPath(modPath: string, version: GameVersion = GameVersion.Auto) {
-  let filePath;
-  
-  if (version === undefined) {
-    // fallback to Anno7 since those modinfos did not have a version yet
-    version = GameVersion.Anno7;
-  }
-
-  if (version === GameVersion.Anno8 || version === GameVersion.Auto) {
-    filePath = path.join(modPath, ANNO8_ASSETS_PATH, 'assets');
-    if (fs.existsSync(filePath + '_.xml')) {
-      return filePath + '_.xml';
-    }
-    else if (version !== GameVersion.Auto || fs.existsSync(filePath + '.xml'))
-    {
-      return filePath + '.xml';
-    }
-  }
-
-  if (version === GameVersion.Anno7 || version === GameVersion.Auto) {
-    filePath = path.join(modPath, ANNO7_ASSETS_PATH, 'assets');
-    if (fs.existsSync(filePath + '_.xml')) {
-      return filePath + '_.xml';
-    }
-    else if (version !== GameVersion.Auto || fs.existsSync(filePath + '.xml'))
-    {
-      return filePath + '.xml';
-    }
-  }
-
-  return undefined;
-}
-
 interface IModinfo {
+  /** @deprecated use Development.DeployPath instead */
   out?: string
+  /** @deprecated don't use at all */
   src: string | string[]
+  /** @deprecated use Development.Bundle instead */
   bundle?: string[]
   modinfo: any
   converter?: any
+  Development?: {
+    DeployPath?: string
+    Bundle?: string[]
+  }
   getRequiredLoadAfterIds: (modinfo: any) => string[]
 }
 
@@ -215,19 +187,20 @@ export function readModinfo(modPath: string): IModinfo | undefined {
     return undefined;
   }
 
-  result.out = result.out ?? "${annoMods}/${modName}";
-  result.src = result.src ?? ".";
+  result.Development ??= {};
+  result.Development.DeployPath ??= result.out ?? "${annoMods}/${modName}";
+  result.Development.Bundle ??= result.bundle ?? [];
+  result.src ??= ".";
 
   // convert url ModDependencies to bundle
-  result.bundle = result.bundle ?? [];
-  if (!Array.isArray(result.bundle)) {
-    result.bundle = Object.values(result.bundle);
+  if (!Array.isArray(result.Development.Bundle)) {
+    result.Development.Bundle = Object.values(result.Development.Bundle);
   }
   if (result.modinfo.ModDependencies && Array.isArray(result.modinfo.ModDependencies)) {
     for (let i = 0; i < result.modinfo?.ModDependencies.length; i++) {
       const dep = result.modinfo.ModDependencies[i];
       if (dep.startsWith("http") || dep.startsWith(".")) {
-        result.bundle.push(dep);
+        result.Development.Bundle.push(dep);
         result.modinfo.ModDependencies[i] = path.basename(dep, '.zip');
       }
     }
@@ -250,7 +223,12 @@ export function searchModPaths(patchFilePath: string, modsFolder?: string) {
   const sources = modinfo?.src ? ensureArray(modinfo.src).map((e: string) => path.join(modPath, e)) : [ modPath ];
   let deps: string[] = [];
   if (modsFolder && modinfo?.modinfo) {
-    deps = [...ensureArray(modinfo.modinfo?.ModDependencies), ...ensureArray(modinfo.modinfo?.OptionalDependencies), ...ensureArray(modinfo.modinfo?.LoadAfterIds)]
+    deps = [
+        ...ensureArray(modinfo.modinfo?.ModDependencies),
+        ...ensureArray(modinfo.modinfo?.OptionalDependencies),
+        ...ensureArray(modinfo.modinfo?.Development?.OptionalDependencies),
+        ...ensureArray(modinfo.modinfo?.LoadAfterIds)
+      ]
       .map((e: string) => ModRegistry.getPath(e) ?? "")
       .filter((e: string) => e !== "");
   }
@@ -438,4 +416,35 @@ export function extractZip(sourceZipPath: string, targetPath: string, logger?: I
     logger?.error((<Error>e).message);
     throw e;
   }
+}
+
+export function copyFolderNoOverwrite(src: string, dest: string): string[] {
+  const copiedFiles: string[] = [];
+
+  if (!fs.existsSync(src)) {
+    return copiedFiles;
+  }
+
+  if (!fs.existsSync(dest)) {
+    fs.mkdirSync(dest, { recursive: true });
+  }
+
+  const entries = fs.readdirSync(src, { withFileTypes: true });
+
+  for (const entry of entries) {
+    const srcPath = path.join(src, entry.name);
+    const destPath = path.join(dest, entry.name);
+
+    if (entry.isDirectory()) {
+      const subCopiedFiles = copyFolderNoOverwrite(srcPath, destPath);
+      copiedFiles.push(...subCopiedFiles);
+    } else if (entry.isFile()) {
+      if (!fs.existsSync(destPath)) {
+        fs.copyFileSync(srcPath, destPath);
+        copiedFiles.push(destPath);
+      }
+    }
+  }
+
+  return copiedFiles;
 }

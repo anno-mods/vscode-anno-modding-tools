@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { Converter } from '../Converter';
 
-import * as dds from '../../other/dds';
+import * as dds from '../../tools/dds';
 import * as utils from '../../other/utils';
 import { ModCache } from '../ModCache';
 

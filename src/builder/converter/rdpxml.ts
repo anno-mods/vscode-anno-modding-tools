@@ -2,7 +2,7 @@ import * as path from 'path';
 import { Converter } from '../Converter';
 
 import * as utils from '../../other/utils';
-import * as rdp from '../../other/rdp';
+import * as rdp from '../../tools/rdp';
 
 export class RdpxmlConverter extends Converter {
   public getName() {

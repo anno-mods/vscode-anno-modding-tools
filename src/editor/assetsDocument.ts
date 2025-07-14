@@ -17,7 +17,7 @@ export interface SkinnyTextDocument {
 export class AssetsDocument {
   public readonly document: SkinnyTextDocument;
   public readonly uri: vscode.Uri;
-  public readonly xml: xmldoc.XmlDocument;
+  public readonly xml: xmldoc.XmlDocument | null;
 
   public constructor(document: SkinnyTextDocument) {
     this.document = document;
@@ -26,7 +26,7 @@ export class AssetsDocument {
       this.xml = new xmldoc.XmlDocument(this.document.getText());
     }
     catch (exception) {
-      this.xml = new xmldoc.XmlDocument("");
+      this.xml = null;
     }
   }
 

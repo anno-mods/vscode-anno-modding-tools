@@ -2,7 +2,7 @@
 	"name": "anno-modding-tools",
 	"displayName": "Anno Modding Tools",
 	"description": "Tools to create mods for Anno 1800 and Anno 117: Pax Romana.",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"publisher": "JakobHarder",
 	"repository": {
 		"type": "git",
@@ -18,7 +18,8 @@
 	"activationEvents": [
 		"workspaceContains:**/assets.xml",
 		"workspaceContains:**/modinfo.json",
-		"onLanguage:xml"
+		"onLanguage:xml",
+		"command:anno-modding-tools.createAnnoMod"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -33,7 +34,11 @@
 					"Anno Model Config",
 					"anno-cfg"
 				],
-				"configuration": "./languages/cfg.language-configuration.json"
+				"configuration": "./languages/cfg.language-configuration.json",
+				"icon": {
+					"dark": "./images/anno-cfg.svg",
+					"light": "./images/anno-cfg.svg"
+				}
 			},
 			{
 				"id": "anno-ifo",
@@ -45,7 +50,11 @@
 					"Anno Model Info",
 					"anno-ifo"
 				],
-				"configuration": "./languages/cfg.language-configuration.json"
+				"configuration": "./languages/cfg.language-configuration.json",
+				"icon": {
+					"dark": "./images/anno-ifo.svg",
+					"light": "./images/anno-ifo.svg"
+				}
 			},
 			{
 				"id": "anno-cf7",
@@ -57,7 +66,11 @@
 					"Anno Feedbacks (decoded)",
 					"anno-cf7"
 				],
-				"configuration": "./languages/cfg.language-configuration.json"
+				"configuration": "./languages/cfg.language-configuration.json",
+				"icon": {
+					"dark": "./images/anno-cf7.svg",
+					"light": "./images/anno-cf7.svg"
+				}
 			},
 			{
 				"id": "anno-prp",
@@ -69,7 +82,30 @@
 					"Anno Prop Config",
 					"anno-prp"
 				],
-				"configuration": "./languages/cfg.language-configuration.json"
+				"configuration": "./languages/cfg.language-configuration.json",
+				"icon": {
+					"dark": "./images/anno-cfg.svg",
+					"light": "./images/anno-cfg.svg"
+				}
+			},
+			{
+				"id": "anno-xml",
+				"extensions": [
+					"assets.xml",
+					".include.xml",
+					".cfg.xml",
+					".fc.xml"
+				],
+				"firstLine": "//<ModOps",
+				"aliases": [
+					"Anno ModOps XML",
+					"anno-xml"
+				],
+				"configuration": "./languages/modops.language-configuration.json",
+				"icon": {
+					"dark": "./images/anno-xml.svg",
+					"light": "./images/anno-xml.svg"
+				}
 			}
 		],
 		"grammars": [
@@ -92,6 +128,11 @@
 				"language": "anno-prp",
 				"scopeName": "text.prp",
 				"path": "./languages/prp.tmLanguage.json"
+			},
+			{
+				"language": "anno-xml",
+				"scopeName": "text.xml.modops",
+				"path": "./languages/modops.tmLanguage.json"
 			}
 		],
 		"commands": [
@@ -153,11 +194,11 @@
 			},
 			{
 				"command": "anno-modding-tools.showFileDiff",
-				"title": "Anno: Show Diff (File)"
+				"title": "Anno: Show Diff"
 			},
 			{
-				"command": "anno-modding-tools.showAssetsDiff",
-				"title": "Anno: Show Diff (assets.xml)"
+				"command": "anno-modding-tools.showModDiff",
+				"title": "Anno: Show Diff (Assets)"
 			},
 			{
 				"command": "anno-modding-tools.showSelectionDiff",
@@ -178,6 +219,18 @@
 			{
 				"command": "anno-modding-tools.importLoca",
 				"title": "Anno: Import Translations into Workspace"
+			},
+			{
+				"command": "anno-modding-tools.selectAnno117GamePath",
+				"title": "Select Anno 117 Game Path"
+			},
+			{
+				"command": "anno-modding-tools.selectAnno117ModsFolder",
+				"title": "Select Anno 117 Mods Folder"
+			},
+			{
+				"command": "anno-modding-tools.createAnnoMod",
+				"title": "Anno: Create Mod from Template"
 			}
 		],
 		"menus": {
@@ -188,6 +241,10 @@
 				},
 				{
 					"command": "anno-modding-tools.showSelectionDiff",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.showModDiff",
 					"when": "false"
 				},
 				{
@@ -253,6 +310,14 @@
 				{
 					"command": "anno-modding-tools.ddsToPng",
 					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.selectAnno117GamePath",
+					"when": "false"
+				},
+				{
+					"command": "anno-modding-tools.selectAnno117ModsFolder",
+					"when": "false"
 				}
 			],
 			"explorer/context": [
@@ -315,7 +380,7 @@
 				},
 				{
 					"when": "resourceFilename == modinfo.json",
-					"command": "anno-modding-tools.showAssetsDiff",
+					"command": "anno-modding-tools.showModDiff",
 					"group": "anno@1"
 				},
 				{
@@ -332,6 +397,11 @@
 					"when": "resourceFilename =~ /texts_.+xml$/",
 					"command": "anno-modding-tools.addMissingLoca",
 					"group": "anno@1"
+				},
+				{
+					"when": "explorerResourceIsFolder && anno-modding-tools.gameVersion",
+					"command": "anno-modding-tools.createAnnoMod",
+					"group": "anno@1"
 				}
 			],
 			"editor/context": [
@@ -341,26 +411,19 @@
 				}
 			]
 		},
-		"configuration": {
-			"title": "Modding Tools for Anno",
+		"configuration": [ {
+			"title": "Anno Modding Tools",
 			"properties": {
-				"anno.modsFolder": {
-					"type": "string",
-					"format": "uri",
-					"markdownDescription": "Your `mods/` folder to deploy mods into. It is also used to resolve dependencies.",
+				"anno.workspaceCustomXmlLanguage": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Enable custom `Anno ModOps XML` language for Anno specific highlighting, validation and behavior without relying on other XML extensions.\n\nThis writes to your workspace folder settings (`.vscode/settings.json`) when you open a workspace containing `modinfo.json` files.\n\n- `files.associations` entry for `assets*.xml`, `texts_*.xml` and `*.include.xml`.",
 					"scope": "resource"
 				},
-				"anno.rdaFolder": {
-					"type": "string",
-					"format": "uri",
-					"markdownDescription": "Path to extracted RDA data.\nIt is used for compare and live error features.\n\nUse `c:\\anno\\all-rda` if you have `c:\\anno\\all-rda\\data\\config\\export\\main\\asset\\assets.xml` (Anno 1800) or `c:\\anno\\all-rda\\data\\base\\config\\export\\assets.xml` (Anno 117).",
-					"scope": "resource"
-				},
-				"anno.outlineFolderDepth": {
-					"type": "number",
-					"default": 0,
-					"minimum": 0,
-					"markdownDescription": "Folder depth of props, materials and alike shown .cfg outline.",
+				"anno.workspaceSchemas": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Enable schemas for validation and auto complete.\n\nThis writes to your workspace folder settings (`.vscode/settings.json`) when you open a workspace containing `modinfo.json` files.\n\n- `json.schemas` entry for `modinfo.json`.\n- `xml.fileAssociations` entry for `assets*.xml`, `texts_*.xml` and `*.include.xml`.\n\n  You need to install the [XML Language Support by Red Hat](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-xml) extension to use XML validations.",
 					"scope": "resource"
 				},
 				"anno.checkFileNames": {
@@ -378,17 +441,67 @@
 				"anno.liveModopAnalysis.warningThreshold": {
 					"type": "number",
 					"default": 80,
-					"markdownDescription": "Threshold to highlight ModOp times in warning color (milliseconds).",
+					"markdownDescription": "Threshold to highlight ModOp times in warning color (milliseconds) if `#anno.liveModopAnalysis.validate#` is active.",
+					"scope": "resource"
+				}
+			}
+		}, {
+			"title": "Anno 117",
+			"properties": {
+				"anno.117.autoGuid": {
+					"type": "number",
+					"markdownDescription": "Use automatically increasing GUIDs. Enter next free number.",
+					"minimum": 0,
 					"scope": "resource"
 				},
+				"anno.117.gamePath": {
+					"type": "string",
+					"format": [
+						"uri",
+						null
+					],
+					"markdownDescription": "Path to your Anno 117 installation. E.g. *'C:\\Program Files (x86)\\Ubisoft\\Ubisoft Game Launcher\\games\\Anno 117'*.\n\n[Select Folder](command:anno-modding-tools.selectAnno117GamePath)",
+					"scope": "window"
+				},
+				"anno.117.modsFolder": {
+					"type": "string",
+					"format": [
+						"uri",
+						null
+					],
+					"markdownDescription": "Path to your `mods/` folder to deploy and resolve dependencies. Defaults to *'&lt;Game Path&gt;/mods/'*.\n\n[Select Folder](command:anno-modding-tools.selectAnno117ModsFolder)",
+					"scope": "window"
+				}
+			}
+		}, {
+			"title": "Anno 1800",
+			"properties": {
 				"anno.autoGuid": {
 					"type": "number",
 					"markdownDescription": "Use automatically increasing GUIDs. Enter next free number.",
 					"minimum": 0,
 					"scope": "resource"
+				},
+				"anno.modsFolder": {
+					"type": "string",
+					"format": [
+						"uri",
+						null
+					],
+					"markdownDescription": "Your `mods/` folder to deploy mods into. It is also used to resolve dependencies.",
+					"scope": "window"
+				},
+				"anno.rdaFolder": {
+					"type": "string",
+					"format": [
+						"uri",
+						null
+					],
+					"markdownDescription": "Path to extracted RDA data.\nIt is used for compare and live error features.\n\nUse `c:\\anno\\all-rda` if you have `c:\\anno\\all-rda\\data\\config\\export\\main\\asset\\assets.xml`.",
+					"scope": "window"
 				}
 			}
-		}
+		} ]
 	},
 	"bin": {
 		"buildMod": "./out/buildMod.js"
@@ -396,7 +509,8 @@
 	"pkg": {
 		"scripts": "out/buildMod.js",
 		"assets": [
-			"external/**/*"
+			"external/**/*",
+			"templates/**/*"
 		],
 		"targets": [
 			"node16-win-x64"
@@ -442,7 +556,9 @@
 		"gltf-import-export": "^1.0.18",
 		"jimp": "^0.16.1",
 		"js-yaml": "^4.1.0",
+		"jsonc-parser": "^3.3.1",
 		"vsce": "^2.3.0",
+		"xml-formatter": "^3.6.6",
 		"xml2js": "^0.4.23",
 		"xmldoc": "^1.2.0"
 	},

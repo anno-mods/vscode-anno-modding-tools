@@ -11,8 +11,8 @@ import { ModinfoConverter } from './converter/modinfo';
 import { RdpxmlConverter } from './converter/rdpxml';
 import { CfgYamlConverter } from './converter/cfgyaml';
 
-import * as rdp from '../other/rdp';
-import * as dds from '../other/dds';
+import * as rdp from '../tools/rdp';
+import * as dds from '../tools/dds';
 
 import * as xmltest from '../tools/xmltest';
 import { ModCache } from './ModCache';
@@ -85,12 +85,16 @@ export class ModBuilder {
         "pattern": "{banner.*,content*.txt,!(imya)*.md,data/config/**/*,**/*.include.xml,data/infotips/*,data/**/*.fc.xml,data/**/*.cfg.xml,**/icon*.png,**/*.lua}"
       },
       {
+        "action": "static",
+        "pattern": "data/{base/config/**/*,**/*.fx}"
+      },
+      {
         "action": "cf7",
         "pattern": "{data,products,shared}/**/*.cf7"
       },
       {
         "action": "rdpxml",
-        "pattern": "{data,products,hared}/**/*.rdp.xml"
+        "pattern": "{data,products,shared}/**/*.rdp.xml"
       },
       {
         "action": "gltf",
@@ -157,8 +161,8 @@ export class ModBuilder {
 
     this._logger.log(`bundles`);
 
-    if (modJson.bundle) {
-      for (const bundle of modJson.bundle) {
+    if (modJson.Development?.Bundle) {
+      for (const bundle of modJson.Development?.Bundle) {
         if (bundle.startsWith('.')) {
           await this._buildBundle(filePath, bundle, cache, outFolder);
         } else {
@@ -178,7 +182,7 @@ export class ModBuilder {
 
         this._logger.log(`cache: ${cache}`);
 
-        if (!xmltest.test(testInputFolder, outFolder, testTarget, this._asAbsolutePath, cache)) {
+        if (!xmltest.test(testInputFolder, outFolder, testTarget, cache)) {
           return false;
         }
       }
@@ -256,7 +260,7 @@ export class ModBuilder {
   }
 
   private _getOutFolder(filePath: string, modJson: any) {
-    let outFolder = modJson.out ?? '${annoMods}/${modName}';
+    let outFolder = modJson?.Development?.DeployPath ?? modJson.out ?? '${annoMods}/${modName}';
     outFolder = outFolder.replace('${modName}', this._getModName(filePath, modJson.modinfo ?? modJson));
     if (this._variables['annoMods']) {
       outFolder = path.normalize(outFolder.replace('${annoMods}', this._variables['annoMods']));
